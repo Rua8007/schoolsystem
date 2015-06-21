@@ -142,17 +142,17 @@
         <a id="rightmenu-trigger" class="tooltips" data-toggle="tooltip" data-placement="left" title="Toggle Infobar"></a>
 
         <div class="navbar-header pull-left">
-            <a class="navbar-brand" href="index.htm">Avant</a>
+            <a class="navbar-brand" href="index.htm">School System</a>
         </div>
 
         <ul class="nav navbar-nav pull-right toolbar">
         	<li class="dropdown">
-        		<a href="#" class="dropdown-toggle username" data-toggle="dropdown"><span class="hidden-xs">John McCartney <i class="fa fa-caret-down"></i></span><img src="assets/demo/avatar/dangerfield.png" alt="Dangerfield" /></a>
+        		<a href="#" class="dropdown-toggle username" data-toggle="dropdown"><span class="hidden-xs"><%= current_user.email %><i class="fa fa-caret-down"></i></span><img src="assets/demo/avatar/dangerfield.png" alt="Dangerfield" /></a>
         		<ul class="dropdown-menu userinfo arrow">
         			<li class="username">
                         <a href="#">
         				    <div class="pull-left"><img src="assets/demo/avatar/dangerfield.png" alt="Jeff Dangerfield"/></div>
-        				    <div class="pull-right"><h5>Howdy, John!</h5><small>Logged in as <span>john2751212121</span></small></div>
+        				    <div class="pull-right"><h5>Howdy, John!</h5><small>Logged in as <span><%= current_user.email %></span></small></div>
                         </a>
         			</li>
         			<li class="userlinks">
@@ -329,13 +329,13 @@
                     </form>
                 </li>
                 <li class="divider"></li>
-                <li><a href="index.htm"><i class="fa fa-home"></i> <span>Dashboard</span></a></li>
-                <li><a href="javascript:;"><i class="fa fa-th"></i> <span>Layout Options</span> </a>
+                <li><a href="#"><i class="fa fa-home"></i> <span>Dashboard</span></a></li>
+                <li><a href="javascript:;"><i class="fa fa-th"></i> <span> Students </span> </a>
                     <ul class="acc-menu">
-                        <li><a href="layout-grid.htm"><span>Grids</span></a></li>
-                        <li><a href="layout-horizontal.htm"><span>Horizontal Navigation</span></a></li>
-                        <li><a href="layout-horizontal2.htm"><span>Horizontal Navigation 2</span></a></li>
-                        <li><a href="layout-fixed.htm"><span>Fixed Boxed Layout</span></a></li>
+                        <li><span><%= link_to "All Students", students_path  %></span></a></li>
+                        <li><span><%= link_to "Add Student", new_student_path  %></span></a></li>
+                        <!-- <li><a href="layout-horizontal2.htm"><span>Horizontal Navigation 2</span></a></li>
+                        <li><a href="layout-fixed.htm"><span>Fixed Boxed Layout</span></a></li> -->
                     </ul>
                 </li>
                 <li><a href="javascript:;"><i class="fa fa-list-ol"></i> <span>UI Elements</span> <span class="badge badge-indigo">4</span></a>
@@ -628,8 +628,10 @@
         </div>
         <!-- END RIGHTBAR -->
 <div id="page-content">
-    <div id='wrap' class = "container">
-        <%= yield %><!-- container -->
+    <div id='wrap' class = "container" >
+        <div style="margin-top: 5%">
+            <%= yield %>
+        </div><!-- container -->
     </div> <!--wrap -->
 </div> <!-- page-content -->
 
