@@ -11,10 +11,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150621122554) do
+ActiveRecord::Schema.define(version: 20150622060454) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "parents", force: :cascade do |t|
+    t.string   "name"
+    t.string   "relation"
+    t.string   "education"
+    t.string   "profession"
+    t.string   "dob"
+    t.string   "income"
+    t.string   "iqamaNumber"
+    t.string   "iqamaExpiry"
+    t.string   "address1"
+    t.string   "address2"
+    t.string   "city"
+    t.string   "country"
+    t.string   "officePhone"
+    t.string   "mobile"
+    t.string   "email"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "students", force: :cascade do |t|
     t.datetime "created_at",  null: false
@@ -42,6 +62,9 @@ ActiveRecord::Schema.define(version: 20150621122554) do
     t.integer  "fee"
     t.string   "term"
     t.string   "dueDate"
+    t.string   "image"
+    t.string   "iqamaNumber"
+    t.string   "iqamaExpiry"
   end
 
   create_table "users", force: :cascade do |t|

@@ -1,0 +1,55 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Parents</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Relation</th>
+      <th>Education</th>
+      <th>Profession</th>
+      <th>Dob</th>
+      <th>Income</th>
+      <th>Iqamanumber</th>
+      <th>Iqamaexpiry</th>
+      <th>Address1</th>
+      <th>Address2</th>
+      <th>City</th>
+      <th>Country</th>
+      <th>Officephone</th>
+      <th>Mobile</th>
+      <th>Email</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @parents.each do |parent| %>
+      <tr>
+        <td><%= parent.name %></td>
+        <td><%= parent.relation %></td>
+        <td><%= parent.education %></td>
+        <td><%= parent.profession %></td>
+        <td><%= parent.dob %></td>
+        <td><%= parent.income %></td>
+        <td><%= parent.iqamaNumber %></td>
+        <td><%= parent.iqamaExpiry %></td>
+        <td><%= parent.address1 %></td>
+        <td><%= parent.address2 %></td>
+        <td><%= parent.city %></td>
+        <td><%= parent.country %></td>
+        <td><%= parent.officePhone %></td>
+        <td><%= parent.mobile %></td>
+        <td><%= parent.email %></td>
+        <td><%= link_to 'Show', parent %></td>
+        <td><%= link_to 'Edit', edit_parent_path(parent) %></td>
+        <td><%= link_to 'Destroy', parent, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Parent', new_parent_path %>
