@@ -16,18 +16,18 @@ module Schoolsystem
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     # config.time_zone = 'Central Time (US & Canada)'
 
-    config.assets.enabled = true
-    config.assets.paths << Rails.root.join("app", "assets", "plugins", "codeprettifier")
-    config.assets.paths << Rails.root.join("app", "assets", "plugins", "easypiechart")
-    config.assets.paths << Rails.root.join("app", "assets", "plugins", "sparklines")
-    config.assets.paths << Rails.root.join("app", "assets", "plugins", "form-toggle")
-    config.assets.paths << Rails.root.join("app", "assets", "plugins", "fullcalendar")
-    config.assets.paths << Rails.root.join("app", "assets", "plugins", "form-daterangepicker")
-    config.assets.paths << Rails.root.join("app", "assets", "plugins", "charts-flot")
-    config.assets.paths << Rails.root.join("app", "assets", "plugins", "pulsate")
-    config.assets.paths << Rails.root.join("app", "assets", "demo")
-    config.assets.paths << Rails.root.join("app", "assets", "demo", "variations")
-    config.assets.paths << Rails.root.join("app", "assets", "plugins", "form-markdown", "css")
+    # config.assets.enabled = true
+    # config.assets.paths << Rails.root.join("app", "assets", "plugins", "codeprettifier")
+    # config.assets.paths << Rails.root.join("app", "assets", "plugins", "easypiechart")
+    # config.assets.paths << Rails.root.join("app", "assets", "plugins", "sparklines")
+    # config.assets.paths << Rails.root.join("app", "assets", "plugins", "form-toggle")
+    # config.assets.paths << Rails.root.join("app", "assets", "plugins", "fullcalendar")
+    # config.assets.paths << Rails.root.join("app", "assets", "plugins", "form-daterangepicker")
+    # config.assets.paths << Rails.root.join("app", "assets", "plugins", "charts-flot")
+    # config.assets.paths << Rails.root.join("app", "assets", "plugins", "pulsate")
+    # config.assets.paths << Rails.root.join("app", "assets", "demo")
+    # config.assets.paths << Rails.root.join("app", "assets", "demo", "variations")
+    # config.assets.paths << Rails.root.join("app", "assets", "plugins", "form-markdown", "css")
 
     # config.assets.paths << Rails.root.join("app", "assets", "plugins", "codeprettifier")
     # config.assets.paths << Rails.root.join("app", "assets", "plugins", "codeprettifier")
