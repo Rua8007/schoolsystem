@@ -28,8 +28,8 @@
   	<%= stylesheet_link_tag    '//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600', media: 'all', type: 'text/css' %>
 
     <!-- <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600' rel='stylesheet' type='text/css'> -->
-  	<%= stylesheet_link_tag    'default.css', media: 'all', type: 'text/css', id: 'styleswitcher' %>
-  	<%= stylesheet_link_tag    'default.css', media: 'all', type: 'text/css', id: 'headerswitcher' %>
+  	<%= stylesheet_link_tag    'assets/demo/variations/default.css', media: 'all', type: 'text/css', id: 'styleswitcher' %>
+  	<%= stylesheet_link_tag    'assets/demo/variations/default.css', media: 'all', type: 'text/css', id: 'headerswitcher' %>
 
 	 
         <!-- <link href='assets/demo/variations/default.css' rel='stylesheet' type='text/css' media='all' id='styleswitcher'>  -->
@@ -46,11 +46,11 @@
 
 	<!-- The following CSS are included as plugins and can be removed if unused-->
 
-  	<%= stylesheet_link_tag    'daterangepicker-bs3.css', type: 'text/css' %>
-  	<%= stylesheet_link_tag    'fullcalendar.css', type: 'text/css' %>
-  	<%= stylesheet_link_tag    'bootstrap-markdown.min.css', type: 'text/css' %>
-  	<%= stylesheet_link_tag    'prettify.css', type: 'text/css' %>
-  	<%= stylesheet_link_tag    'toggles.css', type: 'text/css' %>
+  	<%= stylesheet_link_tag    'assets/plugins/form-daterangepicker/daterangepicker-bs3.css', type: 'text/css' %>
+  	<%= stylesheet_link_tag    'assets/plugins/fullcalendar/fullcalendar.css', type: 'text/css' %>
+  	<%= stylesheet_link_tag    'assets/plugins/form-markdown/css/bootstrap-markdown.min.css', type: 'text/css' %>
+  	<%= stylesheet_link_tag    'assets/plugins/codeprettifier/prettify.css', type: 'text/css' %>
+  	<%= stylesheet_link_tag    'assets/plugins/form-toggle/toggles.css', type: 'text/css' %>
 
 
 <!-- <link rel='stylesheet' type='text/css' href='assets/plugins/form-daterangepicker/daterangepicker-bs3.css' />  -->
@@ -1422,19 +1422,22 @@
 <script type='text/javascript' src='assets/js/jquery.cookie.js'></script> 
 <script type='text/javascript' src='assets/js/jquery.nicescroll.min.js'></script>  -->
 
-  <%= javascript_include_tag 'prettify.js'%>
-  <%= javascript_include_tag 'jquery.easypiechart.min.js'%>
-  <%= javascript_include_tag 'jquery.sparklines.min.js'%>
-  <%= javascript_include_tag 'form-toggle/toggle.min.js'%>
-  <%= javascript_include_tag 'fullcalendar.min.js'%>
-  <%= javascript_include_tag 'daterangepicker.min.js'%>
-  <%= javascript_include_tag 'moment.min.js'%>
-  <%= javascript_include_tag 'jquery.flot.min.js'%>
-  <%= javascript_include_tag 'jquery.flot.resize.min.js'%>
-  <%= javascript_include_tag 'jquery.flot.orderBars.min.js'%>
-  <%= javascript_include_tag 'jQuery.pulsate.min.js'%>
-  <%= javascript_include_tag 'demo-index.js'%>
-  <%= javascript_include_tag 'demo.js'%>
+  <%= javascript_include_tag 'assets/plugins/codeprettifier/prettify.js'%>
+  <%= javascript_include_tag 'assets/plugins/easypiechart/jquery.easypiechart.min.js'%>
+  <%= javascript_include_tag 'assets/plugins/sparklines/jquery.sparklines.min.js'%>
+  <%= javascript_include_tag 'assets/plugins/form-toggle/toggle.min.js'%>
+  <%= javascript_include_tag 'assets/plugins/fullcalendar/fullcalendar.min.js'%>
+  <%= javascript_include_tag 'assets/plugins/form-daterangepicker/daterangepicker.min.js'%>
+  <%= javascript_include_tag 'assets/plugins/form-daterangepicker/moment.min.js'%>
+  <%= javascript_include_tag 'assets/plugins/charts-flot/jquery.flot.min.js'%>
+  <%= javascript_include_tag 'assets/plugins/charts-flot/jquery.flot.resize.min.js'%>
+  <%= javascript_include_tag 'assets/plugins/charts-flot/jquery.flot.orderBars.min.js'%>
+  <%= javascript_include_tag 'assets/plugins/pulsate/jQuery.pulsate.min.js'%>
+  <%= javascript_include_tag 'assets/demo/demo-index.js'%>
+  <%= javascript_include_tag 'assets/demo/demo.js'%>
+
+
+
 
 
 <!-- <script type='text/javascript' src='assets/plugins/codeprettifier/prettify.js'></script>  -->
