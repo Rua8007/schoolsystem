@@ -81,5 +81,3 @@ test:
 production:
   <<: *default
   database: schoolsystem_production
-  username: schoolsystem
-  password: <%= ENV['SCHOOLSYSTEM_DATABASE_PASSWORD'] %>
