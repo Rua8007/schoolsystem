@@ -12,4 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require_tree .
+//= require externals/bootstrap/dist/js/bootstrap
+//= require ui-load
+//= require ui-jp.config
+//= require ui-jp
+//= require ui-nav
+//= require ui-toggle
