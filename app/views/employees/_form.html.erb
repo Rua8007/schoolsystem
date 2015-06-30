@@ -1,0 +1,137 @@
+<%= form_for(@employee) do |f| %>
+  <% if @employee.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@employee.errors.count, "error") %> prohibited this employee from being saved:</h2>
+
+      <ul>
+      <% @employee.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :employee_number %><br>
+    <%= f.text_field :employee_number %>
+  </div>
+  <div class="field">
+    <%= f.label :date_of_joining %><br>
+    <%= f.date_select :date_of_joining %>
+  </div>
+  <div class="field">
+    <%= f.label :full_name %><br>
+    <%= f.text_field :full_name %>
+  </div>
+  <div class="field">
+    <%= f.label :gender %><br>
+    <%= f.text_field :gender %>
+  </div>
+  <div class="field">
+    <%= f.label :date_of_birth %><br>
+    <%= f.date_select :date_of_birth %>
+  </div>
+  <div class="field">
+    <%= f.label :religion %><br>
+    <%= f.text_field :religion %>
+  </div>
+  <div class="field">
+    <%= f.label :qualification %><br>
+    <%= f.text_field :qualification %>
+  </div>
+  <div class="field">
+    <%= f.label :employee_category_id %><br>
+    <%= f.number_field :employee_category_id %>
+  </div>
+  <div class="field">
+    <%= f.label :employee_department_id %><br>
+    <%= f.number_field :employee_department_id %>
+  </div>
+  <div class="field">
+    <%= f.label :marital_status %><br>
+    <%= f.text_field :marital_status %>
+  </div>
+  <div class="field">
+    <%= f.label :child_count %><br>
+    <%= f.number_field :child_count %>
+  </div>
+  <div class="field">
+    <%= f.label :father_name %><br>
+    <%= f.text_field :father_name %>
+  </div>
+  <div class="field">
+    <%= f.label :mother_name %><br>
+    <%= f.text_field :mother_name %>
+  </div>
+  <div class="field">
+    <%= f.label :spouse_name %><br>
+    <%= f.text_field :spouse_name %>
+  </div>
+  <div class="field">
+    <%= f.label :blood_group %><br>
+    <%= f.text_field :blood_group %>
+  </div>
+  <div class="field">
+    <%= f.label :nationality %><br>
+    <%= f.text_field :nationality %>
+  </div>
+  <div class="field">
+    <%= f.label :id_card_no %><br>
+    <%= f.text_field :id_card_no %>
+  </div>
+  <div class="field">
+    <%= f.label :id_card_expiry %><br>
+    <%= f.date_select :id_card_expiry %>
+  </div>
+  <div class="field">
+    <%= f.label :address1 %><br>
+    <%= f.text_field :address1 %>
+  </div>
+  <div class="field">
+    <%= f.label :address2 %><br>
+    <%= f.text_field :address2 %>
+  </div>
+  <div class="field">
+    <%= f.label :city %><br>
+    <%= f.text_field :city %>
+  </div>
+  <div class="field">
+    <%= f.label :country %><br>
+    <%= f.text_field :country %>
+  </div>
+  <div class="field">
+    <%= f.label :home_phone %><br>
+    <%= f.text_field :home_phone %>
+  </div>
+  <div class="field">
+    <%= f.label :mobile_number %><br>
+    <%= f.text_field :mobile_number %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br>
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :salary %><br>
+    <%= f.text_field :salary %>
+  </div>
+  <div class="field">
+    <%= f.label :employee_position_id %><br>
+    <%= f.number_field :employee_position_id %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br>
+    <%= f.text_field :status %>
+  </div>
+  <div class="field">
+    <%= f.label :pay_date %><br>
+    <%= f.date_select :pay_date %>
+  </div>
+  <div class="field">
+    <%= f.label :next_due_date %><br>
+    <%= f.date_select :next_due_date %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
