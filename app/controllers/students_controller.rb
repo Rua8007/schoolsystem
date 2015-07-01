@@ -24,6 +24,6 @@ class StudentsController < ApplicationController
 
 	private
     def create_params
-      params.require(:student).permit(:remote_image_url,:first_name, :mobile, :address, :email, :grade_id, :dob,:gender,:middle_name, :last_name, :blood, :birth_place, :nationality, :language, :religion, :city, :state, :country,:phone, :fee, :term, :dueDate, :image)      
+      params.require(:student).permit(:remote_image_url,:first_name, :mobile, :address, :email, :grade_id, :dob,:gender,:middle_name, :last_name, :blood, :birth_place, :nationality, :language, :religion, :city, :state, :country,:phone, :fee, :term, :dueDate, :image, :previousInstitute, :year, :totalMarks, :obtainedMarks)      
     end
 end

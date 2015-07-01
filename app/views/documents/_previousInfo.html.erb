@@ -1,0 +1,38 @@
+<%= form_for @student, url: addPreviousInfo_document_path(@student.id), method: 'POST', remote: true do |std| %>
+	<div class = "row">
+		<div class = "col-md-6">
+			<div class="form-group">
+				<%= std.label :previous_Institute %>
+				<%= std.text_field :previousInstitute , :style => 'width:70%;height:34px;', class: 'form-control' %>
+			</div>
+		</div>
+		<div class = "col-md-6">
+			<div class="form-group">
+				<%= std.label :passing_Year %>
+				<%= std.text_field :year , :id => 'datepicker', :style => 'width:70%;height:34px;', class: 'form-control' %>
+			</div>
+		</div>
+	</div>
+	<div class = "row">
+		<div class = "col-md-6">
+			<div class="form-group">
+				<%= std.label :total_Marks %>
+				<%= std.text_field :totalMarks , :style => 'width:70%;height:34px;', class: 'form-control' %>
+			</div>
+		</div>
+		<div class = "col-md-6">
+			<div class="form-group">
+				<%= std.label :obtained_Marks %>
+				<%= std.text_field :obtainedMarks , :style => 'width:70%;height:34px;', class: 'form-control' %>
+			</div>
+		</div>
+	</div>
+	<div class="form-group">
+		<%= std.submit "Submit", :class => 'btn btn-block btn-success form-control pull-right',:style=>'width:24%;', id: "addInfo" %>
+	</div>
+
+<% end %>
+
+<script type="text/javascript">
+    $( "#datepicker" ).datepicker({ changeYear: true, changeMonth: true });
+</script>
