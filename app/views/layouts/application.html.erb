@@ -483,18 +483,23 @@ next_due_date
                   </span>
                   <b class="badge bg-info pull-right">3</b>
                   <i class="glyphicon glyphicon-th"></i>
-                  <span>Layout</span>
+                  <span>Students</span>
                 </a>
                 <ul class="nav nav-sub dk">
                   <li class="nav-sub-header">
-                    <a href>
-                      <span>Layout</span>
-                    </a>
+                    <%= link_to("") do %>
+                      <span>Students</span>
+                    <% end %>
                   </li>
                   <li>
-                    <a href="layout_app.html">
-                      <span>Application</span>
-                    </a>
+                    <%= link_to(new_student_path) do %>
+                      <span>Admit Student</span>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to(students_path) do %>
+                      <span>List All Students</span>
+                    <% end %>
                   </li>
                   <li>
                     <a href="layout_fullwidth.html">
