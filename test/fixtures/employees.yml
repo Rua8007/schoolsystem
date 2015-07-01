@@ -1,0 +1,65 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  employee_number: MyString
+  date_of_joining: 2015-06-30
+  full_name: MyString
+  gender: MyString
+  date_of_birth: 2015-06-30
+  religion: MyString
+  qualification: MyString
+  employee_category_id: 1
+  employee_department_id: 1
+  marital_status: MyString
+  child_count: 1
+  father_name: MyString
+  mother_name: MyString
+  spouse_name: MyString
+  blood_group: MyString
+  nationality: MyString
+  id_card_no: MyString
+  id_card_expiry: 2015-06-30
+  address1: MyString
+  address2: MyString
+  city: MyString
+  country: MyString
+  home_phone: MyString
+  mobile_number: MyString
+  email: MyString
+  salary: 1.5
+  employee_position_id: 1
+  status: MyString
+  pay_date: 2015-06-30
+  next_due_date: 2015-06-30
+
+two:
+  employee_number: MyString
+  date_of_joining: 2015-06-30
+  full_name: MyString
+  gender: MyString
+  date_of_birth: 2015-06-30
+  religion: MyString
+  qualification: MyString
+  employee_category_id: 1
+  employee_department_id: 1
+  marital_status: MyString
+  child_count: 1
+  father_name: MyString
+  mother_name: MyString
+  spouse_name: MyString
+  blood_group: MyString
+  nationality: MyString
+  id_card_no: MyString
+  id_card_expiry: 2015-06-30
+  address1: MyString
+  address2: MyString
+  city: MyString
+  country: MyString
+  home_phone: MyString
+  mobile_number: MyString
+  email: MyString
+  salary: 1.5
+  employee_position_id: 1
+  status: MyString
+  pay_date: 2015-06-30
+  next_due_date: 2015-06-30

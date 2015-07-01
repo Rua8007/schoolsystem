@@ -10,8 +10,13 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_tree .
  *= require_self
+ *= require externals/bootstrap/dist/css/bootstrap
+ *= require externals/animate.css/animate
+ *= require externals/font-awesome/css/font-awesome.min
+ *= require externals/simple-line-icons/css/simple-line-icons
+ *= require font
+ *= require app
  */
 .navbar-brand{
 	width: 170px !important;
