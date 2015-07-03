@@ -1,7 +1,17 @@
 Rails.application.routes.draw do
+
+
+
+
   resources :positions
   resources :departments
   resources :categories
+
+  
+  resources :parents
+  devise_for :users
+
+  get 'home/index'
   resources :employees
   # get 'home/index'
 
@@ -10,6 +20,12 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'home#index'
+  resources :students
+  resources :documents do
+    member do 
+      post "addPreviousInfo"
+    end
+  end
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

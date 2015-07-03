@@ -18,3 +18,14 @@
  *= require font
  *= require app
  */
+.navbar-brand{
+	width: 170px !important;
+}
+.admission-form-heading{
+    height: 56px;
+    padding: 1%;
+    padding-left: 5%;
+    background-color: #9358ac;
+    border-radius: 10px;
+    text-align: center;
+}
