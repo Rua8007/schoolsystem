@@ -11,67 +11,124 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+  <div class="container form-holder">
+    <div class="row">
+      <div class="row">
+        <div class= "admission-form-heading" ><h4 style="color:white;"> Personal Information </h4> </div>
+        <br>
+        <br>
+        <div class="column col-xs-12 col-md-4">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Name</label>
+            <%= f.text_field :name , :style => 'height:34px;',  class: 'form-control', required: true, autofocus: true %>
+          </div>
+        </div>
+        <%= hidden_field_tag "student_id", @s %>
+        <div class="column col-xs-12 col-md-4">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Relation</label>
+            <%= f.select :relation, options_for_select(%w[Father Mother Guardian]),{}, {class: "form-control", style: ''} %>
+          </div>
+        </div>
+
+        <div class="column col-xs-12 col-md-4">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Qualification</label>
+            <%= f.text_field :education , :style => 'height:34px;',  class: 'form-control', required: true, autofocus: true %>
+          </div>
+        </div>
+
+        <div class="column col-xs-12 col-md-4">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Profession</label>
+            <%= f.text_field :profession , :style => 'height:34px;',  class: 'form-control', required: true, autofocus: true %>
+          </div>
+        </div>
+
+        <div class="column col-xs-12 col-md-4">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Date of Birth</label>
+            <%= f.text_field :dob , :style => 'height:34px;',  class: 'form-control', required: true, autofocus: true %>
+          </div>
+        </div>
+
+        <div class="column col-xs-12 col-md-4">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Income</label>
+            <%= f.text_field :income , :style => 'height:34px;',  class: 'form-control', required: true, autofocus: true %>
+          </div>
+        </div>
+
+        <div class="column col-xs-12 col-md-4">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Iqama Number</label>
+            <%= f.text_field :iqamaNumber , :style => 'height:34px;',  class: 'form-control', required: true, autofocus: true %>
+          </div>
+        </div>
+
+        <div class="column col-xs-12 col-md-4">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Iqama Expiry</label>
+            <%= f.text_field :iqamaExpiry , :style => 'height:34px;',  class: 'form-control', required: true, autofocus: true %>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class= "admission-form-heading" ><h4 style="color:white;"> Contact Information </h4> </div>
+        <br>
+        <br>
+        <div class="column col-xs-12 col-md-4">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Address 1</label>
+            <%= f.text_field :address1 , :style => 'height:34px;',  class: 'form-control', required: true, autofocus: true %>
+          </div>
+        </div>
+        <div class="column col-xs-12 col-md-4">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Address 2</label>
+            <%= f.text_field :address2, :style => 'height:34px;',  class: 'form-control', required: true, autofocus: true%>
+          </div>
+        </div>
+
+        <div class="column col-xs-12 col-md-4">
+          <div class="form-group">
+            <label for="exampleInputEmail1">City</label>
+            <%= f.text_field :city , :style => 'height:34px;',  class: 'form-control', required: true, autofocus: true %>
+          </div>
+        </div>
+
+        <div class="column col-xs-12 col-md-4">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Country</label>
+            <%= f.text_field :country , :style => 'height:34px;',  class: 'form-control', required: true, autofocus: true %>
+          </div>
+        </div>
+
+        <div class="column col-xs-12 col-md-4">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Office Phone</label>
+            <%= f.text_field :officePhone , :style => 'height:34px;',  class: 'form-control', required: true, autofocus: true %>
+          </div>
+        </div>
+
+        <div class="column col-xs-12 col-md-4">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Mobile</label>
+            <%= f.text_field :mobile , :style => 'height:34px;',  class: 'form-control', required: true, autofocus: true %>
+          </div>
+        </div>
+
+        <div class="column col-xs-12 col-md-4">
+          <div class="form-group">
+            <label for="exampleInputEmail1">E-mail Address</label>
+            <%= f.text_field :email , :style => 'height:34px;',  class: 'form-control', required: true, autofocus: true %>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :relation %><br>
-    <%= f.text_field :relation %>
-  </div>
-  <div class="field">
-    <%= f.label :education %><br>
-    <%= f.text_field :education %>
-  </div>
-  <div class="field">
-    <%= f.label :profession %><br>
-    <%= f.text_field :profession %>
-  </div>
-  <div class="field">
-    <%= f.label :dob %><br>
-    <%= f.text_field :dob %>
-  </div>
-  <div class="field">
-    <%= f.label :income %><br>
-    <%= f.text_field :income %>
-  </div>
-  <div class="field">
-    <%= f.label :iqamaNumber %><br>
-    <%= f.text_field :iqamaNumber %>
-  </div>
-  <div class="field">
-    <%= f.label :iqamaExpiry %><br>
-    <%= f.text_field :iqamaExpiry %>
-  </div>
-  <div class="field">
-    <%= f.label :address1 %><br>
-    <%= f.text_field :address1 %>
-  </div>
-  <div class="field">
-    <%= f.label :address2 %><br>
-    <%= f.text_field :address2 %>
-  </div>
-  <div class="field">
-    <%= f.label :city %><br>
-    <%= f.text_field :city %>
-  </div>
-  <div class="field">
-    <%= f.label :country %><br>
-    <%= f.text_field :country %>
-  </div>
-  <div class="field">
-    <%= f.label :officePhone %><br>
-    <%= f.text_field :officePhone %>
-  </div>
-  <div class="field">
-    <%= f.label :mobile %><br>
-    <%= f.text_field :mobile %>
-  </div>
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.text_field :email %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="form-group">
+    <%= f.submit "Next", :class => 'btn btn-block btn-success form-control',:style=>'width:24%;float: right;' %>
   </div>
 <% end %>

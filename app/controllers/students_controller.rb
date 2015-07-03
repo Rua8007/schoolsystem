@@ -16,7 +16,7 @@ class StudentsController < ApplicationController
       # s = @student.save!
 
       #User.create!(email: @student.email, password: "school", user_type: 4, password_confirmation: "school")
-      redirect_to new_student_path, notice: "Student added"
+      redirect_to new_parent_path(student_id: @student.id), notice: "Student added"
     else
       redirect_to :back, :alert => "Fill the form again!"
     end

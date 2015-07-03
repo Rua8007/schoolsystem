@@ -14,6 +14,7 @@ class ParentsController < ApplicationController
 
   # GET /parents/new
   def new
+    @s = params[:student_id]
     @parent = Parent.new
   end
 
@@ -28,6 +29,9 @@ class ParentsController < ApplicationController
 
     respond_to do |format|
       if @parent.save
+        student = Student.find(params[:student_id])
+        student.parent_id = @parent.id
+        student.save
         format.html { redirect_to @parent, notice: 'Parent was successfully created.' }
         format.json { render :show, status: :created, location: @parent }
       else
