@@ -16,7 +16,6 @@ ActiveRecord::Schema.define(version: 20150703181839) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-
   create_table "categories", force: :cascade do |t|
     t.string   "name"
     t.string   "prefix"
@@ -29,6 +28,7 @@ ActiveRecord::Schema.define(version: 20150703181839) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
 
   create_table "documents", force: :cascade do |t|
     t.integer  "student_id"
@@ -36,7 +36,6 @@ ActiveRecord::Schema.define(version: 20150703181839) do
     t.string   "attachment"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-
   end
 
   create_table "employees", force: :cascade do |t|
@@ -74,13 +73,6 @@ ActiveRecord::Schema.define(version: 20150703181839) do
     t.datetime "updated_at",      null: false
   end
 
-  create_table "positions", force: :cascade do |t|
-    t.integer  "category_id"
-    t.string   "name"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
   create_table "parents", force: :cascade do |t|
     t.string   "name"
     t.string   "relation"
@@ -97,6 +89,13 @@ ActiveRecord::Schema.define(version: 20150703181839) do
     t.string   "officePhone"
     t.string   "mobile"
     t.string   "email"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "positions", force: :cascade do |t|
+    t.integer  "category_id"
+    t.string   "name"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end

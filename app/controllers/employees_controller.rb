@@ -22,6 +22,9 @@ class EmployeesController < ApplicationController
 
   # GET /employees/1/edit
   def edit
+    @categories = Category.all
+    @departments = Department.all
+    @positions = Position.all
   end
 
   # POST /employees
