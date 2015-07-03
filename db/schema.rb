@@ -11,10 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150630185016) do
+ActiveRecord::Schema.define(version: 20150703181839) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "categories", force: :cascade do |t|
+    t.string   "name"
+    t.string   "prefix"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "departments", force: :cascade do |t|
+    t.string   "code"
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "employees", force: :cascade do |t|
     t.string   "employee_number"
@@ -24,8 +38,8 @@ ActiveRecord::Schema.define(version: 20150630185016) do
     t.date     "date_of_birth"
     t.string   "religion"
     t.string   "qualification"
-    t.integer  "employee_category_id"
-    t.integer  "employee_department_id"
+    t.integer  "category_id"
+    t.integer  "department_id"
     t.string   "marital_status"
     t.integer  "child_count"
     t.string   "father_name"
@@ -43,12 +57,19 @@ ActiveRecord::Schema.define(version: 20150630185016) do
     t.string   "mobile_number"
     t.string   "email"
     t.float    "salary"
-    t.integer  "employee_position_id"
+    t.integer  "position_id"
     t.string   "status"
     t.date     "pay_date"
     t.date     "next_due_date"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  create_table "positions", force: :cascade do |t|
+    t.integer  "category_id"
+    t.string   "name"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
 end

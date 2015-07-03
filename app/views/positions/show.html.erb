@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @position.category_id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @position.name %>
+</p>
+
+<%= link_to 'Edit', edit_position_path(@position) %> |
+<%= link_to 'Back', positions_path %>

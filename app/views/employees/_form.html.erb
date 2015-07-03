@@ -40,12 +40,14 @@
     <%= f.text_field :qualification %>
   </div>
   <div class="field">
-    <%= f.label :employee_category_id %><br>
-    <%= f.number_field :employee_category_id %>
+    <%= f.label :category_id %><br>
+    <%= f.select :category_id, options_from_collection_for_select(@categories,"id", "name"),
+                  prompt: "Select Category", class: "", required: true %>
   </div>
   <div class="field">
-    <%= f.label :employee_department_id %><br>
-    <%= f.number_field :employee_department_id %>
+    <%= f.label :department_id %><br>
+    <%= f.select :department_id, options_from_collection_for_select(@departments,"id", "name"),
+                  prompt: "Select Department", class: "", required: true %>
   </div>
   <div class="field">
     <%= f.label :marital_status %><br>
@@ -116,8 +118,9 @@
     <%= f.text_field :salary %>
   </div>
   <div class="field">
-    <%= f.label :employee_position_id %><br>
-    <%= f.number_field :employee_position_id %>
+    <%= f.label :position_id %><br>
+    <%= f.select :position_id, options_from_collection_for_select(@positions,"id", "name"),
+                  prompt: "Select Position", class: "", required: true %>
   </div>
   <div class="field">
     <%= f.label :status %><br>

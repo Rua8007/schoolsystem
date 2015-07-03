@@ -49,11 +49,24 @@ status
 pay_date
 next_due_date
 
+category
+experience
 
+employee has many experiences
+employee category belongs to employe position
 
+experience -> 
 
+category -> name prefix
+departments -> code name
+positions -> name category_id
 
-
+1. Employee Name
+2. Employee ID
+3. Employee Department
+3. Employee Category
+4. Gender
+5. Employee Mob
 
  -->
 
@@ -472,7 +485,22 @@ next_due_date
                     <%= link_to(employees_path) do %>
                       <span>List All Employees</span>
                     <% end %>
-                  </li>     
+                  </li> 
+                  <li>
+                    <%= link_to(categories_path) do %>
+                      <span>Manage Categories</span>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to(departments_path) do %>
+                      <span>Manage Dept.</span>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to(positions_path) do %>
+                      <span>Manage Positions</span>
+                    <% end %>
+                  </li>    
                 </ul>
               </li>
               <li>
@@ -752,7 +780,8 @@ next_due_date
     app.settings.asideFolded = false; 
     app.settings.asideDock = false;
   ">
-
+ <!-- main -->
+ 
   <%= yield %>
 
 
