@@ -1,4 +1,46 @@
-<h1>Parent Detail</h1>
+<!-- <h1>Parent Detail</h1>
 <div class="container" style="width: 100%">
+	<%#= render 'form' %>
+</div> -->
+
+
+<h1>Parents Details</h1>
+<div class="radio">
+  <label><input type="radio" id="exist" name="optradio" value="1" checked="true">Parent Already Exists</label>
+</div>
+<div class="radio">
+  <label><input type="radio" id = "new" name="optradio" value = "0">New Parent</label>
+</div>
+
+<div id = "selectParent" style="margin-top: 60px;">
+	<%= form_for @student, url: assignParent_student_path(@student.id), method: 'POST' do |std| %>
+		<div class="form-group">
+			<label>Select Parent </label>
+		    <%= std.collection_select :parent_id, Parent.order(:name),:id,:name , {}, {class: "form-control", style: 'width:30%;', :id => 'grade'} %>
+		</div>
+		<div class="form-group">
+			<%= std.submit "Add Parent", :class => 'btn btn-block btn-success form-control',:style=>'width:24%;' %>
+		</div>
+	<% end %>
+</div>
+<div id = "formPartial" class = "hide">
 	<%= render 'form' %>
 </div>
+
+
+
+<script type="text/javascript">
+	$("input[name=optradio]:radio").change(function (){
+		if ($("#new").attr("checked")){
+		alert("i am here");
+			
+			$("#formPartial").removeClass("hide");
+			$("#selectParent").addClass("hide");
+		}
+		else{
+			$("#formPartial").addClass("hide");
+			$("#selectParent").removeClass("hide");
+		}
+	});
+		
+</script>

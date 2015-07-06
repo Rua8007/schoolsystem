@@ -12,7 +12,11 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'home#index'
-  resources :students
+  resources :students do
+    member do
+      post "assignParent"
+    end
+  end
   resources :documents do
     member do 
       post "addPreviousInfo"

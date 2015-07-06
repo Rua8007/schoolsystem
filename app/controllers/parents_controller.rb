@@ -15,6 +15,7 @@ class ParentsController < ApplicationController
   # GET /parents/new
   def new
     @s = params[:student_id]
+    @student = Student.find(params[:student_id])
     @parent = Parent.new
   end
 
@@ -26,18 +27,13 @@ class ParentsController < ApplicationController
   # POST /parents.json
   def create
     @parent = Parent.new(parent_params)
-
-    respond_to do |format|
-      if @parent.save
-        student = Student.find(params[:student_id])
-        student.parent_id = @parent.id
-        student.save
-        format.html { redirect_to @parent, notice: 'Parent was successfully created.' }
-        format.json { render :show, status: :created, location: @parent }
-      else
-        format.html { render :new }
-        format.json { render json: @parent.errors, status: :unprocessable_entity }
-      end
+    if @parent.save
+      student = Student.find(params[:student_id])
+      student.parent_id = @parent.id
+      student.save
+      redirect_to new_document_path(student_id: student.id)
+      # format.html { redirect_to @parent, notice: 'Parent was successfully created.' }
+      # format.json { render :show, status: :created, location: @parent }
     end
   end
 

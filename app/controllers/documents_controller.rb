@@ -1,5 +1,7 @@
 class DocumentsController < ApplicationController
 
+
+  protect_from_forgery
   def new
   	@document = Document.new
     @document.student_id = params[:student_id]
@@ -8,10 +10,8 @@ class DocumentsController < ApplicationController
 
   def create
     puts '-'*80
-    puts params
-    puts '-'*80
   	document = Document.create(create_params)
-  	redirect_to new_document_path, :notice => 'Docuemnt Uploaded successfully!'
+  	redirect_to new_document_path({student_id: document.student_id}), :notice => 'Docuemnt Uploaded successfully!'
   end
 
   def addPreviousInfo
