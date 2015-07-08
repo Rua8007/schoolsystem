@@ -1,0 +1,499 @@
+<style type="text/css">
+    @media(min-width: 1200px)
+.abc {
+  width: 1080px;
+}
+
+</style>
+
+<div class="abc" style="">
+
+    <div class="container" >
+	
+        <h3><%=@student.first_name+ " " + @student.middle_name+ " " + @student.last_name+ " " + @student.forthname+ " " + @student.fifthname%> <label style="font-weight:normal">(<%= @student.arabicname %>)</label></h3>
+		<br>
+        <div class="col-sm-4">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td class="student-profile-td">
+                            Class
+                        </td>
+
+                        <td>
+                            <%= @student.grade_id %>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="student-profile-td">
+                            Date of Birth
+                        </td>
+
+                        <td>
+                            <%= @student.dob %>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="student-profile-td">
+                            Iqama Number
+                        </td>
+
+                        <td>
+                            <%= @student.iqamaNumber %>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="student-profile-td">
+                            Iqama Expiry
+                        </td>
+
+                        <td>
+                            <%= @student.iqamaExpiry %>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-sm-4">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td class="student-profile-td">
+                            Gender
+                        </td>
+
+                        <td>
+                            <%= @student.gender %>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="student-profile-td">
+                            Nationality
+                        </td>
+
+                        <td>
+                            <%= @student.nationality %>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="student-profile-td">
+                            Mother Language
+                        </td>
+
+                        <td>
+                            <%= @student.language %>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="student-profile-td">
+                            Religion
+                        </td>
+
+                        <td>
+                            <%= @student.religion %>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="student-profile-td">
+                            Birth Place
+                        </td>
+
+                        <td>
+                            <%= @student.birth_place %>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- <p>Section:<label>A</label></p> -->
+        </div>
+
+
+        <div class="col-sm-4">
+        <%= image_tag @student.image, class: "img-responsive student-image" %>
+        </div>
+    </div>
+
+    <hr />
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#ContactDetails" aria-controls="messages" role="tab" data-toggle="tab">Contact details</a></li>
+        <li role="presentation" ><a href="#PreviousDetails" aria-controls="messages" role="tab" data-toggle="tab">Previous details</a></li>
+        <li role="presentation"><a href="#MedicalBackground" aria-controls="messages" role="tab" data-toggle="tab">Medical Background</a></li>
+        
+        <li role="presentation"><a href="#FeeDetails" aria-controls="messages" role="tab" data-toggle="tab">Fee details</a></li>
+
+    </ul>
+
+    <br>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="ContactDetails">
+            <div class="col-sm-3" >
+                <h4 class="student-tabs">Personal Details</h4>
+                <table class="table">
+                    <tr>
+                        <td>
+                            Address
+                        </td>
+                        <td>
+                            <%= @student.address %>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            City
+                        </td>
+                        <td>
+                            <%= @student.city %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Country
+                        </td>
+                        <td>
+                            <%= @student.country %>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            Phone
+                        </td>
+                        <td>
+                            <%= @student.phone %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Mobile
+                        </td>
+                        <td>
+                            <%= @student.mobile %>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            E-mail
+                        </td>
+                        <td>
+                            <%= @student.email %>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="col-sm-3">
+                <h4 class="student-tabs">Parent Details</h4>
+                <table class="table">
+                    <tr>
+                        <td>
+                            Name
+                        </td>
+                        <td>
+                            <%= @parent.name %>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            Relation
+                        </td>
+                        <td>
+                            <%= @parent.relation %>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            Date Of Birth
+                        </td>
+                        <td>
+                            <%= @parent.dob %>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            Education
+                        </td>
+                        <td>
+                            <%= @parent.education %>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            Profession
+                        </td>
+                        <td>
+                            <%= @parent.profession %>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            Income
+                        </td>
+                        <td>
+                            <%= @parent.income %>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            Iqama Number
+                        </td>
+                        <td>
+                            <%= @parent.iqamaNumber %>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            Iqama Expiry
+                        </td>
+                        <td>
+                            <%= @parent.iqamaExpiry %>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="col-sm-3">
+                <h4 class="student-tabs">Parent contact Details</h4>
+                <table class="table">
+                    <tr>
+                        <td>
+                            Address
+                        </td>
+                        <td>
+                            <%= @parent.address1 + " or " + @parent.address2 %>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            Office Phone
+                        </td>
+                        <td>
+                            <%= @parent.officePhone %>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            Mobile
+                        </td>
+                        <td>
+                            <%= @parent.mobile %>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            City
+                        </td>
+                        <td>
+                            <%= @parent.city %>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            Country
+                        </td>
+                        <td>
+                            <%= @parent.country %>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            E-mail
+                        </td>
+                        <td>
+                            <%= @parent.email %>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+
+            <div class="col-sm-3">
+                <h4 class="student-tabs">Emergency contact</h4>
+                <table class="table">
+                    <tr>
+                        <td>
+                            Address
+                        </td>
+                        <td>
+                            <%= @parent.address1 + " or " + @parent.address2 %>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            Contact
+                        </td>
+                        <td>
+                            <%= @parent.address1 + " or " + @parent.mobile %>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="PreviousDetails">
+
+        </div>
+
+
+        <div role="tabpanel" class="tab-pane" id="MedicalBackground" >
+            <div class="col-sm-6">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td class="student-profile-td">
+                                Current weight
+                            </td>
+
+                            <td>
+                                <%= @student.weight %>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="student-profile-td">
+                                Current Height
+                            </td>
+                            
+                            <td>
+                                <%= @student.height %>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="student-profile-td">
+                                Eye Side
+                            </td>
+                            
+                            <td>
+                                <%= @student.eyeside %>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="student-profile-td">
+                                Hearing Check
+                            </td>
+                            
+                            <td>
+                                <%= @student.hearing %>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="student-profile-td">
+                                Blood Group
+                            </td>
+                            
+                            <td>
+                                <%= @student.blood %>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="student-profile-td">
+                                RH Factor
+                            </td>
+                            
+                            <td>
+                                <%= @student.rh %>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-sm-6">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td  class="student-profile-td">
+                                Alergy
+                            </td>
+
+                            <td>
+                                <%= @student.alergy %>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="student-profile-td">
+                                Nurological Health
+                            </td>
+                            
+                            <td>
+                                <%= @student.nurology %>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="student-profile-td">
+                                Physical Health
+                            </td>
+                            
+                            <td>
+                                <%= @student.physical %>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="student-profile-td">
+                                Learning Disability
+                            </td>
+                            
+                            <td>
+                                <%= @student.disability %>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="student-profile-td">
+                                Behavior
+                            </td>
+                            
+                            <td>
+                                <%= @student.behaviour %>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+
+
+        
+        <div role="tabpanel" class="tab-pane" id="FeeDetails">
+            <div class="col-sm-6">
+                <p>Total annual fee: <label><%= @student.fee %></label></p>
+                <p>Installments plan: <label><%= @student.term %></label></p>
+            </div>
+        </div>
+    </div>
+</div>

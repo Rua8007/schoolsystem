@@ -29,6 +29,10 @@ class StudentsController < ApplicationController
     # redirect_to emergency_parent_path(student_id: std.id)
   end
 
+  def show
+    @student = Student.find(params[:id])
+    @parent = @student.parent
+  end
 
 	private
     def create_params
