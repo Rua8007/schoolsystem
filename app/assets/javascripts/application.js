@@ -18,3 +18,5 @@
 //= require ui-jp
 //= require ui-nav
 //= require ui-toggle
+//= require moment
+//= require fullcalendar

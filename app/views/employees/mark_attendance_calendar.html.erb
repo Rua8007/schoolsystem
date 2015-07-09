@@ -1,0 +1,31 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Employees Attendance 
+  </h1>
+</div>
+
+<div class="wrapper-md">
+	<div id='calendar'></div>
+</div>
+
+
+<script type="text/javascript">
+	$( document ).ready(function() {
+	  $('#calendar').fullCalendar({
+	  	hiddenDays: [ 5, 6 ],
+	  	dayClick: function(date, jsEvent, view) {
+        // alert('Clicked on: ' + date.format());
+        // alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+        // alert('Current view: ' + view.name);
+        // change the day's background color just for fun
+        // $(this).css('background-color', 'red');
+        var moment = $('#calendar').fullCalendar('getDate');
+    		// alert("The current date of the calendar is " + moment.format('DD-MM-YYYY'));
+        if(date.format('DD-MM-YYYY') === moment.format('DD-MM-YYYY')){
+        	alert("hello");
+        }
+    	}
+	  	// weekends: false // will hide Saturdays and Sundays
+	    // dayClick: function() {console.log("hey");}
+		});
+	});
+</script>

@@ -17,6 +17,7 @@
  *= require externals/simple-line-icons/css/simple-line-icons
  *= require font
  *= require app
+ *= require fullcalendar
  */
 .navbar-brand{
 	width: 170px !important;
