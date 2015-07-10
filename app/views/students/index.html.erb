@@ -24,6 +24,9 @@
 </script>
 
 <h2>Students<a href="<%= new_student_path %>" class="btn btn-info pull-right" style="width:200px;">Admit a new Student</a></h2>
+  <div id="create_parties">
+    <% render "detail" %>
+  </div>
   <table id="example" class="table table-striped table-bordered datatables">
     <thead>
       <tr>
@@ -68,6 +71,19 @@
 <script type="text/javascript">
   $("tr.clickable").click(function(e) {
     var id = e.currentTarget.attributes.id.nodeValue;
-
+    // alert("here i am");
+    $.get('/students/detail', {id: id})
+      .done(function(data){
+        if (data)
+        {
+          $("#error_div_rollnum").removeClass('hide');
+          $("#error_text_rollnum").html($("#roll_Number").val() + " roll number already registered!");
+          $("#roll_Number").val('');
+        }
+        else
+        {
+          $("#error_div_rollnum").addClass('hide');
+        }
+      });
   })
 </script>

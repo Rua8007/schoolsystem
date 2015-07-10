@@ -1,10 +1,11 @@
 class StudentsController < ApplicationController
 	def index
 		@students = Student.all
+    @student = @students.first
 	end
 
 	def new
-		@student = Student.new
+		@students = Student.new
 	end
 
   def create
@@ -35,8 +36,13 @@ class StudentsController < ApplicationController
   end
 
   def detail
-    
-    @student = Student.find(params[:student_id])
+    puts "-"*80
+    puts "-"*80
+    @student = Student.find(params[:id])
+    respond_to do |format|
+      format.js
+      format.json { render json: {student: @student } }  # respond with the created JSON object
+    end
 
   end
 	private

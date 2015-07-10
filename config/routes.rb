@@ -16,6 +16,9 @@ Rails.application.routes.draw do
     member do
       post "assignParent"
     end
+    collection do
+      get "detail"
+    end
   end
   resources :documents do
     member do 
