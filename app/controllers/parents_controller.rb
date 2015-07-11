@@ -5,18 +5,20 @@ class ParentsController < ApplicationController
   # GET /parents.json
   def index
     @parents = Parent.all
+
   end
 
   # GET /parents/1
   # GET /parents/1.json
   def show
+    
   end
 
   # GET /parents/new
   def new
     @s = params[:student_id]
     @student = Student.find(params[:student_id])
-    @parent = Parent.new
+    @parent = Parent.new   
   end
 
   # GET /parents/1/edit
@@ -40,9 +42,10 @@ class ParentsController < ApplicationController
   # PATCH/PUT /parents/1
   # PATCH/PUT /parents/1.json
   def update
+
     respond_to do |format|
       if @parent.update(parent_params)
-        format.html { redirect_to @parent, notice: 'Parent was successfully updated.' }
+        format.html { redirect_to new_document_path(student_id: student.id), notice: 'Parent Detail Saved.' }
         format.json { render :show, status: :ok, location: @parent }
       else
         format.html { render :edit }
@@ -61,6 +64,23 @@ class ParentsController < ApplicationController
     end
   end
 
+
+  def parents_data
+    puts "-"*80
+    puts params
+    puts "-"*80
+    if params[:parent_id] == "new"
+      @parent = Parent.new
+    elsif params[:parent_id].present? && params[:parent_id] != ""
+      @parent = Parent.find(params[:parent_id])
+  
+    end
+    respond_to do |format|
+      format.js
+      format.json { render json: {parent: @parent} }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_parent
@@ -69,6 +89,8 @@ class ParentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def parent_params
-      params.require(:parent).permit(:name, :relation, :education, :profession, :dob, :income, :iqamaNumber, :iqamaExpiry, :address1, :address2, :city, :country, :officePhone, :mobile, :email)
+      params.require(:parent).permit( :name, :relation, :education, :profession, :dob, :income, :iqamaNumber, :iqamaExpiry, :address1, :address2, :city, :country, :officePhone, :mobile, :email,emergencies_attributes: [:name,:phone, :mobile, :email, :student_id])
     end
+
+  
 end

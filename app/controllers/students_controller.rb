@@ -8,9 +8,15 @@ class StudentsController < ApplicationController
 	end
 
   def create
-    # return render json: params.inspect
+     # return render json: params[:student][:document]  
     @student = Student.create(create_params)
-    if @student.save!
+    if @student
+      emergency = @student.emergencies.create
+      emergency.name = params[:student][:emergency][:name]
+      emergency.mobile = params[:student][:emergency][:mobile]
+      emergency.phone = params[:student][:emergency][:phone]
+      emergency.email = params[:student][:emergency][:email]
+      emergency.save
       # @student.amount = Grade.find(params[:student][:grade_id]).fee
       # @student.staus = ''
       # s = @student.save!
@@ -23,16 +29,18 @@ class StudentsController < ApplicationController
   end
 
   def assignParent
+    # return render json: params
     std = Student.find(params[:id])
     std.parent_id = params[:student][:parent_id]
     std.save!
-    # redirect_to emergency_parent_path(student_id: std.id)
+    redirect_to new_document_path(student_id: std.id)
   end
 
 
 	private
+
     def create_params
-      params.require(:student).permit(:remote_image_url,:first_name, :mobile, :address, :email, :grade_id, :dob,:gender,:middle_name, :last_name, :blood, :birth_place, :nationality, :language, :religion, :city, :state, :country,:phone, :fee, :term, :dueDate, :image, :previousInstitute, :year, :totalMarks, :obtainedMarks, :forthname, :fifthname, :arabicname, :weight,:height,:eyeside,:hearing,:rh,:alergy,:nurology,:physical,:disability,:behaviour)      
+      params.require(:student).permit(:remote_image_url,:first_name, :mobile, :address, :email, :grade_id, :dob,:gender,:middle_name, :last_name, :blood, :birth_place, :nationality, :language, :religion, :city, :state, :country,:phone, :fee, :term, :dueDate, :image, :previousInstitute, :year, :totalMarks, :obtainedMarks, :forthname, :fifthname, :arabicname, :weight,:height,:eyeside,:hearing,:rh,:alergy,:nurology,:physical,:disability,:behaviour, emergencies_attributes:[:name, :phome, :mobile, :email, :student_id])      
     end
 end
 
