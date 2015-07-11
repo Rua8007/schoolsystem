@@ -4,7 +4,6 @@
   <!-- <title>Schoolsystem</title> -->
   <%#= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%#= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%#= csrf_meta_tags %>
 <!-- </head> -->
 <!-- <body> -->
 
@@ -69,6 +68,7 @@ next_due_date
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
 
+
   <!-- <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css" type="text/css" />
   <link rel="stylesheet" href="../bower_components/animate.css/animate.css" type="text/css" />
   <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.min.css" type="text/css" />
@@ -77,6 +77,9 @@ next_due_date
   <link rel="stylesheet" href="css/app.css" type="text/css" /> -->
 
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+
 
 </head>
 <body>
@@ -775,7 +778,6 @@ next_due_date
 
 </div>
 
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 
 
 </body>

@@ -18,3 +18,4 @@
 //= require ui-jp
 //= require ui-nav
 //= require ui-toggle
+//= require externals/bootstrap-daterangepicker/daterangepicker

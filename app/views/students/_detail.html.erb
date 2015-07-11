@@ -1,4 +1,11 @@
-<div class="container" >
+<style type="text/css">
+    @media (min-width: 1200px)
+.container {
+     width: 970px ;
+}
+</style>
+
+<div class="container" style="max-width:970px;" >
 	
         <h3><%=@student.first_name+ " " + @student.middle_name+ " " + @student.last_name+ " " + @student.forthname+ " " + @student.fifthname%> <label style="font-weight:normal">(<%= @student.arabicname %>)</label></h3>
 		<br>
@@ -44,14 +51,8 @@
                             <%= @student.iqamaExpiry %>
                         </td>
                     </tr>
-                </tbody>
-            </table>
-        </div>
 
-        <div class="col-sm-4">
-            <table class="table">
-                <tbody>
-                    <tr>
+                     <tr>
                         <td class="student-profile-td">
                             Gender
                         </td>
@@ -100,10 +101,12 @@
                             <%= @student.birth_place %>
                         </td>
                     </tr>
+
                 </tbody>
             </table>
-            <!-- <p>Section:<label>A</label></p> -->
         </div>
+
+
 
 
         <div class="col-sm-4">

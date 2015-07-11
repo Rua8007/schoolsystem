@@ -17,6 +17,7 @@
  *= require externals/simple-line-icons/css/simple-line-icons
  *= require font
  *= require app
+ *= require externals/bootstrap-daterangepicker/daterangepicker-bs3
  */
 .navbar-brand{
 	width: 170px !important;
@@ -25,7 +26,51 @@
     height: 56px;
     padding: 1%;
     padding-left: 5%;
-    background-color: #3a3f51;
+    background-color: #27c24c;
     text-align: center;
     width: 91%;
+}
+
+.bt-login, .bt-login:hover, .bt-login:active, .bt-login:focus {
+    background-color: #46b8da;
+    color: #ffffff;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    transition: background-color 300ms linear 0s;
+}
+
+
+.login-tab {
+/*    margin: 0 auto;*/
+    /*max-width: 380px;*/
+}
+
+.login-modal-header {
+    background: #27c24c;
+    color: #fff;
+}
+
+.login-modal-header .modal-title {
+    color: #fff;
+}
+
+.login-modal-header .close {
+    color: #fff;
+}
+
+.login-modal i {
+    color: #000;
+}
+
+.login-modal form {
+   /* max-width: 340px;*/
+}
+
+.tab-pane form {
+/*    margin: 0 auto;*/
+}
+
+.login-modal-footer {
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
