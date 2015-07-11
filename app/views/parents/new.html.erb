@@ -2,8 +2,22 @@
 <div class="container" style="width: 100%">
 	<%#= render 'form' %>
 </div> -->
+<style class type="text/css">
+	.admission-form-heading
+	{
+		width:100%;
+	}
+
+	.row{
+		width:96%;
+		margin-left: 0px;
+		margin-top: 0px;
+	}
+
+</style>
 
 
+<div class="container">
 <h1>Parents Details</h1>
 <div class="radio">
   <label><input type="radio" id="exist" name="optradio" value="1" checked="true">Parent Already Exists</label>
@@ -11,15 +25,18 @@
 <div class="radio">
   <label><input type="radio" id = "new" name="optradio" value = "0">New Parent</label>
 </div>
+</div>
 
-<div id = "selectParent" style="margin-top: 60px;">
+<div id = "selectParent" style="margin-top: 60px; margin-left:18px;">
 	<%= form_for @student, url: assignParent_student_path(@student.id), method: 'POST' do |std| %>
-		<div class="form-group">
+		<div class="form-group" >
 			<label>Select Parent </label>
-		    <%= std.collection_select :parent_id, Parent.order(:name),:id,:name , {}, {class: "form-control", style: 'width:30%;', :id => 'grade'} %>
+		    <%= std.collection_select :parent_id, Parent.order(:name),:id,:name ,{prompt: 'Select Parent'}, {class: "form-control", style: 'width:30%;', :id => 'dropdown'} %>
+
+
 		</div>
 		<div class="form-group">
-			<%= std.submit "Add Parent", :class => 'btn btn-block btn-success form-control',:style=>'width:24%;' %>
+			<%= std.submit "Add Parent", :class => 'btn btn-block btn-success form-control',:style=>'width:24%;   ' %>
 		</div>
 	<% end %>
 </div>
@@ -27,15 +44,25 @@
 	<%= render 'form' %>
 </div>
 
+<div id = "showPartial" class = "hide">
+	<%= render 'show' %>
+</div>
+
 
 
 <script type="text/javascript">
-	$("input[name=optradio]:radio").change(function (){
-		if ($("#new").attr("checked")){
-		alert("i am here");
+	$("input[name=optradio]:radio").change(function (e){
+		// alert("i am here");
+		console.log(e.currentTarget.id);
+		if (e.currentTarget.id == 'new'){
 			
 			$("#formPartial").removeClass("hide");
 			$("#selectParent").addClass("hide");
+			$.get("/parents/parents_data", {parent_id: "new"})
+				.done(function(data){
+
+ 		 	});
+
 		}
 		else{
 			$("#formPartial").addClass("hide");
@@ -43,4 +70,29 @@
 		}
 	});
 		
-</script>
+ 	$("#dropdown").change(function (e){
+ 		console.log("i am heres");
+
+ 	$.get("/parents/parents_data", {parent_id: $("#dropdown").val()})
+		.done(function(data){
+  		if (data)
+  		{
+  			$("#error_div_rollnum").removeClass('hide');
+  			$("#error_text_rollnum").html($("#roll_Number").val() + " roll number already registered!");
+  			$("#roll_Number").val('');
+  		}
+  		else
+  		{
+  			$("#error_div_rollnum").addClass('hide');
+  		}
+  	});
+ 	});
+
+
+ </script> 
+
+
+
+
+
+

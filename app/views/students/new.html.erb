@@ -92,6 +92,11 @@
 	              			<%= std.select :religion, options_for_select(%w[Islam Chritianity Budhism Hinduism Jew]),{}, {class: "form-control"} %>
 	              		</div>
 	          		</div>
+	          		<div class="column col-xs-12 col-sm-4">
+          				<div class="form-group">
+							<%= std.file_field :image, required: true %>
+						</div>
+					</div>
 	        	</div>
 	        	<br>
 	        	<div class="row">
@@ -250,12 +255,55 @@
 	             		</div>
 	          		</div>
 	          	</div>
+	          	<div>
+					<%= std.fields_for :emergency do |b| %>
+
+
+
+
+				  <div class="row">
+				    <div class= "admission-form-heading" ><h4 style="color:white;"> Emergency Information </h4> </div>
+				    <br>
+				    <br>        
+				    <div class="column col-xs-12 col-md-4">
+				      <div class="form-group">
+				        <label for="exampleInputEmail1">Name</label>
+				        <%= b.text_field :name , :style => 'height:34px;',  class: 'form-control', required: true, autofocus: true %>
+
+
+				       <%= b.hidden_field :student_id, value: @student.id %>
+				      </div>
+				    </div>
+
+				    <div class="column col-xs-12 col-md-4">
+				      <div class="form-group">
+				        <label for="exampleInputEmail1">Mobile</label>
+				        <%= b.text_field :mobile , :style => 'height:34px;',  class: 'form-control', required: true, autofocus: true %>
+				      </div>
+				    </div>
+
+				    <div class="column col-xs-12 col-md-4">
+				      <div class="form-group">
+				        <label for="exampleInputEmail1">Phone</label>
+				        <%= b.text_field :phone , :style => 'height:34px;',  class: 'form-control', required: true, autofocus: true %>
+				      </div>
+				    </div>
+
+				    <div class="column col-xs-12 col-md-4">
+				      <div class="form-group">
+				        <label for="exampleInputEmail1">E-mail Address</label>
+				        <%= b.text_field :email , :style => 'height:34px;',  class: 'form-control', required: true, autofocus: true %>
+				      </div>
+				    </div>
+				  </div>
+
+
+
+	          		<% end %>
+	          	</div>
 	      	</div>  
 	    </div>
 		<br>
-		<div>
-			<%= std.file_field :image, required: true %>
-		</div>
 		<div class="form-group">
 			<%= std.submit "Parent Detail", :class => 'btn btn-block btn-success form-control',:style=>'width:24%;float: right;' %>
 		</div>	

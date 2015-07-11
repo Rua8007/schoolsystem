@@ -1,12 +1,22 @@
 Rails.application.routes.draw do
   
-  resources :parents
+  get 'emergencies/new'
+
+  get 'emergencies/index'
+
+  get 'emergencies/show'
+
+  resources :parents do
+    collection do
+      get "parents_data"
+    end
+  end
   devise_for :users
 
   get 'home/index'
   resources :employees
   # get 'home/index'
-
+  resources :emergencies
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -23,6 +33,9 @@ Rails.application.routes.draw do
   resources :documents do
     member do 
       post "addPreviousInfo"
+    end
+    collection do
+      post "upload"
     end
   end
 
