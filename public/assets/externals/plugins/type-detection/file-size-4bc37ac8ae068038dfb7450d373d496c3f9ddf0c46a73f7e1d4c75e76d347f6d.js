@@ -1,0 +1,1 @@
+jQuery.fn.dataTableExt.aTypes.unshift(function(n){for(var t,e="0123456789",l=0;l<n.length-3;l++)if(t=n.charAt(l),-1==e.indexOf(t))return null;return"KB"==n.substring(n.length-2,n.length)||"MB"==n.substring(n.length-2,n.length)||"GB"==n.substring(n.length-2,n.length)?"file-size":null});

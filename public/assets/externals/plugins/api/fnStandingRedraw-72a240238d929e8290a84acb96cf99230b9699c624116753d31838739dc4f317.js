@@ -1,0 +1,1 @@
+jQuery.fn.dataTableExt.oApi.fnStandingRedraw=function(a){if(a.oFeatures.bServerSide===!1){var i=a._iDisplayStart;a.oApi._fnReDraw(a),a._iDisplayStart=i,a.oApi._fnCalculateEnd(a)}a.oApi._fnDraw(a)};

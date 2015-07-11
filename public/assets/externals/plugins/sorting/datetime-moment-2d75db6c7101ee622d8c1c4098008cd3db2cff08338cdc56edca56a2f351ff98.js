@@ -1,0 +1,1 @@
+!function(n){n.fn.dataTable.moment=function(t,e){var m=n.fn.dataTable.ext.type;m.detect.unshift(function(n){return moment(n,t,e,!0).isValid()?"moment-"+t:null}),m.order["moment-"+t+"-pre"]=function(n){return moment(n,t,e,!0).unix()}}}(jQuery);

@@ -1,0 +1,55 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3 text-center">Employees Attendance of <%= "#{@dept_name} Department - #{@attendance_date}" %>
+  </h1>
+</div>
+
+<div class="wrapper-md">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Employee name</th>
+        <th>Position</th>
+        <th>Attendance</th>
+        <th>Leave</th>
+        <th>Reason</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @emp_attendances.try(:each) do |employee_attendance| %>
+        <tr>
+          <td><%= employee_attendance["name"] %></td>
+          <td><%= employee_attendance["position"] %></td>
+
+          <td>
+          	<div class="checkbox">
+              <label class="i-checks">
+            		<% if employee_attendance["attendance"] == "true" %>
+                	<%= check_box_tag "attendances[]" ,true, true  %>
+                <% else %>
+                	<%= check_box_tag "attendances[]" ,true %>
+               	<%  end %>
+                <i></i>
+              </label>
+            </div>
+          </td>
+
+          <td>
+          	<div class="checkbox">
+              <label class="i-checks">
+              	<% if employee_attendance["leave"] == "true" %>
+                	<%= check_box_tag "leaves[]" ,true, true  %>
+                <% else %>
+                	<%= check_box_tag "leaves[]" ,true %>
+               	<%  end %>
+                <i></i>
+              </label>
+            </div>
+          </td>
+
+          <td><%= "#{employee_attendance["reason"]}" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

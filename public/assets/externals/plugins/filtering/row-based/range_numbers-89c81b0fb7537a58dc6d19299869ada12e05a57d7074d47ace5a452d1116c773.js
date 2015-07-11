@@ -1,0 +1,1 @@
+jQuery.fn.dataTableExt.afnFiltering.push(function(e,n){var t=3,a=1*document.getElementById("min").value,u=1*document.getElementById("max").value,l="-"==n[t]?0:1*n[t];return""===a&&""===u?!0:""===a&&u>l?!0:l>a&&""===u?!0:l>a&&u>l?!0:!1});

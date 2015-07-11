@@ -1,0 +1,1 @@
+jQuery.extend(jQuery.fn.dataTableExt.oSort,{"anti-the-pre":function(t){return t.replace(/^the /i,"")},"anti-the-asc":function(t,e){return e>t?-1:t>e?1:0},"anti-the-desc":function(t,e){return e>t?1:t>e?-1:0}});

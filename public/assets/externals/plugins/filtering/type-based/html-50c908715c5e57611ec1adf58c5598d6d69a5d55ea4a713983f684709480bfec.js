@@ -1,0 +1,1 @@
+!function(){var e=document.createElement("div");jQuery.fn.dataTable.ext.type.search.html=function(t){return e.innerHTML=t,e.textContent?e.textContent.replace(/\n/g," "):e.innerText.replace(/\n/g," ")}}();

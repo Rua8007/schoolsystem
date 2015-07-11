@@ -1,0 +1,1 @@
+jQuery.extend(jQuery.fn.dataTableExt.oSort,{"scientific-pre":function(e){return parseFloat(e)},"scientific-asc":function(e,n){return n>e?-1:e>n?1:0},"scientific-desc":function(e,n){return n>e?1:e>n?-1:0}});

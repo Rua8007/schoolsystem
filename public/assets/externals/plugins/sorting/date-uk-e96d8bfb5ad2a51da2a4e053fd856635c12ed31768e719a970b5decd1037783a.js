@@ -1,0 +1,1 @@
+jQuery.extend(jQuery.fn.dataTableExt.oSort,{"date-uk-pre":function(t){if(null==t||""==t)return 0;var e=t.split("/");return 1*(e[2]+e[1]+e[0])},"date-uk-asc":function(t,e){return e>t?-1:t>e?1:0},"date-uk-desc":function(t,e){return e>t?1:t>e?-1:0}});

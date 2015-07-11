@@ -1,0 +1,1 @@
+jQuery.fn.dataTableExt.oApi.fnGetAdjacentTr=function(a,n,e){var i=a.oApi._fnNodeToDataIndex(a,n),t=$.inArray(i,a.aiDisplay);return-1==t?null:(t+="undefined"==typeof e||e?1:-1,0>t||t>=a.aiDisplay.length?null:a.aoData[a.aiDisplay[t]].nTr)};

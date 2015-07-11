@@ -1,0 +1,1 @@
+jQuery.fn.dataTableExt.oApi.fnFindCellRowNodes=function(a,t,n){var o,e,f,r,i,l,s=[],D=a.aoColumns;for(o=0,e=a.aoData.length;e>o;o++)if(l=a.aoData[o]._aData,void 0===n)for(f=0,r=D.length;r>f;f++)i=this.fnGetData(o,f),i==t&&s.push(a.aoData[o].nTr);else this.fnGetData(o,n)==t&&s.push(a.aoData[o].nTr);return s};

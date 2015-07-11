@@ -69,8 +69,75 @@ class EmployeesController < ApplicationController
 
   def mark_attendance_calendar
     @employees = Employee.all
+    @departments = Department.all
+
   end
-    
+
+  ####### TIME ZONE ISSUES
+  def mark_attendance
+    # return render json: params[:receive_email]
+    if params[:attendance_date].present? && ( params[:attendance_date].to_date.strftime("%d-%m-%Y") === Date.today.strftime("%d-%m-%Y") || params[:attendance_date].to_date < Date.today )
+      @attendance_date = params[:attendance_date].to_date.strftime("%d-%m-%Y")
+      if params[:department].present?
+        dept = Department.find(params[:department])
+        if dept.present?
+          dep_employees = dept.employees
+          @dept_name = dept.name
+          @emp_attendances = []
+        end
+      end
+      if params[:attendance_date].to_date < Date.today
+        if dep_employees.present?
+          dep_employees.each_with_index do |emp, i|
+            emp_att_leave = Leave.where("leave_from <= ? AND leave_to >= ? AND employee_id = ? ",params[:attendance_date].to_date,params[:attendance_date].to_date, emp.id).first
+
+            emp_att_previous = emp.employee_attendances.where(attendance_date: params[:attendance_date].to_date).first
+            
+            if emp_att_previous.present?
+              att = emp_att_previous.epresent
+            elsif emp_att_leave.present?
+              att = false
+            else
+              att = true
+            end
+
+            emp_att = { "emp_id" => "#{emp.id}",
+                        "name" => "#{emp.full_name}", 
+                        "position" => "#{emp.try(:position).try(:name)}",
+                        "attendance" => "#{att}",
+                        "leave" => "#{emp_att_leave.present? ? true : false }",
+                        "reason" => "#{emp_att_leave.reason if emp_att_leave.present? }"
+
+                      }
+            @emp_attendances << emp_att
+          end
+        end
+      else
+        if dep_employees.present?
+          dep_employees.each_with_index do |emp, i|
+            emp_att_leave = Leave.where("leave_from <= ? AND leave_to >= ? AND employee_id = ? ",params[:attendance_date].to_date,params[:attendance_date].to_date, emp.id).first
+
+            emp_att = { "emp_id" => "#{emp.id}",
+                        "name" => "#{emp.full_name}", 
+                        "position" => "#{emp.try(:position).try(:name)}",
+                        "attendance" => "#{ emp_att_leave.nil? ? true : false }",
+                        "leave" => "#{ emp_att_leave.present? ? true : false }",
+                        "reason" => "#{emp_att_leave.reason if emp_att_leave.present? }"
+
+                      }
+            @emp_attendances << emp_att
+          end
+        end
+      end
+    else
+      flash[:alert] = "Future attendances can't be marked."
+      redirect_to mark_attendance_calendar_employees_path
+    end
+  end
+
+  def save_attendaces
+
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

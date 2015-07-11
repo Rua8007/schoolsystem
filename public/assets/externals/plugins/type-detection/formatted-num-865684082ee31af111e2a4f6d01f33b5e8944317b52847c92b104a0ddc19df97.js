@@ -1,0 +1,1 @@
+jQuery.fn.dataTableExt.aTypes.unshift(function(a){var e=a.replace(/[^\d\-\.\/a-zA-Z]/g,"");return $.isNumeric(e)||"-"===e?"formatted-num":null});

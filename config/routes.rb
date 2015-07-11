@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   resources :employees do
     collection do
       get 'mark_attendance_calendar'
+      post 'mark_attendance'
     end
   end
   # get 'home/index'
