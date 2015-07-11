@@ -1,38 +1,144 @@
-<%= form_for @student, url: addPreviousInfo_document_path(@student.id), method: 'POST', remote: true do |std| %>
-	<div class = "row">
-		<div class = "col-md-6">
-			<div class="form-group">
-				<%= std.label :previous_Institute %>
-				<%= std.text_field :previousInstitute , :style => 'width:70%;height:34px;', class: 'form-control' %>
-			</div>
-		</div>
-		<div class = "col-md-6">
-			<div class="form-group">
-				<%= std.label :passing_Year %>
-				<%= std.text_field :year , :id => 'datepicker', :style => 'width:70%;height:34px;', class: 'form-control' %>
-			</div>
-		</div>
-	</div>
-	<div class = "row">
-		<div class = "col-md-6">
-			<div class="form-group">
-				<%= std.label :total_Marks %>
-				<%= std.text_field :totalMarks , :style => 'width:70%;height:34px;', class: 'form-control' %>
-			</div>
-		</div>
-		<div class = "col-md-6">
-			<div class="form-group">
-				<%= std.label :obtained_Marks %>
-				<%= std.text_field :obtainedMarks , :style => 'width:70%;height:34px;', class: 'form-control' %>
-			</div>
-		</div>
-	</div>
-	<div class="form-group">
-		<%= std.submit "Submit", :class => 'btn btn-block btn-success form-control pull-right',:style=>'width:24%;', id: "addInfo" %>
-	</div>
 
+<%= form_for @student, url: addPreviousInfo_document_path(@student.id), method: 'POST',class: 'form studentform', remote: true do |std| %>
+	
+		<div class = "row">
+			<div class = "col-md-6">
+				<div class="form-group">
+					<%= std.label :previous_Institute %>
+					<%= std.text_field :previousInstitute , :style => 'width:70%;height:34px;', class: 'form-control' %>
+				</div>
+			</div>
+			<div class = "col-md-6">
+				<div class="form-group">
+					<%= std.label :passing_Year %>
+					<%= std.text_field :year , :id => 'datepicker', :style => 'width:70%;height:34px;', class: 'form-control' %>
+				</div>
+			</div>
+		</div>
+		<div class = "row">
+			<div class = "col-md-6">
+				<div class="form-group">
+					<%= std.label :total_Marks %>
+					<%= std.text_field :totalMarks , :style => 'width:70%;height:34px;', class: 'form-control' %>
+				</div>
+			</div>
+			<div class = "col-md-6">
+				<div class="form-group">
+					<%= std.label :obtained_Marks %>
+					<%= std.text_field :obtainedMarks , :style => 'width:70%;height:34px;', class: 'form-control' %>
+				</div>
+			</div>
+		</div>
+	
+
+			
 <% end %>
+		<div id = "documentCreate"  >
 
-<script type="text/javascript">
-    $( "#datepicker" ).datepicker({ changeYear: true, changeMonth: true });
+		<h3>Upload Your Documents</h3>
+
+		<%= form_tag("/documents/upload", method: "post", id: "uploads" ,multipart: true ) do %>
+
+			<div class="col-sm-6">
+				<div class="form-group " >
+					<label for="exampleInputEmail1">Description</label>
+					<%= text_field_tag :description1 ,'', {:style => 'height:34px; width:40%;',  class: 'form-control'} %>
+				</div>
+				<%= hidden_field_tag :student_id, @student.id %>
+				<div class="form-group ">
+					<%= file_field_tag :attachment1 %>
+				</div>
+			</div>
+
+			<div class="col-sm-6">
+				<div class="form-group">
+					<label for="exampleInputEmail1">Description</label>
+					<%= text_field_tag :description2,'', {:style => 'height:34px; width:40%;',  class: 'form-control'} %>
+				</div>
+				<%= hidden_field_tag :student_id, @student.id %>
+				<div class="form-group ">
+					<%= file_field_tag :attachment2 %>
+				</div>
+			</div>
+
+			<div class="col-sm-6">
+				<div class="form-group">
+					<label for="exampleInputEmail1">Description</label>
+					<%= text_field_tag :description3,'',{:style => 'height:34px; width:40%;',  class: 'form-control'} %>
+				</div>
+				<%= hidden_field_tag :student_id, @student.id %>
+				<div class="form-group ">
+					<%= file_field_tag :attachment3 %>
+				</div>
+			</div>
+
+			<div class="col-sm-6">
+				<div class="form-group">
+					<label for="exampleInputEmail1">Description</label>
+					<%= text_field_tag :description4,'',{:style => 'height:34px; width:40%;',  class: 'form-control'} %>
+				</div>
+				<%= hidden_field_tag :student_id, @student.id %>
+				<div class="form-group ">
+					<%= file_field_tag :attachment4 %>
+				</div>
+			</div>	
+
+			<div class="col-sm-6">
+				<div class="form-group">
+					<label for="exampleInputEmail1">Description</label>
+					<%= text_field_tag :description5,'',{:style => 'height:34px; width:40%;',  class: 'form-control'} %>
+				</div>
+				<%= hidden_field_tag :student_id, @student.id %>
+				<div class="form-group ">
+					<%= file_field_tag :attachment5 %>
+				</div>
+			</div>
+
+			<div class="col-sm-6">
+				<div class="form-group">
+					<label for="exampleInputEmail1">Description</label>
+					<%= text_field_tag :description6,'',{:style => 'height:34px; width:40%;',  class: 'form-control'} %>
+				</div>
+				<%= hidden_field_tag :student_id, @student.id %>
+				<div class="form-group ">
+					<%= file_field_tag :attachment6 %>
+				</div>
+			</div>
+
+			<div class="col-sm-6">
+				<div class="form-group">
+					<label for="exampleInputEmail1">Description</label>
+					<%= text_field_tag :description7,'',{:style => 'height:34px; width:40%;',  class: 'form-control'} %>
+				</div>
+				<%= hidden_field_tag :student_id, @student.id %>
+				<div class="form-group ">
+					<%= file_field_tag :attachment7 %>
+				</div>
+			</div>
+
+			<div class="col-sm-6">
+				<div class="form-group">
+					<label for="exampleInputEmail1">Description</label>
+					<%= text_field_tag :description8,'',{:style => 'height:34px; width:40%;',  class: 'form-control'} %>
+				</div>
+				<%= hidden_field_tag :student_id, @student.id %>
+				<div class="form-group ">
+					<%= file_field_tag :attachment8 %>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<%= submit_tag "Submit", :class => 'btn btn-block btn-success form-control pull-right',:style=>'width:24%;margin-right: 15%;', id: "uploads" %>
+			</div>	
+
+		<%end%>
+</div>
+
+
+
+<script>
+$('#uploads').click(function(e){
+	$(".edit_student").submit();
+});
+
 </script>

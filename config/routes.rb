@@ -8,22 +8,42 @@ Rails.application.routes.draw do
   resources :categories
 
   
-  resources :parents
+  get 'emergencies/new'
+
+  get 'emergencies/index'
+
+  get 'emergencies/show'
+
+  resources :parents do
+    collection do
+      get "parents_data"
+    end
+  end
   devise_for :users
 
   get 'home/index'
   resources :employees
   # get 'home/index'
-
+  resources :emergencies
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
   root 'home#index'
-  resources :students
+  resources :students do
+    member do
+      post "assignParent"
+    end
+    collection do
+      get "detail"
+    end
+  end
   resources :documents do
     member do 
       post "addPreviousInfo"
+    end
+    collection do
+      post "upload"
     end
   end
 

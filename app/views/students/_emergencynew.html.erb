@@ -1,0 +1,37 @@
+
+
+  <div class="row">
+    <div class= "admission-form-heading" ><h4 style="color:white;"> Emergency Information </h4> </div>
+    <br>
+    <br>        
+    <div class="column col-xs-12 col-md-4">
+      <div class="form-group">
+        <label for="exampleInputEmail1">Name</label>
+        <%= b.text_field :name , :style => 'height:34px;',  class: 'form-control', required: true, autofocus: true %>
+
+
+       <%= b.hidden_field :student_id, value: @student.id %>
+      </div>
+    </div>
+
+    <div class="column col-xs-12 col-md-4">
+      <div class="form-group">
+        <label for="exampleInputEmail1">Mobile</label>
+        <%= b.text_field :mobile , :style => 'height:34px;',  class: 'form-control', required: true, autofocus: true %>
+      </div>
+    </div>
+
+    <div class="column col-xs-12 col-md-4">
+      <div class="form-group">
+        <label for="exampleInputEmail1">Phone</label>
+        <%= b.text_field :phone , :style => 'height:34px;',  class: 'form-control', required: true, autofocus: true %>
+      </div>
+    </div>
+
+    <div class="column col-xs-12 col-md-4">
+      <div class="form-group">
+        <label for="exampleInputEmail1">E-mail Address</label>
+        <%= b.text_field :email , :style => 'height:34px;',  class: 'form-control', required: true, autofocus: true %>
+      </div>
+    </div>
+  </div>

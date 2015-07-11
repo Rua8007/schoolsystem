@@ -1,25 +1,11 @@
-<div class = "row">
-	<div id = "previousInfo" class = "well well-lg">
+# encoding: UTF-8
+<div class = "container" style="margin-left: 15px;">
+	<div id = "previousInfo">
 		<h3>Previous Educational Record</h3>
 		<%= render 'previousInfo' %>
 	</div>
 
 	<br>
 
-	<div id = "documentCreate" class = "well well-lg">
-		<h3>Upload Your Documents</h3>
-		<%= form_for @document do |doc| %>
-			<div class="form-group">
-				<label for="exampleInputEmail1">Description</label>
-				<%= doc.text_field :description , :style => 'height:34px; width:40%;',  class: 'form-control', required: true, autofocus: true %>
-			</div>
-			<%= doc.hidden_field :student_id %>
-			<div class="form-group">
-				<%= doc.file_field :attachment %>
-			</div>
-			<div class="form-group">
-				<%= doc.submit "Upload", :class => 'btn btn-block btn-success form-control',:style=>'width:24%;' %>
-			</div>
-		<% end %>
-	</div>
+	
 </div>
