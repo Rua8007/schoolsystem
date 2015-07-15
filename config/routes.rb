@@ -3,6 +3,10 @@ Rails.application.routes.draw do
 
 
 
+  resources :bridges
+  resources :subjects
+  resources :grades
+  resources :batches
   resources :positions
   resources :departments
   resources :categories

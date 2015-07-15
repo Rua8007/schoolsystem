@@ -1,0 +1,48 @@
+<%= form_for(@batch) do |f| %>
+  <% if @batch.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@batch.errors.count, "error") %> prohibited this batch from being saved:</h2>
+
+      <ul>
+      <% @batch.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="container form-holder">
+        <div class="row">
+            
+                 <div class= "admission-form-heading" ><h4 style="color:white;"> Bacth Information </h4> </div>
+                 <br>
+                    <br>
+                      <div class = "row">
+                          <div class = "col-md-6">
+                                <div class="form-group ">
+                                    <%= f.label :name %><br>
+                                    <%= f.text_field :name, :style => 'height:34px;',  class: 'form-control', required: true, autofocus: true  %>
+                                </div>
+                            </div>
+                      </div>
+           
+        </div>
+    </div>
+
+  <div class="actions">
+    <%= f.submit "Create", :class => 'btn btn-block btn-success form-control',:style=>'width:24%;float: right;' %>
+  </div>
+<% end %>
+
+<style type="text/css">
+    .form-holder .col-sm-4 {
+      min-height: 84px;
+    }
+    .form-holder .form-control{
+        width: 65%;
+    }
+    .form-control{
+        border-radius: 7px;
+        border: black;
+    }
+</style>

@@ -1,0 +1,25 @@
+<table class= "table">
+  <thead>
+    <th>Status</th>
+    <th>Subject</th>
+    <th>Teacher</th>
+  </thead>
+  <tbody>
+    <% form_tag do%>
+      <% @bridge.each do |b| %>
+        <td>
+          <% text_field_tag :flag, b[:flag] %>
+        </td>
+
+        <td>
+          <%= Subject.find(b[:subject_id]).name %>
+          <% hidden_field_tag :subject_id,b[:subject_id] %>
+        </td>
+
+        <td>
+          <% text_field_tag :teacher_id, b[:teacher_id] %>
+        </td>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
