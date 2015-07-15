@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150714161245) do
+ActiveRecord::Schema.define(version: 20150715184402) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,8 +88,10 @@ ActiveRecord::Schema.define(version: 20150714161245) do
     t.string   "status"
     t.date     "pay_date"
     t.date     "next_due_date"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "total_experience_years"
+    t.integer  "total_experience_months"
   end
 
   create_table "leaves", force: :cascade do |t|

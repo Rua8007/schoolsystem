@@ -25,6 +25,7 @@ class EmployeesController < ApplicationController
     @categories = Category.all
     @departments = Department.all
     @positions = Position.all
+    @employee = Employee.find(params[:id])
   end
 
   # POST /employees
@@ -34,7 +35,7 @@ class EmployeesController < ApplicationController
 
     respond_to do |format|
       if @employee.save
-        format.html { redirect_to @employee, notice: 'Employee was successfully created.' }
+        format.html { redirect_to employees_path, notice: 'Employee was successfully created.' }
         format.json { render :show, status: :created, location: @employee }
       else
         format.html { render :new }
@@ -48,7 +49,7 @@ class EmployeesController < ApplicationController
   def update
     respond_to do |format|
       if @employee.update(employee_params)
-        format.html { redirect_to @employee, notice: 'Employee was successfully updated.' }
+        format.html { redirect_to employees_path, notice: 'Employee was successfully updated.' }
         format.json { render :show, status: :ok, location: @employee }
       else
         format.html { render :edit }
@@ -62,7 +63,7 @@ class EmployeesController < ApplicationController
   def destroy
     @employee.destroy
     respond_to do |format|
-      format.html { redirect_to employees_url, notice: 'Employee was successfully destroyed.' }
+      format.html { redirect_to employees_path, notice: 'Employee was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
