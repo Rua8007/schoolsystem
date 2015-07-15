@@ -167,7 +167,7 @@ class EmployeesController < ApplicationController
 
   def save_attendances
     # return render json: params.inspect
-    if params[:attendance_date].present? && Date.today <= params[:attendance_date].to_date
+    if params[:attendance_date].present? && params[:attendance_date].to_date <= Date.today 
   
       old_attendance = EmployeeAttendance.where(attendance_date: params[:attendance_date].to_date).first
       if old_attendance.present?
