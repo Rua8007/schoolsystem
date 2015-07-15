@@ -6,6 +6,6 @@ class ApplicationController < ActionController::Base
   before_filter :get_leave_requests_count
 
   def get_leave_requests_count
-    @leave_requests_count = Leave.count
+    @leave_requests_count = Leave.where(approved: false).count
   end
 end

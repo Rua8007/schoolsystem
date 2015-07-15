@@ -54,17 +54,32 @@ class LeavesController < ApplicationController
   # DELETE /leaves/1
   # DELETE /leaves/1.json
   def destroy
-    ######### Notify to employee ###########
+    ################################# Notify to employee ################
     @leave.destroy
     respond_to do |format|
-      flash[:notice] = "Leave was successfully destroyed."
+      flash[:alert] = "Leave was disapproved."
       format.html { redirect_to leaves_path}
       format.json { head :no_content }
     end
   end
 
   def approve_leave
-    return render json: "Approval Code here for Leave: "+params[:id]
+    # return render json: "Approval Code here for Leave: "+params[:id]
+    leave = Leave.find(params[:id])
+    if leave.present?
+      leave.approved = true
+      leave.save!
+      ############################# Notify to employee #################
+      if leave.employee.present?
+        flash[:success] = "#{leave.try(:employee).try(:full_name)}'s leave approved."
+      else
+        flash[:success] = "Leave approved.'}"
+      end
+      redirect_to leaves_path
+    else
+      flash[:alert] = "Couldn't approve leave. Error."
+      redirect_to leaves_path
+    end
   end
 
   private

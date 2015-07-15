@@ -4,52 +4,141 @@
 </div>
 
 <div class="wrapper-md">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Employee name</th>
-        <th>Position</th>
-        <th>Attendance</th>
-        <th>Leave</th>
-        <th>Reason</th>
-      </tr>
-    </thead>
+	<%= form_tag(save_attendances_employees_path, method: :post) do %>
 
-    <tbody>
-      <% @emp_attendances.try(:each) do |employee_attendance| %>
-        <tr>
-          <td><%= employee_attendance["name"] %></td>
-          <td><%= employee_attendance["position"] %></td>
+		<%= hidden_field_tag :attendance_date, "#{@attendance_date}" %>
+		<%= hidden_field_tag :department,"#{@department}" %>
+		
 
-          <td>
-          	<div class="checkbox">
-              <label class="i-checks">
-            		<% if employee_attendance["attendance"] == "true" %>
-                	<%= check_box_tag "attendances[]" ,true, true  %>
-                <% else %>
-                	<%= check_box_tag "attendances[]" ,true %>
-               	<%  end %>
-                <i></i>
-              </label>
-            </div>
-          </td>
 
-          <td>
-          	<div class="checkbox">
-              <label class="i-checks">
-              	<% if employee_attendance["leave"] == "true" %>
-                	<%= check_box_tag "leaves[]" ,true, true  %>
-                <% else %>
-                	<%= check_box_tag "leaves[]" ,true %>
-               	<%  end %>
-                <i></i>
-              </label>
-            </div>
-          </td>
+		<div class="modal fade" id="secret_modal" role="dialog">
+	    <div class="modal-dialog">
+	      <!-- Modal content-->
+	      <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">Provide Secret Code to Edit Old Attendance</h4>
+	        </div>
+	        
+		        <div class="modal-body">
 
-          <td><%= "#{employee_attendance["reason"]}" %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+	            <div class="form-group">
+	              <label>Secret Code</label>
+	              <!-- <p>Some text in the modal.</p> -->
+	              <%= password_field_tag :edit_code,'', class: "form-control"%>
+	            </div>
+		        
+		          
+		        </div>
+		        <div class="modal-footer">
+		        	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		          <button type="button" class="btn btn-success" data-dismiss="modal">Save</button>
+		        </div>
+	      </div>
+	    </div>
+  	</div>
+
+	  <table class="table table-striped">
+	    <thead>
+	      <tr>
+	        <th>Employee name</th>
+	        <th>Position</th>
+	        <th>Attendance</th>
+	        <th>Leave</th>
+	        <th>Reason</th>
+	      </tr>
+	    </thead>
+
+	    <tbody>
+	      <% @emp_attendances.try(:each) do |employee_attendance| %>
+	        <tr>
+	          <td><%= employee_attendance["name"] %></td>
+	          <td><%= employee_attendance["position"] %></td>
+
+	          <td>
+	          	<div class="checkbox">
+	              <label class="i-checks">
+	            		<% if employee_attendance["attendance"] == "true" %>
+	                	<%= check_box_tag "attendances[]", employee_attendance["emp_id"], true, id: "att_emp_#{employee_attendance["emp_id"]}", class: 'attendance_checkbox' %>
+	                <% elsif employee_attendance["leave"] == "true" %>
+	                	<%= check_box_tag "attendances[]" , employee_attendance["emp_id"], false, id: "att_emp_#{employee_attendance["emp_id"]}", class: 'attendance_checkbox', disabled: true %>
+	               	<% else %>
+	               		<%= check_box_tag "attendances[]" , employee_attendance["emp_id"], false, id: "att_emp_#{employee_attendance["emp_id"]}", class: 'attendance_checkbox' %>
+	               	<% end %>
+	                <i></i>
+	              </label>
+	            </div>
+	          </td>
+
+	          <td>
+	          	<div class="checkbox">
+	              <label class="i-checks">
+	              	<% if employee_attendance["leave"] == "true" %>
+	                	<%= check_box_tag "leaves[]" , employee_attendance["emp_id"], true, id: "leave_emp_#{employee_attendance["emp_id"]}", class: 'leave_checkbox', disabled: true %>
+	                <% else %>
+	                	<%= check_box_tag "leaves[]" , employee_attendance["emp_id"], false, id: "leave_emp_#{employee_attendance["emp_id"]}", class: 'leave_checkbox', disabled: true %>
+	               	<%  end %>
+	                <i></i>
+	              </label>
+	            </div>
+	          </td>
+
+	          <td><%= "#{employee_attendance["reason"]}" %></td>
+	        </tr>
+	      <% end %>
+	    </tbody>
+	  </table>
+  	<%= submit_tag "Save Attendance", data: { confirm: "Are you sure?" }, class: 'btn btn-success pull-right' %>
+	<% end %>
 </div>
+
+
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+
+  		var check = <%= @previous_attendance_edit.to_json %>;
+
+
+  		// console.log("hi there");
+  		// console.log(check);
+
+	  	if(check == true){
+	  		$('#secret_modal').modal('show');
+	  	}
+
+	  		
+	
+ 		
+  	
+    $(".leave_checkbox").click(function() {
+    	clicked_id = this.id.toString();
+    	clicked_id = clicked_id.split("_");
+    	attendance_id = "#att_emp_"+clicked_id[clicked_id.length-1].toString();
+			if(this.checked)
+			{
+				$(attendance_id).attr('checked', false);
+			}
+			else
+			{
+				$(attendance_id).attr('checked', true);
+			}
+    });
+    $(".attendance_checkbox").click(function() {
+    	clicked_id = this.id.toString();
+    	clicked_id = clicked_id.split("_");
+    	leave_id = "#leave_emp_"+clicked_id[clicked_id.length-1].toString();
+			if(this.checked)
+			{
+				$(leave_id).attr('checked', false);
+			}
+			else
+			{
+
+			}
+    });
+  });
+</script> 
+
+

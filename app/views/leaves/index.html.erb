@@ -19,7 +19,7 @@
   <tbody>
     <% @leaves.each do |leave| %>
       <tr>
-        <td><%= leave.employee_id %></td>
+        <td><%= leave.try(:employee).try(:full_name) %></td>
         <td><%= leave.reason %></td>
         <td><%= leave.description %></td>
         <td><%= leave.leave_from %></td>

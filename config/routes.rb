@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     collection do
       get 'mark_attendance_calendar'
       post 'mark_attendance'
+      post 'save_attendances'
     end
   end
   # get 'home/index'
