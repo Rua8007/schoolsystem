@@ -1,17 +1,18 @@
 Rails.application.routes.draw do
 
-
-
-
   resources :bridges
   resources :subjects
   resources :grades
   resources :batches
+  resources :leaves do
+    member do
+      post 'approve_leave'
+    end
+  end
   resources :positions
   resources :departments
   resources :categories
 
-  
   get 'emergencies/new'
 
   get 'emergencies/index'
@@ -26,7 +27,13 @@ Rails.application.routes.draw do
   devise_for :users
 
   get 'home/index'
-  resources :employees
+  resources :employees do
+    collection do
+      get 'mark_attendance_calendar'
+      post 'mark_attendance'
+      post 'save_attendances'
+    end
+  end
   # get 'home/index'
   resources :emergencies
   # The priority is based upon order of creation: first created -> highest priority.
