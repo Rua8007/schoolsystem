@@ -56,16 +56,7 @@ employee category belongs to employe position
 
 experience -> 
 
-category -> name prefix
-departments -> code name
-positions -> name category_id
-
-1. Employee Name
-2. Employee ID
-3. Employee Department
-3. Employee Category
-4. Gender
-5. Employee Mob
+leave requests
 
  -->
 
@@ -74,7 +65,7 @@ positions -> name category_id
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Html version | Angulr</title>
+  <title>School System</title>
   <meta name="description" content="Angularjs, Html5, Music, Landing, 4 in 1 ui kits package" />
   <meta name="keywords" content="AngularJS, angular, bootstrap, admin, dashboard, panel, app, charts, components,flat, responsive, layout, kit, ui, route, web, app, widgets" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
@@ -112,7 +103,7 @@ positions -> name category_id
         <a href="#/" class="navbar-brand text-lt">
           <i class="fa fa-btc"></i>
           <%= image_tag asset_path("img/logo.png"), alt: ".", class: "hide" %>
-          <span class="hidden-folded m-l-xs">Angulr</span>
+          <span class="hidden-folded m-l-xs">School</span>
         </a>
         <!-- / brand -->
       </div>
@@ -424,16 +415,21 @@ positions -> name category_id
                 <span>Navigation</span>
               </li>
 
-
-
               <li>
+                <a href="">
+                  <i class="glyphicon glyphicon-stats icon text-info-lter"></i>
+                  <span class="font-bold">Dashboard</span>
+                </a>
+              </li>
+
+              <!-- <li>
                 <a href class="auto">      
                   <span class="pull-right text-muted">
                     <i class="fa fa-fw fa-angle-right text"></i>
                     <i class="fa fa-fw fa-angle-down text-active"></i>
                   </span>
                   <i class="glyphicon glyphicon-stats icon text-primary-dker"></i>
-                  <span class="font-bold">Dashboard</span>
+                  <span class="font-bold"></span>
                 </a>
                 <ul class="nav nav-sub dk">
                   <li class="nav-sub-header">
@@ -453,14 +449,50 @@ positions -> name category_id
                     </a>
                   </li>
                 </ul>
-              </li>
+              </li> -->
+
               <li>
-                <a href="mail.html">
-                  <b class="badge bg-info pull-right">9</b>
-                  <i class="glyphicon glyphicon-envelope icon text-info-lter"></i>
-                  <span class="font-bold">Email</span>
-                </a>
+                <%= link_to(leaves_path) do %>
+                  <i class="glyphicon glyphicon-flag"></i>
+                  <% if @leave_requests_count.to_i > 0 %>
+                    <b class="badge bg-danger pull-right"><%= @leave_requests_count %></b>
+                  <% end %>
+                  <span>Leave Requests</span>
+                <% end %>
+                
               </li>
+
+
+              <li>
+                <a href class="auto">      
+                  <span class="pull-right text-muted">
+                    <i class="fa fa-fw fa-angle-right text"></i>
+                    <i class="fa fa-fw fa-angle-down text-active"></i>
+                  </span>
+                  <i class="glyphicon glyphicon-book"></i>
+                  <span>Attendance</span>
+                </a>
+                <ul class="nav nav-sub dk">
+                  <li class="nav-sub-header">
+                    <%= link_to("") do %>
+                      <span>Attendance</span>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to(mark_attendance_calendar_employees_path) do %>
+                      <span>Mark Attendance</span>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to(employees_path) do %>
+                      <span>Attendance Report</span>
+                    <% end %>
+                  </li> 
+                </ul>
+              </li>
+              
+
+
               <li class="line dk"></li>
 
               <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
@@ -505,16 +537,16 @@ positions -> name category_id
                     <%= link_to(positions_path) do %>
                       <span>Manage Positions</span>
                     <% end %>
-                  </li>    
+                  </li>
                 </ul>
               </li>
+
               <li>
                 <a href class="auto">      
                   <span class="pull-right text-muted">
                     <i class="fa fa-fw fa-angle-right text"></i>
                     <i class="fa fa-fw fa-angle-down text-active"></i>
                   </span>
-                  <b class="badge bg-info pull-right">3</b>
                   <i class="glyphicon glyphicon-th"></i>
                   <span>Students</span>
                 </a>
@@ -546,7 +578,8 @@ positions -> name category_id
                   </li>      
                 </ul>
               </li>
-              <li>
+
+              <!-- <li>
                 <a href class="auto">
                   <span class="pull-right text-muted">
                     <i class="fa fa-fw fa-angle-right text"></i>
@@ -732,14 +765,16 @@ positions -> name category_id
                     </a>
                   </li>
                 </ul>
-              </li>
+              </li> -->
 
               <li class="line dk hidden-folded"></li>
-
               <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">          
                 <span>Your Stuff</span>
               </li>  
-              <li>
+
+              
+
+            <!--   <li>
                 <a href="page_profile.html">
                   <i class="icon-user icon text-success-lter"></i>
                   <b class="badge bg-success pull-right">30%</b>
@@ -751,7 +786,7 @@ positions -> name category_id
                   <i class="icon-question icon"></i>
                   <span>Documents</span>
                 </a>
-              </li>
+              </li> -->
             </ul>
           </nav>
           <!-- nav -->
@@ -785,7 +820,17 @@ positions -> name category_id
   <div id="content" class="app-content" role="main">
     <div class="app-content-body ">
       
+
 <div class="hbox hbox-auto-xs hbox-auto-sm" style="background-color: white">
+
+
+<!-- <div class="hbox hbox-auto-xs hbox-auto-sm" ng-init="
+    app.settings.asideFolded = false; 
+    app.settings.asideDock = false;
+  "> -->
+ <!-- main -->
+ <%= render partial: 'partials/flash_message' %>
+
   <%= yield %>
 </div>
 

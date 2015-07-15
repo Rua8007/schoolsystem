@@ -1,0 +1,27 @@
+<p>
+  <strong>Reason:</strong>
+  <%= @leave.reason %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @leave.description %>
+</p>
+
+<p>
+  <strong>Employee:</strong>
+  <%= @leave.employee_id %>
+</p>
+
+<p>
+  <strong>Leave from:</strong>
+  <%= @leave.leave_from %>
+</p>
+
+<p>
+  <strong>Leave to:</strong>
+  <%= @leave.leave_to %>
+</p>
+
+<%= link_to 'Edit', edit_leafe_path(@leave) %> |
+<%= link_to 'Back', leaves_path %>
