@@ -48,6 +48,15 @@ ActiveRecord::Schema.define(version: 20150714161245) do
     t.integer  "student_id"
   end
 
+  create_table "employee_attendances", force: :cascade do |t|
+    t.integer  "employee_id"
+    t.date     "attendance_date"
+    t.boolean  "epresent",        default: true
+    t.boolean  "eleave",          default: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+  end
+
   create_table "employees", force: :cascade do |t|
     t.string   "employee_number"
     t.date     "date_of_joining"
@@ -81,6 +90,17 @@ ActiveRecord::Schema.define(version: 20150714161245) do
     t.date     "next_due_date"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+  end
+
+  create_table "leaves", force: :cascade do |t|
+    t.string   "reason"
+    t.text     "description"
+    t.integer  "employee_id"
+    t.date     "leave_from"
+    t.date     "leave_to"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.boolean  "approved",    default: false
   end
 
   create_table "parents", force: :cascade do |t|

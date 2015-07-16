@@ -1,0 +1,46 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Leaves Requests</h1>
+</div>
+
+<div class="wrapper-md">
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Employee</th>
+      <th>Reason</th>
+      <th>Description</th>
+      <th>Leave from</th>
+      <th>Leave to</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @leaves.each do |leave| %>
+      <tr>
+        <td><%= leave.try(:employee).try(:full_name) %></td>
+        <td><%= leave.reason %></td>
+        <td><%= leave.description %></td>
+        <td><%= leave.leave_from %></td>
+        <td><%= leave.leave_to %></td>
+       
+        <td>
+
+        <%= form_tag(approve_leave_leafe_path(leave), method: :post) do %>
+          <button class="btn btn-sm btn-success" type="submit" id="usr_" 
+                  data-toggle="tooltip" 
+                  data-original-title="Approve Employee Request">
+            <i class="glyphicon glyphicon-ok"></i>
+          </button>
+        <% end %>
+        </td>
+        <td>
+          <%= link_to(leave, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger') do %>
+            <i class="glyphicon glyphicon-remove"></i>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
