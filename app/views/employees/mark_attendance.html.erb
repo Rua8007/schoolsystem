@@ -9,8 +9,6 @@
 		<%= hidden_field_tag :attendance_date, "#{@attendance_date}" %>
 		<%= hidden_field_tag :department,"#{@department}" %>
 		
-
-
 		<div class="modal fade" id="secret_modal" role="dialog">
 	    <div class="modal-dialog">
 	      <!-- Modal content-->
@@ -98,20 +96,12 @@
 <script type="text/javascript">
   $(document).ready(function() {
 
-  		var check = <%= @previous_attendance_edit.to_json %>;
+		var check = <%= @previous_attendance_edit.to_json %>;
 
+  	if(check == true){
+  		$('#secret_modal').modal('show');
+  	}
 
-  		// console.log("hi there");
-  		// console.log(check);
-
-	  	if(check == true){
-	  		$('#secret_modal').modal('show');
-	  	}
-
-	  		
-	
- 		
-  	
     $(".leave_checkbox").click(function() {
     	clicked_id = this.id.toString();
     	clicked_id = clicked_id.split("_");

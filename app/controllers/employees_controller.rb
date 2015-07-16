@@ -188,6 +188,16 @@ class EmployeesController < ApplicationController
     redirect_to mark_attendance_calendar_employees_path
   end
 
+  def monthly_attendance_report
+    @departments = Department.all
+  end
+
+  def get_monthly_attendance_report_result
+
+
+    return render partial: "employees/get_monthly_attendance_report_result"
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_employee
