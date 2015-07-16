@@ -167,9 +167,8 @@ class EmployeesController < ApplicationController
   end
 
   def save_attendances
-    # return render json: params.inspect
-    if params[:attendance_date].present? && Date.today <= params[:attendance_date].to_date
-  
+
+    if params[:attendance_date].present? && params[:attendance_date].to_date <= Date.today 
       old_attendance = EmployeeAttendance.where(attendance_date: params[:attendance_date].to_date).first
       if old_attendance.present?
         if params[:edit_code].present? && params[:edit_code] == "120120120"
@@ -193,8 +192,34 @@ class EmployeesController < ApplicationController
   end
 
   def get_monthly_attendance_report_result
+    if params[:department].present? && params[:month_year].present?
+      month = params[:month_year].split('-').first
+      year  = params[:month_year].split('-').last
 
+      department = Department.find(params[:department].to_i)
 
+      if department.present?
+        employees = department.employees
+        @attendances = []
+        employees.each_with_index do |employee, i|
+          attendance = {}
+          attendance.store("name","#{employee.full_name}")
+          e_attendances = employee.employee_attendances.where("extract(month from attendance_date) = ? AND extract(year from attendance_date) = ?",month,year)
+          e_attendances.each do |e_attendance|
+            if e_attendance.epresent == true
+              attendance.store("#{e_attendance.attendance_date.day}","P")
+            elsif e_attendance.eleave == true
+              attendance.store("#{e_attendance.attendance_date.day}","L")
+            else
+              attendance.store("#{e_attendance.attendance_date.day}","A")
+            end
+          end
+          @attendances << attendance
+        end
+      end
+    end
+    # puts "*******"*100
+    # puts @attendances.inspect
     return render partial: "employees/get_monthly_attendance_report_result"
   end
 

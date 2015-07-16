@@ -25,25 +25,14 @@
 
 	          <div class="form-group">
               <label>Department</label>
-              <!-- <p>Some text in the modal.</p> -->
               <%= select_tag :department, options_from_collection_for_select(@departments,"id", "name"),
                   prompt: "Select Department", class: "form-control", required: true %>
             </div>
 
             <%= submit_tag "Get Report", class: 'btn btn-small btn-default report-form' %>
           <% end %>
-
-
         </div>
       </div>
-	    	<!-- <div class="datepicker">
-	    		
-	    	</div> -->
-
-	    <!-- 	<div class=" datepicker input-append date" id="dpMonths" data-date="102/2012" data-date-format="mm/yyyy" data-date-viewmode="years" data-date-minviewmode="months">
-				<input class="span2" size="16" type="text" value="02/2012" readonly="">
-				<span class="add-on"><i class="icon-calendar"></i></span>
-			  </div> -->
 	  </div>
 	</div>
 
@@ -55,24 +44,18 @@
 
 <script type="text/javascript">
 
-	function fetch_report(category,vendor) {
+	function fetch_report(department,month_year) {
     $.ajax({
       type: "GET",
-      url: "/vendors/add_existing_vendor_file",
+      url: "/employees/get_monthly_attendance_report_result",
       dataType: "html",
       data: {
-      	'brand' : "<%= @brand %>",
-        'category' : category,
-        'vendor' : vendor
+        'department' : department,
+        'month_year' : month_year
       },
       async: true,
       success: function(response){
         $("#result").html(response);
-       //  $.growl({
-      	// 	message: 'Vendor Added Successfully.' 
-	      // },{
-	      //   type: 'success'
-	      // });
       }
     });
   }
@@ -84,17 +67,13 @@
 	    minViewMode: "months"
 		});
 
-
 		$(document).on("click", ".report-form", function(e) {
 	 		e.preventDefault();
-
 	    var department = $("#department").val();
 	    var month_year = $( "#month_year" ).val();
-	    alert(""+department+"  "+month_year);
-	    // fetch_report(department,month_year);
+	    // alert(""+department+"  "+month_year);
+	    fetch_report(department,month_year);
 	  });
-
-
 	});
 	
 
