@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :bridges
+  
   resources :subjects
   resources :grades
   resources :batches
@@ -27,6 +27,17 @@ Rails.application.routes.draw do
   devise_for :users
 
   get 'home/index'
+
+  resources :bridges do
+    member do
+        get 'class_subject'
+    end
+    collection do
+      post 'new'
+      post 'assign_teacher'
+    
+    end
+  end
   resources :employees do
     collection do
       get 'mark_attendance_calendar'

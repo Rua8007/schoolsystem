@@ -10,7 +10,7 @@
 
     <div class="container" >
 	
-        <h3><%=@student.first_name+ " " + @student.middle_name+ " " + @student.last_name+ " " + @student.forthname+ " " + @student.fifthname%> <label style="font-weight:normal">(<%= @student.arabicname %>)</label></h3>
+        <h3><%=@student.fullname %> <label style="font-weight:normal">(<%= @student.arabicname %>)</label></h3>
 		<br>
         <div class="col-sm-4">
             <table class="table">
@@ -21,7 +21,7 @@
                         </td>
 
                         <td>
-                            <%= @student.grade_id %>
+                            <%= @student.grade.name%>
                         </td>
                     </tr>
 

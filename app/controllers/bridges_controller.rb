@@ -14,9 +14,10 @@ class BridgesController < ApplicationController
 
   # GET /bridges/new
   def new
+     @employee=Employee.all.pluck(:full_name,:id)
     @bridge = []
     Subject.all.try(:each) do |s|
-      temp = {flag: false, subject_id: s.id, teacher_id: 1, class_id: params[:class_id] }
+      temp = {flag: false, subject_id: s.id, employee_id: @employee, class_id: params[:class_id] }
       @bridge << temp
     end
     # @bridge.each do |b|
@@ -45,6 +46,23 @@ class BridgesController < ApplicationController
     end
   end
 
+  def assign_teacher
+    # return render json: params
+    data = params[:flags]
+    data.each_with_index do |flag , i|
+      # x = i.to_s
+      # my_loop= flag[i]
+      if flag.last["check"].present?
+        b = Bridge.new
+        b.grade_id = params[:grade_id]
+        b.subject_id = Subject.find_by_name(flag.last["subject_id"]).id
+        b.employee_id = flag.last["teacher_id"]
+        b.save
+      end
+    end
+    redirect_to class_subject_bridge_path(params[:grade_id]), alert: "Subjects added successfully"
+  end
+
   # PATCH/PUT /bridges/1
   # PATCH/PUT /bridges/1.json
   def update
@@ -67,6 +85,11 @@ class BridgesController < ApplicationController
       format.html { redirect_to bridges_url, notice: 'Bridge was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def class_subject
+    @subjects = Grade.find(params[:id]).bridges
+    @class = Grade.find(params[:id])
   end
 
   private
