@@ -1,0 +1,63 @@
+<%= form_for(@grade) do |f| %>
+  <% if @grade.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@grade.errors.count, "error") %> prohibited this grade from being saved:</h2>
+
+      <ul>
+      <% @grade.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="container form-holder">
+        <div class="row">
+            <div class= "admission-form-heading" ><h4 style="color:white;"> Grade Information </h4> </div>
+            <br>
+            <br>
+                  <div class = "row">
+                      <div class="column col-xs-12 col-sm-4">
+                            <div class="form-group ">
+
+                              <div class="field">
+                                <%= f.label :name %><br>
+                                <%= f.text_field :name, :style => 'height:34px;', class: 'buttonlol',  required: true, autofocus: true %>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="column col-xs-12 col-sm-4">
+                             <div class="form-group ">
+                                  <div class="field">
+                                    <%= f.label :section %><br>
+                                    <%= f.text_field :section ,:style => 'height:34px;',  class: 'buttonlol', required: true, autofocus: true %>
+                                  </div>
+                            </div>
+                        </div>
+                              <div class="field">
+                                <%= f.label :batch_id %><br>
+                                <%= f.select :batch_id,options_for_select(@batch),{}, {class: 'buttonlol' } %>
+                              </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+    
+  <div class="actions">
+    <%= f.submit "Create class", :class => 'sbbut',:style=>'width:20%;float: right;'%>
+  </div>
+<% end %>
+
+<style type="text/css">
+    .form-holder .col-sm-4 {
+      min-height: 84px;
+    }
+    .form-holder .form-control{
+        width: 65%;
+    }
+    .form-control{
+        border-radius: 7px;
+        border: black;
+    }
+</style>

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  subject_id: 1
+  grade_id: 1
+  employee_id: 1
+
+two:
+  subject_id: 1
+  grade_id: 1
+  employee_id: 1
