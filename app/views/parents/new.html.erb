@@ -59,7 +59,7 @@
 			
 			$("#formPartial").removeClass("hide");
 			$("#selectParent").addClass("hide");
-			$.get("/parents/parents_data", {parent_id: "new"})
+			$.get("/parents/parents_data", {parent_id: "new", student_id: <%= @student.id %>})
 				.done(function(data){
 
  		 	});
@@ -74,7 +74,7 @@
  	$("#dropdown").change(function (e){
  		console.log("i am heres");
 
- 	$.get("/parents/parents_data", {parent_id: $("#dropdown").val()})
+ 	$.get("/parents/parents_data", {parent_id: $("#dropdown").val(), student_id: <%= @student.id %>})
 		.done(function(data){
   		if (data)
   		{

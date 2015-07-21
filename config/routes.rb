@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
 
-
-
-
+  
+  resources :subjects
+  resources :grades
+  resources :batches
   resources :leaves do
     member do
       post 'approve_leave'
@@ -12,7 +13,6 @@ Rails.application.routes.draw do
   resources :departments
   resources :categories
 
-  
   get 'emergencies/new'
 
   get 'emergencies/index'
@@ -27,6 +27,17 @@ Rails.application.routes.draw do
   devise_for :users
 
   get 'home/index'
+
+  resources :bridges do
+    member do
+        get 'class_subject'
+    end
+    collection do
+      post 'new'
+      post 'assign_teacher'
+    
+    end
+  end
   resources :employees do
     collection do
       get 'mark_attendance_calendar'
