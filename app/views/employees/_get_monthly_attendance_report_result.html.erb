@@ -1,0 +1,50 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">Attendance List</h3>
+  </div>
+  <div class="panel-body">
+		<table class="table table-striped">
+			<thead>
+				<th>Name</th>
+				<% 31.times do |i| %>
+					<th> 
+						<%= i >= 9 ? (i + 1).to_s : "0"+(i + 1).to_s %> 
+					</th>
+				<% end %>
+			</thead>
+			<tbody>
+			  <% @attendances.try(:each) do |attendance| %>
+					<tr>
+						<td><%= attendance["name"] %></td>
+						<% 31.times do |i| %>
+							<% day = (i+1).to_s %>
+							<% if attendance[day].present? %>
+								<% if attendance[day] == "P" %>
+									<td style="color: green;"><span>P</span></td>
+								<% elsif attendance[day] == "L" %>
+									<td style="color: blue;"><span>L</span></td>
+								<% elsif attendance[day] == "A" %>
+									<td style="color: red;"><span>A</span></td>
+								<% end %>
+							<% else %>
+								<td></td>
+							<% end %>
+						<% end %>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+  </div>
+</div>
+
+
+<style type="text/css">
+	.table > thead > tr > th {
+		padding: 0;
+		background-color: #f0f0f0;
+	}
+
+	.table > tbody > tr > td, .table > tfoot > tr > td {
+		padding: 0;
+	}
+</style>

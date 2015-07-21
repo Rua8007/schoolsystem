@@ -31,7 +31,7 @@ Rails.application.config.assets.version = '1.0'
 # Rails.application.config.assets.precompile += %w( form-toggle/toggles.css )
 
 
-Rails.application.config.assets.precompile += %w( externals/*.js externals/*.css)
+Rails.application.config.assets.precompile += %w( externals/*.js externals/*.css *.js *.css )
 
 # Rails.application.config.assets.paths<< Rails.root.join('app', 'assets', 'fonts')
 

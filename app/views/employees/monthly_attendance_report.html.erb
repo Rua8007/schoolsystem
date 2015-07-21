@@ -1,0 +1,80 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3 text-center">Employees Attendance Report
+  </h1>
+</div>
+
+<div class="wrapper-md">
+	<div class="panel panel-primary">
+	  <div class="panel-heading">
+	    <h3 class="panel-title">Report</h3>
+	  </div>
+	  <div class="panel-body">
+	  	<div class="row">
+        <div class='col-sm-6'>
+
+       	  <%= form_tag("") do %>
+
+	          <div class="form-group">
+	            <div class='input-group date' id='datetimepicker1' class="datepicker1">
+	              <input type='text' id="month_year" data-date-format="mm-yyyy" class="form-control" />
+	              <span class="input-group-addon">
+	                <span class="glyphicon glyphicon-calendar"></span>
+	              </span>
+	            </div>
+	          </div>
+
+	          <div class="form-group">
+              <label>Department</label>
+              <%= select_tag :department, options_from_collection_for_select(@departments,"id", "name"),
+                  prompt: "Select Department", class: "form-control", required: true %>
+            </div>
+
+            <%= submit_tag "Get Report", class: 'btn btn-small btn-default report-form' %>
+          <% end %>
+        </div>
+      </div>
+	  </div>
+	</div>
+
+	<div id="result">
+		
+	</div>
+</div>
+
+
+<script type="text/javascript">
+
+	function fetch_report(department,month_year) {
+    $.ajax({
+      type: "GET",
+      url: "/employees/get_monthly_attendance_report_result",
+      dataType: "html",
+      data: {
+        'department' : department,
+        'month_year' : month_year
+      },
+      async: true,
+      success: function(response){
+        $("#result").html(response);
+      }
+    });
+  }
+	
+	$( document ).ready(function() {
+		$('#datetimepicker1').datepicker({
+			format: "mm-yyyy",
+	    viewMode: "months", 
+	    minViewMode: "months"
+		});
+
+		$(document).on("click", ".report-form", function(e) {
+	 		e.preventDefault();
+	    var department = $("#department").val();
+	    var month_year = $( "#month_year" ).val();
+	    // alert(""+department+"  "+month_year);
+	    fetch_report(department,month_year);
+	  });
+	});
+	
+
+</script>

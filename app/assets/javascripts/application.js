@@ -10,7 +10,7 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
+//= require jquery-2.1.4
 //= require jquery_ujs
 //= require externals/bootstrap/dist/js/bootstrap
 //= require ui-load
@@ -21,3 +21,5 @@
 //= require moment
 //= require fullcalendar
 //= require externals/bootstrap-daterangepicker/daterangepicker
+//= require bootstrap-datepicker
+//= require bootstrap-datepicker/core

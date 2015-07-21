@@ -1,140 +1,304 @@
-<%= form_for(@employee) do |f| %>
-  <% if @employee.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@employee.errors.count, "error") %> prohibited this employee from being saved:</h2>
+<%= form_for @employee do |emp| %>
+  <div class="col-md-12">
+    <div class="abc form-holder">
+      <div class="row">
+        <fieldset class="sss well well-lg">
 
-      <ul>
-      <% @employee.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+          <legend class="lll">General Detail</legend>
+          <div class="column col-xs-12 col-sm-6">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Employee Number</label>
+              <%= emp.text_field :employee_number , :style => 'height:34px;width: 100%',  class: 'form-control', required: true, autofocus: true %>
+            </div>
+          </div>
 
-  <div class="field">
-    <%= f.label :employee_number %><br>
-    <%= f.text_field :employee_number %>
+          <div class="column col-xs-12 col-sm-6">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Full Name</label>
+              <%= emp.text_field :full_name , :style => 'height:34px;width: 100%',  class: 'form-control', required: true, autofocus: true %>
+            </div>
+          </div>
+
+          <div class="column col-xs-12 col-sm-6">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Date of Joining</label>
+              <%= emp.text_field :date_of_joining , :style => 'height:34px;width: 100%',  class: 'form-control',required: true %>
+            </div>
+          </div>
+
+          <div class="column col-xs-12 col-sm-6">
+            <div class="form-group">
+              <label for="exampleInputPassword1">Date of Birth</label>
+              <%= emp.text_field :date_of_birth , :id => 'datepicker', :style => 'height:34px;width: 100%', class: 'form-control' %>
+            </div>
+          </div>
+
+          <div class="column col-xs-12 col-sm-4">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Gender</label>
+              <%= emp.select :gender, options_for_select(%w[MALE FEMALE]),{}, {class: "form-control", style: 'width: 100%'} %>
+            </div>
+          </div>
+
+          <div class="column col-xs-12 col-sm-4">
+            <div class="form-group">
+              <label for="exampleInputPassword1">Religion</label>
+              <%= emp.select :religion, options_for_select(%w[Islam Chritianity Budhism Hinduism Jew]),{}, {class: "form-control", style:"width: 100%"} %>
+            </div>
+          </div>
+
+          <div class="column col-xs-12 col-sm-4">
+            <div class="form-group">
+              <label for="exampleInputPassword1">Qualification</label>
+              <%= emp.text_field :qualification , :style => 'height:34px;width: 100%',  class: 'form-control',required: true %>
+            </div>
+          </div>
+
+          <div class="column col-xs-12 col-sm-6">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Category</label>
+              <%= emp.select :category_id, options_from_collection_for_select(@categories,"id", "name"),{prompt: "Select Category"}, style: 'height:34px;width: 100%', class: "form-control", required: true %>
+            </div>
+          </div>
+
+          <div class="column col-xs-12 col-sm-6">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Department</label>
+              <%= emp.select :department_id, options_from_collection_for_select(@departments,"id", "name"), {prompt: "Select Department"}, style: 'height:34px;width: 100%', class: "form-control", required: true %>
+            </div>
+          </div>
+
+          <div class="column col-xs-12 col-sm-4">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Total Experience Years</label>
+              <%= emp.text_field :total_experience_years , :style => 'height:34px;width: 100%',  class: 'form-control',required: true %>
+            </div>
+          </div>
+          <div class="column col-xs-12 col-sm-4">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Total Experience Months</label>
+              <%= emp.text_field :total_experience_months , :style => 'height:34px;width: 100%',  class: 'form-control',required: true %>
+
+            </div>
+          </div>
+
+          
+
+          <!-- <div class="column col-xs-12 col-sm-2">
+            <div class="form-group">
+              <%#= emp.file_field :image, required: true %>
+            </div>
+          </div> -->
+        </fieldset>
+
+        <fieldset class="sss well well-lg">
+          <legend class="lll">Personal Detail</legend>
+          <div class="column col-xs-12 col-sm-6">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Father Name</label>
+              <%= emp.text_field :father_name , :style => 'height:34px;width: 100%',  class: 'form-control',required: true %>
+            </div>
+          </div>
+
+          <div class="column col-xs-12 col-sm-6">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Mother Name</label>
+              <%= emp.text_field :mother_name , :style => 'height:34px;width: 100%',  class: 'form-control',required: true %>
+            </div>
+          </div>
+
+          <div class="column col-xs-12 col-sm-3">
+            <div class="form-group">
+              <label for="exampleInputPassword1">Spouse Name</label>
+              <%= emp.text_field :spouse_name , :style => 'height:34px;width: 100%',  class: 'form-control',required: true %>
+            </div>
+          </div>
+
+          <div class="column col-xs-12 col-sm-3">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Marital Status</label>
+              <%= emp.select :marital_status, options_for_select(%w[Single Married]),{}, {class: "form-control", style: 'width: 100%', required: true} %>
+            </div>
+          </div>
+
+          <div class="column col-xs-12 col-sm-2">
+            <div class="form-group">
+              <label for="exampleInputPassword1">Child Count</label>
+              <%= emp.number_field :child_count , :id => 'datepicker', :style => 'height:34px;width: 100%', class: 'form-control' %>
+            </div>
+          </div>
+
+          <div class="column col-xs-12 col-sm-2">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Blood Group</label>
+              <%= emp.select :blood_group, options_for_select(%w[Unknown A+ A- B+ B- O+ O- AB+ AB-]),{}, {class: "form-control", style:"width: 100%"} %>
+            </div>
+          </div>
+
+          <div class="column col-xs-12 col-sm-2">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Nationality</label>
+              <%= emp.text_field :nationality , :style => 'height:34px;width: 100%',  class: 'form-control',required: true %>
+            </div>
+          </div>
+
+          <div class="column col-xs-12 col-sm-6">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Id/Iqama #</label>
+              <%= emp.text_field :id_card_no , :style => 'height:34px;width: 100%',  class: 'form-control',required: true %>
+            </div>
+          </div>
+
+          <div class="column col-xs-12 col-sm-6">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Id/Iqama # Expiry</label>
+              <%= emp.text_field :id_card_expiry , :style => 'height:34px;width: 100%',  class: 'form-control',required: true %>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="sss well well-lg">
+          <legend class="lll">Contact Information</legend>
+          <div class="column col-xs-12 col-sm-6">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Address 1</label>
+                <%= emp.text_field :address1 , :style => 'height:34px;width: 100%',  class: 'form-control',required: true %>
+            </div>
+          </div>
+          <div class="column col-xs-12 col-sm-6">
+            <div class="form-group">
+                <label for="exampleInputPassword1">Address 2</label>
+                <%= emp.text_field :address2 , :style => 'height:34px;width: 100%',  class: 'form-control' %>
+            </div>
+          </div>
+          <div class="column col-xs-12 col-sm-6">
+            <div class="form-group">
+                <label for="exampleInputEmail1">City</label>
+                <%= emp.text_field :city, :style => 'height:34px;width: 100%',  class: 'form-control',required: true %>
+            </div>
+          </div>
+   
+          <div class="column col-xs-12 col-sm-6">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Country</label>
+                <%= emp.text_field :country , :style => 'height:34px;width: 100%',  class: 'form-control',required: true %>
+              </div>
+          </div>
+
+          <div class="column col-xs-12 col-sm-4">
+            <div class="form-group">
+                <label for="exampleInputPassword1">Home Phone</label>
+                <%= emp.text_field :home_phone, :style => 'height:34px;width: 100%',  class: 'form-control',required: true %>
+            </div>
+          </div>
+
+          <div class="column col-xs-12 col-sm-4">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Mobile Number</label>
+                <%= emp.text_field :mobile_number , :style => 'height:34px;width: 100%',  class: 'form-control',required: true %>
+            </div>
+          </div>
+          
+          <div class="column col-xs-12 col-sm-4">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email</label>
+                <%= emp.email_field :email , :id => 'email_field' , :style => 'height:34px;width: 100%', class: 'form-control', required: true %>
+
+              <div class = "hide" id= "error_div">
+                <span style = "color:red;" id="error_text"></span>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="sss well well-lg">
+          <legend class="lll">Salary Detail</legend>
+          <div class="column col-xs-12 col-sm-4">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Salary</label>
+              <%= emp.text_field :salary , :style => 'height:34px;width: 100%',  class: 'form-control',required: true %>
+            </div>
+          </div>
+
+          <div class="column col-xs-12 col-sm-4">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Employee Position</label>
+              <%= emp.select :position_id, options_from_collection_for_select(@positions,"id", "name"),{prompt: "Select Position"},style: 'width: 100%', class: "form-control", required: true %>
+            </div>
+          </div>
+
+
+          <div class="column col-xs-12 col-sm-4">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Status</label>
+              <%= emp.select :status, options_for_select(%w[Part-Time Permanent]),{}, {class: "form-control", style:"width: 100%"} %>
+            </div>
+          </div>
+
+          <div class="column col-xs-12 col-sm-3">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Pay Date</label>
+              <%= emp.text_field :pay_date, :style => 'height:34px;width: 100%', class: "form-control", value: "#{Date.today}", id: "duedate" %>
+            </div>
+          </div>
+
+          <div class="column col-xs-12 col-sm-3">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Next Due Date</label>
+              <%= emp.text_field :next_due_date, :style => 'height:34px;width: 100%', class: "form-control", value: "#{Date.today+1.months}", id: "Next_duedate" %>
+            </div>
+          </div>
+          <!--  <div class="column col-xs-12 col-sm-3">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Each Installment</label>
+              <input type="text" style="height: 34px;width: 100%" class = "form-control" id = "installment">
+            </div>
+          </div>
+
+          <div class="column col-xs-12 col-sm-3">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Each Installment</label>
+                <input type="text" style="height: 34px;width: 100%" class = "form-control" id = "installment">
+            </div>
+          </div> -->
+        </fieldset>
+
+      </div>
+    </div>  
   </div>
-  <div class="field">
-    <%= f.label :date_of_joining %><br>
-    <%= f.date_select :date_of_joining %>
-  </div>
-  <div class="field">
-    <%= f.label :full_name %><br>
-    <%= f.text_field :full_name %>
-  </div>
-  <div class="field">
-    <%= f.label :gender %><br>
-    <%= f.text_field :gender %>
-  </div>
-  <div class="field">
-    <%= f.label :date_of_birth %><br>
-    <%= f.date_select :date_of_birth %>
-  </div>
-  <div class="field">
-    <%= f.label :religion %><br>
-    <%= f.text_field :religion %>
-  </div>
-  <div class="field">
-    <%= f.label :qualification %><br>
-    <%= f.text_field :qualification %>
-  </div>
-  <div class="field">
-    <%= f.label :category_id %><br>
-    <%= f.select :category_id, options_from_collection_for_select(@categories,"id", "name"),
-                  prompt: "Select Category", class: "", required: true %>
-  </div>
-  <div class="field">
-    <%= f.label :department_id %><br>
-    <%= f.select :department_id, options_from_collection_for_select(@departments,"id", "name"),
-                  prompt: "Select Department", class: "", required: true %>
-  </div>
-  <div class="field">
-    <%= f.label :marital_status %><br>
-    <%= f.text_field :marital_status %>
-  </div>
-  <div class="field">
-    <%= f.label :child_count %><br>
-    <%= f.number_field :child_count %>
-  </div>
-  <div class="field">
-    <%= f.label :father_name %><br>
-    <%= f.text_field :father_name %>
-  </div>
-  <div class="field">
-    <%= f.label :mother_name %><br>
-    <%= f.text_field :mother_name %>
-  </div>
-  <div class="field">
-    <%= f.label :spouse_name %><br>
-    <%= f.text_field :spouse_name %>
-  </div>
-  <div class="field">
-    <%= f.label :blood_group %><br>
-    <%= f.text_field :blood_group %>
-  </div>
-  <div class="field">
-    <%= f.label :nationality %><br>
-    <%= f.text_field :nationality %>
-  </div>
-  <div class="field">
-    <%= f.label :id_card_no %><br>
-    <%= f.text_field :id_card_no %>
-  </div>
-  <div class="field">
-    <%= f.label :id_card_expiry %><br>
-    <%= f.date_select :id_card_expiry %>
-  </div>
-  <div class="field">
-    <%= f.label :address1 %><br>
-    <%= f.text_field :address1 %>
-  </div>
-  <div class="field">
-    <%= f.label :address2 %><br>
-    <%= f.text_field :address2 %>
-  </div>
-  <div class="field">
-    <%= f.label :city %><br>
-    <%= f.text_field :city %>
-  </div>
-  <div class="field">
-    <%= f.label :country %><br>
-    <%= f.text_field :country %>
-  </div>
-  <div class="field">
-    <%= f.label :home_phone %><br>
-    <%= f.text_field :home_phone %>
-  </div>
-  <div class="field">
-    <%= f.label :mobile_number %><br>
-    <%= f.text_field :mobile_number %>
-  </div>
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.text_field :email %>
-  </div>
-  <div class="field">
-    <%= f.label :salary %><br>
-    <%= f.text_field :salary %>
-  </div>
-  <div class="field">
-    <%= f.label :position_id %><br>
-    <%= f.select :position_id, options_from_collection_for_select(@positions,"id", "name"),
-                  prompt: "Select Position", class: "", required: true %>
-  </div>
-  <div class="field">
-    <%= f.label :status %><br>
-    <%= f.text_field :status %>
-  </div>
-  <div class="field">
-    <%= f.label :pay_date %><br>
-    <%= f.date_select :pay_date %>
-  </div>
-  <div class="field">
-    <%= f.label :next_due_date %><br>
-    <%= f.date_select :next_due_date %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <div class="form-group">
+    <%= emp.submit "Save Employee", :class => 'btn btn-block btn-success form-control',:style=>'width:24%;float: right;' %>
+  </div>  
 <% end %>
+
+
+<style type="text/css">
+  .container{
+      width: 1068px;
+  }
+
+  .sss{
+    border:1px solid#e5e5e5;   padding: 1%; 
+  }
+
+  .lll{
+    width: auto !important; 
+    background-color: white;
+    padding-right: 16px;
+    padding-left: 15px;
+    border: 1px solid;
+    border-color: blue;
+    border-radius: 21px;
+  }
+
+  .form-holder .col-sm-2 {
+    min-height: 84px;
+  }
+  .form-holder .form-control{
+    width: 65%;
+  }
+  .form-control{
+    border-radius: 7px;
+    border: black;
+  }
+</style>
