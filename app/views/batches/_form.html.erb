@@ -1,3 +1,23 @@
+<style type="text/css">
+  .container{
+      width: 1068px;
+  }
+
+  .sss{
+    border:1px solid#e5e5e5;   padding: 1%; 
+  }
+
+  .lll{
+    width: auto !important; 
+    background-color: white;
+    padding-right: 16px;
+    padding-left: 15px;
+    border: 1px solid;
+    border-color: #729F32;
+    border-radius: 21px;
+  }
+</style>
+
 <%= form_for(@batch) do |f| %>
   <% if @batch.errors.any? %>
     <div id="error_explanation">
@@ -13,19 +33,18 @@
 
   <div class="container form-holder">
         <div class="row">
-            
-                 <div class= "admission-form-heading" ><h4 style="color:white;"> Bacth Information </h4> </div>
-                 <br>
-                    <br>
-                      <div class = "row">
-                          <div class = "col-md-6">
-                                <div class="form-group ">
-                                    <%= f.label :name %><br>
-                                    <%= f.text_field :name, :style => 'height:34px;',  class: 'form-control', required: true, autofocus: true  %>
-                                </div>
+        <br>
+          <fieldset class="sss well well-lg">
+             <legend class="lll">Batch Information</legend>
+                  <div class = "row">
+                      <div class = "col-md-6">
+                            <div class="form-group ">
+                                <%= f.label :name %><br>
+                                <%= f.text_field :name, :style => 'height:34px;',  class: 'form-control' , required: true, autofocus: true  %>
                             </div>
-                      </div>
-           
+                        </div>
+                  </div>
+          </fieldset>
         </div>
     </div>
 
@@ -34,15 +53,16 @@
   </div>
 <% end %>
 
+
 <style type="text/css">
-    .form-holder .col-sm-4 {
-      min-height: 84px;
-    }
-    .form-holder .form-control{
-        width: 65%;
-    }
-    .form-control{
-        border-radius: 7px;
-        border: black;
-    }
+  .form-holder .col-sm-2 {
+    min-height: 84px;
+  }
+  .form-holder .form-control{
+    width: 65%;
+  }
+  .form-control{
+    border-radius: 7px;
+    border: black;
+  }
 </style>

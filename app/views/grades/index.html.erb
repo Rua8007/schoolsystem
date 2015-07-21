@@ -1,14 +1,34 @@
+<%= stylesheet_link_tag "//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css" %>
+<%= javascript_include_tag "https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js" %>
+<%= javascript_include_tag "//cdn.datatables.net/tabletools/2.2.2/js/dataTables.tableTools.min.js" %>
+<%= javascript_include_tag "https://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js" %>
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    $('#example').dataTable({
+        dom: 'T<"clear">lfrtip',
+        tableTools: {
+            "sSwfPath": "https://cdn.datatables.net/tabletools/2.2.2/swf/copy_csv_xls_pdf.swf"
+        }
+    });
+
+
+
+  });
+
+</script>
+
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Grades</h1>
+<h1>Classes</h1>
 
-<table class="table">
+<table class="table" id="example">
   <thead>
     <tr>
       <th>Name</th>
       <th>Section</th>
       <th>Batch</th>
-      <th colspan="3"></th>
+      <th> Actions</th>
     </tr>
   </thead>
 
@@ -18,9 +38,11 @@
         <td><%= grade.name %></td>
         <td><%= grade.section %></td>
         <td><%= grade.batch_id %></td>
-        <td><%= link_to 'Show', grade %></td>
-        <td><%= link_to 'Edit', edit_grade_path(grade) %></td>
-        <td><%= link_to 'Destroy', grade, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <%= link_to 'Show', grade %>
+          <%= link_to 'Edit', edit_grade_path(grade) %>
+          <%= link_to 'Destroy', grade, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
       </tr>
     <% end %>
   </tbody>
