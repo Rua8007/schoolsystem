@@ -43,6 +43,8 @@ Rails.application.routes.draw do
       get 'mark_attendance_calendar'
       post 'mark_attendance'
       post 'save_attendances'
+      get 'monthly_attendance_report'
+      get 'get_monthly_attendance_report_result'
     end
   end
   # get 'home/index'

@@ -25,6 +25,7 @@ class EmployeesController < ApplicationController
     @categories = Category.all
     @departments = Department.all
     @positions = Position.all
+    @employee = Employee.find(params[:id])
   end
 
   # POST /employees
@@ -34,7 +35,7 @@ class EmployeesController < ApplicationController
 
     respond_to do |format|
       if @employee.save
-        format.html { redirect_to @employee, notice: 'Employee was successfully created.' }
+        format.html { redirect_to employees_path, notice: 'Employee was successfully created.' }
         format.json { render :show, status: :created, location: @employee }
       else
         format.html { render :new }
@@ -48,7 +49,7 @@ class EmployeesController < ApplicationController
   def update
     respond_to do |format|
       if @employee.update(employee_params)
-        format.html { redirect_to @employee, notice: 'Employee was successfully updated.' }
+        format.html { redirect_to employees_path, notice: 'Employee was successfully updated.' }
         format.json { render :show, status: :ok, location: @employee }
       else
         format.html { render :edit }
@@ -62,7 +63,7 @@ class EmployeesController < ApplicationController
   def destroy
     @employee.destroy
     respond_to do |format|
-      format.html { redirect_to employees_url, notice: 'Employee was successfully destroyed.' }
+      format.html { redirect_to employees_path, notice: 'Employee was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -169,6 +170,7 @@ class EmployeesController < ApplicationController
     # return render json: params.inspect
     if params[:attendance_date].present? && params[:attendance_date].to_date <= Date.today 
   
+
       old_attendance = EmployeeAttendance.where(attendance_date: params[:attendance_date].to_date).first
       if old_attendance.present?
         if params[:edit_code].present? && params[:edit_code] == "120120120"
@@ -185,6 +187,42 @@ class EmployeesController < ApplicationController
       flash[:alert] = "Couldn't mark attendances."
     end
     redirect_to mark_attendance_calendar_employees_path
+  end
+
+  def monthly_attendance_report
+    @departments = Department.all
+  end
+
+  def get_monthly_attendance_report_result
+    if params[:department].present? && params[:month_year].present?
+      month = params[:month_year].split('-').first
+      year  = params[:month_year].split('-').last
+
+      department = Department.find(params[:department].to_i)
+
+      if department.present?
+        employees = department.employees
+        @attendances = []
+        employees.each_with_index do |employee, i|
+          attendance = {}
+          attendance.store("name","#{employee.full_name}")
+          e_attendances = employee.employee_attendances.where("extract(month from attendance_date) = ? AND extract(year from attendance_date) = ?",month,year)
+          e_attendances.each do |e_attendance|
+            if e_attendance.epresent == true
+              attendance.store("#{e_attendance.attendance_date.day}","P")
+            elsif e_attendance.eleave == true
+              attendance.store("#{e_attendance.attendance_date.day}","L")
+            else
+              attendance.store("#{e_attendance.attendance_date.day}","A")
+            end
+          end
+          @attendances << attendance
+        end
+      end
+    end
+    # puts "*******"*100
+    # puts @attendances.inspect
+    return render partial: "employees/get_monthly_attendance_report_result"
   end
 
   private

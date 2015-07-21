@@ -19,6 +19,7 @@
  *= require app
  *= require externals/bootstrap-daterangepicker/daterangepicker-bs3
  *= require fullcalendar
+ *= require bootstrap-datepicker
  */
 .navbar-brand{
 	width: 170px !important;
