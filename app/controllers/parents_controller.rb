@@ -73,8 +73,8 @@ class ParentsController < ApplicationController
       @parent = Parent.new
     elsif params[:parent_id].present? && params[:parent_id] != ""
       @parent = Parent.find(params[:parent_id])
-  
     end
+    @student = Student.find(params[:student_id])
     respond_to do |format|
       format.js
       format.json { render json: {parent: @parent} }
