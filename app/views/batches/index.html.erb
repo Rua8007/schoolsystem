@@ -1,22 +1,4 @@
-<%= stylesheet_link_tag "//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css" %>
-<%= javascript_include_tag "https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js" %>
-<%= javascript_include_tag "//cdn.datatables.net/tabletools/2.2.2/js/dataTables.tableTools.min.js" %>
-<%= javascript_include_tag "https://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js" %>
-<script type="text/javascript">
-  $(document).ready(function() {
 
-    $('#example').dataTable({
-        dom: 'T<"clear">lfrtip',
-        tableTools: {
-            "sSwfPath": "https://cdn.datatables.net/tabletools/2.2.2/swf/copy_csv_xls_pdf.swf"
-        }
-    });
-
-
-
-  });
-
-</script>
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Batches</h1>
