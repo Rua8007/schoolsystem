@@ -20,6 +20,8 @@ gem 'jquery-rails'
 gem 'momentjs-rails'
 gem 'bootstrap-datepicker-rails'
 
+gem 'country_select'
+
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'

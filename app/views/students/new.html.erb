@@ -1,10 +1,10 @@
 <style type="text/css">
 	.container{
-		  width: 1068px;
+		  /*width: 1068px;*/
 	}
 
 	.sss{
-		border:1px solid#e5e5e5;   padding: 1%;	
+		border:1px solid#e5e5e5;  	
 	}
 
 	.lll{
@@ -49,7 +49,7 @@
 		            	<div class="column col-xs-12 col-sm-2">
 		            		<div class="form-group">
 	              			<label for="exampleInputEmail1">Iqama Expiry</label>
-											<%= std.text_field :iqamaExpiry , :style => 'height:34px;width: 100%',  class: 'form-control', required: true, autofocus: true %>
+											<%= std.text_field :iqamaExpiry , :style => 'height:34px;width: 100%',  class: 'form-control datepicker', required: true, autofocus: true %>
 		            		</div>
 		            	</div>
 		          		<div class="column col-xs-12 col-sm-2">
@@ -61,7 +61,7 @@
 		          		<div class="column col-xs-12 col-sm-2">
 		            		<div class="form-group">
 		              			<label for="exampleInputPassword1">Date of Birth</label>
-		              			<%= std.text_field :dob , :id => 'datepicker', :style => 'height:34px;width: 100%', class: 'form-control' %>
+		              			<%= std.text_field :dob , :style => 'height:34px;width: 100%', class: 'form-control datepicker' %>
 		            		</div>
 		          		</div>
 		          		<div class="column col-xs-12 col-sm-2">
@@ -85,13 +85,13 @@
 		          		<div class="column col-xs-12 col-sm-2">
 		            		<div class="form-group">
 			              		<label for="exampleInputEmail1">Nationality</label>
-			              		<%= std.text_field :nationality , :style => 'height:34px;width: 100%',  class: 'form-control',required: true %>
+			              		<%= std.country_select :nationality ,{selected: "SA"}, {:style => 'height:34px;width: 100%',  class: 'form-control',required: true} %>
 		            		</div>
 		          		</div>
 		          		<div class="column col-xs-12 col-sm-2">
 		            		<div class="form-group">
 		              			<label for="exampleInputEmail1">Language</label>
-		              			<%= std.text_field :language , :style => 'height:34px;width: 100%',  class: 'form-control',required: true %>
+		              			<%= std.select :language, options_for_select(%w[Arabic English Urdu French Spanish Dutch]),{}, {class: "form-control", style:"width: 100%"} %>
 		            		</div>
 		          		</div>
 		          		<div class="column col-xs-12 col-sm-2">
@@ -108,13 +108,13 @@
 							</fieldset>     	
 		        	<fieldset class="sss well well-lg">
 		        		<legend class="lll">Contact Information</legend>
-		          		<div class="column col-xs-12 col-sm-2">
+		          		<div class="column col-xs-12 col-sm-6">
 		            		<div class="form-group">
 		              			<label for="exampleInputEmail1">Address</label>
 		              			<%= std.text_field :address , :style => 'height:34px;width: 100%',  class: 'form-control',required: true %>
 		             		</div>
 		          		</div>
-		          		<div class="column col-xs-12 col-sm-2">
+		          		<div class="column col-xs-12 col-sm-6">
 		            		<div class="form-group">
 		              			<label for="exampleInputPassword1">Address 2</label>
 		              			<%= std.text_field :address , :style => 'height:34px;width: 100%',  class: 'form-control' %>
@@ -135,7 +135,7 @@
 		          		<div class="column col-xs-12 col-sm-2">
 		            		<div class="form-group">
 		              			<label for="exampleInputEmail1">Country</label>
-		              			<%= std.text_field :country , :style => 'height:34px;width: 100%',  class: 'form-control',required: true %>
+			              		<%= std.country_select :country ,{selected: "SA"}, {:style => 'height:34px;width: 100%',  class: 'form-control',required: true} %>
 		              		</div>
 		          		</div>
 		          		<div class="column col-xs-12 col-sm-2">
@@ -297,8 +297,6 @@
 </div>
 
 <script>
-
-	// $("#datepicker").datepicker();
 
     // $("#student_dueDate").datepicker({ changeYear: true , changeMonth: true });
     
