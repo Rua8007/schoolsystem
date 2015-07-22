@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   
+  resources :fees
   resources :subjects
   resources :grades
   resources :batches

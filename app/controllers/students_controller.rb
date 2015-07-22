@@ -9,7 +9,7 @@ class StudentsController < ApplicationController
 	end
 
   def create
-     # return render json: params[:student][:document]  
+    return render json: params 
     @student = Student.create(create_params)
     if @student
       emergency = @student.emergencies.create
@@ -18,11 +18,6 @@ class StudentsController < ApplicationController
       emergency.phone = params[:student][:emergency][:phone]
       emergency.email = params[:student][:emergency][:email]
       emergency.save
-      # @student.amount = Grade.find(params[:student][:grade_id]).fee
-      # @student.staus = ''
-      # s = @student.save!
-
-      #User.create!(email: @student.email, password: "school", user_type: 4, password_confirmation: "school")
       redirect_to new_parent_path(student_id: @student.id), notice: "Student added"
     else
       redirect_to :back, :alert => "Fill the form again!"
