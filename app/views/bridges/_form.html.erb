@@ -8,12 +8,11 @@
     <%= form_tag(assign_teacher_bridges_path, method: :post) do %>
       <% i = 0%>
       <% @bridge.each do |b| %>
-        <tr>  
+        <tr>
           <td>
             <%#= hidden_field_tag 'flags[]', '0' %>
-            <%= check_box_tag "flags[#{i}][check]", b["flag"], true, id: "bridge_#{b["subject_id"]}", class: 'attendance_checkbox' %> 
+            <%= check_box_tag "flags[#{i}][check]", b["flag"], true, id: "bridge_#{b["subject_id"]}" %> 
           </td>
-
           <td>
             <%= text_field_tag "flags[#{i}][subject_id]", Subject.find(b[:subject_id]).name %>
           </td>
@@ -23,9 +22,11 @@
           </td>
           <%= hidden_field_tag "grade_id", b[:class_id] %>
         </tr>
-        <% i = i+1 %>
+      <% i = i+1 %>
       <% end %>
-        <%= submit_tag "Assign Teacher", data: { confirm: "Are you sure?" }, class: 'btn btn-success pull-right' %>
+    
+
+        <%= submit_tag "Assign Subject", data: { confirm: "Are you sure?" }, class: 'btn btn-success pull-right' %>
     <% end %>
 
   </tbody>
