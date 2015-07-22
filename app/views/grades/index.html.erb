@@ -28,6 +28,7 @@
       <th>Name</th>
       <th>Section</th>
       <th>Batch</th>
+      <th>No. of students</th>
       <th> Actions</th>
     </tr>
   </thead>
@@ -38,10 +39,11 @@
         <td><%= grade.name %></td>
         <td><%= grade.section %></td>
         <td><%= grade.batch_id %></td>
+        <td><%= grade.students.count %></td>
         <td>
-          <%= link_to 'Show', grade %>
-          <%= link_to 'Edit', edit_grade_path(grade) %>
-          <%= link_to 'Destroy', grade, method: :delete, data: { confirm: 'Are you sure?' } %>
+          <%= link_to '', grade ,:class =>  'glyphicon glyphicon-ok-circle' %>
+          <%= link_to '', edit_grade_path(grade),:class => 'glyphicon glyphicon-pencil' %>
+          <%= link_to '', grade, method: :delete, data: { confirm: 'Are you sure?' },:class =>  'glyphicon glyphicon-remove-circle' %>
         </td>
       </tr>
     <% end %>
