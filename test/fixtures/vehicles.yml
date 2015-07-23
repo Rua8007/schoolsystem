@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  vehicle_no: 1
+  code: MyString
+  seat: MyString
+  max_allowed: MyString
+  vehicle_type: MyString
+  address: MyString
+  city: MyString
+  state: MyString
+  phone: MyString
+  insurance: MyString
+  tax: MyString
+  permit: MyString
+
+two:
+  vehicle_no: 1
+  code: MyString
+  seat: MyString
+  max_allowed: MyString
+  vehicle_type: MyString
+  address: MyString
+  city: MyString
+  state: MyString
+  phone: MyString
+  insurance: MyString
+  tax: MyString
+  permit: MyString

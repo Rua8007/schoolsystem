@@ -1,0 +1,66 @@
+<%= stylesheet_link_tag "//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css" %>
+<%= javascript_include_tag "https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js" %>
+<%= javascript_include_tag "//cdn.datatables.net/tabletools/2.2.2/js/dataTables.tableTools.min.js" %>
+<%= javascript_include_tag "https://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js" %>
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    $('#example').dataTable({
+        dom: 'T<"clear">lfrtip',
+        tableTools: {
+            "sSwfPath": "https://cdn.datatables.net/tabletools/2.2.2/swf/copy_csv_xls_pdf.swf"
+        }
+    });
+
+
+
+  });
+
+</script>
+
+<h1>Vehicles<a href="<%= new_vehicle_path %>" class="btn btn-info pull-right" style="width:200px;">Add Vehicle</a></h1>
+
+
+<p id="notice"><%= notice %></p>
+
+
+
+<table class="table" id="example">
+  <thead class= "table-head">
+    <tr>
+      <th>Vehicle no</th>
+      <th>Code</th>
+      <th>Seat</th>
+      <th>Max allowed</th>
+      <th>Vehicle type</th>
+      <th>Insurance</th>
+      <th>Tax</th>
+      <th>Permit</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @vehicles.each do |vehicle| %>
+      <tr>
+        <td><%= vehicle.vehicle_no %></td>
+        <td><%= vehicle.code %></td>
+        <td><%= vehicle.seat %></td>
+        <td><%= vehicle.max_allowed %></td>
+        <td><%= vehicle.vehicle_type %></td>
+        <td><%= vehicle.insurance %></td>
+        <td><%= vehicle.tax %></td>
+        <td><%= vehicle.permit %></td>
+        <td>  
+              <%= link_to '', vehicle,:class =>  'glyphicon glyphicon-ok-circle' %>
+              <%= link_to '', edit_vehicle_path(vehicle),:class => 'glyphicon glyphicon-pencil' %>
+              <%= link_to '', vehicle, method: :delete, data: { confirm: 'Are you sure?' },:class =>  'glyphicon glyphicon-remove-circle' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+

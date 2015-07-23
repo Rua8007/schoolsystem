@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  arrival: MyString
+  departure: MyString
+  employee_id: 1
+  route_id: 1
+  vehicle_id: 1
+
+two:
+  arrival: MyString
+  departure: MyString
+  employee_id: 1
+  route_id: 1
+  vehicle_id: 1
