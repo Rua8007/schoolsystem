@@ -9,7 +9,6 @@ class StudentsController < ApplicationController
 	end
 
   def create
-    return render json: params 
     @student = Student.create(create_params)
     if @student
       emergency = @student.emergencies.create
@@ -38,8 +37,6 @@ class StudentsController < ApplicationController
   end
 
   def detail
-    puts "-"*80
-    puts "-"*80
     @student = Student.find(params[:id])
     respond_to do |format|
       format.js
@@ -50,7 +47,7 @@ class StudentsController < ApplicationController
 	private
 
     def create_params
-      params.require(:student).permit(:fullname,:remote_image_url,:first_name, :mobile, :address, :email, :grade_id, :dob,:gender,:middle_name, :last_name, :blood, :birth_place, :nationality, :language, :religion, :city, :state, :country,:phone, :fee, :term, :dueDate, :image,:iqamaNumber,:iqamaExpiry, :previousInstitute, :year, :totalMarks, :obtainedMarks, :forthname, :fifthname, :arabicname, :weight,:height,:eyeside,:hearing,:rh,:alergy,:nurology,:physical,:disability,:behaviour, emergencies_attributes:[:name, :phome, :mobile, :email, :student_id])      
+      params.require(:student).permit(:fullname,:remote_image_url,:first_name, :mobile, :address, :email, :grade_id, :dob,:gender,:middle_name, :last_name, :blood, :birth_place, :nationality, :language, :religion, :city, :state, :country,:phone, :fee, :term, :due_date, :image,:iqamaNumber,:iqamaExpiry, :previousInstitute, :year, :totalMarks, :obtainedMarks, :forthname, :fifthname, :arabicname, :weight,:height,:eyeside,:hearing,:rh,:alergy,:nurology,:physical,:disability,:behaviour, emergencies_attributes:[:name, :phome, :mobile, :email, :student_id])      
     end
 end
 

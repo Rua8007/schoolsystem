@@ -26,14 +26,15 @@ class FeesController < ApplicationController
   def create
     @fee = Fee.new(fee_params)
     student = Student.find(params[:fee][:student_id])
-    duedate = student.dueDate
+    temp = student.due_date.to_date
     if student.term == 'Monthly'
-      
-      student.duedate = 
-    elsif student.term == "Quaterly"
-    elsif student.term = "Bi-anually"
+      student.due_date = (temp + 1.month).to_s
+    elsif student.term == "Quarterly"
+      student.due_date = (temp + 3.month).to_s
+    elsif student.term = "Bi-annualy"
+      student.due_date = (temp + 6.month).to_s
     end
-
+    student.save
     respond_to do |format|
       if @fee.save
         format.html { redirect_to @fee, notice: 'Fee was successfully created.' }
@@ -70,7 +71,7 @@ class FeesController < ApplicationController
   end
 
   def fee_defaulter
-    
+    @students = Student.where("date(due_date)<= ?", Date.today)
   end
 
   private

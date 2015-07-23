@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
 
   
-  resources :fees
+  resources :fees do
+    collection do
+      get 'fee_defaulter'
+    end
+  end
   resources :subjects
   resources :grades
   resources :batches

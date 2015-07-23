@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150722103329) do
+ActiveRecord::Schema.define(version: 20150722150142) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -188,7 +188,6 @@ ActiveRecord::Schema.define(version: 20150722103329) do
     t.string   "parent_id"
     t.integer  "fee"
     t.string   "term"
-    t.string   "dueDate"
     t.string   "image"
     t.string   "iqamaNumber"
     t.string   "iqamaExpiry"
@@ -210,6 +209,7 @@ ActiveRecord::Schema.define(version: 20150722103329) do
     t.string   "disability"
     t.string   "behaviour"
     t.string   "fullname"
+    t.string   "due_date"
   end
 
   create_table "subjects", force: :cascade do |t|
