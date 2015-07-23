@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Arrival:</strong>
+  <%= @transport.arrival %>
+</p>
+
+<p>
+  <strong>Departure:</strong>
+  <%= @transport.departure %>
+</p>
+
+<p>
+  <strong>Employee:</strong>
+  <%= @transport.employee_id %>
+</p>
+
+<p>
+  <strong>Route:</strong>
+  <%= @transport.route_id %>
+</p>
+
+<p>
+  <strong>Vehicle:</strong>
+  <%= @transport.vehicle_id %>
+</p>
+
+<%= link_to 'Edit', edit_transport_path(@transport) %> |
+<%= link_to 'Back', transports_path %>

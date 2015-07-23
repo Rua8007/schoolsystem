@@ -6,6 +6,10 @@ Rails.application.routes.draw do
       get 'fee_defaulter'
     end
   end
+  resources :transports
+  resources :routes
+  resources :stops
+  resources :vehicles
   resources :subjects
   resources :grades
   resources :batches

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150722150142) do
+ActiveRecord::Schema.define(version: 20150723053346) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -163,6 +163,19 @@ ActiveRecord::Schema.define(version: 20150722150142) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "routes", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "stops", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "route_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "students", force: :cascade do |t|
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
@@ -219,6 +232,16 @@ ActiveRecord::Schema.define(version: 20150722150142) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "transports", force: :cascade do |t|
+    t.string   "arrival"
+    t.string   "departure"
+    t.integer  "employee_id"
+    t.integer  "route_id"
+    t.integer  "vehicle_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -236,5 +259,18 @@ ActiveRecord::Schema.define(version: 20150722150142) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "vehicles", force: :cascade do |t|
+    t.string   "code"
+    t.string   "seat"
+    t.string   "max_allowed"
+    t.string   "vehicle_type"
+    t.string   "insurance"
+    t.string   "tax"
+    t.string   "permit"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.string   "vehicle_no"
+  end
 
 end

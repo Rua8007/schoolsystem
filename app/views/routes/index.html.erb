@@ -18,33 +18,33 @@
 
 </script>
 
+<h1>Routes<a href="<%= new_route_path %>" class="btn btn-info pull-right" style="width:200px;">Add Route</a></h1>
+
 <p id="notice"><%= notice %></p>
 
-<h1>Classes</h1>
+
 
 <table class="table" id="example">
-  <thead>
+  <thead class= "table-head">
     <tr>
       <th>Name</th>
-      <th>Section</th>
-      <th>Batch</th>
-      <th>No. of students</th>
-      <th> Actions</th>
+      <th>No. of stops</th>
+      <th>Actions</th>
+      <th>Assign Transport</th>
     </tr>
   </thead>
 
   <tbody>
-    <% @grades.each do |grade| %>
+    <% @routes.each do |route| %>
       <tr>
-        <td><%= grade.name %></td>
-        <td><%= grade.section %></td>
-        <td><%= grade.batch_id %></td>
-        <td><%= grade.students.count %></td>
+        <td><%= route.name %></td>
+        <td><%= route.stops.count %></td>
         <td>
-          <%= link_to '', grade ,:class =>  'glyphicon glyphicon-ok-circle' %>
-          <%= link_to '', edit_grade_path(grade),:class => 'glyphicon glyphicon-pencil' %>
-          <%= link_to '', grade, method: :delete, data: { confirm: 'Are you sure?' },:class =>  'glyphicon glyphicon-remove-circle' %>
+            <%= link_to '', route,:class =>  'glyphicon glyphicon-ok-circle' %>
+            <%= link_to '', edit_route_path(route),:class => 'glyphicon glyphicon-pencil' %>
+            <%= link_to '', route, method: :delete, data: { confirm: 'Are you sure?' },:class =>  'glyphicon glyphicon-remove-circle' %>
         </td>
+        <td><%= link_to 'Assign', new_transport_path(route_id: route.id),class:"btn btn-info " %></td>
       </tr>
     <% end %>
   </tbody>
@@ -52,4 +52,3 @@
 
 <br>
 
-<%= link_to 'New Grade', new_grade_path %>

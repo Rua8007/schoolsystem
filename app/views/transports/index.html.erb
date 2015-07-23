@@ -18,32 +18,35 @@
 
 </script>
 
+
 <p id="notice"><%= notice %></p>
 
-<h1>Classes</h1>
+<h1>Transports</h1>
 
 <table class="table" id="example">
-  <thead>
+  <thead class= "table-head">
     <tr>
-      <th>Name</th>
-      <th>Section</th>
-      <th>Batch</th>
-      <th>No. of students</th>
-      <th> Actions</th>
+      <th>Employee</th>
+      <th>Route</th>
+      <th>Vehicle</th>
+      <th>Departure</th>
+      <th>Arrival</th>
+      <th>Actions</th>
     </tr>
   </thead>
 
   <tbody>
-    <% @grades.each do |grade| %>
+    <% @transports.each do |transport| %>
       <tr>
-        <td><%= grade.name %></td>
-        <td><%= grade.section %></td>
-        <td><%= grade.batch_id %></td>
-        <td><%= grade.students.count %></td>
+        <td><%= transport.employee.full_name %></td>
+        <td><%= transport.route.name %></td>
+        <td><%= transport.vehicle.vehicle_no %></td>
+        <td><%= transport.departure %></td>
+        <td><%= transport.arrival %></td>
         <td>
-          <%= link_to '', grade ,:class =>  'glyphicon glyphicon-ok-circle' %>
-          <%= link_to '', edit_grade_path(grade),:class => 'glyphicon glyphicon-pencil' %>
-          <%= link_to '', grade, method: :delete, data: { confirm: 'Are you sure?' },:class =>  'glyphicon glyphicon-remove-circle' %>
+            <%= link_to '', transport,:class =>  'glyphicon glyphicon-ok-circle' %>
+            <%= link_to '', edit_transport_path(transport),:class => 'glyphicon glyphicon-pencil' %>
+            <%= link_to '', transport, method: :delete, data: { confirm: 'Are you sure?' },:class =>  'glyphicon glyphicon-remove-circle' %>
         </td>
       </tr>
     <% end %>
@@ -52,4 +55,3 @@
 
 <br>
 
-<%= link_to 'New Grade', new_grade_path %>
