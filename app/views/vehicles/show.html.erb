@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Vehicle no:</strong>
+  <%= @vehicle.vehicle_no %>
+</p>
+
+<p>
+  <strong>Code:</strong>
+  <%= @vehicle.code %>
+</p>
+
+<p>
+  <strong>Seat:</strong>
+  <%= @vehicle.seat %>
+</p>
+
+<p>
+  <strong>Max allowed:</strong>
+  <%= @vehicle.max_allowed %>
+</p>
+
+<p>
+  <strong>Vehicle type:</strong>
+  <%= @vehicle.vehicle_type %>
+</p>
+
+<p>
+  <strong>Insurance:</strong>
+  <%= @vehicle.insurance %>
+</p>
+
+<p>
+  <strong>Tax:</strong>
+  <%= @vehicle.tax %>
+</p>
+
+<p>
+  <strong>Permit:</strong>
+  <%= @vehicle.permit %>
+</p>
+
+<%= link_to 'Edit', edit_vehicle_path(@vehicle) %> |
+<%= link_to 'Back', vehicles_path %>

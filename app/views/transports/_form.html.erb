@@ -1,0 +1,99 @@
+<style type="text/css">
+  .container{
+      width: 1068px;
+  }
+
+  .sss{
+    border:1px solid#e5e5e5;   padding: 1%; 
+  }
+
+  .lll{
+    width: auto !important; 
+    background-color: white;
+    padding-right: 16px;
+    padding-left: 15px;
+    border: 1px solid;
+    border-color: #729F32;
+    border-radius: 21px;
+  }
+</style>
+
+<%= form_for(@transport) do |f| %>
+  <% if @transport.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@transport.errors.count, "error") %> prohibited this transport from being saved:</h2>
+
+      <ul>
+      <% @transport.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="container form-holder">
+        <div class="row">
+        <br>
+            <fieldset class="sss well well-lg">
+              <legend class="lll">Transport Information</legend>
+              <div class = "row">
+                  <div class="column col-xs-12 col-sm-6">
+                      <div class="form-group ">
+                        <div class="field">
+                          <%= f.label  :employee_id %><br>
+                          <%= f.select :employee_id,options_for_select(@employee),{},{ :style => 'height:34px;',  class: 'form-control' , required: true, autofocus: true} %>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="column col-xs-12 col-sm-6">
+                       <div class="form-group ">
+                          <div class="field">
+                            <%= f.label :vehicle_id %><br>
+                            <%= f.select :vehicle_id,options_for_select(@vehicle) ,{},{:style => 'height:34px;',  class: 'form-control' , required: true, autofocus: true} %>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                <div class = "row">
+                      <div class="column col-xs-12 col-sm-6">
+                        <div class="form-group ">
+                          <div class="field">
+                            <%= f.label :arrival %><br>
+                            <%= f.time_field :arrival, :style => 'height:34px;',  class: 'form-control' , required: true, autofocus: true %>
+                          </div>
+                        </div>
+                      </div>
+                      <%= f.hidden_field :route_id, value: @route.id %>
+                      <div class="column col-xs-12 col-sm-6">
+                       <div class="form-group ">
+                          <div class="field">
+                            <%= f.label :departure %><br>
+                            <%= f.time_field  :departure, :style => 'height:34px;',  class: 'form-control' , required: true, autofocus: true %>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                    </div>
+                  </div>
+                </div>
+                 <div class="actions">
+                  <%= f.submit "Assign Transport",:class => 'btn btn-block btn-success form-control',:style=>'width:24%;float: right;' %>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+
+<% end %>
+
+<style type="text/css">
+    .form-holder .col-sm-4 {
+      min-height: 84px;
+    }
+    .form-holder .form-control{
+        width: 100%;
+    }
+    .form-control{
+        border-radius: 7px;
+        border: black;
+    }
+</style>

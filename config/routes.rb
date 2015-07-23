@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
 
   
+  resources :stops
+  resources :transports
+  resources :routes
+  resources :vehicles
   resources :subjects
   resources :grades
   resources :batches

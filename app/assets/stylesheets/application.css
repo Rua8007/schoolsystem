@@ -32,6 +32,24 @@
     width: 91%;
 }
 
+.container{
+      width: 1068px;
+  }
+
+  .sss{
+    border:1px solid#e5e5e5;   padding: 1%; 
+  }
+
+  .lll{
+    width: auto !important; 
+    background-color: white;
+    padding-right: 16px;
+    padding-left: 15px;
+    border: 1px solid;
+    border-color: #729F32;
+    border-radius: 21px;
+  }
+
 
   
 

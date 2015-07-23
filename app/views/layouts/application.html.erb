@@ -665,6 +665,55 @@ leave requests
                 </ul>
               </li>
 
+              <li>
+                <a href class="auto">      
+                  <span class="pull-right text-muted">
+                    <i class="fa fa-fw fa-angle-right text"></i>
+                    <i class="fa fa-fw fa-angle-down text-active"></i>
+                  </span>
+                  <i class="glyphicon glyphicon-user"></i>
+                  <span>Transport</span>
+                </a>
+                <ul class="nav nav-sub dk">
+                  <li class="nav-sub-header">
+                    <%= link_to("") do %>
+                      <span>Transport</span>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to(new_vehicle_path) do %>
+                      <span>New Vehicle</span>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to(vehicles_path) do %>
+                      <span>List All Vehicle</span>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to(new_route_path) do %>
+                      <span>New Route</span>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to(routes_path) do %>
+                      <span>List All Routes</span>
+                    <% end %>
+                  </li> 
+                  <li>
+                    <%= link_to(new_stop_path) do %>
+                      <span>New Stop</span>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to(transports_path) do %>
+                      <span>Transport details</span>
+                    <% end %>
+                  </li>
+                  
+                </ul>
+              </li>
+
               <!-- <li>
 >>>>>>> origin/master
                 <a href class="auto">
