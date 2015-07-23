@@ -37,12 +37,21 @@ class StudentsController < ApplicationController
   end
 
   def detail
-    @student = Student.find(params[:id])
-    respond_to do |format|
-      format.js
-      format.json { render json: {student: @student } }  # respond with the created JSON object
-    end
+    puts "-"*80
+    puts params
+    puts "-"*80
 
+    @student = Student.find(params[:id])
+    if params[:fee]
+      respond_to do |format|
+        format.json {render json: @student}
+      end
+    else
+      respond_to do |format|
+        format.js
+        format.json { render json: {student: @student } }  # respond with the created JSON object
+      end
+    end
   end
 	private
 

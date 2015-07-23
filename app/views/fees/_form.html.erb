@@ -17,7 +17,7 @@
   </div>
   <div class= "form-group col-md-4">
     <label>Enter Amount</label><br>
-    <%= f.text_field :amount, class: "form-control" %>
+    <%= f.text_field :amount, class: "form-control", readonly: true %>
   </div>
   <%= f.hidden_field :user_id, class: "form-control" %>
 
@@ -40,5 +40,28 @@
     format: "mm-dd-yyyy",
     viewMode: "months", 
     minViewMode: "months"
+  });
+
+  $("#fee_student_id").blur(function(){
+    // var id = $("#fee_student_id");
+    $.get('/students/detail', {id: 12, fee: true})
+      .done(function(data){
+        var val = data.term;
+        console.log(val);
+        if(val == 'Monthly'){
+          $("#fee_amount").val(Math.round(data.fee)/12);
+          console.log
+        }
+        if(val == 'Quarterly'){
+          $("#fee_amount").val(Math.round(data.fee)/4);
+        }
+        if(val == 'Bi-annualy'){
+          $("#fee_amount").val(Math.round(data.fee)/2);
+        }
+        if(val == 'Annualy'){
+          $("#fee_amount").val(data.fee);
+        }
+
+        });
   });
 </script>
