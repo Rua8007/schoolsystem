@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   
+
   resources :fees do
     collection do
       get 'fee_defaulter'
@@ -10,6 +11,14 @@ Rails.application.routes.draw do
   resources :routes
   resources :stops
   resources :vehicles
+
+  resources :weekends do
+    collection do
+      post 'add_weekends'
+    end
+  end
+
+
   resources :subjects
   resources :grades do
     member do

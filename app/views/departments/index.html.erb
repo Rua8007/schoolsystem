@@ -27,7 +27,7 @@
           <td><%= department.code %></td>
           <td><%= department.name %></td>
           <td><%= link_to 'Edit', edit_department_path(department), class: "btn btn-small btn-default" %></td>
-          <td><%= link_to 'Destroy', department, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-small btn-danger" %></td>
+          <td><%= link_to 'Delete', department, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-small btn-danger" %></td>
         </tr>
       <% end %>
     </tbody>

@@ -1,5 +1,9 @@
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3">Employees Attendance 
+    <%= link_to("", class: "btn m-b-xs btn-sm btn-success btn-addon pull-right weekend-days" ) do %>
+      <i class="fa fa-plus"></i>
+      Weekend Days
+    <% end %>
   </h1>
 </div>
 
@@ -24,14 +28,59 @@
               <%= select_tag :department, options_from_collection_for_select(@departments,"id", "name"),
                   prompt: "Select Department", class: "form-control", required: true %>
             </div>
-	        
-	          
 	        </div>
 	        <div class="modal-footer">
-	        	<%= submit_tag 'Go', class: 'btn btn-primary' %>
 	          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <%= submit_tag 'Go', class: 'btn btn-primary' %>
 	        </div>
 				<% end %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Weekend Modal -->
+  <div class="modal fade" id="weekend_modal" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Select Weekend Days</h4>
+        </div>
+        <%= form_tag(add_weekends_weekends_path ,method: :post) do %>
+          <%#= hidden_field_tag :attendance_date, "" %>
+          <div class="modal-body">
+
+            <div class="form-group">
+              <!-- <label>S</label> -->
+              <% Date::DAYNAMES.each_with_index do |day,i| %>
+
+
+                <div class="checkbox">
+                  <label class="i-checks">
+                    <% if @weekends.find{ |w| w.weekend_day == i }.present? %>
+                      <%= check_box_tag 'weekend[]', day, day %>
+                    <% else %>
+                      <%= check_box_tag 'weekend[]', day %>
+                    <% end %>
+                    <i></i>
+                    <%= day %>
+                  </label>
+                </div>
+
+                
+              <% end %>
+              <!-- <p>Some text in the modal.</p> -->
+              <%#= select_tag :department, options_from_collection_for_select(@departments,"id", "name"),
+                  prompt: "Select Department", class: "form-control", required: true %>
+            </div>
+          
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <%= submit_tag 'Save', class: 'btn btn-success' %>
+          </div>
+        <% end %>
 
       </div>
     </div>
@@ -40,12 +89,18 @@
 
 
 <script type="text/javascript">
+
+  $ (document).on('click','.weekend-days', function (e){
+    e.preventDefault();
+    $("#weekend_modal").modal();
+  });
+
 	$( document ).ready(function() {
 		var check = false;
 	  $('#calendar').fullCalendar({
-	  	hiddenDays: [ 5, 6 ],
+	  	// hiddenDays: [ 5, 6 ],
+      height: 450,
 
-	  	
 //                 header: {
 //                     right: 'prev,next today',
 //                     center: 'title',
@@ -101,5 +156,34 @@
 		// $('#department_modal').on('hidden.bs.modal', function () {
 		//   $(".password-code").show(); 
 		// })
+
+
+    $(".fc-weekend-column").each(function(i,el){
+      $(this).css("background-color", "grey");
+    });
 	});
 </script>
+
+<style type="text/css">
+  <% if @weekends.find{ |w| w.weekend_day == 0 }.present? %>
+    .fc-sun { color:#ddd;  }
+  <% end %>
+  <% if @weekends.find{ |w| w.weekend_day == 1 }.present? %>
+    .fc-mon { color:#ddd;  }
+  <% end %>
+  <% if @weekends.find{ |w| w.weekend_day == 2 }.present? %>
+    .fc-tue { color:#ddd; }
+  <% end %>
+  <% if @weekends.find{ |w| w.weekend_day == 3 }.present? %>
+    .fc-wed { color:#ddd; }
+  <% end %>
+  <% if @weekends.find{ |w| w.weekend_day == 4 }.present? %>
+    .fc-thu { color:#ddd; }
+  <% end %>
+  <% if @weekends.find{ |w| w.weekend_day == 5 }.present? %>
+    .fc-fri { color:#ddd; }
+  <% end %>
+  <% if @weekends.find{ |w| w.weekend_day == 6 }.present? %>
+    .fc-sat { color:#ddd; }
+  <% end %>
+</style>
