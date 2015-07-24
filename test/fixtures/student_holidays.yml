@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  reason: MyString
+  description: MyText
+  student_id: 1
+  leave_from: 2015-07-24
+  leave_to: 2015-07-24
+  approved: false
+
+two:
+  reason: MyString
+  description: MyText
+  student_id: 1
+  leave_from: 2015-07-24
+  leave_to: 2015-07-24
+  approved: false

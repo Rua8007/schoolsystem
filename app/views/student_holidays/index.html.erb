@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Student Holidays</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Reason</th>
+      <th>Description</th>
+      <th>Student</th>
+      <th>Leave from</th>
+      <th>Leave to</th>
+      <th>Approved</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @student_holidays.each do |student_holiday| %>
+      <tr>
+        <td><%= student_holiday.reason %></td>
+        <td><%= student_holiday.description %></td>
+        <td><%= student_holiday.student_id %></td>
+        <td><%= student_holiday.leave_from %></td>
+        <td><%= student_holiday.leave_to %></td>
+        <td><%= student_holiday.approved %></td>
+        <td><%= link_to 'Show', student_holiday %></td>
+        <td><%= link_to 'Edit', edit_student_holiday_path(student_holiday) %></td>
+        <td><%= link_to 'Destroy', student_holiday, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Student holiday', new_student_holiday_path %>

@@ -1,0 +1,79 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title text-center">Attendance List of <%= "#{@grade_name} - #{@month_year}" %></h3>
+  </div>
+  <div class="panel-body">
+  	<span>Total Working Days = <%= "#{@total_working_days}" %></span><br/><br/>
+		<table class="table table-striped">
+			<thead>
+				<th>Name</th>
+				<% @number_of_days.times do |i| %>
+					<th> 
+						<%= i >= 9 ? (i + 1).to_s : "0"+(i + 1).to_s %> 
+					</th>
+				<% end %>
+				<th class="text-center">
+					Presents
+				</th>
+				<th class="text-center">
+					Absents
+				</th>
+				<th class="text-center">
+					Leaves
+				</th>
+			</thead>
+			<tbody>
+			  <% @attendances.try(:each) do |attendance| %>
+					<tr>
+						<td><%= attendance["name"] %></td>
+						<% presents = 0 %>
+						<% absents = 0 %>
+						<% leaves = 0 %>
+
+						<% @number_of_days.times do |i| %>
+							<% day = (i+1).to_s %>
+							<% if attendance[day].present? %>
+								<% if attendance[day] == "P" %>
+									<% presents = presents + 1 %>
+									<td style="color: green;"><span>P</span></td>
+								<% elsif attendance[day] == "L" %>
+									<% leaves = leaves + 1 %>
+									<td style="color: blue;"><span>L</span></td>
+								<% elsif attendance[day] == "A" %>
+									<% absents = absents + 1 %>
+									<td style="color: red;"><span>A</span></td>
+								<% end %>
+							<% else %>
+								<% if i <= 9 %>
+									<% dd = "0"+(i + 1).to_s %>
+								<% else %>
+									<% dd = (i + 1).to_s %>
+								<% end %>
+								<% if @weekends.find{ |w| w.weekend_day == (dd+"-"+@month_year.to_s).to_date.wday }.present? %>
+									<td style="color: brown;"><span>H</span></td>
+								<% else %>
+									<td></td>
+								<% end %>
+							<% end %>
+						<% end %>
+						<td class="text-center"><%= presents %></td>
+						<td class="text-center"><%= absents %></td>
+						<td class="text-center"><%= leaves %></td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+  </div>
+</div>
+<p><span style="color: brown"> H = Holiday</span>, <span style="color: green"> P = Present</span>, <span style="color: blue"> L = Leave</span>, <span style="color: red"> A = Absent</span></p>
+
+<style type="text/css">
+	.table > thead > tr > th {
+		padding: 0;
+		background-color: #f0f0f0;
+	}
+
+	.table > tbody > tr > td, .table > tfoot > tr > td {
+		padding: 0;
+	}
+</style>
