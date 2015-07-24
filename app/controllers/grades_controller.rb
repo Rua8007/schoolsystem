@@ -35,6 +35,12 @@ class GradesController < ApplicationController
     end
   end
 
+  def all_student
+    @grade = Grade.find(params[:id])
+    @students = @grade.students
+    @student = @students.first
+  end
+
   # PATCH/PUT /grades/1
   # PATCH/PUT /grades/1.json
   def update

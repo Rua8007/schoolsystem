@@ -17,8 +17,9 @@
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3"> Classes </h1>
 </div>
+<br><br>
 <table class="table" id="example">
-  <thead>
+  <thead class="table-head">
     <tr>
       <th>Name</th>
       <th>Section</th>
@@ -31,7 +32,7 @@
   <tbody>
     <% @grades.each do |grade| %>
       <tr>
-        <td><%= grade.name %></td>
+        <td><%= link_to grade.name, all_student_grade_path(grade.id) %></td>
         <td><%= grade.section %></td>
         <td><%= grade.batch_id %></td>
         <td><%= grade.students.count %></td>

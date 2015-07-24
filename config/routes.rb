@@ -11,7 +11,11 @@ Rails.application.routes.draw do
   resources :stops
   resources :vehicles
   resources :subjects
-  resources :grades
+  resources :grades do
+    member do
+      get 'all_student'
+    end
+  end
   resources :batches
   resources :leaves do
     member do
