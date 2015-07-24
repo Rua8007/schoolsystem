@@ -48,7 +48,7 @@
                          <div class="form-group ">
                           <div class="field">
                             <%= f.label :route_id %><br>
-                            <%= f.select :route_id,options_for_select(@route),{},{:style => 'height:34px;',  class: 'form-control' , required: true, autofocus: true} %>
+                            <%= f.select :route_id, options_from_collection_for_select(@routes,"id", "name"),{prompt: "Select Route"}, {class: "form-control", required: true} %>
                           </div>
                         </div>
                       </div>

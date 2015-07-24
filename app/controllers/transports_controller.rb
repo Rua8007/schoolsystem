@@ -15,13 +15,17 @@ class TransportsController < ApplicationController
   # GET /transports/new
   def new
     @transport = Transport.new
-    @employee=Employee.all.pluck(:full_name,:id)
-    @vehicle=Vehicle.all.pluck(:code,:id)
+    @employees=Employee.all
+    @vehicles=Vehicle.all
     @route = Route.find(params[:route_id])
   end
 
   # GET /transports/1/edit
   def edit
+    @employees=Employee.all
+    @vehicles=Vehicle.all
+    @route=Route.all
+  
   end
 
   # POST /transports
@@ -66,6 +70,6 @@ class TransportsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def transport_params
-      params.require(:transport).permit(:arrival, :departure, :employee_id, :route_id, :vehicle_id)
+      params.require(:transport).permit(:arrival, :departure, :employee_id, :route_id, :vehicle_id,:no)
     end
 end

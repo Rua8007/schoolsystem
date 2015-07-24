@@ -45,7 +45,7 @@ class RoutesController < ApplicationController
       end
     end
   end
-
+  
   # DELETE /routes/1
   # DELETE /routes/1.json
   def destroy

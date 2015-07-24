@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
 
   
+  resources :bus_allotments do
+    collection do
+      get "stops_data"
+      get "transports_data"
+    end
+  end
   resources :stops
   resources :transports
   resources :routes
