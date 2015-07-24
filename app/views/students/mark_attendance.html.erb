@@ -1,13 +1,13 @@
 <div class="bg-light lter b-b wrapper-md">
-  <h1 class="m-n font-thin h3 text-center">Employees Attendance of <%= "#{@dept_name} Department - #{@attendance_date}" %>
+  <h1 class="m-n font-thin h3 text-center">Students Attendance of <%= "#{@grad_name} Grade - #{@attendance_date}" %>
   </h1>
 </div>
 
 <div class="wrapper-md">
-	<%= form_tag(save_attendances_employees_path, method: :post) do %>
+	<%= form_tag(save_attendances_students_path, method: :post) do %>
 
 		<%= hidden_field_tag :attendance_date, "#{@attendance_date}" %>
-		<%= hidden_field_tag :department,"#{@department}" %>
+		<%= hidden_field_tag :grade,"#{@grade}" %>
 		
 		<div class="modal fade" id="secret_modal" role="dialog">
 	    <div class="modal-dialog">
@@ -39,8 +39,8 @@
 	  <table class="table table-striped">
 	    <thead>
 	      <tr>
-	        <th>Employee name</th>
-	        <th>Position</th>
+	        <th>Student name</th>
+	        <th>Grade</th>
 	        <th>Present/Absent</th>
 	        <th>Leave</th>
 	        <th>Reason</th>
@@ -48,20 +48,20 @@
 	    </thead>
 
 	    <tbody>
-	      <% @emp_attendances.try(:each) do |employee_attendance| %>
+	      <% @std_attendances.try(:each) do |student_attendance| %>
 	        <tr>
-	          <td><%= employee_attendance["name"] %></td>
-	          <td><%= employee_attendance["position"] %></td>
+	          <td><%= student_attendance["name"] %></td>
+	          <td><%= student_attendance["grade"] %></td>
 
 	          <td>
 	          	<div class="checkbox">
 	              <label class="i-checks">
-	            		<% if employee_attendance["attendance"] == "true" %>
-	                	<%= check_box_tag "attendances[]", employee_attendance["emp_id"], true, id: "att_emp_#{employee_attendance["emp_id"]}", class: 'attendance_checkbox' %>
-	                <% elsif employee_attendance["leave"] == "true" %>
-	                	<%= check_box_tag "attendances[]" , employee_attendance["emp_id"], false, id: "att_emp_#{employee_attendance["emp_id"]}", class: 'attendance_checkbox', disabled: true %>
+	            		<% if student_attendance["attendance"] == "true" %>
+	                	<%= check_box_tag "attendances[]", student_attendance["std_id"], true, id: "att_std_#{student_attendance["std_id"]}", class: 'attendance_checkbox' %>
+	                <% elsif student_attendance["leave"] == "true" %>
+	                	<%= check_box_tag "attendances[]" , student_attendance["std_id"], false, id: "att_std_#{student_attendance["std_id"]}", class: 'attendance_checkbox', disabled: true %>
 	               	<% else %>
-	               		<%= check_box_tag "attendances[]" , employee_attendance["emp_id"], false, id: "att_emp_#{employee_attendance["emp_id"]}", class: 'attendance_checkbox' %>
+	               		<%= check_box_tag "attendances[]" , student_attendance["std_id"], false, id: "att_std_#{student_attendance["std_id"]}", class: 'attendance_checkbox' %>
 	               	<% end %>
 	                <i></i>
 	              </label>
@@ -73,17 +73,17 @@
 	          <td>
 	          	<div class="checkbox">
 	              <label class="i-checks">
-	              	<% if employee_attendance["leave"] == "true" %>
-	                	<%= check_box_tag "leaves[]" , employee_attendance["emp_id"], true, id: "leave_emp_#{employee_attendance["emp_id"]}", class: 'leave_checkbox', disabled: true %>
+	              	<% if student_attendance["leave"] == "true" %>
+	                	<%= check_box_tag "leaves[]" , student_attendance["std_id"], true, id: "leave_std_#{student_attendance["std_id"]}", class: 'leave_checkbox', disabled: true %>
 	                <% else %>
-	                	<%= check_box_tag "leaves[]" , employee_attendance["emp_id"], false, id: "leave_emp_#{employee_attendance["emp_id"]}", class: 'leave_checkbox', disabled: true %>
+	                	<%= check_box_tag "leaves[]" , student_attendance["std_id"], false, id: "leave_std_#{student_attendance["std_id"]}", class: 'leave_checkbox', disabled: true %>
 	               	<%  end %>
 	                <i></i>
 	              </label>
 	            </div>
 	          </td>
 
-	          <td><%= "#{employee_attendance["reason"]}" %></td>
+	          <td><%= "#{student_attendance["reason"]}" %></td>
 	        </tr>
 	      <% end %>
 	    </tbody>
@@ -107,7 +107,7 @@
     $(".leave_checkbox").click(function() {
     	clicked_id = this.id.toString();
     	clicked_id = clicked_id.split("_");
-    	attendance_id = "#att_emp_"+clicked_id[clicked_id.length-1].toString();
+    	attendance_id = "#att_std_"+clicked_id[clicked_id.length-1].toString();
 			if(this.checked)
 			{
 				$(attendance_id).attr('checked', false);
@@ -120,7 +120,7 @@
     $(".attendance_checkbox").click(function() {
     	clicked_id = this.id.toString();
     	clicked_id = clicked_id.split("_");
-    	leave_id = "#leave_emp_"+clicked_id[clicked_id.length-1].toString();
+    	leave_id = "#leave_std_"+clicked_id[clicked_id.length-1].toString();
 			if(this.checked)
 			{
 				$(leave_id).attr('checked', false);

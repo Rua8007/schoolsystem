@@ -409,7 +409,7 @@
                     <i class="fa fa-fw fa-angle-down text-active"></i>
                   </span>
                   <i class="glyphicon glyphicon-book"></i>
-                  <span>Attendance</span>
+                  <span> Staff Attendance</span>
                 </a>
                 <ul class="nav nav-sub dk">
                   <li class="nav-sub-header">
@@ -424,6 +424,35 @@
                   </li>
                   <li>
                     <%= link_to(monthly_attendance_report_employees_path) do %>
+                      <span>Attendance Report</span>
+                    <% end %>
+                  </li> 
+                </ul>
+              </li>
+
+
+              <li>
+                <a href class="auto">      
+                  <span class="pull-right text-muted">
+                    <i class="fa fa-fw fa-angle-right text"></i>
+                    <i class="fa fa-fw fa-angle-down text-active"></i>
+                  </span>
+                  <i class="glyphicon glyphicon-book"></i>
+                  <span> Student Attend.</span>
+                </a>
+                <ul class="nav nav-sub dk">
+                  <li class="nav-sub-header">
+                    <%= link_to("") do %>
+                      <span>Attendance</span>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to(mark_attendance_calendar_students_path) do %>
+                      <span>Mark Attendance</span>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to(monthly_attendance_report_students_path) do %>
                       <span>Attendance Report</span>
                     <% end %>
                   </li> 

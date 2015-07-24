@@ -1,0 +1,2 @@
+module StudentHolidaysHelper
+end

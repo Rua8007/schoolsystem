@@ -69,15 +69,13 @@ class EmployeesController < ApplicationController
   end
 
   def mark_attendance_calendar
-    # @employees = Employee.all
     @departments = Department.all
-
+    @weekends = Weekend.all
   end
 
   ####### TIME ZONE ISSUES
   def mark_attendance
-    # return render json: params.inspect
-    if params[:attendance_date].present? && ( params[:attendance_date].to_date.strftime("%d-%m-%Y") === Date.today.strftime("%d-%m-%Y") || params[:attendance_date].to_date < Date.today )
+    if params[:attendance_date].present? && ( params[:attendance_date].to_date.strftime("%d-%m-%Y") === Date.today.strftime("%d-%m-%Y") || params[:attendance_date].to_date < Date.today ) && Weekend.find_by_weekend_day(params[:attendance_date].to_date.wday).nil?
       @attendance_date = params[:attendance_date].to_date.strftime("%d-%m-%Y")
       if params[:department].present?
         @department = params[:department]
@@ -161,7 +159,7 @@ class EmployeesController < ApplicationController
         end
       end
     else
-      flash[:alert] = "Future attendances can't be marked."
+      flash[:alert] = "Future attendances/weekends can't be marked."
       redirect_to mark_attendance_calendar_employees_path
     end
   end
@@ -201,12 +199,16 @@ class EmployeesController < ApplicationController
       department = Department.find(params[:department].to_i)
 
       if department.present?
+        @department_name = department.name
         employees = department.employees
         @attendances = []
         employees.each_with_index do |employee, i|
           attendance = {}
           attendance.store("name","#{employee.full_name}")
           e_attendances = employee.employee_attendances.where("extract(month from attendance_date) = ? AND extract(year from attendance_date) = ?",month,year)
+          if i == 0
+            @total_working_days = e_attendances.count
+          end
           e_attendances.each do |e_attendance|
             if e_attendance.epresent == true
               attendance.store("#{e_attendance.attendance_date.day}","P")
@@ -220,8 +222,10 @@ class EmployeesController < ApplicationController
         end
       end
     end
-    # puts "*******"*100
-    # puts @attendances.inspect
+    @month_year = params[:month_year]
+    @weekends = Weekend.all
+    @number_of_days = Date.civil(year.to_i, month.to_i, -1).day
+
     return render partial: "employees/get_monthly_attendance_report_result"
   end
 
@@ -244,7 +248,6 @@ class EmployeesController < ApplicationController
             if params[:attendances].present?
               params[:attendances].each do |attendance|
                 if emp.id == attendance.to_i
-                  puts "--------------------------------------------"
                   emp_attendance = emp.employee_attendances.where(attendance_date: params[:attendance_date].to_date).first
                   if emp_attendance.nil?
                     emp_attendance = emp.employee_attendances.build(attendance_date: params[:attendance_date].to_date)

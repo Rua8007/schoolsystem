@@ -1,32 +1,28 @@
 <div class="bg-light lter b-b wrapper-md">
-  <h1 class="m-n font-thin h3">Employees Attendance 
-    <%= link_to("", class: "btn m-b-xs btn-sm btn-success btn-addon pull-right weekend-days" ) do %>
-      <i class="fa fa-plus"></i>
-      Weekend Days
-    <% end %>
+  <h1 class="m-n font-thin h3">Students Attendance 
   </h1>
 </div>
 
 <div class="wrapper-md">
 	<div id='calendar'></div>
 	<!-- Modal -->
-  <div class="modal fade" id="department_modal" role="dialog">
+  <div class="modal fade" id="grade_modal" role="dialog">
     <div class="modal-dialog">
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Select Department</h4>
+          <h4 class="modal-title">Select Grade</h4>
         </div>
-        <%= form_tag(mark_attendance_employees_path ,method: :post) do %>
+        <%= form_tag(mark_attendance_students_path ,method: :post) do %>
         	<%= hidden_field_tag :attendance_date, "" %>
 	        <div class="modal-body">
 
             <div class="form-group">
-              <label>Department</label>
+              <label>Grade</label>
               <!-- <p>Some text in the modal.</p> -->
-              <%= select_tag :department, options_from_collection_for_select(@departments,"id", "name"),
-                  prompt: "Select Department", class: "form-control", required: true %>
+              <%= select_tag :grade, options_from_collection_for_select(@grades,"id", "name"),
+                  prompt: "Select Grade", class: "form-control", required: true %>
             </div>
 	        </div>
 	        <div class="modal-footer">
@@ -37,63 +33,10 @@
       </div>
     </div>
   </div>
-
-  <!-- Weekend Modal -->
-  <div class="modal fade" id="weekend_modal" role="dialog">
-    <div class="modal-dialog">
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Select Weekend Days</h4>
-        </div>
-        <%= form_tag(add_weekends_weekends_path ,method: :post) do %>
-          <%#= hidden_field_tag :attendance_date, "" %>
-          <div class="modal-body">
-
-            <div class="form-group">
-              <!-- <label>S</label> -->
-              <% Date::DAYNAMES.each_with_index do |day,i| %>
-
-
-                <div class="checkbox">
-                  <label class="i-checks">
-                    <% if @weekends.find{ |w| w.weekend_day == i }.present? %>
-                      <%= check_box_tag 'weekend[]', day, day %>
-                    <% else %>
-                      <%= check_box_tag 'weekend[]', day %>
-                    <% end %>
-                    <i></i>
-                    <%= day %>
-                  </label>
-                </div>
-
-                
-              <% end %>
-              <!-- <p>Some text in the modal.</p> -->
-              <%#= select_tag :department, options_from_collection_for_select(@departments,"id", "name"),
-                  prompt: "Select Department", class: "form-control", required: true %>
-            </div>
-          
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <%= submit_tag 'Save', class: 'btn btn-success' %>
-          </div>
-        <% end %>
-
-      </div>
-    </div>
-  </div>
 </div>
 
 
 <script type="text/javascript">
-
-  $ (document).on('click','.weekend-days', function (e){
-    e.preventDefault();
-    $("#weekend_modal").modal();
-  });
 
 	$( document ).ready(function() {
 		var check = false;
@@ -146,14 +89,14 @@
         	// 	$(".password-code").hide();
         	// }
         	$("#attendance_date").val(date.format('DD-MM-YYYY'));
-        	$("#department_modal").modal();
+        	$("#grade_modal").modal();
         	
         
     	}
 	  	// weekends: false // will hide Saturdays and Sundays
 	    // dayClick: function() {console.log("hey");}
 		});
-		// $('#department_modal').on('hidden.bs.modal', function () {
+		// $('#grade_modal').on('hidden.bs.modal', function () {
 		//   $(".password-code").show(); 
 		// })
 
