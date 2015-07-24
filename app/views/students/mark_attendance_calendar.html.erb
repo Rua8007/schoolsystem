@@ -1,0 +1,132 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Students Attendance 
+  </h1>
+</div>
+
+<div class="wrapper-md">
+	<div id='calendar'></div>
+	<!-- Modal -->
+  <div class="modal fade" id="grade_modal" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Select Grade</h4>
+        </div>
+        <%= form_tag(mark_attendance_students_path ,method: :post) do %>
+        	<%= hidden_field_tag :attendance_date, "" %>
+	        <div class="modal-body">
+
+            <div class="form-group">
+              <label>Grade</label>
+              <!-- <p>Some text in the modal.</p> -->
+              <%= select_tag :grade, options_from_collection_for_select(@grades,"id", "name"),
+                  prompt: "Select Grade", class: "form-control", required: true %>
+            </div>
+	        </div>
+	        <div class="modal-footer">
+	          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <%= submit_tag 'Go', class: 'btn btn-primary' %>
+	        </div>
+				<% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+
+	$( document ).ready(function() {
+		var check = false;
+	  $('#calendar').fullCalendar({
+	  	// hiddenDays: [ 5, 6 ],
+      height: 450,
+
+//                 header: {
+//                     right: 'prev,next today',
+//                     center: 'title',
+//                     left: 'month,agendaWeek,agendaDay'
+//                 },
+//                 eventAfterRender: function (event, element, view) {
+//                     birthday = new Date('<somedate>');
+//                     year = new Date(event.start).getFullYear();
+//                     month = new Date(event.start).getMonth();
+//                     day = new Date(event.start).getDate();
+//                     alert(year + ' ' + month + ' ' + day);
+//     //do some if statement to see if the year matches then if the month, then the day. 
+// //if so then go to another function or just put the code here for the pop 
+
+//                 },
+
+
+	  	// dayRender: function(date, cell){
+	  	// 		var today = $('#calendar').fullCalendar('getDate');
+
+    //    		if (date > today.format()){
+		  //       $(cell).addClass('disabled');
+		  //     }
+		  //     else
+		  //     {
+
+		  //     }
+		  //   },
+
+	  	dayClick: function(date, jsEvent, view) {
+        // alert('Clicked on: ' + date.format());
+        // alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+        // alert('Current view: ' + view.name);
+        // change the day's background color just for fun
+        // $(this).css('background-color', 'red');
+
+        var today = $('#calendar').fullCalendar('getDate');
+    		// alert("The current date of the calendar is " + today.format('DD-MM-YYYY'));
+        // if( (date.format('DD-MM-YYYY') === today.format('DD-MM-YYYY')) || (date.format('DD-MM-YYYY') < today.format('DD-MM-YYYY')) )
+        // {
+        	// if(date.format('DD-MM-YYYY') === today.format('DD-MM-YYYY')) 
+        	// {
+        	// 	$(".password-code").hide();
+        	// }
+        	$("#attendance_date").val(date.format('DD-MM-YYYY'));
+        	$("#grade_modal").modal();
+        	
+        
+    	}
+	  	// weekends: false // will hide Saturdays and Sundays
+	    // dayClick: function() {console.log("hey");}
+		});
+		// $('#grade_modal').on('hidden.bs.modal', function () {
+		//   $(".password-code").show(); 
+		// })
+
+
+    $(".fc-weekend-column").each(function(i,el){
+      $(this).css("background-color", "grey");
+    });
+	});
+</script>
+
+<style type="text/css">
+  <% if @weekends.find{ |w| w.weekend_day == 0 }.present? %>
+    .fc-sun { color:#ddd;  }
+  <% end %>
+  <% if @weekends.find{ |w| w.weekend_day == 1 }.present? %>
+    .fc-mon { color:#ddd;  }
+  <% end %>
+  <% if @weekends.find{ |w| w.weekend_day == 2 }.present? %>
+    .fc-tue { color:#ddd; }
+  <% end %>
+  <% if @weekends.find{ |w| w.weekend_day == 3 }.present? %>
+    .fc-wed { color:#ddd; }
+  <% end %>
+  <% if @weekends.find{ |w| w.weekend_day == 4 }.present? %>
+    .fc-thu { color:#ddd; }
+  <% end %>
+  <% if @weekends.find{ |w| w.weekend_day == 5 }.present? %>
+    .fc-fri { color:#ddd; }
+  <% end %>
+  <% if @weekends.find{ |w| w.weekend_day == 6 }.present? %>
+    .fc-sat { color:#ddd; }
+  <% end %>
+</style>
