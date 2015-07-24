@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
 
   
+  resources :weekends do
+    collection do
+      post 'add_weekends'
+    end
+  end
+
   resources :subjects
   resources :grades
   resources :batches
