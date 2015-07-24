@@ -5,11 +5,11 @@
       <div class="row">
         <div class="col-sm-6 col-xs-12">
           <h1 class="m-n font-thin h3 text-black">Dashboard</h1>
-          <small class="text-muted">Welcome to angulr application</small>
+          <small class="text-muted">Welcome to School Managemnt application</small>
         </div>
         <div class="col-sm-6 text-right hidden-xs">
           <div class="inline m-r text-left">
-            <div class="m-b-xs">1290 <span class="text-muted">items</span></div>
+            <div class="m-b-xs"><%= Student.count %> <span class="text-muted">Students</span></div>
             <div
               ui-jq="sparkline" 
               ui-options="[ 106,108,110,105,110,109,105,104,107,109,105,100,105,102,101,99,98 ], {type:'bar', height:20, barWidth:5, barSpacing:1, barColor:'#dce5ec'}" 
@@ -17,7 +17,7 @@
             </div>
           </div>
           <div class="inline text-left">
-            <div class="m-b-xs">$30,000 <span class="text-muted">revenue</span></div>
+            <div class="m-b-xs"> <%= Employee.count %> <span class="text-muted">Employees</span></div>
             <div
               ui-jq="sparkline" 
               ui-options="[ 105,102,106,107,105,104,101,99,98,109,105,100,108,110,105,110,109 ], {type:'bar', height:20, barWidth:5, barSpacing:1, barColor:'#dce5ec'}" 
@@ -35,8 +35,8 @@
           <div class="row row-sm text-center">
             <div class="col-xs-6">
               <div class="panel padder-v item">
-                <div class="h1 text-info font-thin h1">521</div>
-                <span class="text-muted text-xs">New items</span>
+                <div class="h1 text-info font-thin h1"><%= Student.count %></div>
+                <span class="text-muted text-xs">Students</span>
                 <div class="top text-right w-full">
                   <i class="fa fa-caret-down text-warning m-r-sm"></i>
                 </div>
@@ -44,8 +44,8 @@
             </div>
             <div class="col-xs-6">
               <a href class="block panel padder-v bg-primary item">
-                <span class="text-white font-thin h1 block">930</span>
-                <span class="text-muted text-xs">Uploads</span>
+                <span class="text-white font-thin h1 block"><%= Employee.count %></span>
+                <span class="text-muted text-xs">Employees</span>
                 <span class="bottom text-right w-full">
                   <i class="fa fa-cloud-upload text-muted m-r-sm"></i>
                 </span>
@@ -53,8 +53,8 @@
             </div>
             <div class="col-xs-6">
               <a href class="block panel padder-v bg-info item">
-                <span class="text-white font-thin h1 block">432</span>
-                <span class="text-muted text-xs">Comments</span>
+                <span class="text-white font-thin h1 block"><%= Fee.sum(:amount) %> SAR</span>
+                <span class="text-muted text-xs"> Fees Submitted This Year</span>
                 <span class="top text-left">
                   <i class="fa fa-caret-up text-warning m-l-sm"></i>
                 </span>
@@ -62,8 +62,8 @@
             </div>
             <div class="col-xs-6">
               <div class="panel padder-v item">
-                <div class="font-thin h1">129</div>
-                <span class="text-muted text-xs">Feeds</span>
+                <div class="font-thin h1"><%= Student.sum(:fee) %></div>
+                <span class="text-muted text-xs">Total Fees of the Year</span>
                 <div class="bottom text-left">
                   <i class="fa fa-caret-up text-warning m-l-sm"></i>
                 </div>
