@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   
 
+  resources :student_holidays
   resources :fees do
     collection do
       get 'fee_defaulter'
@@ -82,6 +83,11 @@ Rails.application.routes.draw do
     end
     collection do
       get "detail"
+      get 'mark_attendance_calendar'
+      post 'mark_attendance'
+      post 'save_attendances'
+      get 'monthly_attendance_report'
+      get 'get_monthly_attendance_report_result'
     end
   end
   resources :documents do

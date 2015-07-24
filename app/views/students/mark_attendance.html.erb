@@ -1,0 +1,136 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3 text-center">Students Attendance of <%= "#{@grad_name} Grade - #{@attendance_date}" %>
+  </h1>
+</div>
+
+<div class="wrapper-md">
+	<%= form_tag(save_attendances_students_path, method: :post) do %>
+
+		<%= hidden_field_tag :attendance_date, "#{@attendance_date}" %>
+		<%= hidden_field_tag :grade,"#{@grade}" %>
+		
+		<div class="modal fade" id="secret_modal" role="dialog">
+	    <div class="modal-dialog">
+	      <!-- Modal content-->
+	      <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">Provide Secret Code to Edit Old Attendance</h4>
+	        </div>
+	        
+		        <div class="modal-body">
+
+	            <div class="form-group">
+	              <label>Secret Code</label>
+	              <!-- <p>Some text in the modal.</p> -->
+	              <%= password_field_tag :edit_code,'', class: "form-control"%>
+	            </div>
+		        
+		          
+		        </div>
+		        <div class="modal-footer">
+		        	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		          <button type="button" class="btn btn-success" data-dismiss="modal">Enter</button>
+		        </div>
+	      </div>
+	    </div>
+  	</div>
+
+	  <table class="table table-striped">
+	    <thead>
+	      <tr>
+	        <th>Student name</th>
+	        <th>Grade</th>
+	        <th>Present/Absent</th>
+	        <th>Leave</th>
+	        <th>Reason</th>
+	      </tr>
+	    </thead>
+
+	    <tbody>
+	      <% @std_attendances.try(:each) do |student_attendance| %>
+	        <tr>
+	          <td><%= student_attendance["name"] %></td>
+	          <td><%= student_attendance["grade"] %></td>
+
+	          <td>
+	          	<div class="checkbox">
+	              <label class="i-checks">
+	            		<% if student_attendance["attendance"] == "true" %>
+	                	<%= check_box_tag "attendances[]", student_attendance["std_id"], true, id: "att_std_#{student_attendance["std_id"]}", class: 'attendance_checkbox' %>
+	                <% elsif student_attendance["leave"] == "true" %>
+	                	<%= check_box_tag "attendances[]" , student_attendance["std_id"], false, id: "att_std_#{student_attendance["std_id"]}", class: 'attendance_checkbox', disabled: true %>
+	               	<% else %>
+	               		<%= check_box_tag "attendances[]" , student_attendance["std_id"], false, id: "att_std_#{student_attendance["std_id"]}", class: 'attendance_checkbox' %>
+	               	<% end %>
+	                <i></i>
+	              </label>
+	            </div>
+
+	            
+	          </td>
+
+	          <td>
+	          	<div class="checkbox">
+	              <label class="i-checks">
+	              	<% if student_attendance["leave"] == "true" %>
+	                	<%= check_box_tag "leaves[]" , student_attendance["std_id"], true, id: "leave_std_#{student_attendance["std_id"]}", class: 'leave_checkbox', disabled: true %>
+	                <% else %>
+	                	<%= check_box_tag "leaves[]" , student_attendance["std_id"], false, id: "leave_std_#{student_attendance["std_id"]}", class: 'leave_checkbox', disabled: true %>
+	               	<%  end %>
+	                <i></i>
+	              </label>
+	            </div>
+	          </td>
+
+	          <td><%= "#{student_attendance["reason"]}" %></td>
+	        </tr>
+	      <% end %>
+	    </tbody>
+	  </table>
+  	<%= submit_tag "Save Attendance", data: { confirm: "Are you sure?" }, class: 'btn btn-success pull-right' %>
+	<% end %>
+</div>
+
+
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+
+		var check = <%= @previous_attendance_edit.to_json %>;
+
+  	if(check == true){
+  		$('#secret_modal').modal('show');
+  	}
+
+    $(".leave_checkbox").click(function() {
+    	clicked_id = this.id.toString();
+    	clicked_id = clicked_id.split("_");
+    	attendance_id = "#att_std_"+clicked_id[clicked_id.length-1].toString();
+			if(this.checked)
+			{
+				$(attendance_id).attr('checked', false);
+			}
+			else
+			{
+				$(attendance_id).attr('checked', true);
+			}
+    });
+    $(".attendance_checkbox").click(function() {
+    	clicked_id = this.id.toString();
+    	clicked_id = clicked_id.split("_");
+    	leave_id = "#leave_std_"+clicked_id[clicked_id.length-1].toString();
+			if(this.checked)
+			{
+				$(leave_id).attr('checked', false);
+			}
+			else
+			{
+
+			}
+    });
+  });
+</script> 
+
+

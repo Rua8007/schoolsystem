@@ -11,8 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150723053346) do
-
+ActiveRecord::Schema.define(version: 20150724070755) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -177,6 +176,26 @@ ActiveRecord::Schema.define(version: 20150723053346) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "student_attendances", force: :cascade do |t|
+    t.integer  "student_id"
+    t.date     "attendance_date"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.boolean  "epresent",        default: true
+    t.boolean  "eleave",          default: false
+  end
+
+  create_table "student_holidays", force: :cascade do |t|
+    t.string   "reason"
+    t.text     "description"
+    t.integer  "student_id"
+    t.date     "leave_from"
+    t.date     "leave_to"
+    t.boolean  "approved",    default: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
   create_table "students", force: :cascade do |t|
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
@@ -261,7 +280,6 @@ ActiveRecord::Schema.define(version: 20150723053346) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
-
   create_table "vehicles", force: :cascade do |t|
     t.string   "code"
     t.string   "seat"
@@ -273,6 +291,7 @@ ActiveRecord::Schema.define(version: 20150723053346) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.string   "vehicle_no"
+  end
 
   create_table "weekends", force: :cascade do |t|
     t.integer  "weekend_day"

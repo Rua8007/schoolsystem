@@ -206,7 +206,9 @@ class EmployeesController < ApplicationController
           attendance = {}
           attendance.store("name","#{employee.full_name}")
           e_attendances = employee.employee_attendances.where("extract(month from attendance_date) = ? AND extract(year from attendance_date) = ?",month,year)
-          @total_working_days = e_attendances.count
+          if i == 0
+            @total_working_days = e_attendances.count
+          end
           e_attendances.each do |e_attendance|
             if e_attendance.epresent == true
               attendance.store("#{e_attendance.attendance_date.day}","P")

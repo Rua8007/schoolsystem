@@ -6,6 +6,9 @@ class Student < ActiveRecord::Base
 	has_many :documents
 	has_many	:emergencies
 	has_many :fees
+
+	has_many :student_attendances
+	
 	accepts_nested_attributes_for :emergencies
 
 	
