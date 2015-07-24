@@ -21,7 +21,7 @@
                         </td>
 
                         <td>
-                            <%= @student.grade.name%>
+                            <%= @student.grade.name+'-'+@student.grade.section %>
                         </td>
                     </tr>
 
@@ -117,7 +117,7 @@
 
 
         <div class="col-sm-4">
-        <%= image_tag @student.image, class: "img-responsive student-image" %>
+          <%= image_tag @student.image, class: "img-responsive student-image" %>
         </div>
     </div>
 
@@ -357,7 +357,46 @@
         </div>
 
         <div role="tabpanel" class="tab-pane" id="PreviousDetails">
-
+          <div class="col-sm-12">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td class="student-profile-td">
+                    Previous Institute
+                  </td>
+                  <td>
+                    <%= @student.previousInstitute %>
+                  </td>
+                  <td class="student-profile-td">
+                    Passing Year
+                  </td>
+                  <td>
+                    <%= @student.year %>
+                  </td>
+                  <td class="student-profile-td">
+                    Total Marks  
+                  </td>
+                  <td>
+                    <%= @student.totalMarks %>
+                  </td>
+                  <td class="student-profile-td">
+                    Obtained Marks  
+                  </td>
+                  <td>
+                    <%= @student.obtainedMarks %>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <hr>
+            <h3>Uploads</h3>
+            <% @student.documents.try(:each) do |doc| %>
+              <div class="col-sm-3">
+                <label><%= doc.description %></label>
+                <%= image_tag doc.attachment, class: "img-responsive student-image" %>
+              </div>
+            <% end %>
+          </div>
         </div>
 
 
@@ -484,16 +523,42 @@
                 </table>
             </div>
 
-        </div>
-
-
-
-        
+        </div>        
         <div role="tabpanel" class="tab-pane" id="FeeDetails">
-            <div class="col-sm-6">
-                <p>Total annual fee: <label><%= @student.fee %></label></p>
-                <p>Installments plan: <label><%= @student.term %></label></p>
-            </div>
+          <div class="col-sm-6">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td class="student-profile-td">
+                    Total Fee
+                  </td>
+                  <td>
+                    <%= @student.fee %>
+                  </td>
+                  <td class="student-profile-td">
+                    Installment Plan
+                  </td>
+                  <td>
+                    <%= @student.term %>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="student-profile-td">
+                    Last Fee Submitted  
+                  </td>
+                  <td>
+                    <%= @student.fees.last.amount %>
+                  </td>
+                  <td class="student-profile-td">
+                    Last Fee Submission Date  
+                  </td>
+                  <td>
+                    <%= @student.fees.last.created_at %>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
     </div>
 </div>

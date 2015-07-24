@@ -71,8 +71,10 @@ class ParentsController < ApplicationController
     puts "-"*80
     if params[:parent_id] == "new"
       @parent = Parent.new
+      @flag = true
     elsif params[:parent_id].present? && params[:parent_id] != ""
       @parent = Parent.find(params[:parent_id])
+      @flag = false
     end
     @student = Student.find(params[:student_id])
     respond_to do |format|

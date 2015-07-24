@@ -127,9 +127,11 @@
           </div>
         </div>
       </div>
-      <div class="form-group">
-        <%= f.submit "Next", :class => 'btn btn-block btn-success form-control',:style=>'width:24%;float: right; margin-right:35px;' %>
-      </div>
+      <% if @flag %>
+        <div class="form-group">
+          <%= f.submit "Next", :class => 'btn btn-block btn-success form-control',:style=>'width:24%;float: right; margin-right:35px;' %>
+        </div>
+      <% end %>
     </div>
     
   </div>

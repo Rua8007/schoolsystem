@@ -106,10 +106,12 @@
             </table>
         </div>
 
-
-
-
         <div class="col-sm-4">
         <%= image_tag @student.image, class: "img-responsive student-image" %>
+         <div>
+         <br>
+            <%= link_to "More Details", student_path(@student.id), class: "btn btn-success" %>
         </div>
+        </div>
+       
     </div>
