@@ -17,6 +17,12 @@ class StudentsController < ApplicationController
       emergency.phone = params[:student][:emergency][:phone]
       emergency.email = params[:student][:emergency][:email]
       emergency.save
+
+      fee = @student.fees.create
+      fee.amount = params[:amount]
+      fee.month = params[:month]
+      fee.save
+
       redirect_to new_parent_path(student_id: @student.id), notice: "Student added"
     else
       redirect_to :back, :alert => "Fill the form again!"

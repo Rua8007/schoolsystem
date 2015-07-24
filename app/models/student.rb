@@ -5,6 +5,7 @@ class Student < ActiveRecord::Base
 	belongs_to :grade
 	has_many :documents
 	has_many	:emergencies
+	has_many :fees
 	accepts_nested_attributes_for :emergencies
 
 	

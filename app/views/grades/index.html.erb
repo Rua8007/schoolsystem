@@ -2,26 +2,21 @@
 <%= javascript_include_tag "https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js" %>
 <%= javascript_include_tag "//cdn.datatables.net/tabletools/2.2.2/js/dataTables.tableTools.min.js" %>
 <%= javascript_include_tag "https://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js" %>
+
 <script type="text/javascript">
   $(document).ready(function() {
-
     $('#example').dataTable({
         dom: 'T<"clear">lfrtip',
         tableTools: {
-            "sSwfPath": "https://cdn.datatables.net/tabletools/2.2.2/swf/copy_csv_xls_pdf.swf"
+          "sSwfPath": "https://cdn.datatables.net/tabletools/2.2.2/swf/copy_csv_xls_pdf.swf"
         }
     });
-
-
-
   });
-
 </script>
 
-<p id="notice"><%= notice %></p>
-
-<h1>Classes</h1>
-
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3"> Classes </h1>
+</div>
 <table class="table" id="example">
   <thead>
     <tr>
