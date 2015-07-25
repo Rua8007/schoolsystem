@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150724070755) do
+ActiveRecord::Schema.define(version: 20150725091123) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -108,6 +108,13 @@ ActiveRecord::Schema.define(version: 20150724070755) do
     t.integer  "total_experience_months"
   end
 
+  create_table "exams", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "batch_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "fees", force: :cascade do |t|
     t.integer  "student_id"
     t.integer  "amount"
@@ -134,6 +141,16 @@ ActiveRecord::Schema.define(version: 20150724070755) do
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
     t.boolean  "approved",    default: false
+  end
+
+  create_table "marksheets", force: :cascade do |t|
+    t.integer  "exam_id"
+    t.integer  "bridge_id"
+    t.integer  "totalmarks"
+    t.float    "obtainedmarks"
+    t.integer  "student_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "parents", force: :cascade do |t|

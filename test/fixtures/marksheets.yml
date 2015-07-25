@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  exam_id: 1
+  bridge_id: 1
+  totalmarks: 1
+  obtainedmarks: 1.5
+  student_id: 1
+
+two:
+  exam_id: 1
+  bridge_id: 1
+  totalmarks: 1
+  obtainedmarks: 1.5
+  student_id: 1

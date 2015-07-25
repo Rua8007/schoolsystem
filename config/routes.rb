@@ -2,6 +2,8 @@ Rails.application.routes.draw do
 
   
 
+  resources :marksheets
+  resources :exams
   resources :student_holidays
   resources :fees do
     collection do

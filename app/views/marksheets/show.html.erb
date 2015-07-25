@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Exam:</strong>
+  <%= @marksheet.exam_id %>
+</p>
+
+<p>
+  <strong>Bridge:</strong>
+  <%= @marksheet.bridge_id %>
+</p>
+
+<p>
+  <strong>Totalmarks:</strong>
+  <%= @marksheet.totalmarks %>
+</p>
+
+<p>
+  <strong>Obtainedmarks:</strong>
+  <%= @marksheet.obtainedmarks %>
+</p>
+
+<p>
+  <strong>Student:</strong>
+  <%= @marksheet.student_id %>
+</p>
+
+<%= link_to 'Edit', edit_marksheet_path(@marksheet) %> |
+<%= link_to 'Back', marksheets_path %>

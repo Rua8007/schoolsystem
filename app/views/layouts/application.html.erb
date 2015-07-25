@@ -715,27 +715,37 @@
                 </ul>
               </li>
 
-              <!-- <li>
+              <li>
                 <a href class="auto">
                   <span class="pull-right text-muted">
                     <i class="fa fa-fw fa-angle-right text"></i>
                     <i class="fa fa-fw fa-angle-down text-active"></i>
                   </span>
                   <i class="glyphicon glyphicon-briefcase icon"></i>
-                  <span>UI Kits</span>
+                  <span>Examinations</span>
                 </a>
                 <ul class="nav nav-sub dk">
-                  <li class="nav-sub-header">
-                    <a href>
-                      <span>UI Kits</span>
-                    </a>
+                  <li>
+                    <%= link_to(new_exam_path) do %>
+                      <span>Create Exam</span>
+                    <% end %>
                   </li>
                   <li>
-                    <a href="ui_button.html">
-                      <span>Buttons</span>
-                    </a>
+                    <%= link_to(exams_path) do %>
+                      <span>Exams List</span>
+                    <% end %>
                   </li>
                   <li>
+                    <%= link_to(new_marksheet_path) do %>
+                      <span>Upload Marksheet</span>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to(marksheets_path) do %>
+                      <span>Marksheet</span>
+                    <% end %>
+                  </li>
+                  <!-- <li>
                     <a href="ui_icon.html">
                       <b class="badge bg-info pull-right">3</b>
                       <span>Icons</span>
@@ -771,10 +781,10 @@
                     <a href="ui_jvectormap.html">
                       <span>Vector Map</span>
                     </a>
-                  </li>
+                  </li> -->
                 </ul>
               </li>
-              <li>
+              <!-- <li>
                 <a href class="auto">
                   <span class="pull-right text-muted">
                     <i class="fa fa-fw fa-angle-right text"></i>
