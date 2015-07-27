@@ -2,7 +2,12 @@ Rails.application.routes.draw do
 
   
 
-  resources :marksheets
+  resources :marks
+  resources :marksheets do
+    member do
+      get "upload"
+    end
+  end
   resources :exams
   resources :student_holidays
   resources :fees do

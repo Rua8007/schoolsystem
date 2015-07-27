@@ -1,5 +1,5 @@
 class MarksheetsController < ApplicationController
-  before_action :set_marksheet, only: [:show, :edit, :update, :destroy]
+  before_action :set_marksheet, only: [:show, :edit, :update, :destroy, :upload]
 
   # GET /marksheets
   # GET /marksheets.json
@@ -28,7 +28,7 @@ class MarksheetsController < ApplicationController
 
     respond_to do |format|
       if @marksheet.save
-        format.html { redirect_to @marksheet, notice: 'Marksheet was successfully created.' }
+        format.html { redirect_to upload_marksheet_path(@marksheet.id), notice: 'Marksheet was successfully created.' }
         format.json { render :show, status: :created, location: @marksheet }
       else
         format.html { render :new }
@@ -59,6 +59,11 @@ class MarksheetsController < ApplicationController
       format.html { redirect_to marksheets_url, notice: 'Marksheet was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def upload
+    @students = @marksheet.bridge.grade.students
+    @marks = @marksheet.bridge.grade.marks
   end
 
   private
