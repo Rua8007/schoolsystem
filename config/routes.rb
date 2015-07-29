@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
 
   
-<<<<<<< HEAD
 
   resources :student_holidays
   resources :fees do
@@ -9,7 +8,6 @@ Rails.application.routes.draw do
       get 'fee_defaulter'
     end
   end
-=======
   resources :bus_allotments do
     collection do
       get "stops_data"
@@ -17,7 +15,6 @@ Rails.application.routes.draw do
     end
   end
   resources :stops
->>>>>>> origin/umair
   resources :transports
   resources :routes
   resources :stops

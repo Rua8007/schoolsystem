@@ -11,11 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20150724070755) do
-=======
 ActiveRecord::Schema.define(version: 20150724135013) do
->>>>>>> origin/umair
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
