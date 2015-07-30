@@ -26,6 +26,7 @@
 <table class="table" id="example">
   <thead class= "table-head">
     <tr>
+      <th>Transport no.</th>
       <th>Employee</th>
       <th>Route</th>
       <th>Vehicle</th>
@@ -38,6 +39,7 @@
   <tbody>
     <% @transports.each do |transport| %>
       <tr>
+        <td><%= transport.no %></td>
         <td><%= transport.employee.full_name %></td>
         <td><%= transport.route.name %></td>
         <td><%= transport.vehicle.vehicle_no %></td>
@@ -45,7 +47,7 @@
         <td><%= transport.arrival %></td>
         <td>
             <%= link_to '', transport,:class =>  'glyphicon glyphicon-ok-circle' %>
-            <%= link_to '', edit_transport_path(transport),:class => 'glyphicon glyphicon-pencil' %>
+            
             <%= link_to '', transport, method: :delete, data: { confirm: 'Are you sure?' },:class =>  'glyphicon glyphicon-remove-circle' %>
         </td>
       </tr>

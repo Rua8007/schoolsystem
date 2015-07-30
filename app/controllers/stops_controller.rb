@@ -15,11 +15,13 @@ class StopsController < ApplicationController
   # GET /stops/new
   def new
     @stop = Stop.new
-    @route=Route.all.pluck(:name,:id)
+    @routes=Route.all
   end
 
   # GET /stops/1/edit
   def edit
+     @stop = Stop.new
+    @routes=Route.all
   end
 
   # POST /stops
@@ -46,6 +48,8 @@ class StopsController < ApplicationController
       end
     end
   end
+
+   
 
   # DELETE /stops/1
   # DELETE /stops/1.json
