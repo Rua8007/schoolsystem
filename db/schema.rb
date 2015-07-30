@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150724135013) do
+ActiveRecord::Schema.define(version: 20150730033141) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20150724135013) do
     t.integer  "stop_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.float    "fee"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -111,8 +112,28 @@ ActiveRecord::Schema.define(version: 20150724135013) do
     t.string   "status"
     t.date     "pay_date"
     t.date     "next_due_date"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "total_experience_years"
+    t.integer  "total_experience_months"
+  end
+
+  create_table "exams", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "batch_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "start_date"
+    t.string   "end_date"
+  end
+
+  create_table "fees", force: :cascade do |t|
+    t.integer  "student_id"
+    t.integer  "amount"
+    t.integer  "user_id"
+    t.string   "month"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "grades", force: :cascade do |t|
@@ -132,6 +153,25 @@ ActiveRecord::Schema.define(version: 20150724135013) do
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
     t.boolean  "approved",    default: false
+  end
+
+  create_table "marks", force: :cascade do |t|
+    t.string   "name"
+    t.float    "marks"
+    t.float    "passing_marks"
+    t.integer  "grade_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  create_table "marksheets", force: :cascade do |t|
+    t.integer  "exam_id"
+    t.integer  "bridge_id"
+    t.integer  "totalmarks"
+    t.float    "obtainedmarks"
+    t.integer  "student_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "parents", force: :cascade do |t|
@@ -167,11 +207,39 @@ ActiveRecord::Schema.define(version: 20150724135013) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "sessionals", force: :cascade do |t|
+    t.integer  "marksheet_id"
+    t.integer  "mark_id"
+    t.float    "marks"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
   create_table "stops", force: :cascade do |t|
     t.string   "name"
     t.integer  "route_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "student_attendances", force: :cascade do |t|
+    t.integer  "student_id"
+    t.date     "attendance_date"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.boolean  "epresent",        default: true
+    t.boolean  "eleave",          default: false
+  end
+
+  create_table "student_holidays", force: :cascade do |t|
+    t.string   "reason"
+    t.text     "description"
+    t.integer  "student_id"
+    t.date     "leave_from"
+    t.date     "leave_to"
+    t.boolean  "approved",    default: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   create_table "students", force: :cascade do |t|
@@ -199,7 +267,6 @@ ActiveRecord::Schema.define(version: 20150724135013) do
     t.string   "parent_id"
     t.integer  "fee"
     t.string   "term"
-    t.string   "dueDate"
     t.string   "image"
     t.string   "iqamaNumber"
     t.string   "iqamaExpiry"
@@ -221,6 +288,7 @@ ActiveRecord::Schema.define(version: 20150724135013) do
     t.string   "disability"
     t.string   "behaviour"
     t.string   "fullname"
+    t.string   "due_date"
   end
 
   create_table "subjects", force: :cascade do |t|
@@ -270,6 +338,12 @@ ActiveRecord::Schema.define(version: 20150724135013) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.string   "vehicle_no"
+  end
+
+  create_table "weekends", force: :cascade do |t|
+    t.integer  "weekend_day"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
 end

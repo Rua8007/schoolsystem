@@ -99,6 +99,6 @@ class BusAllotmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def bus_allotment_params
-      params.require(:bus_allotment).permit(:student_id, :transport_id, :route_id, :stop_id)
+      params.require(:bus_allotment).permit(:fee, :student_id, :transport_id, :route_id, :stop_id)
     end
 end

@@ -33,57 +33,54 @@
   <% end %>
 
   <div class="container form-holder">
-        <div class="row">
-        <br>
-            <fieldset class="sss well well-lg">
-              <legend class="lll">Transport Allotment</legend>
-              <div class = "row">
-                  <div class="column col-xs-12 col-sm-6">
-                      <div class="form-group ">
-                        <div class="field">
-                          <%= f.label  :Student_ID %><br>
-                          <%= f.text_field :student_id, :style => 'height:34px;',  class: 'form-control' , required: true, autofocus: true %>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="column col-xs-12 col-sm-6">
-                        <div class="form-group ">
-                          <div class="field">
-                            <%= f.label :route_id %><br>
-                            <%= f.collection_select :route_id, Route.order(:name),:id,:name ,{}, {class: "form-control", style: 'width:100%;'} %>
-                          </div>
-                        </div>
-                      </div>
-                </div>
-                <div class = "row">
-                      
-                     
-                      <div class="column col-xs-12 col-sm-12">
-                        <div class="form-group ">
-                          <div class="field">
-                            <div id="stp">
-                              <%= render 'stops'  %>
-                            </div>
-                           
-                          </div>
-                        </div>
-                      </div>
-                     
-                </div>
-                    </div>
-                  </div>
-                </div>
-                 <div class="actions">
-                  <%= f.submit "Allot Transport",:class => 'btn btn-block btn-success form-control',:style=>'width:24%;float: right;' %>
-                </div>
-            </fieldset>
+    <div class="row">
+      <br>
+      <fieldset class="sss well well-lg">
+        <legend class="lll">Transport Allotment</legend>
+        <div class = "row">
+          <div class="column col-xs-12 col-sm-6">
+            <div class="form-group ">
+              <div class="field">
+                <%= f.label  :Student_ID %><br>
+                <%= f.text_field :student_id, :style => 'height:34px;',  class: 'form-control' , required: true, autofocus: true %>
+              </div>
+            </div>
+          </div>
+          <div class="column col-xs-12 col-sm-6">
+            <div class="form-group ">
+              <div class="field">
+                <%= f.label  :fee %><br>
+                <%= f.text_field :fee, :style => 'height:34px;',  class: 'form-control' , required: true %>
+              </div>
+            </div>
+          </div>
+          <div class="column col-xs-12 col-sm-6">
+            <div class="form-group ">
+              <div class="field">
+                <%= f.label :route_id %><br>
+                <%= f.collection_select :route_id, Route.order(:name),:id,:name ,{}, {class: "form-control", style: 'width:100%;'} %>
+              </div>
+            </div>
+          </div>
         </div>
+        <div class = "row">
+          <div class="column col-xs-12 col-sm-12">
+            <div class="form-group ">
+              <div class="field">
+                <div id="stp">
+                  <%= render 'stops'  %>
+                </div>
+              </div>
+            </div>
+          </div>  
+        </div>
+        <div class="actions">
+          <%= f.submit "Allot Transport",:class => 'btn btn-block btn-success form-control',:style=>'width:24%;float: right;' %>
+        </div>
+      </fieldset>
+      </div>
     </div>
-  
-
 <% end %>
-
-
 
 <script type="text/javascript">
 
