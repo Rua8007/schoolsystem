@@ -66,6 +66,34 @@ class MarksheetsController < ApplicationController
     @marks = @marksheet.bridge.grade.marks
   end
 
+  def uploading
+
+    params[:marks].each do |marks|
+      puts marks.first
+
+      marksheet = Marksheet.create
+      marksheet.student_id = marks.first
+      std_marks = marksheet.student.grade.marks.all
+      std_marks.each do |mark_type|
+        sessional = marksheet.sessionals.create
+        sessional.mark_id = mark_type.id
+        sessional.marks = marks.last[mark_type.name]["number"]
+        sessional.save
+      end
+      marksheet.save
+    end
+  end
+
+  def classresult
+    @class = Grade.first
+    @marksheet = []
+    @class.bridges.all.each do |b|
+      @marksheet.concat(b.marksheets)
+    end
+
+    return render json: @marksheet
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_marksheet

@@ -4,4 +4,5 @@ class Grade < ActiveRecord::Base
 	has_many :subjects ,through: :bridges
 	has_many :students
 	has_many :marks
+	has_many :marksheets
 end
