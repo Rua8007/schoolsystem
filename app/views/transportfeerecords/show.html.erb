@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Bus allotment:</strong>
+  <%= @transportfeerecord.bus_allotment_id %>
+</p>
+
+<p>
+  <strong>Fee:</strong>
+  <%= @transportfeerecord.fee %>
+</p>
+
+<%= link_to 'Edit', edit_transportfeerecord_path(@transportfeerecord) %> |
+<%= link_to 'Back', transportfeerecords_path %>

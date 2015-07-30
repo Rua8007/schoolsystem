@@ -1,66 +1,3 @@
-<!-- <!DOCTYPE html> -->
-<!-- <html> -->
-<!-- <head> -->
-  <!-- <title>Schoolsystem</title> -->
-  <%#= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%#= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-<!-- </head> -->
-<!-- <body> -->
-
-<%#= yield %>
-
-<!-- </body>
-</html>
-
-employee_number
-date_of_joining
-full_name
-gender
-date_of_birth
-religion
-qualification
-employee_category_id
-employee_department_id
-
-* experience
-
-marital_status
-child_count
-father_name 
-mother_name string
-spouse_name string
-blood_group string
-nationality string
-id_card_no string
-id_card_expiry date
-
-address1
-address2
-city
-country
-home_phone
-mobile_number
-email
-
-salary
-employee_position_id
-status
-pay_date
-next_due_date
-
-category
-experience
-
-employee has many experiences
-employee category belongs to employe position
-
-experience -> 
-
-leave requests
-
- -->
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -79,6 +16,8 @@ leave requests
   <link rel="stylesheet" href="../bower_components/simple-line-icons/css/simple-line-icons.css" type="text/css" />
   <link rel="stylesheet" href="css/font.css" type="text/css" />
   <link rel="stylesheet" href="css/app.css" type="text/css" /> -->
+
+  
 
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
@@ -470,7 +409,7 @@ leave requests
                     <i class="fa fa-fw fa-angle-down text-active"></i>
                   </span>
                   <i class="glyphicon glyphicon-book"></i>
-                  <span>Attendance</span>
+                  <span> Staff Attendance</span>
                 </a>
                 <ul class="nav nav-sub dk">
                   <li class="nav-sub-header">
@@ -484,8 +423,71 @@ leave requests
                     <% end %>
                   </li>
                   <li>
-                    <%= link_to(employees_path) do %>
+                    <%= link_to(monthly_attendance_report_employees_path) do %>
                       <span>Attendance Report</span>
+                    <% end %>
+                  </li> 
+                </ul>
+              </li>
+
+
+              <li>
+                <a href class="auto">      
+                  <span class="pull-right text-muted">
+                    <i class="fa fa-fw fa-angle-right text"></i>
+                    <i class="fa fa-fw fa-angle-down text-active"></i>
+                  </span>
+                  <i class="glyphicon glyphicon-book"></i>
+                  <span> Student Attend.</span>
+                </a>
+                <ul class="nav nav-sub dk">
+                  <li class="nav-sub-header">
+                    <%= link_to("") do %>
+                      <span>Attendance</span>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to(mark_attendance_calendar_students_path) do %>
+                      <span>Mark Attendance</span>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to(monthly_attendance_report_students_path) do %>
+                      <span>Attendance Report</span>
+                    <% end %>
+                  </li> 
+                </ul>
+              </li>
+
+
+              <li>
+                <a href class="auto">      
+                  <span class="pull-right text-muted">
+                    <i class="fa fa-fw fa-angle-right text"></i>
+                    <i class="fa fa-fw fa-angle-down text-active"></i>
+                  </span>
+                  <i class="glyphicon glyphicon-user"></i>
+                  <span>Fee Register</span>
+                </a>
+                <ul class="nav nav-sub dk">
+                  <li class="nav-sub-header">
+                    <%= link_to("") do %>
+                      <span>Fee Register</span>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to(new_fee_path) do %>
+                      <span>Submit Fee</span>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to(fee_defaulter_fees_path) do %>
+                      <span>Fee Defaulters</span>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to(fees_path) do %>
+                      <span>Fee Records</span>
                     <% end %>
                   </li> 
                 </ul>
@@ -636,7 +638,6 @@ leave requests
                 </ul>
               </li>
 
-              <li>
                <li>
                 <a href class="auto">      
                   <span class="pull-right text-muted">
@@ -725,7 +726,6 @@ leave requests
               </li>
 
               <!-- <li>
->>>>>>> origin/master
                 <a href class="auto">
                   <span class="pull-right text-muted">
                     <i class="fa fa-fw fa-angle-right text"></i>
@@ -967,7 +967,7 @@ leave requests
     <div class="app-content-body ">
       
 
-<div class="hbox hbox-auto-xs hbox-auto-sm" style="background-color: white">
+<div class="hbox hbox-auto-xs hbox-auto-sm" style="background-color: white; padding: 0 15px 0">
 
 
 <!-- <div class="hbox hbox-auto-xs hbox-auto-sm" ng-init="
@@ -999,4 +999,7 @@ leave requests
 
 
 </body>
+<script type="text/javascript">
+  $(".datepicker").datepicker();
+</script>
 </html>

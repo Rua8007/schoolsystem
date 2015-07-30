@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Reason:</strong>
+  <%= @student_holiday.reason %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @student_holiday.description %>
+</p>
+
+<p>
+  <strong>Student:</strong>
+  <%= @student_holiday.student_id %>
+</p>
+
+<p>
+  <strong>Leave from:</strong>
+  <%= @student_holiday.leave_from %>
+</p>
+
+<p>
+  <strong>Leave to:</strong>
+  <%= @student_holiday.leave_to %>
+</p>
+
+<p>
+  <strong>Approved:</strong>
+  <%= @student_holiday.approved %>
+</p>
+
+<%= link_to 'Edit', edit_student_holiday_path(@student_holiday) %> |
+<%= link_to 'Back', student_holidays_path %>

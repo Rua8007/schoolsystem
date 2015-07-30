@@ -28,7 +28,7 @@ class SubjectsController < ApplicationController
 
     respond_to do |format|
       if @subject.save
-        format.html { redirect_to @subject, notice: 'Subject was successfully created.' }
+        format.html { redirect_to subjects_path, notice: 'Subject was successfully created.' }
         format.json { render :show, status: :created, location: @subject }
       else
         format.html { render :new }
@@ -64,7 +64,7 @@ class SubjectsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_subject
-      @subjects = Subject.find(params[:id])
+      @subject = Subject.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

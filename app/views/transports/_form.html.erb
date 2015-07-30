@@ -49,7 +49,7 @@
                       <div class="form-group ">
                         <div class="field">
                           <%= f.label  :employee_id %><br>
-                          <%= f.select :employee_id, options_from_collection_for_select(@employees,"id", "full_name") ,{prompt: "Select Driver"},{class: 'form-control', required: true} %>
+                          <%= f.select :employee_id, options_from_collection_for_select(@employees,"id", "full_name") ,{prompt: "Select Driver"},{class: 'form-control'} %>
                         </div>
                       </div>
                     </div>

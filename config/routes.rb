@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
 
   
+  resources :transportfeerecords do
+  collection do
+    get "fee_data"
+  end
+end
   resources :bus_allotments do
     collection do
       get "stops_data"
@@ -8,11 +13,31 @@ Rails.application.routes.draw do
     end
   end
   resources :stops
+
+  resources :student_holidays
+  resources :fees do
+    collection do
+      get 'fee_defaulter'
+    end
+  end
   resources :transports
   resources :routes
+  resources :stops
   resources :vehicles
+
+  resources :weekends do
+    collection do
+      post 'add_weekends'
+    end
+  end
+
+
   resources :subjects
-  resources :grades
+  resources :grades do
+    member do
+      get 'all_student'
+    end
+  end
   resources :batches
   resources :leaves do
     member do
@@ -53,6 +78,8 @@ Rails.application.routes.draw do
       get 'mark_attendance_calendar'
       post 'mark_attendance'
       post 'save_attendances'
+      get 'monthly_attendance_report'
+      get 'get_monthly_attendance_report_result'
     end
   end
   # get 'home/index'
@@ -68,6 +95,11 @@ Rails.application.routes.draw do
     end
     collection do
       get "detail"
+      get 'mark_attendance_calendar'
+      post 'mark_attendance'
+      post 'save_attendances'
+      get 'monthly_attendance_report'
+      get 'get_monthly_attendance_report_result'
     end
   end
   resources :documents do

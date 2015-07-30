@@ -1,0 +1,67 @@
+<%= form_for(@fee) do |f| %>
+  <% if @fee.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@fee.errors.count, "error") %> prohibited this fee from being saved:</h2>
+
+      <ul>
+      <% @fee.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group col-md-4">
+    <label>Enter Student ID</label><br>
+    <%= f.text_field :student_id , class: "form-control" %>
+  </div>
+  <div class= "form-group col-md-4">
+    <label>Enter Amount</label><br>
+    <%= f.text_field :amount, class: "form-control", readonly: true %>
+  </div>
+  <%= f.hidden_field :user_id, class: "form-control" %>
+
+  <div class="form-group col-md-4">
+    <label for="exampleInputEmail1">Billing Month</label>
+    <div class='input-group date' id='datetimepicker1' class="datepicker1">
+      <input type='text' id="month_year" data-date-format="mm-dd-yyyy" class="form-control" style="width:100%" name="fee[month]" />
+      <span class="input-group-addon">
+        <span class="glyphicon glyphicon-calendar"></span>
+      </span>
+    </div>
+  </div>
+  <div class="actions pull-right col-md-4">
+    <%= f.submit class: "btn btn-success", style: "width: 100%;" %>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  $('#datetimepicker1').datepicker({
+    format: "mm-dd-yyyy",
+    viewMode: "months", 
+    minViewMode: "months"
+  });
+
+  $("#fee_student_id").blur(function(){
+    // var id = $("#fee_student_id");
+    $.get('/students/detail', {id: 12, fee: true})
+      .done(function(data){
+        var val = data.term;
+        console.log(val);
+        if(val == 'Monthly'){
+          $("#fee_amount").val(Math.round(data.fee)/12);
+          console.log
+        }
+        if(val == 'Quarterly'){
+          $("#fee_amount").val(Math.round(data.fee)/4);
+        }
+        if(val == 'Bi-annualy'){
+          $("#fee_amount").val(Math.round(data.fee)/2);
+        }
+        if(val == 'Annualy'){
+          $("#fee_amount").val(data.fee);
+        }
+
+        });
+  });
+</script>

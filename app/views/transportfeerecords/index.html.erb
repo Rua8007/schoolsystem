@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Transportfeerecords</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Bus allotment</th>
+      <th>Fee</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @transportfeerecords.each do |transportfeerecord| %>
+      <tr>
+        <td><%= transportfeerecord.bus_allotment_id %></td>
+        <td><%= transportfeerecord.fee %></td>
+        <td><%= link_to 'Show', transportfeerecord %></td>
+        <td><%= link_to 'Edit', edit_transportfeerecord_path(transportfeerecord) %></td>
+        <td><%= link_to 'Destroy', transportfeerecord, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Transportfeerecord', new_transportfeerecord_path %>

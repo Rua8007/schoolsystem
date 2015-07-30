@@ -8,17 +8,16 @@
     $('#example').dataTable({
         dom: 'T<"clear">lfrtip',
         tableTools: {
-            "sSwfPath": "https://cdn.datatables.net/tabletools/2.2.2/swf/copy_csv_xls_pdf.swf"
+          "sSwfPath": "https://cdn.datatables.net/tabletools/2.2.2/swf/copy_csv_xls_pdf.swf"
         }
     });
-
-
-
   });
 
 </script>
-
-<h2>Students<a href="<%= new_student_path %>" class="btn btn-info pull-right" style="width:200px;">Admit a new Student</a></h2>
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Students
+  <a href="<%= new_student_path %>" class="btn pull-right" style="width:200px; background-color: #729F32; color:white">Admit a new Student</a></h1>
+</div>
 
 <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -36,22 +35,23 @@
   </div>
 </div>
 <br/>
-  <div>
+<!--   <div>
     <input id = "daterange" ui-jq="daterangepicker" ui-options="{
                 format: 'YYYY-MM-DD',
                 startDate: '2015-01-01',
                 endDate: '2015-12-31'
               }" class="form-control w-md active">
-  </div>
+  </div> -->
+<div >  
   <table id="example" class="table table-striped table-bordered table-responsive">
     <thead class= "table-head">
       <tr>
         <th>Serial No.</th>
-        <th>First Name</th>
-        <th>Middle Name</th>
-        <th>Last Name</th>
+        <th>Full Name</th>
+        <th>Arabic Name</th>
+        <th>Father Name</th>
         <th>Email</th>
-        <th>Batch</th>
+        <th>Class</th>
         <th>Date of Birth</th>
       </tr>
     </thead>
@@ -62,19 +62,19 @@
             <%= student.id %>
           </td>
           <td>
-            <%= student.first_name %>
+            <%= student.fullname %>
           </td>
           <td>
-            <%= student.middle_name %>
+            <%= student.arabicname %>
           </td>
           <td>
-            <%= student.last_name %>
+            <%= student.parent.name %>
           </td>
           <td>
             <%= student.email %>
           </td>
           <td>
-            <%= student.address %>
+            <%= student.grade.name %>
           </td>
           <td>
             <%= student.dob %>
@@ -83,7 +83,7 @@
       <% end %>
     </tbody>
   </table>
-
+</div>
   <button id = "modalbutton" data-toggle = "modal" data-target = "#loginModal" style="display: none;" onclick="javascript:;"></button>
 
 <script type="text/javascript">
@@ -106,9 +106,9 @@
       });
   })
 
-  $('.applyBtn').click(function(e){
-    console.log($('#daterange'));
-   });
+  // $('.applyBtn').click(function(e){
+  //   console.log($('#daterange'));
+  //  });
   // $('#max').keyup( function() { table.draw(); } );
 
   // $(".datapicker")..datepicker();

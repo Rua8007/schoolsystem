@@ -48,9 +48,6 @@
 <div id = "showPartial" class = "hide">
 	<%= render 'show' %>
 </div>
-
-
-
 <script type="text/javascript">
 	$("input[name=optradio]:radio").change(function (e){
 		// alert("i am here");
@@ -59,7 +56,7 @@
 			
 			$("#formPartial").removeClass("hide");
 			$("#selectParent").addClass("hide");
-			$.get("/parents/parents_data", {parent_id: "new"})
+			$.get("/parents/parents_data", {parent_id: "new", student_id: <%= @student.id %>})
 				.done(function(data){
 
  		 	});
@@ -74,7 +71,7 @@
  	$("#dropdown").change(function (e){
  		console.log("i am heres");
 
- 	$.get("/parents/parents_data", {parent_id: $("#dropdown").val()})
+ 	$.get("/parents/parents_data", {parent_id: $("#dropdown").val(), student_id: <%= @student.id %>})
 		.done(function(data){
   		if (data)
   		{

@@ -1,0 +1,63 @@
+<%= form_for(@transportfeerecord) do |f| %>
+  <% if @transportfeerecord.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@transportfeerecord.errors.count, "error") %> prohibited this transportfeerecord from being saved:</h2>
+
+      <ul>
+      <% @transportfeerecord.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <label>Student ID</label>
+    <input type="text" class="form-control" id="student">
+  </div>
+
+  <div class="field">
+    <label>Route</label>
+     <div class="field">
+      <div id="stp">
+        <%= render 'routes'  %>
+      </div>
+    </div>
+  </div>
+  
+  <div class="field">
+    <label>Bus</label>
+    <input type="text" class="form-control" disabled="true">
+  </div>
+  <div class="field">
+    <%= f.label :fee %><br>
+    <%= f.text_field :fee %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+
+
+<script type="text/javascript">
+
+  $("student").blur(function (e){
+    console.log("i am heres");
+
+  $.get("/transportfeerecord/fee_data", {student_id: $("#transportfeerecord_student_id").val()})
+    .done(function(data){
+      if (data)
+      {
+        $("#error_div_rollnum").removeClass('hide');
+       
+     }
+    });
+  });
+
+ </script> 
+
+
+
+
+

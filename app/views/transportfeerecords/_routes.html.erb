@@ -1,0 +1,27 @@
+<div class = "row">
+  <div class="column col-xs-12 col-sm-6  width: 100%;">
+    <div class="field  styled-select "  >
+      <label >Transport</label>
+      <%#= select_tag  ,options_for_select(@stops), {class: "form-control", style: 'width:30%;'} %>
+      <select name="transportfeerecord[student_id]" class="form-control">
+        <%= @routes.try(:each) do |r| %>
+          <option value="<%= r.id%>" ><%= r.name %> </option>
+        <% end %>
+      </select>
+    </div>
+  </div>
+</div>
+<style type="text/css">
+  .styled-select select {
+   background: white;
+   width: 100%;
+   
+ 	border: 1;
+   border-radius: 2px;
+   border-color: #555;
+   
+   height: 34px;
+   -webkit-appearance: none;
+   }
+</style>
+

@@ -34,7 +34,6 @@ class BusAllotmentsController < ApplicationController
   # POST /bus_allotments
   # POST /bus_allotments.json
   def create
-    # return render json: params
     @bus_allotment = BusAllotment.new(bus_allotment_params)
 
     respond_to do |format|

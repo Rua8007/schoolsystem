@@ -4,10 +4,14 @@ class Student < ActiveRecord::Base
 	belongs_to :parent
 	belongs_to :grade
 	has_many :documents
-	has_many	:emergencies
+	has_many :emergencies
 
 	has_one :bus_allotment
 
+	has_many :fees
+
+	has_many :student_attendances
+	
 	accepts_nested_attributes_for :emergencies
 
 	

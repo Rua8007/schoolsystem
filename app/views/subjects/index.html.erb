@@ -1,29 +1,27 @@
-<p id="notice"><%= notice %></p>
-
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3">All Subjects</h1>
 </div>
-<br> <br>
-<table class="table table-stripped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Code</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @subjects.each do |subject| %>
+<div>
+  <table class="table">
+    <thead>
       <tr>
-        <td><%= subject.name %></td>
-        <td><%= subject.code %></td>
-        <td><%= link_to 'Show', subject %></td>
-        <td><%= link_to 'Edit', edit_subject_path(subject) %></td>
-        <td><%= link_to 'Destroy', subject, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Name</th>
+        <th>Code</th>
+        <th colspan="3"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
+    </thead>
+    <tbody>
+      <% @subjects.each do |subject| %>
+        <tr>
+          <td><%= subject.name %></td>
+          <td><%= subject.code %></td>
+          <td>
+            <%= link_to 'Show', subject %>
+            <%= link_to 'Edit', edit_subject_path(subject) %>
+            <%= link_to 'Delete', subject, method: :delete, data: { confirm: 'Are you sure?' } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
