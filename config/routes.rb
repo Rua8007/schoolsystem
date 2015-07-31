@@ -1,11 +1,10 @@
 Rails.application.routes.draw do
-
-  
+ 
   resources :transportfeerecords do
-  collection do
-    get "fee_data"
+    collection do
+      get "fee_data"
+    end
   end
-end
   resources :bus_allotments do
     collection do
       get "stops_data"

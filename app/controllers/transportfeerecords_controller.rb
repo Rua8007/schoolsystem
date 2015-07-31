@@ -67,16 +67,14 @@ class TransportfeerecordsController < ApplicationController
   def fee_data
     puts '-'*80
     if params[:student_id].present? && params[:student_id] != ""
-      @route = BusAllotment.find(params[:student_id]).route.name 
-
-
+      @routes = Student.find(params[:student_id]).bus_allotment
       puts '-'*80
-      puts @stops
+      @routes.route.name
       puts '-'*80
     end
     respond_to do |format|
       format.js
-      format.json { render json: {route: @routes} }
+      format.json { render json: {routes: @routes} }
     end
   end
 
