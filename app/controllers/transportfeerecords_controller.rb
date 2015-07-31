@@ -15,7 +15,7 @@ class TransportfeerecordsController < ApplicationController
   # GET /transportfeerecords/new
   def new
     @transportfeerecord = Transportfeerecord.new
-     @bus_allotment = BusAllotment.new
+    @bus_allotment = BusAllotment.new
     @students=Student.all
     @route = Route.all
   end
@@ -27,7 +27,8 @@ class TransportfeerecordsController < ApplicationController
   # POST /transportfeerecords
   # POST /transportfeerecords.json
   def create
-    @transportfeerecord = Transportfeerecord.new(transportfeerecord_params)
+    @transportfeerecord = Transportfeerecord.new
+    @transportfeerecord.bus_allotment_id = params[:bus_allotment_id]
 
     respond_to do |format|
       if @transportfeerecord.save
@@ -38,6 +39,7 @@ class TransportfeerecordsController < ApplicationController
         format.json { render json: @transportfeerecord.errors, status: :unprocessable_entity }
       end
     end
+
   end
 
   # PATCH/PUT /transportfeerecords/1

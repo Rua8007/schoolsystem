@@ -47,7 +47,7 @@
         <td><%= transport.arrival %></td>
         <td>
             <%= link_to '', transport,:class =>  'glyphicon glyphicon-ok-circle' %>
-            
+            <%= link_to '', edit_transport_path(transport),:class => 'glyphicon glyphicon glyphicon-pencil' %>
             <%= link_to '', transport, method: :delete, data: { confirm: 'Are you sure?' },:class =>  'glyphicon glyphicon-remove-circle' %>
         </td>
       </tr>

@@ -50,9 +50,9 @@
         <td><%= bus_allotment.transport.employee.full_name %></td>
         <td><%= bus_allotment.stop.name %></td>
         <td><%= bus_allotment.transport.vehicle.vehicle_no %></td>
-        <td><%= link_to 'Show', bus_allotment %>
-       
-        <%= link_to 'Destroy', bus_allotment, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <td><%= link_to '', bus_allotment,:class =>  'glyphicon glyphicon-ok-circle' %>
+            
+        <%= link_to '', bus_allotment, method: :delete, data: { confirm: 'Are you sure?' },:class =>  'glyphicon glyphicon-remove-circle' %>
 
         </td>
       </tr>

@@ -19,11 +19,20 @@
             <label>Driver</label>
             <input type="text" class="form-control" disabled="true" value="<%= @routes.transport.employee.full_name %>">
           </div>
+          <%= hidden_field_tag :fee, @routes.fee %>
+
 
           <div class=" form-group">
             <label>Fee</label>
             <input type="text" class="form-control" disabled="true" value="<%= @routes.fee %>">
           </div>
+          <%= hidden_field_tag :bus_allotment_id, @routes.id %>
+
+          <div class=" form-group">
+            <label>Bus allotment</label>
+            <input type="text" class="form-control" disabled="true" value="<%= @routes.id %>">
+          </div>
+
 
         </div>
       </div>

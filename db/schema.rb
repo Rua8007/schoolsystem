@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150730041618) do
+ActiveRecord::Schema.define(version: 20150731044029) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -118,15 +118,6 @@ ActiveRecord::Schema.define(version: 20150730041618) do
     t.integer  "total_experience_months"
   end
 
-  create_table "exams", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "batch_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "start_date"
-    t.string   "end_date"
-  end
-
   create_table "fees", force: :cascade do |t|
     t.integer  "student_id"
     t.integer  "amount"
@@ -153,25 +144,6 @@ ActiveRecord::Schema.define(version: 20150730041618) do
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
     t.boolean  "approved",    default: false
-  end
-
-  create_table "marks", force: :cascade do |t|
-    t.string   "name"
-    t.float    "marks"
-    t.float    "passing_marks"
-    t.integer  "grade_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
-
-  create_table "marksheets", force: :cascade do |t|
-    t.integer  "exam_id"
-    t.integer  "bridge_id"
-    t.integer  "totalmarks"
-    t.float    "obtainedmarks"
-    t.integer  "student_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
   end
 
   create_table "parents", force: :cascade do |t|
@@ -205,14 +177,6 @@ ActiveRecord::Schema.define(version: 20150730041618) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "sessionals", force: :cascade do |t|
-    t.integer  "marksheet_id"
-    t.integer  "mark_id"
-    t.float    "marks"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
   end
 
   create_table "stops", force: :cascade do |t|
@@ -296,6 +260,13 @@ ActiveRecord::Schema.define(version: 20150730041618) do
     t.string   "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "transport_fee_details", force: :cascade do |t|
+    t.integer  "bus_allotment_id"
+    t.float    "fee"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
   create_table "transportfeerecords", force: :cascade do |t|
