@@ -8,6 +8,13 @@ Rails.application.routes.draw do
       get 'fee_defaulter'
     end
   end
+  resources :bus_allotments do
+    collection do
+      get "stops_data"
+      get "transports_data"
+    end
+  end
+  resources :stops
   resources :transports
   resources :routes
   resources :stops

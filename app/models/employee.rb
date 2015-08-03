@@ -13,4 +13,7 @@ class Employee < ActiveRecord::Base
 	has_many :transports
 	has_many :routes ,through: :transports
 
+	has_many :transports
+	
+
 end

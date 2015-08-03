@@ -34,7 +34,7 @@
       <tr>
         <td><%= link_to grade.name, all_student_grade_path(grade.id) %></td>
         <td><%= grade.section %></td>
-        <td><%= grade.batch_id %></td>
+        <td><%= grade.batch.name %></td>
         <td><%= grade.students.count %></td>
         <td>
           <%= link_to '', grade ,:class =>  'glyphicon glyphicon-ok-circle' %>
