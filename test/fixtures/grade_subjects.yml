@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  subject_id: 1
+  grade_id: 1
+  week_id: 1
+  dayname: MyString
+  classwork: MyText
+  homework: MyText
+
+two:
+  subject_id: 1
+  grade_id: 1
+  week_id: 1
+  dayname: MyString
+  classwork: MyText
+  homework: MyText
