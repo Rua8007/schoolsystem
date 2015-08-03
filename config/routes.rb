@@ -6,10 +6,11 @@ Rails.application.routes.draw do
   resources :marksheets do
     member do
       get "upload"
-      get "classresult"
     end
     collection do
       post "uploading"
+      get "classresult"
+      get "get_class_result"
     end
   end
   resources :exams

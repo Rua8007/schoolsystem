@@ -67,11 +67,8 @@ class MarksheetsController < ApplicationController
   end
 
   def uploading
-
     params[:marks].each do |marks|
-      puts marks.first
-
-      marksheet = Marksheet.create
+      marksheet = Marksheet.find(params[:marksheet])
       marksheet.student_id = marks.first
       std_marks = marksheet.student.grade.marks.all
       std_marks.each do |mark_type|
@@ -85,13 +82,37 @@ class MarksheetsController < ApplicationController
   end
 
   def classresult
-    @class = Grade.first
+  end
+
+  def get_class_result
+    @class = Grade.find(params[:class_id])
     @marksheet = []
-    @class.bridges.all.each do |b|
-      @marksheet.concat(b.marksheets)
+    # @class.bridges.each do |b|
+    #   if b.marksheets.find_by_exam_id(params[:exam_id]).present?
+    #     @marksheet << b.marksheets.find_by_exam_id(params[:exam_id])
+    #   end
+    # end
+    @class.students.each do |std|
+      temp = []
+      std.marksheets.where(exam_id: params[:exam_id]).each do |m|
+        temp.push({subject: m.bridge.subject_id, marks: m.sessionals.sum(:marks)})
+      end
+      @marksheet.push({student_id: std.id ,marks: temp})
+
     end
 
-    return render json: @marksheet
+    puts "-----"*80
+    puts @marksheet.last.inspect 
+    puts @marksheet.last[:student_id] 
+
+    puts @marksheet.last[:marks].first[:marks].inspect 
+    puts "-----"*80
+    respond_to do |format|
+      format.js
+      format.json { render json: {marksheet: @marksheet} }
+    end
+
+    # return render json: @marksheet
   end
 
   private

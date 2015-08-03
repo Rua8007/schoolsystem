@@ -14,6 +14,7 @@
 
 	</thead>
 	<%= form_tag(uploading_marksheets_path, method: :post) do %>
+		<%= hidden_field_tag 'marksheet', @marksheet.id %>
 		<tbody>
 			<% @students.each do |std| %>
 				<tr>

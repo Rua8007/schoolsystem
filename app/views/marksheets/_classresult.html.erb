@@ -1,0 +1,26 @@
+<table class="table table-stripped">
+  <thead class="table-head">
+    <tr>
+      <th>Student ID</th>
+      <th>Student Name</th>
+      <% @class.subjects.each do |s| %>
+        <th><%= s.name %></th>
+      <% end %>
+    </tr>
+  </thead>
+
+  <tbody>
+      <tr>
+        <% @marksheet.each do |m| %>
+          <td><%= m[:student_id] %></td>
+          <td><%= Student.find(m[:student_id]).fullname %></td>
+          <% m.try(:each) do |sub| %>
+            <td> <%= sub[:marks] %> </td> 
+          <% end %>
+        <td><%#= link_to 'Show', marksheet %>
+        <%#= link_to 'Edit', edit_marksheet_path(marksheet) %>
+        <%#= link_to 'Destroy', marksheet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

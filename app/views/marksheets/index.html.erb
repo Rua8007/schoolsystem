@@ -1,4 +1,3 @@
-<p id="notice"><%= notice %></p>
 
 <h1>Listing Marksheets</h1>
 
@@ -22,8 +21,8 @@
         <td><%= marksheet.exam.name %></td>
         <td><%= marksheet.bridge.grade.name %></td>
         <td><%= marksheet.bridge.subject.name %></td>
-        <td><%= marksheet.totalmarks %></td>
-        <td><%= marksheet.obtainedmarks %></td>
+        <td><%= marksheet.student.grade.marks.sum(:marks) %></td>
+        <td><%= marksheet.sessionals.sum(:marks) %></td>
         <td><%= link_to 'Show', marksheet %>
         <%= link_to 'Edit', edit_marksheet_path(marksheet) %>
         <%= link_to 'Destroy', marksheet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
