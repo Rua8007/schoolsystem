@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
- 
   resources :transportfeerecords do
+  resources :student_holidays
+  resources :fees do
     collection do
       get "fee_data"
     end
