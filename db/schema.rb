@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150731044029) do
+ActiveRecord::Schema.define(version: 20150806045853) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -127,12 +127,44 @@ ActiveRecord::Schema.define(version: 20150731044029) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "grade_subjects", force: :cascade do |t|
+    t.integer  "subject_id"
+    t.integer  "grade_id"
+    t.integer  "week_id"
+    t.string   "dayname"
+    t.text     "classwork"
+    t.text     "homework"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "grades", force: :cascade do |t|
     t.string   "name"
     t.string   "section"
     t.integer  "batch_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "invoices", force: :cascade do |t|
+    t.string   "booknum"
+    t.integer  "student_id"
+    t.float    "discount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "items", force: :cascade do |t|
+    t.string   "code"
+    t.string   "name"
+    t.integer  "shopcategory_id"
+    t.string   "size"
+    t.float    "price"
+    t.integer  "grade_id"
+    t.integer  "sold"
+    t.integer  "left"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   create_table "leaves", force: :cascade do |t|
@@ -144,6 +176,31 @@ ActiveRecord::Schema.define(version: 20150731044029) do
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
     t.boolean  "approved",    default: false
+  end
+
+  create_table "lines", force: :cascade do |t|
+    t.integer  "item_id"
+    t.integer  "invoice_id"
+    t.integer  "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "packageitems", force: :cascade do |t|
+    t.integer  "package_id"
+    t.integer  "item_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "packages", force: :cascade do |t|
+    t.string   "name"
+    t.string   "code"
+    t.float    "price"
+    t.integer  "sold"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "grade_id"
   end
 
   create_table "parents", force: :cascade do |t|
@@ -174,6 +231,12 @@ ActiveRecord::Schema.define(version: 20150731044029) do
   end
 
   create_table "routes", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "shopcategories", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -260,13 +323,6 @@ ActiveRecord::Schema.define(version: 20150731044029) do
     t.string   "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "transport_fee_details", force: :cascade do |t|
-    t.integer  "bus_allotment_id"
-    t.float    "fee"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
   end
 
   create_table "transportfeerecords", force: :cascade do |t|

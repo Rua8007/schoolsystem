@@ -6,7 +6,7 @@
                 <label >Transport</label>
                 <%#= select_tag  ,options_for_select(@stops), {class: "form-control", style: 'width:30%;'} %>
                 <select name="bus_allotment[transport_id]" class="form-control">
-                  <%= @transports.each do |transport| %>
+                  <% @transports.each do |transport| %>
                     <option value="<%= transport.id%>" ><%= transport.no %> </option>
                   <% end %>
                 </select>
@@ -18,7 +18,7 @@
               	<label >Stop</label>
               	<%#= select_tag  ,options_for_select(@stops), {class: "form-control", style: 'width:30%;'} %>
               	<select name="bus_allotment[stop_id]" class="form-control">
-              		<%= @stops.each do |stop| %>
+              		<% @stops.each do |stop| %>
               			<option value="<%= stop.id%>"><%= stop.name %> </option>
               		<% end %>
               	</select>

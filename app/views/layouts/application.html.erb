@@ -734,6 +734,41 @@
                   
                 </ul>
               </li>
+              <li>
+                <a href class="auto">      
+                  <span class="pull-right text-muted">
+                    <i class="fa fa-fw fa-angle-right text"></i>
+                    <i class="fa fa-fw fa-angle-down text-active"></i>
+                  </span>
+                  <i class="glyphicon glyphicon-user"></i>
+                  <span>Book shop</span>
+                </a>
+                <ul class="nav nav-sub dk">
+                  <li class="nav-sub-header">
+                    <%= link_to("") do %>
+                      <span>Book shop</span>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to(new_shopcategory_path) do %>
+                      <span>New Category</span>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to(new_item_path) do %>
+                      <span>New Item</span>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to(new_package_path) do %>
+                      <span>New package</span>
+                    <% end %>
+                  </li>
+                  
+                  
+                  
+                </ul>
+              </li>
 
               <!-- <li>
                 <a href class="auto">
@@ -1010,6 +1045,6 @@
 
 </body>
 <script type="text/javascript">
-  $(".datepicker").datepicker();
+  // $(".datepicker").datepicker();
 </script>
 </html>

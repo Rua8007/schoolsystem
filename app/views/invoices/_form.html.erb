@@ -1,0 +1,127 @@
+<%= form_for(@invoice) do |f| %>
+  <% if @invoice.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@invoice.errors.count, "error") %> prohibited this invoice from being saved:</h2>
+
+      <ul>
+      <% @invoice.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :booknum %><br>
+    <%= f.text_field :booknum %>
+  </div>
+  <div class="field">
+    <%= f.label :student_id %><br>
+    <%= f.number_field :student_id %>
+  </div>
+
+  <%= f.fields_for :line do |b| %>
+  
+  <div class="field" >
+    <%= b.label :item_id %><br>
+    <%= b.text_field :item_id %>
+  </div>
+
+  <div id="stp" >
+    <%= render 'details'  %>
+  </div>
+
+  <div class="field">
+    <%= b.label :quantity %><br>
+    <%= b.text_field :quantity %>
+  </div>
+
+  <%end%>
+
+  
+
+
+
+ 
+
+  
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+<% end %>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>St#</th>
+      <th>Student's name</th>
+      <th>Father's name</th>
+      <th>Class</th>
+      <th>Driver's name</th>
+      <th>Stop name</th>
+      <th>Vehicle no.</th>
+      <th>Fee</th>
+      <th>Submission date</th>
+
+
+      
+     </tr>
+  </thead>
+  <tbody>
+    
+      <tr>
+       
+      </tr>
+     
+       
+       
+  
+  </tbody>
+</table>
+
+
+
+
+
+
+ <script type="text/javascript">
+
+  $("#invoice_line_item_id").blur(function (e){
+    console.log("i am heres");
+    $.get("/invoices/items_data", {item_id: $("#invoice_line_item_id").val()})
+      .done(function(data){
+        if (data)
+        {
+          $("#error_div_rollnum").removeClass('hide');
+        }
+      });
+  });
+
+ </script> 
+
+
+
+
+
+<script>
+$(document).ready(function(){
+  $("#invoice_line_quantity").blur(function(e){
+    var v = $('#invoice_line_quantity').val();
+    console.log(v);
+
+ if(v == "1" )
+  {
+  }
+  else{
+  console.log();
+  }
+  });
+});
+</script>
+
+
+
+
+
+

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  booknum: MyString
+  student_id: 1
+  discount: 1.5
+
+two:
+  booknum: MyString
+  student_id: 1
+  discount: 1.5

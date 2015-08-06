@@ -1,0 +1,13 @@
+<label >Items</label>
+<div>
+  <% @items.each do |item| %>
+    <input type="checkbox" id="checkbox" name="items[<%= item.id %>]" />
+    <%= item.name %> 
+  <%end%> 
+</div>
+
+
+
+
+
+
