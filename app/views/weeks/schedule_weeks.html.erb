@@ -6,6 +6,8 @@
 <div class="wrapper-md">
 	<%= form_tag add_schedule_weeks_year_plan_weeks_path([@year_plan]), method: :post do %>
 		<%= hidden_field_tag "total_weeks", @weeks.count %>
+		<%= hidden_field_tag "grade", @grade.id %>
+		<%= hidden_field_tag "subject", @subject.id %>
 		<div class="col-md-12">
     	<div class="abc form-holder">
       	<div class="row">
@@ -53,45 +55,33 @@
 </div>
 
 <script type="text/javascript">
-	
 	$(document).ready(function(){
 		$(function() {
 	    $(document).on('click','.add-day', function (e) {
 	    	e.preventDefault();
-
 	      first_id = $(this).attr("id");
 	      arr = first_id.split("_");
 	      week_id = arr[arr.length-1];
-
 	      var last_div = $('.day-div-'+week_id).last();
 	      var last_div_id = last_div[0].id.toString();
 	      // console.log("last_div_id: "+last_div_id);
 	      arr2 = last_div_id.split("_");
-
 	      last_day_id = parseInt(arr2[arr2.length-1]) + 1;
-
 	      prev_day_id = last_day_id-1;
 	      prev_day_div_id = "week_day_div_"+week_id.toString()+"_"+prev_day_id.toString();
-
 	      // week_id = parseInt(arr2[arr2.length-2])
-
 	      new_div_id = "week_day_div_"+week_id.toString()+"_"+last_day_id.toString();
 	      // // alert($('.new-sales-contact').first().html());
 	      var html = '<div class="day-div-'+week_id+'"' + ' id="'+ new_div_id +'">'+$('#'+prev_day_div_id).html()+'</div>';
-	      
 	      // console.log(html);
-
 	      // alert(new_div_id);
 	      // // console.log($('.day-div').first().html());
 	      $(html).insertAfter($('#'+prev_day_div_id));
-
-
 	      // $('.days-'+week_id).text($(this).val());
 	      var last_span = $('.days-'+week_id).last();
 	      var mystr = last_span[0].innerText.toString();
 	      span_arr = mystr.split(" ");
 	      day_num = parseInt(span_arr[span_arr.length-1])+1;
-
 	      day_name = "Day "+day_num;
 	      // console.log(day_name);
 	      last_span.text(day_name);
@@ -99,29 +89,22 @@
 
 			$(document).on('click','.week-next', function (e) {
 				e.preventDefault();
-
 	      first_id = $(this).attr("id");
 	      arr = first_id.split("_");
 	      week_id = arr[arr.length-1];
-
 	      // console.log($("#total_weeks").val());
-
 	      to_hide_div_id = "#week_"+(parseInt(week_id)-1).toString();
 	      prev_btn_id = "#week_previous_"+(parseInt(week_id)-1).toString();
 	      to_hide_next_btn_id = "#week_next_"+week_id;
-
 	      to_show_div_id = "#week_"+week_id;
 	      to_show_next_btn_id = "#week_next_"+(parseInt(week_id)+1).toString();
-
 				$('.week-div').fadeOut('fast');
 	      $('.week-next').fadeOut('fast');
 	      $('.week-previous').fadeOut('fast');
 	      // $(to_hide_next_btn_id).fadeOut('fast');
-
 	      $(to_show_div_id).fadeIn('fast');
 	      $(to_show_next_btn_id).fadeIn('fast');
 	      $(prev_btn_id).fadeIn('fast');
-
 	      week_val = parseInt($("#total_weeks").val())-1;
 	      week_val_event = parseInt(week_id);
 	      if(week_val == week_val_event){
@@ -183,9 +166,6 @@
 	    });
 	  });
 	});
-	
-
-
 </script>
 
 <style type="text/css">
