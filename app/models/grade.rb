@@ -3,4 +3,10 @@ class Grade < ActiveRecord::Base
 	has_many :bridges
 	has_many :subjects ,through: :bridges
 	has_many :students
+	has_many :grade_subjects
+
+
+	def full_name
+	   "#{name} - #{section}"
+	end
 end

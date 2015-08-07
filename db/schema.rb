@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150803205509) do
+ActiveRecord::Schema.define(version: 20150806042933) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20150803205509) do
     t.integer  "employee_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "total_days"
   end
 
   create_table "bus_allotments", force: :cascade do |t|
@@ -318,6 +319,22 @@ ActiveRecord::Schema.define(version: 20150803205509) do
     t.integer  "weekend_day"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "weeks", force: :cascade do |t|
+    t.integer  "year_plan_id"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.string   "holiday_description"
+    t.integer  "year_week_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
+  create_table "year_plans", force: :cascade do |t|
+    t.string   "year_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

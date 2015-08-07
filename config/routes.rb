@@ -2,6 +2,15 @@ Rails.application.routes.draw do
 
   
 
+  
+  resources :year_plans do
+    resources :weeks do
+      collection do 
+        get 'schedule_weeks', :as => :schedule_weeks
+        post 'add_schedule_weeks', :as => :add_schedule_weeks
+      end
+    end
+  end
   resources :student_holidays
   resources :fees do
     collection do
