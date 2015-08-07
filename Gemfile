@@ -25,7 +25,7 @@ gem 'country_select'
 gem 'bootstrap-datepicker-rails'
 
 
-# gem 'turbolinks'
+gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 
