@@ -617,22 +617,22 @@
                     <i class="fa fa-fw fa-angle-down text-active"></i>
                   </span>
                   <i class="glyphicon glyphicon-user"></i>
-                  <span>Class</span>
+                  <span>Grade</span>
                 </a>
                 <ul class="nav nav-sub dk">
                   <li class="nav-sub-header">
                     <%= link_to("") do %>
-                      <span>Class</span>
+                      <span>Grade</span>
                     <% end %>
                   </li>
                   <li>
                     <%= link_to(new_grade_path) do %>
-                      <span>Add Class</span>
+                      <span>Add Grade</span>
                     <% end %>
                   </li>
                   <li>
                     <%= link_to(grades_path) do %>
-                      <span>List All classes</span>
+                      <span>List All grades</span>
                     <% end %>
                   </li> 
                 </ul>
@@ -760,8 +760,18 @@
                     <% end %>
                   </li>
                   <li>
+                    <%= link_to(items_path) do %>
+                      <span>All Item</span>
+                    <% end %>
+                  </li>
+                  <li>
                     <%= link_to(new_package_path) do %>
                       <span>New package</span>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to(packages_path) do %>
+                      <span>All package</span>
                     <% end %>
                   </li>
                   

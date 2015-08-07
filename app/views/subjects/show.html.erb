@@ -1,14 +1,54 @@
-<p id="notice"><%= notice %></p>
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Subject </h1>
+</div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @subject.name %>
-</p>
+<style type="text/css">
+    @media(min-width: 1200px)
+.abc {
+  width: 1080px;
+}
+</style>
+<div class="abc" style="">
 
-<p>
-  <strong>Code:</strong>
-  <%= @subject.code %>
-</p>
+    <div class="container" >
+    	<div class="abc" style="">
 
-<%= link_to 'Edit', edit_subject_path(@subject) %> |
+    <div class="container" >
+	
+		<br>
+        <div class="col-sm-4">
+            <table class="table">
+                <tbody>
+                    
+                    <tr>
+                        <td class="student-profile-td">
+                            Subject name
+                        </td>
+
+                        <td>
+                            <%= @subject.name %>
+                        </td>
+                    </tr>
+
+                     <tr>
+                        <td class="student-profile-td">
+                            Subject code
+                        </td>
+
+                        <td>
+                            <%= @subject.code %>
+                        </td>
+                    </tr>
+
+                   
+                </tbody>
+            </table>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+
+
 <%= link_to 'Back', subjects_path %>
+

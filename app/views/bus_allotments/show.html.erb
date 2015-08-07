@@ -1,24 +1,79 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Student:</strong>
-  <%= @bus_allotment.student_id %>
-</p>
 
-<p>
-  <strong>Transport:</strong>
-  <%= @bus_allotment.transport_id %>
-</p>
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Transport allotment information  </h1>
+</div>
 
-<p>
-  <strong>Route:</strong>
-  <%= @bus_allotment.route_id %>
-</p>
+<style type="text/css">
+    @media(min-width: 1200px)
+.abc {
+  width: 1080px;
+}
+</style>
+<div class="abc" style="">
 
-<p>
-  <strong>Stop:</strong>
-  <%= @bus_allotment.stop_id %>
-</p>
+    <div class="container" >
+    	<div class="abc" style="">
 
-<%= link_to 'Edit', edit_bus_allotment_path(@bus_allotment) %> |
+    <div class="container" >
+	
+		<br>
+        <div class="col-sm-4">
+            <table class="table">
+                <tbody>
+                    
+                    <tr>
+                        <td class="student-profile-td">
+                            Student
+                        </td>
+
+                        <td>
+                            <%= @bus_allotment.student.fullname %>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="student-profile-td">
+                            Transport
+                        </td>
+
+                        <td>
+                            <%= @bus_allotment.transport.no %>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="student-profile-td">
+                            Route
+                        </td>
+
+                        <td>
+                            <%= @bus_allotment.route.name %>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="student-profile-td">
+                            Stop
+                        </td>
+
+                        <td>
+                            <%= @bus_allotment.stop.name%>
+                        </td>
+                    </tr>
+
+                    
+
+                   
+                </tbody>
+            </table>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+
+
 <%= link_to 'Back', bus_allotments_path %>
+
+

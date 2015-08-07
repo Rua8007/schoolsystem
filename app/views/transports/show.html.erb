@@ -1,29 +1,91 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Arrival:</strong>
-  <%= @transport.arrival %>
-</p>
 
-<p>
-  <strong>Departure:</strong>
-  <%= @transport.departure %>
-</p>
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Transport </h1>
+</div>
 
-<p>
-  <strong>Employee:</strong>
-  <%= @transport.employee_id %>
-</p>
+<style type="text/css">
+    @media(min-width: 1200px)
+.abc {
+  width: 1080px;
+}
+</style>
+<div class="abc" style="">
 
-<p>
-  <strong>Route:</strong>
-  <%= @transport.route_id %>
-</p>
+    <div class="container" >
+      <div class="abc" style="">
 
-<p>
-  <strong>Vehicle:</strong>
-  <%= @transport.vehicle_id %>
-</p>
+    <div class="container" >
+  
+    <br>
+        <div class="col-sm-4">
+            <table class="table">
+                <tbody>
+                    
+                    <tr>
+                        <td class="student-profile-td">
+                            Arrival
+                        </td>
 
-<%= link_to 'Edit', edit_transport_path(@transport) %> |
+                        <td>
+                          <%= @transport.arrival %>
+                          
+                        </td>
+                    </tr>
+
+                     <tr>
+                        <td class="student-profile-td">
+                            Departure
+                            
+                        </td>
+                        <td>
+                          <%= @transport.departure %>
+                                
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="student-profile-td">
+                          Driver
+                            
+                        </td>
+                        <td>
+                          <%= @transport.employee.full_name %>
+                                
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="student-profile-td">
+                          Route
+                            
+                        </td>
+                        <td>
+                          <%= @transport.route.name %>
+                                
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="student-profile-td">
+                          Vehicle
+                        </td>
+
+                        <td>
+                          <%= @transport.vehicle.vehicle_no %>
+                                
+                        </td>
+                    </tr>
+                    
+
+
+                   
+                </tbody>
+            </table>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+
+
 <%= link_to 'Back', transports_path %>
+
+

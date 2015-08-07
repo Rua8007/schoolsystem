@@ -1,44 +1,121 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Vehicle no:</strong>
-  <%= @vehicle.vehicle_no %>
-</p>
 
-<p>
-  <strong>Code:</strong>
-  <%= @vehicle.code %>
-</p>
 
-<p>
-  <strong>Seat:</strong>
-  <%= @vehicle.seat %>
-</p>
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Vehicle </h1>
+</div>
 
-<p>
-  <strong>Max allowed:</strong>
-  <%= @vehicle.max_allowed %>
-</p>
+<style type="text/css">
+    @media(min-width: 1200px)
+.abc {
+  width: 1080px;
+}
+</style>
+<div class="abc" style="">
 
-<p>
-  <strong>Vehicle type:</strong>
-  <%= @vehicle.vehicle_type %>
-</p>
+    <div class="container" >
+      <div class="abc" style="">
 
-<p>
-  <strong>Insurance:</strong>
-  <%= @vehicle.insurance %>
-</p>
+    <div class="container" >
+  
+    <br>
+        <div class="col-sm-4">
+            <table class="table">
+                <tbody>
+                    
+                    <tr>
+                        <td class="student-profile-td">
+                            Vehicle no.
+                        </td>
 
-<p>
-  <strong>Tax:</strong>
-  <%= @vehicle.tax %>
-</p>
+                        <td>
+                          <%= @vehicle.vehicle_no %>
+                          
+                        </td>
+                    </tr>
 
-<p>
-  <strong>Permit:</strong>
-  <%= @vehicle.permit %>
-</p>
+                     <tr>
+                        <td class="student-profile-td">
+                            Vehicle code
+                            
+                        </td>
+                        <td>
+                          <%= @vehicle.code %>
+                                
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="student-profile-td">
+                          Vehicle saets
+                            
+                        </td>
+                        <td>
+                          <%= @vehicle.seat %>
+                                
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="student-profile-td">
+                          Vehicle seat allowed
+                            
+                        </td>
+                        <td>
+                          <%= @vehicle.max_allowed %>
+                                
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="student-profile-td">
+                            vehicle type
+                        </td>
 
-<%= link_to 'Edit', edit_vehicle_path(@vehicle) %> |
+                        <td>
+                          <%= @vehicle.vehicle_type %>
+                                
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="student-profile-td">
+                            vehicle insurance
+                        </td>
+
+                        <td>
+                          <%= @vehicle.insurance %>
+                                
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="student-profile-td">
+                           tax 
+                        </td>
+
+                        <td>
+                          <%= @vehicle.tax %>
+                                
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="student-profile-td">
+                           permit 
+                        </td>
+
+                        <td>
+                          <%= @vehicle.permit %>
+                                
+                        </td>
+                    </tr>
+
+
+                   
+                </tbody>
+            </table>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+
+
 <%= link_to 'Back', vehicles_path %>
+
+
