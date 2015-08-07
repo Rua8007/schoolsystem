@@ -1,0 +1,70 @@
+<%= form_for(@item) do |f| %>
+  <% if @item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
+
+      <ul>
+      <% @item.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :code %><br>
+    <%= f.text_field :code %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+    <div class="field" href="javascript:void(0);">
+      <%= f.label :category %><br>
+      <%= f.select :shopcategory_id, options_from_collection_for_select(@shopcategories,"id", "name"),{prompt: "Select category"} %>
+    </div>
+    <div class="field displayn" id="sizediv">
+      <%= f.label :size %><br>
+      <%= f.select(:size,options_for_select([['S','S'],['M','M'],['L','L'],['Xl','Xl']]))%>
+    </div>
+  <div class="field"  >
+    <%= f.label :price %><br>
+    <%= f.text_field :price %>
+  </div>
+  <div class="field">
+    <%= f.label :class %><br>
+    <%= f.select :grade_id, options_from_collection_for_select(@grades,"id", "name"),{prompt: "Select class"} %>
+  </div>
+  <div class="field">
+    <%= f.label :sold %><br>
+    <%= f.number_field :sold %>
+  </div>
+  <div class="field">
+    <%= f.label :left %><br>
+    <%= f.number_field :left %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+
+
+
+
+<script>
+$(document).ready(function(){
+  $("#item_shopcategory_id").change(function(e){
+    var v = $('#item_shopcategory_id').val();
+    console.log(v);
+  if(v == "1" )
+  {
+    $('#sizediv').removeClass('displayn');
+  }
+  else{
+  console.log();
+    $('#sizediv').addClass('displayn');
+  }
+  });
+});
+</script>

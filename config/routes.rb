@@ -1,5 +1,19 @@
 Rails.application.routes.draw do
-  resources :transportfeerecords do
+  resources :invoices do
+    collection do
+      get "items_data"
+      post "invoicing"
+    end
+  end
+
+  resources :packages do
+    collection do
+      get "items_data"
+    end
+  end
+  resources :items
+  resources :shopcategories
+  resources :transportfeerecords 
   resources :student_holidays
   resources :fees do
     collection do

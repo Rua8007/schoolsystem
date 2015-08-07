@@ -155,6 +155,27 @@ ActiveRecord::Schema.define(version: 20150730041618) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "invoices", force: :cascade do |t|
+    t.string   "booknum"
+    t.integer  "student_id"
+    t.float    "discount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "items", force: :cascade do |t|
+    t.string   "code"
+    t.string   "name"
+    t.integer  "shopcategory_id"
+    t.string   "size"
+    t.float    "price"
+    t.integer  "grade_id"
+    t.integer  "sold"
+    t.integer  "left"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
   create_table "leaves", force: :cascade do |t|
     t.string   "reason"
     t.text     "description"
@@ -166,6 +187,7 @@ ActiveRecord::Schema.define(version: 20150730041618) do
     t.boolean  "approved",    default: false
   end
 
+<<<<<<< HEAD
   create_table "marks", force: :cascade do |t|
     t.string   "name"
     t.float    "marks"
@@ -183,6 +205,31 @@ ActiveRecord::Schema.define(version: 20150730041618) do
     t.integer  "student_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+=======
+  create_table "lines", force: :cascade do |t|
+    t.integer  "item_id"
+    t.integer  "invoice_id"
+    t.integer  "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "packageitems", force: :cascade do |t|
+    t.integer  "package_id"
+    t.integer  "item_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "packages", force: :cascade do |t|
+    t.string   "name"
+    t.string   "code"
+    t.float    "price"
+    t.integer  "sold"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "grade_id"
+>>>>>>> bookshop
   end
 
   create_table "parents", force: :cascade do |t|
@@ -218,12 +265,19 @@ ActiveRecord::Schema.define(version: 20150730041618) do
     t.datetime "updated_at", null: false
   end
 
+<<<<<<< HEAD
   create_table "sessionals", force: :cascade do |t|
     t.integer  "marksheet_id"
     t.integer  "mark_id"
     t.float    "marks"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+=======
+  create_table "shopcategories", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+>>>>>>> bookshop
   end
 
   create_table "stops", force: :cascade do |t|

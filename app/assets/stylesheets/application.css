@@ -50,8 +50,9 @@
     border-radius: 21px;
   }
 
-
-  
+  .displayn{
+    display: none;
+  }
 
 .bt-login, .bt-login:hover, .bt-login:active, .bt-login:focus {
     background-color: #46b8da;
