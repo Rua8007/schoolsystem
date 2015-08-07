@@ -361,34 +361,81 @@
                 </a>
               </li>
 
-              <!-- <li>
+              <li>
                 <a href class="auto">      
                   <span class="pull-right text-muted">
                     <i class="fa fa-fw fa-angle-right text"></i>
                     <i class="fa fa-fw fa-angle-down text-active"></i>
                   </span>
-                  <i class="glyphicon glyphicon-stats icon text-primary-dker"></i>
-                  <span class="font-bold"></span>
+                  <i class="glyphicon glyphicon-th"></i>
+                  <span>Students</span>
                 </a>
                 <ul class="nav nav-sub dk">
                   <li class="nav-sub-header">
-                    <a href>
-                      <span>Dashboard</span>
-                    </a>
+                    <%= link_to("") do %>
+                      <span>Students</span>
+                    <% end %>
                   </li>
                   <li>
-                    <a href="index.html">
-                      <span>Dashboard v1</span>
-                    </a>
+                    <%= link_to(new_student_path) do %>
+                      <span>Admit Student</span>
+                    <% end %>
                   </li>
                   <li>
-                    <a href="dashboard.html">
-                      <b class="label bg-info pull-right">N</b>
-                      <span>Dashboard v2</span>
-                    </a>
+                    <%= link_to(students_path) do %>
+                      <span>List All Students</span>
+                    <% end %>
+                  </li>     
+                </ul>
+              </li>
+
+
+              <li>
+                <a href class="auto">      
+                  <span class="pull-right text-muted">
+                    <i class="fa fa-fw fa-angle-right text"></i>
+                    <i class="fa fa-fw fa-angle-down text-active"></i>
+                  </span>
+                  <i class="glyphicon glyphicon-user"></i>
+                  <span>Employee</span>
+                </a>
+                <ul class="nav nav-sub dk">
+                  <li class="nav-sub-header">
+                    <%= link_to("") do %>
+                      <span>Employee</span>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to(new_employee_path) do %>
+                      <span>New Employee</span>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to(employees_path) do %>
+                      <span>List All Employees</span>
+                    <% end %>
+                  </li> 
+                  <li>
+                    <%= link_to(categories_path) do %>
+                      <span>Manage Categories</span>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to(departments_path) do %>
+                      <span>Manage Dept.</span>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to(positions_path) do %>
+                      <span>Manage Positions</span>
+                    <% end %>
                   </li>
                 </ul>
-              </li> -->
+              </li>
+
+
+
+
 
               <li>
                 <%= link_to(leaves_path) do %>
@@ -506,89 +553,12 @@
 
               <li class="line dk"></li>
 
-              <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+              <<!-- li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
                 <span>Components</span>
-              </li>
-              <li>
-                <a href class="auto">      
-                  <span class="pull-right text-muted">
-                    <i class="fa fa-fw fa-angle-right text"></i>
-                    <i class="fa fa-fw fa-angle-down text-active"></i>
-                  </span>
-                  <i class="glyphicon glyphicon-user"></i>
-                  <span>Employee</span>
-                </a>
-                <ul class="nav nav-sub dk">
-                  <li class="nav-sub-header">
-                    <%= link_to("") do %>
-                      <span>Employee</span>
-                    <% end %>
-                  </li>
-                  <li>
-                    <%= link_to(new_employee_path) do %>
-                      <span>New Employee</span>
-                    <% end %>
-                  </li>
-                  <li>
-                    <%= link_to(employees_path) do %>
-                      <span>List All Employees</span>
-                    <% end %>
-                  </li> 
-                  <li>
-                    <%= link_to(categories_path) do %>
-                      <span>Manage Categories</span>
-                    <% end %>
-                  </li>
-                  <li>
-                    <%= link_to(departments_path) do %>
-                      <span>Manage Dept.</span>
-                    <% end %>
-                  </li>
-                  <li>
-                    <%= link_to(positions_path) do %>
-                      <span>Manage Positions</span>
-                    <% end %>
-                  </li>
-                </ul>
-              </li>
+              </li> -->
+              
 
-              <li>
-                <a href class="auto">      
-                  <span class="pull-right text-muted">
-                    <i class="fa fa-fw fa-angle-right text"></i>
-                    <i class="fa fa-fw fa-angle-down text-active"></i>
-                  </span>
-                  <i class="glyphicon glyphicon-th"></i>
-                  <span>Students</span>
-                </a>
-                <ul class="nav nav-sub dk">
-                  <li class="nav-sub-header">
-                    <%= link_to("") do %>
-                      <span>Students</span>
-                    <% end %>
-                  </li>
-                  <li>
-                    <%= link_to(new_student_path) do %>
-                      <span>Admit Student</span>
-                    <% end %>
-                  </li>
-                  <li>
-                    <%= link_to(students_path) do %>
-                      <span>List All Students</span>
-                    <% end %>
-                  </li>
-                  <li>
-                    <a href="layout_fullwidth.html">
-                      <span>Full width</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="layout_boxed.html">
-                      <span>Boxed layout</span>
-                    </a>
-                  </li>      
-                </ul>
-              </li>
+
               <li>
                <li>
                 <a href class="auto">      
@@ -613,6 +583,34 @@
                   <li>
                     <%= link_to(batches_path) do %>
                       <span>List All Batches</span>
+                    <% end %>
+                  </li> 
+                </ul>
+              </li>
+
+              <li>
+                <a href class="auto">      
+                  <span class="pull-right text-muted">
+                    <i class="fa fa-fw fa-angle-right text"></i>
+                    <i class="fa fa-fw fa-angle-down text-active"></i>
+                  </span>
+                  <i class="glyphicon glyphicon-user"></i>
+                  <span>Subject</span>
+                </a>
+                <ul class="nav nav-sub dk">
+                  <li class="nav-sub-header">
+                    <%= link_to("") do %>
+                      <span>Subject</span>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to(new_subject_path) do %>
+                      <span>Add Subject</span>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to(subjects_path) do %>
+                      <span>List All Subjects</span>
                     <% end %>
                   </li> 
                 </ul>
@@ -647,33 +645,7 @@
                 </ul>
               </li>
 
-               <li>
-                <a href class="auto">      
-                  <span class="pull-right text-muted">
-                    <i class="fa fa-fw fa-angle-right text"></i>
-                    <i class="fa fa-fw fa-angle-down text-active"></i>
-                  </span>
-                  <i class="glyphicon glyphicon-user"></i>
-                  <span>Subject</span>
-                </a>
-                <ul class="nav nav-sub dk">
-                  <li class="nav-sub-header">
-                    <%= link_to("") do %>
-                      <span>Subject</span>
-                    <% end %>
-                  </li>
-                  <li>
-                    <%= link_to(new_subject_path) do %>
-                      <span>Add Subject</span>
-                    <% end %>
-                  </li>
-                  <li>
-                    <%= link_to(subjects_path) do %>
-                      <span>List All Subjects</span>
-                    <% end %>
-                  </li> 
-                </ul>
-              </li>
+               
 
               <li>
                 <a href class="auto">      
