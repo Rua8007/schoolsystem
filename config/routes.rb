@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
- 
   resources :invoices do
     collection do
       get "items_data"
@@ -14,7 +13,9 @@ Rails.application.routes.draw do
   end
   resources :items
   resources :shopcategories
-  resources :transportfeerecords do
+  resources :transportfeerecords 
+  resources :student_holidays
+  resources :fees do
     collection do
       get "fee_data"
     end

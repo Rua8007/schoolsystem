@@ -29,8 +29,8 @@
           <%= hidden_field_tag :bus_allotment_id, @routes.id %>
 
           <div class=" form-group">
-            <label>Bus allotment</label>
-            <input type="text" class="form-control" disabled="true" value="<%= @routes.id %>">
+            <label>Vehicle Number</label>
+            <input type="text" class="form-control" disabled="true" value="<%= @routes.transport.vehicle.vehicle_no %>">
           </div>
 
 
