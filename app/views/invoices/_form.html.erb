@@ -47,8 +47,8 @@
   <br>
   <table class="table table-striped" id="itemtable">
     <thead class="table-head">
-      <th>Sr#</th>
-      <th>Item</th>
+      <th>Code</th>
+      <th>Name</th>
       <th>Price</th>
       <th>Quantity</th>
       <th>Total</th>
@@ -67,7 +67,7 @@
   <br><br><br>
   <div class="actions">
     <div class="col-md-3 form-group pull-right">
-      <input type = "button" class = "btn btn-success pull-right" id = "submit">
+      <input type = "button" class = "btn btn-success pull-right" id = "submit" value="Create Invoice">
     </div>
   </div>
 
@@ -140,7 +140,7 @@ $(document).ready(function(){
     var cell3 = row.insertCell(3);
     var cell4 = row.insertCell(4);
     var cell5 = row.insertCell(5);
-    cell6.innerHTML = items.length;
+    cell6.innerHTML = $("#code").val();
     cell1.innerHTML = $("#name").val();
     cell2.innerHTML = $("#price").val();
     cell3.innerHTML = $("#qty").val();
