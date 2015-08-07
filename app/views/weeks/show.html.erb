@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Year plan:</strong>
+  <%= @week.year_plan_id %>
+</p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @week.start_date %>
+</p>
+
+<p>
+  <strong>End date:</strong>
+  <%= @week.end_date %>
+</p>
+
+<p>
+  <strong>Holiday description:</strong>
+  <%= @week.holiday_description %>
+</p>
+
+<p>
+  <strong>Year week:</strong>
+  <%= @week.year_week_id %>
+</p>
+
+<%= link_to 'Edit', edit_week_path(@week) %> |
+<%= link_to 'Back', weeks_path %>

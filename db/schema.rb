@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150730041618) do
+ActiveRecord::Schema.define(version: 20150806045853) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20150730041618) do
     t.integer  "employee_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "total_days"
   end
 
   create_table "bus_allotments", force: :cascade do |t|
@@ -118,15 +119,6 @@ ActiveRecord::Schema.define(version: 20150730041618) do
     t.integer  "total_experience_months"
   end
 
-  create_table "exams", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "batch_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "start_date"
-    t.string   "end_date"
-  end
-
   create_table "fees", force: :cascade do |t|
     t.integer  "student_id"
     t.integer  "amount"
@@ -187,25 +179,6 @@ ActiveRecord::Schema.define(version: 20150730041618) do
     t.boolean  "approved",    default: false
   end
 
-<<<<<<< HEAD
-  create_table "marks", force: :cascade do |t|
-    t.string   "name"
-    t.float    "marks"
-    t.float    "passing_marks"
-    t.integer  "grade_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
-
-  create_table "marksheets", force: :cascade do |t|
-    t.integer  "exam_id"
-    t.integer  "bridge_id"
-    t.integer  "totalmarks"
-    t.float    "obtainedmarks"
-    t.integer  "student_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-=======
   create_table "lines", force: :cascade do |t|
     t.integer  "item_id"
     t.integer  "invoice_id"
@@ -229,7 +202,6 @@ ActiveRecord::Schema.define(version: 20150730041618) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "grade_id"
->>>>>>> bookshop
   end
 
   create_table "parents", force: :cascade do |t|
@@ -265,19 +237,10 @@ ActiveRecord::Schema.define(version: 20150730041618) do
     t.datetime "updated_at", null: false
   end
 
-<<<<<<< HEAD
-  create_table "sessionals", force: :cascade do |t|
-    t.integer  "marksheet_id"
-    t.integer  "mark_id"
-    t.float    "marks"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-=======
   create_table "shopcategories", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
->>>>>>> bookshop
   end
 
   create_table "stops", force: :cascade do |t|
@@ -417,6 +380,22 @@ ActiveRecord::Schema.define(version: 20150730041618) do
     t.integer  "weekend_day"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "weeks", force: :cascade do |t|
+    t.integer  "year_plan_id"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.string   "holiday_description"
+    t.integer  "year_week_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
+  create_table "year_plans", force: :cascade do |t|
+    t.string   "year_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

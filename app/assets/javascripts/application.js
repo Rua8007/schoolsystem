@@ -21,3 +21,5 @@
 //= require moment
 //= require fullcalendar
 //= require externals/bootstrap-daterangepicker/daterangepicker
+//= require bootstrap-datepicker
+//= require bootstrap-datepicker/core

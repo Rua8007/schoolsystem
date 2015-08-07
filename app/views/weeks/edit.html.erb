@@ -1,0 +1,75 @@
+<h1>Editing Week</h1>
+<div class="col-lg-6">
+<%= form_for @week, url: {action: "update", controller: "weeks", params: {year_plan_id: @year_plan.id, id: @week.id}, method: :patch} do |f| %>
+	  <% if @week.errors.any? %>
+	    <div id="error_explanation">
+	      <h2><%= pluralize(@week.errors.count, "error") %> prohibited this week from being saved:</h2>
+
+	      <ul>
+	      <% @week.errors.full_messages.each do |message| %>
+	        <li><%= message %></li>
+	      <% end %>
+	      </ul>
+	    </div>
+	  <% end %>
+
+	    <div class="form-group">
+    <%= f.label 'Week #'%><br>
+    <%= f.number_field :year_week_id, class: "form-control", disabled: true%>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :start_date%><br>
+
+    <div class="form-group">
+      <div class='input-group date' id='datetimepicker1' class="datepicker1">
+        <input type='text' id="week_start_date" value="<%= @week.start_date %>" name="week[start_date]" data-date-format="yyyy-mm-dd" class="form-control" required />
+        <span class="input-group-addon">
+          <span class="glyphicon glyphicon-calendar"></span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :end_date %><br>
+
+    <div class="form-group">
+      <div class='input-group date' id='datetimepicker2' class="datepicker1">
+        <input type='text' id="week_end_date" name="week[end_date]" data-date-format="yyyy-mm-dd" class="form-control" value="<%= @week.end_date %>" required />
+        <span class="input-group-addon">
+          <span class="glyphicon glyphicon-calendar"></span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :holiday_description %><br>
+    <%= f.text_field :holiday_description, class: "form-control" %>
+  </div>
+
+  
+
+  <div class="form-group">
+    <%= f.submit "SAVE", class: 'btn btn-success pull-right' %>
+  </div>
+	<% end %>
+
+	<%= link_to 'Back', year_plan_weeks_path(@year_plan.id) %>
+</div>
+
+
+
+<script type="text/javascript">
+  
+  $( document ).ready(function() {
+    $('#datetimepicker1').datepicker({
+      format: "yyyy-mm-dd"
+    });
+    $('#datetimepicker2').datepicker({
+      format: "yyyy-mm-dd"
+    });
+
+  });
+</script>
