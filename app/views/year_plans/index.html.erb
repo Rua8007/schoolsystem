@@ -12,7 +12,7 @@
     <thead>
       <tr>
         <th>Year name</th>
-        <th colspan="2"></th>
+        <th colspan="3"></th>
       </tr>
     </thead>
 
@@ -22,6 +22,8 @@
           <td><%= year_plan.year_name %></td>
          
          <td><%= link_to 'PLAN', year_plan_weeks_path(year_plan), class: "btn btn-small btn-info" %></td>
+
+         <td><%= link_to 'SEE SCHEDULE', year_plan_path(year_plan), class: "btn btn-small btn-success" %></td>
 
           <td><%= link_to 'Edit Name', edit_year_plan_path(year_plan), class: "btn btn-small btn-default" %></td>
          
