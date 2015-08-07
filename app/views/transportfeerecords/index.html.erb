@@ -1,0 +1,62 @@
+<%= stylesheet_link_tag "//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css" %>
+<%= javascript_include_tag "https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js" %>
+<%= javascript_include_tag "//cdn.datatables.net/tabletools/2.2.2/js/dataTables.tableTools.min.js" %>
+<%= javascript_include_tag "https://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js" %>
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    $('#example').dataTable({
+        dom: 'T<"clear">lfrtip',
+        tableTools: {
+            "sSwfPath": "https://cdn.datatables.net/tabletools/2.2.2/swf/copy_csv_xls_pdf.swf"
+        }
+    });
+  });
+
+</script>
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Bus Allotments Register
+  <a href="<%= new_transportfeerecord_path %>" class="btn btn-info pull-right" style="width:200px;">Add transport fee record</a></h1>
+</div>
+<table class="table" id="example">
+  <thead class= "table-head">
+    <tr>
+      <th>St#</th>
+      <th>Student's name</th>
+      <th>Father's name</th>
+      <th>Class</th>
+      <th>Driver's name</th>
+      <th>Stop name</th>
+      <th>Vehicle no.</th>
+      <th>Fee</th>
+      <th>Submission date</th>
+      <th>Actions</th>
+
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @transportfeerecords.each do |transportfeerecord| %>
+      <tr>
+        <td><%= transportfeerecord.bus_allotment.student.id %></td>
+        <td><%= transportfeerecord.bus_allotment.student.fullname %></td>
+        <td><%= transportfeerecord.bus_allotment.student.parent.name %></td>
+        <td><%= transportfeerecord.bus_allotment.student.grade.name %></td>
+        <td><%= transportfeerecord.bus_allotment.transport.employee.full_name %></td>
+        <td><%= transportfeerecord.bus_allotment.stop.name %></td>
+        <td><%= transportfeerecord.bus_allotment.transport.vehicle.vehicle_no %></td>
+        <td><%= transportfeerecord.bus_allotment.fee %></td>
+        <td><%= transportfeerecord.created_at %></td>
+       
+        <td> 
+        <%= link_to '', edit_transportfeerecord_path(transportfeerecord),:class => 'glyphicon glyphicon glyphicon-pencil' %>
+        <%= link_to '', transportfeerecord, method: :delete, data: { confirm: 'Are you sure?' },:class =>  'glyphicon glyphicon-remove-circle' %>
+
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+

@@ -1,0 +1,50 @@
+<div class="page-header">
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Student #</th>
+      <td><%= @transportfeerecord.bus_allotment.student.id %></td>
+    </tr>
+    <tr>
+      <th>Student's name</th>
+      <td><%= @transportfeerecord.bus_allotment.student.fullname %></td>
+    </tr>
+    <tr>
+      <th>Father's name</th>
+      <td><%= @transportfeerecord.bus_allotment.student.parent.name %></td>
+      
+    </tr>
+    <tr>
+      <th>Class</th>
+      <td><%= @transportfeerecord.bus_allotment.student.grade.name %></td>
+      
+    </tr>
+    <tr>
+      <th>Driver's name</th>
+      <td><%= @transportfeerecord.bus_allotment.transport.employee.full_name %></td>
+    </tr>
+    <tr>
+      <th>Stop name</th>
+      <td><%= @transportfeerecord.bus_allotment.stop.name %></td>
+    </tr>
+    <tr>
+      <th>Vehicle no.</th>
+      <td><%= @transportfeerecord.bus_allotment.transport.vehicle.vehicle_no %></td>
+    </tr>
+    <tr>
+      <th>Fee</th>
+      <td><%= @transportfeerecord.bus_allotment.fee %></td>
+    </tr>
+    <tr>
+      <th>Submission date</th>
+      <td><%= @transportfeerecord.created_at %></td>
+    </tr>
+  </thead>
+</table>
+
+
+
+
+
+

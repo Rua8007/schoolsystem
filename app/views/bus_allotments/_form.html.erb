@@ -1,0 +1,114 @@
+<style type="text/css">
+  .container{
+      width: auto;
+  }
+
+  .sss{
+    border:1px solid#e5e5e5;   padding: 1%; 
+  }
+
+  .lll{
+    width: auto !important; 
+    background-color: white;
+    padding-right: 16px;
+    padding-left: 15px;
+    border: 1px solid;
+    border-color: #729F32;
+    border-radius: 21px;
+  }
+</style>
+
+
+<%= form_for(@bus_allotment) do |f| %>
+  <% if @bus_allotment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@bus_allotment.errors.count, "error") %> prohibited this bus_allotment from being saved:</h2>
+
+      <ul>
+      <% @bus_allotment.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="container form-holder">
+    <div class="row">
+      <br>
+      <fieldset class="sss well well-lg">
+        <legend class="lll">Transport Allotment</legend>
+        <div class = "row">
+          <div class="column col-xs-12 col-sm-6">
+            <div class="form-group ">
+              <div class="field">
+                <%= f.label  :Student_ID %><br>
+                <%= f.text_field :student_id, :style => 'height:34px;',  class: 'form-control' , required: true, autofocus: true %>
+              </div>
+            </div>
+          </div>
+          <div class="column col-xs-12 col-sm-6">
+            <div class="form-group ">
+              <div class="field">
+                <%= f.label  :fee %><br>
+                <%= f.text_field :fee, :style => 'height:34px;',  class: 'form-control' , required: true %>
+              </div>
+            </div>
+          </div>
+          <div class="column col-xs-12 col-sm-6">
+            <div class="form-group ">
+              <div class="field">
+                <%= f.label :route_id %><br>
+                <%= f.collection_select :route_id, Route.order(:name),:id,:name ,{}, {class: "form-control", style: 'width:100%;'} %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class = "row">
+          <div class="column col-xs-12 col-sm-12">
+            <div class="form-group ">
+              <div class="field">
+                <div id="stp">
+                  <%= render 'stops'  %>
+                </div>
+              </div>
+            </div>
+          </div>  
+        </div>
+        <div class="actions">
+          <%= f.submit "Allot Transport",:class => 'btn btn-block btn-success form-control',:style=>'width:24%;float: right;' %>
+        </div>
+      </fieldset>
+      </div>
+    </div>
+<% end %>
+
+<script type="text/javascript">
+
+  $("#bus_allotment_route_id").change(function (e){
+    console.log("i am heres");
+
+  $.get("/bus_allotments/stops_data", {route_id: $("#bus_allotment_route_id").val()})
+    .done(function(data){
+      if (data)
+      {
+        $("#error_div_rollnum").removeClass('hide');
+        $("#error_text_rollnum").html($("#roll_Number").val() + " roll number already registered!");
+        $("#roll_Number").val('');
+      }
+      else
+      {
+        $("#error_div_rollnum").addClass('hide');
+      }
+    });
+  });
+
+
+
+
+ </script> 
+
+
+
+
+
+

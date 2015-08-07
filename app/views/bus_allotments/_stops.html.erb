@@ -1,0 +1,48 @@
+      <div class = "row">
+
+      <div class="column col-xs-12 col-sm-6  width: 100%;">
+
+              <div class="field  styled-select "  >
+                <label >Transport</label>
+                <%#= select_tag  ,options_for_select(@stops), {class: "form-control", style: 'width:30%;'} %>
+                <select name="bus_allotment[transport_id]" class="form-control">
+                  <% @transports.each do |transport| %>
+                    <option value="<%= transport.id%>" ><%= transport.no %> </option>
+                  <% end %>
+                </select>
+              </div>
+              </div>
+          <div class="column col-xs-12 col-sm-6">
+
+              <div class="field  styled-select"  >
+              	<label >Stop</label>
+              	<%#= select_tag  ,options_for_select(@stops), {class: "form-control", style: 'width:30%;'} %>
+              	<select name="bus_allotment[stop_id]" class="form-control">
+              		<% @stops.each do |stop| %>
+              			<option value="<%= stop.id%>"><%= stop.name %> </option>
+              		<% end %>
+              	</select>
+              </div>
+            </div>
+
+        </div>
+
+
+
+
+
+
+<style type="text/css">
+  .styled-select select {
+   background: white;
+   width: 100%;
+   
+ 	border: 1;
+   border-radius: 2px;
+   border-color: #555;
+   
+   height: 34px;
+   -webkit-appearance: none;
+   }
+</style>
+

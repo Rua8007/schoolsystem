@@ -15,4 +15,8 @@ class Employee < ActiveRecord::Base
 
 	has_many :marksheets
 	
+	has_many :transports
+	
+
+>>>>>>> master
 end

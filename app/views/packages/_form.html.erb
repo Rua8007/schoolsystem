@@ -1,0 +1,76 @@
+<%= form_for(@package) do |f| %>
+  <% if @package.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@package.errors.count, "error") %> prohibited this package from being saved:</h2>
+
+      <ul>
+      <% @package.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :code %><br>
+    <%= f.text_field :code %>
+  </div>
+  <div class="field">
+    <%= f.label :price %><br>
+    <%= f.text_field :price %>
+  </div>
+  <div class="field">
+    <%= f.label :sold %><br>
+    <%= f.number_field :sold %>
+  </div>  
+  <div class="field">
+    <%= f.label :class%><br>
+     <%= f.select :grade_id, options_from_collection_for_select(@grades,"id", "name"),{prompt: "Select class"} %>
+  </div>
+   <%= f.fields_for :packageitem do |b| %>
+
+  <div id="checkbox" >
+    <%= render 'items'  %>
+  </div>
+
+  <%end%>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+
+<script type="text/javascript">
+        $("#checkbox").addClass('hide');
+
+
+  $("#package_grade_id").change(function (e){
+    console.log("i am heres");
+
+
+  $.get("/packages/items_data", {grade_id: $("#package_grade_id").val()})
+    .done(function(data){
+      if (data)
+      {
+        $("#checkbox").removeClass('hide');
+        
+      }
+      else
+      {
+        $("#checkbox").addClass('hide');
+
+      }
+    });
+  });
+
+
+
+
+ </script> 
+

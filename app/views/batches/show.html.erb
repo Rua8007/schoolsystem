@@ -1,9 +1,44 @@
-<p id="notice"><%= notice %></p>
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Batch  </h1>
+</div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @batch.name %>
-</p>
+<style type="text/css">
+    @media(min-width: 1200px)
+.abc {
+  width: 1080px;
+}
+</style>
+<div class="abc" style="">
 
-<%= link_to 'Edit', edit_batch_path(@batch) %> |
+    <div class="container" >
+    	<div class="abc" style="">
+
+    <div class="container" >
+	
+		<br>
+        <div class="col-sm-4">
+            <table class="table">
+                <tbody>
+                    
+                    <tr>
+                        <td class="student-profile-td">
+                            Batch name
+                        </td>
+
+                        <td>
+                            <%= @batch.name %>
+                        </td>
+                    </tr>
+
+                   
+                </tbody>
+            </table>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+
+
 <%= link_to 'Back', batches_path %>
+

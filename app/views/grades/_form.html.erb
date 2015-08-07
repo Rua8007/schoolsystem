@@ -35,7 +35,7 @@
         <div class="row">
         <br>
             <fieldset class="sss well well-lg">
-              <legend class="lll">Class Information</legend>
+              <legend class="lll">Grade Information</legend>
               <div class = "row">
                   <div class="column col-xs-12 col-sm-4">
                         <div class="form-group ">
@@ -57,7 +57,7 @@
                          <div class="form-group ">
                           <div class="field">
                             <%= f.label :batch_id %><br>
-                            <%= f.select :batch_id,options_for_select(@batch),{},{:style => 'height:34px;',  class: 'form-control' , required: true, autofocus: true} %>
+                        <%= f.select :batch_id, options_from_collection_for_select(@batches,"id", "name"),{prompt: "Select batch"}, {class: 'form-control', required: true} %>
                           </div>
                         </div>
                       </div>
@@ -65,7 +65,7 @@
                   </div>
                 </div>
                  <div class="actions">
-                  <%= f.submit "Create class",:class => 'btn btn-block btn-success form-control',:style=>'width:24%;float: right;' %>
+                  <%= f.submit "Create ",:class => 'btn btn-block btn-success form-control',:style=>'width:24%;float: right;' %>
                 </div>
               </fieldset>
             </div>

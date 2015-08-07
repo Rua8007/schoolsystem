@@ -1,6 +1,42 @@
 Rails.application.routes.draw do
+  resources :invoices do
+    collection do
+      get "items_data"
+      post "invoicing"
+    end
+  end
 
-  
+
+  resources :packages do
+    collection do
+      get "items_data"
+    end
+  end
+  resources :items
+  resources :shopcategories
+  resources :transportfeerecords 
+  resources :year_plans do
+    resources :weeks do
+      collection do 
+        get 'schedule_weeks', :as => :schedule_weeks
+        post 'add_schedule_weeks', :as => :add_schedule_weeks
+      end
+    end
+  end
+
+  resources :student_holidays
+  resources :fees do
+    collection do
+      get "fee_data"
+    end
+  end
+  resources :bus_allotments do
+    collection do
+      get "stops_data"
+      get "transports_data"
+    end
+  end
+  resources :stops
 
   resources :marks
   resources :marksheets do

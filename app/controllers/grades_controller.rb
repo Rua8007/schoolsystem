@@ -16,11 +16,13 @@ class GradesController < ApplicationController
   # GET /grades/new
   def new
     @grade = Grade.new
-     @batch=Batch.all.pluck(:name, :id)
+    @batch = Batch.all.pluck(:name, :id)
+    @batches=Batch.all
   end
 
   # GET /grades/1/edit
   def edit
+    @batches=Batch.all
   end
 
   # POST /grades
@@ -46,7 +48,7 @@ class GradesController < ApplicationController
   def update
     respond_to do |format|
       if @grade.update(grade_params)
-        format.html { redirect_to @grade, notice: 'Grade was successfully updated.' }
+        format.html { redirect_to grades_path, notice: 'Grade was successfully updated.' }
         format.json { render :show, status: :ok, location: @grade }
       else
         format.html { render :edit }

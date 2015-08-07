@@ -459,6 +459,15 @@
                 </ul>
               </li>
 
+              <li>
+                <%= link_to(year_plans_path) do %>
+                  <i class="glyphicon glyphicon-time"></i>
+                  <span>Time Table</span>
+                <% end %>
+                
+              </li>
+
+              
 
               <li>
                 <a href class="auto">      
@@ -617,22 +626,22 @@
                     <i class="fa fa-fw fa-angle-down text-active"></i>
                   </span>
                   <i class="glyphicon glyphicon-user"></i>
-                  <span>Class</span>
+                  <span>Grade</span>
                 </a>
                 <ul class="nav nav-sub dk">
                   <li class="nav-sub-header">
                     <%= link_to("") do %>
-                      <span>Class</span>
+                      <span>Grade</span>
                     <% end %>
                   </li>
                   <li>
                     <%= link_to(new_grade_path) do %>
-                      <span>Add Class</span>
+                      <span>Add Grade</span>
                     <% end %>
                   </li>
                   <li>
                     <%= link_to(grades_path) do %>
-                      <span>List All classes</span>
+                      <span>List All grades</span>
                     <% end %>
                   </li> 
                 </ul>
@@ -711,6 +720,71 @@
                       <span>Transport details</span>
                     <% end %>
                   </li>
+                  <li>
+                    <%= link_to(new_bus_allotment_path) do %>
+                      <span>Allot Transportation</span>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to(bus_allotments_path) do %>
+                      <span>Allot Transportation details</span>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to(new_transportfeerecord_path) do %>
+                      <span>New Transport Fee Record</span>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to(transportfeerecords_path) do %>
+                      <span>Transport Fee Records</span>
+                    <% end %>
+                  </li>
+                  
+                </ul>
+              </li>
+              <li>
+                <a href class="auto">      
+                  <span class="pull-right text-muted">
+                    <i class="fa fa-fw fa-angle-right text"></i>
+                    <i class="fa fa-fw fa-angle-down text-active"></i>
+                  </span>
+                  <i class="glyphicon glyphicon-user"></i>
+                  <span>Book shop</span>
+                </a>
+                <ul class="nav nav-sub dk">
+                  <li class="nav-sub-header">
+                    <%= link_to("") do %>
+                      <span>Book shop</span>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to(new_shopcategory_path) do %>
+                      <span>New Category</span>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to(new_item_path) do %>
+                      <span>New Item</span>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to(items_path) do %>
+                      <span>All Item</span>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to(new_package_path) do %>
+                      <span>New package</span>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to(packages_path) do %>
+                      <span>All package</span>
+                    <% end %>
+                  </li>
+                  
+                  
                   
                 </ul>
               </li>
@@ -1000,6 +1074,6 @@
 
 </body>
 <script type="text/javascript">
-  $(".datepicker").datepicker();
+   // $(".datepicker").datepicker();
 </script>
 </html>

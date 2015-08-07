@@ -1,6 +1,6 @@
 <style type="text/css">
   .container{
-      width: 1068px;
+      width: auto;
   }
 
   .sss{
@@ -34,7 +34,7 @@
         <div class="row">
         <br>
             <fieldset class="sss well well-lg">
-              <legend class="lll">Class Information</legend>
+              <legend class="lll">Stop Information</legend>
               <div class = "row">
                   <div class="column col-xs-12 col-sm-6">
                         <div class="form-group ">
@@ -48,7 +48,7 @@
                          <div class="form-group ">
                           <div class="field">
                             <%= f.label :route_id %><br>
-                            <%= f.select :route_id,options_for_select(@route),{},{:style => 'height:34px;',  class: 'form-control' , required: true, autofocus: true} %>
+                            <%= f.select :route_id, options_from_collection_for_select(@routes,"id", "name"),{prompt: "Select Route"}, {class: "form-control", required: true} %>
                           </div>
                         </div>
                       </div>

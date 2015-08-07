@@ -29,7 +29,7 @@ class BatchesController < ApplicationController
 
     respond_to do |format|
       if @batch.save
-        format.html { redirect_to @batch, notice: 'Batch was successfully created.' }
+        format.html { redirect_to @batches_path, notice: 'Batch was successfully created.' }
         format.json { render :show, status: :created, location: @batch }
       else
         format.html { render :new }

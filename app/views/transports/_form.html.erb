@@ -1,6 +1,6 @@
 <style type="text/css">
   .container{
-      width: 1068px;
+      width: auto;
   }
 
   .sss{
@@ -37,19 +37,27 @@
             <fieldset class="sss well well-lg">
               <legend class="lll">Transport Information</legend>
               <div class = "row">
-                  <div class="column col-xs-12 col-sm-6">
+               <div class="column col-xs-12 col-sm-4">
+                    <div class="form-group ">
+                      <div class="field">
+                        <%= f.label :transport_no %><br>
+                        <%= f.text_field :no, :style => 'height:34px;',  class: 'form-control' , required: true, autofocus: true %>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="column col-xs-12 col-sm-4">
                       <div class="form-group ">
                         <div class="field">
                           <%= f.label  :employee_id %><br>
-                          <%= f.select :employee_id,options_for_select(@employee),{},{ :style => 'height:34px;',  class: 'form-control' , required: true, autofocus: true} %>
+                          <%= f.select :employee_id, options_from_collection_for_select(@employees,"id", "full_name") ,{prompt: "Select Driver"},{class: 'form-control'} %>
                         </div>
                       </div>
                     </div>
-                    <div class="column col-xs-12 col-sm-6">
+                    <div class="column col-xs-12 col-sm-4">
                        <div class="form-group ">
                           <div class="field">
                             <%= f.label :vehicle_id %><br>
-                            <%= f.select :vehicle_id,options_for_select(@vehicle) ,{},{:style => 'height:34px;',  class: 'form-control' , required: true, autofocus: true} %>
+                            <%= f.select :vehicle_id,options_from_collection_for_select(@vehicles,"id", "vehicle_no"),{prompt: "Select Vehicle"},{class: 'form-control', required: true} %>
                           </div>
                         </div>
                     </div>
