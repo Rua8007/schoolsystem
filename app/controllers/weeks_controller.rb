@@ -94,8 +94,24 @@ class WeeksController < ApplicationController
   end
 
   def add_schedule_weeks
-    return render json: params.inspect
+    year = YearPlan.find(params[:year_plan_id])
+    subject = Subject.find(params[:subject])
+    grade = Grade.find(params[:grade])
+    if year.present? && subject.present? && grade.present?
+      weeks = year.weeks.sort_by &:start_date
+      weeks.each_with_index do |week,i|
+        classworks = "classworks_"+i.to_s
+        homeworks  = "homeworks_"+i.to_s
+        params[classworks].each_with_index do |cw,day_num|
+          day_name = "day_"+day_num.to_s
+          week.grade_subjects.create!(subject_id: subject.id, grade_id: grade.id, dayname: day_name, classwork: params[classworks][day_num], homework: params[homeworks][day_num])
+        end
+      end
+    end
+    redirect_to year_plan_path(year)
   end
+
+ 
 
   private
     # Use callbacks to share common setup or constraints between actions.

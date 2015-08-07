@@ -16,10 +16,14 @@ Rails.application.routes.draw do
   resources :shopcategories
   resources :transportfeerecords 
   resources :year_plans do
+    member do
+      get 'show_schedule'
+    end
     resources :weeks do
       collection do 
         get 'schedule_weeks', :as => :schedule_weeks
         post 'add_schedule_weeks', :as => :add_schedule_weeks
+
       end
     end
   end
