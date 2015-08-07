@@ -11,7 +11,6 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
 ActiveRecord::Schema.define(version: 20150806045853) do
 
   # These are extensions that must be enabled in order to support this database
@@ -189,6 +188,14 @@ ActiveRecord::Schema.define(version: 20150806045853) do
     t.boolean  "approved",    default: false
   end
 
+  create_table "lines", force: :cascade do |t|
+    t.integer  "item_id"
+    t.integer  "invoice_id"
+    t.integer  "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "marks", force: :cascade do |t|
     t.string   "name"
     t.float    "marks"
@@ -208,14 +215,6 @@ ActiveRecord::Schema.define(version: 20150806045853) do
     t.datetime "updated_at",    null: false
   end
 
-  create_table "lines", force: :cascade do |t|
-    t.integer  "item_id"
-    t.integer  "invoice_id"
-    t.integer  "quantity"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "packageitems", force: :cascade do |t|
     t.integer  "package_id"
     t.integer  "item_id"
@@ -232,7 +231,6 @@ ActiveRecord::Schema.define(version: 20150806045853) do
     t.datetime "updated_at", null: false
     t.integer  "grade_id"
   end
-
 
   create_table "parents", force: :cascade do |t|
     t.string   "name"
