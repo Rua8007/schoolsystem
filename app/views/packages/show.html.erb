@@ -1,23 +1,89 @@
 
-<p>
-  <strong>Name:</strong>
-  <%= @package.name %>
-</p>
 
-<p>
-  <strong>Code:</strong>
-  <%= @package.code %>
-</p>
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Package </h1>
+</div>
 
-<p>
-  <strong>Price:</strong>
-  <%= @package.price %>
-</p>
+<style type="text/css">
+    @media(min-width: 1200px)
+.abc {
+  width: 1080px;
+}
+</style>
+<div class="abc" style="">
 
-<p>
-  <strong>Sold:</strong>
-  <%= @package.sold %>
-</p>
+    <div class="container" >
+      <div class="abc" style="">
 
-<%= link_to 'Edit', edit_package_path(@package) %> |
+    <div class="container" >
+  
+    <br>
+        <div class="col-sm-4">
+            <table class="table">
+                <tbody>
+                    
+                    <tr>
+                        <td class="student-profile-td">
+                            Name
+                        </td>
+                        <td>
+                        <%= @package.name %>
+                        </td>
+                    </tr>
+
+                     <tr>
+                        <td class="student-profile-td">
+                            Code
+                            
+                        </td>
+                        <td>
+                        <%= @package.code %>
+                                
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="student-profile-td">
+                          Price
+                            
+                        </td>
+                        <td>
+                        <%= @package.price %>
+                                
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="student-profile-td">
+                          Sold
+                            
+                        </td>
+                        <td>
+                        <%= @package.sold %>
+                                
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="student-profile-td">
+                          Grade
+                        </td>
+
+                        <td>
+                        <%= @package.grade.name %>
+                                
+                        </td>
+                    </tr>
+                    
+                    
+                </tbody>
+            </table>
+        </div>
+       </div>
+    </div>
+  </div>
+</div>
+
+
 <%= link_to 'Back', packages_path %>
+
+
+
+

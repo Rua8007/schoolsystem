@@ -28,7 +28,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :student_holidays
   resources :fees do
     collection do
       get "fee_data"

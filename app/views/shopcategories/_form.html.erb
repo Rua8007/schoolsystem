@@ -1,3 +1,23 @@
+<style type="text/css">
+  .container{
+      width: auto;
+  }
+
+  .sss{
+    border:1px solid#e5e5e5;    
+  }
+
+  .lll{
+    width: auto !important; 
+    background-color: white;
+    padding-right: 16px;
+    padding-left: 15px;
+    border: 1px solid;
+    border-color: #729F32;
+    border-radius: 21px;
+  }
+</style>
+
 <%= form_for(@shopcategory) do |f| %>
   <% if @shopcategory.errors.any? %>
     <div id="error_explanation">
@@ -11,11 +31,38 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
+  <div class="container form-holder">
+        <div class="row">
+        <br>
+          <fieldset class="sss well well-lg">
+             <legend class="lll">Category</legend>
+                  <div class = "row">
+                      <div class = "col-md-6">
+                            <div class="form-group ">
+                                <%= f.label :name %><br>
+                                <%= f.text_field :name, :style => 'height:34px;',  class: 'form-control' , required: true, autofocus: true  %>
+                            </div>
+                        </div>
+                  </div>
+          </fieldset>
+        </div>
+    </div>
+
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Create", :class => 'btn btn-block btn-success form-control',:style=>'width:24%;float: right;' %>
   </div>
 <% end %>
+
+
+<style type="text/css">
+  .form-holder .col-sm-2 {
+    min-height: 84px;
+  }
+  .form-holder .form-control{
+    width: 65%;
+  }
+  .form-control{
+    border-radius: 7px;
+    border: black;
+  }
+</style>
