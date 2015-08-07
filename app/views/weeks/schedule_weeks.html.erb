@@ -1,0 +1,214 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Schedule Weeks for Subject: <%= "#{@subject.name} Grade: #{@grade.full_name} " %>
+  </h1>
+</div>
+
+<div class="wrapper-md">
+	<%= form_tag add_schedule_weeks_year_plan_weeks_path([@year_plan]), method: :post do %>
+		<%= hidden_field_tag "total_weeks", @weeks.count %>
+		<%= hidden_field_tag "grade", @grade.id %>
+		<%= hidden_field_tag "subject", @subject.id %>
+		<div class="col-md-12">
+    	<div class="abc form-holder">
+      	<div class="row">
+					<% @weeks.each_with_index do |week,i| %>
+						<div class="week-div" id="week_<%= i %>" style="<%= "display: none;" if i > 0 %>">
+							<fieldset class="sss well well-lg">
+				        <legend class="lll"><%= "Week # #{i+1} "%>&nbsp;&nbsp;&nbsp;<span style="font-size:14px; color:blue;"><%="#{week.start_date.strftime("%d-%m-%Y")} - #{week.end_date.strftime("%d-%m-%Y")}" %><span></legend>
+				        <div class="column col-xs-12 col-sm-12">
+				         
+				         	<div class="day-div-<%= i %>" id="week_day_div_<%= i %>_0">	
+				         		<fieldset class="ttt well well-lg">
+							        <legend class="zzz"><span class="days-<%= i %>"><%= "Day 1" %></span></legend>
+							        <div class="column col-xs-12 col-sm-12">
+							          <div class="form-group">
+							            <label for="exampleInputEmail1">Class Work</label>
+							            <%= text_area_tag "classworks_#{i}[]", nil, placeholder: 'Write Class Work Here...',cols: 70, rows: 7, class: 'form-control', style: 'width:100%' %>
+							          </div>
+							          <div class="form-group">
+							            <label for="exampleInputEmail1">Home Work</label>
+							            <%= text_area_tag "homeworks_#{i}[]", nil, placeholder: 'Write Home Work Here...',cols: 70, rows: 7, class: 'form-control', style: 'width:100%' %>
+
+							          </div>
+							        </div>
+							      </fieldset>
+							    </div>
+				        </div>
+				        <%= link_to "Add Another Day","javascript:void(0);", class: "btn btn-default add-day", id: "week_day_add_#{ i }" %>
+
+							   <%= link_to "Remove Day","javascript:void(0);", class: "btn btn-danger rem-day", id: "week_day_rem_#{ i }" %>
+				      </fieldset>
+						</div>
+
+						<% if i > 0 %>
+							<%= link_to "Previous","", class: "btn btn-info week-previous", style: "display: none;", id: "week_previous_#{ i-1 if i-1 >= 0 }" %>
+						<% end %>
+						<%= link_to "Next","", class: "btn btn-info week-next", style: "#{ 'display: none;' if i > 0 }", id: "week_next_#{ i+1 if i+1 < @weeks.count }" %>
+					<% end %>
+				</div>
+			</div>
+		</div>
+		
+		<br/><br/><br/>
+		<%= submit_tag 'Save Schedule', class: 'btn btn-lg btn-success pull-right', style: 'display: none;', id: "submit_tag_id" %>
+	<% end %>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(function() {
+	    $(document).on('click','.add-day', function (e) {
+	    	e.preventDefault();
+	      first_id = $(this).attr("id");
+	      arr = first_id.split("_");
+	      week_id = arr[arr.length-1];
+	      var last_div = $('.day-div-'+week_id).last();
+	      var last_div_id = last_div[0].id.toString();
+	      // console.log("last_div_id: "+last_div_id);
+	      arr2 = last_div_id.split("_");
+	      last_day_id = parseInt(arr2[arr2.length-1]) + 1;
+	      prev_day_id = last_day_id-1;
+	      prev_day_div_id = "week_day_div_"+week_id.toString()+"_"+prev_day_id.toString();
+	      // week_id = parseInt(arr2[arr2.length-2])
+	      new_div_id = "week_day_div_"+week_id.toString()+"_"+last_day_id.toString();
+	      // // alert($('.new-sales-contact').first().html());
+	      var html = '<div class="day-div-'+week_id+'"' + ' id="'+ new_div_id +'">'+$('#'+prev_day_div_id).html()+'</div>';
+	      // console.log(html);
+	      // alert(new_div_id);
+	      // // console.log($('.day-div').first().html());
+	      $(html).insertAfter($('#'+prev_day_div_id));
+	      // $('.days-'+week_id).text($(this).val());
+	      var last_span = $('.days-'+week_id).last();
+	      var mystr = last_span[0].innerText.toString();
+	      span_arr = mystr.split(" ");
+	      day_num = parseInt(span_arr[span_arr.length-1])+1;
+	      day_name = "Day "+day_num;
+	      // console.log(day_name);
+	      last_span.text(day_name);
+	    });
+
+			$(document).on('click','.week-next', function (e) {
+				e.preventDefault();
+	      first_id = $(this).attr("id");
+	      arr = first_id.split("_");
+	      week_id = arr[arr.length-1];
+	      // console.log($("#total_weeks").val());
+	      to_hide_div_id = "#week_"+(parseInt(week_id)-1).toString();
+	      prev_btn_id = "#week_previous_"+(parseInt(week_id)-1).toString();
+	      to_hide_next_btn_id = "#week_next_"+week_id;
+	      to_show_div_id = "#week_"+week_id;
+	      to_show_next_btn_id = "#week_next_"+(parseInt(week_id)+1).toString();
+				$('.week-div').fadeOut('fast');
+	      $('.week-next').fadeOut('fast');
+	      $('.week-previous').fadeOut('fast');
+	      // $(to_hide_next_btn_id).fadeOut('fast');
+	      $(to_show_div_id).fadeIn('fast');
+	      $(to_show_next_btn_id).fadeIn('fast');
+	      $(prev_btn_id).fadeIn('fast');
+	      week_val = parseInt($("#total_weeks").val())-1;
+	      week_val_event = parseInt(week_id);
+	      if(week_val == week_val_event){
+	      	$("#submit_tag_id").fadeIn('fast');
+	      }
+	      else{
+	      	$("#submit_tag_id").fadeOut('fast');
+	      }
+			});
+
+			$(document).on('click','.week-previous', function (e) {
+				e.preventDefault();
+
+	      first_id = $(this).attr("id");
+	      arr = first_id.split("_");
+	      week_id = arr[arr.length-1];
+
+	      // to_hide_div_id = "#week_"+(parseInt(week_id)+1).toString();
+	      // to_hide_next_btn_id = "#week_next_"+(parseInt(week_id)+1).toString();
+
+	      to_show_div_id = "#week_"+week_id;
+
+	      to_show_previous_btn_id = "#week_previous_"+(parseInt(week_id)-1).toString();
+
+	      to_show_next_btn_id = "#week_next_"+(parseInt(week_id)+1).toString();
+
+	      // $(to_hide_div_id).fadeIn('fast');
+	      // $(to_hide_previous_btn_id).fadeIn('fast');
+
+	      $('.week-div').fadeOut('fast');
+	      $('.week-next').fadeOut('fast');
+	      $('.week-previous').fadeOut('fast');
+
+
+	      $(to_show_div_id).fadeIn('fast');
+	      $(to_show_previous_btn_id).fadeIn('fast');
+	      $(to_show_next_btn_id).fadeIn('fast');
+
+	      week_val = parseInt($("#total_weeks").val())-1;
+	      week_val_event = parseInt(week_id);
+	      if(week_val == week_val_event){
+	      	$("#submit_tag_id").fadeIn('fast');
+	      }
+	      else{
+	      	$("#submit_tag_id").fadeOut('fast');
+	      }
+			});
+
+	    $(document).on('click', '.rem-day', function (e) {
+	    	e.preventDefault(); 
+	    	// console.log($(this).attr("id"));
+	    	first_id = $(this).attr("id");
+	      arr = first_id.split("_");
+	      week_id = arr[arr.length-1];
+	      week_day_div_class = ".day-div-"+week_id;
+	      if( $(week_day_div_class).length > 1 ){
+	        $(week_day_div_class).last().remove();
+	      }
+	    });
+	  });
+	});
+</script>
+
+<style type="text/css">
+  .container{
+      width: 1068px;
+  }
+
+  .sss{
+    border:1px solid#e5e5e5;   padding: 1%; 
+  }
+
+  .ttt{
+    border:1px solid green;   padding: 1%; 
+  }
+
+  .lll{
+    width: auto !important; 
+    background-color: white;
+    padding-right: 16px;
+    padding-left: 15px;
+    border: 1px solid;
+    border-color: blue;
+    border-radius: 21px;
+  }
+
+  .zzz{
+    width: auto !important; 
+    background-color: white;
+    padding-right: 16px;
+    padding-left: 15px;
+    border: 1px solid;
+    border-color: green;
+    border-radius: 21px;
+  }
+
+  .form-holder .col-sm-2 {
+    min-height: 84px;
+  }
+  .form-holder .form-control{
+    width: 65%;
+  }
+  .form-control{
+    border-radius: 7px;
+    border: black;
+  }
+</style>

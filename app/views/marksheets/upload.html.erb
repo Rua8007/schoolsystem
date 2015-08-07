@@ -1,0 +1,37 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Upload Subjects</h1>
+</div>
+<br>
+
+<table class="table">
+	<thead class="table-head">
+		<th>Student ID</th>
+		<th>Student Name</th>
+		<% @marks.try(:each) do |mark| %>
+			<th><%= mark.name %> ( <%= mark.passing_marks %> / <%= mark.marks.to_s %>) </th>
+		<% end %>
+		<th>Total (<%= @marks.sum(:marks) %>)</th>
+
+	</thead>
+	<%= form_tag(uploading_marksheets_path, method: :post) do %>
+		<%= hidden_field_tag 'marksheet', @marksheet.id %>
+		<tbody>
+			<% @students.each do |std| %>
+				<tr>
+					<td>
+						<%= std.id %>
+					</td>
+					<td>
+						<%= std.fullname %>
+					</td>
+					<% @marks.try(:each) do |mark| %>
+						<td>
+							<input type="text" name="marks[<%=std.id %>][<%=mark.name%>][number]" style="10px">
+						</td>
+					<% end %>
+				</tr>
+			<% end %>
+		</tbody>
+</table>
+	<%= submit_tag "Submit", class: "btn btn-success pull-right" %>
+<% end %>

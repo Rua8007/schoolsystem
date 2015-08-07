@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     end
   end
 
+
   resources :packages do
     collection do
       get "items_data"
@@ -14,6 +15,22 @@ Rails.application.routes.draw do
   resources :items
   resources :shopcategories
   resources :transportfeerecords 
+<<<<<<< HEAD
+=======
+  resources :year_plans do
+    member do
+      get 'show_schedule'
+    end
+    resources :weeks do
+      collection do 
+        get 'schedule_weeks', :as => :schedule_weeks
+        post 'add_schedule_weeks', :as => :add_schedule_weeks
+
+      end
+    end
+  end
+
+>>>>>>> master
   resources :student_holidays
   resources :fees do
     collection do
@@ -28,6 +45,18 @@ Rails.application.routes.draw do
   end
   resources :stops
 
+  resources :marks
+  resources :marksheets do
+    member do
+      get "upload"
+    end
+    collection do
+      post "uploading"
+      get "classresult"
+      get "get_class_result"
+    end
+  end
+  resources :exams
   resources :student_holidays
   resources :fees do
     collection do

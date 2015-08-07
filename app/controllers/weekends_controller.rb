@@ -62,7 +62,6 @@ class WeekendsController < ApplicationController
   end
 
   def add_weekends
-    # return render json: params.inspect
     if params[:weekend].present?
       Date::DAYNAMES.each_with_index do |day,d|
         if params[:weekend].find{ |w| w == day }.present?

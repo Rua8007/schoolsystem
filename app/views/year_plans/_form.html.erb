@@ -1,0 +1,23 @@
+<%= form_for(@year_plan) do |f| %>
+    <% if @year_plan.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@year_plan.errors.count, "error") %> prohibited this year_plan from being saved:</h2>
+
+        <ul>
+        <% @year_plan.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= f.label :year_name, class: 'sr-only' %><br>
+      <%= f.text_field :year_name, class: "form-control", placeholder: "e.g. 2015-2016", required: true %>
+    </div>
+
+    <div class="form-group">
+      <%= f.submit "SAVE", class: 'btn btn-success pull-right' %>
+    </div>
+<% end %>
+

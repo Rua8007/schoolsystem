@@ -1,0 +1,36 @@
+
+<h1>Listing Marksheets</h1>
+
+<table class="table table-stripped">
+  <thead class="table-head">
+    <tr>
+      <th>Student</th>
+      <th>Exam</th>
+      <th>Class</th>
+      <th>Subject</th>
+      <th>Totalmarks</th>
+      <th>Obtainedmarks</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @marksheets.each do |marksheet| %>
+      <tr>
+        <td><%= marksheet.student.fullname %></td>
+        <td><%= marksheet.exam.name %></td>
+        <td><%= marksheet.bridge.grade.name %></td>
+        <td><%= marksheet.bridge.subject.name %></td>
+        <td><%= marksheet.student.grade.marks.sum(:marks) %></td>
+        <td><%= marksheet.sessionals.sum(:marks) %></td>
+        <td><%= link_to 'Show', marksheet %>
+        <%= link_to 'Edit', edit_marksheet_path(marksheet) %>
+        <%= link_to 'Destroy', marksheet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Marksheet', new_marksheet_path %>

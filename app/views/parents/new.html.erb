@@ -73,17 +73,17 @@
 
  	$.get("/parents/parents_data", {parent_id: $("#dropdown").val(), student_id: <%= @student.id %>})
 		.done(function(data){
-  		if (data)
-  		{
-  			$("#error_div_rollnum").removeClass('hide');
-  			$("#error_text_rollnum").html($("#roll_Number").val() + " roll number already registered!");
-  			$("#roll_Number").val('');
-  		}
-  		else
-  		{
-  			$("#error_div_rollnum").addClass('hide');
-  		}
-  	});
+	  		if (data)
+	  		{
+	  			$("#error_div_rollnum").removeClass('hide');
+	  			$("#error_text_rollnum").html($("#roll_Number").val() + " roll number already registered!");
+	  			$("#roll_Number").val('');
+	  		}
+	  		else
+	  		{
+	  			$("#error_div_rollnum").addClass('hide');
+	  		}
+	  	});
  	});
 
 
