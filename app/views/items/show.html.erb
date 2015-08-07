@@ -1,44 +1,112 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Code:</strong>
-  <%= @item.code %>
-</p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @item.name %>
-</p>
 
-<p>
-  <strong>Shopcategory:</strong>
-  <%= @item.shopcategory_id %>
-</p>
 
-<p>
-  <strong>Size:</strong>
-  <%= @item.size %>
-</p>
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Item </h1>
+</div>
 
-<p>
-  <strong>Price:</strong>
-  <%= @item.price %>
-</p>
+<style type="text/css">
+    @media(min-width: 1200px)
+.abc {
+  width: 1080px;
+}
+</style>
+<div class="abc" style="">
 
-<p>
-  <strong>Grade:</strong>
-  <%= @item.grade_id %>
-</p>
+    <div class="container" >
+      <div class="abc" style="">
 
-<p>
-  <strong>Sold:</strong>
-  <%= @item.sold %>
-</p>
+    <div class="container" >
+  
+    <br>
+        <div class="col-sm-4">
+            <table class="table">
+                <tbody>
+                    
+                    <tr>
+                        <td class="student-profile-td">
+                            Code
+                        </td>
+                        <td>
+                        <%= @item.code %>
+                        </td>
+                    </tr>
 
-<p>
-  <strong>Left:</strong>
-  <%= @item.left %>
-</p>
+                     <tr>
+                        <td class="student-profile-td">
+                            Name
+                            
+                        </td>
+                        <td>
+                        <%= @item.name %>
+                                
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="student-profile-td">
+                          Category
+                            
+                        </td>
+                        <td>
+                        <%= @item.shopcategory.name %>
+                                
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="student-profile-td">
+                          Price
+                            
+                        </td>
+                        <td>
+                        <%= @item.price %>
+                                
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="student-profile-td">
+                          Grade
+                        </td>
 
-<%= link_to 'Edit', edit_item_path(@item) %> |
+                        <td>
+                        <%= @item.grade.name %>
+                                
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="student-profile-td">
+                          Sold
+                        </td>
+
+                        <td>
+                        <%= @item.sold %>
+                                
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="student-profile-td">
+                          Left
+                        </td>
+
+                        <td>
+                        <%= @item.left %>
+                                
+                        </td>
+                    </tr>
+                    
+
+
+                   
+                </tbody>
+            </table>
+        </div>
+       </div>
+    </div>
+  </div>
+</div>
+
+
 <%= link_to 'Back', items_path %>
+
+
+

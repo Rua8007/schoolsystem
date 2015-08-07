@@ -1,3 +1,23 @@
+<style type="text/css">
+  .container{
+      width: auto;
+  }
+
+  .sss{
+    border:1px solid#e5e5e5;   padding: 1%; 
+  }
+
+  .lll{
+    width: auto !important; 
+    background-color: white;
+    padding-right: 16px;
+    padding-left: 15px;
+    border: 1px solid;
+    border-color: #729F32;
+    border-radius: 21px;
+  }
+</style>
+
 <%= form_for(@item) do |f| %>
   <% if @item.errors.any? %>
     <div id="error_explanation">
@@ -11,41 +31,92 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :code %><br>
-    <%= f.text_field :code %>
-  </div>
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-    <div class="field" href="javascript:void(0);">
-      <%= f.label :category %><br>
-      <%= f.select :shopcategory_id, options_from_collection_for_select(@shopcategories,"id", "name"),{prompt: "Select category"} %>
+  
+
+<div class="container form-holder">
+        <div class="row">
+        <br>
+            <fieldset class="sss well well-lg">
+              <legend class="lll">Item Information</legend>
+              <div class = "row">
+                <div class="column col-xs-12 col-sm-6">
+                  <div class="form-group ">
+                    <div class="field">
+                      <%= f.label :code %><br>
+                      <%= f.text_field :code, :style => 'height:34px;',  class: 'form-control' , required: true, autofocus: true %>
+                    </div>
+                  </div>
+                </div>
+                <div class="column col-xs-12 col-sm-6">
+                  <div class="form-group ">
+                    <div class="field">
+                      <%= f.label :name %><br>
+                      <%= f.text_field :name ,:style => 'height:34px;',  class: 'form-control' , required: true, autofocus: true %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class = "row">
+                <div class="column col-xs-12 col-sm-3">
+                  <div class="form-group ">
+                    <div class="field" href="javascript:void(0);">
+                      <%= f.label :category %><br>
+                      <%= f.select :shopcategory_id, options_from_collection_for_select(@shopcategories,"id", "name"),{prompt: "Select category"} ,{class: 'form-control', required: true}%>
+                    </div>
+                  </div>
+                </div>
+                <div class="column col-xs-12 col-sm-3">
+                  <div class="form-group ">
+                    <div class="field displayn" id="sizediv">
+                      <%= f.label :size %><br>
+                      <%= f.select :size,options_for_select(%w[S M L XL]),{prompt: 'Select Size'}, {class: "form-control", style:"width: 100%"} %>
+                    </div>
+                  </div>
+                </div>
+                <div class="column col-xs-12 col-sm-3">
+                  <div class="form-group ">
+                    <div class="field">
+                      <%= f.label :price %><br>
+                      <%= f.text_field :price ,:style => 'height:34px;',  class: 'form-control' , required: true, autofocus: true %>
+                    </div>
+                  </div>
+                </div>
+                <div class="column col-xs-12 col-sm-3">
+                  <div class="form-group ">
+                    <div class="field">
+                      <%= f.label :Grade %><br>
+                      <%= f.select :grade_id, options_from_collection_for_select(@grades,"id", "name"),{prompt: "Select class"} ,{class: 'form-control', required: true}%>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class = "row">
+                <div class="column col-xs-12 col-sm-6">
+                  <div class="form-group ">
+                    <div class="field">
+                      <%= f.label :sold %><br>
+                      <%= f.number_field :sold, :style => 'height:34px;',  class: 'form-control' , required: true, autofocus: true %>
+                    </div>
+                  </div>
+                </div>
+                <div class="column col-xs-12 col-sm-6">
+                  <div class="form-group ">
+                    <div class="field">
+                      <%= f.label :left %><br>
+                      <%= f.number_field :left ,:style => 'height:34px;',  class: 'form-control' , required: true, autofocus: true %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+                </div>
+                 <div class="actions">
+                  <%= f.submit "Create ",:class => 'btn btn-block btn-success form-control',:style=>'width:24%;float: right;' %>
+                </div>
+            </fieldset>
+          </div>
+        </div>
     </div>
-    <div class="field displayn" id="sizediv">
-      <%= f.label :size %><br>
-      <%= f.select(:size,options_for_select([['S','S'],['M','M'],['L','L'],['Xl','Xl']]))%>
-    </div>
-  <div class="field"  >
-    <%= f.label :price %><br>
-    <%= f.text_field :price %>
-  </div>
-  <div class="field">
-    <%= f.label :class %><br>
-    <%= f.select :grade_id, options_from_collection_for_select(@grades,"id", "name"),{prompt: "Select class"} %>
-  </div>
-  <div class="field">
-    <%= f.label :sold %><br>
-    <%= f.number_field :sold %>
-  </div>
-  <div class="field">
-    <%= f.label :left %><br>
-    <%= f.number_field :left %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+
 <% end %>
 
 
@@ -68,3 +139,16 @@ $(document).ready(function(){
   });
 });
 </script>
+
+<style type="text/css">
+    .form-holder .col-sm-3 {
+      min-height: 84px;
+    }
+    .form-holder .form-control{
+        width: 100%;
+    }
+    .form-control{
+        border-radius: 7px;
+        border: black;
+    }
+</style>
