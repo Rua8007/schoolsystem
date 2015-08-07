@@ -20,4 +20,3 @@
 //= require ui-toggle
 //= require moment
 //= require fullcalendar
-//= require externals/bootstrap-daterangepicker/daterangepicker

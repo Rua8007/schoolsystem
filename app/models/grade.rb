@@ -11,5 +11,4 @@ class Grade < ActiveRecord::Base
 	def full_name
 	   "#{name} - #{section}"
 	end
-
 end
