@@ -17,6 +17,4 @@ class Employee < ActiveRecord::Base
 	
 	has_many :transports
 	
-
->>>>>>> master
 end
