@@ -1,46 +1,47 @@
-<p id="notice"><%= notice %></p>
-
-
 <div class="page-header">
-
 </div>
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>St#</th>
+      <th>Student #</th>
+      <td><%= @transportfeerecord.bus_allotment.student.id %></td>
+    </tr>
+    <tr>
       <th>Student's name</th>
+      <td><%= @transportfeerecord.bus_allotment.student.fullname %></td>
+    </tr>
+    <tr>
       <th>Father's name</th>
-      <th>Class</th>
-      <th>Driver's name</th>
-      <th>Stop name</th>
-      <th>Vehicle no.</th>
-      <th>Fee</th>
-      <th>Submission date</th>
-
-
+      <td><%= @transportfeerecord.bus_allotment.student.parent.name %></td>
       
-     </tr>
+    </tr>
+    <tr>
+      <th>Class</th>
+      <td><%= @transportfeerecord.bus_allotment.student.grade.name %></td>
+      
+    </tr>
+    <tr>
+      <th>Driver's name</th>
+      <td><%= @transportfeerecord.bus_allotment.transport.employee.full_name %></td>
+    </tr>
+    <tr>
+      <th>Stop name</th>
+      <td><%= @transportfeerecord.bus_allotment.stop.name %></td>
+    </tr>
+    <tr>
+      <th>Vehicle no.</th>
+      <td><%= @transportfeerecord.bus_allotment.transport.vehicle.vehicle_no %></td>
+    </tr>
+    <tr>
+      <th>Fee</th>
+      <td><%= @transportfeerecord.bus_allotment.fee %></td>
+    </tr>
+    <tr>
+      <th>Submission date</th>
+      <td><%= @transportfeerecord.created_at %></td>
+    </tr>
   </thead>
-  <tbody>
-    
-      <tr>
-        <td><%= @transportfeerecord.bus_allotment.student.id %></td>
-        <td><%= @transportfeerecord.bus_allotment.student.fullname %></td>
-        <td><%= @transportfeerecord.bus_allotment.student.parent.name %></td>
-        <td><%= @transportfeerecord.bus_allotment.student.grade.name %></td>
-        <td><%= @transportfeerecord.bus_allotment.transport.employee.full_name %></td>
-        <td><%= @transportfeerecord.bus_allotment.stop.name %></td>
-        <td><%= @transportfeerecord.bus_allotment.transport.vehicle.vehicle_no %></td>
-        <td><%= @transportfeerecord.bus_allotment.fee %></td>
-        <td><%= @transportfeerecord.created_at %></td>
-      </tr>
-     
-       
-       
-  
-  </tbody>
 </table>
-<%= link_to 'Back', transportfeerecords_path %>
 
 
 

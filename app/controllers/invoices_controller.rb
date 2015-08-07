@@ -26,9 +26,24 @@ class InvoicesController < ApplicationController
   # POST /invoices
   # POST /invoices.json
   def invoicing
-    puts "--"*100
-    puts params[:items].first
-    puts "--"*100
+    inv = Invoice.create
+    items = params[:items]
+    inv.student_id = params[:student_id]
+    inv.booknum = params[:booknum]
+    inv.save
+    items.each do |item|
+      puts "----"*80
+      puts item[1]['code']
+      puts "----"*80
+      itm = Item.find_by_code(item[1]['code'])
+      itm.sold = itm.sold + item[2].to_i
+      itm.left = itm.left - item[2].to_i
+      itm.save
+      temp = inv.lines.create
+      temp.item_id = itm.id
+      temp.quantity = item[2].to_i
+      temp.save
+    end
     # return render json: params
     # @invoice = Invoice.new(invoice_params)
 
@@ -68,11 +83,12 @@ class InvoicesController < ApplicationController
     end
   end
 
-   def items_data
+  def items_data
+    @details = Item.find_by_code(params[:item_id])   
+    if @details.blank?
+      @details = Package.find_by_code(params[:item_id])
+    end
 
-    @details = Item.find_by_code(params[:item_id])
-    puts @details.inspect
-    
     respond_to do |format|
       format.json {render json: [details: @details]}
     end

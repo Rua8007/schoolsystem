@@ -16,7 +16,8 @@ class GradesController < ApplicationController
   # GET /grades/new
   def new
     @grade = Grade.new
-     @batches=Batch.all
+    @batch = Batch.all.pluck(:name, :id)
+    @batches=Batch.all
   end
 
   # GET /grades/1/edit
