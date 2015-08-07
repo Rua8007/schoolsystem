@@ -1,121 +1,170 @@
-<%= form_for(@invoice) do |f| %>
-  <% if @invoice.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@invoice.errors.count, "error") %> prohibited this invoice from being saved:</h2>
 
-      <ul>
-      <% @invoice.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+<div class="col-md-12">
+  <div class="col-md-3 form-group">
+    <label>Student ID</label>
+    <input type="text" id = "std_id" class="form-control">
+  </div>
+
+  <div class="col-md-3 form-group">
+    <label>Book #</label>
+    <input type="text" id = "booknum" class="form-control">
+  </div>
+</div>
+  <hr>
+  <div>
+    <div class="col-md-2 form-group">
+      <label>Item Code</label>
+      <input type="text" id = "code"  class="form-control">
+      <span style = "color: red" id = "error" class="hidden">Invalid Code!!! </span>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :booknum %><br>
-    <%= f.text_field :booknum %>
-  </div>
-  <div class="field">
-    <%= f.label :student_id %><br>
-    <%= f.number_field :student_id %>
-  </div>
-
-  <%= f.fields_for :line do |b| %>
-  
-  <div class="field" >
-    <%= b.label :item_id %><br>
-    <%= b.text_field :item_id %>
-  </div>
-
-  <div id="stp" >
-    <%= render 'details'  %>
-  </div>
-
-  <div class="field">
-    <%= b.label :quantity %><br>
-    <%= b.text_field :quantity %>
-  </div>
-
-  <%end%>
-
-  
-
-
-
- 
-
-  
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-
-<% end %>
-
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>St#</th>
-      <th>Student's name</th>
-      <th>Father's name</th>
-      <th>Class</th>
-      <th>Driver's name</th>
-      <th>Stop name</th>
-      <th>Vehicle no.</th>
-      <th>Fee</th>
-      <th>Submission date</th>
-
-
-      
-     </tr>
-  </thead>
-  <tbody>
     
-      <tr>
-       
-      </tr>
-     
-       
-       
-  
-  </tbody>
-</table>
+    <div class="col-md-2 form-group">
+      <label>Item Name</label>
+      <input type="text" id = "name" readonly="true" class="form-control">
+    </div>
+    
+    <div class="col-md-2 form-group">
+      <label>Item Price</label>
+      <input type="text" id = "price"readonly="true"  class="form-control">
+    </div>
+    
+    <div class="col-md-2 form-group">
+      <label>Item Quantity</label>
+      <input type="text" id = "qty"  class="form-control">
+    </div>
+    
+    <div class="col-md-2 form-group">  
+      <label>Total</label>
+      <input type="text" id = "total" readonly="true" class="form-control">
+    </div>
+    <div  class="col-md-2 form-group">
+    <button id = "itembtn" type="button" class="btn btn-success" style="margin-top:23px">Buy</button>
+          
+    </div>
+  </div>
+  <br>
+  <hr>
+  <br>
+  <table class="table table-striped" id="itemtable">
+    <thead class="table-head">
+      <th>Sr#</th>
+      <th>Item</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Total</th>
+      <th>Actions</th>
+    </thead>
+    <tbody>
+      
+    </tbody>
+  </table>
 
-
-
-
+  <br>
+  <br>
+  <div>
+    <input type="text" id = "gtotal" value="0" class="pull-right form-control" style="width:20%">
+  </div>
+  <br><br><br>
+  <div class="actions">
+    <div class="col-md-3 form-group pull-right">
+      <input type = "button" class = "btn btn-success pull-right" id = "submit">
+    </div>
+  </div>
 
 
  <script type="text/javascript">
 
-  $("#invoice_line_item_id").blur(function (e){
-    console.log("i am heres");
-    $.get("/invoices/items_data", {item_id: $("#invoice_line_item_id").val()})
-      .done(function(data){
-        if (data)
-        {
-          $("#error_div_rollnum").removeClass('hide');
-        }
-      });
+  $("#code").blur(function (e){
+    console.log("here i am");
+    $.get("/invoices/items_data", {item_id: $("#code").val()},function(data){
+      if(data[0].details == null)
+      {
+        $("#code").val('');
+        $("#error").removeClass('hidden');
+      }
+      else{
+        var item = data[0].details;
+        $("#name").val(item.name)
+        $("#price").val(item.price)
+        $("#error").addClass('hidden');
+      }
+    });
   });
+
+  $("#qty").blur(function(){
+    var total = parseInt($("#price").val()) * parseInt($("#qty").val());
+    $("#total").val(total);
+  })
 
  </script> 
 
-
-
-
-
 <script>
 $(document).ready(function(){
-  $("#invoice_line_quantity").blur(function(e){
-    var v = $('#invoice_line_quantity').val();
-    console.log(v);
 
- if(v == "1" )
-  {
-  }
-  else{
-  console.log();
-  }
+  var items = []
+  $("#submit").click(function (){
+    var request = {student_id: $("#std_id").val(), booknum: $("#booknum").val(), items: items};
+    console.log(request);
+
+    $.ajax({
+      url: '/invoices/invoicing',
+      dataType: "json",
+      type: 'POST',
+      data: request,
+      success: function (data) {
+        alert(data);
+        if(data="success")
+        {
+          window.location="Index"
+        }
+      },
+      error: function (xhr) {
+        return false;
+      }
+    });
+  });
+
+  $("#itembtn").click(function (){
+    var item = {code: $("#code").val(), qty: $("#qty").val(),id: items.length};
+    items.push(item);
+    console.log(item);
+
+    var total = parseInt($("#price").val()) * parseInt($("#qty").val());
+    $("#gtotal").val(parseInt($("#gtotal").val()) + total);
+
+    var table = document.getElementById("itemtable");
+    var row = table.insertRow(items.length);
+    var cell6 = row.insertCell(0);
+    var cell1 = row.insertCell(1);
+    var cell2 = row.insertCell(2);
+    var cell3 = row.insertCell(3);
+    var cell4 = row.insertCell(4);
+    var cell5 = row.insertCell(5);
+    cell6.innerHTML = items.length;
+    cell1.innerHTML = $("#name").val();
+    cell2.innerHTML = $("#price").val();
+    cell3.innerHTML = $("#qty").val();
+    cell4.innerHTML = total;
+    cell5.innerHTML = "<button type='button' id = 'rembtn-"+item.id+"' class= 'btn btn-danger  rembtns' >Remove </Button>"
+    cell5.onclick = function(e){
+      var temp = e.srcElement.id;
+      var id = temp.split('-')[1]
+      console.log(id);
+      var i = 0;
+      for(i; i<items.length; i++)
+      {
+        if(items[i].id == id){
+          items.splice(i, 1);
+          document.getElementById("itemtable").deleteRow(i+1);
+          console.log(items);
+        }
+      } 
+    };
+    $("#name").val('');
+    $("#price").val('');
+    $("#qty").val('');
+    $("#code").val('');
+    $("#total").val('');
   });
 });
 </script>

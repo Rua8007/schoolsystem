@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :invoices do
     collection do
       get "items_data"
+      post "invoicing"
     end
   end
 

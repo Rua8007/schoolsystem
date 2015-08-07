@@ -25,19 +25,23 @@ class InvoicesController < ApplicationController
 
   # POST /invoices
   # POST /invoices.json
-  def create
-    return render json: params
-    @invoice = Invoice.new(invoice_params)
+  def invoicing
+    puts "--"*100
+    puts params[:items].first
+    puts "--"*100
+    # return render json: params
+    # @invoice = Invoice.new(invoice_params)
 
-    respond_to do |format|
-      if @invoice.save
-        format.html { redirect_to @invoice, notice: 'Invoice was successfully created.' }
-        format.json { render :show, status: :created, location: @invoice }
-      else
-        format.html { render :new }
-        format.json { render json: @invoice.errors, status: :unprocessable_entity }
-      end
-    end
+    # respond_to do |format|
+    #   if @invoice.save
+    #     format.html { redirect_to @invoice, notice: 'Invoice was successfully created.' }
+    #     format.json { render :show, status: :created, location: @invoice }
+    #   else
+    #     format.html { render :new }
+    #     format.json { render json: @invoice.errors, status: :unprocessable_entity }
+    #   end
+    # end
+    redirect_to grades_path 
   end
 
   # PATCH/PUT /invoices/1
@@ -65,14 +69,12 @@ class InvoicesController < ApplicationController
   end
 
    def items_data
-    puts '-'*80
-    if params[:item_id].present? && params[:item_id] != ""
-      @details = Item.find(params[:item_id])
-     
-    end
+
+    @details = Item.find_by_code(params[:item_id])
+    puts @details.inspect
+    
     respond_to do |format|
-      format.js
-      format.json { render json: {details: @details} }
+      format.json {render json: [details: @details]}
     end
   end
 
