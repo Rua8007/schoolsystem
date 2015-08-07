@@ -15,8 +15,6 @@ Rails.application.routes.draw do
   resources :items
   resources :shopcategories
   resources :transportfeerecords 
-<<<<<<< HEAD
-=======
   resources :year_plans do
     member do
       get 'show_schedule'
@@ -30,8 +28,6 @@ Rails.application.routes.draw do
     end
   end
 
->>>>>>> master
-  resources :student_holidays
   resources :fees do
     collection do
       get "fee_data"
