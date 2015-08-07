@@ -1,0 +1,33 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Years 
+  <%= link_to(new_year_plan_path, class: "btn m-b-xs btn-sm btn-primary btn-addon pull-right" ) do %>
+    <i class="fa fa-plus"></i>
+    Plan a New Year
+  <% end %>
+  </h1>
+</div>
+
+<div class="wrapper-md">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Year name</th>
+        <th colspan="2"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @year_plans.each do |year_plan| %>
+        <tr>
+          <td><%= year_plan.year_name %></td>
+         
+         <td><%= link_to 'PLAN', year_plan_weeks_path(year_plan), class: "btn btn-small btn-info" %></td>
+
+          <td><%= link_to 'Edit Name', edit_year_plan_path(year_plan), class: "btn btn-small btn-default" %></td>
+         
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
