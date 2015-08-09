@@ -1,0 +1,38 @@
+<%= form_for(@time_table) do |f| %>
+  <% if @time_table.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@time_table.errors.count, "error") %> prohibited this time_table from being saved:</h2>
+
+      <ul>
+      <% @time_table.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :grade_id, style: 'display:none' %><br>
+    <%= f.number_field :grade_id, disabled: true, style: 'display:none' %>
+  </div>
+
+  <%= hidden_field_tag :grade, "#{@grade.id}" %>
+
+  <div class="form-group">
+    Teacher<br>
+    <%= f.select :employee_id, options_from_collection_for_select(@teachers,"id", "full_name"),{prompt: "Select Teacher"}, style: '', class: "form-control", required: true %>
+   
+  </div>
+
+  <div class="form-group">
+    Break After &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= f.number_field :break_after_period, class: "", style: 'width: 30%', required: true %> Period.
+  </div>
+
+  <div class="form-group">
+    Prayer Time After <%= f.number_field :prayer_after_period, class: "", style: 'width: 30%', required: true %> Period.
+  </div>
+
+  <div class="form-group">
+    <%= f.submit "SAVE", class: 'btn btn-success pull-right' %>
+  </div>
+<% end %>

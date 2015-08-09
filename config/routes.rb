@@ -1,4 +1,14 @@
 Rails.application.routes.draw do
+  resources :periods do
+    collection do 
+      get 'make_daily_schedule'
+    end
+  end
+  resources :time_tables do
+    collection do
+      get 'show_daily_schedule'
+    end
+  end
   resources :invoices do
     collection do
       get "items_data"
