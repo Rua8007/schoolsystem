@@ -1,5 +1,5 @@
 
-<div class="col-md-12">
+<div class="col-md-12 ">
   <div class="col-md-3 form-group">
     <label>Student ID</label>
     <input type="text" id = "std_id" class="form-control">
@@ -10,38 +10,38 @@
     <input type="text" id = "booknum" class="form-control">
   </div>
 </div>
-  <hr>
-  <div>
-    <div class="col-md-2 form-group">
-      <label>Item Code</label>
-      <input type="text" id = "code"  class="form-control">
-      <span style = "color: red" id = "error" class="hidden">Invalid Code!!! </span>
-    </div>
-    
-    <div class="col-md-2 form-group">
-      <label>Item Name</label>
-      <input type="text" id = "name" readonly="true" class="form-control">
-    </div>
-    
-    <div class="col-md-2 form-group">
-      <label>Item Price</label>
-      <input type="text" id = "price"readonly="true"  class="form-control">
-    </div>
-    
-    <div class="col-md-2 form-group">
-      <label>Item Quantity</label>
-      <input type="text" id = "qty"  class="form-control">
-    </div>
-    
-    <div class="col-md-2 form-group">  
-      <label>Total</label>
-      <input type="text" id = "total" readonly="true" class="form-control">
-    </div>
-    <div  class="col-md-2 form-group">
-    <button id = "itembtn" type="button" class="btn btn-success" style="margin-top:23px">Buy</button>
-          
-    </div>
+  
+<div class="col-md-12">
+  <div class="col-md-2 form-group">
+    <label>Item Code</label>
+    <input type="text" id = "code"  class="form-control">
+    <span style = "color: red" id = "error" class="hidden">Invalid Code!!! </span>
   </div>
+  
+  <div class="col-md-2 form-group">
+    <label>Item Name</label>
+    <input type="text" id = "name" readonly="true" class="form-control">
+  </div>
+  
+  <div class="col-md-2 form-group">
+    <label>Item Price</label>
+    <input type="text" id = "price"readonly="true"  class="form-control">
+  </div>
+  
+  <div class="col-md-2 form-group">
+    <label>Item Quantity</label>
+    <input type="text" id = "qty"  class="form-control">
+  </div>
+  
+  <div class="col-md-2 form-group">  
+    <label>Total</label>
+    <input type="text" id = "total" readonly="true" class="form-control">
+  </div>
+  <div  class="col-md-2 form-group">
+  <button id = "itembtn" type="button" class="btn btn-success" style="margin-top:23px">Buy</button>
+        
+  </div>
+</div>
   <br>
   <hr>
   <br>
@@ -58,21 +58,35 @@
       
     </tbody>
   </table>
-
   <br>
-  <br>
-  <div>
-    <input type="text" id = "gtotal" value="0" class="pull-right form-control" style="width:20%">
-  </div>
-  <br><br><br>
-  <div class="actions">
-    <div class="col-md-3 form-group pull-right">
-      <input type = "button" class = "btn btn-success pull-right" id = "submit" value="Create Invoice">
+  <div class="pull-right">
+    <div>
+      <label>Sub Total</label>
+      <input type="text" id = "gtotal" value="0" class="form-control" style="width:100%">
+    </div>
+    <div>
+      <label>Discount</label>
+      <input type="text" id = "discount" value="0" class=" form-control" style="width:100%">
+    </div>
+    <div>
+      <label>Grand Total</label>
+      <input type="text" id = "Total" value="0" class="form-control" style="width:100%">
+    </div>
+    <br>
+    <div class="actions">
+      <div class="col-md-3 form-group pull-right">
+        <input type = "button" class = "btn btn-success pull-right" id = "submit" value="Create Invoice">
+      </div>
     </div>
   </div>
 
-
  <script type="text/javascript">
+
+  $("#discount").keyup (function (e){
+    var total = parseInt($("#gtotal").val()) - parseInt($("#discount").val());
+    console.log(total);
+    $("#Total").val(total);
+  });
 
   $("#code").blur(function (e){
     console.log("here i am");
@@ -103,7 +117,7 @@ $(document).ready(function(){
 
   var items = []
   $("#submit").click(function (){
-    var request = {student_id: $("#std_id").val(), booknum: $("#booknum").val(), items: items};
+    var request = {student_id: $("#std_id").val(), booknum: $("#booknum").val(), discount: $("#discount").val(),items: items};
     console.log(request);
 
     $.ajax({

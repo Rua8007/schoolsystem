@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
 
   before_filter :get_leave_requests_count
 
+  before_filter :authenticate_user!
+
   def get_leave_requests_count
     @leave_requests_count = Leave.where(approved: false).count
   end
