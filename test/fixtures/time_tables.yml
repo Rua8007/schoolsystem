@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  grade_id: 1
+  employee_id: 1
+  break_after_period: 1
+  prayer_after_period: 1
+
+two:
+  grade_id: 1
+  employee_id: 1
+  break_after_period: 1
+  prayer_after_period: 1

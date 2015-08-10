@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150806045853) do
+ActiveRecord::Schema.define(version: 20150809145818) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -252,6 +252,15 @@ ActiveRecord::Schema.define(version: 20150806045853) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "periods", force: :cascade do |t|
+    t.integer  "time_table_id"
+    t.integer  "period_num"
+    t.integer  "subject_id"
+    t.string   "day"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
   create_table "positions", force: :cascade do |t|
     t.integer  "category_id"
     t.string   "name"
@@ -360,6 +369,15 @@ ActiveRecord::Schema.define(version: 20150806045853) do
     t.string   "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "time_tables", force: :cascade do |t|
+    t.integer  "grade_id"
+    t.integer  "employee_id"
+    t.integer  "break_after_period"
+    t.integer  "prayer_after_period"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
   end
 
   create_table "transportfeerecords", force: :cascade do |t|

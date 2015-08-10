@@ -1,5 +1,5 @@
 <div class="bg-light lter b-b wrapper-md">
-  <h1 class="m-n font-thin h3">Years 
+  <h1 class="m-n font-thin h3">Daily Schedule &amp; Yearly Curriculum Schedule 
   <%= link_to(new_year_plan_path, class: "btn m-b-xs btn-sm btn-primary btn-addon pull-right" ) do %>
     <i class="fa fa-plus"></i>
     Plan a New Year
@@ -8,6 +8,20 @@
 </div>
 
 <div class="wrapper-md">
+
+  <%= form_tag show_daily_schedule_time_tables_path, :method => 'get' do %>
+      <div class="form-group">
+        <strong>Daily Schedule</strong>
+        <br/>
+        <!-- <p>Some text in the modal.</p> -->
+        <%= select_tag :grade_id, options_from_collection_for_select(@grades,"id", "full_name"),
+            prompt: "Select Grade", class: "form-control", required: true %>
+            <br/>
+        <%= submit_tag 'See Daily Schedule', class: 'btn btn-success pull-right' %>
+      </div>
+  <% end %>
+
+
   <table class="table table-striped">
     <thead>
       <tr>
@@ -23,7 +37,7 @@
          
          <td><%= link_to 'PLAN', year_plan_weeks_path(year_plan), class: "btn btn-small btn-info" %></td>
 
-         <td><%= link_to 'SEE SCHEDULE', year_plan_path(year_plan), class: "btn btn-small btn-success" %></td>
+         <td><%= link_to 'See Yearly Planned Curriculum', year_plan_path(year_plan), class: "btn btn-small btn-success" %></td>
 
           <td><%= link_to 'Edit Name', edit_year_plan_path(year_plan), class: "btn btn-small btn-default" %></td>
          

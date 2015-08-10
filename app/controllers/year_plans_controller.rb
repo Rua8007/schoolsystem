@@ -5,6 +5,7 @@ class YearPlansController < ApplicationController
   # GET /year_plans.json
   def index
     @year_plans = YearPlan.all
+    @grades = Grade.all
   end
 
   # GET /year_plans/1

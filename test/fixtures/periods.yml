@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  time_table_id: 1
+  period_num: 1
+  subject_id: 1
+  day: MyString
+
+two:
+  time_table_id: 1
+  period_num: 1
+  subject_id: 1
+  day: MyString

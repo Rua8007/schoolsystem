@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Grade:</strong>
+  <%= @time_table.grade_id %>
+</p>
+
+<p>
+  <strong>Employee:</strong>
+  <%= @time_table.employee_id %>
+</p>
+
+<p>
+  <strong>Break after period:</strong>
+  <%= @time_table.break_after_period %>
+</p>
+
+<p>
+  <strong>Prayer after period:</strong>
+  <%= @time_table.prayer_after_period %>
+</p>
+
+<%= link_to 'Edit', edit_time_table_path(@time_table, grade_id: @time_table.grade_id) %> |
+<%= link_to 'Back', time_tables_path %>
