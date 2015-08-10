@@ -33,13 +33,13 @@ class InvoicesController < ApplicationController
     inv.booknum = params[:booknum]
     inv.save
     items.each do |item|
-      puts "----"*80
-      puts item[1]['code']
-      puts "----"*80
+      # puts "----"*80
+      # puts item[1]['code']
+      # puts "----"*80
       itm = Item.find_by_code(item[1]['code'])
       if itm.blank?
-        Package = Package.find_by_code(item[1]['code'])
-        Package.items.each do |itm|
+        package = Package.find_by_code(item[1]['code'])
+        package.items.each do |itm|
           itm.sold = itm.sold + item[2].to_i
           itm.left = itm.left - item[2].to_i
           itm.save
