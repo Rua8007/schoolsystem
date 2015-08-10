@@ -1,19 +1,41 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <strong>Invoice id</strong>
+  <%= @invoice.id %>
+</p>
+
+<p>
   <strong>Booknum:</strong>
   <%= @invoice.booknum %>
+</p>
+
+
+
+<p>
+  <strong>Student id:</strong>
+  <%= @invoice.student_id %>
+</p>
+
+<p>
+  <strong>Student name:</strong>
+  <%= @invoice.student.fullname %>
 </p>
 
 <p>
   <strong>Student:</strong>
   <%= @invoice.student_id %>
 </p>
+  <% @invoice.lines.each do |pk| %>
 
-<p>
-  <strong>Discount:</strong>
-  <%= @invoice.discount %>
-</p>
+  <span> line is <%= pk.quantity %> </span>
+
+  <%end%>
+  
+
+
+
 
 <%= link_to 'Edit', edit_invoice_path(@invoice) %> |
 <%= link_to 'Back', invoices_path %>
+
