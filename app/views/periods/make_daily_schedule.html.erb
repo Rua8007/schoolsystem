@@ -1,0 +1,206 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3"><%= "Class/Section: #{@grade.full_name} " %>&nbsp;&nbsp;&nbsp;&nbsp;<%= "Class Teacher:  #{@teacher.full_name} " %>
+  </h1>
+</div>
+
+<div class="wrapper-md">
+	<%= form_tag save_daily_schedule_periods_path, method: :post do %>
+		<%= hidden_field_tag "time_table_id", @time_table.id %>
+		<div class="col-md-12">
+    	<div class="abc form-holder">
+      	<div class="row">
+					<% Date::DAYNAMES.each_with_index do |day,i| %>
+						<% if @weekends.find{ |w| w.weekend_day == i}.nil? %>
+							<div class="day-div" id="day_<%= i %>">
+								<fieldset class="sss well well-lg">
+					        <legend class="lll"><%= "#{day}"%></legend>
+					        <div class="column col-xs-12 col-sm-12">
+					         
+					         	<div class="day-div-<%= i %>" id="day_day_div_<%= i %>_0">	
+					         		<fieldset class="ttt well well-lg">
+								        <legend class="zzz"><span class="days-<%= i %>"><%= "Period 1" %></span></legend>
+								        <div class="column col-xs-12 col-sm-12">
+								          <div class="form-group">
+								            <label for="exampleInputEmail1">Subject</label>
+								            <%= select_tag "#{day}[]", options_from_collection_for_select(@subjects,"id", "name"),prompt: "Select Subject", class: "form-control", required: true %>
+								          </div>
+								        </div>
+								      </fieldset>
+								    </div>
+					        </div>
+					        <%= link_to "Add Another Period","javascript:void(0);", class: "btn btn-default add-day", id: "day_add_#{ i }" %>
+
+								   <%= link_to "Remove Period","javascript:void(0);", class: "btn btn-danger rem-day", id: "day_rem_#{ i }" %>
+					      </fieldset>
+							</div>
+						<% end %>
+					<% end %>
+				</div>
+			</div>
+		</div>
+		
+		<br/><br/><br/>
+		<%= submit_tag 'Save Schedule', class: 'btn btn-lg btn-success pull-right', id: "submit_tag_id" %>
+	<% end %>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(function() {
+	    $(document).on('click','.add-day', function (e) {
+	    	e.preventDefault();
+
+	      first_id = $(this).attr("id");
+	      arr = first_id.split("_");
+	      day_id = arr[arr.length-1];
+
+	      var last_div = $('.day-div-'+day_id).last();
+	      var last_div_id = last_div[0].id.toString();
+	      // console.log("last_div_id: "+last_div_id);
+	      arr2 = last_div_id.split("_");
+	      last_day_id = parseInt(arr2[arr2.length-1]) + 1;
+	      prev_day_id = last_day_id-1;
+	      prev_day_div_id = "day_day_div_"+day_id.toString()+"_"+prev_day_id.toString();
+	      // day_id = parseInt(arr2[arr2.length-2])
+	      new_div_id = "day_day_div_"+day_id.toString()+"_"+last_day_id.toString();
+	      // // alert($('.new-sales-contact').first().html());
+	      var html = '<div class="day-div-'+day_id+'"' + ' id="'+ new_div_id +'">'+$('#'+prev_day_div_id).html()+'</div>';
+	      // console.log(html);
+	      // alert(new_div_id);
+	      // // console.log($('.day-div').first().html());
+	      $(html).insertAfter($('#'+prev_day_div_id));
+	      // $('.days-'+day_id).text($(this).val());
+	      var last_span = $('.days-'+day_id).last();
+	      var mystr = last_span[0].innerText.toString();
+	      span_arr = mystr.split(" ");
+	      day_num = parseInt(span_arr[span_arr.length-1])+1;
+	      day_name = "Period "+day_num;
+	      // console.log(day_name);
+	      last_span.text(day_name);
+	    });
+
+			$(document).on('click','.day-next', function (e) {
+				e.preventDefault();
+	      first_id = $(this).attr("id");
+	      arr = first_id.split("_");
+	      day_id = arr[arr.length-1];
+	      // console.log($("#total_days").val());
+	      to_hide_div_id = "#day_"+(parseInt(day_id)-1).toString();
+	      prev_btn_id = "#day_previous_"+(parseInt(day_id)-1).toString();
+	      to_hide_next_btn_id = "#day_next_"+day_id;
+	      to_show_div_id = "#day_"+day_id;
+	      to_show_next_btn_id = "#day_next_"+(parseInt(day_id)+1).toString();
+				$('.day-div').fadeOut('fast');
+	      $('.day-next').fadeOut('fast');
+	      $('.day-previous').fadeOut('fast');
+	      // $(to_hide_next_btn_id).fadeOut('fast');
+	      $(to_show_div_id).fadeIn('fast');
+	      $(to_show_next_btn_id).fadeIn('fast');
+	      $(prev_btn_id).fadeIn('fast');
+	      day_val = parseInt($("#total_days").val())-1;
+	      day_val_event = parseInt(day_id);
+	      if(day_val == day_val_event){
+	      	$("#submit_tag_id").fadeIn('fast');
+	      }
+	      else{
+	      	$("#submit_tag_id").fadeOut('fast');
+	      }
+			});
+
+			$(document).on('click','.day-previous', function (e) {
+				e.preventDefault();
+
+	      first_id = $(this).attr("id");
+	      arr = first_id.split("_");
+	      day_id = arr[arr.length-1];
+
+	      // to_hide_div_id = "#day_"+(parseInt(day_id)+1).toString();
+	      // to_hide_next_btn_id = "#day_next_"+(parseInt(day_id)+1).toString();
+
+	      to_show_div_id = "#day_"+day_id;
+
+	      to_show_previous_btn_id = "#day_previous_"+(parseInt(day_id)-1).toString();
+
+	      to_show_next_btn_id = "#day_next_"+(parseInt(day_id)+1).toString();
+
+	      // $(to_hide_div_id).fadeIn('fast');
+	      // $(to_hide_previous_btn_id).fadeIn('fast');
+
+	      $('.day-div').fadeOut('fast');
+	      $('.day-next').fadeOut('fast');
+	      $('.day-previous').fadeOut('fast');
+
+
+	      $(to_show_div_id).fadeIn('fast');
+	      $(to_show_previous_btn_id).fadeIn('fast');
+	      $(to_show_next_btn_id).fadeIn('fast');
+
+	      day_val = parseInt($("#total_days").val())-1;
+	      day_val_event = parseInt(day_id);
+	      if(day_val == day_val_event){
+	      	$("#submit_tag_id").fadeIn('fast');
+	      }
+	      else{
+	      	$("#submit_tag_id").fadeOut('fast');
+	      }
+			});
+
+	    $(document).on('click', '.rem-day', function (e) {
+	    	e.preventDefault(); 
+	    	// console.log($(this).attr("id"));
+	    	first_id = $(this).attr("id");
+	      arr = first_id.split("_");
+	      day_id = arr[arr.length-1];
+	      day_day_div_class = ".day-div-"+day_id;
+	      if( $(day_day_div_class).length > 1 ){
+	        $(day_day_div_class).last().remove();
+	      }
+	    });
+	  });
+	});
+</script>
+
+<style type="text/css">
+  .container{
+      width: 1068px;
+  }
+
+  .sss{
+    border:1px solid#e5e5e5;   padding: 1%; 
+  }
+
+  .ttt{
+    border:1px solid green;   padding: 1%; 
+  }
+
+  .lll{
+    width: auto !important; 
+    background-color: white;
+    padding-right: 16px;
+    padding-left: 15px;
+    border: 1px solid;
+    border-color: blue;
+    border-radius: 21px;
+  }
+
+  .zzz{
+    width: auto !important; 
+    background-color: white;
+    padding-right: 16px;
+    padding-left: 15px;
+    border: 1px solid;
+    border-color: green;
+    border-radius: 21px;
+  }
+
+  .form-holder .col-sm-2 {
+    min-height: 84px;
+  }
+  .form-holder .form-control{
+    width: 65%;
+  }
+  .form-control{
+    border-radius: 7px;
+    border: black;
+  }
+</style>
