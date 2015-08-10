@@ -38,13 +38,23 @@ class InvoicesController < ApplicationController
       puts item[1]['code']
       puts "----"*80
       itm = Item.find_by_code(item[1]['code'])
-      itm.sold = itm.sold + item[2].to_i
-      itm.left = itm.left - item[2].to_i
-      itm.save
+      if itm.blank?
+        Package = Package.find_by_code(item[1]['code'])
+        Package.items.each do |itm|
+          itm.sold = itm.sold + item[2].to_i
+          itm.left = itm.left - item[2].to_i
+          itm.save
+        end
+      else
+        itm.sold = itm.sold + item[2].to_i
+        itm.left = itm.left - item[2].to_i
+        itm.save
+      end
       temp = inv.lines.create
       temp.item_id = itm.id
       temp.quantity = item[2].to_i
       temp.save
+      return render json: temp
     end
     # return render json: params
     # @invoice = Invoice.new(invoice_params)
