@@ -1,32 +1,31 @@
-<p id="notice"><%= notice %></p>
 
-<h1>Listing Time Tables</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Grade</th>
-      <th>Employee</th>
-      <th>Break after period</th>
-      <th>Prayer after period</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @time_tables.each do |time_table| %>
+<div class="wrapper-md">
+  <table class="table table-striped">
+    <thead>
       <tr>
-        <td><%= time_table.grade_id %></td>
-        <td><%= time_table.employee_id %></td>
-        <td><%= time_table.break_after_period %></td>
-        <td><%= time_table.prayer_after_period %></td>
-        <td><%= link_to 'Show', time_table %></td>
-        <td><%= link_to 'Edit', edit_time_table_path(time_table) %></td>
-        <td><%= link_to 'Destroy', time_table, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Grade</th>
+        <th>Employee</th>
+        <th>Break after period</th>
+        <th>Prayer after period</th>
+        <th colspan="3"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      <% @time_tables.each do |time_table| %>
+        <tr>
+          <td><%= time_table.grade_id %></td>
+          <td><%= time_table.employee_id %></td>
+          <td><%= time_table.break_after_period %></td>
+          <td><%= time_table.prayer_after_period %></td>
+          <td><%= link_to 'Show', time_table %></td>
+          <td><%= link_to 'Edit', edit_time_table_path(time_table) %></td>
+          <td><%= link_to 'Destroy', time_table, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 
 <br>
 

@@ -1,24 +1,65 @@
-<p id="notice"><%= notice %></p>
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3"><%= "Class/Section: #{@grade.full_name} " %>&nbsp;&nbsp;&nbsp;&nbsp;<%= "Class Teacher:  #{@teacher.full_name} " %>
+  </h1>
+</div>
 
-<p>
-  <strong>Grade:</strong>
-  <%= @time_table.grade_id %>
-</p>
+<div class="wrapper-md">
+  <table class="table table-striped">
+	  <thead>
+	    <tr>
+	      <th rowspan="2" class="text-center">Periods</th>
+	      <th colspan="<%= 7 - @weekends.count %>" class="text-center">Days</th>
+	    </tr>
+	    <tr>
+	    	<% Date::DAYNAMES.each_with_index do |day,i| %>
+	    		<% if @weekends.find{ |w| w.weekend_day == i}.nil? %>
+		      	<th class="text-center"><%= day %></th>
+		      <% end %>
+		    <% end %>
+	    </tr>
+	  </thead>
+	  <tbody>
+  		<% (@total_periods+2).times do |d| %>
+  			<tr>
+	  			<% if @time_table.break_after_period.to_i == d %>
+	  				<td colspan="<%= 9 - @weekends.count %>" class="text-center">BREAK TIME</td>
+	  			<% elsif @time_table.prayer_after_period.to_i == d %>
+	  				<td colspan="<%= 9 - @weekends.count %>" class="text-center">PRAYER TIME</td>
+	  			<% else %>
+			      <td class="text-center"><%= (d+1).ordinalize %></td>
+			      <% Date::DAYNAMES.each_with_index do |day,i| %>
+			      	<% @periods.each_with_index do |period,i| %>
+			    			<% if @weekends.find{ |w| w.weekend_day == i}.nil? %>
+				      		<% if period.day == day %>
+				      			<td class="text-center"><%= period.try(:subject).try(:name) %></td>
+				      		<% end %>
+				      	<% end %>
+				    	<% end %>
+				    <% end %>
+				  <% end %>
+			  </tr>
+  		<% end %>
+	  </tbody>
+	</table>
+</div>
 
-<p>
-  <strong>Employee:</strong>
-  <%= @time_table.employee_id %>
-</p>
+<%#= link_to 'Edit', edit_time_table_path(@time_table, grade_id: @time_table.grade_id) %> 
+<%#= link_to 'Back', time_tables_path %>
 
-<p>
-  <strong>Break after period:</strong>
-  <%= @time_table.break_after_period %>
-</p>
 
-<p>
-  <strong>Prayer after period:</strong>
-  <%= @time_table.prayer_after_period %>
-</p>
+<style type="text/css">
+table {
+  border-collapse: collapse;
+}
 
-<%= link_to 'Edit', edit_time_table_path(@time_table, grade_id: @time_table.grade_id) %> |
-<%= link_to 'Back', time_tables_path %>
+td, th {
+  border: 1px solid Black;
+  padding: 5px 15px;
+}
+
+thead > tr:nth-child(1) > th:nth-child(1) { background-color: Grey; color: White; }
+thead > tr:nth-child(1) > th:nth-child(2) { background-color: #729F32; color: White;}
+thead > tr:nth-child(1) > th:nth-child(3) { background-color: Orange; color: White; }
+thead > tr:nth-child(2) > th              { background-color: Orange; color: White; }
+
+</style>

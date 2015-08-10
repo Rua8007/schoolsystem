@@ -1,5 +1,5 @@
 class TimeTablesController < ApplicationController
-  before_action :set_time_table, only: [:show, :edit, :update, :destroy]
+  before_action :set_time_table, only: [:edit, :update, :destroy]
 
   # GET /time_tables
   # GET /time_tables.json
@@ -10,6 +10,28 @@ class TimeTablesController < ApplicationController
   # GET /time_tables/1
   # GET /time_tables/1.json
   def show
+    @time_table = TimeTable.find(params[:id])
+    if @time_table.present?
+      @teacher = @time_table.employee
+      @grade = @time_table.grade
+      @subjects = Subject.all
+      @weekends = Weekend.all
+      @periods = @time_table.periods
+
+      week_day = nil
+      Date::DAYNAMES.each_with_index do |day,i|
+        if @weekends.find{ |w| w.weekend_day == i}.nil?
+          week_day = day
+        end
+      end
+      @total_periods = @time_table.periods.where(day: week_day.to_s).count
+
+      puts "-----"*300
+      # week_day
+      puts @total_periods
+
+
+    end
   end
 
   # GET /time_tables/new
@@ -41,7 +63,7 @@ class TimeTablesController < ApplicationController
       if @time_table.save
         @time_table.grade_id = params[:grade]
         @time_table.save!
-        format.html { redirect_to new_period_path(time_table: @time_table), notice: 'Time table was successfully created.' }
+        format.html { redirect_to make_daily_schedule_periods_path(time_table: @time_table), notice: 'Time table was successfully created.' }
         format.json { render :show, status: :created, location: @time_table }
       else
         format.html { render :new }
