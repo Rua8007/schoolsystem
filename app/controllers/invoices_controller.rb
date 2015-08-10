@@ -10,6 +10,7 @@ class InvoicesController < ApplicationController
   # GET /invoices/1
   # GET /invoices/1.json
   def show
+    @linses
   end
 
   # GET /invoices/new
@@ -30,9 +31,7 @@ class InvoicesController < ApplicationController
     items = params[:items]
     inv.student_id = params[:student_id]
     inv.booknum = params[:booknum]
-    inv.discount = params[:discount]
     inv.save
-    
     items.each do |item|
       puts "----"*80
       puts item[1]['code']

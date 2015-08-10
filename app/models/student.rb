@@ -18,5 +18,9 @@ class Student < ActiveRecord::Base
 	accepts_nested_attributes_for :emergencies
 
 	has_many :marksheets
+
+	has_many :invoices
+	
+
 	
 end

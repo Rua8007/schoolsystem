@@ -1,5 +1,6 @@
 class Invoice < ActiveRecord::Base
-	has_many :lines
 	belongs_to :items
-	accepts_nested_attributes_for :lines
+	belongs_to :student
+	has_many :lines
+
 end

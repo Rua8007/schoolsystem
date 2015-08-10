@@ -1,5 +1,5 @@
 
-<div class="col-md-12">
+<div class="col-md-12 ">
   <div class="col-md-3 form-group">
     <label>Student ID</label>
     <input type="text" id = "std_id" class="form-control">
@@ -10,38 +10,38 @@
     <input type="text" id = "booknum" class="form-control">
   </div>
 </div>
-  <hr>
-  <div>
-    <div class="col-md-2 form-group">
-      <label>Item Code</label>
-      <input type="text" id = "code"  class="form-control">
-      <span style = "color: red" id = "error" class="hidden">Invalid Code!!! </span>
-    </div>
-    
-    <div class="col-md-2 form-group">
-      <label>Item Name</label>
-      <input type="text" id = "name" readonly="true" class="form-control">
-    </div>
-    
-    <div class="col-md-2 form-group">
-      <label>Item Price</label>
-      <input type="text" id = "price"readonly="true"  class="form-control">
-    </div>
-    
-    <div class="col-md-2 form-group">
-      <label>Item Quantity</label>
-      <input type="text" id = "qty"  class="form-control">
-    </div>
-    
-    <div class="col-md-2 form-group">  
-      <label>Total</label>
-      <input type="text" id = "total" readonly="true" class="form-control">
-    </div>
-    <div  class="col-md-2 form-group">
-    <button id = "itembtn" type="button" class="btn btn-success" style="margin-top:23px">Buy</button>
-          
-    </div>
+  
+<div class="col-md-12">
+  <div class="col-md-2 form-group">
+    <label>Item Code</label>
+    <input type="text" id = "code"  class="form-control">
+    <span style = "color: red" id = "error" class="hidden">Invalid Code!!! </span>
   </div>
+  
+  <div class="col-md-2 form-group">
+    <label>Item Name</label>
+    <input type="text" id = "name" readonly="true" class="form-control">
+  </div>
+  
+  <div class="col-md-2 form-group">
+    <label>Item Price</label>
+    <input type="text" id = "price"readonly="true"  class="form-control">
+  </div>
+  
+  <div class="col-md-2 form-group">
+    <label>Item Quantity</label>
+    <input type="text" id = "qty"  class="form-control">
+  </div>
+  
+  <div class="col-md-2 form-group">  
+    <label>Total</label>
+    <input type="text" id = "total" readonly="true" class="form-control">
+  </div>
+  <div  class="col-md-2 form-group">
+  <button id = "itembtn" type="button" class="btn btn-success" style="margin-top:23px">Buy</button>
+        
+  </div>
+</div>
   <br>
   <hr>
   <br>
@@ -129,7 +129,7 @@ $(document).ready(function(){
         alert(data);
         if(data="success")
         {
-          window.location=""
+          window.location.pathname="invoices"
         }
       },
       error: function (xhr) {
