@@ -1,6 +1,6 @@
 <style type="text/css">
   .container{
-      width: 1068px;
+      width: auto;
   }
 
   .sss{
@@ -57,7 +57,7 @@
                          <div class="form-group ">
                           <div class="field">
                             <%= f.label :batch_id %><br>
-                        <%= f.select :batch_id, options_from_collection_for_select(@batches,"id", "name"),{prompt: "Select batch"}, {class: 'form-control', required: true} %>
+                            <%= f.select :batch_id, options_from_collection_for_select(@batches,"id", "name"),{prompt: "Select batch"}, {class: 'form-control', required: true} %>
                           </div>
                         </div>
                       </div>

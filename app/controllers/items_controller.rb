@@ -22,6 +22,9 @@ class ItemsController < ApplicationController
 
   # GET /items/1/edit
   def edit
+    @shopcategories = Shopcategory.all
+    @grades= Grade.all
+
   end
 
   # POST /items

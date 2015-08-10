@@ -27,6 +27,15 @@ class PackagesController < ApplicationController
 
   # GET /packages/1/edit
   def edit
+    @grades = Grade.all
+    @items =Item.all
+     @employee=Employee.all.pluck(:full_name,:id)
+    @packageitem = []
+    Item.all.try(:each) do |i|
+      temp = {flag: false, package_id: @package, item_id: i.id }
+      @packageitem << temp
+    end
+   
   end
 
   # POST /packages

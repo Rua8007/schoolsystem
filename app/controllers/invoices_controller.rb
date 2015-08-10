@@ -30,7 +30,9 @@ class InvoicesController < ApplicationController
     items = params[:items]
     inv.student_id = params[:student_id]
     inv.booknum = params[:booknum]
+    inv.discount = params[:discount]
     inv.save
+    
     items.each do |item|
       puts "----"*80
       puts item[1]['code']

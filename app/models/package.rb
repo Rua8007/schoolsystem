@@ -1,5 +1,5 @@
 class Package < ActiveRecord::Base
-	has_many :grades
+	belongs_to :grade
 
 	has_many :packageitems
 

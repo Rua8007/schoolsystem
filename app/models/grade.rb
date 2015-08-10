@@ -6,6 +6,7 @@ class Grade < ActiveRecord::Base
 	has_many :marks
 	has_many :marksheets
 	has_many :items
+	has_many :packages
 
 	has_many :grade_subjects
 
