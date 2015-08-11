@@ -19,23 +19,31 @@
 	    </tr>
 	  </thead>
 	  <tbody>
-  		<% (@total_periods+2).times do |d| %>
+	  	<% tcount = 0 %>
+  		<% @total_periods.times do |d| %>
   			<tr>
 	  			<% if @time_table.break_after_period.to_i == d %>
-	  				<td colspan="<%= 9 - @weekends.count %>" class="text-center">BREAK TIME</td>
+	  				
+	  				<td colspan="<%= 9 - @weekends.count %>" class="text-center" style="background-color:#dee5e7;">BREAK TIME</td>
 	  			<% elsif @time_table.prayer_after_period.to_i == d %>
-	  				<td colspan="<%= 9 - @weekends.count %>" class="text-center">PRAYER TIME</td>
+	  				
+	  				<td colspan="<%= 9 - @weekends.count %>" class="text-center" style="background-color:#dee5e7;">PRAYER TIME</td>
 	  			<% else %>
 			      <td class="text-center"><%= (d+1).ordinalize %></td>
-			      <% Date::DAYNAMES.each_with_index do |day,i| %>
-			      	<% @periods.each_with_index do |period,i| %>
-			    			<% if @weekends.find{ |w| w.weekend_day == i}.nil? %>
-				      		<% if period.day == day %>
-				      			<td class="text-center"><%= period.try(:subject).try(:name) %></td>
-				      		<% end %>
-				      	<% end %>
-				    	<% end %>
+			      <% Date::DAYNAMES.each do |day| %>
+			      	<% period = @periods.find{ |per| per.day == day && per.period_num == tcount } %>
+
+		    			<% if period.present? %>
+		      			
+		      			<% puts "ts" %>
+		      			<% puts %>
+		      			<% puts %>
+		      			<% puts %>
+		      			<% puts %>
+		      			<td class="text-center"><%= Subject.find(period['subject_id'].to_i).try(:name) %></td>
+			      	<% end %>
 				    <% end %>
+				    <% tcount = tcount + 1%>
 				  <% end %>
 			  </tr>
   		<% end %>

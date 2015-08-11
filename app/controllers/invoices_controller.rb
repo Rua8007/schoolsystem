@@ -37,10 +37,10 @@ class InvoicesController < ApplicationController
       itm = Item.find_by_code(item[1]['code'])
       if itm.blank?
         package = Package.find_by_code(item[1]['code'])
-        package.packageitems.each do |itm|
-          itm.sold = itm.sold + item[1]['qty'].to_i
-          itm.left = itm.left - item[1]['qty'].to_i
-          itm.save
+        package.packageitems.each do |it|
+          it.sold = it.sold + item[1]['qty'].to_i
+          it.left = it.left - item[1]['qty'].to_i
+          it.save
         end
         temp = inv.lines.create
         temp.package_id = package.id

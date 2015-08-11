@@ -26,6 +26,12 @@ class TimeTablesController < ApplicationController
       end
       @total_periods = @time_table.periods.where(day: week_day.to_s).count
 
+      if @total_periods >= @time_table.break_after_period.to_i
+        @total_periods = @total_periods + 1
+      end
+      if @total_periods >= @time_table.prayer_after_period.to_i
+        @total_periods = @total_periods + 1
+      end
       puts "-----"*300
       # week_day
       puts @total_periods
