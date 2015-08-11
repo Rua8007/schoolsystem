@@ -37,7 +37,7 @@
 		          		<div class="column col-xs-12 col-sm-2">
 		            		<div class="form-group">
 		              			<label for="exampleInputEmail1">Class</label>
-		              			<%= std.collection_select :grade_id , Batch.last.grades.order(:name), :id , :name,{},{:style => 'height:34px;width: 100%',  class: 'form-control'} %>
+		              			<%= std.collection_select :grade_id , Batch.last.grades.order(:name), :id , :full_name,{},{:style => 'height:34px;width: 100%',  class: 'form-control'} %>
 		             		</div>
 		          		</div>
 		          		<div class="column col-xs-12 col-sm-2">
@@ -50,12 +50,6 @@
 		            		<div class="form-group">
 		              			<label for="exampleInputEmail1">Gender</label>
 		              			<%= std.select :gender, options_for_select(%w[MALE FEMALE]),{}, {class: "form-control", style: 'width: 100%'} %>
-		            		</div>
-		          		</div>
-		          		<div class="column col-xs-12 col-sm-2">
-		            		<div class="form-group">
-		              			<label for="exampleInputEmail1">Blood Group</label>
-		              			<%= std.select :blood, options_for_select(%w[Unknown A+ A- B+ B- O+ O- AB+ AB-]),{}, {class: "form-control", style:"width: 100%"} %>
 		            		</div>
 		          		</div>
 		          		<div class="column col-xs-12 col-sm-2">
@@ -83,8 +77,8 @@
 		              		</div>
 		          		</div>
 		          		<div class="column col-xs-12 col-sm-2">
-	          				<div class="form-group">
-								<%= std.file_field :image  %>
+	          				<div class="form-group" style="margin-top: 21%">
+								<%= std.file_field :image %>
 								</div>
 								</div>
 							</fieldset>     	
@@ -148,14 +142,22 @@
 	            		<div class="form-group">
 	              			<label for="exampleInputEmail1">Current Weight</label>
 	              			<%= std.text_field :weight , :style => 'height:34px;width: 100%',  class: 'form-control' %>
-		             		</div>
-		          		</div>
+	             		</div>
+	          		</div>
 	          		<div class="column col-xs-12 col-sm-2">
 	            		<div class="form-group">
 	              			<label for="exampleInputEmail1">Current Height</label>
 	              			<%= std.text_field :height , :style => 'height:34px;width: 100%',  class: 'form-control' %>
 	             		</div>
 	          		</div>
+
+	          		<div class="column col-xs-12 col-sm-2">
+	            		<div class="form-group">
+	              			<label for="exampleInputEmail1">Blood Group</label>
+	              			<%= std.select :blood, options_for_select(%w[Unknown A+ A- B+ B- O+ O- AB+ AB-]),{}, {class: "form-control", style:"width: 100%"} %>
+	            		</div>
+	          		</div>
+
 	          		<div class="column col-xs-12 col-sm-2">
 	            		<div class="form-group">
 	              			<label for="exampleInputEmail1">Eye Side</label>
@@ -339,9 +341,10 @@
 
 
   	$("#month_year").blur(function(){
+  		console.log($('#month_year').val())
   		var CurrentDate = new Date($('#month_year').val());
   		var val = $("#student_term").val();
-  		console.log(val);
+  		console.log(CurrentDate);
   		if(val == 'Monthly'){
   			$("#installment").val(Math.round(parseInt($("#student_fee").val())/12));
   			CurrentDate.setMonth(CurrentDate.getMonth() + 2)

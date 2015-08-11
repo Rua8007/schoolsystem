@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     collection do
       get "items_data"
       post "invoicing"
+      get "student_data"
     end
   end
 

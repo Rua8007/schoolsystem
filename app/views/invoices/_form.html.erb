@@ -3,6 +3,27 @@
   <div class="col-md-3 form-group">
     <label>Student ID</label>
     <input type="text" id = "std_id" class="form-control">
+    <span style = "color: red" id = "std_error" class="hidden">Invalid Student ID...!!! </span>
+  </div>
+
+  <div class="col-md-3 form-group">
+    <label>Student Name</label>
+    <input type="text" id = "std_name" class="form-control" readonly="true">
+  </div>
+
+  <div class="col-md-3 form-group">
+    <label>Parent Name</label>
+    <input type="text" id = "std_parent" class="form-control" readonly="true">
+  </div>
+
+  <div class="col-md-3 form-group">
+    <label>Grade</label>
+    <input type="text" id = "std_grade" class="form-control" readonly="true">
+  </div>
+
+  <div class="col-md-3 form-group">
+    <label>Contact#</label>
+    <input type="text" id = "std_contact" class="form-control" readonly="true">
   </div>
 
   <div class="col-md-3 form-group">
@@ -62,7 +83,7 @@
   <div class="pull-right">
     <div>
       <label>Sub Total</label>
-      <input type="text" id = "gtotal" value="0" class="form-control" style="width:100%">
+      <input type="text" id = "gtotal" value="0" class="form-control" style="width:100%" readonly="true">
     </div>
     <div>
       <label>Discount</label>
@@ -70,12 +91,12 @@
     </div>
     <div>
       <label>Grand Total</label>
-      <input type="text" id = "Total" value="0" class="form-control" style="width:100%">
+      <input type="text" id = "Total" value="0" class="form-control" style="width:100%" readonly="true">
     </div>
     <br>
     <div class="actions">
       <div class="col-md-3 form-group pull-right">
-        <input type = "button" class = "btn btn-success pull-right" id = "submit" value="Create Invoice">
+        <input type = "button" class = "btn btn-success pull-right" id = "submit" value="Create Invoice" >
       </div>
     </div>
   </div>
@@ -104,6 +125,31 @@
       }
     });
   });
+
+  $("#std_id").blur(function (e){
+    console.log("here i am");
+    $.get("/invoices/student_data", {std_id: $("#std_id").val()},function(data){
+      if(data[0].details)
+      {
+        $("#std_id").val('');
+        $("#std_name").val('');
+        $("#std_parent").val('');
+        $("#std_grade").val('');
+        $("#std_contact").val('');
+        $("#std_error").removeClass('hidden');
+      }
+      else{
+        var std = data[0].details;
+        $("#std_name").val(std.fullname);
+        $("#std_parent").val(std.parent);
+        $("#std_grade").val(std.grade);
+        $("#std_contact").val(std.contact);
+
+        $("#error").addClass('hidden');
+      }
+    });
+  });
+
 
   $("#qty").blur(function(){
     var total = parseInt($("#price").val()) * parseInt($("#qty").val());
@@ -139,12 +185,15 @@ $(document).ready(function(){
   });
 
   $("#itembtn").click(function (){
-    var item = {code: $("#code").val(), qty: $("#qty").val(),id: items.length};
-    items.push(item);
     console.log(item);
 
     var total = parseInt($("#price").val()) * parseInt($("#qty").val());
     $("#gtotal").val(parseInt($("#gtotal").val()) + total);
+    var subtotal = parseInt($("#gtotal").val()) - parseInt($("#discount").val());
+    $("#Total").val(subtotal);
+
+    var item = {code: $("#code").val(), qty: $("#qty").val(),id: items.length, total: total};
+    items.push(item);
 
     var table = document.getElementById("itemtable");
     var row = table.insertRow(items.length);
@@ -168,6 +217,8 @@ $(document).ready(function(){
       for(i; i<items.length; i++)
       {
         if(items[i].id == id){
+          $("#gtotal").val(parseInt($("#gtotal").val()) - items[i].total);
+          $("#Total").val(parseInt($("#Total").val()) - items[i].total);
           items.splice(i, 1);
           document.getElementById("itemtable").deleteRow(i+1);
           console.log(items);

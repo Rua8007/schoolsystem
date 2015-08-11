@@ -31,29 +31,30 @@ class InvoicesController < ApplicationController
     items = params[:items]
     inv.student_id = params[:student_id]
     inv.booknum = params[:booknum]
+    inv.discount = params[:discount]
     inv.save
     items.each do |item|
-      puts "----"*80
-      puts item[1]['code']
-      puts "----"*80
       itm = Item.find_by_code(item[1]['code'])
       if itm.blank?
-        Package = Package.find_by_code(item[1]['code'])
-        Package.items.each do |itm|
-          itm.sold = itm.sold + item[2].to_i
-          itm.left = itm.left - item[2].to_i
+        package = Package.find_by_code(item[1]['code'])
+        package.packageitems.each do |itm|
+          itm.sold = itm.sold + item[1]['qty'].to_i
+          itm.left = itm.left - item[1]['qty'].to_i
           itm.save
         end
+        temp = inv.lines.create
+        temp.package_id = package.id
+        temp.quantity = item[1]['qty'].to_i
+        temp.save
       else
-        itm.sold = itm.sold + item[2].to_i
-        itm.left = itm.left - item[2].to_i
+        itm.sold = itm.sold + item[1]['qty'].to_i
+        itm.left = itm.left - item[1]['qty'].to_i
         itm.save
+        temp = inv.lines.create
+        temp.item_id = itm.id
+        temp.quantity = item[1]['qty'].to_i
+        temp.save
       end
-      temp = inv.lines.create
-      temp.item_id = itm.id
-      temp.quantity = item[2].to_i
-      temp.save
-      return render json: temp
     end
     # return render json: params
     # @invoice = Invoice.new(invoice_params)
@@ -67,7 +68,6 @@ class InvoicesController < ApplicationController
     #     format.json { render json: @invoice.errors, status: :unprocessable_entity }
     #   end
     # end
-    redirect_to grades_path 
   end
 
   # PATCH/PUT /invoices/1
@@ -102,6 +102,22 @@ class InvoicesController < ApplicationController
 
     respond_to do |format|
       format.json {render json: [details: @details]}
+    end
+  end
+
+  def student_data
+    if Student.find_by_id(params[:std_id]).present?
+      puts "a gay hai idhr to"
+      puts "a gay hai idhr to"
+      puts "a gay hai idhr to"
+      puts "a gay hai idhr to"
+      student = Student.find(params[:std_id])
+      @details = {fullname: student.fullname, parent: student.parent.name, contact: student.mobile, grade: student.grade.full_name}
+    else
+      @details = false
+      respond_to do |format|
+        format.json {render json: [details: @details]}
+      end
     end
   end
 
