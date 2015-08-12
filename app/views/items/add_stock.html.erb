@@ -1,0 +1,33 @@
+<%= form_tag 'adding_stock', method: :get do %>
+
+	<div>
+		<label>Item Code</label>
+		<%= text_field_tag :code %>
+		<span style = "color: red" id = "error" class="hidden">Invalid Item Code...!!! </span>
+	</div>
+
+	<div>
+		<label>Quantity</label>
+		<%= text_field_tag :qty %>
+	</div>
+
+	<div><%= submit_tag 'Save', class: "btn btn-success" , required: true%></div>
+<% end %>
+
+<script type="text/javascript">
+  $("#code").blur(function (e){
+    console.log("here i am");
+    $.get("/items/get_item", {item_id: $("#code").val()},function(data){
+    	console.log(data[0].details);
+      if(!data[0].details)
+      {
+        $("#code").val('');
+        $("#error").removeClass('hidden');
+      }
+      else{
+        var item = data[0].details;
+        $("#error").addClass('hidden');       
+      }
+    });
+  });
+</script>
