@@ -32,21 +32,17 @@
                         <%= @item.code %>
                         </td>
                     </tr>
-
                      <tr>
                         <td class="student-profile-td">
                             Name
-                            
                         </td>
                         <td>
-                        <%= @item.name %>
-                                
+                        <%= @item.name %>        
                         </td>
                     </tr>
                     <tr>
                         <td class="student-profile-td">
                           Category
-                            
                         </td>
                         <td>
                         <%= @item.shopcategory.name %>
@@ -55,12 +51,18 @@
                     </tr>
                     <tr>
                         <td class="student-profile-td">
-                          Price
-                            
+                          Purchase Price
                         </td>
                         <td>
-                        <%= @item.price %>
-                                
+                        <%= @item.purchase %>  
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="student-profile-td">
+                          Sale Price
+                        </td>
+                        <td>
+                        <%= @item.price %>  
                         </td>
                     </tr>
                     <tr>
@@ -87,7 +89,6 @@
                         <td class="student-profile-td">
                           Left
                         </td>
-
                         <td>
                         <%= @item.left %>
                                 

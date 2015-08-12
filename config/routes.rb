@@ -25,7 +25,15 @@ Rails.application.routes.draw do
       get "items_data"
     end
   end
-  resources :items
+
+  resources :items do
+    collection do
+      get 'add_stock'
+      get 'adding_stock'
+      get 'get_item'
+    end
+  end
+  
   resources :shopcategories
   resources :transportfeerecords 
   resources :year_plans do
