@@ -115,9 +115,9 @@ class InvoicesController < ApplicationController
       @details = {fullname: student.fullname, parent: student.parent.name, contact: student.mobile, grade: student.grade.full_name}
     else
       @details = false
-      respond_to do |format|
-        format.json {render json: [details: @details]}
-      end
+    end 
+    respond_to do |format|
+      format.json {render json: [details: @details]}
     end
   end
 

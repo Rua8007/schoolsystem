@@ -127,9 +127,8 @@
   });
 
   $("#std_id").blur(function (e){
-    console.log("here i am");
     $.get("/invoices/student_data", {std_id: $("#std_id").val()},function(data){
-      if(data[0].details)
+      if(!data[0].details)
       {
         $("#std_id").val('');
         $("#std_name").val('');
