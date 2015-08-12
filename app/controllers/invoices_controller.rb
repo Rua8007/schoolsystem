@@ -1,5 +1,6 @@
 class InvoicesController < ApplicationController
-  before_action :set_invoice, only: [:show, :edit, :update, :destroy]
+
+  before_action :set_invoice, only: [:show, :destroy]
 
   # GET /invoices
   # GET /invoices.json
@@ -10,7 +11,7 @@ class InvoicesController < ApplicationController
   # GET /invoices/1
   # GET /invoices/1.json
   def show
-    @linses
+    @lines = @invoice.lines
   end
 
   # GET /invoices/new
@@ -67,7 +68,7 @@ class InvoicesController < ApplicationController
     #     format.html { render :new }
     #     format.json { render json: @invoice.errors, status: :unprocessable_entity }
     #   end
-    # end
+    redirect_to invoices_path
   end
 
   # PATCH/PUT /invoices/1
