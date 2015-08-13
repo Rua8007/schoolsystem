@@ -1,3 +1,6 @@
+
+
+
 <div class="well well-lg">
   <%= form_for(@category, class: 'form-inline') do |f| %>
     <% if @category.errors.any? %>
@@ -13,12 +16,12 @@
     <% end %>
 
      <div class="form-group">
-      <%= f.label :name, class: 'sr-only' %><br>
+      <%= f.label :name%><br>
       <%= f.text_field :name, class: 'form-control' %>
     </div>
 
      <div class="form-group">
-      <%= f.label :prefix, class: 'sr-only' %><br>
+      <%= f.label :prefix%><br>
       <%= f.text_field :prefix, class: 'form-control' %>
     </div>
 
