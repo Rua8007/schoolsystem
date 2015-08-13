@@ -75,7 +75,7 @@ class ItemsController < ApplicationController
     item = Item.find_by_code(params[:code])   
     item.left = item.left + params[:qty].to_i
     item.save!
-    redirect_to add_stock_items_path
+    redirect_to items_path
   end
 
   def get_item
