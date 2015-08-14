@@ -35,7 +35,11 @@ Rails.application.routes.draw do
   end
   
   resources :shopcategories
-  resources :transportfeerecords 
+  resources :transportfeerecords do
+    collection do
+      get 'fee_data'
+    end
+  end
   resources :year_plans do
     member do
       get 'show_schedule'

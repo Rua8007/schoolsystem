@@ -2,13 +2,13 @@
 <div class="col-md-12 ">
   <div class="col-md-3 form-group">
     <label>Student ID</label>
-    <input type="text" id = "std_id" class="form-control">
+    <input type="text" id = "std_id" class="form-control numeric">
     <span style = "color: red" id = "std_error" class="hidden">Invalid Student ID...!!! </span>
   </div>
 
   <div class="col-md-3 form-group">
     <label>Student Name</label>
-    <input type="text" id = "std_name" class="form-control" readonly="true">
+    <input type="text" id = "std_name" class="form-control numeric" readonly="true">
   </div>
 
   <div class="col-md-3 form-group">
@@ -51,7 +51,8 @@
   
   <div class="col-md-2 form-group">
     <label>Item Quantity</label>
-    <input type="text" id = "qty"  class="form-control">
+    <input type="text" id = "qty"  class="form-control float">
+    <span style = "color: red" id="errmsg"></span>
   </div>
   
   <div class="col-md-2 form-group">  
@@ -87,7 +88,7 @@
     </div>
     <div>
       <label>Discount</label>
-      <input type="text" id = "discount" value="0" class=" form-control" style="width:100%">
+      <input type="text" id = "discount" value="0" class=" form-control float" style="width:100%">
     </div>
     <div>
       <label>Grand Total</label>
