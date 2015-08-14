@@ -1,19 +1,92 @@
-<p id="notice"><%= notice %></p>
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3"> Grade <%= @grade.full_name %> </h1>
+</div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @grade.name %>
-</p>
 
-<p>
-  <strong>Section:</strong>
-  <%= @grade.section %>
-</p>
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content login-modal">
+      <div class="modal-header login-modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-center" id="loginModalLabel">Update Subject Teacher</h4>
+      </div>
+      <div class="modal-body">
+        <div id="create_parties">
+        	<!-- /////////////// -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-<p>
-  <strong>Batch:</strong>
-  <%= @grade.batch_id %>
-</p>
+<h2>Subject's Details</h2>
+<table class="table ">
+	<thead class="table-head">
+		<th>Subect Name</th>
+		<th>Teacher Name</th>
+		<th>Action</th>
+	</thead>
+	<tbody>
+		<% @grade.bridges.try(:each) do |sub| %>
+			<tr>
+				<td>
+					<%= sub.subject.name %>	
+				</td>
+				<td><%= sub.employee.full_name %></td>
+				<td>
+					<%= link_to 'Edit', "javascript:void(0);" , class: 'edit-bridge-btn', style: '' %>
+				</td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
 
-<%= link_to 'Edit', edit_grade_path(@grade) %> |
-<%= link_to 'Back', grades_path %>
+
+
+  <div class="modal fade" id="edit_bridge" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Select Grade &amp; Subject </h4>
+        </div>
+        <%= form_tag url_for(:controller => 'weeks', :action => 'schedule_weeks', params: {year_plan_id: @year_plan.id}), :method => 'get' do %>
+          <%#= hidden_field_tag :attendance_date, "" %>
+          <div class="modal-body">
+
+            <div class="form-group">
+              <label>Grade</label>
+              <!-- <p>Some text in the modal.</p> -->
+              <%= select_tag :grade_id, options_from_collection_for_select(@grades,"id", "full_name"),
+                  prompt: "Select Grade", class: "form-control", required: true %>
+            </div>
+
+            <div class="form-group">
+              <label>Subject</label>
+              <!-- <p>Some text in the modal.</p> -->
+              <%= select_tag :subject_id, options_from_collection_for_select(@subjects,"id", "name"),
+                  prompt: "Select Subject", class: "form-control", required: true %>
+            </div>
+
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <%= submit_tag 'Start', class: 'btn btn-success' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+<script type="text/javascript">
+	
+$(document).ready(function(){
+    $('.edit-bridge-btn').on('click',function (e){
+      $('#edit_bridge').modal('show');
+    });
+  });
+
+
+</script>

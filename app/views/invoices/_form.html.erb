@@ -171,7 +171,6 @@ $(document).ready(function(){
       type: 'POST',
       data: request,
       success: function (data) {
-        alert(data);
         if(data="success")
         {
           window.location.pathname="invoices"
@@ -191,7 +190,7 @@ $(document).ready(function(){
     var subtotal = parseInt($("#gtotal").val()) - parseInt($("#discount").val());
     $("#Total").val(subtotal);
 
-    var item = {code: $("#code").val(), qty: $("#qty").val(),id: items.length, total: total};
+    var item = {code: $("#code").val(), qty: $("#qty").val(),id: items.length, total: total, price: $('#price').val()};
     items.push(item);
 
     var table = document.getElementById("itemtable");

@@ -10,7 +10,7 @@
         <img src="logo.png">
       </div> -->
       <div id="company">
-        <h2 class="name">School</h2>
+        <h2 class="name">Al Omam International school</h2>
           <div>455 Foggy Heights, AZ 85004, kuwait</div>
           <div>(602) 519-0450</div>
           <div><a href="#">school@school.com</a></div>
@@ -19,7 +19,7 @@
     <hr>
     <main>
       <div class="clearfix">
-        <div id="client">
+        <div id="client" >
           <h6><div class="to">INVOICE TO:</div></h6>
           <table class="table">
                 <tbody>
@@ -74,7 +74,7 @@
       </div>
    
    <div class="clearfix">
-    <div class="client">
+    <div class="client margins">
 
       <table class="table">
         <thead >
@@ -93,10 +93,14 @@
 
           <tr>
             <td class="no"><%= pk.id %></td>
-            <td class="desc"><%= pk.item.name %></td>
-            <td class="unit"><%= pk.item.price %></td>
+            <% if pk.item_id == nil %>
+              <td class="desc"><%= pk.package.name %></td>
+            <% else %>
+              <td class="desc"><%= pk.item.name %></td>
+            <% end %>
+            <td class="unit"><%= pk.price %></td>
             <td class="qty"><%= pk.quantity %></td>
-            <td class="total">$1,200.00</td>
+            <td class="total"><%= pk.price * pk.quantity %></td>
           </tr>
           
           
@@ -106,19 +110,20 @@
         <tfoot>
         
           <tr>
-            <td colspan="2"></td>
-            <td colspan="2">Subtotal</td>
-            <td>$5,200.00</td>
+            <td colspan="3"></td>
+            <td colspan="1">Subtotal</td>
+            <% subtotal = @invoice.lines.sum('quantity * price') %>
+            <td><%= subtotal %></td>
           </tr>
           <tr>
-            <td colspan="2"></td>
-            <td colspan="2">Discount</td>
-            <td>$1,300.00</td>
+            <td colspan="3"></td>
+            <td colspan="1">Discount</td>
+            <td><%= @invoice.discount %> </td>
           </tr>
           <tr>
-            <td colspan="2"></td>
-            <td colspan="2">Grand Total</td>
-            <td>$6,500.00</td>
+            <td colspan="3"></td>
+            <td colspan="1">Grand Total</td>
+            <td><%= subtotal-@invoice.discount %></td>
           </tr>
         </tfoot>
       </table>
@@ -134,7 +139,9 @@
 <style type="text/css">
   
 
-
+.margins{
+  margin: 7px 66px 0;
+}
 .clearfix:after {
   content: "";
   display: table;
@@ -305,7 +312,7 @@ table tfoot tr:first-child td {
 
 table tfoot tr:last-child td {
   color: #57B223;
-  font-size: 0.8em;
+  font-size: 1.8em;
   border-top: 1px solid #57B223; 
 
 }

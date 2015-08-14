@@ -46,6 +46,7 @@ class InvoicesController < ApplicationController
         temp = inv.lines.create
         temp.package_id = package.id
         temp.quantity = item[1]['qty'].to_i
+        temp.price = item[1]['price'].to_f
         temp.save
       else
         itm.sold = itm.sold + item[1]['qty'].to_i
@@ -54,6 +55,7 @@ class InvoicesController < ApplicationController
         temp = inv.lines.create
         temp.item_id = itm.id
         temp.quantity = item[1]['qty'].to_i
+        temp.price = item[1]['price'].to_f
         temp.save
       end
     end
