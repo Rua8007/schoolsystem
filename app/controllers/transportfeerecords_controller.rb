@@ -1,5 +1,5 @@
 class TransportfeerecordsController < ApplicationController
-  before_action :set_transportfeerecord, only: [:show, :edit, :update, :destroy]
+  # before_action :set_transportfeerecord, only: [:show, :edit, :update, :destroy]
 
   # GET /transportfeerecords
   # GET /transportfeerecords.json
@@ -27,6 +27,7 @@ class TransportfeerecordsController < ApplicationController
   # POST /transportfeerecords
   # POST /transportfeerecords.json
   def create
+
     @transportfeerecord = Transportfeerecord.new
     @transportfeerecord.bus_allotment_id = params[:bus_allotment_id]
 

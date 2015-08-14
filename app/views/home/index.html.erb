@@ -1,3 +1,4 @@
+ 
   <!-- main -->
   <!-- <div class="col"> -->
     <!-- main header -->
@@ -7,6 +8,7 @@
           <h1 class="m-n font-thin h3 text-black">Dashboard</h1>
           <small class="text-muted">Welcome to School Managemnt application</small>
         </div>
+
         <div class="col-sm-6 text-right hidden-xs">
           <div class="inline m-r text-left">
             <div class="m-b-xs"><%= Student.count %> <span class="text-muted">Students</span></div>
@@ -133,34 +135,40 @@
           " style="height:240px" >
           </div>
         </div>
-        <div class="col wrapper-lg w-lg bg-light dk r-r">
-          <h4 class="font-thin m-t-none m-b">Reports</h4>
-          <div class="">
-            <div class="m-b">
-              <span class="pull-right text-primary">60%</span>
-              <span>Consulting</span>
-            </div>
-            <div class="progress progress-xs">
-              <div class="progress-bar progress-bar-primary" data-toggle="tooltip" data-original-title="50%" style="width: 50%"></div>
-            </div>
-            <div class="m-b">
-              <span class="pull-right text-info">35%</span>
-              <span>Online tutorials</span>
-            </div>
-            <div class="progress progress-xs">
-              <div class="progress-bar progress-bar-info" data-toggle="tooltip" data-original-title="50%" style="width: 50%"></div>
-            </div>
-            <div class="m-b">
-              <span class="pull-right text-warning">25%</span>
-              <span>EDU management</span>
-            </div>
-            <div class="progress progress-xs">
-              <div class="progress-bar progress-bar-warning" data-toggle="tooltip" data-original-title="50%" style="width: 50%"></div>
-            </div>
-          </div>
-          <p class="text-muted">Dales nisi nec adipiscing elit. Morbi id neque quam. Aliquam sollicitudin venenatis</p>
-        </div>
-      </div> -->
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+  <!-- Indicators -->
+  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li>
+    <li data-target="#myCarousel" data-slide-to="3"></li>
+  </ol>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner" role="listbox" style=" margin-top:70px; max-height:500px;">
+    <div class="item active">
+      <%= image_tag asset_path "a", alt: ".", class: 'img-responsive', style: "padding-left:10px;"%>
+    </div>
+
+    <div class="item">
+      <%= image_tag asset_path "b", alt: ".", class: 'img-responsive', style: "padding-left:10px;"%>
+    </div>
+
+   
+  </div>
+
+  <!-- Left and right controls -->
+  <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
       <!-- / service -->
 
       <!-- tasks -->
@@ -446,6 +454,7 @@
           </ul>
         </div>
       </div>
+
       <div class="tab-pane" id="trans">
         <div class="wrapper-md">
           <div class="m-b-sm text-md">Transaction</div>
@@ -569,7 +578,7 @@
                 </div>
                 <small class="text-muted m-l-sm"><i class="fa fa-ok text-success"></i>Just Now</small>
               </div>
-            </div> --> -->
+            </div> -->
             <!-- / chat list -->
          <!--  </div>
         </div>

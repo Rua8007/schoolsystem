@@ -897,4 +897,32 @@
    $(".datepicker").datepicker();
    // $(".datepicker").datepicker();
 </script>
+
+<script type="text/javascript">
+$(document).ready(function () {
+  //called when key is pressed in textbox
+  $(".float").keypress(function (e) {
+     //if the letter is not digit then display error and don't type anything
+     if (e.which != 8 && e.which != 0  && (e.which < 46 || e.which > 57)) {
+        //display error message
+        $("#errmsg").html("Digits Only").show().fadeOut("slow");
+               return false;
+    }
+   });
+});
+</script>
+<script type="text/javascript">
+$(document).ready(function () {
+  //called when key is pressed in textbox
+  $(".numeric").keypress(function (e) {
+     //if the letter is not digit then display error and don't type anything
+     if (e.which != 8 && e.which != 0  && (e.which < 46 || e.which > 57)) {
+        //display error message
+        $("#errmsg").html("Digits Only").show().fadeOut("slow");
+               return false;
+    }
+   });
+});
+</script>
+
 </html>
