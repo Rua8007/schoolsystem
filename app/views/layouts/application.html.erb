@@ -112,7 +112,9 @@
                 <%= image_tag asset_path("img/a0.jpg"), alt: "..." %>
                 <i class="on md b-white bottom"></i>
               </span>
-              <span class="hidden-sm hidden-md" style="color:white;"><%= current_user.email %></span> <b class="caret" style="color:white;"></b>
+              <% if current_user %>
+                <span class="hidden-sm hidden-md" style="color:white;"><%= current_user.email %></span> <b class="caret" style="color:white;"></b>
+                <% end %>
             </a>
             <!-- dropdown -->
             <ul class="dropdown-menu animated fadeInRight w">
