@@ -38,9 +38,8 @@
         <button class="pull-right visible-xs" ui-toggle="off-screen" target=".app-aside" ui-scroll="app">
           <i class="glyphicon glyphicon-align-justify"></i>
         </button>
-        <!-- brand -->
+        <!-- brand -->        
         <a href="#/" class="navbar-brand text-lt">
-          <%#= image_tag asset_path("img/logo.png"), alt: ".", class: 'img-responsive' %>
           <span class="hidden-folded m-l-xs"></span>
         </a>
         <!-- / brand -->
@@ -48,14 +47,15 @@
       <!-- / navbar header -->
 
       <!-- navbar collapse -->
-      <div class="collapse pos-rlt navbar-collapse box-shadow bg-white-only" style="background-color:#729F32;">
+      <div class="collapse pos-rlt navbar-collapse box-shadow bg-white-only" style="background-color:#57B223;">
         <!-- buttons -->
         <div class="nav navbar-nav hidden-xs">
           <a href="#" class="btn no-shadow navbar-btn"  style="color:white;" ui-toggle="app-aside-folded" target=".app">
             <i class="fa fa-dedent fa-fw text"></i>
             <i class="fa fa-indent fa-fw text-active"></i>
           </a>
-
+          <h1 style="color:white;margin-left:215px" class="pull-right">
+            Al Omam International School</h1>
         </div>
 
         <!-- / buttons -->
@@ -67,14 +67,15 @@
         <!-- / search form -->
 
         <!-- nabar right -->
-        <ul class="nav navbar-nav navbar-right">
-          <li class="dropdown">
+        <ul class="nav navbar-nav navbar-right">          
+          <!-- <li class="dropdown">
+
             <a href="#" data-toggle="dropdown" class="dropdown-toggle">
               <i class="icon-bell fa-fw" style="color:white;"></i>
               <span class="visible-xs-inline">Notifications</span>
               <span class="badge badge-sm up bg-danger pull-right-xs">2</span>
             </a>
-            <!-- dropdown -->
+            
             <div class="dropdown-menu w-xl animated fadeInUp">
               <div class="panel bg-white">
                 <div class="panel-heading b-light bg-light">
@@ -103,26 +104,28 @@
                 </div>
               </div>
             </div>
-            <!-- / dropdown -->
-          </li>
+          
+          </li> -->
           <li class="dropdown">
             <a href="#" data-toggle="dropdown" class="dropdown-toggle clear" data-toggle="dropdown">
               <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm">
                 <%= image_tag asset_path("img/a0.jpg"), alt: "..." %>
                 <i class="on md b-white bottom"></i>
               </span>
-              <span class="hidden-sm hidden-md" style="color:white;">John.Smith</span> <b class="caret" style="color:white;"></b>
+              <% if current_user %>
+                <span class="hidden-sm hidden-md" style="color:white;"><%= current_user.email %></span> <b class="caret" style="color:white;"></b>
+                <% end %>
             </a>
             <!-- dropdown -->
             <ul class="dropdown-menu animated fadeInRight w">
-              <li class="wrapper b-b m-b-sm bg-light m-t-n-xs">
+              <!-- <li class="wrapper b-b m-b-sm bg-light m-t-n-xs">
                 <div>
                   <p>300mb of 500mb used</p>
                 </div>
                 <div class="progress progress-xs m-b-none dker">
                   <div class="progress-bar progress-bar-info" data-toggle="tooltip" data-original-title="50%" style="width: 50%"></div>
                 </div>
-              </li>
+              </li> -->
               <li>
                 <a href>
                   <span class="badge bg-danger pull-right">30%</span>
@@ -154,17 +157,19 @@
 
   <!-- aside -->
   <aside id="aside" class="app-aside hidden-xs bg-dark">
+        <%= image_tag asset_path("img/logo.png"), alt: ".", class: 'img-responsive', style: "padding-left:10px"%>
+        <li class="line dk"></li>
           <div class="aside-wrap">
         <div class="navi-wrap">
           <!-- user -->
           <div class="clearfix hidden-xs text-center hide" id="aside-user">
             <div class="dropdown wrapper">
-              <a href="app.page.profile">
+             <!--  <a href="app.page.profile">
                 <span class="thumb-lg w-auto-folded avatar m-t-sm">
                   <%= image_tag asset_path("img/a0.jpg"), class: "img-full", alt: "..." %>
                 </span>
-              </a>
-              <a href="#" data-toggle="dropdown" class="dropdown-toggle hidden-folded">
+              </a> -->
+              <!-- <a href="#" data-toggle="dropdown" class="dropdown-toggle hidden-folded">
                 <span class="clear">
                   <span class="block m-t-sm">
                     <strong class="font-bold text-lt">John.Smith</strong> 
@@ -172,10 +177,10 @@
                   </span>
                   <span class="text-muted text-xs block">Art Director</span>
                 </span>
-              </a>
+              </a> -->
               <!-- dropdown -->
               <ul class="dropdown-menu animated fadeInRight w hidden-folded">
-                <li class="wrapper b-b m-b-sm bg-info m-t-n-xs">
+               <!--  <li class="wrapper b-b m-b-sm bg-info m-t-n-xs">
                   <span class="arrow top hidden-folded arrow-info"></span>
                   <div>
                     <p>300mb of 500mb used</p>
@@ -183,7 +188,7 @@
                   <div class="progress progress-xs m-b-none dker">
                     <div class="progress-bar bg-white" data-toggle="tooltip" data-original-title="50%" style="width: 50%"></div>
                   </div>
-                </li>
+                </li> -->
                 <li>
                   <a href>Settings</a>
                 </li>
@@ -213,13 +218,6 @@
               <ul class="nav">
                 <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
                   <span>Navigation</span>
-                </li>
-
-                <li>
-                  <a href="">
-                    <i class="glyphicon glyphicon-stats icon text-info-lter"></i>
-                    <span class="font-bold">Dashboard</span>
-                  </a>
                 </li>
                 <% if current_user.role != 'accountant' %>
                   <li>
@@ -579,14 +577,16 @@
                         <span>New Category</span>
                       <% end %>
                     </li>
-                    <li>
-                      <%= link_to(new_item_path) do %>
-                        <span>New Item</span>
-                      <% end %>
-                    </li>
+                    
                     <li>
                       <%= link_to(items_path) do %>
                         <span>All Item</span>
+                      <% end %>
+                    </li>
+                    
+                    <li>
+                      <%= link_to(add_stock_items_path) do %>
+                        <span>Add Stock</span>
                       <% end %>
                     </li>
                     <li>
@@ -594,16 +594,8 @@
                         <span>New package</span>
                       <% end %>
                     </li>
-                    <li>
-                      <%= link_to(packages_path) do %>
-                        <span>All package</span>
-                      <% end %>
-                    </li>
-                    <li>
-                      <%= link_to(new_invoice_path) do %>
-                        <span>New invoice</span>
-                      <% end %>
-                    </li>
+                    
+                    
                     <li>
                       <%= link_to(invoices_path) do %>
                         <span>All invoices</span>
@@ -813,11 +805,11 @@
                     </li>
                   </ul>
                 </li> -->
-
+<!-- 
                 <li class="line dk hidden-folded"></li>
                 <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">          
                   <span>Your Stuff</span>
-                </li>  
+                </li>   -->
 
                 
 
@@ -840,7 +832,8 @@
           <!-- nav -->
 
           <!-- aside footer -->
-          <div class="wrapper m-t">
+<!--           <div class="wrapper m-t">
+          <! <div class="wrapper m-t">
             <div class="text-center-folded">
               <span class="pull-right pull-none-folded">60%</span>
               <span class="hidden-folded">Milestone</span>
@@ -857,7 +850,7 @@
               <div class="progress-bar progress-bar-primary" style="width: 35%;">
               </div>
             </div>
-          </div>
+          </div> -->
           <!-- / aside footer -->
         </div>
       </div>
@@ -905,4 +898,32 @@
    $(".datepicker").datepicker();
    // $(".datepicker").datepicker();
 </script>
+
+<script type="text/javascript">
+$(document).ready(function () {
+  //called when key is pressed in textbox
+  $(".float").keypress(function (e) {
+     //if the letter is not digit then display error and don't type anything
+     if (e.which != 8 && e.which != 0  && (e.which < 46 || e.which > 57)) {
+        //display error message
+        $("#errmsg").html("Digits Only").show().fadeOut("slow");
+               return false;
+    }
+   });
+});
+</script>
+<script type="text/javascript">
+$(document).ready(function () {
+  //called when key is pressed in textbox
+  $(".numeric").keypress(function (e) {
+     //if the letter is not digit then display error and don't type anything
+     if (e.which != 8 && e.which != 0  && (e.which < 46 || e.which > 57)) {
+        //display error message
+        $("#errmsg").html("Digits Only").show().fadeOut("slow");
+               return false;
+    }
+   });
+});
+</script>
+
 </html>

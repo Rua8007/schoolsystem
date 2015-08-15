@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     collection do
       get "items_data"
       post "invoicing"
+      get "student_data"
     end
   end
 
@@ -24,9 +25,21 @@ Rails.application.routes.draw do
       get "items_data"
     end
   end
-  resources :items
+
+  resources :items do
+    collection do
+      get 'add_stock'
+      get 'adding_stock'
+      get 'get_item'
+    end
+  end
+  
   resources :shopcategories
-  resources :transportfeerecords 
+  resources :transportfeerecords do
+    collection do
+      get 'fee_data'
+    end
+  end
   resources :year_plans do
     member do
       get 'show_schedule'

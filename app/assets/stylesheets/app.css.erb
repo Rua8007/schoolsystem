@@ -2980,6 +2980,8 @@ fieldset[disabled] .i-checks input + i:before {
 .bg-light {
   color: #58666e;
   background-color: #edf1f2;
+  margin-top: 25px;
+  
 }
 
 .bg-light.lt,
@@ -5220,4 +5222,11 @@ a.text-#000000:hover {
   99.9% {
     background-color: #7266ba;
   }
+}
+
+@media print { 
+ /* All your print styles go here */
+ .btn{
+  display: none;
+ } 
 }

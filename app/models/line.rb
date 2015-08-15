@@ -1,4 +1,5 @@
 class Line < ActiveRecord::Base
-	has_many :items
-	belongs_to :invoice   
+	belongs_to :package
+	belongs_to :invoice 
+	belongs_to :item
 end

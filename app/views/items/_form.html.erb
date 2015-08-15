@@ -31,8 +31,6 @@
     </div>
   <% end %>
 
-  
-
 <div class="container form-holder">
         <div class="row">
         <br>
@@ -77,7 +75,7 @@
                   <div class="form-group ">
                     <div class="field">
                       <%= f.label :price %><br>
-                      <%= f.text_field :price ,:style => 'height:34px;',  class: 'form-control' , required: true, autofocus: true %>
+                      <%= f.text_field :price ,:style => 'height:34px;',  class: 'form-control' , required: true %>
                     </div>
                   </div>
                 </div>
@@ -94,16 +92,8 @@
                 <div class="column col-xs-12 col-sm-6">
                   <div class="form-group ">
                     <div class="field">
-                      <%= f.label :sold %><br>
-                      <%= f.number_field :sold, :style => 'height:34px;',  class: 'form-control' , required: true, autofocus: true %>
-                    </div>
-                  </div>
-                </div>
-                <div class="column col-xs-12 col-sm-6">
-                  <div class="form-group ">
-                    <div class="field">
-                      <%= f.label :left %><br>
-                      <%= f.number_field :left ,:style => 'height:34px;',  class: 'form-control' , required: true, autofocus: true %>
+                      <%= f.label :purchase_price %><br>
+                      <%= f.number_field :purchase, :style => 'height:34px;',  class: 'form-control' , required: true %>
                     </div>
                   </div>
                 </div>

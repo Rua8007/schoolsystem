@@ -1,0 +1,86 @@
+<style type="text/css">
+  .container{
+      width: auto;
+  }
+
+  .sss{
+    border:1px solid#e5e5e5;    
+  }
+
+  .lll{
+    width: auto !important; 
+    background-color: white;
+    padding-right: 16px;
+    padding-left: 15px;
+    border: 1px solid;
+    border-color: #729F32;
+    border-radius: 21px;
+  }
+</style>
+
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Add Stock</h1>
+</div>
+
+
+<%= form_tag 'adding_stock', method: :get do %>
+
+  <div class="container form-holder">
+        <div class="row">
+        <br>
+          <fieldset class="sss well well-lg">
+             <legend class="lll">Stock Information</legend>
+                  <div class = "row">
+                      <div class = "col-md-6">
+                            <div class="form-group ">
+                          		<label>Item Code</label>
+                          		<%= text_field_tag :code ,'', {:style => 'height:34px; width:40%;',  class: 'form-control'} %>
+                          		<span style = "color: red" id = "error" class="hidden">Invalid Item Code...!!! </span>
+                          	</div>
+                      </div>
+                      <div class = "col-md-6">
+                          	<div class="form-group  ">
+                          		<label>Quantity</label>
+                          		<%= text_field_tag :qty ,'', {:style => 'height:34px; width:40%;',  class: 'form-control'} %>
+                          	</div>
+                      </div>
+
+          </fieldset>
+        </div>
+    </div>
+                          <div class="actions">
+                          	<div><%= submit_tag 'Save', :class => 'btn btn-block btn-success form-control',:style=>'width:24%;float: right;' , required: true%></div>
+                          </div>
+<% end %>
+
+<script type="text/javascript">
+  $("#code").blur(function (e){
+    console.log("here i am");
+    $.get("/items/get_item", {item_id: $("#code").val()},function(data){
+    	console.log(data[0].details);
+      if(!data[0].details)
+      {
+        $("#code").val('');
+        $("#error").removeClass('hidden');
+      }
+      else{
+        var item = data[0].details;
+        $("#error").addClass('hidden');       
+      }
+    });
+  });
+</script>
+
+
+<style type="text/css">
+  .form-holder .col-sm-2 {
+    min-height: 84px;
+  }
+  .form-holder .form-control{
+    width: 65%;
+  }
+  .form-control{
+    border-radius: 7px;
+    border: black;
+  }
+</style>
