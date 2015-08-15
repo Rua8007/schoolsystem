@@ -36,12 +36,22 @@ class InvoicesController < ApplicationController
     inv.save
     items.each do |item|
       itm = Item.find_by_code(item[1]['code'])
-      if itm.blank?
+      if itm.nil?
         package = Package.find_by_code(item[1]['code'])
+        puts "---"*80
+        puts package.packageitems.inspect
+        puts "---"*80
         package.packageitems.each do |it|
-          it.sold = it.sold + item[1]['qty'].to_i
-          it.left = it.left - item[1]['qty'].to_i
-          it.save
+          p_item = it.item
+          puts "---"*80
+          puts it.inspect
+          puts "---"*80
+          p_item.sold = p_item.sold + item[1]['qty'].to_i
+          p_item.left = p_item.left - item[1]['qty'].to_i
+          p_item.save
+          puts "---"*80
+          puts it.inspect
+          puts "---"*80
         end
         temp = inv.lines.create
         temp.package_id = package.id

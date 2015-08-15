@@ -26,9 +26,12 @@
 <table class="table" id="example">
   <thead class= "table-head">
     <tr>
-      <th>Booknum</th>
+      <th>Date</th>
       <th>Student</th>
+      <th>Grade</th>
+      <th>Sub Total</th>
       <th>Discount</th>
+      <th>Grand Total</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -36,9 +39,13 @@
   <tbody>
     <% @invoices.each do |invoice| %>
       <tr>
-        <td><%= invoice.booknum %></td>
-        <td><%= invoice.student_id %></td>
+        <td><%= invoice.created_at.strftime("%m/%d/%Y") %></td>
+        <td><%= invoice.student.fullname %></td>
+        <td><%= invoice.student.grade.full_name %></td>
+        <% subtotal = invoice.lines.sum('quantity * price') %>
+        <td><%= subtotal %></td>
         <td><%= invoice.discount %></td>
+        <td><%= subtotal - invoice.discount %></td>
         <td><%= link_to '', invoice,:class =>  'glyphicon glyphicon-ok-circle' %>
         <%= link_to '', invoice, method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'glyphicon glyphicon-remove-circle'%>
         </td>
