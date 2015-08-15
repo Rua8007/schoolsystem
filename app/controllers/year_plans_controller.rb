@@ -93,6 +93,47 @@ class YearPlansController < ApplicationController
     end
   end
 
+  def weekly_schedule
+    @year_plan = YearPlan.find(params[:id])
+    @weeks = @year_plan.weeks.sort_by &:start_date
+    @grades = Grade.all
+  end
+
+  def show_weekly_schedule
+    # return render json: params.inspect
+    @year_plan = YearPlan.find(params[:id])
+    @grade = Grade.find(params[:grade_id])
+    @week = Week.find(params[:week_id])
+    @results = []
+    @weekends = Weekend.all
+    Date::DAYNAMES.each_with_index do |day,i|
+      if @weekends.find{ |w| w.weekend_day == i}.nil?
+        result_day = {}
+
+        schedules = GradeSubject.where("grade_id = ? AND week_id =  ? AND dayname = ?",params[:grade_id],params[:week_id], "day_"+i.to_s).all
+        subjects = []
+        schedules.each do |schedule|
+          subject = {}
+          subject.store("subject",schedule.subject.name)
+          subject.store("cw",schedule.classwork)
+          subject.store("hw",schedule.homework)
+          # puts "--------"*100
+          subjects << subject
+          # puts "*********************************"
+        end
+
+        if schedules.present?
+          result_day.store(day.to_s,subjects)
+        end
+        # puts
+
+        @results << result_day
+      end
+    end
+    puts "--------"*100
+    puts @results.inspect
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_year_plan

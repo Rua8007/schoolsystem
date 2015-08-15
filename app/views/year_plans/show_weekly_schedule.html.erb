@@ -1,0 +1,43 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h3 class="m-n text-center">WEEKLY PLANS</h3>
+  <h4 class="m-n text-center">
+  SY: <%= "#{@year_plan.year_name}" %> <br/><br/>
+  <%= "Grade: #{@grade.full_name} " %>&nbsp;&nbsp;&nbsp;&nbsp;<%= "From: #{@week.start_date.strftime("%d-%m-%Y")}" %>&nbsp;&nbsp;<%= "To: #{@week.end_date.strftime("%d-%m-%Y")}" %> 
+  </h4>
+</div>
+
+<div class="wrapper-md">
+  <table class="table table-striped">
+    <thead class="table-head">
+      <th></th>
+      <th class="text-center">Subject</th>
+      <th class="text-center">Class work</th>
+      <th class="text-center">Home work</th>
+    </thead>
+    <tbody>
+      <% @results.each do |res| %>
+        <% Date::DAYNAMES.each_with_index do |day,i| %>
+          <% if @weekends.find{ |w| w.weekend_day == i}.nil? %>
+            <% if res[day].present? %>
+              <% res[day].each_with_index do |row,j| %>
+                <tr>
+                  <% if j == 0 %>
+                    <td rowspan="<%= res[day].count %>" class="text-center"><strong> <%= day %></strong> </td>
+                  <% end %>
+                  <td class="text-center"><%= row["subject"] %></td>
+                  <td class="text-center"><%= row["cw"] %></td>
+                  <td class="text-center"><%= row["hw"] %></td>
+                </tr>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+        <!-- <tr>
+            <td colspan=3>
+                <div>12 Sales Total; 4 March, 3 April, 12 July, 14 August</div>
+            </td>
+        </tr> -->
+    </tbody>
+  </table>
+</div>

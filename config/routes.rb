@@ -30,6 +30,8 @@ Rails.application.routes.draw do
   resources :year_plans do
     member do
       get 'show_schedule'
+      get 'weekly_schedule'
+      get 'show_weekly_schedule'
     end
     resources :weeks do
       collection do 
