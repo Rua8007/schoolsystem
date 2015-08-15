@@ -67,6 +67,7 @@
         <!-- / search form -->
 
         <!-- nabar right -->
+        <% if current_user %>
         <ul class="nav navbar-nav navbar-right">          
           <!-- <li class="dropdown">
 
@@ -116,6 +117,7 @@
                 <span class="hidden-sm hidden-md" style="color:white;"><%= current_user.email %></span> <b class="caret" style="color:white;"></b>
                 <% end %>
             </a>
+
             <!-- dropdown -->
             <ul class="dropdown-menu animated fadeInRight w">
               <!-- <li class="wrapper b-b m-b-sm bg-light m-t-n-xs">
@@ -149,6 +151,7 @@
             <!-- / dropdown -->
           </li>
         </ul>
+        <%end%>
         <!-- / navbar right -->
       </div>
       <!-- / navbar collapse -->
@@ -870,7 +873,7 @@
     app.settings.asideDock = false;
   "> -->
  <!-- main -->
- <%= render partial: 'partials/flash_message' %>
+ <div style=" margin-top:20px;"><%= render partial: 'partials/flash_message' %></div>
 
   <%= yield %>
 </div>
