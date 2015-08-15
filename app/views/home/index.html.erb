@@ -147,7 +147,7 @@
   </ol>
 
   <!-- Wrapper for slides -->
-  <div class="carousel-inner" role="listbox" style=" margin-top:70px; max-height:500px;">
+  <div class="carousel-inner" role="listbox" style=" margin-top:30px; max-height:300px;">
     <div class="item active">
       <%= image_tag asset_path("a.jpeg"), alt: ".", class: 'img-responsive', style: "padding-left:10px;"%>
     </div>
@@ -169,6 +169,14 @@
     <span class="sr-only">Next</span>
   </a>
 </div>
+  <div id='calendar' class="ui-widget" ></div>
+
+
+  <style type="text/css">
+.ui-widget { font-family: Lucida Grande, Lucida Sans, Arial, sans-serif; font-size: 0.8em; }
+
+  </style>
+
       <!-- / service -->
 
       <!-- tasks -->
@@ -599,3 +607,16 @@
 
 <!--   </div> -->
   <!-- / right col -->
+  <script type="text/javascript">
+
+$(document).ready(function() {
+
+    // page is now ready, initialize the calendar...
+
+    $('#calendar').fullCalendar({
+        // put your options and callbacks here
+    })
+
+});
+
+</script

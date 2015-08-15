@@ -1,5 +1,5 @@
 class TransportfeerecordsController < ApplicationController
-  # before_action :set_transportfeerecord, only: [:show, :edit, :update, :destroy]
+  before_action :set_transportfeerecord, only: [:show, :edit, :update, :destroy]
 
   # GET /transportfeerecords
   # GET /transportfeerecords.json
