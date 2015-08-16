@@ -47,8 +47,13 @@ class StudentsController < ApplicationController
     puts params
     puts "-"*80
 
-    @student = Student.find(params[:id])
+
     if params[:fee]
+      if Student.find_by_id(params[:id]).present?
+        @student = Student.find_by_id(params[:id])
+      else
+        @student = nil
+      end
       respond_to do |format|
         format.json {render json: @student}
       end
