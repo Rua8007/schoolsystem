@@ -1,14 +1,15 @@
 
 
 <div class="bg-light lter b-b wrapper-md">
-  <h1 class="m-n font-thin h3">Categories  </h1>
+  <h1 class="m-n font-thin h3">Categories
+  <a href="<%= new_shopcategory_path %>" class="btn pull-right btn-color" style="width:200px;">Add a new Category</a></h1>
 </div>
 
 <table class="table" id="example">
   <thead>
     <tr>
       <th>Name</th>
-      <th colspan="3"></th>
+      <th colspan="3">Actions</th>
     </tr>
   </thead>
 
@@ -16,9 +17,10 @@
     <% @shopcategories.each do |shopcategory| %>
       <tr>
         <td><%= shopcategory.name %></td>
-        <td><%= link_to 'Show', shopcategory %></td>
-        <td><%= link_to 'Edit', edit_shopcategory_path(shopcategory) %></td>
-        <td><%= link_to 'Destroy', shopcategory, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to '', shopcategory,:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
+            <%= link_to '', edit_shopcategory_path(shopcategory),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
+            <%= link_to '', shopcategory, method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
+        </td>
       </tr>
     <% end %>
   </tbody>
@@ -26,6 +28,5 @@
 
 <br>
 
-<%= link_to 'New category', new_shopcategory_path %>
 
 

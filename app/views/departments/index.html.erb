@@ -3,7 +3,7 @@
 
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3">Manage Departments 
-  <%= link_to(new_department_path, class: "btn m-b-xs btn-sm btn-primary btn-addon pull-right" ) do %>
+  <%= link_to(new_department_path, class: "btn pull-right btn-color" ,style: "width:200px;") do %>
     <i class="fa fa-plus"></i>
     New Department
   <% end %>
@@ -17,7 +17,7 @@
       <tr>
         <th>Code</th>
         <th>Name</th>
-        <th colspan="2"></th>
+        <th>Actions</th>
       </tr>
     </thead>
 
@@ -26,8 +26,10 @@
         <tr>
           <td><%= department.code %></td>
           <td><%= department.name %></td>
-          <td><%= link_to 'Edit', edit_department_path(department), class: "btn btn-small btn-default" %></td>
-          <td><%= link_to 'Delete', department, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-small btn-danger" %></td>
+          <td><%= link_to '', department,:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
+              <%= link_to '', edit_department_path(department),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
+              <%= link_to '', department, method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
+          </td> 
         </tr>
       <% end %>
     </tbody>

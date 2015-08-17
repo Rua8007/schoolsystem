@@ -15,7 +15,8 @@
 </script>
 
 <div class="bg-light lter b-b wrapper-md">
-  <h1 class="m-n font-thin h3"> Classes </h1>
+  <h1 class="m-n font-thin h3">Students
+  <a href="<%= new_grade_path %>" class="btn pull-right btn-color" style="width:200px;">Add a new Grade</a></h1>
 </div>
 <br><br>
 <table class="table" id="example">
@@ -36,10 +37,9 @@
         <td><%= grade.section %></td>
         <td><%= grade.batch.name %></td>
         <td><%= grade.students.count %></td>
-        <td>
-          <%= link_to '', grade ,:class =>  'glyphicon glyphicon-ok-circle' %>
-          <%= link_to '', edit_grade_path(grade),:class => 'glyphicon glyphicon-pencil' %>
-          <%= link_to '', grade, method: :delete, data: { confirm: 'Are you sure?' },:class =>  'glyphicon glyphicon-remove-circle' %>
+        <td><%= link_to '', grade,:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
+            <%= link_to '', edit_grade_path(grade),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
+            <%= link_to '', grade, method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
         </td>
       </tr>
     <% end %>
@@ -48,4 +48,3 @@
 
 <br>
 
-<%= link_to 'New Grade', new_grade_path %>

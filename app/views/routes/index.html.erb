@@ -20,7 +20,7 @@
 
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3">Routes
-  <a href="<%= new_route_path %>" class="btn pull-right" style="width:200px; background-color: #729F32; color:white">Add a new Route</a></h1>
+  <a href="<%= new_route_path %>" class="btn btn-color pull-right"  style="width:200px;">Add a new Route</a></h1>
 </div>
 
 
@@ -40,10 +40,9 @@
       <tr>
         <td><%= route.name %></td>
         <td><%= route.stops.count %></td>
-        <td>
-            <%= link_to '', route,:class =>  'glyphicon glyphicon-ok-circle' %>
-            <%= link_to '', edit_route_path(route),:class => 'glyphicon glyphicon-pencil' %>
-            <%= link_to '', route, method: :delete, data: { confirm: 'Are you sure?' },:class =>  'glyphicon glyphicon-remove-circle' %>
+        <td><%= link_to '', route,:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
+            <%= link_to '', edit_route_path(route),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
+            <%= link_to '', route, method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
         </td>
         <td><%= link_to 'Assign', new_transport_path(route_id: route.id),class:"btn btn-info " %></td>
       </tr>

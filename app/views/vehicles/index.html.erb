@@ -19,7 +19,7 @@
 </script>
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3">Vehicles
-  <a href="<%= new_vehicle_path %>" class="btn btn-info pull-right" style="width:200px;">Add Vehicle</a></h1>
+  <a href="<%= new_vehicle_path %>" class="btn btn-color pull-right" style="width:200px;">Add Vehicle</a></h1>
 </div>
 
 <table class="table" id="example">
@@ -48,11 +48,10 @@
         <td><%= vehicle.insurance %></td>
         <td><%= vehicle.tax %></td>
         <td><%= vehicle.permit %></td>
-        <td>  
-              <%= link_to '', vehicle,:class =>  'glyphicon glyphicon-ok-circle' %>
-              <%= link_to '', edit_vehicle_path(vehicle),:class => 'glyphicon glyphicon-pencil' %>
-              <%= link_to '', vehicle, method: :delete, data: { confirm: 'Are you sure?' },:class =>  'glyphicon glyphicon-remove-circle' %>
-        </td>
+        <td>  <%= link_to '', vehicle,:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
+              <%= link_to '', edit_vehicle_path(vehicle),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
+              <%= link_to '', vehicle, method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
+          </td>
       </tr>
     <% end %>
   </tbody>

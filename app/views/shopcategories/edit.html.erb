@@ -1,9 +1,8 @@
-
 <div class="bg-light lter b-b wrapper-md">
-  <h1 class="m-n font-thin h3">Edit Categories  </h1>
+  <h1 class="m-n font-thin h3">Editing Categories</h1>
 </div>
+<div class="wrapper-md">
+	<%= render 'form' %>
+</div>
+	<%= link_to 'Back', shopcategories_path ,class: "btn btn-color"%>
 
-<%= render 'form' %>
-
-<%= link_to 'Show', @shopcategory %> |
-<%= link_to 'Back', shopcategories_path %>

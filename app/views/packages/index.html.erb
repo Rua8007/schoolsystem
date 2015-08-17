@@ -20,7 +20,7 @@
 
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3">Packages
-  <a href="<%= new_package_path %>" class="btn btn-info pull-right" style="width:200px; background-color: #729F32; color:white">Add Package</a></h1>
+  <a href="<%= new_package_path %>" class="btn btn-color pull-right" style="width:200px; ">Add a new Package</a></h1>
 </div>
 
 <table class="table" id="example">
@@ -41,10 +41,9 @@
         <td><%= package.code %></td>
         <td><%= package.price %></td>
         <td><%= package.sold %></td>
-        <td><%= link_to '', package ,:class =>  'glyphicon glyphicon-ok-circle' %>
-           <%= link_to '', edit_package_path(package) ,:class => 'glyphicon glyphicon glyphicon-pencil'%>
-           <%= link_to '', package, method: :delete, data: { confirm: 'Are you sure?' },:class =>  'glyphicon glyphicon-remove-circle' %>
-        
+        <td><%= link_to '', package,:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
+            <%= link_to '', edit_package_path(package),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
+            <%= link_to '', package, method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
         </td>
       </tr>
     <% end %>

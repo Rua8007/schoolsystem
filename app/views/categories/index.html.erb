@@ -2,7 +2,7 @@
 
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3">Manage Categories 
-  <%= link_to(new_category_path, class: "btn m-b-xs btn-sm btn-primary btn-addon pull-right" ) do %>
+  <%= link_to(new_category_path, class: "btn pull-right btn-color" ,style: "width:200px;" ) do %>
     <i class="fa fa-plus"></i>
     New Category
   <% end %>
@@ -15,7 +15,7 @@
       <tr>
         <th>Name</th>
         <th>Prefix</th>
-        <th colspan="2"></th>
+        <th>Actions</th>
       </tr>
     </thead>
 
@@ -24,8 +24,10 @@
         <tr>
           <td><%= category.name %></td>
           <td><%= category.prefix %></td>
-          <td><%= link_to 'Edit', edit_category_path(category), class: "btn btn-small btn-default" %></td>
-          <td><%= link_to 'Delete', category, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-small btn-danger" %></td>
+          <td><%= link_to '', category,:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
+              <%= link_to '', edit_category_path(category),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
+              <%= link_to '', category, method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
+          </td> 
         </tr>
       <% end %>
     </tbody>

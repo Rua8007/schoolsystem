@@ -1,21 +1,109 @@
-<p id="notice"><%= notice %></p>
-
-<p>
+<!-- <p>
   <strong>Student:</strong>
-  <%= @fee.student_id %>
+  <%#= @fee.student.fullname %>
 </p>
 
 <p>
   <strong>Amount:</strong>
-  <%= @fee.amount %>
+  <%#= @fee.amount %>
 </p>
 
 <p>
-  <strong>User:</strong>
-  <%= @fee.user_id %>
+  <strong>Submitted By:</strong>
+  <%#= User.find(@fee.user_id).email %>
 </p>
 
 <p>
   <strong>Month:</strong>
-  <%= @fee.month %>
-</p>
+  <%#= @fee.month %>
+</p> -->
+
+
+<!-- ///////////////////////////////////// -->
+
+ <div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-thin h3">Fee Receipt </h1>
+  </div>
+
+    <link rel="stylesheet" href="style.css" media="all" />
+    <div class="clearfix">
+      <!-- <div id="logo">
+        <img src="logo.png">
+      </div> -->
+      <div id="company" class="col-md-12">
+	      <h2 class="name">Al Omam International school</h2>
+      	<div class="col-md-3">
+          <div>Tal Al Asfar, Ar Rihab, Jeddah 23345, Saudi Arabia</div>
+          <div>+966 12 674 1878</div>
+          <div><a href="http://www.alomam.edu.sa/">www.alomam.edu.sa/</a></div>
+        </div>
+        <div class="pull-right">
+          <h6>Receipt  ::  <%= @fee.id %></h6>
+          <div class="date">Date of Submission: <%= @fee.created_at.strftime("%m/%d/%Y")  %></div>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <main>
+      <div class="clearfix">
+        <div id="client" >
+          <h6><div class="to">Fee Submitted For:</div></h6>
+          <table class="table">
+                <tbody>
+                    <tr>
+                        <td class="student-profile-td">
+                            Student name
+                        </td>
+                        <td>
+                        <%= @fee.student.fullname %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="student-profile-td">
+                            Grade
+                        </td>
+                        <td>
+                        <%= @fee.student.grade.name %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="student-profile-td">
+                             Amount
+                        </td>
+                        <td>
+                        <%= @fee.amount %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="student-profile-td">
+                            Fee Submission Month
+                        </td>
+                        <td>
+                        <%= @fee.month %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="student-profile-td">
+                            Next Due Date
+                        </td>
+                        <td>
+                        <%= @fee.student.due_date.to_date.strftime("%m/%d/%Y") %>
+                        </td>
+                    </tr>
+                     <tr>
+                        <td class="student-profile-td">
+                            Contact
+                        </td>
+                        <td>
+                        <%= @fee.student.phone %>
+                        </td>
+                    </tr>
+                </tbody>
+          </table>
+        </div>
+        <div id="invoice">
+        </div>
+      </div>
+    </main>
+
+<button class="btn btn-success pull-right" onclick="window.print()">Print</button>

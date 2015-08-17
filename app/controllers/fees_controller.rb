@@ -35,15 +35,8 @@ class FeesController < ApplicationController
       student.due_date = (temp + 6.month).to_s
     end
     student.save
-    respond_to do |format|
-      if @fee.save
-        format.html { redirect_to @fee, notice: 'Fee was successfully created.' }
-        format.json { render :show, status: :created, location: @fee }
-      else
-        format.html { render :new }
-        format.json { render json: @fee.errors, status: :unprocessable_entity }
-      end
-    end
+    @fee.save
+    redirect_to fee_path(@fee.id), notice: "Fee Submitted Successfully"
   end
 
   # PATCH/PUT /fees/1

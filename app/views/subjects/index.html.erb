@@ -15,10 +15,10 @@
         <tr>
           <td><%= subject.name %></td>
           <td><%= subject.code %></td>
-          <td>
-            <%= link_to 'Show', subject %>
-            <%= link_to 'Edit', edit_subject_path(subject) %>
-            <%= link_to 'Delete', subject, method: :delete, data: { confirm: 'Are you sure?' } %>
+          <td><%= link_to '', subject,:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
+              <%= link_to '', edit_subject_path(subject),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
+              <%= link_to '', subject, method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
+             
           </td>
         </tr>
       <% end %>

@@ -1,15 +1,35 @@
+
+<%= stylesheet_link_tag "//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css" %>
+<%= javascript_include_tag "https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js" %>
+<%= javascript_include_tag "//cdn.datatables.net/tabletools/2.2.2/js/dataTables.tableTools.min.js" %>
+<%= javascript_include_tag "https://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js" %>
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    $('#example').dataTable({
+        dom: 'T<"clear">lfrtip',
+        tableTools: {
+            "sSwfPath": "https://cdn.datatables.net/tabletools/2.2.2/swf/copy_csv_xls_pdf.swf"
+        }
+    });
+
+
+
+  });
+
+</script>
+
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3">Employees 
-  <%= link_to(new_employee_path, class: "btn m-b-xs btn-sm btn-primary btn-addon pull-right" ) do %>
+  <%= link_to(new_employee_path, class: "btn pull-right btn-color" ,style: "width:200px;" ) do %>
     <i class="fa fa-plus"></i>
     New Employee
   <% end %>
   </h1>
 </div>
 
-<div class="wrapper-md">
-  <table class="table table-striped">
-    <thead>
+<table class="table" id="example">
+  <thead class= "table-head">
       <tr>
         <th>Employee name</th>
         <th>Employee number</th>
@@ -17,7 +37,7 @@
         <th>Employee Category</th>
         <th>Gender</th>
         <th>Employee Mob</th>
-        <th colspan="2"></th>
+        <th>Actions</th>
       </tr>
     </thead>
 
@@ -30,10 +50,11 @@
           <td><%= employee.try(:category).try(:name) %></td>
           <td><%= employee.gender %></td>
           <td><%= employee.mobile_number %></td>
-          <td><%= link_to 'Edit', edit_employee_path(employee), class: "btn btn-small btn-default" %></td>
-          <td><%= link_to 'Delete', employee, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-small btn-danger" %></td>
+          <td><%= link_to '', employee,:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
+              <%= link_to '', edit_employee_path(employee),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
+              <%= link_to '', employee, method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
+          </td> 
         </tr>
       <% end %>
     </tbody>
   </table>
-</div>

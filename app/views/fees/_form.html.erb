@@ -14,12 +14,13 @@
   <div class="form-group col-md-4">
     <label>Enter Student ID</label><br>
     <%= f.text_field :student_id , class: "form-control" %>
+    <span style = "color: red" id = "std_error" class="hidden">Invalid Student ID...!!! </span>
   </div>
   <div class= "form-group col-md-4">
     <label>Enter Amount</label><br>
-    <%= f.text_field :amount, class: "form-control", readonly: true %>
+    <%= f.text_field :amount, class: "form-control" %>
   </div>
-  <%= f.hidden_field :user_id, class: "form-control" %>
+  <%= f.hidden_field :user_id, value: current_user.id %>
 
   <div class="form-group col-md-4">
     <label for="exampleInputEmail1">Billing Month</label>
@@ -44,22 +45,30 @@
 
   $("#fee_student_id").blur(function(){
     // var id = $("#fee_student_id");
-    $.get('/students/detail', {id: 12, fee: true})
+    $.get('/students/detail', {id: $('#fee_student_id').val(), fee: true})
       .done(function(data){
-        var val = data.term;
-        console.log(val);
-        if(val == 'Monthly'){
-          $("#fee_amount").val(Math.round(data.fee)/12);
-          console.log
+        if(data != null){
+          $('#std_error').addClass('hidden');
+          var val = data.term;
+          console.log("done function", val);
+          if(val == 'Monthly'){
+            $("#fee_amount").val(Math.round(data.fee)/12);
+            console.log('here i am ');
+          }
+          if(val == 'Quarterly'){
+            $("#fee_amount").val(Math.round(data.fee)/4);
+          }
+          if(val == 'Bi-annualy'){
+            $("#fee_amount").val(Math.round(data.fee)/2);
+          }
+          if(val == 'Annualy'){
+            $("#fee_amount").val(data.fee);
+          }
         }
-        if(val == 'Quarterly'){
-          $("#fee_amount").val(Math.round(data.fee)/4);
-        }
-        if(val == 'Bi-annualy'){
-          $("#fee_amount").val(Math.round(data.fee)/2);
-        }
-        if(val == 'Annualy'){
-          $("#fee_amount").val(data.fee);
+        else{
+          $("#fee_amount").val('');
+          $('#fee_student_id').val('');
+          $('#std_error').removeClass('hidden');
         }
 
         });

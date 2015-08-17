@@ -1,152 +1,177 @@
-<p>
-  <strong>Employee number:</strong>
-  <%= @employee.employee_number %>
-</p>
 
-<p>
-  <strong>Date of joining:</strong>
-  <%= @employee.date_of_joining %>
-</p>
+<div class="abc" style="">
 
-<p>
-  <strong>Full name:</strong>
-  <%= @employee.full_name %>
-</p>
+    <div class="container" >
+      <div class="abc" style="">
 
-<p>
-  <strong>Gender:</strong>
-  <%= @employee.gender %>
-</p>
+    <div class="container" >
+  
+    <br>
+        <div class="col-sm-4">
+            <table class="table">
+                <tbody>
 
-<p>
-  <strong>Date of birth:</strong>
-  <%= @employee.date_of_birth %>
-</p>
 
-<p>
-  <strong>Religion:</strong>
-  <%= @employee.religion %>
-</p>
+              <tr>
+                <td>Employee number:</td>
+                <td><%= @employee.employee_number %></td>
+              </tr>
 
-<p>
-  <strong>Qualification:</strong>
-  <%= @employee.qualification %>
-</p>
+              <tr>
+                <td>Date of joining:</td>
+                <td><%= @employee.date_of_joining %></td>
+              </tr>
 
-<p>
-  <strong>Employee category:</strong>
-  <%= @employee.category_id %>
-</p>
+              <tr>
+                <td>Full name:</td>
+                <td><%= @employee.full_name %></td>
+              </tr>
 
-<p>
-  <strong>Employee department:</strong>
-  <%= @employee.department_id %>
-</p>
+              <tr>
+                <td>Gender:</td>
+                <td><%= @employee.gender %></td>
+              </tr>
 
-<p>
-  <strong>Marital status:</strong>
-  <%= @employee.marital_status %>
-</p>
+              <tr>
+                <td>Date of birth:</td>
+                <td><%= @employee.date_of_birth %></td>
+              </tr>
 
-<p>
-  <strong>Child count:</strong>
-  <%= @employee.child_count %>
-</p>
+              <tr>
+                <td>Religion:</td>
+                <td><%= @employee.religion %></td>
+              </tr>
 
-<p>
-  <strong>Father name:</strong>
-  <%= @employee.father_name %>
-</p>
+              <tr>
+                <td>Qualification:</td>
+                <td><%= @employee.qualification %></td>
+              </tr>
 
-<p>
-  <strong>Mother name:</strong>
-  <%= @employee.mother_name %>
-</p>
+              <tr>
+                <td>Employee category:</td>
+                <td><%= @employee.category.name %></td>
+              </tr>
 
-<p>
-  <strong>Spouse name:</strong>
-  <%= @employee.spouse_name %>
-</p>
+              <tr>
+                <td>Employee department:</td>
+                <td><%= @employee.department.name %></td>
+              </tr>
 
-<p>
-  <strong>Blood group:</strong>
-  <%= @employee.blood_group %>
-</p>
+              <tr>
+                <td>Marital status:</td>
+                <td><%= @employee.marital_status %></td>
+              </tr>
 
-<p>
-  <strong>Nationality:</strong>
-  <%= @employee.nationality %>
-</p>
+              <tr>
+                <td>Child count:</td>
+                <td><%= @employee.child_count %></td>
+              </tr>
 
-<p>
-  <strong>Id card no:</strong>
-  <%= @employee.id_card_no %>
-</p>
+              <tr>
+                <td>Father name:</td>
+                <td><%= @employee.father_name %></td>
+              </tr>
 
-<p>
-  <strong>Id card expiry:</strong>
-  <%= @employee.id_card_expiry %>
-</p>
+              <tr>
+                <td>Mother name:</td>
+                <td><%= @employee.mother_name %></td>
+              </tr>
 
-<p>
-  <strong>Address1:</strong>
-  <%= @employee.address1 %>
-</p>
+              <tr>
+                <td>Spouse name:</td>
+                <td><%= @employee.spouse_name %></td>
+              </tr>
 
-<p>
-  <strong>Address2:</strong>
-  <%= @employee.address2 %>
-</p>
+              <tr>
+                <td>Blood group:</td>
+                <td><%= @employee.blood_group %></td>
+              </tr>
 
-<p>
-  <strong>City:</strong>
-  <%= @employee.city %>
-</p>
+              <tr>
+                <td>Nationality:</td>
+                <td><%= @employee.nationality %></td>
+              </tr>
 
-<p>
-  <strong>Country:</strong>
-  <%= @employee.country %>
-</p>
+              <tr>
+                <td>Id card no:</td>
+                <td><%= @employee.id_card_no %></td>
+              </tr>
 
-<p>
-  <strong>Home phone:</strong>
-  <%= @employee.home_phone %>
-</p>
+              <tr>
+                <td>Id card expiry:</td>
+                <td><%= @employee.id_card_expiry %></td>
+              </tr>
 
-<p>
-  <strong>Mobile number:</strong>
-  <%= @employee.mobile_number %>
-</p>
+              <tr>
+                <td>Address1:</td>
+                <td><%= @employee.address1 %></td>
+              </tr>
 
-<p>
-  <strong>Email:</strong>
-  <%= @employee.email %>
-</p>
+              <tr>
+                <td>Address2:</td>
+                <td><%= @employee.address2 %></td>
+              </tr>
 
-<p>
-  <strong>Salary:</strong>
-  <%= @employee.salary %>
-</p>
+              <tr>
+                <td>City:</td>
+                <td><%= @employee.city %></td>
+              </tr>
 
-<p>
-  <strong>Employee position:</strong>
-  <%= @employee.position_id %>
-</p>
+              <tr>
+                <td>Country:</td>
+                <td><%= @employee.country %></td>
+              </tr>
 
-<p>
-  <strong>Status:</strong>
-  <%= @employee.status %>
-</p>
+              <tr>
+                <td>Home phone:</td>
+                <td><%= @employee.home_phone %></td>
+              </tr>
 
-<p>
-  <strong>Pay date:</strong>
-  <%= @employee.pay_date %>
-</p>
+              <tr>
+                <td>Mobile number:</td>
+                <td><%= @employee.mobile_number %></td>
+              </tr>
 
-<p>
-  <strong>Next due date:</strong>
-  <%= @employee.next_due_date %>
-</p>
+              <tr>
+                <td>Email:</td>
+                <td><%= @employee.email %></td>
+              </tr>
 
-<%= link_to 'Edit', edit_employee_path(@employee) %> |
-<%= link_to 'Back', employees_path %>
+              <tr>
+                <td>Salary:</td>
+                <td><%= @employee.salary %></td>
+              </tr>
+
+              <tr>
+                <td>Employee position:</td>
+                <td><%= @employee.position.name%></td>
+              </tr>
+
+              <tr>
+                <td>Status:</td>
+                <td><%= @employee.status %></td>
+              </tr>
+
+              <tr>
+                <td>Pay date:</td>
+                <td><%= @employee.pay_date %></td>
+              </tr>
+
+              <tr>
+                <td>Next due date:</td>
+                <td><%= @employee.next_due_date %></td>
+              </tr>
+
+
+                   
+                </tbody>
+            </table>
+            <td><%= link_to 'Back', employees_path,class: "btn btn-color" %></td>
+
+        </div>
+       </div>
+    </div>
+  </div>
+</div>
+
+

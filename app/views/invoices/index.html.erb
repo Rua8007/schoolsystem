@@ -20,7 +20,7 @@
 
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3">Invoices
-  <a href="<%= new_invoice_path %>" class="btn btn-info pull-right" style="width:200px; background-color: #729F32; color:white">New Invoice</a></h1>
+  <a href="<%= new_invoice_path %>" class="btn btn-color pull-right" style="width:200px;">New Invoice</a></h1>
 </div>
 
 <table class="table" id="example">
@@ -46,8 +46,9 @@
         <td><%= subtotal %></td>
         <td><%= invoice.discount %></td>
         <td><%= subtotal - invoice.discount %></td>
-        <td><%= link_to '', invoice,:class =>  'glyphicon glyphicon-ok-circle' %>
-        <%= link_to '', invoice, method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'glyphicon glyphicon-remove-circle'%>
+        <td><%= link_to '', invoice,:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
+        <%= link_to '', edit_invoice_path(invoice),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
+        <%= link_to '', invoice, method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
         </td>
       </tr>
     <% end %>

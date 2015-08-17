@@ -1,11 +1,33 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @route.name %>
-</p>
+<div class="abc" style="">
+
+    <div class="container" >
+      <div class="abc" style="">
+
+    <div class="container" >
+  
+    <br>
+        <div class="col-sm-4">
+            <table class="table">
+                <tbody>
 
 
+              
+              <tr>
+                <td>Route name</td>
+                <td><%= @route.name %></td>
+              </tr>
 
-<%= link_to 'Edit', edit_route_path(@route) %> |
-<%= link_to 'Back', routes_path %>
+
+                   
+                </tbody>
+            </table>
+            <td><%= link_to 'Back', routes_path,class: "btn btn-color" %></td>
+
+        </div>
+       </div>
+    </div>
+  </div>
+</div>
+
+

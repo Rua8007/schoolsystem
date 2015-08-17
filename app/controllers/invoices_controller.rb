@@ -120,10 +120,6 @@ class InvoicesController < ApplicationController
 
   def student_data
     if Student.find_by_id(params[:std_id]).present?
-      puts "a gay hai idhr to"
-      puts "a gay hai idhr to"
-      puts "a gay hai idhr to"
-      puts "a gay hai idhr to"
       student = Student.find(params[:std_id])
       @details = {fullname: student.fullname, parent: student.parent.name, contact: student.mobile, grade: student.grade.full_name}
     else
