@@ -44,10 +44,9 @@
         <td><%= transport.vehicle.vehicle_no %></td>
         <td><%= transport.departure %></td>
         <td><%= transport.arrival %></td>
-        <td>
-            <%= link_to '', transport,:class =>  'glyphicon glyphicon-ok-circle' %>
-            <%= link_to '', edit_transport_path(transport),:class => 'glyphicon glyphicon glyphicon-pencil' %>
-            <%= link_to '', transport, method: :delete, data: { confirm: 'Are you sure?' },:class =>  'glyphicon glyphicon-remove-circle' %>
+        <td><%= link_to '', transport,:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
+            <%= link_to '', edit_transport_path(transport),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
+            <%= link_to '', transport, method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
         </td>
       </tr>
     <% end %>

@@ -16,7 +16,7 @@
 </script>
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3">Bus Allotments Register
-  <a href="<%= new_transportfeerecord_path %>" class="btn btn-info pull-right" style="width:200px;">Add transport fee record</a></h1>
+  <a href="<%= new_transportfeerecord_path %>" class="btn btn-color pull-right" style="width:200px;">Add transport fee record</a></h1>
 </div>
 <table class="table" id="example">
   <thead class= "table-head">
@@ -47,11 +47,9 @@
         <td><%= transportfeerecord.bus_allotment.transport.vehicle.vehicle_no %></td>
         <td><%= transportfeerecord.bus_allotment.fee %></td>
         <td><%= transportfeerecord.created_at %></td>
-       
-        <td> 
-        <%= link_to '', edit_transportfeerecord_path(transportfeerecord),:class => 'glyphicon glyphicon glyphicon-pencil' %>
-        <%= link_to '', transportfeerecord, method: :delete, data: { confirm: 'Are you sure?' },:class =>  'glyphicon glyphicon-remove-circle' %>
-
+        <td><%= link_to '', transportfeerecord,:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
+            <%= link_to '', edit_transportfeerecord_path(transportfeerecord),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
+            <%= link_to '', transportfeerecord, method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
         </td>
       </tr>
     <% end %>
@@ -59,4 +57,13 @@
 </table>
 
 <br>
+<style type="text/css">
+  
+.bcc{
+  color :red;
+
+}
+
+.bdd{color:blue;}
+</style>
 

@@ -1,12 +1,12 @@
 <div class="bg-light lter b-b wrapper-md">
-  <h1 class="m-n font-thin h3">Batches  </h1>
+  <h1 class="m-n font-thin h3">Batches
+  <a href="<%= new_batch_path %>" class="btn pull-right btn-color" style="width:200px;">Add Batch</a></h1>
 </div>
-
 <table class="table" id="example">
   <thead>
     <tr>
       <th>Name</th>
-      <th colspan="3"></th>
+      <th>Actions</th>
     </tr>
   </thead>
 
@@ -14,9 +14,10 @@
     <% @batches.each do |batch| %>
       <tr>
         <td><%= batch.name %></td>
-        <td><%= link_to 'Show', batch %></td>
-        <td><%= link_to 'Edit', edit_batch_path(batch) %></td>
-        <td><%= link_to 'Delete', batch, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to '', batch,:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
+              <%= link_to '', edit_batch_path(batch),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
+              <%= link_to '', batch, method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
+          </td> 
       </tr>
     <% end %>
   </tbody>
@@ -24,4 +25,3 @@
 
 <br>
 
-<%= link_to 'New Batch', new_batch_path %>
