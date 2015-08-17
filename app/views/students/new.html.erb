@@ -138,76 +138,33 @@
 							</fieldset>     	
 	        		<fieldset class="sss well well-lg">
 	        			<legend class="lll">Medical Information</legend>
-	          		<div class="column col-xs-12 col-sm-2">
+	          		<div class="column col-xs-12 col-sm-3">
 	            		<div class="form-group">
 	              			<label for="exampleInputEmail1">Current Weight</label>
 	              			<%= std.text_field :weight , :style => 'height:34px;width: 100%',  class: 'form-control' %>
 	             		</div>
 	          		</div>
-	          		<div class="column col-xs-12 col-sm-2">
+	          		<div class="column col-xs-12 col-sm-3">
 	            		<div class="form-group">
 	              			<label for="exampleInputEmail1">Current Height</label>
 	              			<%= std.text_field :height , :style => 'height:34px;width: 100%',  class: 'form-control' %>
 	             		</div>
 	          		</div>
 
-	          		<div class="column col-xs-12 col-sm-2">
+	          		<div class="column col-xs-12 col-sm-3">
 	            		<div class="form-group">
 	              			<label for="exampleInputEmail1">Blood Group</label>
 	              			<%= std.select :blood, options_for_select(%w[Unknown A+ A- B+ B- O+ O- AB+ AB-]),{}, {class: "form-control", style:"width: 100%"} %>
 	            		</div>
 	          		</div>
-
-	          		<div class="column col-xs-12 col-sm-2">
-	            		<div class="form-group">
-	              			<label for="exampleInputEmail1">Eye Side</label>
-	              			<%= std.text_field :eyeside , :style => 'height:34px;width: 100%',  class: 'form-control' %>
-	             		</div>
-	          		</div>
-	          		<div class="column col-xs-12 col-sm-2">
-	            		<div class="form-group ">
-	              			<label for="exampleInputEmail1">Hearing</label>
-	              			<%= std.select :hearing, options_for_select(%w[Healthy Un-healthy]), {}, {class: "form-control", style: "width:100%" } %>
-	             		</div>
-	          		</div>
-	          		<div class="column col-xs-12 col-sm-2">
-	            		<div class="form-group">
-	              			<label for="exampleInputEmail1">RH-Factor</label>
-	              			<%= std.text_field :rh , :style => 'height:34px;width: 100%',  class: 'form-control'%>
-	             		</div>
-	          		</div>
-	          		<div class="column col-xs-12 col-sm-2">
-	            		<div class="form-group">
-	              			<label for="exampleInputEmail1">Alergy</label>
-	              			<%= std.text_field :alergy , :style => 'height:34px;width: 100%',  class: 'form-control' %>
-	             		</div>
-	          		</div>
-	          		<div class="column col-xs-12 col-sm-2">
-	            		<div class="form-group">
-	              			<label for="exampleInputEmail1">Neurology</label>
-	              			<%= std.text_field :nurology , :style => 'height:34px;width: 100%',  class: 'form-control' %>
-	             		</div>
-	          		</div>
-	          		<div class="column col-xs-12 col-sm-2">
-	            		<div class="form-group">
-	              			<label for="exampleInputEmail1">Physical Health</label>
-	              			<%= std.text_field :physical , :style => 'height:34px;width: 100%',  class: 'form-control' %>
-	             		</div>
-	          		</div>
-	          		<div class="column col-xs-12 col-sm-2">
+	          		<div class="column col-xs-12 col-sm-3">
 	            		<div class="form-group">
 	              			<label for="exampleInputEmail1">Disability</label>
 	              			<%= std.text_field :disability , :style => 'height:34px;width: 100%',  class: 'form-control' %>
 	             		</div>
 	          		</div>
 
-	          		<div class="column col-xs-12 col-sm-2">
-	            		<div class="form-group ">
-	              			<label for="exampleInputEmail1">Behavior</label>
-	              			<%= std.select :behaviour, options_for_select(%w[Emotional Physical]),{}, {class: "form-control" , style: "width:100%"} %>
-	             		</div>
-	          		</div>
-							</fieldset>
+					</fieldset>
 		        	<fieldset class="sss well well-lg">
 		        		<legend class="lll">Fee Details</legend>
 	          		<div class="column col-xs-12 col-sm-3">

@@ -29,6 +29,14 @@ class StudentsController < ApplicationController
     end
   end
 
+  def edit
+    @student = Student.find(params[:id])
+  end
+
+  def update
+    
+  end
+
   def assignParent
     # return render json: params
     std = Student.find(params[:id])
