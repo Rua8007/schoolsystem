@@ -95,10 +95,12 @@ class PeriodsController < ApplicationController
       end
       if success == true
         flash[:success] = "Successfully saved Time Tables"
+        redirect_to time_table_path(@time_table)
       else
+        @time_table.destroy
         flash[:alert] = "Number of periods should be same of each day! Try again."
+        redirect_to year_plans_path
       end
-      redirect_to time_table_path(@time_table)
     else
       flash[:alert] = "Time Table not found"
       redirect_to time_tables_path
