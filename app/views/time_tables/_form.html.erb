@@ -19,7 +19,7 @@
   <%= hidden_field_tag :grade, "#{@grade.id}" %>
 
   <div class="form-group">
-    Teacher<br>
+    Class Teacher<br>
     <%= f.select :employee_id, options_from_collection_for_select(@teachers,"id", "full_name"),{prompt: "Select Teacher"}, style: '', class: "form-control", required: true %>
    
   </div>

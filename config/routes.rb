@@ -2,7 +2,6 @@ Rails.application.routes.draw do
   resources :periods do
     collection do 
       get 'make_daily_schedule'
-
       post 'save_daily_schedule'
     end
   end
@@ -45,6 +44,9 @@ Rails.application.routes.draw do
       get 'show_schedule'
       get 'weekly_schedule'
       get 'show_weekly_schedule'
+      post 'update_weekly_schedule'
+      delete 'delete_weekly_schedule'
+
     end
     resources :weeks do
       collection do 

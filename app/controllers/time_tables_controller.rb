@@ -95,9 +95,10 @@ class TimeTablesController < ApplicationController
   # DELETE /time_tables/1
   # DELETE /time_tables/1.json
   def destroy
+    @time_table.periods.destroy_all
     @time_table.destroy
     respond_to do |format|
-      format.html { redirect_to time_tables_url, notice: 'Time table was successfully destroyed.' }
+      format.html { redirect_to year_plans_url, notice: 'Time table was successfully destroyed. Make a new one by selecting grade.' }
       format.json { head :no_content }
     end
   end

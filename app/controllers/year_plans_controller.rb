@@ -104,6 +104,7 @@ class YearPlansController < ApplicationController
     @year_plan = YearPlan.find(params[:id])
     @grade = Grade.find(params[:grade_id])
     @week = Week.find(params[:week_id])
+    @subjects = Subject.all
     @results = []
     @weekends = Weekend.all
     Date::DAYNAMES.each_with_index do |day,i|
@@ -117,6 +118,7 @@ class YearPlansController < ApplicationController
           subject.store("subject",schedule.subject.name)
           subject.store("cw",schedule.classwork)
           subject.store("hw",schedule.homework)
+          subject.store("id",schedule.id)
           # puts "--------"*100
           subjects << subject
           # puts "*********************************"
@@ -130,8 +132,55 @@ class YearPlansController < ApplicationController
         @results << result_day
       end
     end
-    puts "--------"*100
-    puts @results.inspect
+    # puts "--------"*100
+    # puts @results.inspect
+  end
+
+  def update_weekly_schedule
+    # return render json: params.inspect
+    week = GradeSubject.find(params[:week_id])
+    edited = false
+    if week.present?
+      subject = Subject.find(params[:subject])
+      if subject.present?
+        if week.subject_id != subject.id
+          week.subject_id = subject.id
+          edited = true
+        end
+        if params[:classwork] != week.classwork
+          week.classwork = params[:classwork]
+          edited = true
+        end
+        if params[:homework] != week.homework
+          week.homework = params[:homework]
+          edited = true
+        end
+        if edited
+          week.save!
+          flash[:success] = "successfully edited the week."
+        else
+          flash[:alert] = "No changes were made."
+        end
+
+      else
+        flash[:alert] = "Subject not found."
+      end
+    else
+      flash[:alert] = "Week not found."
+    end
+    redirect_to year_plans_path
+  end
+
+  def delete_weekly_schedule
+    # return render json: params.inspect
+    week = GradeSubject.find(params[:id])
+    if week.present?
+      week.destroy
+      flash[:success] = "successfully deleted the week."
+    else
+      flash[:alert] = "Week not found."
+    end
+    redirect_to year_plans_path
   end
 
   private
