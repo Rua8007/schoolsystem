@@ -31,6 +31,7 @@ class StudentsController < ApplicationController
 
   def edit
     @student = Student.find(params[:id])
+    @edit = true
   end
 
   def update

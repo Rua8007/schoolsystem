@@ -1,6 +1,181 @@
-<div>
-	<%= link_to "Edit Personal Information", '' %><br>
-	<%= link_to "Edit Parent Information", edit_parent_path(@student.parent.id) %><br>
-	<%= link_to "Edit Emergency Information", edit_emergency_path(@student.id) %><br>
-	<%= link_to "Edit Uploaded Documents", edit_document_path(@student.id) %>
+
+
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Edit Student  </h1>
 </div>
+<div class="wrapper-md">
+	<div class="col-md-12">
+		<%= render 'form' %>
+	</div>
+</div>
+
+<script>
+
+	$('#datetimepicker1').datepicker({
+		format: "mm-dd-yyyy",
+	    viewMode: "months", 
+	    minViewMode: "months"
+	});
+    // $("#student_dueDate").datepicker({ changeYear: true , changeMonth: true });
+    
+ //    $("#datepicker").blur(function(){
+ //    	alert("i am here");
+	//   	$.get('/students/validate_model', {email: this.value})
+ //  		.done(function(data){
+	//   		if (data)
+	//   		{
+	//   			$("#error_div").removeClass('hide');
+	//   			$("#error_text").html($("#email_field").val() + " email already registered!");
+	//   			$("#email_field").val('');
+	//   		}
+	//   		else
+	//   		{
+	//   			$("#error_div").addClass('hide');
+	//   		}
+	//   	})
+	// });
+
+ //  	$("#roll_Number").blur(function(){
+ //  		var grade = $("#grade").val();
+	//   	$.get('/students/validate_rollnum', {roll_Number: this.value, grade: grade})
+ //  		.done(function(data){
+	//   		if (data)
+	//   		{
+	//   			$("#error_div_rollnum").removeClass('hide');
+	//   			$("#error_text_rollnum").html($("#roll_Number").val() + " roll number already registered!");
+	//   			$("#roll_Number").val('');
+	//   		}
+	//   		else
+	//   		{
+	//   			$("#error_div_rollnum").addClass('hide');
+	//   		}
+	//   	});
+	// });
+///////////////////////////////////////////////
+
+
+  	$("#month_year").blur(function(){
+  		console.log($('#month_year').val())
+  		var CurrentDate = new Date($('#month_year').val());
+  		var val = $("#student_term").val();
+  		console.log(CurrentDate);
+  		if(val == 'Monthly'){
+  			$("#installment").val(Math.round(parseInt($("#student_fee").val())/12));
+  			CurrentDate.setMonth(CurrentDate.getMonth() + 2)
+  			if (CurrentDate.getMonth() == 0){
+  				CurrentDate.setMonth(1);
+  			}
+  			$("#duedate").val(CurrentDate.getFullYear()+'-'+CurrentDate.getMonth()+'-'+CurrentDate.getDate())
+  		}
+  		if(val == 'Quarterly'){
+  			$("#installment").val(Math.round(parseInt($("#student_fee").val())/4));
+  			CurrentDate.setMonth(CurrentDate.getMonth() + 4)
+  			if (CurrentDate.getMonth() == 0){
+  				CurrentDate.setMonth(1);
+  			}
+  			$("#duedate").val(CurrentDate.getFullYear()+'-'+CurrentDate.getMonth()+'-'+CurrentDate.getDate())
+  		}
+  		if(val == 'Bi-annualy'){
+  			$("#installment").val(Math.round(parseInt($("#student_fee").val())/2));
+  			CurrentDate.setMonth(CurrentDate.getMonth() + 7)
+  			if (CurrentDate.getMonth() == 0){
+  				CurrentDate.setMonth(1);
+  			}
+  			$("#duedate").val(CurrentDate.getFullYear()+'-'+CurrentDate.getMonth()+'-'+CurrentDate.getDate())
+  		}
+  		if(val == 'Annualy'){
+  			$("#installment").val(parseInt($("#student_fee").val()));
+  			CurrentDate.setMonth(CurrentDate.getMonth() + 12)
+				if (CurrentDate.getMonth() == 0){
+					CurrentDate.setMonth(1);
+				}
+  			$("#duedate").val(CurrentDate.getFullYear()+'-'+CurrentDate.getMonth()+'-'+CurrentDate.getDate())
+  		}
+
+  	});
+
+
+
+
+////////////////////////////////////////
+
+
+  	$("#student_term").change(function(){
+  		var CurrentDate = new Date($('#month_year').val());
+  		var val = $("#student_term").val();
+  		// console.log($('#month_year').val());
+  		if(val == 'Monthly'){
+  			$("#installment").val(Math.round(parseInt($("#student_fee").val())/12));
+  			CurrentDate.setMonth(CurrentDate.getMonth() + 2)
+  			if (CurrentDate.getMonth() == 0){
+  				console.log('yha hon',CurrentDate.getMonth());
+  				CurrentDate.setMonth(1);
+  			}
+  			$("#duedate").val(CurrentDate.getFullYear()+'-'+CurrentDate.getMonth()+'-'+CurrentDate.getDate())
+  		}
+  		if(val == 'Quarterly'){
+  			$("#installment").val(Math.round(parseInt($("#student_fee").val())/4));
+  			CurrentDate.setMonth(CurrentDate.getMonth() + 4)
+  			if (CurrentDate.getMonth() == 0){
+  				CurrentDate.setMonth(1);
+  			}
+  			$("#duedate").val(CurrentDate.getFullYear()+'-'+CurrentDate.getMonth()+'-'+CurrentDate.getDate())
+  		}
+  		if(val == 'Bi-annualy'){
+  			$("#installment").val(Math.round(parseInt($("#student_fee").val())/2));
+  			CurrentDate.setMonth(CurrentDate.getMonth() + 7)
+  			if (CurrentDate.getMonth() == 0){
+  				CurrentDate.setMonth(1);
+  			}
+  			$("#duedate").val(CurrentDate.getFullYear()+'-'+CurrentDate.getMonth()+'-'+CurrentDate.getDate())
+  		}
+  		if(val == 'Annualy'){
+  			$("#installment").val(parseInt($("#student_fee").val()));
+  			CurrentDate.setMonth(CurrentDate.getMonth() + 12)
+				if (CurrentDate.getMonth() == 0){
+					CurrentDate.setMonth(1);
+				}
+  			$("#duedate").val(CurrentDate.getFullYear()+'-'+CurrentDate.getMonth()+'-'+CurrentDate.getDate())
+  		}
+
+  	});
+
+  	$("#student_fee").blur(function(){
+
+  		var val = $("#student_term").val();
+  		console.log(val);
+  		if(val == 'Monthly'){
+  			var a = Math.round(parseInt($("#student_fee").val())/12);
+  			console.log(a);
+  			$("#installment").val(Math.round(parseInt($("#student_fee").val())/12));
+  		}
+  		if(val == 'Quarterly'){
+  			$("#installment").val(Math.round(parseInt($("#student_fee").val())/4));
+  		}
+  		if(val == 'Bi-annualy'){
+  			$("#installment").val(Math.round(parseInt($("#student_fee").val())/2));
+  		}
+  		if(val == 'Annualy'){
+  			$("#installment").val(parseInt($("#student_fee").val()));
+  		}
+
+  	});
+
+	// $("#grade").change(function(){
+ //  		$("#roll_Number").val('');
+	// });
+</script>
+
+<style type="text/css">
+	.form-holder .col-sm-2 {
+	  min-height: 84px;
+	}
+	.form-holder .form-control{
+		width: 65%;
+	}
+	.form-control{
+		border-radius: 7px;
+		border: black;
+	}
+</style>
+
