@@ -16,6 +16,10 @@ class EmergenciesController < ApplicationController
     redirect_to new_document_path(student_id: @student.id)
   end
 
+  def edit 
+    
+  end
+
 
   def show
   end

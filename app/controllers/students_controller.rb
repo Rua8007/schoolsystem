@@ -29,6 +29,34 @@ class StudentsController < ApplicationController
     end
   end
 
+  def edit
+    @student = Student.find(params[:id])
+    @edit = true
+
+  end
+
+  def update
+    @student = Student.find(params[:id])
+    if @student.update_attributes(student_params)
+      redirect_to students_path, notice: "Student Successfully updated"
+      # Handle a successful update.
+    else
+      render 'edit'
+    end
+  end
+
+    
+
+  def edit_student
+    @student = Student.find(params[:id])
+    @edit = true
+
+  end
+
+  
+
+  
+
   def assignParent
     # return render json: params
     std = Student.find(params[:id])
@@ -229,6 +257,10 @@ class StudentsController < ApplicationController
 	private
 
     def create_params
+      params.require(:student).permit(:fullname,:remote_image_url,:first_name, :mobile, :address, :email, :grade_id, :dob,:gender,:middle_name, :last_name, :blood, :birth_place, :nationality, :language, :religion, :city, :state, :country,:phone, :fee, :term, :due_date, :image,:iqamaNumber,:iqamaExpiry, :previousInstitute, :year, :totalMarks, :obtainedMarks, :forthname, :fifthname, :arabicname, :weight,:height,:eyeside,:hearing,:rh,:alergy,:nurology,:physical,:disability,:behaviour, emergencies_attributes:[:name, :phome, :mobile, :email, :student_id])      
+    end
+
+    def student_params
       params.require(:student).permit(:fullname,:remote_image_url,:first_name, :mobile, :address, :email, :grade_id, :dob,:gender,:middle_name, :last_name, :blood, :birth_place, :nationality, :language, :religion, :city, :state, :country,:phone, :fee, :term, :due_date, :image,:iqamaNumber,:iqamaExpiry, :previousInstitute, :year, :totalMarks, :obtainedMarks, :forthname, :fifthname, :arabicname, :weight,:height,:eyeside,:hearing,:rh,:alergy,:nurology,:physical,:disability,:behaviour, emergencies_attributes:[:name, :phome, :mobile, :email, :student_id])      
     end
 

@@ -25,6 +25,12 @@ class ParentsController < ApplicationController
   def edit
   end
 
+  def edit_parent
+    @parent = Parent.find(params[:id])
+    @edit = true
+    
+  end
+
   # POST /parents
   # POST /parents.json
   def create

@@ -26,7 +26,7 @@
                     
                     <tr>
                         <td class="student-profile-td">
-                            Student name
+                            Student Name
                         </td>
                         <td>
                         <%= @invoice.student.fullname %>
@@ -34,7 +34,7 @@
                     </tr>
                     <tr>
                         <td class="student-profile-td">
-                            grade
+                            Grade
                         </td>
                         <td>
                         <%= @invoice.student.grade.name %>
@@ -42,7 +42,7 @@
                     </tr>
                     <tr>
                         <td class="student-profile-td">
-                             email
+                             Email
                         </td>
                         <td>
                         <%= @invoice.student.email %>
@@ -50,7 +50,7 @@
                     </tr>
                     <tr>
                         <td class="student-profile-td">
-                            address
+                            Address
                         </td>
                         <td>
                         <%= @invoice.student.address %>
@@ -68,7 +68,7 @@
           </table>
         </div>
         <div id="invoice">
-          <h6>Invoice  :: <%= @invoice.booknum %></h6>
+          <h6>Invoice  :: <%= @invoice.id %></h6>
           <div class="date">Date of Invoice: <%= @invoice.created_at.strftime("%m/%d/%Y")  %></div>
         </div>
       </div>
