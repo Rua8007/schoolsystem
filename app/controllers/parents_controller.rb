@@ -30,6 +30,12 @@ class ParentsController < ApplicationController
   def create
     @parent = Parent.new(parent_params)
     if @parent.save
+      u = User.new
+      u.email = @parent.email
+      u.password = '123'
+      u.password_confirmation = '123'
+      u.role = 'parent'
+      u.save
       student = Student.find(params[:student_id])
       student.parent_id = @parent.id
       student.save

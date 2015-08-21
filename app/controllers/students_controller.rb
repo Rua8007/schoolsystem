@@ -11,6 +11,12 @@ class StudentsController < ApplicationController
   def create
     @student = Student.create(create_params)
     if @student
+      u = User.new
+      u.email = @student.email
+      u.password = '123'
+      u.password_confirmation = '123'
+      u.role = 'student'
+      u.save
       emergency = @student.emergencies.create
       emergency.name = params[:student][:emergency][:name]
       emergency.mobile = params[:student][:emergency][:mobile]

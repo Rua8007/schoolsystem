@@ -35,6 +35,12 @@ class EmployeesController < ApplicationController
 
     respond_to do |format|
       if @employee.save
+        u = User.new
+        u.email = @employee.email
+        u.password = '123'
+        u.password_confirmation = '123'
+        u.role = 'teacher'
+        u.save
         format.html { redirect_to employees_path, notice: 'Employee was successfully created.' }
         format.json { render :show, status: :created, location: @employee }
       else
