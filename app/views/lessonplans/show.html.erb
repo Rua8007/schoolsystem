@@ -1,0 +1,97 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">
+   
+  
+  <div class="abc form-holder">
+  <div class="text-center">
+      <%= "School Year: #{@lessonplan.year_plan.year_name} " %>
+    </div>
+  
+    <%= link_to(@lessonplan, method: :delete, class: 'btn m-b-xs btn-sm btn-danger btn-addon pull-right', data: { confirm: 'This will delete current whole lesson plan. Are you sure that you want to make a new one?' }) do %>
+
+      <i class="fa fa-plus"></i>
+        Remake Lesson Plan
+    <% end %>
+        <div class="row">
+          <fieldset class="sss well well-lg">
+            <legend class="lll">Lesson Plan Information</legend>
+              <div class="column col-xs-12 col-sm-3">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Class</label>
+                    <%= @lessonplan.grade.name %>
+                </div>
+              </div>
+              <div class="column col-xs-12 col-sm-3">
+                <div class="form-group">
+                <label for="exampleInputEmail1">Subject</label>
+                  <%= @lessonplan.subject.name %>
+                </div>
+              </div>
+              <div class="column col-xs-12 col-sm-3">
+                <div class="form-group">
+                <label for="exampleInputEmail1">Topic</label>
+                  <%= @lessonplan.topic %>
+                </div>
+              </div>
+              <div class="column col-xs-12 col-sm-3">
+                <div class="form-group">
+                <label for="exampleInputEmail1">Selection</label>
+                  <%= @lessonplan.selection %>
+                </div>
+              </div>
+              <div class="column col-xs-12 col-sm-3">
+                <div class="form-group">
+                <label for="exampleInputEmail1">Start date</label>
+                  <%= @lessonplan.startdate %>
+                </div>
+              </div>
+              <div class="column col-xs-12 col-sm-3">
+                <div class="form-group">
+                <label for="exampleInputEmail1">End date</label>
+                  <%= @lessonplan.enddate %>
+                </div>
+              </div>
+              <div class="column col-xs-12 col-sm-6">
+                <div class="form-group">
+                <label for="exampleInputEmail1">Students will engage in</label>
+                  <%= @lessonplan.studentengage %>
+                </div>
+              </div>
+              <div class="column col-xs-12 col-sm-12">
+                <div class="form-group">
+                <label for="exampleInputEmail1">New Vocabulary</label>
+                  <%= @lessonplan.newvocabulary %>
+                </div>
+              </div>
+              <div class="column col-xs-12 col-sm-12">
+                <div class="form-group">
+                <label for="exampleInputEmail1">Objectives</label>
+                  <%= @lessonplan.objectives %>
+                </div>
+              </div>
+          </fieldset>       
+        </div>
+      </div>
+</div>
+</h1>
+
+<div class="wrapper-md">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th class="text-center">Day</th>
+        <th class="text-center">Procedure</th>
+      </tr>
+    </thead>
+    <tbody class="text-center">
+      <% @lessonplan.lessonplan_details.each do |pd| %>
+        <tr>
+          <td><%= pd.period%></td>
+          <td><%= pd.procedure %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= link_to 'Back', year_plans_path %>

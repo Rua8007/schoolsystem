@@ -1,0 +1,41 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">
+  	<div class="text-center">
+  		<%= "School Year: #{@portion.year_plan.year_name} " %>
+  	</div>
+  
+  	<%= link_to(@portion, method: :delete, class: 'btn m-b-xs btn-sm btn-danger btn-addon pull-right', data: { confirm: 'This will delete current whole portion. Are you sure that you want to make a new one?' }) do %>
+
+  	<%#= link_to(new_employee_path, class: "btn m-b-xs btn-sm btn-primary btn-addon pull-right" ) do %>
+	    <i class="fa fa-plus"></i>
+	    	Remake Portion
+	  <% end %>
+  </h1>
+  <div class="text-center">
+  	<h3><%= @portion.quarter %></h3>
+  </div>
+</div>
+
+<div class="wrapper-md">
+  <table class="table table-striped">
+	  <thead>
+	    <tr>
+	      <th class="text-center">Subject</th>
+	      <th class="text-center">Portion</th>
+	      <th class="text-center">Note</th>
+	    </tr>
+	  </thead>
+	  <tbody class="text-center">
+  		<% @portion.portion_details.each do |pd| %>
+  			<tr>
+	  			<td><%= pd.subject.name %></td>
+	  			<td><%= pd.details %></td>
+	  			<td><%= pd.note %></td>
+	  		</tr>
+  		<% end %>
+  	</tbody>
+	</table>
+</div>
+
+<%= link_to 'Edit', edit_portion_path(@portion) %> |
+<%= link_to 'Back', portions_path %>

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :lessonplans
+  resources :portions
   resources :periods do
     collection do 
       get 'make_daily_schedule'
