@@ -32,15 +32,16 @@ class EmployeesController < ApplicationController
   # POST /employees.json
   def create
     @employee = Employee.new(employee_params)
-
     respond_to do |format|
       if @employee.save
-        u = User.new
-        u.email = @employee.email
-        u.password = '123'
-        u.password_confirmation = '123'
-        u.role = 'teacher'
-        u.save
+        if @employee.category.name == 'teacher'
+          u = User.new
+          u.email = @employee.email
+          u.password = '123'
+          u.password_confirmation = '123'
+          u.role = 'teacher'
+          u.save
+        end
         format.html { redirect_to employees_path, notice: 'Employee was successfully created.' }
         format.json { render :show, status: :created, location: @employee }
       else
