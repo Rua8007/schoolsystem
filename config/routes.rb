@@ -122,6 +122,9 @@ Rails.application.routes.draw do
     collection do
       get "parents_data"
     end
+    member do 
+      get "edit_parent"
+    end
   end
   devise_for :users
 
@@ -156,6 +159,7 @@ Rails.application.routes.draw do
   resources :students do
     member do
       post "assignParent"
+      get "edit_student"
     end
     collection do
       get "detail"

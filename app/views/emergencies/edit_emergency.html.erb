@@ -1,0 +1,45 @@
+<%= form_for @student do |std| %>
+
+<%= std.fields_for :emergency do |b| %>
+			  <fieldset class="sss well well-lg">
+        	<legend class="lll">Emergency Contact</legend>      
+			    <div class="column col-xs-12 col-md-3">
+			      <div class="form-group">
+			        <label for="exampleInputEmail1">Name</label>
+			        <%= b.text_field :name , :style => 'height:34px;width: 100%',  class: 'form-control', autofocus: true %>
+
+
+			       <%= b.hidden_field :student_id, value: @student.id %>
+			      </div>
+			    </div>
+
+			    <div class="column col-xs-12 col-md-3">
+			      <div class="form-group">
+			        <label for="exampleInputEmail1">Mobile</label>
+			        <%= b.text_field :mobile , :style => 'height:34px;width: 100%',  class: 'form-control', autofocus: true %>
+			      </div>
+			    </div>
+
+			    <div class="column col-xs-12 col-md-3">
+			      <div class="form-group">
+			        <label for="exampleInputEmail1">Phone</label>
+			        <%= b.text_field :phone , :style => 'height:34px;width: 100%',  class: 'form-control', autofocus: true %>
+			      </div>
+			    </div>
+
+			    <div class="column col-xs-12 col-md-3">
+			      <div class="form-group">
+			        <label for="exampleInputEmail1">E-mail Address</label>
+			        <%= b.text_field :email , :style => 'height:34px;width: 100%',  class: 'form-control', autofocus: true %>
+			      </div>
+			    </div>
+				</fieldset> 
+				<% end %>    	
+			  <% end %>
+          	</div>
+      	</div>  
+    </div>
+	<div class="form-group">
+		<%= std.submit "Parent Detail", :class => 'btn btn-block btn-success form-control',:style=>'width:24%;float: right;' %>
+	</div>	
+<% end %>
