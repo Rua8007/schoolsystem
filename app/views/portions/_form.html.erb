@@ -1,0 +1,125 @@
+<%= form_for(@portion) do |f| %>
+  <% if @portion.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@portion.errors.count, "error") %> prohibited this portion from being saved:</h2>
+
+      <ul>
+      <% @portion.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.number_field :year_plan_id, style: 'display:none' %>
+  </div>
+  <div class="text-center"><strong> Quarter</strong></div>
+  <div class="form-group">
+
+    <%= f.text_field :quarter, class: "form-control" %>
+  </div>
+
+  <div class="portion-detail-div">
+    <fieldset class="sss well well-lg">
+      <legend class="lll">Portion Details</legend>
+      <div class="column col-xs-12 col-sm-12">
+        <div class="form-group">
+          <span>Subject</span>
+          <%= select_tag "portion_detail_subjects[]", options_from_collection_for_select(@subjects,"id", "name"),prompt: "Select Subject", class: "form-control", required: true %>
+        </div>
+        <div class="form-group">
+          <span>Portion</span>
+          <%= text_area_tag "portion_detail_details[]", nil, placeholder: 'Write Portions Details here...',cols: 70, rows: 7, class: 'form-control', style: 'width:100%' %>
+        </div>
+        <div class="form-group">
+          <span>Note</span>
+          <%= text_area_tag "portion_detail_notes[]", nil, placeholder: 'Write note here...',cols: 70, rows: 7, class: 'form-control', style: 'width:100%' %>
+        </div>
+
+      </div>
+    </fieldset>
+  </div>
+
+  <%= link_to "Add Another Portion Detail","javascript:void(0);", class: "btn btn-default add-portion-detail" %>
+
+  <%= link_to "Remove Portion Detail","javascript:void(0);", class: "btn btn-danger rem-portion-detail" %>
+
+
+  <div class="form-group">
+    <%= f.submit "Save Portions", class: 'btn btn-success pull-right' %>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $(function() {
+      $(document).on('click','.add-portion-detail', function (e) {
+        e.preventDefault();
+
+        var portion_last = $(".portion-detail-div").last();
+
+        var html = "<div class='portion-detail-div'>"+$(".portion-detail-div").html()+"</div>";
+
+        $(html).insertAfter($(".portion-detail-div"));
+
+      });
+
+      $(document).on('click', '.rem-portion-detail', function (e) {
+        e.preventDefault(); 
+        if( $(".portion-detail-div").length > 1 ){
+          $(".portion-detail-div").last().remove();
+        }
+      });
+    });
+  });
+</script>
+
+
+
+
+
+<style type="text/css">
+  .container{
+      width: 1068px;
+  }
+
+  .sss{
+    border:1px solid#e5e5e5;   padding: 1%; 
+  }
+
+  .ttt{
+    border:1px solid green;   padding: 1%; 
+  }
+
+  .lll{
+    width: auto !important; 
+    background-color: white;
+    padding-right: 16px;
+    padding-left: 15px;
+    border: 1px solid;
+    border-color: blue;
+    border-radius: 21px;
+  }
+
+  .zzz{
+    width: auto !important; 
+    background-color: white;
+    padding-right: 16px;
+    padding-left: 15px;
+    border: 1px solid;
+    border-color: green;
+    border-radius: 21px;
+  }
+
+  .form-holder .col-sm-2 {
+    min-height: 84px;
+  }
+  .form-holder .form-control{
+    width: 65%;
+  }
+  .form-control{
+    border-radius: 7px;
+    border: black;
+  }
+</style>
