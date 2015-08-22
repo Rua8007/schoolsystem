@@ -1,0 +1,197 @@
+<%= form_for(@lessonplan) do |f| %>
+  <% if @lessonplan.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@lessonplan.errors.count, "error") %> prohibited this lessonplan from being saved:</h2>
+
+      <ul>
+      <% @lessonplan.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.number_field :year_plan_id, style: 'display:none' %>
+  </div>
+
+  <div class="abc form-holder">
+        <div class="row">
+          <fieldset class="sss well well-lg">
+            <legend class="lll">Lesson Plan Information</legend>
+              <div class="column col-xs-12 col-sm-3">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Class</label>
+                    <%= f.select :grade_id, options_from_collection_for_select(@grades,"id", "name"),{prompt: "Select Class"}, {class: 'form-control', required: true} %>
+                </div>
+              </div>
+              <div class="column col-xs-12 col-sm-3">
+                <div class="form-group">
+                <label for="exampleInputEmail1">Subject</label>
+                  <%= f.select :subject_id, options_from_collection_for_select(@subjects,"id", "name"),{prompt: "Select Subject"}, {class: 'form-control', required: true} %>
+                </div>
+              </div>
+              <div class="column col-xs-12 col-sm-3">
+                <div class="form-group">
+                <label for="exampleInputEmail1">Topic</label>
+                  <%= f.text_field :topic , :style => 'height:34px;width: 100%',  class: 'form-control', autofocus: true %>
+                </div>
+              </div>
+              <div class="column col-xs-12 col-sm-3">
+                <div class="form-group">
+                <label for="exampleInputEmail1">Selection</label>
+                  <%= f.text_field :selection , :style => 'height:34px;width: 100%',  class: 'form-control ', autofocus: true %>
+                </div>
+              </div>
+              <div class="column col-xs-12 col-sm-3">
+                <div class="form-group">
+                <label for="exampleInputEmail1">Start date</label>
+                  <%= f.text_field :startdate , :style => 'height:34px;width: 100%',  class: 'form-control datepicker', autofocus: true %>
+                </div>
+              </div>
+              <div class="column col-xs-12 col-sm-3">
+                <div class="form-group">
+                <label for="exampleInputEmail1">End date</label>
+                  <%= f.text_field :enddate , :style => 'height:34px;width: 100%',  class: 'form-control datepicker ', autofocus: true %>
+                </div>
+              </div>
+              <div class="column col-xs-12 col-sm-6">
+                <div class="form-group">
+                <label for="exampleInputEmail1">Students will engage in</label>
+                  <%= f.text_area :studentengage , :style => 'height:44px;width: 100%',  class: 'form-control ', autofocus: true %>
+                </div>
+              </div>
+              <div class="column col-xs-12 col-sm-12">
+                <div class="form-group">
+                <label for="exampleInputEmail1">New Vocabulary</label>
+                  <%= f.text_field :newvocabulary , :style => 'height:34px;width: 100%',  class: 'form-control ', autofocus: true %>
+                </div>
+              </div>
+              <div class="column col-xs-12 col-sm-12">
+                <div class="form-group">
+                <label for="exampleInputEmail1">Objectives</label>
+                  <%= f.text_area :objectives , placeholder: 'Write Objectives here...',cols: 70, rows: 7 ,class: 'form-control ', autofocus: true ,style: 'width:100%' %>
+                </div>
+              </div>
+          </fieldset>       
+        </div>
+      </div>
+
+  <div class="lessonplan-detail-div">
+    <fieldset class="sss well well-lg">
+      <legend class="lll">Lesson plan Details</legend>
+      <div class="column col-xs-12 col-sm-12">
+        <div class="form-group">
+          <span>Day</span>
+          <%= text_area_tag "lessonplan_detail_days[]", nil, placeholder: 'Write Periods here...',cols: 70, rows: 1, class: 'form-control', style: 'width:100%' %>
+        </div>
+        <div class="form-group">
+          <span>Procedures Followed</span>
+          <%= text_area_tag "lessonplan_detail_details[]", nil, placeholder: 'Write Procedures Details here...',cols: 70, rows: 7, class: 'form-control', style: 'width:100%' %>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+
+  <%= link_to "Add Another Lesson Plan Detail","javascript:void(0);", class: "btn btn-default add-lessonplan-detail" %>
+
+  <%= link_to "Remove Lesson Plan Detail","javascript:void(0);", class: "btn btn-danger rem-lessonplan-detail" %>
+
+
+  <div class="form-group">
+    <%= f.submit "Save Lesson Plan Details", class: 'btn btn-success pull-right' %>
+  </div>
+<% end %>
+
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $(function() {
+      $(document).on('click','.add-lessonplan-detail', function (e) {
+        e.preventDefault();
+
+        var portion_last = $(".lessonplan-detail-div").last();
+
+        var html = "<div class='lessonplan-detail-div'>"+$(".lessonplan-detail-div").html()+"</div>";
+
+        $(html).insertAfter($(".lessonplan-detail-div"));
+
+      });
+
+      $(document).on('click', '.rem-lessonplan-detail', function (e) {
+        e.preventDefault(); 
+        if( $(".lessonplan-detail-div").length > 1 ){
+          $(".lessonplan-detail-div").last().remove();
+        }
+      });
+    });
+  });
+</script>
+
+
+  
+
+ 
+
+
+
+
+
+
+<style type="text/css">
+  .form-holder .col-sm-2 {
+    min-height: 84px;
+  }
+  .form-holder .form-control{
+    width: 65%;
+  }
+  .form-control{
+    border-radius: 7px;
+    border: black;
+  }
+</style>
+
+<style type="text/css">
+  .container{
+      width: 1068px;
+  }
+
+  .sss{
+    border:1px solid#e5e5e5;   padding: 1%; 
+  }
+
+  .ttt{
+    border:1px solid green;   padding: 1%; 
+  }
+
+  .lll{
+    width: auto !important; 
+    background-color: white;
+    padding-right: 16px;
+    padding-left: 15px;
+    border: 1px solid;
+    border-color: blue;
+    border-radius: 21px;
+  }
+
+  .zzz{
+    width: auto !important; 
+    background-color: white;
+    padding-right: 16px;
+    padding-left: 15px;
+    border: 1px solid;
+    border-color: green;
+    border-radius: 21px;
+  }
+
+  .form-holder .col-sm-2 {
+    min-height: 84px;
+  }
+  .form-holder .form-control{
+    width: 65%;
+  }
+  .form-control{
+    border-radius: 7px;
+    border: black;
+  }
+</style>

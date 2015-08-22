@@ -1,6 +1,37 @@
-<div>
-	<%= link_to "Edit Personal Information", edit_student_path(@student.id) %><br>
-	<%= link_to "Edit Parent Information", edit_parent_path(@student.parent.id) %><br>
-	<%= link_to "Edit Emergency Information", edit_emergency_path(@student.id) %><br>
-	<%= link_to "Edit Uploaded Documents", edit_document_path(@student.id) %>
+
+
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Edit Details  </h1>
 </div>
+
+
+
+<div class="container form-holder">
+    <div class="row">
+    <br>
+      <fieldset class="sss well well-lg">
+         <legend class="lll">Edit Information</legend>
+         	<%= link_to "Edit Personal Information", edit_student_path(@student.id) %><br>
+		<%= link_to "Edit Parent Information", edit_parent_parent_path(@student.parent.id) %><br>
+		<%= link_to "Edit Emergency Information", edit_emergency_path(@student.id) %><br>
+		<%= link_to "Edit Uploaded Documents", edit_document_path(@student.id) %>
+              
+      </fieldset>
+    </div>
+</div>
+
+ 
+
+
+<style type="text/css">
+  .form-holder .col-sm-2 {
+    min-height: 84px;
+  }
+  .form-holder .form-control{
+    width: auto ;
+  }
+  .form-control{
+    border-radius: 7px;
+    border: black;
+  }
+</style>
