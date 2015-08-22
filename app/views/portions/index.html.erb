@@ -1,0 +1,53 @@
+
+
+<%= stylesheet_link_tag "//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css" %>
+<%= javascript_include_tag "https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js" %>
+<%= javascript_include_tag "//cdn.datatables.net/tabletools/2.2.2/js/dataTables.tableTools.min.js" %>
+<%= javascript_include_tag "https://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js" %>
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    $('#example').dataTable({
+        dom: 'T<"clear">lfrtip',
+        tableTools: {
+            "sSwfPath": "https://cdn.datatables.net/tabletools/2.2.2/swf/copy_csv_xls_pdf.swf"
+        }
+    });
+
+
+
+  });
+
+</script>
+
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Portions
+  <a href="<%= new_portion_path(year_plan: @year_plan) %>" class="btn btn-color pull-right" style="width:200px;">Add a new Portion</a></h1>
+  <br>
+</div>
+<br>
+<table class="table" id="example">
+  <thead class= "table-head">
+    <tr>
+      <th>Quarter</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @portions.each do |portion| %>
+      <tr>
+        <td><%= link_to "#{portion.quarter}", portion, class: 'color:blue' %></td>
+
+         <td> <%= link_to '', portion,:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
+            <%= link_to '', edit_portion_path(portion),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
+            <%= link_to '', portion, method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+

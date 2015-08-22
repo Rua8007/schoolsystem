@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150814064436) do
+ActiveRecord::Schema.define(version: 20150822095641) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -189,6 +189,30 @@ ActiveRecord::Schema.define(version: 20150814064436) do
     t.boolean  "approved",    default: false
   end
 
+  create_table "lessonplan_details", force: :cascade do |t|
+    t.integer  "subject_id"
+    t.integer  "lessonplan_id"
+    t.string   "period"
+    t.text     "procedure"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  create_table "lessonplans", force: :cascade do |t|
+    t.integer  "grade_id"
+    t.integer  "subject_id"
+    t.string   "topic"
+    t.string   "selection"
+    t.string   "startdate"
+    t.string   "enddate"
+    t.text     "studentengage"
+    t.text     "newvocabulary"
+    t.text     "objectives"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "year_plan_id"
+  end
+
   create_table "lines", force: :cascade do |t|
     t.integer  "item_id"
     t.integer  "invoice_id"
@@ -262,6 +286,22 @@ ActiveRecord::Schema.define(version: 20150814064436) do
     t.string   "day"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+  end
+
+  create_table "portion_details", force: :cascade do |t|
+    t.integer  "portion_id"
+    t.integer  "subject_id"
+    t.text     "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text     "details"
+  end
+
+  create_table "portions", force: :cascade do |t|
+    t.integer  "year_plan_id"
+    t.string   "quarter"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "positions", force: :cascade do |t|

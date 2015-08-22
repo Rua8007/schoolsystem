@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :lessonplans
+  resources :portions
   resources :periods do
     collection do 
       get 'make_daily_schedule'
@@ -60,6 +62,7 @@ Rails.application.routes.draw do
   resources :fees do
     collection do
       get "fee_data"
+      get 'fee_defaulter'
     end
   end
   resources :bus_allotments do
@@ -83,11 +86,6 @@ Rails.application.routes.draw do
   end
   resources :exams
   resources :student_holidays
-  resources :fees do
-    collection do
-      get 'fee_defaulter'
-    end
-  end
   resources :transports
   resources :routes
   resources :stops

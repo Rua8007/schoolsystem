@@ -1,0 +1,66 @@
+
+<%= stylesheet_link_tag "//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css" %>
+<%= javascript_include_tag "https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js" %>
+<%= javascript_include_tag "//cdn.datatables.net/tabletools/2.2.2/js/dataTables.tableTools.min.js" %>
+<%= javascript_include_tag "https://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js" %>
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    $('#example').dataTable({
+        dom: 'T<"clear">lfrtip',
+        tableTools: {
+            "sSwfPath": "https://cdn.datatables.net/tabletools/2.2.2/swf/copy_csv_xls_pdf.swf"
+        }
+    });
+
+
+
+  });
+
+</script>
+
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Lesson Plan
+  <a href="<%= new_lessonplan_path(year_plan: @year_plan) %>" class="btn btn-color pull-right" style="width:200px;">Add a new Lesson Plan</a></h1>
+  <br>
+</div>
+<br>
+<table class="table" id="example">
+  <thead class= "table-head">
+    <tr>
+      <th>Class</th>
+      <th>Subject</th>
+      <th>Topic</th>
+      <th>Selection</th>
+      <th>Startdate</th>
+      <th>Enddate</th>
+      <th>Students will engage in</th>
+      <th>New Vocabulary</th>
+      <th>Objectives</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @lessonplans.each do |lessonplan| %>
+      <tr>
+        <td><%= lessonplan.grade.name %></td>
+        <td><%= lessonplan.subject.name %></td>
+        <td><%= lessonplan.topic %></td>
+        <td><%= lessonplan.selection %></td>
+        <td><%= lessonplan.startdate %></td>
+        <td><%= lessonplan.enddate %></td>
+        <td><%= lessonplan.studentengage %></td>
+        <td><%= lessonplan.newvocabulary %></td>
+        <td><%= lessonplan.objectives %></td>
+        <td><%= link_to '', lessonplan,:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
+            <%= link_to '', edit_lessonplan_path(lessonplan),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
+            <%= link_to '', lessonplan, method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
