@@ -4,7 +4,12 @@ class BusAllotmentsController < ApplicationController
   # GET /bus_allotments
   # GET /bus_allotments.json
   def index
-    @bus_allotments = BusAllotment.all
+    if current_user.role == 'student'
+      @bus_allotments = Student.find_by_email(current_user.email).bus_allotment
+    else
+      @bus_allotments = BusAllotment.all
+    end
+    
   end
 
   # GET /bus_allotments/1

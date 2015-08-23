@@ -34,7 +34,7 @@ class EmployeesController < ApplicationController
     @employee = Employee.new(employee_params)
     respond_to do |format|
       if @employee.save
-        if @employee.category.name == 'teacher'
+        if @employee.category.name == 'Academic'
           u = User.new
           u.email = @employee.email
           u.password = '123'
@@ -195,7 +195,11 @@ class EmployeesController < ApplicationController
   end
 
   def monthly_attendance_report
-    @departments = Department.all
+    if current_user.role == 'teacher'
+      @departments = Department.where(id: Employee.find_by_email(current_user.email).department_id)
+    else
+      @departments = Department.all
+    end
   end
 
   def get_monthly_attendance_report_result
@@ -209,7 +213,28 @@ class EmployeesController < ApplicationController
         @department_name = department.name
         employees = department.employees
         @attendances = []
-        employees.each_with_index do |employee, i|
+        if current_user.role != 'teacher'
+          employees.each_with_index do |employee, i|
+            attendance = {}
+            attendance.store("name","#{employee.full_name}")
+            e_attendances = employee.employee_attendances.where("extract(month from attendance_date) = ? AND extract(year from attendance_date) = ?",month,year)
+            if i == 0
+              @total_working_days = e_attendances.count
+            end
+            e_attendances.each do |e_attendance|
+              if e_attendance.epresent == true
+                attendance.store("#{e_attendance.attendance_date.day}","P")
+              elsif e_attendance.eleave == true
+                attendance.store("#{e_attendance.attendance_date.day}","L")
+              else
+                attendance.store("#{e_attendance.attendance_date.day}","A")
+              end
+            end
+            @attendances << attendance
+          end
+        else
+          employee = Employee.find_by_email(current_user.email)
+          i = 0
           attendance = {}
           attendance.store("name","#{employee.full_name}")
           e_attendances = employee.employee_attendances.where("extract(month from attendance_date) = ? AND extract(year from attendance_date) = ?",month,year)
@@ -227,6 +252,7 @@ class EmployeesController < ApplicationController
           end
           @attendances << attendance
         end
+
       end
     end
     @month_year = params[:month_year]
