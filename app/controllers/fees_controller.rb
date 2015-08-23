@@ -4,7 +4,11 @@ class FeesController < ApplicationController
   # GET /fees
   # GET /fees.json
   def index
-    @fees = Fee.all
+    if current_user.role == 'student'
+      @fees = Student.find_by_email(current_user.email).fees.all
+    else
+      @fees = Fee.all
+    end
   end
 
   # GET /fees/1

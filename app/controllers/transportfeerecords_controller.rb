@@ -4,7 +4,11 @@ class TransportfeerecordsController < ApplicationController
   # GET /transportfeerecords
   # GET /transportfeerecords.json
   def index
-    @transportfeerecords = Transportfeerecord.all
+    if current_user.role == 'student'
+      @transportfeerecords = Student.find_by_email(current_user.email).bus_allotment.transportfeerecords.all
+    else
+      @transportfeerecords = Transportfeerecord.all
+    end
   end
 
   # GET /transportfeerecords/1
