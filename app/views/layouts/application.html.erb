@@ -110,7 +110,11 @@
           <li class="dropdown">
             <a href="#" data-toggle="dropdown" class="dropdown-toggle clear" data-toggle="dropdown">
               <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm">
-                <%= image_tag asset_path("img/a0.jpg"), alt: "..." %>
+                <% if current_user && current_user.role == 'student' %>
+                  <%= image_tag Student.find_by_email(current_user.email).image, alt: "..." %>
+                <% else %>
+                  <%= image_tag asset_path("img/a0.jpg"), alt: "..." %>
+                <% end %>
                 <i class="on md b-white bottom"></i>
               </span>
               <% if current_user %>
@@ -128,21 +132,26 @@
                   <div class="progress-bar progress-bar-info" data-toggle="tooltip" data-original-title="50%" style="width: 50%"></div>
                 </div>
               </li> -->
-              <li>
+              <!-- <li>
                 <a href>
                   <span class="badge bg-danger pull-right">30%</span>
                   <span>Settings</span>
                 </a>
-              </li>
+              </li> -->
               <li>
-                <a ui-sref="app.page.profile">Profile</a>
+                <% if current_user && current_user.role == 'student' %>
+                  <%= link_to "Profile", student_path(Student.find_by_email(current_user.email).id) %>
+
+                <% elsif current_user && current_user.role == 'teacher' %>
+                  <%= link_to "Profile", employee_path(Student.find_by_email(current_user.email).id) %>
+                <% end %>
               </li>
-              <li>
+              <!-- <li>
                 <a ui-sref="app.docs">
                   <span class="label bg-info pull-right">new</span>
                   Help
                 </a>
-              </li>
+              </li> -->
               <li class="divider"></li>
               <li>
                 <%= link_to "Logout", destroy_user_session_path, method: :delete %>
