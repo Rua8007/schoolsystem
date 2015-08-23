@@ -110,7 +110,11 @@
           <li class="dropdown">
             <a href="#" data-toggle="dropdown" class="dropdown-toggle clear" data-toggle="dropdown">
               <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm">
-                <%= image_tag asset_path("img/a0.jpg"), alt: "..." %>
+                <% if current_user && current_user.role == 'student' %>
+                  <%= image_tag Student.find_by_email(current_user.email).image, alt: "..." %>
+                <% else %>
+                  <%= image_tag asset_path("img/a0.jpg"), alt: "..." %>
+                <% end %>
                 <i class="on md b-white bottom"></i>
               </span>
               <% if current_user %>
@@ -128,21 +132,26 @@
                   <div class="progress-bar progress-bar-info" data-toggle="tooltip" data-original-title="50%" style="width: 50%"></div>
                 </div>
               </li> -->
-              <li>
+              <!-- <li>
                 <a href>
                   <span class="badge bg-danger pull-right">30%</span>
                   <span>Settings</span>
                 </a>
-              </li>
+              </li> -->
               <li>
-                <a ui-sref="app.page.profile">Profile</a>
+                <% if current_user && current_user.role == 'student' %>
+                  <%= link_to "Profile", student_path(Student.find_by_email(current_user.email).id) %>
+
+                <% elsif current_user && current_user.role == 'teacher' %>
+                  <%= link_to "Profile", employee_path(Employee.find_by_email(current_user.email).id) %>
+                <% end %>
               </li>
-              <li>
+              <!-- <li>
                 <a ui-sref="app.docs">
                   <span class="label bg-info pull-right">new</span>
                   Help
                 </a>
-              </li>
+              </li> -->
               <li class="divider"></li>
               <li>
                 <%= link_to "Logout", destroy_user_session_path, method: :delete %>
@@ -225,160 +234,172 @@
                   <span>Navigation</span>
                 </li>
                 <% if current_user.role != 'accountant' %>
-                  <li>
-                    <a href class="auto">      
-                      <span class="pull-right text-muted">
-                        <i class="fa fa-fw fa-angle-right text"></i>
-                        <i class="fa fa-fw fa-angle-down text-active"></i>
-                      </span>
-                      <i class="glyphicon glyphicon-th"></i>
-                      <span>Students</span>
-                    </a>
-                    <ul class="nav nav-sub dk">
-                      <li class="nav-sub-header">
-                        <%= link_to("") do %>
-                          <span>Students</span>
-                        <% end %>
-                      </li>
-                      <li>
-                        <%= link_to(new_student_path) do %>
-                          <span>Admit Student</span>
-                        <% end %>
-                      </li>
-                      <li>
-                        <%= link_to(students_path) do %>
-                          <span>List All Students</span>
-                        <% end %>
-                      </li>     
-                    </ul>
-                  </li>
+                  <% if current_user.role != 'student' && current_user.role != 'teacher'  %>
+                    <li>
+                      <a href class="auto">      
+                        <span class="pull-right text-muted">
+                          <i class="fa fa-fw fa-angle-right text"></i>
+                          <i class="fa fa-fw fa-angle-down text-active"></i>
+                        </span>
+                        <i class="glyphicon glyphicon-th"></i>
+                        <span>Students</span>
+                      </a>
+                      <ul class="nav nav-sub dk">
+                        <li class="nav-sub-header">
+                          <%= link_to("") do %>
+                            <span>Students</span>
+                          <% end %>
+                        </li>
+                        <li>
+                          <%= link_to(new_student_path) do %>
+                            <span>Admit Student</span>
+                          <% end %>
+                        </li>
+                        <li>
+                          <%= link_to(students_path) do %>
+                            <span>List All Students</span>
+                          <% end %>
+                        </li>     
+                      </ul>
+                    </li>
 
 
-                  <li>
-                    <a href class="auto">      
-                      <span class="pull-right text-muted">
-                        <i class="fa fa-fw fa-angle-right text"></i>
-                        <i class="fa fa-fw fa-angle-down text-active"></i>
-                      </span>
-                      <i class="glyphicon glyphicon-user"></i>
-                      <span>Employee</span>
-                    </a>
-                    <ul class="nav nav-sub dk">
-                      <li class="nav-sub-header">
-                        <%= link_to("") do %>
-                          <span>Employee</span>
-                        <% end %>
-                      </li>
-                      <li>
-                        <%= link_to(new_employee_path) do %>
-                          <span>New Employee</span>
-                        <% end %>
-                      </li>
-                      <li>
-                        <%= link_to(employees_path) do %>
-                          <span>List All Employees</span>
-                        <% end %>
-                      </li> 
-                      <li>
-                        <%= link_to(categories_path) do %>
-                          <span>Manage Categories</span>
-                        <% end %>
-                      </li>
-                      <li>
-                        <%= link_to(departments_path) do %>
-                          <span>Manage Dept.</span>
-                        <% end %>
-                      </li>
-                      <li>
-                        <%= link_to(positions_path) do %>
-                          <span>Manage Positions</span>
-                        <% end %>
-                      </li>
-                    </ul>
-                  </li>
+                    <li>
+                      <a href class="auto">      
+                        <span class="pull-right text-muted">
+                          <i class="fa fa-fw fa-angle-right text"></i>
+                          <i class="fa fa-fw fa-angle-down text-active"></i>
+                        </span>
+                        <i class="glyphicon glyphicon-user"></i>
+                        <span>Employee</span>
+                      </a>
+                      <ul class="nav nav-sub dk">
+                        <li class="nav-sub-header">
+                          <%= link_to("") do %>
+                            <span>Employee</span>
+                          <% end %>
+                        </li>
+                        <li>
+                          <%= link_to(new_employee_path) do %>
+                            <span>New Employee</span>
+                          <% end %>
+                        </li>
+                        <li>
+                          <%= link_to(employees_path) do %>
+                            <span>List All Employees</span>
+                          <% end %>
+                        </li> 
+                        <li>
+                          <%= link_to(categories_path) do %>
+                            <span>Manage Categories</span>
+                          <% end %>
+                        </li>
+                        <li>
+                          <%= link_to(departments_path) do %>
+                            <span>Manage Dept.</span>
+                          <% end %>
+                        </li>
+                        <li>
+                          <%= link_to(positions_path) do %>
+                            <span>Manage Positions</span>
+                          <% end %>
+                        </li>
+                      </ul>
+                    </li>
 
-
-
-
-
-                  <li>
-                    <%= link_to(leaves_path) do %>
-                      <i class="glyphicon glyphicon-flag"></i>
-                      <% if @leave_requests_count.to_i > 0 %>
-                        <b class="badge bg-danger pull-right"><%= @leave_requests_count %></b>
+                    <li>
+                      <%= link_to(leaves_path) do %>
+                        <i class="glyphicon glyphicon-flag"></i>
+                        <% if @leave_requests_count.to_i > 0 %>
+                          <b class="badge bg-danger pull-right"><%= @leave_requests_count %></b>
+                        <% end %>
+                        <span>Leave Requests</span>
                       <% end %>
-                      <span>Leave Requests</span>
+                    </li>
+                  <% end %>
+
+                  <% if current_user.role != 'student' %>
+                    <li>
+                      <a href class="auto">      
+                        <span class="pull-right text-muted">
+                          <i class="fa fa-fw fa-angle-right text"></i>
+                          <i class="fa fa-fw fa-angle-down text-active"></i>
+                        </span>
+                        <i class="glyphicon glyphicon-book"></i>
+                        <span> Staff Attendance</span>
+                      </a>
+                      <ul class="nav nav-sub dk">
+                        <li class="nav-sub-header">
+                          <%= link_to("") do %>
+                            <span>Attendance</span>
+                          <% end %>
+                        </li>
+                        <% if current_user.role != 'teacher' %>
+
+                          <li>
+                            <%= link_to(mark_attendance_calendar_employees_path) do %>
+                              <span>Mark Attendance</span>
+                            <% end %>
+                          </li>
+                        <% end %>
+                        <li>
+                          <%= link_to(monthly_attendance_report_employees_path) do %>
+                            <span>Attendance Report</span>
+                          <% end %>
+                        </li> 
+                      </ul>
+                    </li>
+                  <% end %>
+                  <% if current_user.role != 'teacher' %>
+                    <li>
+                      <a href class="auto">      
+                        <span class="pull-right text-muted">
+                          <i class="fa fa-fw fa-angle-right text"></i>
+                          <i class="fa fa-fw fa-angle-down text-active"></i>
+                        </span>
+                        <i class="glyphicon glyphicon-book"></i>
+                        <span> Student Attend.</span>
+                      </a>
+                      <ul class="nav nav-sub dk">
+                        <li class="nav-sub-header">
+                          <%= link_to("") do %>
+                            <span>Attendance</span>
+                          <% end %>
+                        </li>
+                        <% if current_user.role != 'student' %>
+                          <li>
+                            <%= link_to(mark_attendance_calendar_students_path) do %>
+                              <span>Mark Attendance</span>
+                            <% end %>
+                          </li>
+                        <% end %>
+                        <li>
+                          <%= link_to(monthly_attendance_report_students_path) do %>
+                            <span>Attendance Report</span>
+                          <% end %>
+                        </li> 
+                      </ul>
+                    </li>
+                  <% end %>
+
+                  
+                  <li>
+                    <% if current_user.role != 'student' && current_user.role != 'teacher' %>
+                      <%= link_to(year_plans_path) do %>
+                        <i class="glyphicon glyphicon-time"></i>
+                        <span>Time Table</span>
+                      <% end %>
+                    <% elsif current_user.role == 'student' %>
+                      <%= link_to(time_table_path(TimeTable.find_by_grade_id(Student.find_by_email(current_user.email).grade_id).id)) do %>
+                        <i class="glyphicon glyphicon-time"></i>
+                        <span>Time Table</span>
+                      <% end %>
                     <% end %>
-                    
-                  </li>
-
-
-                  <li>
-                    <a href class="auto">      
-                      <span class="pull-right text-muted">
-                        <i class="fa fa-fw fa-angle-right text"></i>
-                        <i class="fa fa-fw fa-angle-down text-active"></i>
-                      </span>
-                      <i class="glyphicon glyphicon-book"></i>
-                      <span> Staff Attendance</span>
-                    </a>
-                    <ul class="nav nav-sub dk">
-                      <li class="nav-sub-header">
-                        <%= link_to("") do %>
-                          <span>Attendance</span>
-                        <% end %>
-                      </li>
-                      <li>
-                        <%= link_to(mark_attendance_calendar_employees_path) do %>
-                          <span>Mark Attendance</span>
-                        <% end %>
-                      </li>
-                      <li>
-                        <%= link_to(monthly_attendance_report_employees_path) do %>
-                          <span>Attendance Report</span>
-                        <% end %>
-                      </li> 
-                    </ul>
-                  </li>
-
-
-                  <li>
-                    <a href class="auto">      
-                      <span class="pull-right text-muted">
-                        <i class="fa fa-fw fa-angle-right text"></i>
-                        <i class="fa fa-fw fa-angle-down text-active"></i>
-                      </span>
-                      <i class="glyphicon glyphicon-book"></i>
-                      <span> Student Attend.</span>
-                    </a>
-                    <ul class="nav nav-sub dk">
-                      <li class="nav-sub-header">
-                        <%= link_to("") do %>
-                          <span>Attendance</span>
-                        <% end %>
-                      </li>
-                      <li>
-                        <%= link_to(mark_attendance_calendar_students_path) do %>
-                          <span>Mark Attendance</span>
-                        <% end %>
-                      </li>
-                      <li>
-                        <%= link_to(monthly_attendance_report_students_path) do %>
-                          <span>Attendance Report</span>
-                        <% end %>
-                      </li> 
-                    </ul>
-                  </li>
-
-                  <li>
-                    <%= link_to(year_plans_path) do %>
-                      <i class="glyphicon glyphicon-time"></i>
-                      <span>Time Table</span>
-                    <% end %>
-                    
                   </li>
 
               <% end %>
+              
+              <% if current_user.role != 'teacher' %>
                 <li>
                   <a href class="auto">      
                     <span class="pull-right text-muted">
@@ -394,16 +415,19 @@
                         <span>Fee Register</span>
                       <% end %>
                     </li>
-                    <li>
-                      <%= link_to(new_fee_path) do %>
-                        <span>Submit Fee</span>
-                      <% end %>
-                    </li>
-                    <li>
-                      <%= link_to(fee_defaulter_fees_path) do %>
-                        <span>Fee Defaulters</span>
-                      <% end %>
-                    </li>
+                    <% if current_user.role != 'student' %>
+
+                      <li>
+                        <%= link_to(new_fee_path) do %>
+                          <span>Submit Fee</span>
+                        <% end %>
+                      </li>
+                      <li>
+                        <%= link_to(fee_defaulter_fees_path) do %>
+                          <span>Fee Defaulters</span>
+                        <% end %>
+                      </li>
+                    <% end %>
                     <li>
                       <%= link_to(fees_path) do %>
                         <span>Fee Records</span>
@@ -411,16 +435,12 @@
                     </li> 
                   </ul>
                 </li>
-                
-
-
-                <li class="line dk"></li>
-
+            <% end %>
+            <% if current_user.role != 'student' && current_user.role != 'teacher'%>
+              
                 <!-- li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
                   <span>Components</span>
                 </li> -->
-                
-
               <% if current_user.role != 'accountant' %>
                 <li>
                  <li>
@@ -509,7 +529,8 @@
                 </li>
 
               <% end %>  
-
+            <% end %>
+            <% if current_user.role != 'teacher'  %>
                 <li>
                   <a href class="auto">      
                     <span class="pull-right text-muted">
@@ -520,33 +541,35 @@
                     <span>Transport</span>
                   </a>
                   <ul class="nav nav-sub dk">
-                    <li class="nav-sub-header">
-                      <%= link_to("") do %>
-                        <span>Transport</span>
-                      <% end %>
-                    </li>
-                    
-                    <li>
-                      <%= link_to(vehicles_path) do %>
-                        <span>List All Vehicles</span>
-                      <% end %>
-                    </li>
-                    <li>
-                      <%= link_to(routes_path) do %>
-                        <span>List All Route</span>
-                      <% end %>
-                    </li>
-                    
-                    <li>
-                      <%= link_to(new_stop_path) do %>
-                        <span>New Stop</span>
-                      <% end %>
-                    </li>
-                    <li>
-                      <%= link_to(transports_path) do %>
-                        <span>Transport details</span>
-                      <% end %>
-                    </li>
+                    <% if current_user.role != 'student'  %>
+                      <li class="nav-sub-header">
+                        <%= link_to("") do %>
+                          <span>Transport</span>
+                        <% end %>
+                      </li>
+                      
+                      <li>
+                        <%= link_to(vehicles_path) do %>
+                          <span>List All Vehicles</span>
+                        <% end %>
+                      </li>
+                      <li>
+                        <%= link_to(routes_path) do %>
+                          <span>List All Route</span>
+                        <% end %>
+                      </li>
+                      
+                      <li>
+                        <%= link_to(new_stop_path) do %>
+                          <span>New Stop</span>
+                        <% end %>
+                      </li>
+                      <li>
+                        <%= link_to(transports_path) do %>
+                          <span>Transport details</span>
+                        <% end %>
+                      </li>
+                    <% end %>
                     
                     <li>
                       <%= link_to(bus_allotments_path) do %>
@@ -577,21 +600,22 @@
                         <span>Book shop</span>
                       <% end %>
                     </li>
+                  <% if current_user.role != 'student' %>
+
                     <li>
                       <%= link_to(shopcategories_path) do %>
                         <span>All Categories</span>
                       <% end %>
                     </li>
-                    
-                    <li>
-                      <%= link_to(items_path) do %>
-                        <span>All Items</span>
-                      <% end %>
-                    </li>
-                    
                     <li>
                       <%= link_to(add_stock_items_path) do %>
                         <span>Add Stock</span>
+                      <% end %>
+                    </li>
+                  <% end %>
+                    <li>
+                      <%= link_to(items_path) do %>
+                        <span>All Items</span>
                       <% end %>
                     </li>
                     <li>
@@ -607,10 +631,9 @@
                       <% end %>
                     </li>
                     
-                    
-                    
                   </ul>
                 </li>
+          <% end %>
                 <% if current_user.role != 'accountant' %>
                   <li>
                     <a href class="auto">
