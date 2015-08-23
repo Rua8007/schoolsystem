@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150822095641) do
+ActiveRecord::Schema.define(version: 20150823103550) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,29 @@ ActiveRecord::Schema.define(version: 20150822095641) do
     t.string   "prefix"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "curriculum_details", force: :cascade do |t|
+    t.text     "month"
+    t.integer  "day"
+    t.string   "sol"
+    t.string   "strand"
+    t.text     "content"
+    t.text     "skill"
+    t.text     "activity"
+    t.text     "assessment"
+    t.integer  "curriculum_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  create_table "curriculums", force: :cascade do |t|
+    t.integer  "grade_id"
+    t.integer  "subject_id"
+    t.text     "studentname"
+    t.integer  "year_plan_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "departments", force: :cascade do |t|
