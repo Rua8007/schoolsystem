@@ -388,10 +388,10 @@
                         <span>Time Table</span>
                       <% end %>
                     <% elsif current_user.role == 'student' %>
-                      <%= link_to(time_table_path(TimeTable.find_by_grade_id(Student.find_by_email(current_user.email).grade_id).id)) do %>
+                      <%#= link_to(time_table_path(TimeTable.find_by_grade_id(Student.find_by_email(current_user.email).grade_id).id)) do %>
                         <i class="glyphicon glyphicon-time"></i>
                         <span>Time Table</span>
-                      <% end %>
+                      <%# end %>
                     <% end %>
                   </li>
 
@@ -651,6 +651,11 @@
                       <li>
                         <%= link_to(exams_path) do %>
                           <span>Exams List</span>
+                        <% end %>
+                      </li>
+                      <li>
+                        <%= link_to(new_mark_path) do %>
+                          <span>Marks Devisions</span>
                         <% end %>
                       </li>
                       <li>

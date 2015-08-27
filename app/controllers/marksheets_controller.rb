@@ -67,17 +67,21 @@ class MarksheetsController < ApplicationController
   end
 
   def uploading
+    marksheet = Marksheet.find(params[:marksheet])
+    std_marks = marksheet.bridge.grade.marks.all
     params[:marks].each do |marks|
-      marksheet = Marksheet.find(params[:marksheet])
-      marksheet.student_id = marks.first
-      std_marks = marksheet.student.grade.marks.all
+      new_marksheet = Marksheet.create
+      new_marksheet.exam_id = marksheet.exam_id
+      new_marksheet.bridge_id = marksheet.bridge_id
+      new_marksheet.student_id = marks.first
       std_marks.each do |mark_type|
-        sessional = marksheet.sessionals.create
+        sessional = new_marksheet.sessionals.create
         sessional.mark_id = mark_type.id
         sessional.marks = marks.last[mark_type.name]["number"]
         sessional.save
       end
-      marksheet.save
+      new_marksheet.save
+      marksheet.delete
     end
   end
 
@@ -126,3 +130,18 @@ class MarksheetsController < ApplicationController
       params.require(:marksheet).permit(:exam_id, :bridge_id, :totalmarks, :obtainedmarks, :student_id)
     end
 end
+
+
+Setting Up:
+1) Clone project
+2) Bundle install
+3) Change database.yml according to your database settings
+4) Create Databse: rake db:create
+5) Run rake db:migrate
+6) Run rake db:seed
+7) rails s
+[8:37:58 PM] Faisal Waleed: Creating Application
+1) rails new app_name database="database" (database is optional if you need postgres or any. sql is set by default)
+2) setup database.yml according to your credentials
+3) rake db:create
+4) setup your home page path in routes.rb
