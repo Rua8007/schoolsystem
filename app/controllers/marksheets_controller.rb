@@ -67,17 +67,21 @@ class MarksheetsController < ApplicationController
   end
 
   def uploading
+    marksheet = Marksheet.find(params[:marksheet])
+    std_marks = marksheet.bridge.grade.marks.all
     params[:marks].each do |marks|
-      marksheet = Marksheet.find(params[:marksheet])
-      marksheet.student_id = marks.first
-      std_marks = marksheet.student.grade.marks.all
+      new_marksheet = Marksheet.create
+      new_marksheet.exam_id = marksheet.exam_id
+      new_marksheet.bridge_id = marksheet.bridge_id
+      new_marksheet.student_id = marks.first
       std_marks.each do |mark_type|
-        sessional = marksheet.sessionals.create
+        sessional = new_marksheet.sessionals.create
         sessional.mark_id = mark_type.id
         sessional.marks = marks.last[mark_type.name]["number"]
         sessional.save
       end
-      marksheet.save
+      new_marksheet.save
+      marksheet.delete
     end
   end
 
