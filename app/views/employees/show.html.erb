@@ -1,177 +1,381 @@
 
+<style type="text/css">
+    @media(min-width: 1200px)
+.abc {
+  width: 1080px;
+}
+
+</style>
+
 <div class="abc" style="">
 
     <div class="container" >
-      <div class="abc" style="">
-
-    <div class="container" >
   
+        <h3><%=@employee.full_name %> </h3>
     <br>
         <div class="col-sm-4">
             <table class="table">
                 <tbody>
+                    
+                    <tr>
+                        <td class="student-profile-td">
+                            Date of Birth
+                        </td>
 
+                        <td>
+                            <%= @employee.date_of_birth %>
+                        </td>
+                    </tr>
 
-              <tr>
-                <td>Employee number:</td>
-                <td><%= @employee.employee_number %></td>
-              </tr>
+                    <tr>
+                        <td class="student-profile-td">
+                            ID Card Number
+                        </td>
 
-              <tr>
-                <td>Date of joining:</td>
-                <td><%= @employee.date_of_joining %></td>
-              </tr>
+                        <td>
+                            <%= @employee.id_card_no %>
+                        </td>
+                    </tr>
 
-              <tr>
-                <td>Full name:</td>
-                <td><%= @employee.full_name %></td>
-              </tr>
+                    <tr>
+                        <td class="student-profile-td">
+                            ID Card Expiry
+                        </td>
 
-              <tr>
-                <td>Gender:</td>
-                <td><%= @employee.gender %></td>
-              </tr>
-
-              <tr>
-                <td>Date of birth:</td>
-                <td><%= @employee.date_of_birth %></td>
-              </tr>
-
-              <tr>
-                <td>Religion:</td>
-                <td><%= @employee.religion %></td>
-              </tr>
-
-              <tr>
-                <td>Qualification:</td>
-                <td><%= @employee.qualification %></td>
-              </tr>
-
-              <tr>
-                <td>Employee category:</td>
-                <td><%= @employee.category.name %></td>
-              </tr>
-
-              <tr>
-                <td>Employee department:</td>
-                <td><%= @employee.department.name %></td>
-              </tr>
-
-              <tr>
-                <td>Marital status:</td>
-                <td><%= @employee.marital_status %></td>
-              </tr>
-
-              <tr>
-                <td>Child count:</td>
-                <td><%= @employee.child_count %></td>
-              </tr>
-
-              <tr>
-                <td>Father name:</td>
-                <td><%= @employee.father_name %></td>
-              </tr>
-
-              <tr>
-                <td>Mother name:</td>
-                <td><%= @employee.mother_name %></td>
-              </tr>
-
-              <tr>
-                <td>Spouse name:</td>
-                <td><%= @employee.spouse_name %></td>
-              </tr>
-
-              <tr>
-                <td>Blood group:</td>
-                <td><%= @employee.blood_group %></td>
-              </tr>
-
-              <tr>
-                <td>Nationality:</td>
-                <td><%= @employee.nationality %></td>
-              </tr>
-
-              <tr>
-                <td>Id card no:</td>
-                <td><%= @employee.id_card_no %></td>
-              </tr>
-
-              <tr>
-                <td>Id card expiry:</td>
-                <td><%= @employee.id_card_expiry %></td>
-              </tr>
-
-              <tr>
-                <td>Address1:</td>
-                <td><%= @employee.address1 %></td>
-              </tr>
-
-              <tr>
-                <td>Address2:</td>
-                <td><%= @employee.address2 %></td>
-              </tr>
-
-              <tr>
-                <td>City:</td>
-                <td><%= @employee.city %></td>
-              </tr>
-
-              <tr>
-                <td>Country:</td>
-                <td><%= @employee.country %></td>
-              </tr>
-
-              <tr>
-                <td>Home phone:</td>
-                <td><%= @employee.home_phone %></td>
-              </tr>
-
-              <tr>
-                <td>Mobile number:</td>
-                <td><%= @employee.mobile_number %></td>
-              </tr>
-
-              <tr>
-                <td>Email:</td>
-                <td><%= @employee.email %></td>
-              </tr>
-
-              <tr>
-                <td>Salary:</td>
-                <td><%= @employee.salary %></td>
-              </tr>
-
-              <tr>
-                <td>Employee position:</td>
-                <td><%= @employee.position.name%></td>
-              </tr>
-
-              <tr>
-                <td>Status:</td>
-                <td><%= @employee.status %></td>
-              </tr>
-
-              <tr>
-                <td>Pay date:</td>
-                <td><%= @employee.pay_date %></td>
-              </tr>
-
-              <tr>
-                <td>Next due date:</td>
-                <td><%= @employee.next_due_date %></td>
-              </tr>
-
-
-                   
+                        <td>
+                            <%= @employee.id_card_expiry %>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
-            <td><%= link_to 'Back', employees_path,class: "btn btn-color" %></td>
-
         </div>
-       </div>
+
+        <div class="col-sm-4">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td class="student-profile-td">
+                            Gender
+                        </td>
+
+                        <td>
+                            <%= @employee.gender %>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="student-profile-td">
+                            Nationality
+                        </td>
+
+                        <td>
+                            <%= @employee.nationality%>
+                        </td>
+                    </tr>
+
+                   
+
+                    <tr>
+                        <td class="student-profile-td">
+                            Religion
+                        </td>
+
+                        <td>
+                            <%= @employee.religion %>
+                        </td>
+                    </tr>
+
+                    
+                </tbody>
+            </table>
+            <!-- <p>Section:<label>A</label></p> -->
+        </div>
+
+
     </div>
-  </div>
+
+    <hr />
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#ContactDetails" aria-controls="messages" role="tab" data-toggle="tab">Contact details</a></li>
+        
+        <li role="presentation" ><a href="#PreviousDetails" aria-controls="messages" role="tab" data-toggle="tab">Qualification details</a></li>
+        <li role="presentation"><a href="#MedicalBackground" aria-controls="messages" role="tab" data-toggle="tab">Employee Other Details</a></li>
+        
+        <li role="presentation"><a href="#FeeDetails" aria-controls="messages" role="tab" data-toggle="tab">Salary details</a></li>
+
+    </ul>
+
+    <br>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="ContactDetails">
+            <div class="col-sm-3" >
+                <h4 class="student-tabs">Personal Details</h4>
+                <table class="table">
+                    <tr>
+                        <td>
+                            Address 1
+                        </td>
+                        <td>
+                            <%= @employee.address1 %>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            Address 2
+                        </td>
+                        <td>
+                            <%= @employee.address2 %>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            City
+                        </td>
+                        <td>
+                            <%= @employee.city %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Country
+                        </td>
+                        <td>
+                            <%= @employee.country %>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            Blood group
+                        </td>
+                        <td>
+                            <%= @employee.blood_group %>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            Phone
+                        </td>
+                        <td>
+                            <%= @employee.home_phone %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Mobile
+                        </td>
+                        <td>
+                            <%= @employee.mobile_number %>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            E-mail
+                        </td>
+                        <td>
+                            <%= @employee.email %>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="col-sm-3">
+                <h4 class="student-tabs">Family Details</h4>
+                <table class="table">
+                    <tr>
+                        <td>
+                            Father Name
+                        </td>
+                        <td>
+                            <%= @employee.father_name %>
+                        </td>
+                    </tr>
+
+                     <tr>
+                        <td>
+                             Mother Name
+                        </td>
+                        <td>
+                            <%= @employee.mother_name %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                             Martial Status
+                        </td>
+                        <td>
+                            <%= @employee.marital_status %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                             Children
+                        </td>
+                        <td>
+                            <%= @employee.child_count %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                             Spouse Name
+                        </td>
+                        <td>
+                            <%= @employee.spouse_name %>
+                        </td>
+                    </tr>
+
+                    
+                </table>
+            </div>
+
+            
+
+            
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="PreviousDetails">
+          <div class="col-sm-12">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td class="student-profile-td">
+                    Qualification
+                  </td>
+                  <td>
+                    <%= @employee.qualification %>
+
+                  </td>
+                  
+                </tr>
+              </tbody>
+            </table>
+            <hr>
+           
+          </div>
+        </div>
+
+
+        <div role="tabpanel" class="tab-pane" id="MedicalBackground" >
+            <div class="col-sm-6">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td class="student-profile-td">
+                                Employee ID
+                            </td>
+
+                            <td>
+                              <%= @employee.id %>
+                            </td>
+                        </tr><tr>
+                            <td class="student-profile-td">
+                                Employee Number
+                            </td>
+
+                            <td>
+                              <%= @employee.employee_number %>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="student-profile-td">
+                                Employee Date of Joining
+                            </td>
+
+                            <td>
+                              <%= @employee.date_of_joining %>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="student-profile-td">
+                                Employee Category
+                                
+                            </td>
+                            
+                            <td>
+                              <%= @employee.category.name %>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="student-profile-td">
+                                Employee Department
+                            </td>
+                            
+                            <td>
+                              <%= @employee.department.name %>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="student-profile-td">
+                                Employee Position
+                            </td>
+                            
+                            <td>
+                              <%= @employee.position.name %>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="student-profile-td">
+                                Employee Status
+                            </td>
+                            
+                            <td>
+                              <%= @employee.status %>
+                            </td>
+                        </tr>
+
+                       
+                    </tbody>
+                </table>
+            </div>
+
+           
+
+        </div>        
+        <div role="tabpanel" class="tab-pane" id="FeeDetails">
+          <div class="col-sm-6">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td class="student-profile-td">
+                    Salary
+                  </td>
+                  <td>
+                       <%= @employee.salary %>
+                  </td>
+                  <td class="student-profile-td">
+                    Salary date
+                  </td>
+                  <td>
+                       <%= @employee.pay_date %>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="student-profile-td">
+                    Salary Next Date  
+                  </td>
+                  <td>
+                       <%= @employee.next_due_date %>
+                  </td>
+                  
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+    </div>
 </div>
 
 
