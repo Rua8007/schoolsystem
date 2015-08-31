@@ -26,12 +26,24 @@
 					</td>
 					<% @marks.try(:each) do |mark| %>
 						<td>
-							<input type="text" name="marks[<%=std.id %>][<%=mark.name%>][number]" style="10px">
+							<input type="text" id = "num-<%=std.id%>-<%=mark.id%>" class = "num" name="marks[<%=std.id %>][<%=mark.name%>][number]" style="10px">
 						</td>
 					<% end %>
+					<td id="total<%=std.id%>">
+						0
+					</td>
 				</tr>
 			<% end %>
 		</tbody>
 </table>
 	<%= submit_tag "Submit", class: "btn btn-success pull-right" %>
 <% end %>
+
+<script type="text/javascript">
+	$(".num").keyup(function (e){
+		console.log();
+		var id = e.target.attributes.id.value.split('-')[1];
+		$("#total"+id).text(parseFloat($("#total"+id).text())+ parseFloat($("#"+e.target.attributes.id.value).val()))
+		console.log(e);
+	})
+</script>
