@@ -23,12 +23,16 @@
 	            </div>
 	          </div>
 
-	          <div class="form-group">
-              <label>Grade</label>
-              
-              <%= select_tag :grade, options_from_collection_for_select(@grades,"id", "name"),
-                  prompt: "Select Grade", class: "form-control", required: true %>
-            </div>
+	          <% if current_user.role != 'student' %>
+		          <div class="form-group">
+	              <label>Grade</label>
+	              <%= select_tag :grade, options_from_collection_for_select(@grades,"id", "name"),
+	                  prompt: "Select Grade", class: "form-control", required: true %>
+	            </div>
+	          <% else %>
+	          	<%= hidden_field_tag :grade, Student.find_by_email(current_user.email).grade_id %>
+	          <% end %>
+
 
             <%= submit_tag "Get Report", class: 'btn btn-small btn-default report-form' %>
           <% end %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150822063255) do
+ActiveRecord::Schema.define(version: 20150822095641) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -187,6 +187,30 @@ ActiveRecord::Schema.define(version: 20150822063255) do
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
     t.boolean  "approved",    default: false
+  end
+
+  create_table "lessonplan_details", force: :cascade do |t|
+    t.integer  "subject_id"
+    t.integer  "lessonplan_id"
+    t.string   "period"
+    t.text     "procedure"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  create_table "lessonplans", force: :cascade do |t|
+    t.integer  "grade_id"
+    t.integer  "subject_id"
+    t.string   "topic"
+    t.string   "selection"
+    t.string   "startdate"
+    t.string   "enddate"
+    t.text     "studentengage"
+    t.text     "newvocabulary"
+    t.text     "objectives"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "year_plan_id"
   end
 
   create_table "lines", force: :cascade do |t|

@@ -22,6 +22,12 @@ skip_before_filter  :verify_authenticity_token
   	# redirect_to new_document_path({student_id: document.student_id}), :notice => 'Docuemnt Uploaded successfully!'
   end
 
+  def edit
+
+  end
+    
+  
+
 
   def addPreviousInfo
 

@@ -17,7 +17,8 @@
         <%= select_tag :grade_id, options_from_collection_for_select(@grades,"id", "full_name"),
             prompt: "Select Grade", class: "form-control", required: true %>
             <br/>
-        <%= submit_tag 'See Daily Schedule', class: 'btn btn-success pull-right' %>
+        <a class="btn btn-success pull-right" href="http://www.primetimetable.com/#id=c0bba798-d51e-477b-9d82-cc2e0995348e&app&view=1" target="_blank"> Create Time Table </a>
+        <%#= submit_tag 'See Daily Schedule', class: 'btn btn-success pull-right' %>
       </div>
   <% end %>
 
@@ -41,6 +42,8 @@
           <td><%= link_to 'Weekly Planned Curriculum', weekly_schedule_year_plan_path(year_plan), class: "btn btn-small btn-success" %></td>
 
           <td><%= link_to 'Portions', portions_path(year_plan: year_plan), class: "btn btn-small btn-success" %></td>
+
+          <td><%= link_to 'Lesson Plan', lessonplans_path(year_plan: year_plan), class: "btn btn-small btn-success" %></td>
 
           <td><%= link_to 'Edit Name', edit_year_plan_path(year_plan), class: "btn btn-small btn-default" %></td>
          

@@ -81,7 +81,7 @@
             <%= student.dob %>
           </td> 
           <td><%= link_to '', student,:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
-              <%= link_to '', edit_student_path(student),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
+              <%= link_to '', edit_student_student_path(student),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
               <%= link_to '', student, method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
           </td>     
         </tr>

@@ -25,11 +25,23 @@ class ParentsController < ApplicationController
   def edit
   end
 
+  def edit_parent
+    @parent = Parent.find(params[:id])
+    @edit = true
+    
+  end
+
   # POST /parents
   # POST /parents.json
   def create
     @parent = Parent.new(parent_params)
     if @parent.save
+      u = User.new
+      u.email = @parent.email
+      u.password = '123'
+      u.password_confirmation = '123'
+      u.role = 'parent'
+      u.save
       student = Student.find(params[:student_id])
       student.parent_id = @parent.id
       student.save
@@ -45,8 +57,13 @@ class ParentsController < ApplicationController
 
     respond_to do |format|
       if @parent.update(parent_params)
-        format.html { redirect_to new_document_path(student_id: student.id), notice: 'Parent Detail Saved.' }
-        format.json { render :show, status: :ok, location: @parent }
+        puts 'after update----------------'
+        if params[:commit] == 'Update'
+          format.html { redirect_to students_path, notice: 'Parent Detail Saved.' }
+        else
+          format.html { redirect_to new_document_path(student_id: student.id), notice: 'Parent Detail Saved.' }
+          format.json { render :show, status: :ok, location: @parent }
+        end
       else
         format.html { render :edit }
         format.json { render json: @parent.errors, status: :unprocessable_entity }

@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  grade_id: 1
+  subject_id: 1
+  topic: MyString
+  selection: MyString
+  startdate: MyString
+  enddate: MyString
+  studentengage: MyText
+  newvocabulary: MyText
+  objectives: MyText
+
+two:
+  grade_id: 1
+  subject_id: 1
+  topic: MyString
+  selection: MyString
+  startdate: MyString
+  enddate: MyString
+  studentengage: MyText
+  newvocabulary: MyText
+  objectives: MyText
