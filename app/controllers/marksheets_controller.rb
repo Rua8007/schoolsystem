@@ -91,6 +91,7 @@ class MarksheetsController < ApplicationController
   def get_class_result
     @class = Grade.find(params[:class_id])
     @marksheet = []
+    @exam = Exam.find(params[:exam_id])
     # @class.bridges.each do |b|
     #   if b.marksheets.find_by_exam_id(params[:exam_id]).present?
     #     @marksheet << b.marksheets.find_by_exam_id(params[:exam_id])
@@ -119,6 +120,41 @@ class MarksheetsController < ApplicationController
     # return render json: @marksheet
   end
 
+  def result_card
+    std = Student.find(params[:student])
+    @marks = []
+    @sessionals = std.grade.marks
+    marksheets = std.marksheets.where(exam_id: params[:exam])
+    puts 
+    std.marksheets.where(exam_id: params[:exam]).each do |m|
+      sessionals = m.sessionals
+      @marks.push({subject: m.bridge.subject.name, sessionals: sessionals})
+    end
+    # return render json: @marks.first[:sessionals]
+  end
+
+  def subject_result
+    @bridges = Bridge.all
+  end
+
+  def get_subject_result
+    
+    bridge = Bridge.find(params[:bridge_id])
+    @class = bridge.grade
+    @marksheets = []
+    @class.students.each do |std|
+      temp = []
+      sessionals = std.marksheets.where(exam_id: params[:exam_id], bridge_id: params[:bridge_id]).last.sessionals
+      @marksheets.push({student_id: std.id,student_name: std.fullname ,sessionals: sessionals})
+    end
+    puts "===================="
+    puts @marksheets.first[:sessionals].inspect
+    puts "==================="
+    respond_to do |format|
+      format.js
+      format.json { render json: {marksheet: @marksheet} }
+    end
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_marksheet

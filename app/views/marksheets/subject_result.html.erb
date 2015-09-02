@@ -7,8 +7,8 @@
 		<label>Select Class</label>
 		<br>
 		<select id = "grade" class="form-control">
-			<%= Grade.all.try(:each) do |g|%>
-				<option value = "<%= g.id %>"> <%= g.title %> </option>
+			<%= @bridges.try(:each) do |b|%>
+				<option value = "<%= b.id %>"> <%= b.title %> </option>
 			<% end %>
 		</select>	
 	</div>
@@ -36,7 +36,7 @@
 
 <script type="text/javascript">
 	$("#resultbtn").click(function (){
-		$.get("/marksheets/get_class_result", {class_id: $("#grade").val(), exam_id: $("#exam").val() })
+		$.get("/marksheets/get_subject_result", {bridge_id: $("#grade").val(), exam_id: $("#exam").val() })
 			.done(function(data){
 	  		if (data)
 	  		{

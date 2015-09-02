@@ -82,6 +82,9 @@ Rails.application.routes.draw do
       post "uploading"
       get "classresult"
       get "get_class_result"
+      get "result_card"
+      get "subject_result"
+      get "get_subject_result"
     end
   end
   resources :exams

@@ -1,0 +1,29 @@
+<table class="table table-stripped">
+  <thead class="table-head">
+    <tr>
+      <th>Student ID</th>
+      <th>Student Name</th>
+      <% @class.marks.each do |m| %>
+        <th><%= m.name %></th>
+      <% end %>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+      <tr >
+        <% puts 'A'*99%>
+        <% @marksheets.each do |m| %>
+          <td><%= m[:student_id] %></td>
+          <td><%= Student.find(m[:student_id]).fullname %></td>
+          <% puts m.inspect %>
+          <% m[:sessionals].try(:each) do |sess| %>
+            <td> <%= sess[:marks] %> </td> 
+          <% end %>
+          <td>
+            <%#= link_to '', result_card_marksheets_path({student: m[:student_id], exam: @exam.id}),:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
+          </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
