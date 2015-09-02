@@ -1,0 +1,63 @@
+
+<%= form_tag messages_path, method: :post do %>
+    <div class="form-group">
+      <%= label_tag 'recipients', 'Choose recipients' %>
+      <%= select_tag 'recipients', recipients_options, multiple: true, class: 'form-control chosen-it' %>
+    </div>
+
+  <div class="form-group">
+    <%= label_tag 'message[subject]', 'Subject' %>
+    <%= text_field_tag 'message[subject]', nil, class: 'form-control', required: true %>
+  </div>
+
+  <div class="form-group">
+    <%= label_tag 'message[body]', 'Message' %>
+    <%= text_area_tag 'message[body]', nil, cols: 3, class: 'form-control', required: true %>
+  </div>
+
+  
+  
+
+  <%= submit_tag 'Send', class: 'btn btn-success pull-right' %>
+<% end %>
+
+
+
+
+
+
+
+
+<style type="text/css">
+  .form-holder .col-sm-2 {
+    min-height: 84px;
+  }
+  .form-holder .form-control{
+    width: 65%;
+  }
+  .form-control{
+    border-radius: 7px;
+    border: black;
+  }
+</style>
+
+
+<style type="text/css">
+  .container{
+      width: auto;
+  }
+
+  .sss{
+    border:1px solid#e5e5e5;    
+  }
+
+  .lll{
+    width: auto !important; 
+    background-color: white;
+    padding-right: 16px;
+    padding-left: 15px;
+    border: 1px solid;
+    border-color: #729F32;
+    border-radius: 21px;
+  }
+</style>

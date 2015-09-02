@@ -23,6 +23,8 @@ gem 'momentjs-rails'
 
 gem 'country_select'
 gem 'bootstrap-datepicker-rails'
+gem "compass-rails", git: 'https://github.com/Compass/compass-rails', branch: 'master'
+gem 'gravatar_image_tag'
 
 
 gem 'turbolinks'
@@ -32,6 +34,11 @@ gem 'jbuilder', '~> 2.0'
 gem "rmagick"
 gem 'activesupport-json_encoder'
 gem "carrierwave"
+gem "mailboxer"
+gem 'bootstrap-will_paginate'
+gem 'will_paginate'
+gem 'chosen-rails'
+gem 'jquery-turbolinks'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
