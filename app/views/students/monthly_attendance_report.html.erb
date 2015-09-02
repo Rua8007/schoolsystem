@@ -25,6 +25,7 @@
 
 	          <div class="form-group">
               <label>Grade</label>
+              
               <%= select_tag :grade, options_from_collection_for_select(@grades,"id", "name"),
                   prompt: "Select Grade", class: "form-control", required: true %>
             </div>
