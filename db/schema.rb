@@ -16,6 +16,12 @@ ActiveRecord::Schema.define(version: 20150902065361) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "add_result_to_marksheets", force: :cascade do |t|
+    t.integer  "result_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "batches", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -316,6 +322,7 @@ ActiveRecord::Schema.define(version: 20150902065361) do
     t.integer  "student_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.integer  "result_id"
   end
 
   create_table "packageitems", force: :cascade do |t|
@@ -385,6 +392,13 @@ ActiveRecord::Schema.define(version: 20150902065361) do
     t.string   "name"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "results", force: :cascade do |t|
+    t.integer  "exam_id"
+    t.integer  "bridge_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "routes", force: :cascade do |t|
