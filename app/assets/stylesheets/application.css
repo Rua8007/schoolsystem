@@ -20,9 +20,9 @@
  *= require externals/bootstrap-daterangepicker/daterangepicker-bs3
  *= require fullcalendar
  *= require bootstrap-datepicker
+ *= require chosen
  */
 
- @import 'chosen';
 .navbar-brand{
 	width: 170px !important;
 }
