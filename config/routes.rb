@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :portions
   resources :conversations, only: [:index, :show, :destroy] do
   member do
+    get :notification
     post :reply
     post :restore
      post :mark_as_read
