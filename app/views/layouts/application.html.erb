@@ -231,6 +231,8 @@
                 <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
                   <span>Navigation</span>
                 </li>
+                  
+
                 <% if current_user.role != 'accountant' %>
                   <% if current_user.role != 'student' && current_user.role != 'teacher'  %>
                     <li>
@@ -394,6 +396,15 @@
                       <%# end %>
                     <% end %>
                   </li>
+
+                  <li>
+                    <%= link_to(conversations_path) do %>
+                      <i class="glyphicon glyphicon-time"></i>
+                      <span>Conversations</span>
+                    <% end %>
+                    
+                  </li>
+                  
 
               <% end %>
               
