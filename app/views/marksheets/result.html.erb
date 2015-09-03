@@ -1,0 +1,31 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Result</h1>
+</div>
+<br>
+<div class="well well-lg">
+	<h4>Student Name:           <%= @std.fullname %></h4>
+	<h4>Student ID:             <%= @std.id %></h4>
+	<h4>Grade:                  <%= @std.grade.full_name %></h4>
+</div>
+<table class="table">
+	<thead class="table-head">
+		<th>Subject</th>
+		<% @std.grade.batch.exams.all.try(:each) do |exam| %>
+			<th><%= exam.name %> ( <%= @std.grade.marks.sum(:passing_marks) %> / <%= @std.grade.marks.sum(:marks) %>) </th>
+		<% end %>
+	</thead>
+	<tbody>
+		<% @marks.each do |mark| %>
+			<tr>
+				<td>
+					<%= mark[:subject] %>
+				</td>
+				<% mark[:marks].each do |m| %>
+					<td>
+						<%= m[:result] %>
+					</td>
+				<% end %>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
