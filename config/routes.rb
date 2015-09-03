@@ -85,6 +85,7 @@ Rails.application.routes.draw do
       get "result_card"
       get "subject_result"
       get "get_subject_result"
+      get "result"
     end
   end
   resources :exams

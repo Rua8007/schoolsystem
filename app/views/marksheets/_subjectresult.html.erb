@@ -11,18 +11,23 @@
   </thead>
 
   <tbody>
-      <tr >
-        <% puts 'A'*99%>
-        <% @marksheets.each do |m| %>
-          <td><%= m[:student_id] %></td>
-          <td><%= Student.find(m[:student_id]).fullname %></td>
-          <% puts m.inspect %>
-          <% m[:sessionals].try(:each) do |sess| %>
-            <td> <%= sess[:marks] %> </td> 
+    <% @marksheets.each do |m| %>
+      <tr>
+        <td><%= m[:student_id] %></td>
+        <td><%= m[:student_name] %></td>
+
+        <% @class.marks.each do |sm| %>
+          <% if m[:sessionals].present? %>
+            <td> <%= m[:sessionals][sm.id].try(:marks) || 'N/A' %> </td> 
+
+          <% else %>
+            <td> N/A </td>
           <% end %>
-          <td>
-            <%#= link_to '', result_card_marksheets_path({student: m[:student_id], exam: @exam.id}),:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
-          </td>
+        <% end %>
+
+        <td>
+          <%#= link_to '', result_card_marksheets_path({student: m[:student_id], exam: @exam.id}),:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
+        </td>
       </tr>
     <% end %>
   </tbody>
