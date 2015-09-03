@@ -8,4 +8,5 @@ class Subject < ActiveRecord::Base
 	has_many :lessonplan_details
 
 	has_many :marksheets, through: :bridges
+	has_many :curriculums
 end
