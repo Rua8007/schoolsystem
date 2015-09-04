@@ -11,6 +11,12 @@ class StudentsController < ApplicationController
   def create
     @student = Student.create(create_params)
     if @student
+      u = User.new
+      u.email = @student.email
+      u.password = '123'
+      u.password_confirmation = '123'
+      u.role = 'student'
+      u.save
       emergency = @student.emergencies.create
       emergency.name = params[:student][:emergency][:name]
       emergency.mobile = params[:student][:emergency][:mobile]
@@ -220,14 +226,34 @@ class StudentsController < ApplicationController
     if params[:grade].present? && params[:month_year].present?
       month = params[:month_year].split('-').first
       year  = params[:month_year].split('-').last
-
       grade = Grade.find(params[:grade].to_i)
 
       if grade.present?
         @grade_name = grade.name
         students = grade.students
         @attendances = []
-        students.each_with_index do |student, i|
+        if current_user.role != 'student'
+          students.each_with_index do |student, i|
+            attendance = {}
+            attendance.store("name","#{student.fullname}")
+            e_attendances = student.student_attendances.where("extract(month from attendance_date) = ? AND extract(year from attendance_date) = ?",month,year)
+            if i == 0
+              @total_working_days = e_attendances.count
+            end
+            e_attendances.each do |e_attendance|
+              if e_attendance.epresent == true
+                attendance.store("#{e_attendance.attendance_date.day}","P")
+              elsif e_attendance.eleave == true
+                attendance.store("#{e_attendance.attendance_date.day}","L")
+              else
+                attendance.store("#{e_attendance.attendance_date.day}","A")
+              end
+            end
+            @attendances << attendance
+          end
+        else
+          student = Student.find_by_email(current_user.email)
+          i = 0 
           attendance = {}
           attendance.store("name","#{student.fullname}")
           e_attendances = student.student_attendances.where("extract(month from attendance_date) = ? AND extract(year from attendance_date) = ?",month,year)

@@ -19,10 +19,13 @@
         <td><%= fee.amount %></td>
         <td><%= fee.user_id %></td>
         <td><%= fee.month %></td>
+
         <td> <%= link_to '', fee,:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
+        <% if current_user.role != 'student' %>
               <%= link_to '', edit_fee_path(fee),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
               <%= link_to '', fee, method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
           </td> 
+        <% end %>
       </tr>
     <% end %>
   </tbody>

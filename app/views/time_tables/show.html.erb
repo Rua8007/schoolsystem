@@ -1,6 +1,7 @@
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3"><%= "Class/Section: #{@grade.full_name} " %>&nbsp;&nbsp;&nbsp;&nbsp;<%= "Class Teacher:  #{@teacher.full_name} " %>
   
+ 	<% if current_user.role != 'student' %>
   	<%= link_to(@time_table, method: :delete, class: 'btn m-b-xs btn-sm btn-danger btn-addon pull-right', data: { confirm: 'This will delete current time table. Are you sure that you want to make a new one?' }) do %>
 
   	<%#= link_to(new_employee_path, class: "btn m-b-xs btn-sm btn-primary btn-addon pull-right" ) do %>
@@ -8,6 +9,7 @@
 	    
 	    	Remake Time Table
 	  <% end %>
+	<% end %>
   </h1>
 </div>
 
