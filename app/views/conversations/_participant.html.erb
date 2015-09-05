@@ -1,5 +1,7 @@
 <% conversation.participants.each do |participant| %>
   <% unless participant == current_user %>
-    <%= gravatar_for participant %>
+    <h4>
+    	<%= participant.email %>
+    </h4>
   <% end %>
 <% end %>
