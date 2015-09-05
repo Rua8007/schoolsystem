@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
 
   def mailboxer_email(object)
  #return the model's email here
-	end
+  end
 
    
 end

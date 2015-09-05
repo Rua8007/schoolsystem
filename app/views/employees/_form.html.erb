@@ -110,7 +110,7 @@
           <div class="column col-xs-12 col-sm-4">
             <div class="form-group">
               <label for="exampleInputEmail1">Nationality</label>
-              <%= emp.text_field :nationality , :style => 'height:34px;width: 100%',  class: 'form-control' %>
+              <%= emp.country_select :nationality ,{selected: "SA"}, {:style => 'height:34px;width: 100%',  class: 'form-control',} %>
             </div>
           </div>
 

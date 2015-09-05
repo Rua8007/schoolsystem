@@ -145,6 +145,7 @@ end
     end
   end
   devise_for :users
+  
 
   get 'home/index'
 

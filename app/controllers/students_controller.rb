@@ -5,6 +5,10 @@ class StudentsController < ApplicationController
 	end
 
 	def new
+    @flag = true
+    if Grade.any?
+      @flag = false
+    end
 		@student = Student.new
 	end
 
