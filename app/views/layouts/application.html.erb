@@ -132,12 +132,12 @@
                   <div class="progress-bar progress-bar-info" data-toggle="tooltip" data-original-title="50%" style="width: 50%"></div>
                 </div>
               </li> -->
-              <!-- <li>
+              <li>
                 <a href>
                   <span class="badge bg-danger pull-right">30%</span>
                   <span><%= link_to "Settings", edit_user_registration_path %></span>
                 </a>
-              </li> -->
+              </li>
               <li>
                 <% if current_user && current_user.role == 'student' %>
                   <%= link_to "Profile", student_path(Student.find_by_email(current_user.email).id) %>
