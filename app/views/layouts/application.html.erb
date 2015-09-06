@@ -231,17 +231,6 @@
                 <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
                   <span>Navigation</span>
                 </li>
-
-                
-                    <a href class="auto">      
-                      <span class="pull-right text-muted">
-                        <i class="fa fa-fw fa-angle-right text"></i>
-                        <i class="fa fa-fw fa-angle-down text-active"></i>
-                      </span>
-                      <i class="glyphicon glyphicon-comment"></i>
-                      <span><%= link_to 'Conversations', conversations_path %></span>
-                    </a>
-                    
                   
 
                 <% if current_user.role != 'accountant' %>
@@ -407,6 +396,15 @@
                       <% end %>
                     <% end %>
                   </li>
+
+                  <li>
+                    <%= link_to(conversations_path) do %>
+                      <i class="glyphicon glyphicon-time"></i>
+                      <span>Conversations</span>
+                    <% end %>
+                    
+                  </li>
+                  
 
               <% end %>
               
