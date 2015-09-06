@@ -320,6 +320,19 @@
 
                   <% if current_user.role != 'student' %>
                     <li>
+                      <%= link_to(new_leafe_path) do %>
+                        <i class="glyphicon glyphicon-flag"></i>
+                        <span>Request Leave</span>
+                      <% end %>
+                    </li>
+
+                    <li>
+                      <%= link_to(year_plans_path) do %>
+                        <i class="glyphicon glyphicon-time"></i>
+                        <span>Time Table</span>
+                      <% end %>
+                    </li>
+                    <li>
                       <a href class="auto">      
                         <span class="pull-right text-muted">
                           <i class="fa fa-fw fa-angle-right text"></i>
@@ -334,6 +347,8 @@
                             <span>Attendance</span>
                           <% end %>
                         </li>
+
+                        
                         <% if current_user.role != 'teacher' %>
 
                           <li>
@@ -347,8 +362,11 @@
                             <span>Attendance Report</span>
                           <% end %>
                         </li> 
+
+
                       </ul>
                     </li>
+
                   <% end %>
                   <% if current_user.role != 'teacher' %>
                     <li>

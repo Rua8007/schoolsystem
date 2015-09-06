@@ -3,10 +3,13 @@
 
   <%= link_to 'Click Here to Start Planning', "javascript:void(0);" , class: 'btn btn-lg btn-success start-plan-btn', style: 'margin-left:50px;' %>
 
+<% if current_user.role!= 'parent' && current_user.role!= 'teacher' && current_user.role!= 'student' %>
   <%= link_to(new_year_plan_week_path(@year_plan.id), class: "btn pull-right btn-color" ,style: "width:200px;" ) do %>
     <i class="fa fa-plus"></i>
     New Week
   <% end %>
+<% end %>
+
   </h1>
 </div>
 
@@ -18,7 +21,9 @@
         <th>Start date</th>
         <th>End date</th>
         <th>Holiday description</th>
-        <th>Actions</th>
+        <% if current_user.role!= 'parent' && current_user.role!= 'teacher' && current_user.role!= 'student' %>
+          <th>Actions</th>
+        <% end %>
       </tr>
     </thead>
     <tbody>
@@ -28,10 +33,12 @@
           <td><%= week.start_date.strftime("%d-%m-%Y") %></td>
           <td><%= week.end_date.strftime("%d-%m-%Y") %></td>
           <td><%= week.holiday_description %></td>
-          <td>
-              <%= link_to '', edit_year_plan_week_path(@year_plan.id,week),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
-              <%= link_to '', "/year_plans/#{@year_plan.id}/weeks/#{week.id}", method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
-          </td> 
+          <% if current_user.role!= 'parent' && current_user.role!= 'teacher' && current_user.role!= 'student' %>
+            <td>
+                <%= link_to '', edit_year_plan_week_path(@year_plan.id,week),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
+                <%= link_to '', "/year_plans/#{@year_plan.id}/weeks/#{week.id}", method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
+            </td> 
+          <% end %>
           
         </tr>
       <% end %>

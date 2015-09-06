@@ -4,7 +4,12 @@ class LeavesController < ApplicationController
   # GET /leaves
   # GET /leaves.json
   def index
-    @leaves = Leave.where(approved: false)
+    if current_user.role != 'teacher' && current_user.role != 'student' && current_user.role != 'parent'
+      @leaves = Leave.where(approved: false)
+    else
+      flash[:alert] = "Not Authorized"
+      redirect_to home_index_path
+    end
   end
 
   # GET /leaves/1
@@ -15,6 +20,14 @@ class LeavesController < ApplicationController
   # GET /leaves/new
   def new
     @leave = Leave.new
+    if current_user.role == 'teacher'
+      @leave.employee_id = Employee.find_by_email(current_user.email).id
+    elsif current_user.role == 'parent'
+
+    elsif current_user.role == 'student'
+
+    end
+        
   end
 
   # GET /leaves/1/edit

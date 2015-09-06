@@ -12,8 +12,15 @@ class YearPlansController < ApplicationController
   # GET /year_plans/1.json
   def show
     @weeks = @year_plan.weeks.sort_by &:start_date
-    @grades = Grade.all
-    @subjects = Subject.all
+    if current_user.role == 'teacher'
+      @grades = Grade.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:grade_id))
+      @subjects = Subject.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:subject_id))
+    elsif current_user.role!= 'parent' && current_user.role!= 'student' 
+      # for admins
+      @grades = Grade.all
+      @subjects = Subject.all
+    end
+    
   end
 
   # GET /year_plans/new
@@ -96,7 +103,15 @@ class YearPlansController < ApplicationController
   def weekly_schedule
     @year_plan = YearPlan.find(params[:id])
     @weeks = @year_plan.weeks.sort_by &:start_date
-    @grades = Grade.all
+    if current_user.role == 'teacher'
+      @grades = Grade.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:grade_id))
+      # @subjects = Subject.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:subject_id))
+    elsif current_user.role!= 'parent' && current_user.role!= 'student' 
+      # for admins
+      @grades = Grade.all
+      # @subjects = Subject.all
+    end
+    # @grades = Grade.all
   end
 
   def show_weekly_schedule

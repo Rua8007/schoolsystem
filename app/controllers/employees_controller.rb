@@ -15,6 +15,8 @@ class EmployeesController < ApplicationController
   # GET /employees/new
   def new
     @employee = Employee.new
+
+    @employee.employee_number = "emp_" + (Employee.count+1).to_s
     @categories = Category.all
     @departments = Department.all
     @positions = Position.all
@@ -34,7 +36,7 @@ class EmployeesController < ApplicationController
     @employee = Employee.new(employee_params)
     respond_to do |format|
       if @employee.save
-        if @employee.category.name == 'Academic'
+        if @employee.category.name.downcase == 'academic'
           u = User.new
           u.email = @employee.email
           u.password = '123'
