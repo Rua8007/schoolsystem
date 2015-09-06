@@ -1,26 +1,30 @@
 <div class="bg-light lter b-b wrapper-md">
+
+<% if current_user.role!= 'parent' && current_user.role!= 'teacher' && current_user.role!= 'student' %>
   <h1 class="m-n font-thin h3">Daily Schedule &amp; Yearly Curriculum Schedule 
   <%= link_to(new_year_plan_path, class: "btn pull-right btn-color" ,style: "width:200px;") do %>
     <i class="fa fa-plus"></i>
     Plan a New Year
   <% end %>
   </h1>
+<% end %>
+
 </div>
 
 <div class="wrapper-md">
 
-  <%= form_tag show_daily_schedule_time_tables_path, :method => 'get' do %>
-      <div class="form-group">
+  <%#= form_tag show_daily_schedule_time_tables_path, :method => 'get' do %>
+    <!--   <div class="form-group">
         <strong>Daily Schedule</strong>
         <br/>
-        <!-- <p>Some text in the modal.</p> -->
-        <%= select_tag :grade_id, options_from_collection_for_select(@grades,"id", "full_name"),
+        
+        <%#= select_tag :grade_id, options_from_collection_for_select(@grades,"id", "full_name"),
             prompt: "Select Grade", class: "form-control", required: true %>
             <br/>
         <a class="btn btn-success pull-right" href="http://www.primetimetable.com/#id=c0bba798-d51e-477b-9d82-cc2e0995348e&app&view=1" target="_blank"> Create Time Table </a>
         <%#= submit_tag 'See Daily Schedule', class: 'btn btn-success pull-right' %>
-      </div>
-  <% end %>
+      </div> -->
+  <%# end %>
 
 
   <table class="table table-striped">
@@ -45,7 +49,9 @@
 
           <td><%= link_to 'Lesson Plan', lessonplans_path(year_plan: year_plan), class: "btn btn-small btn-success" %></td>
 
-          <td><%= link_to 'Edit Name', edit_year_plan_path(year_plan), class: "btn btn-small btn-default" %></td>
+          <% if current_user.role!= 'parent' && current_user.role!= 'teacher' && current_user.role!= 'student' %>
+            <td><%= link_to 'Edit Name', edit_year_plan_path(year_plan), class: "btn btn-small btn-default" %></td>
+          <% end %>
          
         </tr>
       <% end %>
