@@ -35,7 +35,14 @@ class PortionsController < ApplicationController
 
   # GET /portions/1/edit
   def edit
-    @subjects = Subject.all
+    if current_user.role == 'teacher'
+        # @grades = Grade.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:grade_id))
+        @subjects = Subject.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:subject_id))
+      elsif current_user.role!= 'parent' && current_user.role!= 'student' 
+        # for admins
+        # @grades = Grade.all
+        @subjects = Subject.all
+      end
   end
 
   # POST /portions
