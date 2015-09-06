@@ -1,0 +1,34 @@
+<table class="table table-stripped">
+  <thead class="table-head">
+    <tr>
+      <th>Student ID</th>
+      <th>Student Name</th>
+      <% @class.marks.each do |m| %>
+        <th><%= m.name %></th>
+      <% end %>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @marksheets.each do |m| %>
+      <tr>
+        <td><%= m[:student_id] %></td>
+        <td><%= m[:student_name] %></td>
+
+        <% @class.marks.each do |sm| %>
+          <% if m[:sessionals].present? %>
+            <td> <%= m[:sessionals][sm.id].try(:marks) || 'N/A' %> </td> 
+
+          <% else %>
+            <td> N/A </td>
+          <% end %>
+        <% end %>
+
+        <td>
+          <%#= link_to '', result_card_marksheets_path({student: m[:student_id], exam: @exam.id}),:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

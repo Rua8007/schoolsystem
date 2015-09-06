@@ -132,12 +132,12 @@
                   <div class="progress-bar progress-bar-info" data-toggle="tooltip" data-original-title="50%" style="width: 50%"></div>
                 </div>
               </li> -->
-              <!-- <li>
+              <li>
                 <a href>
                   <span class="badge bg-danger pull-right">30%</span>
-                  <span>Settings</span>
+                  <span><%= link_to "Settings", edit_user_registration_path %></span>
                 </a>
-              </li> -->
+              </li>
               <li>
                 <% if current_user && current_user.role == 'student' %>
                   <%= link_to "Profile", student_path(Student.find_by_email(current_user.email).id) %>
@@ -231,6 +231,8 @@
                 <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
                   <span>Navigation</span>
                 </li>
+                  
+
                 <% if current_user.role != 'accountant' %>
                   <% if current_user.role != 'student' && current_user.role != 'teacher'  %>
                     <li>
@@ -406,12 +408,21 @@
                         <span>Time Table</span>
                       <% end %>
                     <% elsif current_user.role == 'student' %>
-                      <%= link_to(time_table_path(TimeTable.find_by_grade_id(Student.find_by_email(current_user.email).grade_id).id)) do %>
+                      <%#= link_to(time_table_path(TimeTable.find_by_grade_id(Student.find_by_email(current_user.email).grade_id).id)) do %>
                         <i class="glyphicon glyphicon-time"></i>
                         <span>Time Table</span>
-                      <% end %>
+                      <%# end %>
                     <% end %>
                   </li>
+
+                  <li>
+                    <%= link_to(conversations_path) do %>
+                      <i class="glyphicon glyphicon-time"></i>
+                      <span>Conversations</span>
+                    <% end %>
+                    
+                  </li>
+                  
 
               <% end %>
               
@@ -422,7 +433,7 @@
                       <i class="fa fa-fw fa-angle-right text"></i>
                       <i class="fa fa-fw fa-angle-down text-active"></i>
                     </span>
-                    <i class="glyphicon glyphicon-user"></i>
+                    <i class="glyphicon glyphicon-file"></i>
                     <span>Fee Register</span>
                   </a>
                   <ul class="nav nav-sub dk">
@@ -465,7 +476,7 @@
                       <i class="fa fa-fw fa-angle-right text"></i>
                       <i class="fa fa-fw fa-angle-down text-active"></i>
                     </span>
-                    <i class="glyphicon glyphicon-user"></i>
+                    <i class="glyphicon glyphicon-bookmark"></i>
                     <span>Batch</span>
                   </a>
                   <ul class="nav nav-sub dk">
@@ -493,7 +504,7 @@
                       <i class="fa fa-fw fa-angle-right text"></i>
                       <i class="fa fa-fw fa-angle-down text-active"></i>
                     </span>
-                    <i class="glyphicon glyphicon-user"></i>
+                    <i class="glyphicon glyphicon-book"></i>
                     <span>Subject</span>
                   </a>
                   <ul class="nav nav-sub dk">
@@ -522,7 +533,7 @@
                       <i class="fa fa-fw fa-angle-right text"></i>
                       <i class="fa fa-fw fa-angle-down text-active"></i>
                     </span>
-                    <i class="glyphicon glyphicon-user"></i>
+                    <i class="glyphicon glyphicon-list-alt"></i>
                     <span>Grade</span>
                   </a>
                   <ul class="nav nav-sub dk">
@@ -553,7 +564,7 @@
                       <i class="fa fa-fw fa-angle-right text"></i>
                       <i class="fa fa-fw fa-angle-down text-active"></i>
                     </span>
-                    <i class="glyphicon glyphicon-user"></i>
+                    <i class="glyphicon glyphicon-plane"></i>
                     <span>Transport</span>
                   </a>
                   <ul class="nav nav-sub dk">
@@ -607,7 +618,7 @@
                       <i class="fa fa-fw fa-angle-right text"></i>
                       <i class="fa fa-fw fa-angle-down text-active"></i>
                     </span>
-                    <i class="glyphicon glyphicon-user"></i>
+                    <i class="glyphicon glyphicon-shopping-cart"></i>
                     <span>Book shop</span>
                   </a>
                   <ul class="nav nav-sub dk">
@@ -672,13 +683,28 @@
                         <% end %>
                       </li>
                       <li>
+                        <%= link_to(new_mark_path) do %>
+                          <span>Marks Devisions</span>
+                        <% end %>
+                      </li>
+                      <li>
                         <%= link_to(new_marksheet_path) do %>
                           <span>Upload Marksheet</span>
                         <% end %>
                       </li>
                       <li>
                         <%= link_to(marksheets_path) do %>
-                          <span>Marksheet</span>
+                          <span>All Marksheet</span>
+                        <% end %>
+                      </li>
+                      <li>
+                        <%= link_to(classresult_marksheets_path) do %>
+                          <span>Class Results</span>
+                        <% end %>
+                      </li>
+                      <li>
+                        <%= link_to(subject_result_marksheets_path) do %>
+                          <span>Subject Results</span>
                         <% end %>
                       </li>
                       <!-- <li>

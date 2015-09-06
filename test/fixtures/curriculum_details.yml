@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  month: MyText
+  day: 1
+  sol: MyString
+  strand: MyString
+  content: MyText
+  skill: MyText
+  activity: MyText
+  assessment: MyText
+
+two:
+  month: MyText
+  day: 1
+  sol: MyString
+  strand: MyString
+  content: MyText
+  skill: MyText
+  activity: MyText
+  assessment: MyText

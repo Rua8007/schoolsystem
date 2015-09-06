@@ -49,9 +49,12 @@
 
           <td><%= link_to 'Lesson Plan', lessonplans_path(year_plan: year_plan), class: "btn btn-small btn-success" %></td>
 
+          <td><%= link_to 'Curriculum Plan', curriculums_path(year_plan: year_plan), class: "btn btn-small btn-success" %></td>
+          
           <% if current_user.role!= 'parent' && current_user.role!= 'teacher' && current_user.role!= 'student' %>
             <td><%= link_to 'Edit Name', edit_year_plan_path(year_plan), class: "btn btn-small btn-default" %></td>
           <% end %>
+
          
         </tr>
       <% end %>

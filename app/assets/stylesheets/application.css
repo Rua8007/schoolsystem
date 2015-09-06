@@ -21,6 +21,8 @@
  *= require fullcalendar
  *= require bootstrap-datepicker
  */
+
+ @import 'chosen';
 .navbar-brand{
 	width: 170px !important;
 }
@@ -58,7 +60,12 @@
   .displayn{
     display: none;
   }
-
+.messages {
+  max-height: 400px;
+  overflow-y: auto;
+  margin-bottom: 1em;
+  margin-top: 1em;
+}
 .bt-login, .bt-login:hover, .bt-login:active, .bt-login:focus {
     background-color: #46b8da;
     color: #ffffff;

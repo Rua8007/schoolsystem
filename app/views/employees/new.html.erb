@@ -1,6 +1,12 @@
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3">New Employee</h1>
 </div>
-<div class="wrapper-md">
-	<%= render 'form' %>
-</div>
+<% if !@positions.any? %>
+  <h4>Create A Position First <%= link_to 'New Position', new_position_path %></h4>
+<% elsif !@categories.any? %>
+  <h4>Add Categories First <%= link_to 'New Category', new_category_path %></h4>
+<% else %>
+	<div class="wrapper-md">
+		<%= render 'form' %>
+	</div>
+<% end %>

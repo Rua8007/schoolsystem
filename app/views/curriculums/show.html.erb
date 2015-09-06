@@ -1,0 +1,78 @@
+
+
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">
+   
+  
+  <div class="abc form-holder">
+  <div class="text-center">
+      <%= "School Year: #{@curriculum.year_plan.year_name} " %>
+
+    </div>
+ 
+  
+    <%= link_to(@curriculum, method: :delete, class: 'btn m-b-xs btn-sm btn-danger btn-addon pull-right', data: { confirm: 'This will delete current whole curriculum plan. Are you sure that you want to make a new one?' }) do %>
+
+        Remake curriculum Plan
+    <% end %>
+        <div class="row">
+          <fieldset class="sss well well-lg">
+            <legend class="lll">curriculum Plan Information</legend>
+              <div class="column col-xs-12 col-sm-3">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Class:</label>
+                    <%= @curriculum.grade.name %>
+                </div>
+              </div>
+              <div class="column col-xs-12 col-sm-3">
+                <div class="form-group">
+                <label for="exampleInputEmail1">Subject:</label>
+                  <%= @curriculum.subject.name %>
+                </div>
+              </div>
+              <div class="column col-xs-12 col-sm-3">
+                <div class="form-group">
+                <label for="exampleInputEmail1">Student Name:</label>
+                  <%= @curriculum.studentname %>
+                </div>
+              </div>
+          </fieldset>       
+        </div>
+      </div>
+</div>
+</h1>
+
+<div class="wrapper-md">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th class="text-center">Months</th>
+        <th class="text-center">Days</th>
+        <th class="text-center">Sols</th>
+        <th class="text-center">Strands</th>
+        <th class="text-center">Contents</th>
+        <th class="text-center">Skills</th>
+        <th class="text-center">Activities</th>
+        <th class="text-center">Assessments</th>
+
+      </tr>
+    </thead>
+    <tbody class="text-center">
+      <% @curriculum.curriculum_details.each do |pd| %>
+        <tr>
+          <td><%= pd.month%></td>
+          <td><%= pd.day %></td>
+          <td><%= pd.sol %></td>
+          <td><%= pd.strand %></td>
+          <td><%= pd.content %></td>
+          <td><%= pd.skill %></td>
+          <td><%= pd.activity %></td>
+          <td><%= pd.assessment %></td>
+
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= link_to 'Back', year_plans_path %>

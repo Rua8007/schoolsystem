@@ -1,6 +1,18 @@
 Rails.application.routes.draw do
+  resources :curriculums
   resources :lessonplans
   resources :portions
+  resources :conversations, only: [:index, :show, :destroy] do
+  member do
+    post :reply
+    post :restore
+     post :mark_as_read
+  end
+  collection do
+    delete :empty_trash
+  end
+end
+  resources :messages, only: [:new, :create]
   resources :periods do
     collection do 
       get 'make_daily_schedule'
@@ -82,6 +94,10 @@ Rails.application.routes.draw do
       post "uploading"
       get "classresult"
       get "get_class_result"
+      get "result_card"
+      get "subject_result"
+      get "get_subject_result"
+      get "result"
     end
   end
   resources :exams
@@ -129,6 +145,7 @@ Rails.application.routes.draw do
     end
   end
   devise_for :users
+  
 
   get 'home/index'
 
