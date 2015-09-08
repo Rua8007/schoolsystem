@@ -3,6 +3,10 @@
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3">Admission Form  </h1>
 </div>
+
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Student ID : <%= Student.last.id+1 %>  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Date : <%= DateTime.now.strftime('%m/%d/%Y')%> </h1>
+</div>
 <div class="wrapper-md">
 	<div class="col-md-12">
 		<%= render 'form' %>

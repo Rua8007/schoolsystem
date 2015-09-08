@@ -12,7 +12,8 @@ class StudentsController < ApplicationController
     @student = Student.create(create_params)
     if @student
       u = User.new
-      u.email = @student.email
+      @email="std_"+Student.last.id.to_s+"@alomam.edu.sa"
+      u.email = @email
       u.password = '123'
       u.password_confirmation = '123'
       u.role = 'student'
@@ -283,7 +284,7 @@ class StudentsController < ApplicationController
 	private
 
     def create_params
-      params.require(:student).permit(:fullname,:remote_image_url,:first_name, :mobile, :address, :email, :grade_id, :dob,:gender,:middle_name, :last_name, :blood, :birth_place, :nationality, :language, :religion, :city, :state, :country,:phone, :fee, :term, :due_date, :image,:iqamaNumber,:iqamaExpiry, :previousInstitute, :year, :totalMarks, :obtainedMarks, :forthname, :fifthname, :arabicname, :weight,:height,:eyeside,:hearing,:rh,:alergy,:nurology,:physical,:disability,:behaviour, emergencies_attributes:[:name, :phome, :mobile, :email, :student_id])      
+      params.require(:student).permit(:fullname,:remote_image_url,:first_name, :mobile, :address, :email, :grade_id, :dob,:gender,:middle_name, :last_name, :blood, :birth_place, :nationality, :language, :religion, :city, :state, :country,:phone, :fee, :term, :due_date, :image,:iqamaNumber,:iqamaExpiry, :previousInstitute, :year, :totalMarks, :obtainedMarks, :forthname, :fifthname, :arabicname, :weight,:height,:eyeside,:hearing,:rh,:alergy,:nurology,:physical,:disability,:behaviour,:specialneed, emergencies_attributes:[:name, :phome, :mobile, :email, :student_id])      
     end
 
     def student_params
