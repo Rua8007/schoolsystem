@@ -16,6 +16,10 @@
     <%= f.text_field :student_id , class: "form-control" %>
     <span style = "color: red" id = "std_error" class="hidden">Invalid Student ID...!!! </span>
   </div>
+  <div class="form-group col-md-4">
+    <label>Pending Amount</label><br>
+    <input type="text" class= "form-control" readonly="true" id="pendings">
+  </div>
   <div class= "form-group col-md-4">
     <label>Enter Amount</label><br>
     <%= f.text_field :amount, class: "form-control" %>
@@ -49,24 +53,26 @@
       .done(function(data){
         if(data != null){
           $('#std_error').addClass('hidden');
-          var val = data.term;
-          console.log("done function", val);
-          if(val == 'Monthly'){
-            $("#fee_amount").val(Math.round(data.fee)/12);
-            console.log('here i am ');
-          }
-          if(val == 'Quarterly'){
-            $("#fee_amount").val(Math.round(data.fee)/4);
-          }
-          if(val == 'Bi-annualy'){
-            $("#fee_amount").val(Math.round(data.fee)/2);
-          }
-          if(val == 'Annualy'){
-            $("#fee_amount").val(data.fee);
-          }
+          // var val = data.term;
+          // console.log("done function", val);
+          // if(val == 'Monthly'){
+          //   $("#fee_amount").val(Math.round(data.fee)/12);
+          //   console.log('here i am ');
+          // }
+          // if(val == 'Quarterly'){
+          //   $("#fee_amount").val(Math.round(data.fee)/4);
+          // }
+          // if(val == 'Bi-annualy'){
+          //   $("#fee_amount").val(Math.round(data.fee)/2);
+          // }
+          // if(val == 'Annualy'){
+          //   $("#fee_amount").val(data.fee);
+          // }
+          // console.log(data.fee);
+          $("#pendings").val(data.fee);
         }
         else{
-          $("#fee_amount").val('');
+          $("#pendings").val('');
           $('#fee_student_id').val('');
           $('#std_error').removeClass('hidden');
         }

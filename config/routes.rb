@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :feebreakdowns
   resources :curriculums
   resources :lessonplans
   resources :portions
@@ -75,6 +76,8 @@ end
     collection do
       get "fee_data"
       get 'fee_defaulter'
+      get 'challan'
+      get 'student_list'
     end
   end
   resources :bus_allotments do
@@ -179,6 +182,7 @@ end
     member do
       post "assignParent"
       get "edit_student"
+      get "give_discount"
     end
     collection do
       get "detail"

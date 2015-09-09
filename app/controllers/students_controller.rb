@@ -55,17 +55,13 @@ class StudentsController < ApplicationController
     end
   end
 
-    
+
 
   def edit_student
     @student = Student.find(params[:id])
     @edit = true
 
   end
-
-  
-
-  
 
   def assignParent
     # return render json: params
@@ -81,14 +77,11 @@ class StudentsController < ApplicationController
   end
 
   def detail
-    puts "-"*80
-    puts params
-    puts "-"*80
-
 
     if params[:fee]
       if Student.find_by_id(params[:id]).present?
         @student = Student.find_by_id(params[:id])
+        @student.fee = @student.grade.feebreakdowns.sum(:amount) - @student.fees.sum(:amount)
       else
         @student = nil
       end
@@ -128,7 +121,7 @@ class StudentsController < ApplicationController
             std_att_leave = StudentHoliday.where("leave_from <= ? AND leave_to >= ? AND student_id = ? AND approved = true ",params[:attendance_date].to_date,params[:attendance_date].to_date, std.id).first
 
             std_att_previous = std.student_attendances.where(attendance_date: params[:attendance_date].to_date).first
-             
+
             if std_att_previous.present?
               @previous_attendance_edit = true
               att = std_att_previous.epresent
@@ -140,7 +133,7 @@ class StudentsController < ApplicationController
 
             std_att = {
                         "std_id" => "#{std.id}",
-                        "name" => "#{std.fullname}", 
+                        "name" => "#{std.fullname}",
                         "grade" => "#{std.try(:grade).try(:name)}",
                         "attendance" => "#{std_att_leave.present? ? false : att }",
                         "leave" => "#{std_att_leave.present? ? true : false }",
@@ -159,9 +152,9 @@ class StudentsController < ApplicationController
           grd_students.each_with_index do |std, i|
             std_att_leave = StudentHoliday.where("leave_from <= ? AND leave_to >= ? AND student_id = ? AND approved = true",params[:attendance_date].to_date,params[:attendance_date].to_date, std.id).first
 
-            
+
             std_att_previous = std.student_attendances.where(attendance_date: params[:attendance_date].to_date).first
-             
+
             if std_att_previous.present?
               @previous_attendance_edit = true
               att = std_att_previous.epresent
@@ -174,7 +167,7 @@ class StudentsController < ApplicationController
             if std_att_previous.present?
               std_att = {
                           "std_id" => "#{std.id}",
-                          "name" => "#{std.fullname}", 
+                          "name" => "#{std.fullname}",
                           "grade" => "#{std.try(:grade).try(:name)}",
                           "attendance" => "#{std_att_leave.present? ? false : att }",
                           "leave" => "#{std_att_leave.present? ? true : false }",
@@ -182,7 +175,7 @@ class StudentsController < ApplicationController
                         }
             else
               std_att = { "std_id" => "#{std.id}",
-                          "name" => "#{std.fullname}", 
+                          "name" => "#{std.fullname}",
                           "grade" => "#{std.try(:grade).try(:name)}",
                           "attendance" => "#{ std_att_leave.nil? ? true : false }",
                           "leave" => "#{ std_att_leave.present? ? true : false }",
@@ -201,8 +194,8 @@ class StudentsController < ApplicationController
 
   def save_attendances
     # return render json: params.inspect
-    if params[:attendance_date].present? && params[:attendance_date].to_date <= Date.today 
-  
+    if params[:attendance_date].present? && params[:attendance_date].to_date <= Date.today
+
 
       old_attendance = StudentAttendance.where(attendance_date: params[:attendance_date].to_date).first
       if old_attendance.present?
@@ -257,7 +250,7 @@ class StudentsController < ApplicationController
           end
         else
           student = Student.find_by_email(current_user.email)
-          i = 0 
+          i = 0
           attendance = {}
           attendance.store("name","#{student.fullname}")
           e_attendances = student.student_attendances.where("extract(month from attendance_date) = ? AND extract(year from attendance_date) = ?",month,year)
@@ -284,19 +277,23 @@ class StudentsController < ApplicationController
     return render partial: "students/get_monthly_attendance_report_result"
   end
 
+  def give_discount
+    @student = Student.find(params[:id])
+  end
+
 	private
 
     def create_params
-      params.require(:student).permit(:fullname,:remote_image_url,:first_name, :mobile, :address, :email, :grade_id, :dob,:gender,:middle_name, :last_name, :blood, :birth_place, :nationality, :language, :religion, :city, :state, :country,:phone, :fee, :term, :due_date, :image,:iqamaNumber,:iqamaExpiry, :previousInstitute, :year, :totalMarks, :obtainedMarks, :forthname, :fifthname, :arabicname, :weight,:height,:eyeside,:hearing,:rh,:alergy,:nurology,:physical,:disability,:behaviour, emergencies_attributes:[:name, :phome, :mobile, :email, :student_id])      
+      params.require(:student).permit(:fullname,:remote_image_url,:first_name, :mobile, :address, :email, :grade_id, :dob,:gender,:middle_name, :last_name, :blood, :birth_place, :nationality, :language, :religion, :city, :state, :country,:phone, :fee, :term, :due_date, :image,:iqamaNumber,:iqamaExpiry, :previousInstitute, :year, :totalMarks, :obtainedMarks, :forthname, :fifthname, :arabicname, :weight,:height,:eyeside,:hearing,:rh,:alergy,:nurology,:physical,:disability,:behaviour, :discount,emergencies_attributes:[:name, :phome, :mobile, :email, :student_id])
     end
 
     def student_params
-      params.require(:student).permit(:fullname,:remote_image_url,:first_name, :mobile, :address, :email, :grade_id, :dob,:gender,:middle_name, :last_name, :blood, :birth_place, :nationality, :language, :religion, :city, :state, :country,:phone, :fee, :term, :due_date, :image,:iqamaNumber,:iqamaExpiry, :previousInstitute, :year, :totalMarks, :obtainedMarks, :forthname, :fifthname, :arabicname, :weight,:height,:eyeside,:hearing,:rh,:alergy,:nurology,:physical,:disability,:behaviour, emergencies_attributes:[:name, :phome, :mobile, :email, :student_id])      
+      params.require(:student).permit(:fullname,:remote_image_url,:first_name, :mobile, :address, :email, :grade_id, :dob,:gender,:middle_name, :last_name, :blood, :birth_place, :nationality, :language, :religion, :city, :state, :country,:phone, :fee, :term, :due_date, :image,:iqamaNumber,:iqamaExpiry, :previousInstitute, :year, :totalMarks, :obtainedMarks, :forthname, :fifthname, :arabicname, :weight,:height,:eyeside,:hearing,:rh,:alergy,:nurology,:physical,:disability,:behaviour, :discount,emergencies_attributes:[:name, :phome, :mobile, :email, :student_id])
     end
 
     def save_attendances_helper(params)
       if params[:grade].present?
-        
+
         grad = Grade.find(params[:grade])
         if grad.present?
           grd_students = grad.students
@@ -335,7 +332,7 @@ class StudentsController < ApplicationController
               end
             else
               std_leave = StudentHoliday.where("leave_from <= ? AND leave_to >= ? AND student_id = ? AND approved = true",params[:attendance_date].to_date,params[:attendance_date].to_date, std.id).first
-            
+
               if std_leave.present?
                 std_attendance = std.student_attendances.where(attendance_date: params[:attendance_date].to_date).first
                 if std_attendance.nil?
