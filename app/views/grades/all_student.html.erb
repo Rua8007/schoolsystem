@@ -9,7 +9,48 @@
         dom: 'T<"clear">lfrtip',
         tableTools: {
           "sSwfPath": "https://cdn.datatables.net/tabletools/2.2.2/swf/copy_csv_xls_pdf.swf"
-        }
+        },
+        <% if @students.count > 0 && current_user.role == "accountant" %>
+           "footerCallback": function ( row, data, start, end, display ) {
+              var api = this.api(), data;
+
+              // Remove the formatting to get integer data for summation
+              var intVal = function ( i ) {
+                  return typeof i === 'string' ?
+                      i.replace(/[\$,]/g, '')*1 :
+                      typeof i === 'number' ?
+                          i : 0;
+              };
+
+              // Total over all pages
+              var col = 1 + <%= @grade.feebreakdowns.count %> + 4
+              total = api
+                  .column( col )
+                  .data()
+                  .reduce( function (a, b) {
+                      return intVal(a) + intVal(b);
+                  } );
+              $('#total').text('Total Fee: '+total);
+
+              var col = 1 + <%= @grade.feebreakdowns.count %> + 5
+              total = api
+                  .column( col )
+                  .data()
+                  .reduce( function (a, b) {
+                      return intVal(a) + intVal(b);
+                  } );
+              $('#paid').text('Total Paid: '+total);
+
+              var col = 1 + <%= @grade.feebreakdowns.count %> + 6
+              total = api
+                  .column( col )
+                  .data()
+                  .reduce( function (a, b) {
+                      return intVal(a) + intVal(b);
+                  } );
+              $('#remaining').text('Total Pendings: '+total);
+          }
+        <% end %>
     });
   });
 
@@ -112,7 +153,7 @@
 
             <% if student.invoices.any? %>
               <% student.invoices.each do |i| %>
-                <% bcharges = bcharges + i.lines.sum("qty * price") %>
+                <% bcharges = bcharges + i.lines.sum("qty * price") - i.discount %>
               <% end %>
             <% end %>
             <td><%= bcharges %></td>
@@ -121,7 +162,9 @@
             <% discount = discount * student.grade.feebreakdowns.first.amount/100 %>
 
             <td><%= discount %></td>
-            <% total = bus + bcharges + total - discount %>
+
+            <% total = bus + (bcharges*12) + total - discount + student.bus_allotment.transportfeerecords.sum(:fee) if bcharges != 0 %>
+            <% total = bus + (bcharges*12) + total - discount if bcharges == 0 %>
             <td><%= total %></td>
             <td><%= student.fees.sum(:amount) || 0 %></td>
             <td> <%= total - student.fees.sum(:amount)  %></td>
@@ -134,6 +177,11 @@
       <% end %>
     </tbody>
   </table>
+  <div class="well well-lg pull-right">
+    <h3><span id = "total"></span></h3>
+    <h3><span id = "paid"></span></h3>
+    <h3><span id = "remaining"></span></h3>
+  </div>
 </div>
   <button id = "modalbutton" data-toggle = "modal" data-target = "#loginModal" style="display: none;" onclick="javascript:;"></button>
 
