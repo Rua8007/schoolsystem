@@ -1,5 +1,4 @@
-  <div class="container form-holder">
-    <div class="row">
+ 
     <%= form_for @parent do |f| %>
       <% if @parent.errors.any? %>
         <div id="error_explanation">
@@ -13,53 +12,24 @@
         </div>
       <% end %>
 
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3"> Parents Details</h1>
+</div>
+</br>
 
-      <div class="row">
-        <div class= "admission-form-heading" ><h4 style="color:white;"> Personal Information </h4> </div>
-        <br>
-        <br>
+
+<div class="abc form-holder">
+  <div class="row">
+    <fieldset class="sss well well-lg">
+      <legend class="lll">Personal Information (Parent 1)</legend>
         <div class="column col-xs-12 col-md-4">
           <div class="form-group">
-            <label for="exampleInputEmail1">Name</label>
+            <label for="exampleInputEmail1">Father Name</label>
             <%= f.text_field :name , :style => 'height:34px;',  class: 'form-control', required: true, autofocus: true %>
           </div>
         </div>
         <%= hidden_field_tag "student_id",  @student.id %>
-        <div class="column col-xs-12 col-md-4">
-          <div class="form-group">
-            <label for="exampleInputEmail1">Relation</label>
-            <%= f.select :relation, options_for_select(%w[Father Mother Guardian]),{}, {class: "form-control", style: ''} %>
-          </div>
-        </div>
-
-        <div class="column col-xs-12 col-md-4">
-          <div class="form-group">
-            <label for="exampleInputEmail1">Qualification</label>
-            <%= f.text_field :education , :style => 'height:34px;',  class: 'form-control', required: true, autofocus: true %>
-          </div>
-        </div>
-
-        <div class="column col-xs-12 col-md-4">
-          <div class="form-group">
-            <label for="exampleInputEmail1">Profession</label>
-            <%= f.text_field :profession , :style => 'height:34px;',  class: 'form-control', required: true, autofocus: true %>
-          </div>
-        </div>
-
-        <div class="column col-xs-12 col-md-4">
-          <div class="form-group">
-            <label for="exampleInputEmail1">Date of Birth</label>
-            <%= f.text_field :dob , :style => 'height:34px;',  class: 'form-control', required: true, autofocus: true %>
-          </div>
-        </div>
-
-        <div class="column col-xs-12 col-md-4">
-          <div class="form-group">
-            <label for="exampleInputEmail1">Income</label>
-            <%= f.text_field :income , :style => 'height:34px;',  class: 'form-control', required: true, autofocus: true %>
-          </div>
-        </div>
-
+        
         <div class="column col-xs-12 col-md-4">
           <div class="form-group">
             <label for="exampleInputEmail1">Iqama Number</label>
@@ -73,46 +43,10 @@
             <%= f.text_field :iqamaExpiry , :style => 'height:34px;',  class: 'form-control', required: true, autofocus: true %>
           </div>
         </div>
-      </div>
+      
 
-      <div class="row">
-        <div class= "admission-form-heading" ><h4 style="color:white;"> Contact Information </h4> </div>
-        <br>
-        <br>
-        <div class="column col-xs-12 col-md-4">
-          <div class="form-group">
-            <label for="exampleInputEmail1">Address 1</label>
-            <%= f.text_field :address1 , :style => 'height:34px;',  class: 'form-control', required: true, autofocus: true %>
-          </div>
-        </div>
-        <div class="column col-xs-12 col-md-4">
-          <div class="form-group">
-            <label for="exampleInputEmail1">Address 2</label>
-            <%= f.text_field :address2, :style => 'height:34px;',  class: 'form-control', required: true, autofocus: true%>
-          </div>
-        </div>
-
-        <div class="column col-xs-12 col-md-4">
-          <div class="form-group">
-            <label for="exampleInputEmail1">City</label>
-            <%= f.text_field :city , :style => 'height:34px;',  class: 'form-control', required: true, autofocus: true %>
-          </div>
-        </div>
-
-        <div class="column col-xs-12 col-md-4">
-          <div class="form-group">
-            <label for="exampleInputEmail1">Country</label>
-            <%= f.text_field :country , :style => 'height:34px;',  class: 'form-control', required: true, autofocus: true %>
-          </div>
-        </div>
-
-        <div class="column col-xs-12 col-md-4">
-          <div class="form-group">
-            <label for="exampleInputEmail1">Office Phone</label>
-            <%= f.text_field :officePhone , :style => 'height:34px;',  class: 'form-control', required: true, autofocus: true %>
-          </div>
-        </div>
-
+    <div class="row">
+      <legend class="lll">Contact Information</legend>
         <div class="column col-xs-12 col-md-4">
           <div class="form-group">
             <label for="exampleInputEmail1">Mobile</label>
@@ -127,13 +61,93 @@
           </div>
         </div>
       </div>
-      <% if @flag %>
-        <div class="form-group">
-          <%= f.submit "Next", :class => 'btn btn-block btn-success form-control',:style=>'width:24%;float: right; margin-right:35px;' %>
-        </div>
-      <% end %>
-    </div>
-    
+    </fieldset>
   </div>
 
+  <div class="abc form-holder">
+  <div class="row">
+    <fieldset class="sss well well-lg">
+      <legend class="lll">Personal Information (Parent 2)</legend>
+        <div class="column col-xs-12 col-md-4">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Mother Name</label>
+            <%= f.text_field :mothername , :style => 'height:34px;',  class: 'form-control', required: true, autofocus: true %>
+          </div>
+        </div>
+        <div class="column col-xs-12 col-md-4">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Mobile</label>
+            <%= f.text_field :mothermobile , :style => 'height:34px;',  class: 'form-control', required: true, autofocus: true %>
+          </div>
+        </div>
+
+        <div class="column col-xs-12 col-md-4">
+          <div class="form-group">
+            <label for="exampleInputEmail1">E-mail Address</label>
+            <%= f.text_field :motheremail , :style => 'height:34px;',  class: 'form-control', required: true, autofocus: true %>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+
+
+      <% if @flag %>
+        <div class="form-group">
+          <%= f.submit "Save", :class => 'btn btn-block btn-success form-control',:style=>'width:24%;float: right; margin-right:35px;' %>
+        </div>
+      <% end %>
+    
+
   <%end%>
+
+
+
+
+
+
+
+
+    <style class type="text/css">
+  .admission-form-heading
+  {
+    width:100%;
+  }
+
+  .row{
+    width:96%;
+    margin-left: 0px;
+    margin-top: 0px;
+  }
+  .container{
+      width: auto;
+  }
+
+  .sss{
+    border:1px solid#e5e5e5;   padding: 1%; 
+  }
+
+  .lll{
+    width: auto !important; 
+    background-color: white;
+    padding-right: 16px;
+    padding-left: 15px;
+    border: 1px solid;
+    border-color: #729F32;
+    border-radius: 21px;
+  }
+  </style>
+
+  <style type="text/css">
+  .form-holder .col-sm-2 {
+    min-height: 84px;
+  }
+  .form-holder .form-control{
+    width: auto%;
+  }
+  .form-control{
+    border-radius: 7px;
+    border: black;
+  }
+</style>
+
