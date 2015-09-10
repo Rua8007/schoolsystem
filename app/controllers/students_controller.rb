@@ -11,10 +11,10 @@ class StudentsController < ApplicationController
     end
 		@student = Student.new
     if Student.all.any?
-      @number = Student.last.id +1
+      @student_no = Student.last.id + 1
     else
       Student.create
-      @number = Student.last.id +1
+      @student_no = Student.last.id + 1
      end
 	end
 
