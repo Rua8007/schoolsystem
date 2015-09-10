@@ -9,6 +9,7 @@ class Grade < ActiveRecord::Base
 	has_many :packages
 	has_many :lessonplans
 	has_many :curriculums
+	has_many :purchases
 
 	has_many :grade_subjects
 

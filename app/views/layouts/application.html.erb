@@ -398,12 +398,21 @@
                   </li>
 
                   <li>
+                    <%= link_to(purchases_path) do %>
+                      <i class="glyphicon glyphicon-time"></i>
+                      <span>Puchase Request</span>
+                    <% end %>
+                    
+                  </li>
+
+                  <li>
                     <%= link_to(conversations_path) do %>
                       <i class="glyphicon glyphicon-time"></i>
                       <span>Conversations</span>
                     <% end %>
                     
                   </li>
+
                   
 
               <% end %>

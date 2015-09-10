@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  resources :purchases do
+    member do
+      put "approve"
+      put "disapprove"
+    end
+  end
   resources :curriculums
   resources :lessonplans
   resources :portions

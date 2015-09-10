@@ -1,0 +1,78 @@
+<%= stylesheet_link_tag "//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css" %>
+<%= javascript_include_tag "https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js" %>
+<%= javascript_include_tag "//cdn.datatables.net/tabletools/2.2.2/js/dataTables.tableTools.min.js" %>
+<%= javascript_include_tag "https://cdn.datatables.net/plug-ins/1.10.9/integration/bootstrap/3/dataTables.bootstrap.js" %>
+<%#= javascript_include_tag "https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js" %>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#example thead th').each( function (i, v) {
+      // var title = $('#example tfoot th').eq( $(this).index() ).text();
+      var title = $(this).text();
+      if(title != "Actions"){
+        $(this).html(
+        '<input type="text" class="form-control" id="exampleInputName2" placeholder="'+title+' search">'
+        );
+      }
+    });
+ 
+    // DataTable
+    var table = $('#example').DataTable();
+ 
+    // Apply the search
+    table.columns().eq( 0 ).each( function ( colIdx ) {
+        $( 'input', table.column( colIdx ).header() ).on( 'keyup change', function () {
+            table
+                .column( colIdx )
+                .search( this.value )
+                .draw();
+        } );
+    } );
+  });
+
+</script>
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Purchases
+  <a href="<%= new_purchase_path %>" class="btn pull-right btn-color" style="width:200px;">New Purchase</a></h1>
+</div>
+
+
+
+
+<div style="overflow: scroll">  
+  <table id="example" class="table table-striped table-bordered table-responsive" style="overflow: scroll">
+    <thead class= "table-head">
+      <th>Grade</th>
+      <th>Employee</th>
+      <th>Detail</th>
+      <th>Approve</th>
+      <th>Actions</th>
+    </thead>
+
+    <tbody>
+      <% @purchases.each do |purchase| %>
+        <tr>
+          <td><%= purchase.grade_id %></td>
+          <td><%= purchase.employee.full_name %></td>
+          <td><%= purchase.detail %></td>
+          <td>
+          <% if purchase.approve.nil? %>
+            <%= link_to "Approve", approve_purchase_path(purchase ), method: :put,class:"btn btn-info " %>
+            <%= link_to "Reject", disapprove_purchase_path(purchase ), method: :put ,class:"btn btn-danger " %></td>
+          <% elsif purchase.approve %>
+            <span style = "color:green "> Approved </span>
+            <%= link_to "Reject", disapprove_purchase_path(purchase ), method: :put ,class:"btn btn-danger " %></td>
+          <% else %>
+            <%= link_to "Approve", approve_purchase_path(purchase ), method: :put,class:"btn btn-info " %>
+            <span style = "color:red "> Rejected </span>
+          <% end %>
+            
+          <td><%= link_to '', purchase,:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
+              <%= link_to '', edit_purchase_path(purchase),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
+              <%= link_to '', purchase, method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
