@@ -14,6 +14,7 @@
 
 ActiveRecord::Schema.define(version: 20150908080540) do
 
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -402,6 +403,15 @@ ActiveRecord::Schema.define(version: 20150908080540) do
   create_table "positions", force: :cascade do |t|
     t.integer  "category_id"
     t.string   "name"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "purchases", force: :cascade do |t|
+    t.integer  "grade_id"
+    t.integer  "employee_id"
+    t.text     "detail"
+    t.boolean  "approve"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
