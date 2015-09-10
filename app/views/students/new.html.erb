@@ -1,11 +1,10 @@
-<% if @flag %>
-
-  <h4>Create a Grade First <%= link_to 'New Grade', new_grade_path %></h4>
-
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3">Admission Form  </h1>
 </div>
+<% if @flag %>
 
+  <h4>Create a Grade First <%= link_to 'New Grade', new_grade_path %></h4>
+<% else %>
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3">Student ID : <%= Student.last.id+1 %>  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Date : <%= DateTime.now.strftime('%m/%d/%Y')%> </h1>
 </div>
@@ -14,7 +13,7 @@
 		<%= render 'form' %>
 	</div>
 </div>
-
+<% end %>
 <script>
 
 	$('#datetimepicker1').datepicker({
