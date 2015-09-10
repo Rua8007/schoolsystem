@@ -16,5 +16,7 @@ class Employee < ActiveRecord::Base
 	has_many :marksheets
 	
 	has_many :transports
+
+	has_many :purchases
 	
 end

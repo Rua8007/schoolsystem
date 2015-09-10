@@ -9,7 +9,48 @@
         dom: 'T<"clear">lfrtip',
         tableTools: {
           "sSwfPath": "https://cdn.datatables.net/tabletools/2.2.2/swf/copy_csv_xls_pdf.swf"
-        }
+        },
+        <% if @students.count > 0 && current_user.role == "accountant" %>
+           "footerCallback": function ( row, data, start, end, display ) {
+              var api = this.api(), data;
+
+              // Remove the formatting to get integer data for summation
+              var intVal = function ( i ) {
+                  return typeof i === 'string' ?
+                      i.replace(/[\$,]/g, '')*1 :
+                      typeof i === 'number' ?
+                          i : 0;
+              };
+
+              // Total over all pages
+              var col = 1 + <%= @grade.feebreakdowns.count %> + 4
+              total = api
+                  .column( col )
+                  .data()
+                  .reduce( function (a, b) {
+                      return intVal(a) + intVal(b);
+                  } );
+              $('#total').text('Total Fee: '+total);
+
+              var col = 1 + <%= @grade.feebreakdowns.count %> + 5
+              total = api
+                  .column( col )
+                  .data()
+                  .reduce( function (a, b) {
+                      return intVal(a) + intVal(b);
+                  } );
+              $('#paid').text('Total Paid: '+total);
+
+              var col = 1 + <%= @grade.feebreakdowns.count %> + 6
+              total = api
+                  .column( col )
+                  .data()
+                  .reduce( function (a, b) {
+                      return intVal(a) + intVal(b);
+                  } );
+              $('#remaining').text('Total Pendings: '+total);
+          }
+        <% end %>
     });
   });
 
@@ -27,7 +68,7 @@
       </div>
       <div class="modal-body">
         <div id="create_parties">
-          <% render "students/detail" %>
+          <%# render "students/detail" %>
         </div>
       </div>
     </div>
@@ -41,17 +82,31 @@
                 endDate: '2015-12-31'
               }" class="form-control w-md active">
   </div> -->
-<div >  
+<div >
   <table id="example" class="table table-striped table-bordered table-responsive">
     <thead class= "table-head">
       <tr>
-        <th>Serial No.</th>
+        <th>Student ID</th>
         <th>Full Name</th>
-        <th>Arabic Name</th>
-        <th>Father Name</th>
-        <th>Email</th>
-        <th>Class</th>
-        <th>Date of Birth</th>
+        <% if current_user.role != 'accountant' %>
+          <th>Arabic Name</th>
+          <th>Father Name</th>
+          <th>Email</th>
+          <th>Class</th>
+          <th>Date of Birth</th>
+        <% end %>
+        <% if current_user.role == 'accountant' || current_user.role == 'admin'%>
+          <% @grade.feebreakdowns.each do |f| %>
+            <th><%= f.title %></th>
+          <% end %>
+          <th>Tranport Charges</th>
+          <th>Bookshop Charges</th>
+          <th>Discount</th>
+          <th>Net Fee</th>
+          <th>Total Paid</th>
+          <th>Remaining</th>
+          <th>Actions</th>
+        <% end %>
       </tr>
     </thead>
     <tbody>
@@ -63,25 +118,70 @@
           <td>
             <%= student.fullname %>
           </td>
-          <td>
-            <%= student.arabicname %>
-          </td>
-          <td>
-            <%= student.parent.name %>
-          </td>
-          <td>
-            <%= student.email %>
-          </td>
-          <td>
-            <%= student.grade.name %>
-          </td>
-          <td>
-            <%= student.dob %>
-          </td>      
+          <% if current_user.role != 'accountant'%>
+            <td>
+              <%= student.arabicname %>
+            </td>
+            <td>
+              <%= student.parent.name %>
+            </td>
+            <td>
+              <%= student.email %>
+            </td>
+            <td>
+              <%= student.grade.name %>
+            </td>
+            <td>
+              <%= student.dob %>
+            </td>
+
+          <% else %>
+            <% total = 0 %>
+            <% bus = 0 %>
+            <% @grade.feebreakdowns.each do |f| %>
+              <% total = total + f.amount %>
+              <td><%= f.amount %></td>
+            <% end %>
+            <% if student.bus_allotment.present? %>
+              <% bus = student.bus_allotment.fee || 0 %>
+              <td><%= student.bus_allotment.fee || 0 %></td>
+            <% else %>
+              <td>N/A</td>
+            <% end %>
+
+            <% bcharges = 0 %>
+
+            <% if student.invoices.any? %>
+              <% student.invoices.each do |i| %>
+                <% bcharges = bcharges + i.lines.sum("qty * price") - i.discount %>
+              <% end %>
+            <% end %>
+            <td><%= bcharges %></td>
+
+            <% discount = student.discount || 0 %>
+            <% discount = discount * student.grade.feebreakdowns.first.amount/100 %>
+
+            <td><%= discount %></td>
+
+            <% total = bus + (bcharges*12) + total - discount + student.bus_allotment.transportfeerecords.sum(:fee) if bcharges != 0 %>
+            <% total = bus + (bcharges*12) + total - discount if bcharges == 0 %>
+            <td><%= total %></td>
+            <td><%= student.fees.sum(:amount) || 0 %></td>
+            <td> <%= total - student.fees.sum(:amount)  %></td>
+            <td>
+              <%= link_to 'Challan', challan_fees_path({student_id: student.id}) %>
+              <%= link_to 'Discount', give_discount_student_path(student.id) %>
+            </td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>
   </table>
+  <div class="well well-lg pull-right">
+    <h3><span id = "total"></span></h3>
+    <h3><span id = "paid"></span></h3>
+    <h3><span id = "remaining"></span></h3>
+  </div>
 </div>
   <button id = "modalbutton" data-toggle = "modal" data-target = "#loginModal" style="display: none;" onclick="javascript:;"></button>
 

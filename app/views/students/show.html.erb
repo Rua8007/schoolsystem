@@ -129,7 +129,7 @@
         <li role="presentation" ><a href="#PreviousDetails" aria-controls="messages" role="tab" data-toggle="tab">Previous details</a></li>
         <li role="presentation"><a href="#MedicalBackground" aria-controls="messages" role="tab" data-toggle="tab">Medical Background</a></li>
         
-        <li role="presentation"><a href="#FeeDetails" aria-controls="messages" role="tab" data-toggle="tab">Fee details</a></li>
+      
 
     </ul>
 
@@ -200,57 +200,14 @@
                 <table class="table">
                     <tr>
                         <td>
-                            Name
+                            Father Name
                         </td>
                         <td>
                             <%= @parent.name %>
                         </td>
                     </tr>
 
-                    <tr>
-                        <td>
-                            Relation
-                        </td>
-                        <td>
-                            <%= @parent.relation %>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            Date Of Birth
-                        </td>
-                        <td>
-                            <%= @parent.dob %>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            Education
-                        </td>
-                        <td>
-                            <%= @parent.education %>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            Profession
-                        </td>
-                        <td>
-                            <%= @parent.profession %>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            Income
-                        </td>
-                        <td>
-                            <%= @parent.income %>
-                        </td>
-                    </tr>
+                    
 
                     <tr>
                         <td>
@@ -269,29 +226,23 @@
                             <%= @parent.iqamaExpiry %>
                         </td>
                     </tr>
+                    <tr>
+                        <td>
+                            Mother Name
+                        </td>
+                        <td>
+                            <%= @parent.mothername %>
+                        </td>
+                    </tr>
+
+                    
                 </table>
             </div>
 
             <div class="col-sm-3">
                 <h4 class="student-tabs">Parent contact Details</h4>
                 <table class="table">
-                    <tr>
-                        <td>
-                            Address
-                        </td>
-                        <td>
-                            <%= @parent.address1 + " or " + @parent.address2 %>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            Office Phone
-                        </td>
-                        <td>
-                            <%= @parent.officePhone %>
-                        </td>
-                    </tr>
+                    
 
                     <tr>
                         <td>
@@ -302,30 +253,29 @@
                         </td>
                     </tr>
 
-                    <tr>
-                        <td>
-                            City
-                        </td>
-                        <td>
-                            <%= @parent.city %>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            Country
-                        </td>
-                        <td>
-                            <%= @parent.country %>
-                        </td>
-                    </tr>
-
+                    
                     <tr>
                         <td>
                             E-mail
                         </td>
                         <td>
                             <%= @parent.email %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Mother Mobile
+                        </td>
+                        <td>
+                            <%= @parent.mothermobile %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Mother Email Address
+                        </td>
+                        <td>
+                            <%= @parent.motheremail %>
                         </td>
                     </tr>
 
@@ -337,10 +287,18 @@
                 <table class="table">
                     <tr>
                         <td>
-                            Address
+                           Name
                         </td>
                         <td>
-                            <%= @parent.address1 + " or " + @parent.address2 %>
+                            <%= @student.emergency.name  %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Email Address
+                        </td>
+                        <td>
+                        <%= @student.emergency.email  %>
                         </td>
                     </tr>
 
@@ -349,7 +307,7 @@
                             Contact
                         </td>
                         <td>
-                            <%= @parent.address1 + " or " + @parent.mobile %>
+                        <%= @student.emergency.mobile  %>
                         </td>
                     </tr>
                 </table>
@@ -389,13 +347,7 @@
               </tbody>
             </table>
             <hr>
-            <h3>Uploads</h3>
-            <% @student.documents.try(:each) do |doc| %>
-              <div class="col-sm-3">
-                <label><%= doc.description %></label>
-                <%= image_tag doc.attachment, class: "img-responsive student-image" %>
-              </div>
-            <% end %>
+            
           </div>
         </div>
 
@@ -433,6 +385,15 @@
                                 <%= @student.blood %>
                             </td>
                         </tr>
+                        <tr>
+                            <td class="student-profile-td">
+                                Special Needs
+                            </td>
+                            
+                            <td>
+                                <%= @student.specialneed %>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -455,41 +416,6 @@
             </div>
 
         </div>        
-        <div role="tabpanel" class="tab-pane" id="FeeDetails">
-          <div class="col-sm-6">
-            <table class="table">
-              <tbody>
-                <tr>
-                  <td class="student-profile-td">
-                    Total Fee
-                  </td>
-                  <td>
-                    <%= @student.fee %>
-                  </td>
-                  <td class="student-profile-td">
-                    Installment Plan
-                  </td>
-                  <td>
-                    <%= @student.term %>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="student-profile-td">
-                    Last Fee Submitted  
-                  </td>
-                  <td>
-                    <%= @student.fees.last.amount %>
-                  </td>
-                  <td class="student-profile-td">
-                    Last Fee Submission Date  
-                  </td>
-                  <td>
-                    <%= @student.fees.last.created_at %>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+      
     </div>
 </div>

@@ -9,11 +9,10 @@ class Student < ActiveRecord::Base
 
 	has_one :bus_allotment
 
-	has_many	:emergencies
+	has_one :emergency
 	has_many :fees
 
 	has_many :student_attendances
-	has_one :bus_allotment
 	
 	accepts_nested_attributes_for :emergencies
 

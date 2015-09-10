@@ -1,0 +1,64 @@
+
+
+
+
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Purchase</h1>
+</div>
+
+<style type="text/css">
+    @media(min-width: 1200px)
+.abc {
+  width: 1080px;
+}
+</style>
+<div class="abc" style="">
+
+    <div class="container" >
+      <div class="abc" style="">
+
+    <div class="container" >
+  
+    <br>
+        <div class="col-sm-4">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td class="student-profile-td">
+                            Grade
+                        </td>
+                        <td>
+                        <%= @purchase.grade.name %>
+                        </td>
+                    </tr>
+                     <tr>
+                        <td class="student-profile-td">
+                            Teacher 
+                        </td>
+                        <td>
+                        <%= @purchase.employee.full_name %>        
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="student-profile-td">
+                          Items Detail
+                        </td>
+                        <td>
+                        <%= @purchase.detail %>
+                                
+                        </td>
+                    </tr>
+                    </tbody>
+            </table>
+            <%= link_to 'Back', purchases_path,class: "btn btn-color" %>
+
+        </div>
+       </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+

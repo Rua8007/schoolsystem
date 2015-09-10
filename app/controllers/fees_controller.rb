@@ -71,6 +71,17 @@ class FeesController < ApplicationController
     @students = Student.where("date(due_date)<= ?", Date.today)
   end
 
+  def challan
+    @student = Student.find(params[:student_id])
+    grade = @student.grade
+    @fee_breakdown = grade.feebreakdowns
+  end
+
+  def student_list
+    @students = Student.all
+    @student = @students.first
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_fee

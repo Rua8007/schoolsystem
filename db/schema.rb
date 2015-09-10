@@ -11,7 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150902065361) do
+
+ActiveRecord::Schema.define(version: 20150908080540) do
+
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -155,6 +157,14 @@ ActiveRecord::Schema.define(version: 20150902065361) do
     t.datetime "updated_at", null: false
     t.string   "start_date"
     t.string   "end_date"
+  end
+
+  create_table "feebreakdowns", force: :cascade do |t|
+    t.integer  "grade_id"
+    t.string   "title"
+    t.integer  "amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "fees", force: :cascade do |t|
@@ -358,8 +368,11 @@ ActiveRecord::Schema.define(version: 20150902065361) do
     t.string   "officePhone"
     t.string   "mobile"
     t.string   "email"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.string   "mothername"
+    t.string   "mothermobile"
+    t.string   "motheremail"
   end
 
   create_table "periods", force: :cascade do |t|
@@ -390,6 +403,15 @@ ActiveRecord::Schema.define(version: 20150902065361) do
   create_table "positions", force: :cascade do |t|
     t.integer  "category_id"
     t.string   "name"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "purchases", force: :cascade do |t|
+    t.integer  "grade_id"
+    t.integer  "employee_id"
+    t.text     "detail"
+    t.boolean  "approve"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
@@ -495,6 +517,11 @@ ActiveRecord::Schema.define(version: 20150902065361) do
     t.string   "behaviour"
     t.string   "fullname"
     t.string   "due_date"
+<<<<<<< HEAD
+    t.float    "discount"
+=======
+    t.string   "specialneed"
+>>>>>>> origin/finalstudent
   end
 
   create_table "subjects", force: :cascade do |t|
