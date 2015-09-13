@@ -12,6 +12,7 @@ class Grade < ActiveRecord::Base
 	has_many :purchases
 
 	has_many :grade_subjects
+	has_many :examcalenders
 
 
 	def full_name
