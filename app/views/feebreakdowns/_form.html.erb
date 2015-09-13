@@ -13,17 +13,18 @@
 
   <div class="field">
     <%= f.label :grade_id %><br>
-    <%= f.number_field :grade_id %>
+    <%= f.collection_select :grade_id , Batch.last.grades.order(:name), :id , :full_name,{},{:style => 'height:34px;width: 30%',  class: 'form-control'} %>
   </div>
   <div class="field">
     <%= f.label :title %><br>
-    <%= f.text_field :title %>
+    <%= f.text_field :title,class: 'form-control',:style => 'height:34px;width: 30%' %>
   </div>
   <div class="field">
     <%= f.label :amount %><br>
-    <%= f.number_field :amount %>
+    <%= f.number_field :amount,class: 'form-control',:style => 'height:34px;width: 30%' %>
   </div>
+  <br>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class: "btn btn-success" %>
   </div>
 <% end %>
