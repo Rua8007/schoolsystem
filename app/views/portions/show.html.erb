@@ -5,15 +5,20 @@
   	</div>
   
   	<%= link_to(@portion, method: :delete, class: 'btn m-b-xs btn-sm btn-danger btn-addon pull-right', data: { confirm: 'This will delete current whole portion. Are you sure that you want to make a new one?' }) do %>
-
-  	<%#= link_to(new_employee_path, class: "btn m-b-xs btn-sm btn-primary btn-addon pull-right" ) do %>
 	    <i class="fa fa-plus"></i>
 	    	Remake Portion
 	  <% end %>
   </h1>
-  <div class="text-center">
-  	<h3><%= @portion.quarter %></h3>
-  </div>
+  <h3 class="m-n font-thin h3">
+	  <div class="text-center">
+	  	<%= @portion.quarter %>
+	  </div>
+  </h3>
+  <h4 class="m-n font-thin h3">
+  	<div class="text-center">
+	  	Grade: <%= @portion.try(:grade).try(:full_name) %>
+	  </div>
+  </h4>
 </div>
 
 <div class="wrapper-md">

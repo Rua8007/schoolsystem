@@ -1,5 +1,33 @@
 Rails.application.routes.draw do
 
+
+  resources :curriculums do 
+    collection do
+      get :get_requested
+      post :approve_requested
+      post :disapprove_requested
+      post :approve_all_requests
+    end
+  end
+
+  resources :lessonplans do
+    collection do
+      get :get_requested
+      post :approve_requested
+      post :disapprove_requested
+      post :approve_all_requests
+    end
+  end
+
+  resources :portions do
+    collection do
+      get :get_requested
+      post :approve_requested
+      post :disapprove_requested
+      post :approve_all_requests
+    end
+  end
+
   resources :feebreakdowns
   resources :examcalenders do
     collection do
@@ -17,9 +45,7 @@ Rails.application.routes.draw do
       put "disapprove"
     end
   end
-  resources :curriculums
-  resources :lessonplans
-  resources :portions
+
   resources :conversations, only: [:index, :show, :destroy] do
     member do
       post :reply
@@ -77,7 +103,12 @@ Rails.application.routes.draw do
       get 'show_weekly_schedule'
       post 'update_weekly_schedule'
       delete 'delete_weekly_schedule'
-
+    end
+    collection do
+      get :get_requested
+      post :approve_requested
+      post :disapprove_requested
+      post :approve_all_requests
     end
     resources :weeks do
       collection do

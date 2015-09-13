@@ -48,14 +48,10 @@
           <h4 class="modal-title">Select Weekend Days</h4>
         </div>
         <%= form_tag(add_weekends_weekends_path ,method: :post) do %>
-          <%#= hidden_field_tag :attendance_date, "" %>
           <div class="modal-body">
 
             <div class="form-group">
-              <!-- <label>S</label> -->
               <% Date::DAYNAMES.each_with_index do |day,i| %>
-
-
                 <div class="checkbox">
                   <label class="i-checks">
                     <% if @weekends.find{ |w| w.weekend_day == i }.present? %>
@@ -67,8 +63,6 @@
                     <%= day %>
                   </label>
                 </div>
-
-                
               <% end %>
               <!-- <p>Some text in the modal.</p> -->
               <%#= select_tag :department, options_from_collection_for_select(@departments,"id", "name"),
@@ -147,8 +141,6 @@
         	// }
         	$("#attendance_date").val(date.format('DD-MM-YYYY'));
         	$("#department_modal").modal();
-        	
-        
     	}
 	  	// weekends: false // will hide Saturdays and Sundays
 	    // dayClick: function() {console.log("hey");}

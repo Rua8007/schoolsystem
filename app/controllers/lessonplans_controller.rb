@@ -6,7 +6,13 @@ class LessonplansController < ApplicationController
   def index
     @year_plan = YearPlan.find(params[:year_plan])
     if @year_plan.present?
-      @lessonplans = @year_plan.lessonplans
+      if current_user.role == "admin"
+        @lessonplans = @year_plan.lessonplans
+      else
+        grade_ids = Employee.find_by_email(current_user.email).bridges.pluck(:grade_id)
+        subject_ids = Employee.find_by_email(current_user.email).bridges.pluck(:subject_id)
+        @lessonplans = @year_plan.lessonplans.where(grade_id: grade_ids, subject_id: subject_ids)
+      end
     end
   end
 
@@ -52,7 +58,7 @@ class LessonplansController < ApplicationController
             @lessonplan.lessonplan_details.create!(period: params[:lessonplan_detail_days][i], procedure: params[:lessonplan_detail_details][i])
           end
 
-          format.html { redirect_to @lessonplan, notice: 'Portion was successfully created.' }
+          format.html { redirect_to lessonplans_path(year_plan: @year_plan.id), notice: 'Lesson plan was successfully created. And requested for approval' }
           format.json { render :show, status: :created, location: @lessonplan }
         else
           format.html { render :new }
@@ -67,6 +73,8 @@ class LessonplansController < ApplicationController
   def update
     respond_to do |format|
       if @lessonplan.update(lessonplan_params)
+        @lessonplan.approved = false
+        @lessonplan.save!
         format.html { redirect_to @lessonplan, notice: 'Lessonplan was successfully updated.' }
         format.json { render :show, status: :ok, location: @lessonplan }
       else
@@ -86,10 +94,72 @@ class LessonplansController < ApplicationController
     end
   end
 
+  def get_requested
+    if current_user.role == "admin"
+      @lessonplans = []
+      my_lessons = Lessonplan.where(approved: false)
+      my_lessons.each do |lp|
+        br = Bridge.where(subject_id: lp.subject_id, grade_id: lp.grade_id).first
+        if br.present?
+          usr = User.find_by_email(br.employee.email)
+          if usr.present?
+            @lessonplans << {lessonplan: lp, teacher_name: br.employee.full_name, teacher_id: usr.id}
+          else
+          end
+        else
+        end
+      end
+    end
+  end
+
+  def approve_requested
+    lessonplan = Lessonplan.find(params[:lessonplan_id])
+    if lessonplan.present?
+      lessonplan.approved = true
+      lessonplan.save!
+      flash[:success] = "Approved Request"
+    else
+      flash[:alert] = "Couldn't find lesson plan"
+    end
+    redirect_to :back
+  end
+
+  def disapprove_requested
+    lessonplan = Lessonplan.find(params[:lessonplan_id])
+    if lessonplan.present?
+      lessonplan.approved = nil
+      lessonplan.save!
+      # flash[:success] = "Dispproved Request"
+    else
+      # flash[:alert] = "Couldn't find lessonplan"
+
+    end
+    respond_to do |format|
+      # format.json { render json: json_response, status: :success }
+      format.json { head :ok }
+    end
+  end
+
+  def approve_all_requests
+    if current_user.role == "admin"
+      lessonplans = Lessonplan.where(approved: false)
+      lessonplans.each do |lessonplan|
+        lessonplan.approved = true
+        lessonplan.save!
+      end
+      flash[:success] = "Approved all the lesson plans"
+      redirect_to :back
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_lessonplan
-      @lessonplan = Lessonplan.find(params[:id])
+      if current_user.role == "admin"
+        @lessonplan = Lessonplan.find(params[:id])
+      else
+        @lessonplan = Lessonplan.where(id: params[:id]).first
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -20,6 +20,10 @@
     <%= f.text_field :quarter, class: "form-control" %>
   </div>
 
+  <div class="form-group">
+    <%= f.select :grade_id, options_from_collection_for_select(@grades,"id", "full_name"),{prompt: "Select Grade"}, class: "form-control", required: true %>
+  </div>
+
   <div class="portion-detail-div">
     <fieldset class="sss well well-lg">
       <legend class="lll">Portion Details</legend>

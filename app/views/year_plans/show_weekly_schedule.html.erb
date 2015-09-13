@@ -25,9 +25,34 @@
                   <% if j == 0 %>
                     <td rowspan="<%= res[day].count %>" class="text-center"><strong> <%= day %></strong> </td>
                   <% end %>
-                  <td class="text-center"><span class="<%= 'subj-'+row['id'].to_s %>"><%= row["subject"] %></span></td>
-                  <td class="text-center"><span class="<%= 'cw-'+row['id'].to_s %>"><%= row["cw"] %></span></td>
-                  <td class="text-center"><span class="<%= 'hw-'+row['id'].to_s  %>"><%= row["hw"] %></span></td>
+
+                  <% if row["approved_status"].nil? || row["approved_status"] == "" || row["approved_status"] == "false" %>
+                    <td class="text-center" style="color:red;">
+                  <% else %>
+
+                    <td class="text-center" style="color:green;">
+                  <% end %>
+
+
+                    <span class="<%= 'subj-'+row['id'].to_s %>"><%= row["subject"] %></span>
+                  </td>
+                  <% if row["approved_status"].nil? || row["approved_status"] == "" || row["approved_status"] == "false" %>
+                    <td class="text-center" style="color:red;">
+                  <% else %>
+
+                    <td class="text-center" style="color:green;">
+                  <% end %>
+                    <span class="<%= 'cw-'+row['id'].to_s %>"><%= row["cw"] %></span>
+                  </td>
+                  <% if row["approved_status"].nil? || row["approved_status"] == "" || row["approved_status"] == "false" %>
+                    <td class="text-center" style="color:red;">
+                  <% else %>
+                    <td class="text-center" style="color:green;">
+                  <% end %>
+                    <span class="<%= 'hw-'+row['id'].to_s  %>">
+                      <%= row["hw"] %>
+                    </span>
+                  </td>
                   <td class="text-center"><%= link_to "Edit","javascript:void(0);", class: 'btn btn-small btn-info edit-week', id: "#{row['id']}" %>
                   <%= link_to 'Delete',delete_weekly_schedule_year_plan_path(row['id']), method: :delete, class: 'btn btn-small btn-danger', data: { confirm: 'This will delete current time table. Are you sure that you want to make a new one?' } %></td>
                 </tr>

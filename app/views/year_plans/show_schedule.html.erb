@@ -21,8 +21,25 @@
          	<td><%= row["week_num"] %></td>
          	<td><%= row["date"] %></td>
          	<% row["days"].try(:each) do |day| %>
-         		<td><strong>CW: </strong><%= day["cw"] %></td>
-         		<td><strong>HW: </strong><%= day["hw"] %></td>
+             <% if day["approved_status"].nil? || day["approved_status"] == "" || day["approved_status"] == "false" %>
+         		  <td style="color:red;">
+             <% else %>
+              <td style="color:green;">
+             <% end %>
+              <strong>CW: </strong>
+              <span>
+                <%= day["cw"] %>
+              </span>
+            <% if day["approved_status"].nil? || day["approved_status"] == "" || day["approved_status"] == "false" %>
+              <td style="color:red;">
+            <% else %>
+              <td style="color:green;">
+            <% end %>
+         		
+              <strong>HW: </strong>
+              <span><%= day["hw"] %></span>
+            </td>
+            </div>
          	<% end %>
         </tr>
       <% end %>

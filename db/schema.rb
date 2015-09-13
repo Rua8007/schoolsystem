@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150913093803) do
+ActiveRecord::Schema.define(version: 20150913100709) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,8 +83,9 @@ ActiveRecord::Schema.define(version: 20150913093803) do
     t.integer  "subject_id"
     t.text     "studentname"
     t.integer  "year_plan_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.boolean  "approved",     default: false
   end
 
   create_table "departments", force: :cascade do |t|
@@ -205,8 +206,9 @@ ActiveRecord::Schema.define(version: 20150913093803) do
     t.string   "dayname"
     t.text     "classwork"
     t.text     "homework"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "approved",   default: false
   end
 
   create_table "grades", force: :cascade do |t|
@@ -269,9 +271,10 @@ ActiveRecord::Schema.define(version: 20150913093803) do
     t.text     "studentengage"
     t.text     "newvocabulary"
     t.text     "objectives"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.integer  "year_plan_id"
+    t.boolean  "approved",      default: false
   end
 
   create_table "lines", force: :cascade do |t|
@@ -418,8 +421,10 @@ ActiveRecord::Schema.define(version: 20150913093803) do
   create_table "portions", force: :cascade do |t|
     t.integer  "year_plan_id"
     t.string   "quarter"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.boolean  "approved",     default: false
+    t.integer  "grade_id"
   end
 
   create_table "positions", force: :cascade do |t|

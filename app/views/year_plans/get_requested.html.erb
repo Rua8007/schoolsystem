@@ -1,0 +1,134 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Weekly Plans Change Requests
+
+    <%= link_to(approve_all_requests_year_plans_path, method: :post, class: "btn pull-right btn-color" ,style: "width:200px;") do %>
+      <i class="fa fa-check"></i>
+      Approve All
+    <% end %>
+  </h1>
+</div>
+
+<div class="wrapper-md">
+  <div class="panel-group">
+    <% @weekly_plans.each do |week| %>
+      <% if week[:weekly_plan].present? %>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <strong>SUBJECT: </strong><%= "#{week[:weekly_plan].subject.try(:name)}" %>
+            <strong style="margin-left:20px;">GRADE: </strong><%= "#{week[:weekly_plan].grade.try(:name)}" %>
+            <strong style="margin-left:20px;">WEEK: </strong><%= "#{week[:weekly_plan].week.try(:start_end_date)}" %>
+            <strong style="margin-left:20px;">Teacher: </strong><%= "#{week[:teacher_name]}" %>
+
+            <div class="pull-right">
+              <%= form_tag(approve_requested_year_plans_path(week[:weekly_plan]), method: :post) do %>
+                <%= hidden_field_tag :weekly_plan_id, "#{week[:weekly_plan].id}" %>
+                <button class="btn btn-sm btn-success" type="submit" id="usr_" 
+                        data-toggle="tooltip" 
+                        data-original-title="Approve week Request">
+                  <i class="glyphicon glyphicon-ok"></i>
+                </button>
+              <% end %>
+            </div>
+
+            <div class="pull-right">
+              <%= form_tag(disapprove_requested_year_plans_path(week[:weekly_plan]), method: :post) do %>
+                <%= hidden_field_tag :weekly_plan_id, "#{week[:weekly_plan].id}" %>
+              
+                <button class="btn btn-sm btn-danger disapprove-request" type="submit" id="<%= week[:teacher_id] %>_<%= week[:weekly_plan].id %>" 
+                        data-toggle="tooltip" 
+                        data-original-title="Disapprove Curriculum Request">
+                  <i class="glyphicon glyphicon-remove"></i>
+                </button>
+              <% end %>
+            </div>
+          </div>
+          <div class="panel-body">
+            <div style="border: 1px solid blue">
+              <div class="text-center">
+                <span>CLASS WORK</span>
+              </div>
+              <%= "#{week[:weekly_plan].classwork}" %>
+            </div>
+            <br/>
+            <div style="border: 1px solid blue">
+              <div class="text-center">
+                <span>HOME WORK</span>
+              </div>
+              <%= "#{week[:weekly_plan].homework}" %>
+            </div>
+            
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="modal fade" id="send_message" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Weekly Plan's Request Disapproved</h4>
+        </div>
+        <%= form_tag(messages_path, method: :post) do %>
+          <%= hidden_field_tag :week_id, "" %>
+          <div class="modal-body">
+
+            <div class="form-group">
+              <%= hidden_field_tag 'recipients[]' %>
+            </div>
+            <div class="form-group">
+              <%= label_tag 'message[subject]', 'Subject' %>
+              <%= text_field_tag 'message[subject]', nil, class: 'form-control', required: true %>
+            </div>
+
+            <div class="form-group">
+              <%= label_tag 'message[body]', 'Message' %>
+              <%= text_area_tag 'message[body]', nil, cols: 3,rows: 10, class: 'form-control', required: true %>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <%= submit_tag 'Send Message', class: 'btn btn-success' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  
+  $(document).ready(function(){
+    $(".disapprove-request").click(function (e){
+      e.preventDefault();
+
+      ids = $(this).attr("id").split("_");
+      week_id = ids[ids.length-1];
+      teacher_id = ids[0];
+
+      $.ajax({
+        type: "POST",
+        url: "/year_plans/disapprove_requested",
+        dataType: "JSON",
+        data: {
+          'weekly_plan_id' : week_id,
+        },
+        async: true,
+        success: function(response){
+          
+        }
+      });
+
+      var myArray = new Array();
+      myArray[0] = teacher_id;
+
+      document.getElementById("recipients_").value=myArray;
+
+      document.getElementById("message_subject").value="Weekly Plan Change Disapproved";
+
+      $("#send_message").modal();
+    });
+  });
+</script>
