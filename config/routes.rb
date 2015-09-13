@@ -10,15 +10,15 @@ Rails.application.routes.draw do
   resources :lessonplans
   resources :portions
   resources :conversations, only: [:index, :show, :destroy] do
-  member do
-    post :reply
-    post :restore
-     post :mark_as_read
+    member do
+      post :reply
+      post :restore
+       post :mark_as_read
+    end
+    collection do
+      delete :empty_trash
+    end
   end
-  collection do
-    delete :empty_trash
-  end
-end
   resources :messages, only: [:new, :create]
   resources :periods do
     collection do
@@ -38,7 +38,6 @@ end
       get "student_data"
     end
   end
-
 
   resources :packages do
     collection do
@@ -84,6 +83,9 @@ end
       get 'fee_defaulter'
       get 'challan'
       get 'student_list'
+      get 'buy_books'
+      get 'books_invoice'
+      get 'student_fee'
     end
   end
   resources :bus_allotments do

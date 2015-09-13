@@ -85,22 +85,9 @@ class StudentsController < ApplicationController
   end
 
   def detail
-
-    if params[:fee]
-      if Student.find_by_id(params[:id]).present?
-        @student = Student.find_by_id(params[:id])
-        @student.fee = @student.grade.feebreakdowns.sum(:amount) - @student.fees.sum(:amount)
-      else
-        @student = nil
-      end
-      respond_to do |format|
-        format.json {render json: @student}
-      end
-    else
-      respond_to do |format|
-        format.js
-        format.json { render json: {student: @student } }  # respond with the created JSON object
-      end
+    respond_to do |format|
+      format.js
+      format.json { render json: {student: @student } }  # respond with the created JSON object
     end
   end
 

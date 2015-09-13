@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="css/font.css" type="text/css" />
   <link rel="stylesheet" href="css/app.css" type="text/css" /> -->
 
-  
+
 
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
@@ -27,7 +27,7 @@
 </head>
 <body>
 <div class="app app-header-fixed  ">
-  
+
   <!-- header -->
   <header id="header" class="app-header navbar" role="menu">
           <!-- navbar header -->
@@ -38,7 +38,7 @@
         <button class="pull-right visible-xs" ui-toggle="off-screen" target=".app-aside" ui-scroll="app">
           <i class="glyphicon glyphicon-align-justify"></i>
         </button>
-        <!-- brand -->        
+        <!-- brand -->
         <a href="#/" class="navbar-brand text-lt">
           <span class="hidden-folded m-l-xs"></span>
         </a>
@@ -68,7 +68,7 @@
 
         <!-- nabar right -->
         <% if current_user %>
-        <ul class="nav navbar-nav navbar-right">          
+        <ul class="nav navbar-nav navbar-right">
           <!-- <li class="dropdown">
 
             <a href="#" data-toggle="dropdown" class="dropdown-toggle">
@@ -76,7 +76,7 @@
               <span class="visible-xs-inline">Notifications</span>
               <span class="badge badge-sm up bg-danger pull-right-xs">2</span>
             </a>
-            
+
             <div class="dropdown-menu w-xl animated fadeInUp">
               <div class="panel bg-white">
                 <div class="panel-heading b-light bg-light">
@@ -105,7 +105,7 @@
                 </div>
               </div>
             </div>
-          
+
           </li> -->
           <li class="dropdown">
             <a href="#" data-toggle="dropdown" class="dropdown-toggle clear" data-toggle="dropdown">
@@ -184,7 +184,7 @@
               <!-- <a href="#" data-toggle="dropdown" class="dropdown-toggle hidden-folded">
                 <span class="clear">
                   <span class="block m-t-sm">
-                    <strong class="font-bold text-lt">John.Smith</strong> 
+                    <strong class="font-bold text-lt">John.Smith</strong>
                     <b class="caret"></b>
                   </span>
                   <span class="text-muted text-xs block">Art Director</span>
@@ -231,12 +231,12 @@
                 <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
                   <span>Navigation</span>
                 </li>
-                  
+
 
                 <% if current_user.role != 'accountant' %>
                   <% if current_user.role != 'student' && current_user.role != 'teacher'  %>
                     <li>
-                      <a href class="auto">      
+                      <a href class="auto">
                         <span class="pull-right text-muted">
                           <i class="fa fa-fw fa-angle-right text"></i>
                           <i class="fa fa-fw fa-angle-down text-active"></i>
@@ -259,13 +259,13 @@
                           <%= link_to(students_path) do %>
                             <span>List All Students</span>
                           <% end %>
-                        </li>     
+                        </li>
                       </ul>
                     </li>
 
 
                     <li>
-                      <a href class="auto">      
+                      <a href class="auto">
                         <span class="pull-right text-muted">
                           <i class="fa fa-fw fa-angle-right text"></i>
                           <i class="fa fa-fw fa-angle-down text-active"></i>
@@ -288,7 +288,7 @@
                           <%= link_to(employees_path) do %>
                             <span>List All Employees</span>
                           <% end %>
-                        </li> 
+                        </li>
                         <li>
                           <%= link_to(categories_path) do %>
                             <span>Manage Categories</span>
@@ -333,7 +333,7 @@
                       <% end %>
                     </li>
                     <li>
-                      <a href class="auto">      
+                      <a href class="auto">
                         <span class="pull-right text-muted">
                           <i class="fa fa-fw fa-angle-right text"></i>
                           <i class="fa fa-fw fa-angle-down text-active"></i>
@@ -348,7 +348,7 @@
                           <% end %>
                         </li>
 
-                        
+
                         <% if current_user.role != 'teacher' %>
 
                           <li>
@@ -361,7 +361,7 @@
                           <%= link_to(monthly_attendance_report_employees_path) do %>
                             <span>Attendance Report</span>
                           <% end %>
-                        </li> 
+                        </li>
 
 
                       </ul>
@@ -370,7 +370,7 @@
                   <% end %>
                   <% if current_user.role != 'teacher' %>
                     <li>
-                      <a href class="auto">      
+                      <a href class="auto">
                         <span class="pull-right text-muted">
                           <i class="fa fa-fw fa-angle-right text"></i>
                           <i class="fa fa-fw fa-angle-down text-active"></i>
@@ -395,12 +395,12 @@
                           <%= link_to(monthly_attendance_report_students_path) do %>
                             <span>Attendance Report</span>
                           <% end %>
-                        </li> 
+                        </li>
                       </ul>
                     </li>
                   <% end %>
 
-                  
+
                   <li>
                     <% if current_user.role != 'student' && current_user.role != 'teacher' %>
                       <%= link_to(year_plans_path) do %>
@@ -420,7 +420,7 @@
                       <i class="glyphicon glyphicon-time"></i>
                       <span>Puchase Request</span>
                     <% end %>
-                    
+
                   </li>
 
                   <li>
@@ -428,16 +428,16 @@
                       <i class="glyphicon glyphicon-time"></i>
                       <span>Conversations</span>
                     <% end %>
-                    
+
                   </li>
 
-                  
+
 
               <% end %>
-              
+
               <% if current_user.role != 'teacher' %>
                 <li>
-                  <a href class="auto">      
+                  <a href class="auto">
                     <span class="pull-right text-muted">
                       <i class="fa fa-fw fa-angle-right text"></i>
                       <i class="fa fa-fw fa-angle-down text-active"></i>
@@ -478,14 +478,14 @@
                 </li>
             <% end %>
             <% if current_user.role != 'student' && current_user.role != 'teacher'%>
-              
+
                 <!-- li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
                   <span>Components</span>
                 </li> -->
               <% if current_user.role != 'accountant' %>
                 <li>
                  <li>
-                  <a href class="auto">      
+                  <a href class="auto">
                     <span class="pull-right text-muted">
                       <i class="fa fa-fw fa-angle-right text"></i>
                       <i class="fa fa-fw fa-angle-down text-active"></i>
@@ -508,12 +508,12 @@
                       <%= link_to(batches_path) do %>
                         <span>List All Batches</span>
                       <% end %>
-                    </li> 
+                    </li>
                   </ul>
                 </li>
 
                 <li>
-                  <a href class="auto">      
+                  <a href class="auto">
                     <span class="pull-right text-muted">
                       <i class="fa fa-fw fa-angle-right text"></i>
                       <i class="fa fa-fw fa-angle-down text-active"></i>
@@ -536,13 +536,13 @@
                       <%= link_to(subjects_path) do %>
                         <span>List All Subjects</span>
                       <% end %>
-                    </li> 
+                    </li>
                   </ul>
                 </li>
 
                 <li>
                  <li>
-                  <a href class="auto">      
+                  <a href class="auto">
                     <span class="pull-right text-muted">
                       <i class="fa fa-fw fa-angle-right text"></i>
                       <i class="fa fa-fw fa-angle-down text-active"></i>
@@ -565,15 +565,15 @@
                       <%= link_to(grades_path) do %>
                         <span>List All grades</span>
                       <% end %>
-                    </li> 
+                    </li>
                   </ul>
                 </li>
 
-              <% end %>  
+              <% end %>
             <% end %>
             <% if current_user.role != 'teacher'  %>
                 <li>
-                  <a href class="auto">      
+                  <a href class="auto">
                     <span class="pull-right text-muted">
                       <i class="fa fa-fw fa-angle-right text"></i>
                       <i class="fa fa-fw fa-angle-down text-active"></i>
@@ -588,7 +588,7 @@
                           <span>Transport</span>
                         <% end %>
                       </li>
-                      
+
                       <li>
                         <%= link_to(vehicles_path) do %>
                           <span>List All Vehicles</span>
@@ -599,7 +599,7 @@
                           <span>List All Route</span>
                         <% end %>
                       </li>
-                      
+
                       <li>
                         <%= link_to(new_stop_path) do %>
                           <span>New Stop</span>
@@ -611,23 +611,23 @@
                         <% end %>
                       </li>
                     <% end %>
-                    
+
                     <li>
                       <%= link_to(bus_allotments_path) do %>
                         <span>Allot Transportation details</span>
                       <% end %>
                     </li>
-                    
+
                     <li>
                       <%= link_to(transportfeerecords_path) do %>
                         <span>Transport Fee Records</span>
                       <% end %>
                     </li>
-                    
+
                   </ul>
                 </li>
                 <li>
-                  <a href class="auto">      
+                  <a href class="auto">
                     <span class="pull-right text-muted">
                       <i class="fa fa-fw fa-angle-right text"></i>
                       <i class="fa fa-fw fa-angle-down text-active"></i>
@@ -664,14 +664,14 @@
                         <span>All package</span>
                       <% end %>
                     </li>
-                    
-                    
+
+
                     <li>
                       <%= link_to(invoices_path) do %>
                         <span>All invoices</span>
                       <% end %>
                     </li>
-                    
+
                   </ul>
                 </li>
           <% end %>
@@ -889,13 +889,13 @@
                     </li>
                   </ul>
                 </li> -->
-<!-- 
+<!--
                 <li class="line dk hidden-folded"></li>
-                <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">          
+                <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
                   <span>Your Stuff</span>
                 </li>   -->
 
-                
+
 
               <!--   <li>
                   <a href="page_profile.html">
@@ -940,17 +940,17 @@
       </div>
   </aside>
   <!-- / aside -->
-  
+
   <!-- content -->
   <div id="content" class="app-content" role="main">
     <div class="app-content-body ">
-      
+
 
 <div class="hbox hbox-auto-xs hbox-auto-sm" style="background-color: white; padding: 0 15px 0">
 
 
 <!-- <div class="hbox hbox-auto-xs hbox-auto-sm" ng-init="
-    app.settings.asideFolded = false; 
+    app.settings.asideFolded = false;
     app.settings.asideDock = false;
   "> -->
  <!-- main -->

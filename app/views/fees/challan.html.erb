@@ -54,15 +54,19 @@
 					<% end %>
 				</td>
 			</tr>
+			<tr>
+				<td>Book Shop Charges</td>
+				<td><%= @bcharges %></td>
+			</tr>
 		</tbody>
 	</table>
 	<hr>
 	<div class="pull-right well well-lg">
-		<span> <strong>Sub Total: </strong>  <%= @fee_breakdown.sum(:amount) %></span><br>
+		<span> <strong>Sub Total: </strong>  <%= @fee_breakdown.sum(:amount) + @bcharges + bus_fee %></span><br>
 		<span> <strong>Discount: </strong>  <%= @student.discount || '0' %>%</span><br>
 		<% discount = @student.discount || 0 %>
-		<%  fee =  discount * @fee_breakdown.first.amount/100 %>
-		<span> <strong>Grand Total: </strong>  <%= @fee_breakdown.sum(:amount) + bus_fee - fee  %></span><br>
+		<%  fee_discount =  discount * @fee_breakdown.first.amount/100 %>
+		<span> <strong>Grand Total: </strong>  <%= @fee_breakdown.sum(:amount) + bus_fee - fee_discount + @bcharges %></span><br>
 	</div>
 </div>
 

@@ -1,56 +1,26 @@
-<%= form_for(@fee) do |f| %>
-  <% if @fee.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@fee.errors.count, "error") %> prohibited this fee from being saved:</h2>
 
-      <ul>
-      <% @fee.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+<div class="form-group col-md-4">
+  <label>Enter Student ID</label><br>
+  <input type="text" class="form-control" id="fee_student_id" >
+  <span style = "color: red" id = "std_error" class="hidden">Invalid Student ID...!!! </span>
+</div>
 
-  <div class="form-group col-md-4">
-    <label>Enter Student ID</label><br>
-    <%= f.text_field :student_id , class: "form-control" %>
-    <span style = "color: red" id = "std_error" class="hidden">Invalid Student ID...!!! </span>
-  </div>
-  <div class="form-group col-md-4">
-    <label>Pending Amount</label><br>
-    <input type="text" class= "form-control" readonly="true" id="pendings">
-  </div>
-  <div class= "form-group col-md-4">
-    <label>Enter Amount</label><br>
-    <%= f.text_field :amount, class: "form-control" %>
-  </div>
-  <%= f.hidden_field :user_id, value: current_user.id %>
+<div id = "record">
 
-  <div class="form-group col-md-4">
-    <label for="exampleInputEmail1">Billing Month</label>
-    <div class='input-group date' id='datetimepicker1' class="datepicker1">
-      <input type='text' id="month_year" data-date-format="mm-dd-yyyy" class="form-control" style="width:100%" name="fee[month]" />
-      <span class="input-group-addon">
-        <span class="glyphicon glyphicon-calendar"></span>
-      </span>
-    </div>
-  </div>
-  <div class="actions pull-right col-md-4">
-    <%= f.submit class: "btn btn-success", style: "width: 100%;" %>
-  </div>
-<% end %>
+</div>
 
 <script type="text/javascript">
   $('#datetimepicker1').datepicker({
     format: "mm-dd-yyyy",
-    viewMode: "months", 
+    viewMode: "months",
     minViewMode: "months"
   });
 
   $("#fee_student_id").blur(function(){
     // var id = $("#fee_student_id");
-    $.get('/students/detail', {id: $('#fee_student_id').val(), fee: true})
+    $.get('/fees/student_fee',{id: $('#fee_student_id').val(), fee: true})
       .done(function(data){
+        console.log(data)
         if(data != null){
           $('#std_error').addClass('hidden');
           // var val = data.term;
@@ -72,8 +42,7 @@
           $("#pendings").val(data.fee);
         }
         else{
-          $("#pendings").val('');
-          $('#fee_student_id').val('');
+          console.log("i am hereajdfklasdjfkljasdklfj")
           $('#std_error').removeClass('hidden');
         }
 

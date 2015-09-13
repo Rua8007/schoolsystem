@@ -21,7 +21,7 @@
 
 <!-- ///////////////////////////////////// -->
 
- 
+
 
 
 
@@ -51,13 +51,13 @@
           <h6><div class="to">INVOICE TO:</div></h6>
           <table class="table">
                 <tbody>
-                    
+
                     <tr>
                         <td class="student-profile-td">
                             Student Name
                         </td>
                         <td>
-                        <%= @fee.student.fullname %>
+                        <%= @student.fullname %>
                         </td>
                     </tr>
                     <tr>
@@ -65,7 +65,7 @@
                             Parent Name
                         </td>
                         <td>
-                        <%= @fee.student.parent.name %>
+                        <%= @student.parent.name %>
                         </td>
                     </tr>
                     <tr>
@@ -73,7 +73,7 @@
                             Class
                         </td>
                         <td>
-                        <%= @fee.student.grade.name %>
+                        <%= @student.grade.name %>
                         </td>
                     </tr>
                     <tr>
@@ -81,7 +81,7 @@
                              Email
                         </td>
                         <td>
-                        <%= @fee.student.email %>
+                        <%= @student.email %>
                         </td>
                     </tr>
                     <tr>
@@ -89,71 +89,74 @@
                             Address
                         </td>
                         <td>
-                        <%= @fee.student.address %>
+                        <%= @student.address %>
                         </td>
                     </tr>
-                     <tr>
+                    <tr>
                         <td class="student-profile-td">
-                            Contact
+                          Next Due Date
                         </td>
                         <td>
-                        <%= @fee.student.phone %>
+                        <%= @student.due_date %>
                         </td>
                     </tr>
                 </tbody>
           </table>
         </div>
         <div id="invoice">
-          <h6>Invoice  :: <%= @fee.id  %></h6>
-          <div class="date">Date of Submission: <%= @fee.created_at.strftime("%m/%d/%Y")  %></div>
+          <h6>Invoice  :: <%= @fees.first.identifier  %></h6>
+          <div class="date">Date of Submission: <%= @fees.first.created_at.strftime("%m/%d/%Y")  %></div>
         </div>
       </div>
-   
+
    <div class="clearfix">
     <div class="client margins">
 
       <table class="table">
         <thead >
           <tr>
-            <th class="no">#</th>
-            <th class="desc">Student Name</th>
-            <th class="unit">Class</th>
-            <th class="qty">Fee Submission Month</th>
-            <th class="unit">Next Due Date</th>
+            <th class="no">Title</th>
+            <th class="desc">Total</th>
             <th class="total">Fee</th>
 
           </tr>
         </thead>
-
-
+        <% bf = 0 %>
         <tbody>
-
-          <tr>
-            <td class="no"><%= @fee.id %></td>
-            <td class="desc"><%= @fee.student.fullname %></td>
-            <td class="unit"><%= @fee.student.grade.name %></td>
-            <td class="qty"><%= @fee.month %></td>
-            <td class="unit"><%= @fee.student.due_date.to_date.strftime("%m/%d/%Y") %></td>
-            <td class="total"><%= @fee.amount %></td>
-          </tr>
-          
-          
+          <% @fees.try(:each) do |fee| %>
+            <tr>
+              <% if fee.category == 'books' %>
+                <td class="no">Bookshop Charges</td>
+                <td></td>
+              <% else %>
+                <td class="no"><%= fee.feebreakdown.title %></td>
+                <td class="desc"><%= fee.feebreakdown.amount %></td>
+              <% end %>
+              <td class="total"><%= fee.amount %></td>
+            </tr>
+          <% end %>
+          <% if @busfee.any? %>
+            <%= @busfee.try(:each) do |bc| %>
+              <tr>
+                <td>Transport Charges Charges</td>
+                <td><% bc.bus_allotment.fee %></td>
+                <% bf = bf+bc.fee %>
+                <td><% bc.fee %></td>
+              </tr>
+            <% end %>
+          <% end %>
         </tbody>
-        
         <tfoot>
-        
-          
           <tr>
-            <td colspan="4"></td>
-            <td colspan="1"> Total amount</td>
-            <td><%= @fee.amount %></td>
-
+            <td colspan="1"></td>
+            <td colspan="1"> Total Amount</td>
+            <td><%= @fees.sum(:amount) + bf%></td>
           </tr>
         </tfoot>
       </table>
     </div>
     </div>
-     
+
     </main>
     <button class="btn btn-success pull-right" onclick="window.print()">Print</button>
 
@@ -163,7 +166,7 @@
 
 
 <style type="text/css">
-  
+
 
 .margins{
   margin: 7px 6px 0;
@@ -274,7 +277,7 @@ table td {
 }
 
 table th {
-  white-space: nowrap;        
+  white-space: nowrap;
   font-weight: normal;
 }
 
@@ -329,18 +332,18 @@ table tfoot td {
   background: #FFFFFF;
   border-bottom: none;
   font-size: 1.3em;
-  white-space: nowrap; 
-  border-top: 1px solid #AAAAAA; 
+  white-space: nowrap;
+  border-top: 1px solid #AAAAAA;
 }
 
 table tfoot tr:first-child td {
-  border-top: none; 
+  border-top: none;
 }
 
 table tfoot tr:last-child td {
   color: #57B223;
   font-size: 1.8em;
-  border-top: 1px solid #57B223; 
+  border-top: 1px solid #57B223;
 
 }
 
@@ -355,14 +358,14 @@ table tfoot tr td:first-child {
 
 #notices{
   padding-left: 6px;
-  border-left: 6px solid #0087C3;  
+  border-left: 6px solid #0087C3;
 }
 
 #notices .notice {
   font-size: 1.2em;
 }
 
-@media print { 
+@media print {
 #nav ,#ul,#header,#aside { display :none ;}
 
 body{ width: 100%;

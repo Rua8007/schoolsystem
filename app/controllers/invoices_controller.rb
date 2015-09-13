@@ -112,7 +112,7 @@ class InvoicesController < ApplicationController
   end
 
   def items_data
-    @details = Item.find_by_code(params[:item_id])   
+    @details = Item.find_by_code(params[:item_id])
     if @details.blank?
       @details = Package.find_by_code(params[:item_id])
     end
@@ -128,7 +128,7 @@ class InvoicesController < ApplicationController
       @details = {fullname: student.fullname, parent: student.parent.name, contact: student.mobile, grade: student.grade.full_name}
     else
       @details = false
-    end 
+    end
     respond_to do |format|
       format.json {render json: [details: @details]}
     end

@@ -14,10 +14,10 @@
         );
       }
     });
- 
+
     // DataTable
     var table = $('#example').DataTable();
- 
+
     // Apply the search
     table.columns().eq( 0 ).each( function ( colIdx ) {
         $( 'input', table.column( colIdx ).header() ).on( 'keyup change', function () {
@@ -41,23 +41,26 @@
     <th>Student Name</th>
     <th>Amount</th>
     <th>User</th>
-    <th>Month</th>
     <th>Action</th>
   </thead>
   <tbody>
-    <% @fees.each do |fee| %>
+    <% @fees.each do |f| %>
+      <% fee = f.last %>
       <tr>
-        <td><%= fee.student_id %></td>
-        <td><%= Student.find(fee.student_id).fullname %></td>
-        <td><%= fee.amount %></td>
-        <td><%= fee.user_id %></td>
-        <td><%= fee.month %></td>
+        <td><%= fee.first.student_id %></td>
+        <td><%= Student.find(fee.first.student_id).fullname %></td>
+        <% temp = 0 %>
+        <% fee.each do |fe| %>
+          <% temp = temp + fe["amount"] %>
+        <% end %>
+        <td><%= temp %></td>
+        <td><%= fee.first.user_id %></td>
 
-        <td> <%= link_to '', fee,:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
+        <td> <%= link_to '', fee_path(f.first),:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
         <% if current_user.role != 'student' %>
-              <%= link_to '', edit_fee_path(fee),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
-              <%= link_to '', fee, method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
-          </td> 
+              <%= link_to '', edit_fee_path(f.first),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
+              <%= link_to '', fee_path(f.first), method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
+          </td>
         <% end %>
       </tr>
     <% end %>

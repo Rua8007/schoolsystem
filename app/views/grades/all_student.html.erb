@@ -153,7 +153,7 @@
 
             <% if student.invoices.any? %>
               <% student.invoices.each do |i| %>
-                <% bcharges = bcharges + i.lines.sum("qty * price") - i.discount %>
+                <% bcharges = bcharges + i.lines.sum("quantity * price") - i.discount %>
               <% end %>
             <% end %>
             <td><%= bcharges %></td>

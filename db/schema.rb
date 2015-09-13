@@ -11,9 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 20150908080540) do
-
+ActiveRecord::Schema.define(version: 20150913093803) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -172,8 +170,11 @@ ActiveRecord::Schema.define(version: 20150908080540) do
     t.integer  "amount"
     t.integer  "user_id"
     t.string   "month"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "feebreakdown_id"
+    t.string   "category"
+    t.integer  "identifier"
   end
 
   create_table "grade_subjects", force: :cascade do |t|
@@ -517,11 +518,8 @@ ActiveRecord::Schema.define(version: 20150908080540) do
     t.string   "behaviour"
     t.string   "fullname"
     t.string   "due_date"
-<<<<<<< HEAD
     t.float    "discount"
-=======
     t.string   "specialneed"
->>>>>>> origin/finalstudent
   end
 
   create_table "subjects", force: :cascade do |t|
@@ -546,6 +544,7 @@ ActiveRecord::Schema.define(version: 20150908080540) do
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
     t.string   "status"
+    t.integer  "identifier"
   end
 
   create_table "transports", force: :cascade do |t|

@@ -16,7 +16,7 @@ before_action :authenticate_user!
     flash[:success] = "Message has been sent!"
     redirect_to conversation_path(conversation)
   end
-  
 
-  
+
+
 end
