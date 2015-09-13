@@ -12,7 +12,7 @@
   <% end %>
 
 
- 
+
 
 
 <div class="container form-holder ">
@@ -27,7 +27,7 @@
                 <div class="form-group ">
                   <div class="field ">
                     <%= f.label :bridge_id %><br>
-                    <%= f.select :bridge_id , options_from_collection_for_select(@bridges,"id","id"),{prompt: "Select Bridge"} ,{class: 'form-control', required: true}%>
+                    <%= f.select :bridge_id , options_from_collection_for_select(@bridges,"id","title"),{prompt: "Select Bridge"} ,{class: 'form-control', required: true}%>
                   </div>
                 </div>
               </div>
@@ -88,11 +88,11 @@
   }
 
   .sss{
-    border:1px solid#e5e5e5;   padding: 1%; 
+    border:1px solid#e5e5e5;   padding: 1%;
   }
 
   .lll{
-    width: auto !important; 
+    width: auto !important;
     background-color: white;
     padding-right: 16px;
     padding-left: 15px;
