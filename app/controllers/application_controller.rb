@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :get_leave_requests_count
 
-  # before_filter :authenticate_user!
+  before_filter :authenticate_user!
 
   rescue_from ActiveRecord::RecordNotFound do
   flash[:warning] = 'Resource not found.'
