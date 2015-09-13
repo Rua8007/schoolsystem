@@ -152,8 +152,6 @@ class FeesController < ApplicationController
       end
       if @student.bus_allotment.present?
         @data << { id: "ba", fb_id: "Transport Charges", total:@student.bus_allotment.fee , paid: @student.bus_allotment.transportfeerecords.sum(:fee) , pending: @student.bus_allotment.fee-@student.bus_allotment.transportfeerecords.sum(:fee) }
-      else
-        @data << { id: "ba", fb_id: "Transport Charges", total:0 , paid: 0 , pending: 0 }
       end
       bcharges = 0
       @student.invoices.try(:each) do |inv|
