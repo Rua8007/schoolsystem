@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  bridge_id: 1
+  title: MyString
+  description: MyText
+  category: MyString
+  starttime: 2015-09-12 17:05:40
+  endtime: 2015-09-12 17:05:40
+
+two:
+  bridge_id: 1
+  title: MyString
+  description: MyText
+  category: MyString
+  starttime: 2015-09-12 17:05:40
+  endtime: 2015-09-12 17:05:40
