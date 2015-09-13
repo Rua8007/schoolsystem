@@ -318,7 +318,7 @@
                     </li>
                     <% if current_user.role == 'admin' %>
                       <li>
-                        <a href class="auto">      
+                        <a href class="auto">
                           <span class="pull-right text-muted">
                             <i class="fa fa-fw fa-angle-right text"></i>
                             <i class="fa fa-fw fa-angle-down text-active"></i>
@@ -444,10 +444,7 @@
 
                   <li>
                     <% if current_user.role != 'student' && current_user.role != 'teacher' %>
-                      <%= link_to(year_plans_path) do %>
-                        <i class="glyphicon glyphicon-time"></i>
-                        <span>Time Table</span>
-                      <% end %>
+
                     <% elsif current_user.role == 'student' %>
                       <%#= link_to(time_table_path(TimeTable.find_by_grade_id(Student.find_by_email(current_user.email).grade_id).id)) do %>
                         <i class="glyphicon glyphicon-time"></i>
