@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+
   resources :curriculums do 
     collection do
       get :get_requested
@@ -27,6 +28,24 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :feebreakdowns
+  resources :examcalenders do
+    collection do
+      get 'examdetail'
+      get 'quizdetail'
+      get 'examdata'
+      get 'quizdata'
+
+    end
+  end
+  resources :calenders
+  resources :purchases do
+    member do
+      put "approve"
+      put "disapprove"
+    end
+  end
+
   resources :conversations, only: [:index, :show, :destroy] do
   member do
     post :reply
@@ -39,7 +58,7 @@ Rails.application.routes.draw do
 end
   resources :messages, only: [:new, :create]
   resources :periods do
-    collection do 
+    collection do
       get 'make_daily_schedule'
       post 'save_daily_schedule'
     end
@@ -71,7 +90,7 @@ end
       get 'get_item'
     end
   end
-  
+
   resources :shopcategories
   resources :transportfeerecords do
     collection do
@@ -93,7 +112,7 @@ end
       post :approve_all_requests
     end
     resources :weeks do
-      collection do 
+      collection do
         get 'schedule_weeks', :as => :schedule_weeks
         post 'add_schedule_weeks', :as => :add_schedule_weeks
 
@@ -105,6 +124,8 @@ end
     collection do
       get "fee_data"
       get 'fee_defaulter'
+      get 'challan'
+      get 'student_list'
     end
   end
   resources :bus_allotments do
@@ -170,12 +191,12 @@ end
     collection do
       get "parents_data"
     end
-    member do 
+    member do
       get "edit_parent"
     end
   end
   devise_for :users
-  
+
 
   get 'home/index'
 
@@ -186,7 +207,7 @@ end
     collection do
       post 'new'
       post 'assign_teacher'
-    
+
     end
   end
   resources :employees do
@@ -209,6 +230,7 @@ end
     member do
       post "assignParent"
       get "edit_student"
+      get "give_discount"
     end
     collection do
       get "detail"
@@ -220,7 +242,7 @@ end
     end
   end
   resources :documents do
-    member do 
+    member do
       post "addPreviousInfo"
     end
     collection do

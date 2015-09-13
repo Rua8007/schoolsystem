@@ -47,6 +47,16 @@ ActiveRecord::Schema.define(version: 20150913100709) do
     t.float    "fee"
   end
 
+  create_table "calenders", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.datetime "starttime"
+    t.datetime "endtime"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "grade"
+  end
+
   create_table "categories", force: :cascade do |t|
     t.string   "name"
     t.string   "prefix"
@@ -149,6 +159,17 @@ ActiveRecord::Schema.define(version: 20150913100709) do
     t.integer  "total_experience_months"
   end
 
+  create_table "examcalenders", force: :cascade do |t|
+    t.integer  "bridge_id"
+    t.string   "title"
+    t.text     "description"
+    t.string   "category"
+    t.datetime "starttime"
+    t.datetime "endtime"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "exams", force: :cascade do |t|
     t.string   "name"
     t.integer  "batch_id"
@@ -156,6 +177,14 @@ ActiveRecord::Schema.define(version: 20150913100709) do
     t.datetime "updated_at", null: false
     t.string   "start_date"
     t.string   "end_date"
+  end
+
+  create_table "feebreakdowns", force: :cascade do |t|
+    t.integer  "grade_id"
+    t.string   "title"
+    t.integer  "amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "fees", force: :cascade do |t|
@@ -361,8 +390,11 @@ ActiveRecord::Schema.define(version: 20150913100709) do
     t.string   "officePhone"
     t.string   "mobile"
     t.string   "email"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.string   "mothername"
+    t.string   "mothermobile"
+    t.string   "motheremail"
   end
 
   create_table "periods", force: :cascade do |t|
@@ -395,6 +427,15 @@ ActiveRecord::Schema.define(version: 20150913100709) do
   create_table "positions", force: :cascade do |t|
     t.integer  "category_id"
     t.string   "name"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "purchases", force: :cascade do |t|
+    t.integer  "grade_id"
+    t.integer  "employee_id"
+    t.text     "detail"
+    t.boolean  "approve"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
@@ -500,6 +541,8 @@ ActiveRecord::Schema.define(version: 20150913100709) do
     t.string   "behaviour"
     t.string   "fullname"
     t.string   "due_date"
+    t.float    "discount"
+    t.string   "specialneed"
   end
 
   create_table "subjects", force: :cascade do |t|

@@ -45,7 +45,7 @@ class ParentsController < ApplicationController
       student = Student.find(params[:student_id])
       student.parent_id = @parent.id
       student.save
-      redirect_to new_document_path(student_id: student.id)
+      redirect_to student_path(student.id)
       # format.html { redirect_to @parent, notice: 'Parent was successfully created.' }
       # format.json { render :show, status: :created, location: @parent }
     end
@@ -108,7 +108,7 @@ class ParentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def parent_params
-      params.require(:parent).permit( :name, :relation, :education, :profession, :dob, :income, :iqamaNumber, :iqamaExpiry, :address1, :address2, :city, :country, :officePhone, :mobile, :email,emergencies_attributes: [:name,:phone, :mobile, :email, :student_id])
+      params.require(:parent).permit( :name, :relation, :education, :profession, :dob, :income, :iqamaNumber, :iqamaExpiry, :address1, :address2, :city, :country, :officePhone, :mobile,:mothername,:mothermobile,:motheremail, :email,emergencies_attributes: [:name,:phone, :mobile, :email, :student_id])
     end
 
   

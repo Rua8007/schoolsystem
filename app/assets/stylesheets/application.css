@@ -19,7 +19,7 @@
  *= require app
  *= require externals/bootstrap-daterangepicker/daterangepicker-bs3
  *= require fullcalendar
- *= require bootstrap-datepicker
+ *= require bootstrap-datepicker  
  */
 
  @import 'chosen';

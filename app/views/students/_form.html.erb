@@ -1,4 +1,6 @@
+
 <%= form_for @student do |std| %>
+
 	<div class="abc form-holder">
       	<div class="row">
         	<fieldset class="sss well well-lg">
@@ -45,12 +47,7 @@
               			<%= std.select :gender, options_for_select(%w[MALE FEMALE]),{}, {class: "form-control", style: 'width: 100%'} %>
             		</div>
           		</div>
-          		<div class="column col-xs-12 col-sm-2">
-            		<div class="form-group">
-              			<label for="exampleInputPassword1">Birth Place</label>
-              			<%= std.text_field :birth_place , :style => 'height:34px;width: 100%',  class: 'form-control' %>
-            		</div>
-         		</div>
+          		
           		<div class="column col-xs-12 col-sm-2">
             		<div class="form-group">
 	              		<label for="exampleInputEmail1">Nationality</label>
@@ -95,24 +92,14 @@
           			<%= std.text_field :city, :style => 'height:34px;width: 100%',  class: 'form-control' %>
         		</div>
       		</div>
-      		<div class="column col-xs-12 col-sm-2">
-        		<div class="form-group">
-          			<label for="exampleInputEmail1">State</label>
-          			<%= std.text_field :state , :style => 'height:34px;width: 100%',  class: 'form-control' %>
-        		</div>
-      		</div>
+      		
       		<div class="column col-xs-12 col-sm-2">
         		<div class="form-group">
           			<label for="exampleInputEmail1">Country</label>
               		<%= std.country_select :country ,{selected: "SA"}, {:style => 'height:34px;width: 100%',  class: 'form-control',} %>
           		</div>
       		</div>
-      		<div class="column col-xs-12 col-sm-2">
-        		<div class="form-group">
-          			<label for="exampleInputEmail1">Cell Number</label>
-          			<%= std.text_field :mobile , :style => 'height:34px;width: 100%',  class: 'form-control' %>
-        		</div>
-      		</div>
+      		
       		<div class="column col-xs-12 col-sm-2">
         		<div class="form-group">
               		<label for="exampleInputPassword1">Phone Number</label>
@@ -156,55 +143,50 @@
           			<%= std.text_field :disability , :style => 'height:34px;width: 100%',  class: 'form-control' %>
          		</div>
       		</div>
+          <div class="column col-xs-12 col-sm-12">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Special Needs</label>
+                <%= std.text_field :specialneed , :style => 'height:34px;width: 100%',  class: 'form-control' %>
+            </div>
+          </div>
+
 
 			</fieldset>
-			<% if !@edit %>
-        	<fieldset class="sss well well-lg">
-        		<legend class="lll">Fee Details</legend>
-      		<div class="column col-xs-12 col-sm-3">
-        		<div class="form-group">
-          			<label for="exampleInputEmail1">Annual Fee</label>
-          			<%= std.text_field :fee , :style => 'height:34px;width: 100%',  class: 'form-control' %>
-         		</div>
-      		</div>
 
-      		<div class="column col-xs-12 col-sm-3">
-        		<div class="form-group">
-          		<label for="exampleInputEmail1">Billing Month</label>
-            		<div class='input-group date' id='datetimepicker1' class="datepicker1">
-		              <input type='text' id="month_year" data-date-format="mm-dd-yyyy" class="form-control" style="width:100%" name="month"/>
-		              <span class="input-group-addon">
-		                <span class="glyphicon glyphicon-calendar"></span>
-		              </span>
-		            </div>
-         		</div>
-      		</div>
+      <fieldset class="sss well well-lg">
+          <legend class="lll">Previous details</legend>
+          <div class="column col-xs-12 col-sm-12">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Previous Institute</label>
+                <%= std.text_field :previousInstitute , :style => 'height:34px;width: 100%',  class: 'form-control' %>
+            </div>
+          </div>
+          <div class="column col-xs-12 col-sm-4">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Passing Year</label>
+                <%= std.text_field :year  , :style => 'height:34px;width: 100%',  class: 'form-control datepicker' %>
+            </div>
+          </div>
 
-      		<div class="column col-xs-12 col-sm-3">
-        		<div class="form-group">
-          			<label for="exampleInputEmail1">Installments Plan</label>
-          			<%= std.select :term, options_for_select(%w[Monthly Quarterly Bi-annualy Annualy ]),{}, {class: "form-control", style:"width: 100%"} %>
-         		</div>
-      		</div>
+          <div class="column col-xs-12 col-sm-4">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Total Marks</label>
+                <%= std.text_field :totalMarks, :style => 'height:34px;width: 100%',  class: 'form-control' %>
+            </div>
+          </div>
+          <div class="column col-xs-12 col-sm-4">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Obtain Marks</label>
+                <%= std.text_field :obtainedMarks , :style => 'height:34px;width: 100%',  class: 'form-control' %>
+            </div>
+          </div>
+        </fieldset>
 
-      		<div class="column col-xs-12 col-sm-3">
-        		<div class="form-group">
-          			<label for="exampleInputEmail1">Each Installment</label>
-          			<input type="text" style="height: 34px;width: 100%" class = "form-control" id = "installment" , readonly="true" , name="amount">
-         		</div>
-      		</div>
-      		
-      		<div class="column col-xs-12 col-sm-3">
-        		<div class="form-group">
-      			<label for="exampleInputEmail1">Next Due Date</label>
-      			<%= std.text_field :due_date, :style => 'height:34px;width: 100%', class: "form-control", id: "duedate", readonly: true %>
-         		</div>
-      		</div>
-			</fieldset>     	
+			     	
 				<%= std.fields_for :emergency do |b| %>
 			  <fieldset class="sss well well-lg">
         	<legend class="lll">Emergency Contact</legend>      
-			    <div class="column col-xs-12 col-md-3">
+			    <div class="column col-xs-12 col-md-12">
 			      <div class="form-group">
 			        <label for="exampleInputEmail1">Name</label>
 			        <%= b.text_field :name , :style => 'height:34px;width: 100%',  class: 'form-control', autofocus: true %>
@@ -214,28 +196,27 @@
 			      </div>
 			    </div>
 
-			    <div class="column col-xs-12 col-md-3">
+			    <div class="column col-xs-12 col-md-4">
 			      <div class="form-group">
 			        <label for="exampleInputEmail1">Mobile</label>
 			        <%= b.text_field :mobile , :style => 'height:34px;width: 100%',  class: 'form-control', autofocus: true %>
 			      </div>
 			    </div>
 
-			    <div class="column col-xs-12 col-md-3">
+			    <div class="column col-xs-12 col-md-4">
 			      <div class="form-group">
 			        <label for="exampleInputEmail1">Phone</label>
 			        <%= b.text_field :phone , :style => 'height:34px;width: 100%',  class: 'form-control', autofocus: true %>
 			      </div>
 			    </div>
 
-			    <div class="column col-xs-12 col-md-3">
+			    <div class="column col-xs-12 col-md-4">
 			      <div class="form-group">
 			        <label for="exampleInputEmail1">E-mail Address</label>
 			        <%= b.text_field :email , :style => 'height:34px;width: 100%',  class: 'form-control', autofocus: true %>
 			      </div>
 			    </div>
 				</fieldset> 
-				<% end %>    	
 			  <% end %>
           	</div>
       	</div>  

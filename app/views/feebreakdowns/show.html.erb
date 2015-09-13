@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Grade:</strong>
+  <%= @feebreakdown.grade_id %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @feebreakdown.title %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @feebreakdown.amount %>
+</p>
+
+<%= link_to 'Edit', edit_feebreakdown_path(@feebreakdown) %> |
+<%= link_to 'Back', feebreakdowns_path %>
