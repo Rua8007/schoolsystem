@@ -316,6 +316,47 @@
                         <span>Leave Requests</span>
                       <% end %>
                     </li>
+                    <% if current_user.role == 'admin' %>
+                      <li>
+                        <a href class="auto">      
+                          <span class="pull-right text-muted">
+                            <i class="fa fa-fw fa-angle-right text"></i>
+                            <i class="fa fa-fw fa-angle-down text-active"></i>
+                          </span>
+                          <i class="glyphicon glyphicon-book"></i>
+                          <span>Req. Approvals</span>
+                        </a>
+                        <ul class="nav nav-sub dk">
+                          <li class="nav-sub-header">
+                            <%= link_to("") do %>
+                              <span>Attendance</span>
+                            <% end %>
+                          </li>
+                          <li>
+                            <%= link_to(get_requested_curriculums_path) do %>
+                              <span>Curriculums</span>
+                            <% end %>
+                          </li>
+                          <li>
+                            <%= link_to(get_requested_lessonplans_path) do %>
+                              <span>Lesson Plans</span>
+                            <% end %>
+                          </li>
+                          <li>
+                            <%= link_to(get_requested_portions_path) do %>
+                              <span>Portions</span>
+                            <% end %>
+                          </li>
+                          <li>
+                            <%= link_to(get_requested_year_plans_path) do %>
+                              <span>Weekly Plans</span>
+                            <% end %>
+                          </li>
+                        </ul>
+                      </li>
+                    <% end %>
+
+
                   <% end %>
 
                   <% if current_user.role != 'student' %>
@@ -329,7 +370,7 @@
                     <li>
                       <%= link_to(year_plans_path) do %>
                         <i class="glyphicon glyphicon-time"></i>
-                        <span>Time Table</span>
+                        <span>Academics</span>
                       <% end %>
                     </li>
                     <li>
