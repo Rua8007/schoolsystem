@@ -541,8 +541,8 @@ ActiveRecord::Schema.define(version: 20150913100709) do
     t.string   "behaviour"
     t.string   "fullname"
     t.string   "due_date"
-    t.float    "discount"
     t.string   "specialneed"
+    t.float    "discount"
   end
 
   create_table "subjects", force: :cascade do |t|
