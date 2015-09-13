@@ -29,7 +29,7 @@
 .admission-form-heading{
     height: 56px;
     padding: 1%;
-    padding-left: 5%; 
+    padding-left: 5%;
     background-color: #3FC8B9;
     text-align: center;
     width: 91%;
@@ -44,11 +44,11 @@
   }
 
   .sss{
-    border:1px solid#e5e5e5;   padding: 1%; 
+    border:1px solid#e5e5e5;   padding: 1%;
   }
 
   .lll{
-    width: auto !important; 
+    width: auto !important;
     background-color: white;
     padding-right: 16px;
     padding-left: 15px;

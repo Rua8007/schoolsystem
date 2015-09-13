@@ -25,7 +25,7 @@ gem 'country_select'
 gem 'bootstrap-datepicker-rails'
 gem "compass-rails", git: 'https://github.com/Compass/compass-rails', branch: 'master'
 gem 'gravatar_image_tag'
-
+gem 'fullcalendar-rails'
 
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder

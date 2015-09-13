@@ -1,5 +1,16 @@
 Rails.application.routes.draw do
+
   resources :feebreakdowns
+  resources :examcalenders do
+    collection do
+      get 'examdetail'
+      get 'quizdetail'
+      get 'examdata'
+      get 'quizdata'
+
+    end
+  end
+  resources :calenders
   resources :purchases do
     member do
       put "approve"

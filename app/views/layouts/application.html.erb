@@ -430,6 +430,68 @@
                     <% end %>
 
                   </li>
+                 <li>
+                  <a href class="auto">
+                    <span class="pull-right text-muted">
+                      <i class="fa fa-fw fa-angle-right text"></i>
+                      <i class="fa fa-fw fa-angle-down text-active"></i>
+                    </span>
+                    <i class="glyphicon glyphicon-menu-hamburger"></i>
+                    <span>Calender</span>
+                  </a>
+                  <ul class="nav nav-sub dk">
+                    <li class="nav-sub-header">
+                      <%= link_to("") do %>
+                        <span>Calender</span>
+                      <% end %>
+                    </li>
+                    <li>
+                      <%= link_to(calenders_path(type: 'kg')) do %>
+                        <span>KG1 to KG3 Calenders</span>
+                      <% end %>
+                    </li>
+                    <li>
+                      <%= link_to(calenders_path(type: 'one')) do %>
+                        <span>1 to 3 Calenders</span>
+                      <% end %>
+                    </li>
+                    <li>
+                      <%= link_to(calenders_path(type: 'four')) do %>
+                        <span>4 to 9 Calenders</span>
+                      <% end %>
+                    </li>
+                  </ul>
+                </li>
+
+                <li>
+                  <a href class="auto">
+                    <span class="pull-right text-muted">
+                      <i class="fa fa-fw fa-angle-right text"></i>
+                      <i class="fa fa-fw fa-angle-down text-active"></i>
+                    </span>
+                    <i class="glyphicon glyphicon-menu-hamburger"></i>
+                    <span>Calender</span>
+                  </a>
+                  <ul class="nav nav-sub dk">
+                    <li class="nav-sub-header">
+                      <%= link_to("") do %>
+                        <span> Exam Calender</span>
+                      <% end %>
+                    </li>
+                    <li>
+                      <%= link_to(examdetail_examcalenders_path) do %>
+                        <span>Exam Calender</span>
+                      <% end %>
+                    </li>
+                    <li>
+                      <%= link_to(quizdetail_examcalenders_path) do %>
+                        <span>Quiz Calenders</span>
+                      <% end %>
+                    </li>
+
+                  </ul>
+                </li>
+
 
 
 

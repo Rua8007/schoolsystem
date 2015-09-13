@@ -1,0 +1,54 @@
+
+
+<% if @exam.any? %> 
+
+
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">
+   
+  
+  <div class="abc form-holder">
+  <div class="text-center">
+          <span>Calender</span>
+    </div>
+ 
+        
+      </div>
+</div>
+</h1>
+
+<div class="wrapper-md">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th class="text-center">Bridge</th>
+        <th class="text-center">Title</th>
+        <th class="text-center">Description</th>
+        <th class="text-center">Category</th>
+        <th class="text-center">Starttime</th>
+        <th class="text-center">Endtime</th>
+        <th class="text-center">Actions</th>
+
+      </tr>
+    </thead>
+    <tbody class="text-center">
+        <% @exam.each do |examcalender| %>
+          <tr>
+           
+            <td><%= examcalender.bridge.title %></td>
+            <td><%= examcalender.title %></td>
+            <td><%= examcalender.description %></td>
+            <td><%= examcalender.category %></td>
+            <td><%= examcalender.starttime.strftime("%m/%d/%Y  %H:%M:%S") %></td>
+            <td><%= examcalender.endtime.strftime("%m/%d/%Y    %H:%M:%S") %></td>
+            <td><%= link_to '', examcalender,:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
+              <%= link_to '', edit_examcalender_path(examcalender),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
+              <%= link_to '', examcalender, method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
+          </td> 
+          </tr>
+        <% end %>
+      </tbody>
+  </table>
+</div>
+
+<%end%>
