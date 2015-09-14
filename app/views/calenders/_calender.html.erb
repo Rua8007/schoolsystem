@@ -1,18 +1,18 @@
 
 
-<% if @calenders.any? %> 
+<% if @calenders.any? %>
 
 
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3">
-   
-  
+
+
   <div class="abc form-holder">
   <div class="text-center">
           <span>Calender</span>
     </div>
- 
-        
+
+
       </div>
 </div>
 </h1>
@@ -33,7 +33,7 @@
     <tbody class="text-center">
         <% @calenders.each do |calender| %>
           <tr>
-           
+
             <td><%= calender.grade %></td>
             <td><%= calender.title %></td>
             <td><%= calender.description %></td>
@@ -42,11 +42,16 @@
             <td><%= link_to '', calender,:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
               <%= link_to '', edit_calender_path(calender),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
               <%= link_to '', calender, method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
-          </td> 
+          </td>
           </tr>
         <% end %>
       </tbody>
   </table>
+</div>
+<% else %>
+
+<div>
+  <h3>No Event Found</h3>
 </div>
 
 <%end%>
