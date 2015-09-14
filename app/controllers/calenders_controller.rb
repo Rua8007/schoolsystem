@@ -24,6 +24,24 @@ class CalendersController < ApplicationController
 
   end
 
+  def calenderdetail
+    Calender.all
+  end
+
+  def calenderdata
+    if params[:type] == "KG1tokg3"
+      @calenders = Calender.where(:grade => "KG1tokg3")
+      # return render json: @calenders
+
+    elsif params[:type] == "Grade1to3"
+      @calenders = Calender.where(:grade => "Grade1to3")
+      # return render json: @calenders
+    elsif params[:type] == "Grade4to9"
+      @calenders = Calender.where(:grade => "Grade4to9")
+      # return render json: @calenders
+    end
+  end
+
   # GET /calenders/1
   # GET /calenders/1.json
   def show
@@ -89,3 +107,5 @@ class CalendersController < ApplicationController
       params.require(:calender).permit(:title, :description, :starttime, :endtime,:grade)
     end
 end
+
+

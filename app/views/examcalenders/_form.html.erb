@@ -27,7 +27,7 @@
                 <div class="form-group ">
                   <div class="field ">
                     <%= f.label :bridge_id %><br>
-                    <%= f.select :bridge_id , options_from_collection_for_select(@bridges,"id","id"),{prompt: "Select Bridge"} ,{class: 'form-control', required: true}%>
+                    <%= f.select :bridge_id , options_from_collection_for_select(@bridges,"id","title"),{prompt: "Select Bridge"} ,{class: 'form-control', required: true}%>
                   </div>
                 </div>
               </div>
