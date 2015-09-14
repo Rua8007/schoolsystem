@@ -38,7 +38,12 @@ Rails.application.routes.draw do
 
     end
   end
-  resources :calenders
+  resources :calenders do
+    collection do
+      get "calenderdetail"
+      get "calenderdata"
+    end
+  end
   resources :purchases do
     member do
       put "approve"
