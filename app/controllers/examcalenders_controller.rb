@@ -21,6 +21,8 @@ class ExamcalendersController < ApplicationController
 
   # GET /examcalenders/1/edit
   def edit
+     @bridges  = Bridge.all
+    @grades = Grade.all
   end
 
   # POST /examcalenders
