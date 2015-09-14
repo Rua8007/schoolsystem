@@ -10,13 +10,13 @@
 <div class="abc" style="">
 
     <div class="container" >
-  
+
         <h3><%=@employee.full_name %> </h3>
     <br>
         <div class="col-sm-4">
             <table class="table">
                 <tbody>
-                    
+
                     <tr>
                         <td class="student-profile-td">
                             Date of Birth
@@ -73,7 +73,7 @@
                         </td>
                     </tr>
 
-                   
+
 
                     <tr>
                         <td class="student-profile-td">
@@ -85,7 +85,7 @@
                         </td>
                     </tr>
 
-                    
+
                 </tbody>
             </table>
             <!-- <p>Section:<label>A</label></p> -->
@@ -99,10 +99,10 @@
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active"><a href="#ContactDetails" aria-controls="messages" role="tab" data-toggle="tab">Contact details</a></li>
-        
+
         <li role="presentation" ><a href="#PreviousDetails" aria-controls="messages" role="tab" data-toggle="tab">Qualification details</a></li>
         <li role="presentation"><a href="#MedicalBackground" aria-controls="messages" role="tab" data-toggle="tab">Employee Other Details</a></li>
-        
+
         <li role="presentation"><a href="#FeeDetails" aria-controls="messages" role="tab" data-toggle="tab">Salary details</a></li>
 
     </ul>
@@ -232,13 +232,13 @@
                         </td>
                     </tr>
 
-                    
+
                 </table>
             </div>
 
-            
 
-            
+
+
         </div>
 
         <div role="tabpanel" class="tab-pane" id="PreviousDetails">
@@ -253,12 +253,12 @@
                     <%= @employee.qualification %>
 
                   </td>
-                  
+
                 </tr>
               </tbody>
             </table>
             <hr>
-           
+
           </div>
         </div>
 
@@ -298,11 +298,11 @@
                         <tr>
                             <td class="student-profile-td">
                                 Employee Category
-                                
+
                             </td>
-                            
+
                             <td>
-                              <%= @employee.category.name %>
+                              <%= @employee.category.name if @employee.category.present? %>
                             </td>
                         </tr>
 
@@ -310,9 +310,9 @@
                             <td class="student-profile-td">
                                 Employee Department
                             </td>
-                            
+
                             <td>
-                              <%= @employee.department.name %>
+                              <%= @employee.department.name if @employee.department.present? %>
                             </td>
                         </tr>
 
@@ -320,9 +320,9 @@
                             <td class="student-profile-td">
                                 Employee Position
                             </td>
-                            
+
                             <td>
-                              <%= @employee.position.name %>
+                              <%= @employee.position.name if @employee.position.present? %>
                             </td>
                         </tr>
 
@@ -330,20 +330,20 @@
                             <td class="student-profile-td">
                                 Employee Status
                             </td>
-                            
+
                             <td>
                               <%= @employee.status %>
                             </td>
                         </tr>
 
-                       
+
                     </tbody>
                 </table>
             </div>
 
-           
 
-        </div>        
+
+        </div>
         <div role="tabpanel" class="tab-pane" id="FeeDetails">
           <div class="col-sm-6">
             <table class="table">
@@ -364,12 +364,12 @@
                 </tr>
                 <tr>
                   <td class="student-profile-td">
-                    Salary Next Date  
+                    Salary Next Date
                   </td>
                   <td>
                        <%= @employee.next_due_date %>
                   </td>
-                  
+
                 </tr>
               </tbody>
             </table>

@@ -76,7 +76,7 @@ class StudentsController < ApplicationController
     std = Student.find(params[:id])
     std.parent_id = params[:student][:parent_id]
     std.save!
-    redirect_to new_document_path(student_id: std.id)
+    redirect_to student_path(std.id)
   end
 
   def show

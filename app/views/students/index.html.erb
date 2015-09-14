@@ -80,13 +80,13 @@
             <%= student.arabicname %>
           </td>
           <td>
-            <%= student.try(:parent).name || '' %>
+            <%= student.parent || '' if student.parent.present? %>
           </td>
           <td>
             <%= student.email %>
           </td>
           <td>
-            <%= student.grade.name %>
+            <%= student.grade.name || '' if student.grade.present? %>
           </td>
           <td>
             <%= student.dob %>
