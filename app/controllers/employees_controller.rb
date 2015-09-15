@@ -36,7 +36,6 @@ class EmployeesController < ApplicationController
     @employee = Employee.new(employee_params)
     respond_to do |format|
       if @employee.save
-        return render json: @employee
         if @employee.category.name.downcase == 'academic'
           u = User.new
           u.email = @employee.email
