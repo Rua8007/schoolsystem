@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
 
-  resources :curriculums do 
+  resources :curriculums do
     collection do
       get :get_requested
       post :approve_requested
@@ -214,6 +214,7 @@ Rails.application.routes.draw do
     collection do
       post 'new'
       post 'assign_teacher'
+      get 'teacher_subject'
 
     end
   end

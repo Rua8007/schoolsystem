@@ -88,8 +88,13 @@ class BridgesController < ApplicationController
   end
 
   def class_subject
-    @subjects = Grade.find(params[:id]).bridges
+    @bridges = Grade.find(params[:id]).bridges
     @class = Grade.find(params[:id])
+  end
+
+  def teacher_subject
+    employee = Employee.find_by_email(current_user.email)
+    @bridges = employee.bridges
   end
 
   private

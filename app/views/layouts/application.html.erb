@@ -370,7 +370,7 @@
                     <li>
                       <%= link_to(year_plans_path) do %>
                         <i class="glyphicon glyphicon-time"></i>
-                        <span>Academics</span>
+                        <span>Plans</span>
                       <% end %>
                     </li>
                     <li>
@@ -865,6 +865,15 @@
                       </li> -->
                     </ul>
                   </li>
+
+                  <% if current_user.role == 'teacher' %>
+                    <li>
+                      <%= link_to(teacher_subject_bridges_path) do %>
+                        <i class="glyphicon glyphicon-flag"></i>
+                        <span>My Engagments</span>
+                      <% end %>
+                    </li>
+                  <% end %>
                 <% end %>
                 <!-- <li>
                   <a href class="auto">
