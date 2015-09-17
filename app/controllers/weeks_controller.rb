@@ -91,6 +91,9 @@ class WeeksController < ApplicationController
     # return render json: params.inspect
     @subject = Subject.find(params[:subject_id])
     @grade = Grade.find(params[:grade_id])
+
+    @week_days = ["Sunday","Monday","Tuesday","Wednesday","Thursday"]
+    
     @year_plan = YearPlan.find(params[:year_plan_id])
     if @subject.present? && @grade.present? && @year_plan.present?
       # grade_subjects = GradeSubject.where(subject_id: @subject.id, grade_id: @grade.id)
@@ -100,6 +103,8 @@ class WeeksController < ApplicationController
   end
 
   def add_schedule_weeks
+    return render json: params.inspect
+    
     year = YearPlan.find(params[:year_plan_id])
     subject = Subject.find(params[:subject])
     grade = Grade.find(params[:grade])
