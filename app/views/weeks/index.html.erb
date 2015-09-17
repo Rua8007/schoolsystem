@@ -1,29 +1,66 @@
 <div class="bg-light lter b-b wrapper-md">
-  <h1 class="m-n font-thin h3">Listing Weeks of Year <%= "#{@year_plan.year_name}" %> 
+  <div class="text-center">
+    <h1 class="m-n font-thin h3">Year <%= "#{@year_plan.year_name}" %> </h1>
+  </div>
+  
 
-  <%= link_to 'Click Here to Start Planning', "javascript:void(0);" , class: 'btn btn-lg btn-success start-plan-btn', style: 'margin-left:50px;' %>
+  <%= form_tag show_weekly_schedule_year_plan_path(@year_plan), :method => 'get' do %>
+    <%#= hidden_field_tag :attendance_date, "" %>
+    <div class="modal-body">
 
-<% if current_user.role!= 'parent' && current_user.role!= 'teacher' && current_user.role!= 'student' %>
-  <%= link_to(new_year_plan_week_path(@year_plan.id), class: "btn pull-right btn-color" ,style: "width:200px;" ) do %>
+      <div class="form-group">
+        <label>Grade</label>
+        <!-- <p>Some text in the modal.</p> -->
+        <%= select_tag :grade_id, options_from_collection_for_select(@grades,"id", "full_name"),
+            prompt: "Select Grade", class: "form-control", required: true %>
+      </div>
+
+      <div class="form-group">
+        <label>Week</label>
+        <!-- <p>Some text in the modal.</p> -->
+        <%= select_tag :week_id, options_from_collection_for_select(@weeks,"id", "start_end_date"),
+            prompt: "Select Week", class: "form-control", required: true %>
+      </div>
+
+
+    </div>
+    <div class="modal-footer">
+      <%= submit_tag 'Show Weekly Plan', class: 'btn btn-color' %>
+    </div>
+  <% end %>
+
+
+
+</div>
+
+
+
+<div class="wrapper-md">
+
+<%= link_to 'Click Here to Start Planning', "javascript:void(0);" , class: 'btn btn-lg btn-success start-plan-btn', style: 'margin-left:50px;' %>
+
+  <div class="text-center">
+    <h1 class="m-n h3">Listing Weeks </h1>
+  </div>
+
+  <% if current_user.role!= 'parent' && current_user.role!= 'teacher' && current_user.role!= 'student' %>
+  <%= link_to(new_year_plan_week_path(@year_plan.id), class: "btn btn-lg pull-right btn-color" ,style: "width:200px;" ) do %>
     <i class="fa fa-plus"></i>
     New Week
   <% end %>
 <% end %>
 
-  </h1>
-</div>
 
-<div class="wrapper-md">
   <table class="table table-striped">
     <thead>
       <tr>
         <th>Week #</th>
         <th>Start date</th>
         <th>End date</th>
-        <th>Holiday description</th>
-        <% if current_user.role!= 'parent' && current_user.role!= 'teacher' && current_user.role!= 'student' %>
-          <th>Actions</th>
-        <% end %>
+       <!--  <th>Holiday description</th> -->
+        
+        <th>Actions</th>
+        
       </tr>
     </thead>
     <tbody>
@@ -32,18 +69,23 @@
           <td><%= week.year_week_id %></td>
           <td><%= week.start_date.strftime("%d-%m-%Y") %></td>
           <td><%= week.end_date.strftime("%d-%m-%Y") %></td>
-          <td><%= week.holiday_description %></td>
-          <% if current_user.role!= 'parent' && current_user.role!= 'teacher' && current_user.role!= 'student' %>
-            <td>
+          <!-- <td><%#= week.holiday_description %></td> -->
+          <td>
+            <%= link_to '', '',:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
+              <% if current_user.role!= 'parent' && current_user.role!= 'teacher' && current_user.role!= 'student' %>
                 <%= link_to '', edit_year_plan_week_path(@year_plan.id,week),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
                 <%= link_to '', "/year_plans/#{@year_plan.id}/weeks/#{week.id}", method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
-            </td> 
-          <% end %>
+              <% end %>
+          </td> 
+          
           
         </tr>
       <% end %>
     </tbody>
   </table>
+
+
+
 
   <div class="modal fade" id="grade_subject_modal" role="dialog">
     <div class="modal-dialog">

@@ -60,7 +60,7 @@ class BridgesController < ApplicationController
         b.save
       end
     end
-    redirect_to class_subject_bridge_path(params[:grade_id]), alert: "Subjects added successfully"
+    redirect_to new_grade_path, alert: "Subjects added successfully"
   end
 
   # PATCH/PUT /bridges/1
