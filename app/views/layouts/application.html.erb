@@ -355,9 +355,13 @@
                         </ul>
                       </li>
                     <% end %>
-
-
                   <% end %>
+                  <li>
+                    <%= link_to(home_timetable_path) do %>
+                      <i class="glyphicon glyphicon-flag"></i>
+                      <span>Time Tables</span>
+                    <% end %>
+                  </li>
 
                   <% if current_user.role == 'teacher' %>
                     <li>
