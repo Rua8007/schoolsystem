@@ -62,8 +62,6 @@ class StudentsController < ApplicationController
     end
   end
 
-
-
   def edit_student
     @student = Student.find(params[:id])
     @edit = true

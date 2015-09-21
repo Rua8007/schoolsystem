@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  get 'home/timetable'
 
   resources :curriculums do
     collection do
