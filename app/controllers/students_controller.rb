@@ -11,10 +11,9 @@ class StudentsController < ApplicationController
     end
 		@student = Student.new
     if Student.all.any?
-      @student_no = Student.last.id + 1
+      @student_no = Student.last.rollnumber.to_i + 1
     else
-      Student.create
-      @student_no = Student.last.id + 1
+      @student_no = '15001'
      end
 	end
 
@@ -74,7 +73,7 @@ class StudentsController < ApplicationController
   def assignParent
     # return render json: params
     std = Student.find(params[:id])
-    std.parent_id = params[:student][:parent_id]
+    std.parent_id = Student.find_by_rollnumber(params[:student][:rollnumber]).parent_id
     std.save!
     redirect_to student_path(std.id)
   end
@@ -85,8 +84,16 @@ class StudentsController < ApplicationController
   end
 
   def detail
+    @student = Student.find(params[:id])
     respond_to do |format|
       format.js
+      format.json { render json: {student: @student } }  # respond with the created JSON object
+    end
+  end
+
+  def detail_by_rollnumber
+    @student = Student.find_by_rollnumber(params[:id])
+    respond_to do |format|
       format.json { render json: {student: @student } }  # respond with the created JSON object
     end
   end
@@ -279,11 +286,11 @@ class StudentsController < ApplicationController
 	private
 
     def create_params
-      params.require(:student).permit(:fullname,:remote_image_url,:first_name, :mobile, :address, :email, :grade_id, :dob,:gender,:middle_name, :last_name, :blood, :birth_place, :nationality, :language, :religion, :city, :state, :country,:phone, :fee, :term, :due_date, :image,:iqamaNumber,:iqamaExpiry, :previousInstitute, :year, :totalMarks, :obtainedMarks, :forthname, :fifthname, :arabicname, :weight,:height,:eyeside,:hearing,:rh,:alergy,:nurology,:physical,:disability,:behaviour, :discount,emergencies_attributes:[:name, :phome, :mobile, :email, :student_id])
+      params.require(:student).permit(:rollnumber,:fullname,:remote_image_url,:first_name, :mobile, :address, :email, :grade_id, :dob,:gender,:middle_name, :last_name, :blood, :birth_place, :nationality, :language, :religion, :city, :state, :country,:phone, :fee, :term, :due_date, :image,:iqamaNumber,:iqamaExpiry, :previousInstitute, :year, :totalMarks, :obtainedMarks, :forthname, :fifthname, :arabicname, :weight,:height,:eyeside,:hearing,:rh,:alergy,:nurology,:physical,:disability,:behaviour, :discount,emergencies_attributes:[:name, :phome, :mobile, :email, :student_id])
     end
 
     def student_params
-      params.require(:student).permit(:fullname,:remote_image_url,:first_name, :mobile, :address, :email, :grade_id, :dob,:gender,:middle_name, :last_name, :blood, :birth_place, :nationality, :language, :religion, :city, :state, :country,:phone, :fee, :term, :due_date, :image,:iqamaNumber,:iqamaExpiry, :previousInstitute, :year, :totalMarks, :obtainedMarks, :forthname, :fifthname, :arabicname, :weight,:height,:eyeside,:hearing,:rh,:alergy,:nurology,:physical,:disability,:behaviour, :discount,emergencies_attributes:[:name, :phome, :mobile, :email, :student_id])
+      params.require(:student).permit(:rollnumber,:fullname,:remote_image_url,:first_name, :mobile, :address, :email, :grade_id, :dob,:gender,:middle_name, :last_name, :blood, :birth_place, :nationality, :language, :religion, :city, :state, :country,:phone, :fee, :term, :due_date, :image,:iqamaNumber,:iqamaExpiry, :previousInstitute, :year, :totalMarks, :obtainedMarks, :forthname, :fifthname, :arabicname, :weight,:height,:eyeside,:hearing,:rh,:alergy,:nurology,:physical,:disability,:behaviour, :discount,emergencies_attributes:[:name, :phome, :mobile, :email, :student_id])
     end
 
     def save_attendances_helper(params)

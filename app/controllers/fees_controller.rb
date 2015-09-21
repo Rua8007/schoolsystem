@@ -142,8 +142,8 @@ class FeesController < ApplicationController
 
   def student_fee
     @fee = Fee.new
-    if Student.find_by_id(params[:id]).present?
-      @student = Student.find_by_id(params[:id])
+    if Student.find_by_rollnumber(params[:id]).present?
+      @student = Student.find_by_rollnumber(params[:id])
       @data = []
       @student.grade.feebreakdowns.each do |fb|
         fb.title = fb.title || ''

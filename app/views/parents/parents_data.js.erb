@@ -1,2 +1,8 @@
-$("#formPartial").removeClass("hide");
-$("#formPartial").html('<%= escape_javascript render "form" %>')
+<% if @parent.present? %>
+  $("#error_div_rollnum").addClass('hide');
+  $("#formPartial").removeClass("hide");
+  $("#formPartial").html('<%= escape_javascript render "form" %>')
+<% else %>
+    $("#error_div_rollnum").removeClass('hide');
+    $("#roll_Number").val('');
+<% end %>

@@ -19,7 +19,7 @@
   <a href="<%= new_grade_path %>" class="btn pull-right btn-color" style="width:200px;">Add a new Grade</a></h1>
 </div>
 <br><br>
-<div style="overflow: scroll">  
+<div style="overflow: scroll">
   <table id="example" class="table table-striped table-bordered table-responsive" style="overflow: scroll">
     <thead class= "table-head">
     <tr>
@@ -38,7 +38,8 @@
         <td><%= grade.section %></td>
         <td><%= grade.batch.name %></td>
         <td><%= grade.students.count %></td>
-        <td><%= link_to '', grade,:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
+        <td>
+            <%= link_to '', grade,:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
             <%= link_to '', edit_grade_path(grade),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
             <%= link_to '', grade, method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
         </td>

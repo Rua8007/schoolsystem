@@ -71,16 +71,16 @@
       <% @students.try(:each) do |student| %>
         <tr class = "clickable" id="<%= student.id %>">
           <td>
-            <%= student.id %>
+            <%= student.rollnumber %>
           </td>
           <td>
-            <%= student.fullname %>
+            <%= student.fullname  %>
           </td>
           <td>
             <%= student.arabicname %>
           </td>
           <td>
-            <%= student.parent || '' if student.parent.present? %>
+            <%= student.parent.name || '' if student.parent.present? %>
           </td>
           <td>
             <%= student.email %>

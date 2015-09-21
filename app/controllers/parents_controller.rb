@@ -11,14 +11,14 @@ class ParentsController < ApplicationController
   # GET /parents/1
   # GET /parents/1.json
   def show
-    
+
   end
 
   # GET /parents/new
   def new
     @s = params[:student_id]
     @student = Student.find(params[:student_id])
-    @parent = Parent.new   
+    @parent = Parent.new
   end
 
   # GET /parents/1/edit
@@ -28,7 +28,7 @@ class ParentsController < ApplicationController
   def edit_parent
     @parent = Parent.find(params[:id])
     @edit = true
-    
+
   end
 
   # POST /parents
@@ -89,9 +89,11 @@ class ParentsController < ApplicationController
     if params[:parent_id] == "new"
       @parent = Parent.new
       @flag = true
-    elsif params[:parent_id].present? && params[:parent_id] != ""
-      @parent = Parent.find(params[:parent_id])
+    elsif Student.find_by_rollnumber(params[:rollnumber]).present?
+      @parent = Student.find_by_rollnumber(params[:rollnumber]).parent
       @flag = false
+    else
+      @parent = {}
     end
     @student = Student.find(params[:student_id])
     respond_to do |format|
@@ -111,5 +113,5 @@ class ParentsController < ApplicationController
       params.require(:parent).permit( :name, :relation, :education, :profession, :dob, :income, :iqamaNumber, :iqamaExpiry, :address1, :address2, :city, :country, :officePhone, :mobile,:mothername,:mothermobile,:motheremail, :email,emergencies_attributes: [:name,:phone, :mobile, :email, :student_id])
     end
 
-  
+
 end

@@ -28,6 +28,7 @@ class BridgesController < ApplicationController
 
   # GET /bridges/1/edit
   def edit
+    @employee = Category.where(name: 'Academic').first.employees
   end
 
   # POST /bridges

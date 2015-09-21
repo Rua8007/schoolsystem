@@ -34,7 +34,7 @@ class InvoicesController < ApplicationController
   def invoicing
     inv = Invoice.create
     items = params[:items]
-    inv.student_id = params[:student_id]
+    inv.student_id = Student.find_by_rollnumber(params[:student_id]).id
     inv.booknum = params[:booknum]
     inv.discount = params[:discount]
     inv.save
@@ -123,8 +123,8 @@ class InvoicesController < ApplicationController
   end
 
   def student_data
-    if Student.find_by_id(params[:std_id]).present?
-      student = Student.find(params[:std_id])
+    if Student.find_by_rollnumber(params[:std_id]).present?
+      student = Student.find_by_rollnumber(params[:std_id])
       @details = {fullname: student.fullname, parent: student.parent.name, contact: student.mobile, grade: student.grade.full_name}
     else
       @details = false

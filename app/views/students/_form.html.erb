@@ -9,6 +9,7 @@
             		<div class="form-group">
               			<label for="exampleInputEmail1">Full Name</label>
 										<%= std.text_field :fullname , :style => 'height:34px;width: 100%',  class: 'form-control', autofocus: true %>
+                    <%= std.hidden_field :rollnumber, value: @student_no %>
             		</div>
             	</div>
             	<div class="column col-xs-12 col-sm-6">
@@ -47,7 +48,7 @@
               			<%= std.select :gender, options_for_select(%w[MALE FEMALE]),{}, {class: "form-control", style: 'width: 100%'} %>
             		</div>
           		</div>
-          		
+
           		<div class="column col-xs-12 col-sm-2">
             		<div class="form-group">
 	              		<label for="exampleInputEmail1">Nationality</label>
@@ -71,7 +72,7 @@
 						<%= std.file_field :image %>
 						</div>
 						</div>
-					</fieldset>     	
+					</fieldset>
         	<fieldset class="sss well well-lg">
         		<legend class="lll">Contact Information</legend>
       		<div class="column col-xs-12 col-sm-6">
@@ -92,14 +93,14 @@
           			<%= std.text_field :city, :style => 'height:34px;width: 100%',  class: 'form-control' %>
         		</div>
       		</div>
-      		
+
       		<div class="column col-xs-12 col-sm-2">
         		<div class="form-group">
           			<label for="exampleInputEmail1">Country</label>
               		<%= std.country_select :country ,{selected: "SA"}, {:style => 'height:34px;width: 100%',  class: 'form-control',} %>
           		</div>
       		</div>
-      		
+
       		<div class="column col-xs-12 col-sm-2">
         		<div class="form-group">
               		<label for="exampleInputPassword1">Phone Number</label>
@@ -115,7 +116,7 @@
 								</div>
 		          </div>
 		        </div>
-					</fieldset>     	
+					</fieldset>
     		<fieldset class="sss well well-lg">
     			<legend class="lll">Medical Information</legend>
       		<div class="column col-xs-12 col-sm-3">
@@ -182,10 +183,10 @@
           </div>
         </fieldset>
 
-			     	
+
 				<%= std.fields_for :emergency do |b| %>
 			  <fieldset class="sss well well-lg">
-        	<legend class="lll">Emergency Contact</legend>      
+        	<legend class="lll">Emergency Contact</legend>
 			    <div class="column col-xs-12 col-md-12">
 			      <div class="form-group">
 			        <label for="exampleInputEmail1">Name</label>
@@ -216,12 +217,12 @@
 			        <%= b.text_field :email , :style => 'height:34px;width: 100%',  class: 'form-control', autofocus: true %>
 			      </div>
 			    </div>
-				</fieldset> 
+				</fieldset>
 			  <% end %>
           	</div>
-      	</div>  
+      	</div>
     </div>
 	<div class="form-group">
 		<%= std.submit "Parent Detail", :class => 'btn btn-block btn-success form-control',:style=>'width:24%;float: right;' %>
-	</div>	
+	</div>
 <% end %>

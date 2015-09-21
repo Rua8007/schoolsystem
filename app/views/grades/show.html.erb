@@ -14,20 +14,18 @@
 		<% @grade.bridges.try(:each) do |sub| %>
 			<tr>
 				<td>
-					<%= sub.subject.name %>	
+					<%= sub.subject.name %>
 				</td>
 				<td><%= sub.employee.full_name %></td>
 				<td>
-					<%= link_to 'Edit', "javascript:void(0);" , class: 'edit-bridge-btn', style: '' %>
+					<%= link_to 'Edit', edit_bridge_path(sub) , class: 'edit-bridge-btn', style: '' %>
 				</td>
 			</tr>
 		<% end %>
 	</tbody>
 </table>
-
-
 <script type="text/javascript">
-	
+
 $(document).ready(function(){
     $('.edit-bridge-btn').on('click',function (e){
       $('#edit_bridge').modal('show');

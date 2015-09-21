@@ -6,12 +6,21 @@
 </style>
 
 <div class="container" style="max-width:970px;" >
-	
+
         <h3><%= @student.fullname %> <label style="font-weight:normal">(<%= @student.arabicname %>)</label></h3>
 		<br>
         <div class="col-sm-4">
             <table class="table">
                 <tbody>
+                    <tr>
+                        <td class="student-profile-td">
+                            Student ID
+                        </td>
+
+                        <td>
+                            <%= @student.rollnumber %>
+                        </td>
+                    </tr>
                     <tr>
                         <td class="student-profile-td">
                             Class
@@ -113,5 +122,5 @@
             <%= link_to "More Details", student_path(@student.id), class: "btn btn-success" %>
         </div>
         </div>
-       
+
     </div>

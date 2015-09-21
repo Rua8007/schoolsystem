@@ -48,7 +48,7 @@ class BusAllotmentsController < ApplicationController
   # POST /bus_allotments.json
   def create
     @bus_allotment = BusAllotment.new(bus_allotment_params)
-
+    @bus_allotment.student_id = Student.find_by_rollnumber(@bus_allotment.student_id.to_s).id
     respond_to do |format|
       if @bus_allotment.save
         format.html { redirect_to bus_allotments_path, notice: 'Bus allotment was successfully created.' }

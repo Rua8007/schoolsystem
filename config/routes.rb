@@ -242,6 +242,7 @@ Rails.application.routes.draw do
     end
     collection do
       get "detail"
+      get 'detail_by_rollnumber'
       get 'mark_attendance_calendar'
       post 'mark_attendance'
       post 'save_attendances'

@@ -43,9 +43,20 @@
               <div class="field">
                 <%= f.label  :Student_ID %><br>
                 <%= f.text_field :student_id, :style => 'height:34px;',  class: 'form-control' , required: true, autofocus: true %>
+                <span id = "error_div_rollnum" style= "color:red;" class= "hide"> Invalid Roll Number</span>
               </div>
             </div>
           </div>
+
+          <div class="column col-xs-12 col-sm-6">
+            <div class="form-group ">
+              <div class="field">
+                <%= f.label  :Student_Name %><br>
+                <input type = "text" style = 'height:34px;' class = 'form-control' readonly="true" id = "stdname">
+              </div>
+            </div>
+          </div>
+
           <div class="column col-xs-12 col-sm-6">
             <div class="form-group ">
               <div class="field">
@@ -101,6 +112,24 @@
         $("#error_div_rollnum").addClass('hide');
       }
     });
+  });
+
+  $("#bus_allotment_student_id").blur(function (){
+    $.get('/students/detail_by_rollnumber', {id: $("#bus_allotment_student_id").val(), bus: true})
+      .done(function(data){
+        if (data.student)
+        {
+          console.log("in success")
+          $("#error_div_rollnum").addClass('hide');
+          $("#stdname").val(data.student.fullname)
+        }
+        else
+        {
+          $("#error_div_rollnum").removeClass('hide');
+          $("#bus_allotment_student_id").val('');
+        }
+      });
+
   });
 
 
