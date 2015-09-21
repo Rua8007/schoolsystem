@@ -98,7 +98,7 @@ class WeeksController < ApplicationController
     if @subject.present? && @grade.present? && @year_plan.present?
       # grade_subjects = GradeSubject.where(subject_id: @subject.id, grade_id: @grade.id)
       # @days
-      @weeks = @year_plan.weeks.sort_by &:start_date
+      @weeks = @year_plan.weeks.where(id: params[:week_schedule_id].to_i).sort_by &:start_date
     end
   end
 

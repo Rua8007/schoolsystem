@@ -45,16 +45,16 @@
 						</div>
 
 						<% if i > 0 %>
-							<%= link_to "Previous","", class: "btn btn-info week-previous", style: "display: none;", id: "week_previous_#{ i-1 if i-1 >= 0 }" %>
+							<%#= link_to "Previous","", class: "btn btn-info week-previous", style: "display: none;", id: "week_previous_#{ i-1 if i-1 >= 0 }" %>
 						<% end %>
-						<%= link_to "Next","", class: "btn btn-info week-next", style: "#{ 'display: none;' if i > 0 }", id: "week_next_#{ i+1 if i+1 < @weeks.count }" %>
+						<%#= link_to "Next","", class: "btn btn-info week-next", style: "#{ 'display: none;' if i > 0 }", id: "week_next_#{ i+1 if i+1 < @weeks.count }" %>
 					<% end %>
 				</div>
 			</div>
 		</div>
 		
 		<br/><br/><br/>
-		<%= submit_tag 'Save Schedule', class: 'btn btn-lg btn-success pull-right', style: 'display: none;', id: "submit_tag_id" %>
+		<%= submit_tag 'Save Schedule', class: 'btn btn-lg btn-success pull-right', style: '', id: "submit_tag_id" %>
 	<% end %>
 </div>
 

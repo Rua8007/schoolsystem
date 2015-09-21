@@ -37,7 +37,7 @@
 
 <div class="wrapper-md">
 
-<%= link_to 'Click Here to Start Planning', "javascript:void(0);" , class: 'btn btn-lg btn-success start-plan-btn', style: 'margin-left:50px;' %>
+<%#= link_to 'Click Here to Start Planning', "javascript:void(0);" , class: 'btn btn-lg btn-success start-plan-btn', style: 'margin-left:50px;' %>
 
   <div class="text-center">
     <h1 class="m-n h3">Listing Weeks </h1>
@@ -58,9 +58,7 @@
         <th>Start date</th>
         <th>End date</th>
        <!--  <th>Holiday description</th> -->
-        
         <th>Actions</th>
-        
       </tr>
     </thead>
     <tbody>
@@ -71,7 +69,7 @@
           <td><%= week.end_date.strftime("%d-%m-%Y") %></td>
           <!-- <td><%#= week.holiday_description %></td> -->
           <td>
-            <%= link_to '', '',:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
+            <%= link_to '', 'javascript:void(0);',:class =>  'btn btn-success  glyphicon glyphicon-ok-circle start-plan-btn', id: "#{week.id}"%>
               <% if current_user.role!= 'parent' && current_user.role!= 'teacher' && current_user.role!= 'student' %>
                 <%= link_to '', edit_year_plan_week_path(@year_plan.id,week),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
                 <%= link_to '', "/year_plans/#{@year_plan.id}/weeks/#{week.id}", method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
@@ -96,9 +94,8 @@
           <h4 class="modal-title">Select Grade &amp; Subject </h4>
         </div>
         <%= form_tag url_for(:controller => 'weeks', :action => 'schedule_weeks', params: {year_plan_id: @year_plan.id}), :method => 'get' do %>
-          <%#= hidden_field_tag :attendance_date, "" %>
+          <%= hidden_field_tag :week_schedule_id, "" %>
           <div class="modal-body">
-
             <div class="form-group">
               <label>Grade</label>
               <!-- <p>Some text in the modal.</p> -->
@@ -130,6 +127,7 @@
 <script type="text/javascript">
   $(document).ready(function(){
     $('.start-plan-btn').on('click',function (e){
+      $('#week_schedule_id').val($(this).attr('id'));
       $('#grade_subject_modal').modal('show');
     });
   });
