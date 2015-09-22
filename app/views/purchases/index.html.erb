@@ -44,7 +44,6 @@
     <thead class= "table-head">
       <th>Grade</th>
       <th>Employee</th>
-      <th>Detail</th>
       <th>Approve</th>
       <th>Actions</th>
     </thead>
@@ -54,7 +53,6 @@
         <tr>
           <td><%= purchase.grade_id %></td>
           <td><%= purchase.employee.full_name %></td>
-          <td><%= purchase.detail %></td>
           <td>
           <% if purchase.approve.nil? %>
             <%= link_to "Approve", approve_purchase_path(purchase ), method: :put,class:"btn btn-info " %>
