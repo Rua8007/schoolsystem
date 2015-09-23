@@ -50,6 +50,10 @@ Rails.application.routes.draw do
       put "approve"
       put "disapprove"
     end
+    collection do
+      post "invoicing"
+    end
+
   end
 
   resources :conversations, only: [:index, :show, :destroy] do

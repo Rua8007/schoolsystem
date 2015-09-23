@@ -435,6 +435,15 @@ ActiveRecord::Schema.define(version: 20150919202752) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "purchaselines", force: :cascade do |t|
+    t.integer  "purchase_id"
+    t.string   "code"
+    t.integer  "quantity"
+    t.float    "price"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "purchases", force: :cascade do |t|
     t.integer  "grade_id"
     t.integer  "employee_id"
