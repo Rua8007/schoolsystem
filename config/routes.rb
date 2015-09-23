@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
   get 'home/timetable'
+  get 'home/sms'
+  get 'home/sendsms'
 
   resources :curriculums do
     collection do

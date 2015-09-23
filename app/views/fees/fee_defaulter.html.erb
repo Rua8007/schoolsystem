@@ -51,6 +51,7 @@
         <th>Class</th>
         <th>Father Name</th>
         <th>Parent Contact</th>
+        <th>Pending Amount</th>
       </tr>
     </thead>
     <tbody>
@@ -74,6 +75,7 @@
           <td>
             <%= student.parent.mobile %>
           </td>
+          <td><%= student.grade.feebreakdowns.sum(:amount) - student.fees.sum(:amount) %></td>
 
         </tr>
       <% end %>
