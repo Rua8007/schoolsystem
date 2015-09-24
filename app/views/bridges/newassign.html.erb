@@ -1,0 +1,15 @@
+ <%= form_tag(assigned_bridges_path, method: :post) do |f| %>
+  <div class="col-md-5">
+    <label>Select Subject</label>
+    <%= select_tag :subject_id , options_from_collection_for_select(@subjects,"id", "name"), prompt: "Select Subject",class: "form-control", required: true  %>
+  </div>
+  <%= hidden_field_tag :grade_id , @grade.id %>
+
+  <div class="col-md-5" >
+    <label>Select Teacher</label>
+    <%= select_tag :employee_id, options_from_collection_for_select(@employees,"id", "full_name"), prompt: "Select Teacher",class: "form-control", required: true %>
+  </div>
+  <div>
+    <%= submit_tag "Assign", data: { confirm: "Are you sure?" }, class: 'btn btn-success', style: 'margin-top:23px;' %>
+  </div>
+<% end %>

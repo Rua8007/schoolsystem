@@ -217,6 +217,8 @@ Rails.application.routes.draw do
         get 'class_subject'
     end
     collection do
+      get 'newassign'
+      post 'assigned'
       post 'new'
       post 'assign_teacher'
       get 'teacher_subject'

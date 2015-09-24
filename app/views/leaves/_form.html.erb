@@ -11,27 +11,103 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :reason %><br>
-    <%= f.text_field :reason %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description %>
-  </div>
-  <div class="field">
-    <%= f.label :employee_id, style: 'display:none'  %><br>
-    <%= f.number_field :employee_id, style: 'display:none'  %>
-  </div>
-  <div class="field">
-    <%= f.label :leave_from %><br>
-    <%= f.date_select :leave_from %>
-  </div>
-  <div class="field">
-    <%= f.label :leave_to %><br>
-    <%= f.date_select :leave_to %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <div class="container form-holder ">
+        <div class="row">
+        <fieldset class="sss well well-lg">
+          <legend class="lll">Create  Event</legend>
+
+
+        <br>
+            <div  class="row">
+              <div class="column col-xs-12 col-sm-4">
+                <div class="form-group ">
+                  <div class="field ">
+                    <%= f.label :reason %><br>
+                    <%= f.text_field :reason,:style => 'height:34px;', cols: 70, rows: 1, class: 'form-control' , required: true, autofocus: true %>
+                  </div>
+                </div>
+                 </div>
+            <div>
+              <div class="column col-xs-12 col-sm-12">
+                <div class="form-group ">
+                  <div class="field">
+                    <%= f.label :description %><br>
+                    <%= f.text_area :description ,:style => 'height:34px;', cols: 70, rows: 1, class: 'form-control' , required: true, autofocus: true%>
+                  </div>
+                </div>
+              </div>
+ 
+              <div class="field">
+                <%= f.label :employee_id, style: 'display:none'  %><br>
+                <%= f.number_field :employee_id, style: 'display:none'  %>
+              </div>
+           <div class="column col-xs-12 col-sm-5">
+                <div class="form-group ">
+                  <div class="field">
+                    <%= f.label :leave_from %><br>
+                    <%= f.date_select :leave_from, {class: 'form-control', required: true} %>
+                  </div>
+                </div>
+              </div>
+              <div class="column col-xs-12 col-sm-5">
+                <div class="form-group  ">
+                  <div class="field  " >
+                    <%= f.label :leave_to %><br>
+                    <%= f.date_select :leave_to,:html=>{:class => "form-control"} %>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+           <div class="modal-footer">
+            <%= submit_tag 'Create', class: 'btn btn-success' %>
+          </div>
 <% end %>
+
+
+
+
+
+<style type="text/css">
+  .container{
+      width: auto;
+  }
+
+  .sss{
+    border:1px solid#e5e5e5;   padding: 1%;
+  }
+
+  .lll{
+    width: auto !important;
+    background-color: white;
+    padding-right: 16px;
+    padding-left: 15px;
+    border: 1px solid;
+    border-color: #729F32;
+    border-radius: 21px;
+  }
+</style>
+
+<style type="text/css">
+    .form-holder .col-sm-4 {
+      min-height: 84px;
+    }
+    .form-holder .form-control{
+        width: 100%;
+    }
+    .form-control{
+        border-radius: 7px;
+        border: black;
+    }
+</style>
+
+
+<style type="text/css">
+  #leave_leave_from_1i, #leave_leave_from_2i,#leave_leave_from_3i,#examcalender_starttime_4i,#examcalender_starttime_5i, #leave_leave_to_1i, #leave_leave_to_2i, #leave_leave_to_3i, #examcalender_endtime_4i, #examcalender_endtime_5i{
+
+    border-radius: 7px;
+    border: black;
+  }
+</style>
+
+

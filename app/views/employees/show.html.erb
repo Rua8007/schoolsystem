@@ -103,7 +103,7 @@
         <li role="presentation" ><a href="#PreviousDetails" aria-controls="messages" role="tab" data-toggle="tab">Qualification details</a></li>
         <li role="presentation"><a href="#MedicalBackground" aria-controls="messages" role="tab" data-toggle="tab">Employee Other Details</a></li>
 
-        <li role="presentation"><a href="#FeeDetails" aria-controls="messages" role="tab" data-toggle="tab">Salary details</a></li>
+       
 
     </ul>
 
@@ -149,15 +149,25 @@
                             <%= @employee.country %>
                         </td>
                     </tr>
-
-                    <tr>
+                     <tr>
                         <td>
-                            Blood group
+                            Passport No.
                         </td>
                         <td>
-                            <%= @employee.blood_group %>
+                            <%= @employee.father_name %>
                         </td>
                     </tr>
+
+                     <tr>
+                        <td>
+                             Passport Expiry
+                        </td>
+                        <td>
+                            <%= @employee.mother_name %>
+                        </td>
+                    </tr>
+
+                    
 
                     <tr>
                         <td>
@@ -187,56 +197,7 @@
                 </table>
             </div>
 
-            <div class="col-sm-3">
-                <h4 class="student-tabs">Family Details</h4>
-                <table class="table">
-                    <tr>
-                        <td>
-                            Father Name
-                        </td>
-                        <td>
-                            <%= @employee.father_name %>
-                        </td>
-                    </tr>
-
-                     <tr>
-                        <td>
-                             Mother Name
-                        </td>
-                        <td>
-                            <%= @employee.mother_name %>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                             Martial Status
-                        </td>
-                        <td>
-                            <%= @employee.marital_status %>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                             Children
-                        </td>
-                        <td>
-                            <%= @employee.child_count %>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                             Spouse Name
-                        </td>
-                        <td>
-                            <%= @employee.spouse_name %>
-                        </td>
-                    </tr>
-
-
-                </table>
-            </div>
-
-
+            
 
 
         </div>
@@ -316,25 +277,7 @@
                             </td>
                         </tr>
 
-                        <tr>
-                            <td class="student-profile-td">
-                                Employee Position
-                            </td>
-
-                            <td>
-                              <%= @employee.position.name if @employee.position.present? %>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="student-profile-td">
-                                Employee Status
-                            </td>
-
-                            <td>
-                              <%= @employee.status %>
-                            </td>
-                        </tr>
+                        
 
 
                     </tbody>
@@ -344,37 +287,7 @@
 
 
         </div>
-        <div role="tabpanel" class="tab-pane" id="FeeDetails">
-          <div class="col-sm-6">
-            <table class="table">
-              <tbody>
-                <tr>
-                  <td class="student-profile-td">
-                    Salary
-                  </td>
-                  <td>
-                       <%= @employee.salary %>
-                  </td>
-                  <td class="student-profile-td">
-                    Salary date
-                  </td>
-                  <td>
-                       <%= @employee.pay_date %>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="student-profile-td">
-                    Salary Next Date
-                  </td>
-                  <td>
-                       <%= @employee.next_due_date %>
-                  </td>
-
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+        
     </div>
 </div>
 
