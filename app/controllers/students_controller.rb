@@ -193,7 +193,7 @@ class StudentsController < ApplicationController
   end
 
   def save_attendances
-    # return render json: params.inspect
+    return render json: params.inspect
     if params[:attendance_date].present? && params[:attendance_date].to_date <= Date.today
 
 

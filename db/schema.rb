@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150921171531) do
+ActiveRecord::Schema.define(version: 20150924114854) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -494,6 +494,7 @@ ActiveRecord::Schema.define(version: 20150921171531) do
     t.datetime "updated_at",                      null: false
     t.boolean  "epresent",        default: true
     t.boolean  "eleave",          default: false
+    t.boolean  "late",            default: false
   end
 
   create_table "student_holidays", force: :cascade do |t|

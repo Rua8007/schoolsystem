@@ -42,6 +42,7 @@
 	        <th>Student name</th>
 	        <th>Grade</th>
 	        <th>Present/Absent</th>
+	        <th>Late</th>
 	        <th>Leave</th>
 	        <th>Reason</th>
 	      </tr>
@@ -62,6 +63,23 @@
 	                	<%= check_box_tag "attendances[]" , student_attendance["std_id"], false, id: "att_std_#{student_attendance["std_id"]}", class: 'attendance_checkbox', disabled: true %>
 	               	<% else %>
 	               		<%= check_box_tag "attendances[]" , student_attendance["std_id"], false, id: "att_std_#{student_attendance["std_id"]}", class: 'attendance_checkbox' %>
+	               	<% end %>
+	                <i></i>
+	              </label>
+	            </div>
+
+	            
+	          </td>
+
+	          <td>
+	          	<div class="checkbox">
+	              <label class="i-checks">
+	            		<% if student_attendance["late"] == "true" %>
+	                	<%= check_box_tag "lates[]", student_attendance["std_id"], true, id: "late_std_#{student_attendance["std_id"]}", class: 'attendance_checkbox' %>
+	                <% elsif student_attendance["leave"] == "true" %>
+	                	<%= check_box_tag "lates[]" , student_attendance["std_id"], false, id: "late_std_#{student_attendance["std_id"]}", class: 'attendance_checkbox', disabled: true %>
+	               	<% else %>
+	               		<%= check_box_tag "lates[]" , student_attendance["std_id"], false, id: "late_std_#{student_attendance["std_id"]}", class: 'attendance_checkbox' %>
 	               	<% end %>
 	                <i></i>
 	              </label>
@@ -117,6 +135,20 @@
 				$(attendance_id).attr('checked', true);
 			}
     });
+    $(".attendance_checkbox").click(function() {
+    	clicked_id = this.id.toString();
+    	clicked_id = clicked_id.split("_");
+    	leave_id = "#leave_std_"+clicked_id[clicked_id.length-1].toString();
+			if(this.checked)
+			{
+				$(leave_id).attr('checked', false);
+			}
+			else
+			{
+
+			}
+    });
+
     $(".attendance_checkbox").click(function() {
     	clicked_id = this.id.toString();
     	clicked_id = clicked_id.split("_");
