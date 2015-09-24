@@ -21,7 +21,6 @@
  *= require fullcalendar
  *= require bootstrap-datepicker
  *= require chosen
- *= require wysihtml
  */
 
 .navbar-brand{

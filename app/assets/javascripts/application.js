@@ -25,5 +25,3 @@
 //= require bootstrap-datepicker/core
 //= require chosen-jquery
 //= require messages
-//= require wysihtml
-//= require parser_rules/advanced_unwrap
