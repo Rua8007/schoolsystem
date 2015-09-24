@@ -1,0 +1,54 @@
+<div>
+
+  <div>
+    Teacher Rights:
+    <div class="well well-lg">
+      <%= @teacher_rights.try(:each) do |tr| %>
+        <span><%= tr.value %></span>
+      <% end %>
+      <div>
+      <%= link_to 'Edit Rights', edit_right_path('teacher'), class: "btn btn-success" %>
+    </div>
+  </div>
+
+  <div>
+    Admin Rights:
+    <div class="well well-lg">
+      <%= @admin_rights.try(:each) do |tr| %>
+        <span><%= tr.value %></span>
+      <% end %>
+      <%= link_to 'Edit Rights', edit_right_path('admin'), class: "btn btn-success" %>
+    </div>
+  </div>
+
+  <div>
+    Accountant Rights:
+    <div class="well well-lg">
+      <%= @accountant_rights.try(:each) do |tr| %>
+        <span><%= tr.value %></span>
+      <% end %>
+      <%= link_to 'Edit Rights', edit_right_path('accountant'), class: "btn btn-success" %>
+    </div>
+  </div>
+
+  <div>
+    Parent Rights:
+    <div class="well well-lg">
+      <%= @parent_rights.try(:each) do |tr| %>
+        <span><%= tr.value %></span>
+      <% end %>
+      <%= link_to 'Edit Rights', edit_right_path('parent'), class: "btn btn-success" %>
+    </div>
+  </div>
+
+  <div>
+    Student Rights:
+    <div class="well well-lg">
+      <%= @student_rights.try(:each) do |tr| %>
+        <span><%= tr.value %></span>
+      <% end %>
+      <%= link_to 'Edit Rights', edit_right_path('student'), class: "btn btn-success" %>
+    </div>
+  </div>
+
+</div>

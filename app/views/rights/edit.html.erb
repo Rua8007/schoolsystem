@@ -1,0 +1,85 @@
+
+<div class="well well-lg">
+  <h2>Rights for <%= @role %></h2>
+  <% @rights.try(:each) do |right| %>
+    <span><%= right.value %></span>
+  <% end %>
+  <hr>
+</div>
+<br>
+<div class="well well-lg">
+  <h2>Add Roles</h2>
+  <%= form_tag(add_roles_rights_path , method: 'POST' ) do %>
+    <input type="checkbox" id="selecctall" style="margin-left: 17px;margin-top: 18px;" /> Selecct All
+    <%= check_box_tag 'student[create_student]', class: "student" %> Create Student
+    <%= check_box_tag 'student[update_student]', class: "student" %> Update Student
+    <%= check_box_tag 'student[delete_student]', class: "student" %> Delete Student
+    <br>
+    <%= check_box_tag 'employee[create_employee]' %> Create employee
+    <%= check_box_tag 'employee[update_employee]' %> Update employee
+    <%= check_box_tag 'employee[delete_employee]' %> Delete employee
+    <br>
+    <%= check_box_tag 'leave[create_leave]' %> Create leave
+    <%= check_box_tag 'leave[update_leave]' %> Update leave
+    <%= check_box_tag 'leave[delete_leave]' %> Delete leave
+    <br>
+    <%= check_box_tag 'sattendence[create_sattendence]' %> Create sattendence
+    <%= check_box_tag 'sattendence[update_sattendence]' %> Update sattendence
+    <%= check_box_tag 'sattendence[delete_sattendence]' %> Delete sattendence
+    <br>
+    <%= check_box_tag 'eattendence[create_eattendence]' %> Create eattendence
+    <%= check_box_tag 'eattendence[update_eattendence]' %> Update eattendence
+    <%= check_box_tag 'eattendence[delete_eattendence]' %> Delete eattendence
+    <br>
+    <%= check_box_tag 'prequest[create_prequest]' %> Create prequest
+    <%= check_box_tag 'prequest[update_prequest]' %> Update prequest
+    <%= check_box_tag 'prequest[delete_prequest]' %> Delete prequest
+    <br>
+    <%= check_box_tag 'fee[create_fee]' %> Create fee
+    <%= check_box_tag 'fee[update_fee]' %> Update fee
+    <%= check_box_tag 'fee[delete_fee]' %> Delete fee
+    <br>
+    <%= check_box_tag 'subject[create_subject]' %> Create subject
+    <%= check_box_tag 'subject[update_subject]' %> Update subject
+    <%= check_box_tag 'subject[delete_subject]' %> Delete subject
+    <br>
+    <%= check_box_tag 'grade[create_grade]' %> Create grade
+    <%= check_box_tag 'grade[update_grade]' %> Update grade
+    <%= check_box_tag 'grade[delete_grade]' %> Delete grade
+    <br>
+    <%= check_box_tag 'transport[create_transport]' %> Create transport
+    <%= check_box_tag 'transport[update_transport]' %> Update transport
+    <%= check_box_tag 'transport[delete_transport]' %> Delete transport
+    <br>
+    <%= check_box_tag 'bookshop[create_bookshop]' %> Create bookshop
+    <%= check_box_tag 'bookshop[update_bookshop]' %> Update bookshop
+    <%= check_box_tag 'bookshop[delete_bookshop]' %> Delete bookshop
+    <br>
+    <%= check_box_tag 'exam[create_exam]' %> Create exam
+    <%= check_box_tag 'exam[update_exam]' %> Update exam
+    <%= check_box_tag 'exam[delete_exam]' %> Delete exam
+
+    <br>
+    <br>
+    <%= hidden_field_tag :role,@role %>
+    <%= submit_tag "Submit", class: "btn btn-success" %>
+  <% end %>
+</div>
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#selecctall').click(function(event) {  //on click
+        if(this.checked) { // check select status
+            $('.student').each(function() { //loop through each checkbox
+                this.checked = true;  //select all checkboxes with class "checkbox1"
+            });
+        }else{
+            $('.student').each(function() { //loop through each checkbox
+                this.checked = false; //deselect all checkboxes with class "checkbox1"
+            });
+        }
+    });
+
+});
+</script>

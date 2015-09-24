@@ -2,6 +2,12 @@ Rails.application.routes.draw do
 
   get 'home/timetable'
 
+  resources :rights do
+    collection do
+      post 'add_roles'
+    end
+  end
+
   resources :curriculums do
     collection do
       get :get_requested
