@@ -6,9 +6,11 @@ class User < ActiveRecord::Base
 
    acts_as_messageable
 
+  belongs_to :role
+
   def mailboxer_email(object)
  #return the model's email here
   end
 
-   
+
 end

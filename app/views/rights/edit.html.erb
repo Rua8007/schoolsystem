@@ -1,14 +1,15 @@
-
-<div class="well well-lg">
-  <h2>Rights for <%= @role %></h2>
-  <br>
-  <% @rights.try(:each) do |right| %>
-    <div class = "alert alert-danger col-md-2" >
-      <span><%= right.value %> <sup class = "pull-right" style  = "color: red"><strong><%= link_to 'X', right_path(right), method: :delete %></strong></sup></span>
-    </div>
-  <% end %>
-  <hr>
+<div>
+  <div class="well well-lg">
+    <h2>Rights for <%= @role.name %></h2>
+    <br>
+    <% @rights.try(:each) do |right| %>
+      <div class = "alert alert-danger col-md-2" >
+        <span><%= right.value %> <sup class = "pull-right" style  = "color: red"><strong><%= link_to 'X', right_path(right), method: :delete %></strong></sup></span>
+      </div>
+    <% end %>
+  </div>
 </div>
+
 <br>
 <div class="well well-lg">
   <h2>Add Roles</h2>
@@ -94,7 +95,7 @@
     <%= check_box_tag 'approve[approve_weekly_plan]', '' , false ,class: "plan gen" %> Approve Weekly Plans
     <br>
     <br>
-    <%= hidden_field_tag :role,@role %>
+    <%= hidden_field_tag :role,@role.id %>
     <%= submit_tag "Submit", class: "btn btn-success" %>
   <% end %>
 </div>

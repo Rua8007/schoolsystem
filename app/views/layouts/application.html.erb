@@ -237,7 +237,7 @@
                     <span>User Permissions</span>
                   <% end %>
                 </li>
-                  <% if Right.where("name = ? and value ilike ?", current_user.role , 'student' ).any? %>
+                  <% if Right.where("name = ? and value ilike ?", current_user.role , '_student' ).any? %>
                     <li>
                       <a href class="auto">
                         <span class="pull-right text-muted">

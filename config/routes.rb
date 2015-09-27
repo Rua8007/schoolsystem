@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :roles
   get 'home/timetable'
 
   resources :rights do
