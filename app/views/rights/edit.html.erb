@@ -1,17 +1,19 @@
-<div>
-  <div class="well well-lg">
+<div class="abc form-holder">
+<div class="row">
+  <div class="sss well well-lg">
     <h2>Rights for <%= @role.name %></h2>
-    <br>
     <% @rights.try(:each) do |right| %>
       <div class = "alert alert-danger col-md-2" >
         <span><%= right.value %> <sup class = "pull-right" style  = "color: red"><strong><%= link_to 'X', right_path(right), method: :delete %></strong></sup></span>
       </div>
     <% end %>
+    </div>
   </div>
 </div>
 
 <br>
-<div class="well well-lg">
+<div class="row">
+<div class=" well well-lg">
   <h2>Add Roles</h2>
   <input type="checkbox" id="selecctall" style="margin-left: 17px;margin-top: 18px;" /> Selecct All
   <br><br>
@@ -36,21 +38,17 @@
     <br>
     <input type="checkbox" class="gen" id="selecctall4" style="margin-left: 17px;margin-top: 18px;" /> Selecct All
     <%= check_box_tag 'sattendence[view_sattendence]', '' , false ,class: "sat gen" %> View Student attendence
-    <%= check_box_tag 'sattendence[create_sattendence]', '' , false ,class: "sat gen" %> Create attendence
-    <%= check_box_tag 'sattendence[update_sattendence]', '' , false ,class: "sat gen" %> Update attendence
-    <%= check_box_tag 'sattendence[delete_sattendence]', '' , false ,class: "sat gen" %> Delete attendenceeat
+    <%= check_box_tag 'sattendence[create_sattendence]', '' , false ,class: "sat gen" %> Mark Student attendence
     <br>
     <input type="checkbox" class="gen" id="selecctall5" style="margin-left: 17px;margin-top: 18px;" /> Selecct All
     <%= check_box_tag 'eattendence[view_eattendence]', '' , false ,class: "eat gen" %> View Employee attendence
-    <%= check_box_tag 'eattendence[create_eattendence]', '' , false ,class: "eat gen" %> Create eattendence
-    <%= check_box_tag 'eattendence[update_eattendence]', '' , false ,class: "eat gen" %> Update eattendence
-    <%= check_box_tag 'eattendence[delete_eattendence]', '' , false ,class: "eat gen" %> Delete eattendence
+    <%= check_box_tag 'eattendence[create_eattendence]', '' , false ,class: "eat gen" %> Mark Employee attendence
     <br>
     <input type="checkbox" class="gen" id="selecctall6" style="margin-left: 17px;margin-top: 18px;" /> Selecct All
-    <%= check_box_tag 'prequest[view_prequest]', '' , false ,class: "pre gen" %> View prequest
-    <%= check_box_tag 'prequest[create_prequest]', '' , false ,class: "pre gen" %> Create prequest
-    <%= check_box_tag 'prequest[update_prequest]', '' , false ,class: "pre gen" %> Update prequest
-    <%= check_box_tag 'prequest[delete_prequest]', '' , false ,class: "pre gen" %> Delete prequest
+    <%= check_box_tag 'prequest[view_prequest]', '' , false ,class: "pre gen" %> View Purchase request
+    <%= check_box_tag 'prequest[create_prequest]', '' , false ,class: "pre gen" %> Create Purchase request
+    <%= check_box_tag 'prequest[update_prequest]', '' , false ,class: "pre gen" %> Update Purchase request
+    <%= check_box_tag 'prequest[delete_prequest]', '' , false ,class: "pre gen" %> Delete Purchase request
     <br>
     <input type="checkbox" class="gen" id="selecctall7" style="margin-left: 17px;margin-top: 18px;" /> Selecct All
     <%= check_box_tag 'fee[view_fee]', '' , false ,class: "fee gen" %> View fee
@@ -94,10 +92,24 @@
     <%= check_box_tag 'approve[approve_portion]', '' , false ,class: "plan gen" %> Approve Portions
     <%= check_box_tag 'approve[approve_weekly_plan]', '' , false ,class: "plan gen" %> Approve Weekly Plans
     <br>
+    <input type="checkbox" class="gen" id="selecctall14" style="margin-left: 17px;margin-top: 18px;" /> Selecct All
+    <%= check_box_tag 'calender[view_gcalender]', '' , false ,class: "cal gen" %> View Gcalender
+    <%= check_box_tag 'calender[create_gcalender]', '' , false ,class: "cal gen" %> Create Gcalender
+    <%= check_box_tag 'calender[update_gcalender]', '' , false ,class: "cal gen" %> Update Gcalender
+    <%= check_box_tag 'calender[delete_gcalender]', '' , false ,class: "cal gen" %> Delete Gcalender
+    <br>
+    <input type="checkbox" class="gen" id="selecctall15" style="margin-left: 17px;margin-top: 18px;" /> Selecct All
+    <%= check_box_tag 'excalender[view_excalender]', '' , false ,class: "ecal gen" %> View Excalender
+    <%= check_box_tag 'excalender[create_excalender]', '' , false ,class: "ecal gen" %> Create Excalender
+    <%= check_box_tag 'excalender[update_excalender]', '' , false ,class: "ecal gen" %> Update Excalender
+    <%= check_box_tag 'excalender[delete_excalender]', '' , false ,class: "ecal gen" %> Delete Excalender
+
     <br>
     <%= hidden_field_tag :role,@role.id %>
     <%= submit_tag "Submit", class: "btn btn-success" %>
   <% end %>
+</div>
+</div>
 </div>
 
 
@@ -298,6 +310,36 @@
         }
     });
 
+    $('#selecctall14').click(function(event) {  //on click
+      console.log('i am selected');
+        if(this.checked) { // check select status
+          console.log("in checked")
+            $('.cal').each(function() { //loop through each checkbox
+              console.log("in loop")
+                this.checked = true;  //select all checkboxes with class "checkbox1"
+            });
+        }else{
+            $('.cal').each(function() { //loop through each checkbox
+                this.checked = false; //deselect all checkboxes with class "checkbox1"
+            });
+        }
+    });
+
+     $('#selecctall15').click(function(event) {  //on click
+      console.log('i am selected');
+        if(this.checked) { // check select status
+          console.log("in checked")
+            $('.ecal').each(function() { //loop through each checkbox
+              console.log("in loop")
+                this.checked = true;  //select all checkboxes with class "checkbox1"
+            });
+        }else{
+            $('.ecal').each(function() { //loop through each checkbox
+                this.checked = false; //deselect all checkboxes with class "checkbox1"
+            });
+        }
+    });
+
     $('#selecctall').click(function(event) {  //on click
       console.log('i am selected');
         if(this.checked) { // check select status
@@ -315,3 +357,68 @@
 
 });
 </script>
+
+
+
+
+
+
+
+<style type="text/css">
+  .form-holder .col-sm-2 {
+    min-height: 84px;
+  }
+  .form-holder .form-control{
+    width: 65%;
+  }
+  .form-control{
+    border-radius: 7px;
+    border: black;
+  }
+</style>
+
+<style type="text/css">
+  .container{
+      width: 1068px;
+  }
+
+  .sss{
+    border:1px solid#e5e5e5;   padding: 1%; 
+  }
+
+  .ttt{
+    border:1px solid green;   padding: 1%; 
+  }
+
+  .lll{
+    width: auto !important; 
+    background-color: white;
+    padding-right: 16px;
+    padding-left: 15px;
+    border: 1px solid;
+    border-color: blue;
+    border-radius: 21px;
+  }
+
+  .zzz{
+    width: auto !important; 
+    background-color: white;
+    padding-right: 16px;
+    padding-left: 15px;
+    border: 1px solid;
+    border-color: green;
+    border-radius: 21px;
+  }
+
+  .form-holder .col-sm-2 {
+    min-height: 84px;
+  }
+  .form-holder .form-control{
+    width: 65%;
+  }
+  .form-control{
+    border-radius: 7px;
+    border: black;
+  }
+</style>
+

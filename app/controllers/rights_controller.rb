@@ -169,6 +169,30 @@ class RightsController < ApplicationController
         end
       end
     end
+
+    if params[:calender].present?
+      temp = params[:calender].keys
+      temp.each do |t|
+        if role.rights.where("value = ? ", t).empty?
+          right = role.rights.new
+          right.name = role
+          right.value = t
+          right.save
+        end
+      end
+    end
+
+    if params[:excalender].present?
+      temp = params[:excalender].keys
+      temp.each do |t|
+        if role.rights.where("value = ? ", t).empty?
+          right = role.rights.new
+          right.name = role
+          right.value = t
+          right.save
+        end
+      end
+    end
     redirect_to new_right_path, notice: "Rights Editted Successfully"
   end
 

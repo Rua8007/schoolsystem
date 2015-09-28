@@ -41,9 +41,16 @@
             <td><%= examcalender.category %></td>
             <td><%= examcalender.starttime.strftime("%m/%d/%Y  %H:%M:%S") %></td>
             <td><%= examcalender.endtime.strftime("%m/%d/%Y    %H:%M:%S") %></td>
-            <td><%= link_to '', examcalender,:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
-              <%= link_to '', edit_examcalender_path(examcalender),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
-              <%= link_to '', examcalender, method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
+            <td>
+              <% if Right.where("role_id = ? and value = 'view_excalender'", current_user.role_id ).any? %>
+                <%= link_to '', examcalender,:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
+                <% end %>
+              <% if Right.where("role_id = ? and value = 'update_excalender'", current_user.role_id ).any? %>
+                <%= link_to '', edit_examcalender_path(examcalender),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
+                <% end %>
+              <% if Right.where("role_id = ? and value = 'delete_excalender'", current_user.role_id ).any? %>
+                <%= link_to '', examcalender, method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
+                <% end %>
           </td> 
           </tr>
         <% end %>

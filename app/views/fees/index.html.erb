@@ -31,6 +31,9 @@
 
 </script>
 
+<% if current_user.role.rights.where(value: "view_fee").any? %>
+
+
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3"> Fee Register </h1>
 </div>
@@ -56,11 +59,19 @@
         <% end %>
         <td><%= temp %></td>
         <td><%= fee.first.user_id %></td>
+<% end %>
 
-        <td> <%= link_to '', fee_path(f.first),:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
+        <td> 
+      <% if current_user.role.rights.where(value: "view_fee").any? %>
+        <%= link_to '', fee_path(f.first),:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
+      <% end %>
+      <% if current_user.role.rights.where(value: "update_fee").any? %>
         <% if current_user.role != 'student' %>
               <%= link_to '', edit_fee_path(f.first),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
+      <% end %>
+      <% if current_user.role.rights.where(value: "delete_fee").any? %>
               <%= link_to '', fee_path(f.first), method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
+      <% end %>
           </td>
         <% end %>
       </tr>

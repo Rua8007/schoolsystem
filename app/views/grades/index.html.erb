@@ -16,7 +16,9 @@
 
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3">Students
+  <% if current_user.role.rights.where(value: "create_grade").any? %>
   <a href="<%= new_grade_path %>" class="btn pull-right btn-color" style="width:200px;">Add a new Grade</a></h1>
+  <% end %>
 </div>
 <br><br>
 <div style="overflow: scroll">
@@ -39,9 +41,15 @@
         <td><%= grade.batch.name %></td>
         <td><%= grade.students.count %></td>
         <td>
+          <% if current_user.role.rights.where(value: "view_grade").any? %>
             <%= link_to '', grade,:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
+          <% end %>
+          <% if current_user.role.rights.where(value: "update_grade").any? %>
             <%= link_to '', edit_grade_path(grade),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
+          <% end %>
+          <% if current_user.role.rights.where(value: "delete_grade").any? %>
             <%= link_to '', grade, method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
+          <% end %>
         </td>
       </tr>
     <% end %>

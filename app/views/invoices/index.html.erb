@@ -34,8 +34,12 @@
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3">Invoices
   <% if current_user.role != 'student'  %>
-    <a href="<%= new_invoice_path %>" class="btn btn-color pull-right" style="width:200px;">New Invoice</a></h1>
+    <% if current_user.role.rights.where(value: "create_bookshop").any? %>
+    <a href="<%= new_invoice_path %>" class="btn btn-color pull-right" style="width:200px;">New Invoice</a>
+    </h1>
   <% end %>
+<%end%>
+
 </div>
 
 <div style="overflow: scroll">  

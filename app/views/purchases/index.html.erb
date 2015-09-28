@@ -33,7 +33,9 @@
 </script>
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3">Purchases
+<% if current_user.role.rights.where(value: "create_prequest").any? %>
   <a href="<%= new_purchase_path %>" class="btn pull-right btn-color" style="width:200px;">New Purchase</a></h1>
+<% end %>
 </div>
 
 
@@ -54,6 +56,7 @@
           <td><%= purchase.grade_id %></td>
           <td><%= purchase.employee.full_name %></td>
           <td>
+        <% if current_user.role.rights.where(value: "edit_prequest").any? %>
           <% if purchase.approve.nil? %>
             <%= link_to "Approve", approve_purchase_path(purchase ), method: :put,class:"btn btn-info " %>
             <%= link_to "Reject", disapprove_purchase_path(purchase ), method: :put ,class:"btn btn-danger " %></td>
@@ -64,10 +67,19 @@
             <%= link_to "Approve", approve_purchase_path(purchase ), method: :put,class:"btn btn-info " %>
             <span style = "color:red "> Rejected </span>
           <% end %>
+        <% end %>
+
             
-          <td><%= link_to '', purchase,:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
+          <td>
+          <% if current_user.role.rights.where(value: "view_prequest").any? %>
+              <%= link_to '', purchase,:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
+          <% end %>
+          <% if current_user.role.rights.where(value: "update_prequest").any? %>
               <%= link_to '', edit_purchase_path(purchase),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
+          <% end %>
+          <% if current_user.role.rights.where(value: "delete_prequest").any? %>
               <%= link_to '', purchase, method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
+          <% end %>
           </td>
         </tr>
       <% end %>

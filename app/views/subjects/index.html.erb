@@ -34,10 +34,17 @@
         <tr>
           <td><%= subject.name %></td>
           <td><%= subject.code %></td>
-          <td><%= link_to '', subject,:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
+          <td>
+          <% if current_user.role.rights.where(value: "view_subject").any? %>
+              <%= link_to '', subject,:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
+          <% end %>
+          <% if current_user.role.rights.where(value: "update_subject").any? %>
               <%= link_to '', edit_subject_path(subject),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
+          <% end %>
+          <% if current_user.role.rights.where(value: "delete_subject").any? %>
               <%= link_to '', subject, method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
 
+          <% end %>
           </td>
         </tr>
       <% end %>
