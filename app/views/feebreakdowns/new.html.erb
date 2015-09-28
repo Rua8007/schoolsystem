@@ -1,5 +1,9 @@
+ <% if current_user.role.rights.where(value: "create_fee").any? %>
+
 <h1>New Feebreakdown</h1>
 
 <%= render 'form' %>
 
 <%= link_to 'Back', feebreakdowns_path %>
+
+<% end %>

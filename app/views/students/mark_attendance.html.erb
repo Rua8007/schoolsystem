@@ -1,3 +1,5 @@
+<% if current_user.role.rights.where(value: "create_sattendence").any? %>
+
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3 text-center">Students Attendance of <%= "#{@grad_name} Grade - #{@attendance_date}" %>
   </h1>
@@ -109,6 +111,8 @@
   	<%= submit_tag "Save Attendance", data: { confirm: "Are you sure?" }, class: 'btn btn-success pull-right' %>
 	<% end %>
 </div>
+
+<% end %>
 
 
 

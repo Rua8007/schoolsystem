@@ -33,7 +33,9 @@
 
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3">Employees 
-  <%= link_to(new_employee_path, class: "btn pull-right btn-color" ,style: "width:200px;" ) do %>
+  <% if current_user.role.rights.where(value: "create_employee").any? %>
+    <%= link_to(new_employee_path, class: "btn pull-right btn-color" ,style: "width:200px;" ) do %>
+    <%end%>
     <i class="fa fa-plus"></i>
     New Employee
   <% end %>
@@ -63,9 +65,16 @@
           <td><%= employee.try(:category).try(:name) %></td>
           <td><%= employee.gender %></td>
           <td><%= employee.mobile_number %></td>
-          <td><%= link_to '', employee,:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
-              <%= link_to '', edit_employee_path(employee),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
-              <%= link_to '', employee, method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
+          <td>  
+              <% if current_user.role.rights.where(value: "view_employee").any? %>
+                <%= link_to '', employee,:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
+              <% end %>
+              <% if current_user.role.rights.where(value: "update_employee").any? %>
+                <%= link_to '', edit_employee_path(employee),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
+              <% end %>
+              <% if current_user.role.rights.where(value: "delete_employee").any? %>
+                <%= link_to '', employee, method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
+              <% end %>
           </td> 
         </tr>
       <% end %>

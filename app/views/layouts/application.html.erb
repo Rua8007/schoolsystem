@@ -499,6 +499,8 @@
                     <% end %>
 
                   </li>
+              <% if Right.where("role_id = ? and value = 'view_gcalender'", current_user.role_id ).any? %>
+
                  <li>
                   <a href class="auto">
                     <span class="pull-right text-muted">
@@ -537,6 +539,8 @@
                   </ul>
                 </li>
 
+                <% end %>
+              <% if Right.where("role_id = ? and value = 'view_excalender'", current_user.role_id ).any? %>
                 <li>
                   <a href class="auto">
                     <span class="pull-right text-muted">
@@ -565,6 +569,7 @@
 
                   </ul>
                 </li>
+              <% end %>
 
               <% if Right.where("role_id = ? and value = 'view_fee'", current_user.role_id ).any? %>
 
@@ -589,11 +594,15 @@
                           <span>Submit Fee</span>
                         <% end %>
                       </li>
+                    <%end%>
+                    <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'view_fee').any? %>
                       <li>
                         <%= link_to(fee_defaulter_fees_path) do %>
                           <span>Fee Defaulters</span>
                         <% end %>
                       </li>
+                    <%end%>
+                    <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'create_fee').any? %>
                       <li>
                         <%= link_to(new_feebreakdown_path) do %>
                           <span>Fee Break Down</span>
@@ -664,7 +673,7 @@
                           <% end %>
                         </li>
                       <% end %>
-                      <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'create_subject').any? %>
+                      <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'view_subject').any? %>
                         <li>
                           <%= link_to(subjects_path) do %>
                             <span>List All Subjects</span>
@@ -802,7 +811,9 @@
                           <span>All package</span>
                         <% end %>
                       </li>
+                    <% end%>
 
+                <% if Right.where("role_id = ? and value = 'view_bookshop'", current_user.role_id ).any? %>
 
                       <li>
                         <%= link_to(invoices_path) do %>
@@ -854,7 +865,9 @@
                             <span>Upload Marksheet</span>
                           <% end %>
                         </li>
+                      <% end %>
                         <li>
+                      <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'view_exam').any? %>
                           <%= link_to(marksheets_path) do %>
                             <span>All Marksheet</span>
                           <% end %>

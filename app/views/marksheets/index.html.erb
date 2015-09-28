@@ -1,5 +1,10 @@
-
-<h1>Listing Marksheets</h1>
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Marksheets
+  <% if current_user.role.rights.where(value: "create_exam").any? %>
+  <a href="<%= new_marksheet_path %>" class="btn btn-color pull-right"  style="width:200px;">Add a new Marksheet</a>
+<% end %>
+  </h1>
+</div>
 
 <table class="table table-stripped">
   <thead class="table-head">
@@ -33,4 +38,5 @@
 
 <br>
 
-<%= link_to 'New Marksheet', new_marksheet_path %>
+
+
