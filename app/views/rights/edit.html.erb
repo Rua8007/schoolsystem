@@ -1,0 +1,317 @@
+<div>
+  <div class="well well-lg">
+    <h2>Rights for <%= @role.name %></h2>
+    <br>
+    <% @rights.try(:each) do |right| %>
+      <div class = "alert alert-danger col-md-2" >
+        <span><%= right.value %> <sup class = "pull-right" style  = "color: red"><strong><%= link_to 'X', right_path(right), method: :delete %></strong></sup></span>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<br>
+<div class="well well-lg">
+  <h2>Add Roles</h2>
+  <input type="checkbox" id="selecctall" style="margin-left: 17px;margin-top: 18px;" /> Selecct All
+  <br><br>
+  <%= form_tag(add_roles_rights_path , method: 'POST' ) do %>
+    <input type="checkbox" class="gen" id="selecctall1" style="margin-left: 17px;margin-top: 18px;" /> Selecct All
+    <%= check_box_tag 'student[view_student]', '' , false ,class: "std gen" %> View Student
+    <%= check_box_tag 'student[create_student]', '' , false ,class: "std gen" %> Create Student
+    <%= check_box_tag 'student[update_student]', '' , false ,class: "std gen" %> Update Student
+    <%= check_box_tag 'student[delete_student]', '' , false ,class: "std gen" %> Delete Student
+    <br>
+    <input type="checkbox" class="gen" id="selecctall2" style="margin-left: 17px;margin-top: 18px;" /> Selecct All
+    <%= check_box_tag 'employee[view_employee]', '' , false ,class: "emp gen" %> View employee
+    <%= check_box_tag 'employee[create_employee]', '' , false ,class: "emp gen" %> Create employee
+    <%= check_box_tag 'employee[update_employee]', '' , false ,class: "emp gen" %> Update employee
+    <%= check_box_tag 'employee[delete_employee]', '' , false ,class: "emp gen" %> Delete employee
+    <br>
+    <input type="checkbox" class="gen" id="selecctall3" style="margin-left: 17px;margin-top: 18px;" /> Selecct All
+    <%= check_box_tag 'leave[view_leave]', '' , false ,class: " lea gen" %> View leave
+    <%= check_box_tag 'leave[create_leave]', '' , false ,class: " lea gen" %> Create leave
+    <%= check_box_tag 'leave[update_leave]', '' , false ,class: " lea gen" %> Update leave
+    <%= check_box_tag 'leave[delete_leave]', '' , false ,class: " lea gen" %> Delete leave
+    <br>
+    <input type="checkbox" class="gen" id="selecctall4" style="margin-left: 17px;margin-top: 18px;" /> Selecct All
+    <%= check_box_tag 'sattendence[view_sattendence]', '' , false ,class: "sat gen" %> View Student attendence
+    <%= check_box_tag 'sattendence[create_sattendence]', '' , false ,class: "sat gen" %> Create attendence
+    <%= check_box_tag 'sattendence[update_sattendence]', '' , false ,class: "sat gen" %> Update attendence
+    <%= check_box_tag 'sattendence[delete_sattendence]', '' , false ,class: "sat gen" %> Delete attendenceeat
+    <br>
+    <input type="checkbox" class="gen" id="selecctall5" style="margin-left: 17px;margin-top: 18px;" /> Selecct All
+    <%= check_box_tag 'eattendence[view_eattendence]', '' , false ,class: "eat gen" %> View Employee attendence
+    <%= check_box_tag 'eattendence[create_eattendence]', '' , false ,class: "eat gen" %> Create eattendence
+    <%= check_box_tag 'eattendence[update_eattendence]', '' , false ,class: "eat gen" %> Update eattendence
+    <%= check_box_tag 'eattendence[delete_eattendence]', '' , false ,class: "eat gen" %> Delete eattendence
+    <br>
+    <input type="checkbox" class="gen" id="selecctall6" style="margin-left: 17px;margin-top: 18px;" /> Selecct All
+    <%= check_box_tag 'prequest[view_prequest]', '' , false ,class: "pre gen" %> View prequest
+    <%= check_box_tag 'prequest[create_prequest]', '' , false ,class: "pre gen" %> Create prequest
+    <%= check_box_tag 'prequest[update_prequest]', '' , false ,class: "pre gen" %> Update prequest
+    <%= check_box_tag 'prequest[delete_prequest]', '' , false ,class: "pre gen" %> Delete prequest
+    <br>
+    <input type="checkbox" class="gen" id="selecctall7" style="margin-left: 17px;margin-top: 18px;" /> Selecct All
+    <%= check_box_tag 'fee[view_fee]', '' , false ,class: "fee gen" %> View fee
+    <%= check_box_tag 'fee[create_fee]', '' , false ,class: "fee gen" %> Create fee
+    <%= check_box_tag 'fee[update_fee]', '' , false ,class: "fee gen" %> Update fee
+    <%= check_box_tag 'fee[delete_fee]', '' , false ,class: "fee gen" %> Delete fee
+    <br>
+    <input type="checkbox" class="gen" id="selecctall8" style="margin-left: 17px;margin-top: 18px;" /> Selecct All
+    <%= check_box_tag 'subject[view_subject]', '' , false ,class: "sub gen" %> View subject
+    <%= check_box_tag 'subject[create_subject]', '' , false ,class: "sub gen" %> Create subject
+    <%= check_box_tag 'subject[update_subject]', '' , false ,class: "sub gen" %> Update subject
+    <%= check_box_tag 'subject[delete_subject]', '' , false ,class: "sub gen" %> Delete subject
+    <br>
+    <input type="checkbox" class="gen" id="selecctall9" style="margin-left: 17px;margin-top: 18px;" /> Selecct All
+    <%= check_box_tag 'grade[view_grade]', '' , false ,class: "grd gen" %> View grade
+    <%= check_box_tag 'grade[create_grade]', '' , false ,class: "grd gen" %> Create grade
+    <%= check_box_tag 'grade[update_grade]', '' , false ,class: "grd gen" %> Update grade
+    <%= check_box_tag 'grade[delete_grade]', '' , false ,class: "grd gen" %> Delete grade
+    <br>
+    <input type="checkbox" class="gen" id="selecctall10" style="margin-left: 17px;margin-top: 18px;" /> Selecct All
+    <%= check_box_tag 'transport[view_transport]', '' , false ,class: "tra gen" %> View transport
+    <%= check_box_tag 'transport[create_transport]', '' , false ,class: "tra gen" %> Create transport
+    <%= check_box_tag 'transport[update_transport]', '' , false ,class: "tra gen" %> Update transport
+    <%= check_box_tag 'transport[delete_transport]', '' , false ,class: "tra gen" %> Delete transport
+    <br>
+    <input type="checkbox" class="gen" id="selecctall11" style="margin-left: 17px;margin-top: 18px;" /> Selecct All
+    <%= check_box_tag 'bookshop[view_bookshop]', '' , false ,class: "book gen" %> View bookshop
+    <%= check_box_tag 'bookshop[create_bookshop]', '' , false ,class: "book gen" %> Create bookshop
+    <%= check_box_tag 'bookshop[update_bookshop]', '' , false ,class: "book gen" %> Update bookshop
+    <%= check_box_tag 'bookshop[delete_bookshop]', '' , false ,class: "book gen" %> Delete bookshop
+    <br>
+    <input type="checkbox" class="gen" id="selecctall12" style="margin-left: 17px;margin-top: 18px;" /> Selecct All
+    <%= check_box_tag 'exam[view_exam]', '' , false ,class: "exm gen" %> View exam
+    <%= check_box_tag 'exam[create_exam]', '' , false ,class: "exm gen" %> Create exam
+    <%= check_box_tag 'exam[update_exam]', '' , false ,class: "exm gen" %> Update exam
+    <%= check_box_tag 'exam[delete_exam]', '' , false ,class: "exm gen" %> Delete exam
+    <br>
+    <input type="checkbox" class="gen" id="selecctall13" style="margin-left: 17px;margin-top: 18px;" /> Selecct All
+    <%= check_box_tag 'approve[approve_curriculam]', '' , false ,class: "plan gen" %> Approve Curriculam
+    <%= check_box_tag 'approve[approve_lesson]', '' , false ,class: "plan gen" %> Approve Lesson Plan
+    <%= check_box_tag 'approve[approve_portion]', '' , false ,class: "plan gen" %> Approve Portions
+    <%= check_box_tag 'approve[approve_weekly_plan]', '' , false ,class: "plan gen" %> Approve Weekly Plans
+    <br>
+    <br>
+    <%= hidden_field_tag :role,@role.id %>
+    <%= submit_tag "Submit", class: "btn btn-success" %>
+  <% end %>
+</div>
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#selecctall1').click(function(event) {  //on click
+      console.log('i am selected');
+        if(this.checked) { // check select status
+          console.log("in checked")
+            $('.std').each(function() { //loop through each checkbox
+              console.log("in loop")
+                this.checked = true;  //select all checkboxes with class "checkbox1"
+            });
+        }else{
+            $('.std').each(function() { //loop through each checkbox
+                this.checked = false; //deselect all checkboxes with class "checkbox1"
+            });
+        }
+    });
+
+    $('#selecctall2').click(function(event) {  //on click
+      console.log('i am selected');
+        if(this.checked) { // check select status
+          console.log("in checked")
+            $('.emp').each(function() { //loop through each checkbox
+              console.log("in loop")
+                this.checked = true;  //select all checkboxes with class "checkbox1"
+            });
+        }else{
+            $('.emp').each(function() { //loop through each checkbox
+                this.checked = false; //deselect all checkboxes with class "checkbox1"
+            });
+        }
+    });
+
+    $('#selecctall3').click(function(event) {  //on click
+      console.log('i am selected');
+        if(this.checked) { // check select status
+          console.log("in checked")
+            $('.lea').each(function() { //loop through each checkbox
+              console.log("in loop")
+                this.checked = true;  //select all checkboxes with class "checkbox1"
+            });
+        }else{
+            $('.lea').each(function() { //loop through each checkbox
+                this.checked = false; //deselect all checkboxes with class "checkbox1"
+            });
+        }
+    });
+
+    $('#selecctall4').click(function(event) {  //on click
+      console.log('i am selected');
+        if(this.checked) { // check selecpretatus
+          console.log("in checked")
+            $('.sat').each(function() { //loop through each checkbox
+              console.log("in loop")
+                this.checked = true;  //select all checkboxes with class "checkbox1"
+            });
+        }else{
+            $('.sat').each(function() { //loop through each checkbox
+                this.checked = false; //deselect all checkboxes with class "checkbox1"
+            });
+        }
+    });
+
+    $('#selecctall5').click(function(event) {  //on click
+      console.log('i am selected');
+        if(this.checked) { // check select status
+          console.log("in checked")
+            $('.eat').each(function() { //loop through each checkbox
+              console.log("in loop")
+                this.checked = true;  //select all checkboxes with class "checkbox1"
+            });
+        }else{
+            $('.eat').each(function() { //loop through each checkbox
+                this.checked = false; //deselect all checkboxes with class "checkbox1"
+            });
+        }
+    });
+
+    $('#selecctall6').click(function(event) {  //on click
+      console.log('i am selected');
+        if(this.checked) { // check select status
+          console.log("in checked")
+            $('.pre').each(function() { //loop through each checkbox
+              console.log("in loop")
+                this.checked = true;  //select all checkboxes with class "checkbox1"
+            });
+        }else{
+            $('.pre').each(function() { //loop through each checkbox
+                this.checked = false; //deselect all checkboxes with class "checkbox1"
+            });
+        }
+    });
+
+    $('#selecctall7').click(function(event) {  //on click
+      console.log('i am selected');
+        if(this.checked) { // check select status
+          console.log("in checked")
+            $('.fee').each(function() { //loop through each checkbox
+              console.log("in loop")
+                this.checked = true;  //select all checkboxes with class "checkbox1"
+            });
+        }else{
+            $('.fee').each(function() { //loop through each checkbox
+                this.checked = false; //deselect all checkboxes with class "checkbox1"
+            });
+        }
+    });
+
+    $('#selecctall8').click(function(event) {  //on click
+      console.log('i am selected');
+        if(this.checked) { // check select status
+          console.log("in checked")
+            $('.sub').each(function() { //loop through each checkbox
+              console.log("in loop")
+                this.checked = true;  //select all checkboxes with class "checkbox1"
+            });
+        }else{
+            $('.sub').each(function() { //loop through each checkbox
+                this.checked = false; //deselect all checkboxes with class "checkbox1"
+            });
+        }
+    });
+
+    $('#selecctall9').click(function(event) {  //on click
+      console.log('i am selected');
+        if(this.checked) { // check select status
+          console.log("in checked")
+            $('.grd').each(function() { //loop through each checkbox
+              console.log("in loop")
+                this.checked = true;  //select all checkboxes with class "checkbox1"
+            });
+        }else{
+            $('.grd').each(function() { //loop through each checkbox
+                this.checked = false; //deselect all checkboxes with class "checkbox1"
+            });
+        }
+    });
+
+    $('#selecctall10').click(function(event) {  //on click
+      console.log('i am selected');
+        if(this.checked) { // check select status
+          console.log("in checked")
+            $('.tra').each(function() { //loop through each checkbox
+              console.log("in loop")
+                this.checked = true;  //select all checkboxes with class "checkbox1"
+            });
+        }else{
+            $('.tra').each(function() { //loop through each checkbox
+                this.checked = false; //deselect all checkboxes with class "checkbox1"
+            });
+        }
+    });
+
+    $('#selecctall11').click(function(event) {  //on click
+      console.log('i am selected');
+        if(this.checked) { // check select status
+          console.log("in checked")
+            $('.book').each(function() { //loop through each checkbox
+              console.log("in loop")
+                this.checked = true;  //select all checkboxes with class "checkbox1"
+            });
+        }else{
+            $('.book').each(function() { //loop through each checkbox
+                this.checked = false; //deselect all checkboxes with class "checkbox1"
+            });
+        }
+    });
+
+    $('#selecctall12').click(function(event) {  //on click
+      console.log('i am selected');
+        if(this.checked) { // check select status
+          console.log("in checked")
+            $('.exm').each(function() { //loop through each checkbox
+              console.log("in loop")
+                this.checked = true;  //select all checkboxes with class "checkbox1"
+            });
+        }else{
+            $('.exm').each(function() { //loop through each checkbox
+                this.checked = false; //deselect all checkboxes with class "checkbox1"
+            });
+        }
+    });
+
+    $('#selecctall13').click(function(event) {  //on click
+      console.log('i am selected');
+        if(this.checked) { // check select status
+          console.log("in checked")
+            $('.plan').each(function() { //loop through each checkbox
+              console.log("in loop")
+                this.checked = true;  //select all checkboxes with class "checkbox1"
+            });
+        }else{
+            $('.plan').each(function() { //loop through each checkbox
+                this.checked = false; //deselect all checkboxes with class "checkbox1"
+            });
+        }
+    });
+
+    $('#selecctall').click(function(event) {  //on click
+      console.log('i am selected');
+        if(this.checked) { // check select status
+          console.log("in checked")
+            $('.gen').each(function() { //loop through each checkbox
+              console.log("in loop")
+                this.checked = true;  //select all checkboxes with class "checkbox1"
+            });
+        }else{
+            $('.gen').each(function() { //loop through each checkbox
+                this.checked = false; //deselect all checkboxes with class "checkbox1"
+            });
+        }
+    });
+
+});
+</script>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150919202752) do
+ActiveRecord::Schema.define(version: 20150927161256) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -435,6 +435,15 @@ ActiveRecord::Schema.define(version: 20150919202752) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "purchaselines", force: :cascade do |t|
+    t.integer  "purchase_id"
+    t.string   "code"
+    t.integer  "quantity"
+    t.float    "price"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "purchases", force: :cascade do |t|
     t.integer  "grade_id"
     t.integer  "employee_id"
@@ -447,6 +456,20 @@ ActiveRecord::Schema.define(version: 20150919202752) do
   create_table "results", force: :cascade do |t|
     t.integer  "exam_id"
     t.integer  "bridge_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "rights", force: :cascade do |t|
+    t.string   "name"
+    t.string   "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "role_id"
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -485,6 +508,7 @@ ActiveRecord::Schema.define(version: 20150919202752) do
     t.datetime "updated_at",                      null: false
     t.boolean  "epresent",        default: true
     t.boolean  "eleave",          default: false
+    t.boolean  "late",            default: false
   end
 
   create_table "student_holidays", force: :cascade do |t|
@@ -599,7 +623,7 @@ ActiveRecord::Schema.define(version: 20150919202752) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
-    t.string   "role"
+    t.integer  "role_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

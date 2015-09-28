@@ -33,7 +33,7 @@ class EmployeesController < ApplicationController
   # POST /employees
   # POST /employees.json
   def create
-    @employee = Employee.new(employee_params)
+    @employee = Employee.create(employee_params)
     respond_to do |format|
       if @employee.save
         if @employee.category.name.downcase == 'academic'

@@ -16,9 +16,31 @@ class PurchasesController < ApplicationController
   def new
     @purchase = Purchase.new
     @grades = Grade.all
-    @employees = Employee.all
+    @teachers = Employee.all
+    @purchaselines = Purchaseline.all
 
    
+  end
+
+
+  def invoicing
+    inv = Purchase.create
+    items = params[:items]
+    inv.grade_id = params[:grade_id]
+    inv.employee_id = params[:employee_id]
+    inv.save
+    items.each do |item|
+      
+        temp = inv.purchaselines.create
+        temp.code = item[1]['code']
+        temp.quantity = item[1]['qty'].to_i
+        temp.price = item[1]['price'].to_f
+        temp.save
+      
+    end
+
+
+  redirect_to purchases_path
   end
 
   # GET /purchases/1/edit
@@ -27,19 +49,7 @@ class PurchasesController < ApplicationController
 
   # POST /purchases
   # POST /purchases.json
-  def create
-    @purchase = Purchase.new(purchase_params)
-
-    respond_to do |format|
-      if @purchase.save
-        format.html { redirect_to @purchase, notice: 'Purchase was successfully created.' }
-        format.json { render :show, status: :created, location: @purchase }
-      else
-        format.html { render :new }
-        format.json { render json: @purchase.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  
 
 
   

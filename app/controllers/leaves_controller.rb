@@ -41,7 +41,7 @@ class LeavesController < ApplicationController
 
     respond_to do |format|
       if @leave.save
-        format.html { redirect_to @leave, notice: 'Leave was successfully created.' }
+        format.html { redirect_to leaves_path, notice: 'Leave was successfully created.' }
         format.json { render :show, status: :created, location: @leave }
       else
         format.html { render :new }

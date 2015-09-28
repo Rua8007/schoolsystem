@@ -1,0 +1,26 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Roles Management
+  <%= link_to(new_role_path, class: "btn pull-right btn-color" ,style: "width:200px;") do %>
+    <i class="fa fa-plus"></i>
+    New Role
+  <% end %>
+  </h1>
+</div>
+<div>
+
+<br>
+  <div>
+  <% @roles.each do |role| %>
+    <div class="well well-lg">
+
+      <h3><%= role.name %> Rights</h3>
+      <% role.rights.try(:each) do |tr| %>
+        <span class = "alert alert-danger col-md-2"><%= tr.value %></span>
+      <% end %>
+      <br><br>
+      <div>
+      <%= link_to 'Edit Rights', edit_right_path(role.id), class: "btn btn-success" %>
+    </div>
+  <% end %>
+  </div>
+</div>

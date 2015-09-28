@@ -37,7 +37,8 @@ class ParentsController < ApplicationController
     @parent = Parent.new(parent_params)
     if @parent.save
       u = User.new
-      u.email = @parent.email
+      @email="prt_"+Student.last.rollnumber.to_s+"@alomam.edu.sa"
+      u.email = @email
       u.password = '123'
       u.password_confirmation = '123'
       u.role = 'parent'

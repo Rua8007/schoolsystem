@@ -1,8 +1,15 @@
 Rails.application.routes.draw do
 
+  resources :roles
   get 'home/timetable'
   get 'home/sms'
   get 'home/sendsms'
+
+  resources :rights do
+    collection do
+      post 'add_roles'
+    end
+  end
 
   resources :curriculums do
     collection do
@@ -52,6 +59,10 @@ Rails.application.routes.draw do
       put "approve"
       put "disapprove"
     end
+    collection do
+      post "invoicing"
+    end
+
   end
 
   resources :conversations, only: [:index, :show, :destroy] do
@@ -206,7 +217,11 @@ Rails.application.routes.draw do
     end
   end
   devise_for :users
-
+  resources :users do
+    collection do
+      post 'add_user'
+    end
+  end
 
   get 'home/index'
 
@@ -215,6 +230,8 @@ Rails.application.routes.draw do
         get 'class_subject'
     end
     collection do
+      get 'newassign'
+      post 'assigned'
       post 'new'
       post 'assign_teacher'
       get 'teacher_subject'

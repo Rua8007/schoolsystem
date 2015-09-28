@@ -17,6 +17,9 @@ gem 'coffee-rails', '~> 4.1.0'
 gem "rails-erd"
 
 gem 'httparty'
+
+gem 'wysihtml-rails'
+gem "pundit"
 # gem 'wysihtml-rails'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
