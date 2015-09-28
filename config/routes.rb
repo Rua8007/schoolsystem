@@ -219,6 +219,10 @@ Rails.application.routes.draw do
     collection do
       post 'add_user'
     end
+    member do
+      get 'password'
+      get 'enable'
+    end
   end
 
   get 'home/index'
