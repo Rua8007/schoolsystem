@@ -193,6 +193,91 @@ class RightsController < ApplicationController
         end
       end
     end
+
+    if params[:timetable].present?
+      temp = params[:timetable].keys
+      temp.each do |t|
+        if role.rights.where("value = ? ", t).empty?
+          right = role.rights.new
+          right.name = role
+          right.value = t
+          right.save
+        end
+      end
+    end
+
+    if params[:batch].present?
+      temp = params[:batch].keys
+      temp.each do |t|
+        if role.rights.where("value = ? ", t).empty?
+          right = role.rights.new
+          right.name = role
+          right.value = t
+          right.save
+        end
+      end
+    end
+
+    if params[:conversation].present?
+      temp = params[:conversation].keys
+      temp.each do |t|
+        if role.rights.where("value = ? ", t).empty?
+          right = role.rights.new
+          right.name = role
+          right.value = t
+          right.save
+        end
+      end
+    end
+
+    if params[:permissions].present?
+      temp = params[:permissions].keys
+      temp.each do |t|
+        if role.rights.where("value = ? ", t).empty?
+          right = role.rights.new
+          right.name = role
+          right.value = t
+          right.save
+        end
+      end
+    end
+
+    if params[:users].present?
+      temp = params[:users].keys
+      temp.each do |t|
+        if role.rights.where("value = ? ", t).empty?
+          right = role.rights.new
+          right.name = role
+          right.value = t
+          right.save
+        end
+      end
+    end
+
+    if params[:leave_request].present?
+      temp = params[:leave_request].keys
+      temp.each do |t|
+        if role.rights.where("value = ? ", t).empty?
+          right = role.rights.new
+          right.name = role
+          right.value = t
+          right.save
+        end
+      end
+    end
+
+    if params[:plans].present?
+      temp = params[:plans].keys
+      temp.each do |t|
+        if role.rights.where("value = ? ", t).empty?
+          right = role.rights.new
+          right.name = role
+          right.value = t
+          right.save
+        end
+      end
+    end
+
     redirect_to new_right_path, notice: "Rights Editted Successfully"
   end
 
