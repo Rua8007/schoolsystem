@@ -98,7 +98,7 @@ class TimeTablesController < ApplicationController
     @time_table.periods.destroy_all
     @time_table.destroy
     respond_to do |format|
-      format.html { redirect_to year_plans_url, notice: 'Time table was successfully destroyed. Make a new one by selecting grade.' }
+      format.html { redirect_to root_path, notice: 'Time table was successfully destroyed. Make a new one by selecting grade.' }
       format.json { head :no_content }
     end
   end

@@ -89,7 +89,7 @@ class LessonplansController < ApplicationController
   def destroy
     @lessonplan.destroy
     respond_to do |format|
-      format.html { redirect_to year_plans_url, notice: 'Lessonplan was successfully destroyed.' }
+      format.html { redirect_to root_path, notice: 'Lessonplan was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
