@@ -16,14 +16,25 @@
     <%= f.collection_select :exam_id , Exam.all.order(:name), :id , :name,{},{:style => 'height:34px;width: 30%',  class: 'form-control'} %>
   </div>
   <br>
-  <div class="field">
-    <label><%= f.label :bridge %></label>
-    <select class="form-control" name= "marksheet[bridge_id]" style="width:30%">
-      <%= Bridge.all.try(:each) do |b| %>
-        <option value = "<%= b.id %>"> <%= b.grade.name+'-'+b.subject.name%> </option>
-      <% end %>
-    </select>
-  </div>
+  <% if current_user.role.name == "Teacher" %>
+    <div class="field">
+      <label><%= f.label :bridges %></label>
+      <select class="form-control" name= "marksheet[bridge_id]" style="width:30%">
+        <%= Employee.find_by_email(current_user.email).bridges.try(:each) do |b| %>
+          <option value = "<%= b.id %>"> <%= b.grade.name+'-'+b.subject.name%> </option>
+        <% end %>
+      </select>
+    </div>
+  <% else %>
+    <div class="field">
+      <label><%= f.label :bridge %></label>
+      <select class="form-control" name= "marksheet[bridge_id]" style="width:30%">
+        <%= Bridge.all.try(:each) do |b| %>
+          <option value = "<%= b.id %>"> <%= b.grade.name+'-'+b.subject.name%> </option>
+        <% end %>
+      </select>
+    </div>
+  <% end %>
   <br>
   <div class="actions pull-right">
     <%= f.submit "Upload Marks", class: "btn btn-success form-control"%>

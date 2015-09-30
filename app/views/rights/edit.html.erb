@@ -4,7 +4,7 @@
     <h2>Rights for <%= @role.name %></h2>
     <% @rights.try(:each) do |right| %>
       <div class = "alert alert-danger col-md-2" >
-        <span><%= right.value %> <sup class = "pull-right" style  = "color: red"><strong><%= link_to 'X', right_path(right), method: :delete %></strong></sup></span>
+        <span><%= right.value.humanize %> <sup class = "pull-right" style  = "color: red"><strong><%= link_to 'X', right_path(right), method: :delete %></strong></sup></span>
       </div>
     <% end %>
     </div>
@@ -81,10 +81,14 @@
     <%= check_box_tag 'bookshop[delete_bookshop]', '' , false ,class: "book gen" %> Delete bookshop
     <br>
     <input type="checkbox" class="gen" id="selecctall12" style="margin-left: 17px;margin-top: 18px;" /> Selecct All
-    <%= check_box_tag 'exam[view_exam]', '' , false ,class: "exm gen" %> View exam
-    <%= check_box_tag 'exam[create_exam]', '' , false ,class: "exm gen" %> Create exam
+    <%= check_box_tag 'exam[view_exam]', '' , false ,class: "exm gen" %> View Exams
+    <%= check_box_tag 'exam[create_exam]', '' , false ,class: "exm gen" %> Create Exam
     <%= check_box_tag 'exam[update_exam]', '' , false ,class: "exm gen" %> Update exam
     <%= check_box_tag 'exam[delete_exam]', '' , false ,class: "exm gen" %> Delete exam
+    <%= check_box_tag 'exam[upload_marks]', '' , false ,class: "exm gen" %> Upload Marksheets
+    <%= check_box_tag 'exam[view_marksheets]', '' , false ,class: "exm gen" %> View ALl Marksheets
+    <%= check_box_tag 'exam[subject_result]', '' , false ,class: "exm gen" %> View Subject Result
+    <%= check_box_tag 'exam[view_class_result]', '' , false ,class: "exm gen" %> View Class Result
     <br>
     <input type="checkbox" class="gen" id="selecctall13" style="margin-left: 17px;margin-top: 18px;" /> Selecct All
     <%= check_box_tag 'approve[approve_curriculam]', '' , false ,class: "plan gen" %> Approve Curriculam

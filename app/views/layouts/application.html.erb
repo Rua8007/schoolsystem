@@ -243,7 +243,7 @@
                 <% if Right.where("role_id = ? and value = 'users'", current_user.role_id ).any? %>
                   <li>
                     <%= link_to(users_path) do %>
-                      <i class="glyphicon glyphicon-flag"></i>
+                      <i class="glyphicon glyphicon-user"></i>
                       <span>Users</span>
                     <% end %>
                   </li>
@@ -393,12 +393,12 @@
                   <% if Right.where("role_id = ? and value = 'timetable'", current_user.role_id ).any? %>
                     <li>
                       <%= link_to(home_timetable_path) do %>
-                        <i class="glyphicon glyphicon-flag"></i>
+                        <i class="glyphicon glyphicon-tasks"></i>
                         <span>Time Tables</span>
                       <% end %>
                     </li>
                   <% end %>
-                  <% if current_user.role_id == 'teacher' %>
+                  <% if current_user.role.name == 'Teacher' %>
                     <li>
                       <%= link_to(teacher_subject_bridges_path) do %>
                         <i class="glyphicon glyphicon-flag"></i>
@@ -501,7 +501,7 @@
                   <% if Right.where("role_id = ? and value = 'conversation'", current_user.role_id ).any? %>
                     <li>
                       <%= link_to(conversations_path) do %>
-                        <i class="glyphicon glyphicon-time"></i>
+                        <i class="glyphicon glyphicon-comment"></i>
                         <% if current_user.mailbox.inbox({:read => false}).count > 0 %>
                           <b class="badge bg-danger pull-right"><%= current_user.mailbox.inbox({:read => false}).count %></b>
                         <% end %>
@@ -851,13 +851,13 @@
                     </a>
                     <ul class="nav nav-sub dk">
                       <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'create_exam').any? %>
-
                         <li>
                           <%= link_to(new_exam_path) do %>
                             <span>Create Exam</span>
                           <% end %>
                         </li>
                       <% end %>
+
                       <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'view_exam').any? %>
 
                         <li>
@@ -866,36 +866,42 @@
                           <% end %>
                         </li>
                       <% end %>
+
                       <% if Right.where("role_id = ? and value = ? or value = ? " , current_user.role_id, 'create_exam' , 'update_exam').any? %>
                         <li>
                           <%= link_to(new_mark_path) do %>
                             <span>Marks Devisions</span>
                           <% end %>
                         </li>
-
+                      <% end %>
+                      <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'upload_marks').any? %>
                         <li>
                           <%= link_to(new_marksheet_path) do %>
                             <span>Upload Marksheet</span>
                           <% end %>
                         </li>
                       <% end %>
+                      <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'view_marksheets').any? %>
                         <li>
-                      <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'view_exam').any? %>
                           <%= link_to(marksheets_path) do %>
                             <span>All Marksheet</span>
                           <% end %>
                         </li>
                       <% end %>
+                      <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'view_class_result').any? %>
+                        <li>
+                          <%= link_to(classresult_marksheets_path) do %>
+                            <span>Class Results</span>
+                          <% end %>
+                        </li>
+                      <% end %>
+                    <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'subject_result').any? %>
                       <li>
-                      <%= link_to(classresult_marksheets_path) do %>
-                        <span>Class Results</span>
-                      <% end %>
-                    </li>
-                    <li>
-                      <%= link_to(subject_result_marksheets_path) do %>
-                        <span>Subject Results</span>
-                      <% end %>
-                    </li>
+                        <%= link_to(subject_result_marksheets_path) do %>
+                          <span>Subject Results</span>
+                        <% end %>
+                      </li>
+                    <% end %>
                       <!-- <li>
                         <a href="ui_icon.html">
                           <b class="badge bg-info pull-right">3</b>

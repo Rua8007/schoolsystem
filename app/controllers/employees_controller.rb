@@ -197,7 +197,7 @@ class EmployeesController < ApplicationController
   end
 
   def monthly_attendance_report
-    if current_user.role == 'teacher'
+    if current_user.role.name == 'Teacher'
       @departments = Department.where(id: Employee.find_by_email(current_user.email).department_id)
     else
       @departments = Department.all
@@ -215,7 +215,8 @@ class EmployeesController < ApplicationController
         @department_name = department.name
         employees = department.employees
         @attendances = []
-        if current_user.role != 'teacher'
+        if current_user.role.name != 'Teacher'
+          puts  " -------------in if------------------"
           employees.each_with_index do |employee, i|
             attendance = {}
             attendance.store("name","#{employee.full_name}")

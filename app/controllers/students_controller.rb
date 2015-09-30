@@ -100,14 +100,14 @@ class StudentsController < ApplicationController
   end
 
   def mark_attendance_calendar
-    authorize Student, :mark_attendance?
+    authorize Student, :mark_attendence?
     @grades = Grade.all
     @weekends = Weekend.all
   end
 
   ####### TIME ZONE ISSUES
   def mark_attendance
-    authorize Student, :mark_attendance?
+    authorize Student, :mark_attendence?
     if params[:attendance_date].present? && ( params[:attendance_date].to_date.strftime("%d-%m-%Y") === Date.today.strftime("%d-%m-%Y") || params[:attendance_date].to_date < Date.today ) && Weekend.find_by_weekend_day(params[:attendance_date].to_date.wday).nil?
       @attendance_date = params[:attendance_date].to_date.strftime("%d-%m-%Y")
       if params[:grade].present?

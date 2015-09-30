@@ -15,12 +15,13 @@
 
       <h3><%= role.name %> Rights</h3>
       <% role.rights.try(:each) do |tr| %>
-        <span class = "alert alert-danger col-md-2"><%= tr.value %></span>
+        <span class = "alert alert-danger col-md-2"><%= tr.value.humanize %></span>
       <% end %>
       <br><br>
       <div>
       <%= link_to 'Edit Rights', edit_right_path(role.id), class: "btn btn-success" %>
+      </div>
     </div>
+
   <% end %>
-  </div>
 </div>

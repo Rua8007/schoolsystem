@@ -1,15 +1,15 @@
 class StudentPolicy < ApplicationPolicy
 
   def create?
-    return Right.where("name = ? and value = 'create_student'", user.role).any?
+    return user.role.rights.where("value = 'create_student'").any?
   end
 
   def mark_attendence?
-    return Right.where("name = ? and value = 'create_sattendence'", user.role).any?
+    return user.role.rights.where("value = 'create_sattendence'").any?
   end
 
   def give_discount?
-    return Right.where("name = ? and value = 'update_fee'", user.role).any?
+    return user.role.rights.where("value = 'update_fee'").any?
   end
 
 end
