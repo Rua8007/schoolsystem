@@ -41,7 +41,7 @@ class EmployeesController < ApplicationController
           u.email = @employee.email
           u.password = '123'
           u.password_confirmation = '123'
-          u.role = 'teacher'
+          u.role_id = Role.find_by_name('Teacher').id
           u.save
         end
         format.html { redirect_to employees_path, notice: 'Employee was successfully created.' }
