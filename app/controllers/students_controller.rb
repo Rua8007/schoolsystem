@@ -19,9 +19,8 @@ class StudentsController < ApplicationController
 
   def create
 
-    @student = Student.create(create_params)
-    if @student
-
+    @student = Student.new(create_params)
+    if @student.save
       u = User.new
       @email="std_"+Student.last.rollnumber.to_s+"@alomam.edu.sa"
       u.email = @email

@@ -399,7 +399,7 @@
                     </li>
                   <% end %>
 
-                  <% if current_user.role.name == 'Student' %>
+                  <% if current_user.role.name == 'Student' && Student.find_by_email(current_user.email).bus_allotment.present? %>
                     <li>
                       <%= link_to(bus_allotment_path(Student.find_by_email(current_user.email).bus_allotment.id)) do %>
                         <i class="glyphicon glyphicon-tasks"></i>
@@ -408,7 +408,7 @@
                     </li>
                   <% end %>
 
-                  <% if current_user.role.name == 'Parent' %>
+                  <% if current_user.role.name == 'Parent' && Student.find_by_rollnumber(current_user.email.split('@').first.split('_').last).bus_allotment.present? %>
                     <% temp = Student.find_by_rollnumber(current_user.email.split('@').first.split('_').last).id %>
                     <li>
                       <%= link_to(bus_allotment_path(Student.find(temp).bus_allotment.id)) do %>
@@ -418,7 +418,7 @@
                     </li>
                   <% end %>
 
-                  <% if current_user.role.name == 'Parent' %>
+                  <% if current_user.role.name == 'Parent' && Student.find_by_rollnumber(current_user.email.split('@').first.split('_').last).bus_allotment.present? %>
                     <li>
                       <%= link_to(transportfeerecords_path) do %>
                         <i class="glyphicon glyphicon-tasks"></i>

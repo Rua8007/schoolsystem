@@ -12,15 +12,15 @@ class YearPlansController < ApplicationController
   # GET /year_plans/1.json
   def show
     @weeks = @year_plan.weeks.sort_by &:start_date
-    if current_user.role == 'teacher'
+    if current_user.role.name == 'Teacher'
       @grades = Grade.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:grade_id))
       @subjects = Subject.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:subject_id))
-    elsif current_user.role!= 'parent' && current_user.role!= 'student' 
+    else
       # for admins
       @grades = Grade.all
       @subjects = Subject.all
     end
-    
+
   end
 
   # GET /year_plans/new
@@ -104,10 +104,10 @@ class YearPlansController < ApplicationController
   def weekly_schedule
     @year_plan = YearPlan.find(params[:id])
     @weeks = @year_plan.weeks.sort_by &:start_date
-    if current_user.role == 'teacher'
+    if current_user.role.name == 'Teacher'
       @grades = Grade.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:grade_id))
       # @subjects = Subject.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:subject_id))
-    elsif current_user.role!= 'parent' && current_user.role!= 'student' 
+    else
       # for admins
       @grades = Grade.all
       # @subjects = Subject.all
@@ -200,29 +200,27 @@ class YearPlansController < ApplicationController
   end
 
   def get_requested
-    if current_user.role == "admin"
-      @weekly_plans = []
-      my_weekly_plans = GradeSubject.where.not(approved: true)
-      my_weekly_plans.each do |wp|
-        br = Bridge.where(subject_id: wp.subject_id, grade_id: wp.grade_id).first
-       
-        if br.present?
-          usr = User.find_by_email(br.employee.email)
-          if usr.present?
-            @weekly_plans << {weekly_plan: wp, teacher_name: br.employee.full_name, teacher_id: usr.id}
-          else
-            # puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
-          end
+    @weekly_plans = []
+    my_weekly_plans = GradeSubject.where.not(approved: true)
+    my_weekly_plans.each do |wp|
+      br = Bridge.where(subject_id: wp.subject_id, grade_id: wp.grade_id).first
+
+      if br.present?
+        usr = User.find_by_email(br.employee.email)
+        if usr.present?
+          @weekly_plans << {weekly_plan: wp, teacher_name: br.employee.full_name, teacher_id: usr.id}
         else
-          # puts "-------------------------------"
+          # puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
         end
+      else
+        # puts "-------------------------------"
       end
+    end
 
       # puts "****"*500
       # puts @weekly_plans.inspect
 
       # return render json: @weekly_plans.first[:weekly_plan].classwork
-    end
   end
 
   def approve_requested
