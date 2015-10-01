@@ -24,16 +24,18 @@
 	            </div>
 	          </div>
 
-	          <% if current_user.role != 'student' %>
+	          <% if current_user.role.name != 'Student' && if current_user.role.name != 'Parent' %>
 		          <div class="form-group">
 	              <label>Grade</label>
 	              <%= select_tag :grade, options_from_collection_for_select(@grades,"id", "name"),
 	                  prompt: "Select Grade", class: "form-control", required: true %>
 	            </div>
-	          <% else %>
+	          <% elsif current_user.role.name == 'Student' %>
 	          	<%= hidden_field_tag :grade, Student.find_by_email(current_user.email).grade_id %>
-	          <% end %>
-
+              <% elsif current_user.role.name == 'Parent' %>
+                <%= hidden_field_tag :grade, Student.find_by_rollnumber(current_user.email.split('@').first.split('_').last).grade.id %>
+  	          <% end %>
+            <% end %>
 
             <%= submit_tag "Get Report", class: 'btn btn-small btn-default report-form' %>
           <% end %>
@@ -43,7 +45,7 @@
 	</div>
 
 	<div id="result">
-		
+
 	</div>
 </div>
 
@@ -67,11 +69,11 @@
       }
     });
   }
-	
+
 	$( document ).ready(function() {
 		$('#datetimepicker1').datepicker({
 			format: "mm-yyyy",
-	    viewMode: "months", 
+	    viewMode: "months",
 	    minViewMode: "months"
 		});
 
@@ -83,6 +85,6 @@
 	    fetch_report(grade,month_year);
 	  });
 	});
-	
+
 
 </script>

@@ -69,11 +69,13 @@
           <td><%= week.end_date.strftime("%d-%m-%Y") %></td>
           <!-- <td><%#= week.holiday_description %></td> -->
           <td>
-            <%= link_to '', 'javascript:void(0);',:class =>  'btn btn-success  glyphicon glyphicon-ok-circle start-plan-btn', id: "#{week.id}"%>
-              <% if current_user.role.rights.where(value: 'update_week').any? %>
-                <%= link_to '', edit_year_plan_week_path(@year_plan.id,week),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
-                <%= link_to '', "/year_plans/#{@year_plan.id}/weeks/#{week.id}", method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
-              <% end %>
+            <% if current_user.role.name == 'Teacher' %>
+              <%= link_to '', 'javascript:void(0);',:class =>  'btn btn-success  glyphicon glyphicon-ok-circle start-plan-btn', id: "#{week.id}"%>
+            <% end %>
+            <% if current_user.role.rights.where(value: 'update_week').any? %>
+              <%= link_to '', edit_year_plan_week_path(@year_plan.id,week),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
+              <%= link_to '', "/year_plans/#{@year_plan.id}/weeks/#{week.id}", method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
+            <% end %>
           </td>
 
 
