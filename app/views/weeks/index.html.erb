@@ -2,8 +2,8 @@
   <div class="text-center">
     <h1 class="m-n font-thin h3">Year <%= "#{@year_plan.year_name}" %> </h1>
   </div>
-  
 
+<% if current_user.role.rights.where(value: 'view_weeklyplans').any? %>
   <%= form_tag show_weekly_schedule_year_plan_path(@year_plan), :method => 'get' do %>
     <%#= hidden_field_tag :attendance_date, "" %>
     <div class="modal-body">
@@ -29,7 +29,7 @@
     </div>
   <% end %>
 
-
+<% end %>
 
 </div>
 
@@ -43,12 +43,12 @@
     <h1 class="m-n h3">Listing Weeks </h1>
   </div>
 
-  <% if current_user.role!= 'parent' && current_user.role!= 'teacher' && current_user.role!= 'student' %>
-  <%= link_to(new_year_plan_week_path(@year_plan.id), class: "btn btn-lg pull-right btn-color" ,style: "width:200px;" ) do %>
-    <i class="fa fa-plus"></i>
-    New Week
+  <% if current_user.role.rights.where(value: 'create_week').any? %>
+    <%= link_to(new_year_plan_week_path(@year_plan.id), class: "btn btn-lg pull-right btn-color" ,style: "width:200px;" ) do %>
+      <i class="fa fa-plus"></i>
+      New Week
+    <% end %>
   <% end %>
-<% end %>
 
 
   <table class="table table-striped">
@@ -69,14 +69,16 @@
           <td><%= week.end_date.strftime("%d-%m-%Y") %></td>
           <!-- <td><%#= week.holiday_description %></td> -->
           <td>
-            <%= link_to '', 'javascript:void(0);',:class =>  'btn btn-success  glyphicon glyphicon-ok-circle start-plan-btn', id: "#{week.id}"%>
-              <% if current_user.role!= 'parent' && current_user.role!= 'teacher' && current_user.role!= 'student' %>
-                <%= link_to '', edit_year_plan_week_path(@year_plan.id,week),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
-                <%= link_to '', "/year_plans/#{@year_plan.id}/weeks/#{week.id}", method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
-              <% end %>
-          </td> 
-          
-          
+            <% if current_user.role.name == 'Teacher' %>
+              <%= link_to '', 'javascript:void(0);',:class =>  'btn btn-success  glyphicon glyphicon-ok-circle start-plan-btn', id: "#{week.id}"%>
+            <% end %>
+            <% if current_user.role.rights.where(value: 'update_week').any? %>
+              <%= link_to '', edit_year_plan_week_path(@year_plan.id,week),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
+              <%= link_to '', "/year_plans/#{@year_plan.id}/weeks/#{week.id}", method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
+            <% end %>
+          </td>
+
+
         </tr>
       <% end %>
     </tbody>

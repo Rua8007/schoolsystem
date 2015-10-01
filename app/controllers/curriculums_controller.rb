@@ -6,7 +6,7 @@ class CurriculumsController < ApplicationController
   def index
     @year_plan = YearPlan.find(params[:year_plan])
     if @year_plan.present?
-      if current_user.role == "admin"
+      if current_user.role.name != "Teacher"
         @curriculums = @year_plan.curriculums
       else
         grade_ids = Employee.find_by_email(current_user.email).bridges.pluck(:grade_id)
@@ -29,7 +29,7 @@ class CurriculumsController < ApplicationController
       if current_user.role == 'teacher'
         @grades = Grade.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:grade_id))
         @subjects = Subject.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:subject_id))
-      elsif current_user.role!= 'parent' && current_user.role!= 'student' 
+      elsif current_user.role!= 'parent' && current_user.role!= 'student'
         # for admins
         @grades = Grade.all
         @subjects = Subject.all
@@ -44,7 +44,7 @@ class CurriculumsController < ApplicationController
     if current_user.role == 'teacher'
       @grades = Grade.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:grade_id))
       @subjects = Subject.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:subject_id))
-    elsif current_user.role!= 'parent' && current_user.role!= 'student' 
+    elsif current_user.role!= 'parent' && current_user.role!= 'student'
       # for admins
       @grades = Grade.all
       @subjects = Subject.all

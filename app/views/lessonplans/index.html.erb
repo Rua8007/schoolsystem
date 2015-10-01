@@ -13,10 +13,10 @@
         );
       }
     });
- 
+
     // DataTable
     var table = $('#example').DataTable();
- 
+
     // Apply the search
     table.columns().eq( 0 ).each( function ( colIdx ) {
         $( 'input', table.column( colIdx ).header() ).on( 'keyup change', function () {
@@ -32,11 +32,14 @@
 
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3">Lesson Plan
-  <a href="<%= new_lessonplan_path(year_plan: @year_plan) %>" class="btn btn-color pull-right" style="width:200px;">Add a new Lesson Plan</a></h1>
+  <% if current_user.role.name == 'Teacher' %>
+    <a href="<%= new_lessonplan_path(year_plan: @year_plan) %>" class="btn btn-color pull-right" style="width:200px;">Add a new Lesson Plan</a>
+  <% end %>
+  </h1>
   <br>
 </div>
 <br>
-<div style="overflow: scroll">  
+<div style="overflow: scroll">
   <table id="example" class="table table-striped table-bordered table-responsive" style="overflow: scroll">
     <thead class= "table-head">
     <tr>

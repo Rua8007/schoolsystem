@@ -4,8 +4,9 @@ class TransportfeerecordsController < ApplicationController
   # GET /transportfeerecords
   # GET /transportfeerecords.json
   def index
-    if current_user.role == 'student'
-      @transportfeerecords = Student.find_by_email(current_user.email).bus_allotment.transportfeerecords.all
+    if current_user.role.name == 'Parent'
+      temp = Student.find_by_rollnumber(current_user.email.split('@').first.split('_').last)
+      @transportfeerecords = temp.bus_allotment.transportfeerecords.all
     else
       @transportfeerecords = Transportfeerecord.all
     end

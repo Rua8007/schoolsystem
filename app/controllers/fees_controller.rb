@@ -4,8 +4,9 @@ class FeesController < ApplicationController
   # GET /fees
   # GET /fees.json
   def index
-    if current_user.role == 'student'
-      @fees = Student.find_by_email(current_user.email).fees.all
+    if current_user.role.name == 'Parent'
+      temp = Student.find_by_rollnumber(current_user.email.split('@').first.split('_').last)
+      @fees = temp.fees.all
     else
       @fees = Fee.all
     end

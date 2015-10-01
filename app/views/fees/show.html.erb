@@ -138,10 +138,10 @@
           <% if @busfee.any? %>
             <%= @busfee.try(:each) do |bc| %>
               <tr>
-                <td>Transport Charges Charges</td>
-                <td><% bc.bus_allotment.fee %></td>
+                <td class="no" >Transport Charges</td>
+                <td class="desc"><%= bc.bus_allotment.fee %></td>
                 <% bf = bf+bc.fee %>
-                <td><% bc.fee %></td>
+                <td class="total" ><%= bc.fee %></td>
               </tr>
             <% end %>
           <% end %>

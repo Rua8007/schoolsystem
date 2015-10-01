@@ -8,10 +8,10 @@ class WeeksController < ApplicationController
     @year_plan = YearPlan.find(params[:year_plan_id])
     if @year_plan.present?
       @weeks = @year_plan.weeks.sort_by &:start_date
-      if current_user.role == 'teacher'
+      if current_user.role.name == 'Teacher'
         @grades = Grade.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:grade_id))
         @subjects = Subject.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:subject_id))
-      elsif current_user.role!= 'parent' && current_user.role!= 'student' 
+      else
         # for admins
         @grades = Grade.all
         @subjects = Subject.all
@@ -93,7 +93,7 @@ class WeeksController < ApplicationController
     @grade = Grade.find(params[:grade_id])
     #make it dynamic later
     @week_days = ["Sunday","Monday","Tuesday","Wednesday","Thursday"]
-    
+
     @year_plan = YearPlan.find(params[:year_plan_id])
     if @subject.present? && @grade.present? && @year_plan.present?
       # grade_subjects = GradeSubject.where(subject_id: @subject.id, grade_id: @grade.id)
@@ -133,7 +133,7 @@ class WeeksController < ApplicationController
     redirect_to root_path
   end
 
- 
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
