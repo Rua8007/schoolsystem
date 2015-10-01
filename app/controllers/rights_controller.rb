@@ -278,6 +278,18 @@ class RightsController < ApplicationController
       end
     end
 
+    if params[:approve].present?
+      temp = params[:approve].keys
+      temp.each do |t|
+        if role.rights.where("value = ? ", t).empty?
+          right = role.rights.new
+          right.name = role
+          right.value = t
+          right.save
+        end
+      end
+    end
+
     redirect_to new_right_path, notice: "Rights Editted Successfully"
   end
 

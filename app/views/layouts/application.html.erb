@@ -343,7 +343,7 @@
                       <% end %>
                     </li>
                   <% end %>
-                  <% if Right.where("role_id = ? and value = ?", current_user.role_id , 'approve_curriculam' ).any? %>
+                  <% if current_user.role.rights.where("value = ? or value = ? or value = ? or value = ?",'approve_curriculam', 'approve_lesson', 'approve_portion', 'approve_weekly_plan' ).any? %>
                       <li>
                         <a href class="auto">
                           <span class="pull-right text-muted">
@@ -359,28 +359,28 @@
                               <span>Attendance</span>
                             <% end %>
                           </li>
-                          <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'approve_curriculam ').any? %>
+                          <% if current_user.role.rights(value: 'approve_curriculam').any? %>
                             <li>
                               <%= link_to(get_requested_curriculums_path) do %>
                                 <span>Curriculums</span>
                               <% end %>
                             </li>
                           <% end %>
-                          <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'approve_lesson ').any? %>
+                          <% if current_user.role.rights(value: 'approve_lesson').any? %>
                             <li>
                               <%= link_to(get_requested_lessonplans_path) do %>
                                 <span>Lesson Plans</span>
                               <% end %>
                             </li>
                           <% end %>
-                          <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'approve_portion ').any? %>
+                          <% if current_user.role.rights(value: 'approve_portion').any? %>
                             <li>
                               <%= link_to(get_requested_portions_path) do %>
                                 <span>Portions</span>
                               <% end %>
                             </li>
                           <% end %>
-                          <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'approve_weekly_plan ').any? %>
+                          <% if current_user.role.rights(value: 'approve_weekly_plan').any? %>
                             <li>
                               <%= link_to(get_requested_year_plans_path) do %>
                                 <span>Weekly Plans</span>
