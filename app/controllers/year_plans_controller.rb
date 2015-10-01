@@ -39,7 +39,7 @@ class YearPlansController < ApplicationController
 
     respond_to do |format|
       if @year_plan.save
-        format.html { redirect_to year_plans_path, notice: 'Year plan was successfully created.' }
+        format.html { redirect_to root_path, notice: 'Year plan was successfully created.' }
         format.json { render :show, status: :created, location: @year_plan }
       else
         format.html { render :new }
@@ -53,7 +53,7 @@ class YearPlansController < ApplicationController
   def update
     respond_to do |format|
       if @year_plan.update(year_plan_params)
-        format.html { redirect_to year_plans_path, notice: 'Year plan was successfully updated.' }
+        format.html { redirect_to root_path, notice: 'Year plan was successfully updated.' }
         format.json { render :show, status: :ok, location: @year_plan }
       else
         format.html { render :edit }
@@ -67,7 +67,7 @@ class YearPlansController < ApplicationController
   def destroy
     @year_plan.destroy
     respond_to do |format|
-      format.html { redirect_to year_plans_url, notice: 'Year plan was successfully destroyed.' }
+      format.html { redirect_to root_path, notice: 'Year plan was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -186,7 +186,7 @@ class YearPlansController < ApplicationController
     else
       flash[:alert] = "Week not found."
     end
-    redirect_to year_plans_path
+    redirect_to root_path
   end
 
   def delete_weekly_schedule
@@ -198,7 +198,7 @@ class YearPlansController < ApplicationController
     else
       flash[:alert] = "Week not found."
     end
-    redirect_to year_plans_path
+    redirect_to root_path
   end
 
   def get_requested

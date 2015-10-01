@@ -41,8 +41,15 @@ class CurriculumsController < ApplicationController
 
   # GET /curriculums/1/edit
   def edit
+    if current_user.role == 'teacher'
+      @grades = Grade.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:grade_id))
+      @subjects = Subject.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:subject_id))
+    elsif current_user.role!= 'parent' && current_user.role!= 'student' 
+      # for admins
+      @grades = Grade.all
+      @subjects = Subject.all
+    end
   end
-
   # POST /curriculums
   # POST /curriculums.json
   def create
@@ -89,7 +96,7 @@ class CurriculumsController < ApplicationController
   def destroy
     @curriculum.destroy
     respond_to do |format|
-      format.html { redirect_to year_plans_url, notice: 'Curriculum was successfully destroyed.' }
+      format.html { redirect_to root_path, notice: 'Curriculum was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

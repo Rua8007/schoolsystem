@@ -98,7 +98,7 @@ class PortionsController < ApplicationController
     @portion.portion_details.destroy_all
     @portion.destroy
     respond_to do |format|
-      format.html { redirect_to year_plans_url, notice: 'Portion was successfully destroyed.' }
+      format.html { redirect_to root_path, notice: 'Portion was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
