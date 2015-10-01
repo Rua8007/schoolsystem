@@ -5,7 +5,6 @@ class StudentsController < ApplicationController
 	end
 
 	def new
-    authorize Student, :create?
     @flag = true
     if Grade.any?
       @flag = false
@@ -19,7 +18,6 @@ class StudentsController < ApplicationController
 	end
 
   def create
-    authorize Student, :create?
 
     @student = Student.create(create_params)
     if @student
@@ -107,14 +105,12 @@ class StudentsController < ApplicationController
   end
 
   def mark_attendance_calendar
-    authorize Student, :mark_attendence?
     @grades = Grade.all
     @weekends = Weekend.all
   end
 
   ####### TIME ZONE ISSUES
   def mark_attendance
-    authorize Student, :mark_attendence?
     if params[:attendance_date].present? && ( params[:attendance_date].to_date.strftime("%d-%m-%Y") === Date.today.strftime("%d-%m-%Y") || params[:attendance_date].to_date < Date.today ) && Weekend.find_by_weekend_day(params[:attendance_date].to_date.wday).nil?
       @attendance_date = params[:attendance_date].to_date.strftime("%d-%m-%Y")
       if params[:grade].present?
@@ -205,7 +201,6 @@ class StudentsController < ApplicationController
   end
 
   def save_attendances
-    authorize Student, :mark_attendance?
 
     # return render json: params.inspect
     if params[:attendance_date].present? && params[:attendance_date].to_date <= Date.today
@@ -299,8 +294,6 @@ class StudentsController < ApplicationController
   end
 
   def give_discount
-    authorize Student, :give_discount?
-    @student = Student.find(params[:id])
   end
 
 	private
