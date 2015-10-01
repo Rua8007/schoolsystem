@@ -106,7 +106,7 @@ class PortionsController < ApplicationController
   def get_requested
     if current_user.role == "admin"
       @portions = [] 
-      my_portions = Portion.where(approved: false)
+      my_portions = Portion.where.not(approved: true)
       my_portions.each do |portion|
         br = Bridge.where(subject_id: portion.portion_details.first.subject_id, grade_id: portion.grade_id).first
         if br.present?

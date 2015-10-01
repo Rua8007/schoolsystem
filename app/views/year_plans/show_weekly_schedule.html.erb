@@ -21,33 +21,37 @@
           <% if @weekends.find{ |w| w.weekend_day == i}.nil? %>
             <% if res[day].present? %>
               <% res[day].each_with_index do |row,j| %>
-                <tr>
+                <% if row["approved_status"] == "true" %>
+                  <tr class="approved-row">
+                <% else %>
+                  <tr class="disapproved-row">
+                <% end %>
                   <% if j == 0 %>
                     <td rowspan="<%= res[day].count %>" class="text-center"><strong> <%= day %></strong> </td>
                   <% end %>
 
                   <% if row["approved_status"].nil? || row["approved_status"] == "" || row["approved_status"] == "false" %>
-                    <td class="text-center" style="color:red;">
+                    <td class="text-center">
                   <% else %>
 
-                    <td class="text-center" style="color:green;">
+                    <td class="text-center">
                   <% end %>
 
 
                     <span class="<%= 'subj-'+row['id'].to_s %>"><%= row["subject"] %></span>
                   </td>
                   <% if row["approved_status"].nil? || row["approved_status"] == "" || row["approved_status"] == "false" %>
-                    <td class="text-center" style="color:red;">
+                    <td class="text-center">
                   <% else %>
 
-                    <td class="text-center" style="color:green;">
+                    <td class="text-center">
                   <% end %>
                     <span class="<%= 'cw-'+row['id'].to_s %>"><%= row["cw"] %></span>
                   </td>
                   <% if row["approved_status"].nil? || row["approved_status"] == "" || row["approved_status"] == "false" %>
-                    <td class="text-center" style="color:red;">
+                    <td class="text-center">
                   <% else %>
-                    <td class="text-center" style="color:green;">
+                    <td class="text-center">
                   <% end %>
                     <span class="<%= 'hw-'+row['id'].to_s  %>">
                       <%= row["hw"] %>
@@ -134,3 +138,14 @@
     });
   });
 </script>
+
+
+<style type="text/css">
+tr.approved-row td{
+  color: green;
+}
+
+tr.disapproved-row td{
+  color: red;
+}
+</style>

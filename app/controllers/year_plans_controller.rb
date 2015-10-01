@@ -127,7 +127,7 @@ class YearPlansController < ApplicationController
       if @weekends.find{ |w| w.weekend_day == i}.nil?
         result_day = {}
 
-        schedules = GradeSubject.where("grade_id = ? AND week_id =  ? AND dayname = ?",params[:grade_id],params[:week_id], "day_"+i.to_s).all
+        schedules = GradeSubject.where("grade_id = ? AND week_id =  ? AND lower(day_name_eng) = ?",params[:grade_id],params[:week_id], day.downcase).all
         subjects = []
         schedules.each do |schedule|
           subject = {}
@@ -149,8 +149,6 @@ class YearPlansController < ApplicationController
         @results << result_day
       end
     end
-    puts "--------"*100
-    puts @results.inspect
   end
 
   def update_weekly_schedule
@@ -204,11 +202,10 @@ class YearPlansController < ApplicationController
   def get_requested
     if current_user.role == "admin"
       @weekly_plans = []
-      my_weekly_plans = GradeSubject.where(approved: false)
+      my_weekly_plans = GradeSubject.where.not(approved: true)
       my_weekly_plans.each do |wp|
         br = Bridge.where(subject_id: wp.subject_id, grade_id: wp.grade_id).first
        
-          
         if br.present?
           usr = User.find_by_email(br.employee.email)
           if usr.present?
