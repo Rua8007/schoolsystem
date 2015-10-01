@@ -487,27 +487,22 @@
                           <i class="fa fa-fw fa-angle-down text-active"></i>
                         </span>
                         <i class="glyphicon glyphicon-time"></i>
-                        <span>Academics</span>
+                        <span>Plans</span>
                       </a>
                       <ul class="nav nav-sub dk">
                         <li class="nav-sub-header">
                           <%= link_to("") do %>
-                            <span>Academics</span>
+                            <span>Plans</span>
                           <% end %>
                         </li>
                         <li>
                           <%= link_to(curriculums_path(year_plan: @year_plan)) do %>
-                            <span>Curriculums</span>
+                            <span>Curriculum Map</span>
                           <% end %>
                         </li>
                         <li>
                           <%= link_to(lessonplans_path(year_plan: @year_plan)) do %>
                             <span>Lesson Plans</span>
-                          <% end %>
-                        </li>
-                        <li>
-                          <%= link_to(portions_path(year_plan: @year_plan)) do %>
-                            <span>Portions</span>
                           <% end %>
                         </li>
                         <li>
@@ -975,6 +970,13 @@
                         <li>
                           <%= link_to(new_mark_path) do %>
                             <span>Marks Devisions</span>
+                          <% end %>
+                        </li>
+                      <% end %>
+                      <% if current_user.role.name == 'Teacher' %>
+                        <li>
+                          <%= link_to(portions_path(year_plan: @year_plan)) do %>
+                            <span>Portions</span>
                           <% end %>
                         </li>
                       <% end %>
