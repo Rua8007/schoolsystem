@@ -76,6 +76,13 @@ class StudentsController < ApplicationController
     std = Student.find(params[:id])
     std.parent_id = Student.find_by_rollnumber(params[:student][:rollnumber]).parent_id
     std.save!
+    u = User.new
+    @email="prt_"+std.rollnumber.to_s+"@alomam.edu.sa"
+    u.email = @email
+    u.password = '123'
+    u.password_confirmation = '123'
+    u.role_id = Role.find_by_name("Parent").id
+    u.save
     redirect_to student_path(std.id)
   end
 

@@ -398,6 +398,59 @@
                       <% end %>
                     </li>
                   <% end %>
+
+                  <% if current_user.role.name == 'Student' %>
+                    <li>
+                      <%= link_to(bus_allotment_path(Student.find_by_email(current_user.email).bus_allotment.id)) do %>
+                        <i class="glyphicon glyphicon-tasks"></i>
+                        <span>Transport Details</span>
+                      <% end %>
+                    </li>
+                  <% end %>
+
+                  <% if current_user.role.name == 'Parent' %>
+                    <% temp = Student.find_by_rollnumber(current_user.email.split('@').first.split('_').last).id %>
+                    <li>
+                      <%= link_to(bus_allotment_path(Student.find(temp).bus_allotment.id)) do %>
+                        <i class="glyphicon glyphicon-tasks"></i>
+                        <span>Transport Details</span>
+                      <% end %>
+                    </li>
+                  <% end %>
+
+                  <% if current_user.role.name == 'Parent' %>
+                    <li>
+                      <%= link_to(transportfeerecords_path) do %>
+                        <i class="glyphicon glyphicon-tasks"></i>
+                        <span>Transport Fee Details</span>
+                      <% end %>
+                    </li>
+                  <% end %>
+
+                  <% if current_user.role.name == 'Parent' %>
+                    <li>
+                      <%= link_to(fees_path) do %>
+                        <i class="glyphicon glyphicon-tasks"></i>
+                        <span>Fee Details</span>
+                      <% end %>
+                    </li>
+                  <% end %>
+
+                  <% if current_user.role.name == 'Parent' || current_user.role.name == 'Student' %>
+                    <% if current_user.role.name == "Parent" %>
+                      <% temp2 = Student.find_by_rollnumber(current_user.email.split('@').first.split('_').last)  %>
+                    <% else %>
+                      <% temp2 = Student.find_by_email(current_user.email)  %>
+                    <% end %>
+                    <li>
+                      <%= link_to(grade_path(temp2.grade_id)) do %>
+                        <i class="glyphicon glyphicon-tasks"></i>
+                        <span>Subject Details</span>
+                      <% end %>
+                    </li>
+                  <% end %>
+
+
                   <% if current_user.role.name == 'Student' %>
                     <li>
                       <%= link_to(result_marksheets_path({student_id: Student.find_by_email(current_user.email).id})) do %>
@@ -480,7 +533,7 @@
                     </li>
                   <% end %>
                   <%# if current_user.role.name == 'Teacher' %>
-                  <% if Right.where("role_id = ? and value='view_weeklyplans' or value='create_week' or value = 'update_week' or value = 'view_lesson_plans' or value = 'view_curriculum_plans'", current_user.role_id ).any? %>
+                  <% if Right.where("role_id = ? and (value='view_weeklyplans' or value='create_week' or value = 'update_week' or value = 'view_lesson_plans' or value = 'view_curriculum_plans')", current_user.role_id ).any? %>
 
                     <li>
                       <a href class="auto">
@@ -521,7 +574,7 @@
                       </ul>
                     </li>
                   <% end %>
-                  <% if Right.where("role_id = ? and value = 'create_eattendence' or value = 'view_eattendence'", current_user.role_id ).any? %>
+                  <% if Right.where("role_id = ? and (value = 'create_eattendence' or value = 'view_eattendence')", current_user.role_id ).any? %>
                     <li>
                       <a href class="auto">
                         <span class="pull-right text-muted">
@@ -554,7 +607,7 @@
                       </ul>
                     </li>
                   <% end %>
-                  <% if Right.where("role_id = ? and value = 'create_sattendence' or value = 'view_sattendence'", current_user.role_id ).any? %>
+                  <% if Right.where("role_id = ? and (value = 'create_sattendence' or value = 'view_sattendence')", current_user.role_id ).any? %>
                     <li>
                       <a href class="auto">
                         <span class="pull-right text-muted">
@@ -974,7 +1027,7 @@
                         </li>
                       <% end %>
 
-                      <% if Right.where("role_id = ? and value = ? or value = ? " , current_user.role_id, 'create_exam' , 'update_exam').any? %>
+                      <% if Right.where("role_id = ? and (value = ? or value = ? )" , current_user.role_id, 'create_exam' , 'update_exam').any? %>
                         <li>
                           <%= link_to(new_mark_path) do %>
                             <span>Marks Devisions</span>
