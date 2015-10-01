@@ -398,6 +398,71 @@
                       <% end %>
                     </li>
                   <% end %>
+                  <% if current_user.role.name == 'Student' %>
+                    <li>
+                      <%= link_to(result_marksheets_path({student_id: Student.find_by_email(current_user.email).id})) do %>
+                        <i class="glyphicon glyphicon-tasks"></i>
+                        <span>My Result Card</span>
+                      <% end %>
+                    </li>
+                  <% end %>
+
+                  <% if current_user.role.name == 'Parent' %>
+                    <% temp = Student.find_by_rollnumber(current_user.email.split('@').first.split('_').last).id %>
+                    <li>
+                      <%= link_to(result_marksheets_path({student_id: temp})) do %>
+                        <i class="glyphicon glyphicon-tasks"></i>
+                        <span>My Result Card</span>
+                      <% end %>
+                    </li>
+                  <% end %>
+
+                  <% if current_user.role.name == "Parent" %>
+                    <li>
+                      <a href class="auto">
+                        <span class="pull-right text-muted">
+                          <i class="fa fa-fw fa-angle-right text"></i>
+                          <i class="fa fa-fw fa-angle-down text-active"></i>
+                        </span>
+                        <i class="glyphicon glyphicon-book"></i>
+                        <span> Exam Results</span>
+                      </a>
+                      <ul class="nav nav-sub dk">
+                        <% Exam.all.try(:each) do |exam| %>
+                          <li>
+                            <%= link_to(result_card_marksheets_path({student: temp, exam: exam.id})) do %>
+                              <i class="glyphicon glyphicon-flag"></i>
+                              <span><%= exam.name %>s</span>
+                            <% end %>
+                          </li>
+                        <% end %>
+                      </ul>
+                    </li>
+                  <% end %>
+
+                  <% if current_user.role.name == "Student" %>
+                    <li>
+                      <a href class="auto">
+                        <span class="pull-right text-muted">
+                          <i class="fa fa-fw fa-angle-right text"></i>
+                          <i class="fa fa-fw fa-angle-down text-active"></i>
+                        </span>
+                        <i class="glyphicon glyphicon-book"></i>
+                        <span> Exam Results </span>
+                      </a>
+                      <ul class="nav nav-sub dk">
+                        <% Exam.all.try(:each) do |exam| %>
+                          <li>
+                            <%= link_to(result_card_marksheets_path({student: Student.find_by_email(current_user.email).id, exam: exam.id})) do %>
+                              <i class="glyphicon glyphicon-flag"></i>
+                              <span><%= exam.name %>s</span>
+                            <% end %>
+                          </li>
+                        <% end %>
+                      </ul>
+                    </li>
+                  <% end %>
+
                   <% if current_user.role.name == 'Teacher' %>
                     <li>
                       <%= link_to(teacher_subject_bridges_path) do %>
@@ -551,6 +616,14 @@
                 </li>
 
                 <% end %>
+              <%# if current_user.role.name == 'Student' || current_user.role.name == 'Parent' %>
+                    <li>
+                      <%= link_to(new_student_holiday_path) do %>
+                        <i class="glyphicon glyphicon-flag"></i>
+                        <span>Student Leave</span>
+                      <% end %>
+                    </li>
+                  <%# end %>
               <% if Right.where("role_id = ? and value = 'view_excalender'", current_user.role_id ).any? %>
                 <li>
                   <a href class="auto">

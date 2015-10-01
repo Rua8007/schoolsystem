@@ -41,7 +41,7 @@ class ParentsController < ApplicationController
       u.email = @email
       u.password = '123'
       u.password_confirmation = '123'
-      u.role = 'parent'
+      u.role_id = Role.find_by_name("Parent").id
       u.save
       student = Student.find(params[:student_id])
       student.parent_id = @parent.id

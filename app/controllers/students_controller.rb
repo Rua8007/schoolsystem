@@ -236,7 +236,7 @@ class StudentsController < ApplicationController
         @grade_name = grade.name
         students = grade.students
         @attendances = []
-        if current_user.role != 'student'
+        if current_user.role.name != 'Student' && current_user.role.name != 'Parent'
           students.each_with_index do |student, i|
             attendance = {}
             attendance.store("name","#{student.fullname}")
@@ -256,7 +256,14 @@ class StudentsController < ApplicationController
             @attendances << attendance
           end
         else
-          student = Student.find_by_email(current_user.email)
+          puts '------------'
+          puts 'in else'
+          puts '------------'
+          if current_user.role.name == 'Student'
+            student = Student.find_by_email(current_user.email)
+          elsif current_user.role.name == 'Parent'
+            student = Student.find_by_rollnumber(current_user.email.split('@').first.split('_').last)
+          end
           i = 0
           attendance = {}
           attendance.store("name","#{student.fullname}")

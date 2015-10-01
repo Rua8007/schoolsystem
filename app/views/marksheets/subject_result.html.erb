@@ -1,5 +1,5 @@
 <div class="bg-light lter b-b wrapper-md">
-  <h1 class="m-n font-thin h3">Class Result</h1>
+  <h1 class="m-n font-thin h3">Subject Result</h1>
 </div>
 <br>
 <div class="well well-lg" style="padding-bottom:78px;">
@@ -10,11 +10,11 @@
 			<%= @bridges.try(:each) do |b|%>
 				<option value = "<%= b.id %>"> <%= b.title %> </option>
 			<% end %>
-		</select>	
+		</select>
 	</div>
-	
+
 	<div class = "col-md-4">
-	
+
 		<label>Select Exam</label>
 		<br>
 		<select id = "exam" class="form-control">
