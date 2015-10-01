@@ -479,9 +479,9 @@
                       <% end %>
                     </li>
                   <% end %>
-                  <% if Right.where("role_id = ? and value = 'plans'", current_user.role_id ).any? %>
+                  <% if current_user.role.name == 'Teacher' %>
                     <li>
-                      <a href class="auto">      
+                      <a href class="auto">
                         <span class="pull-right text-muted">
                           <i class="fa fa-fw fa-angle-right text"></i>
                           <i class="fa fa-fw fa-angle-down text-active"></i>
