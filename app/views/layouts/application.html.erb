@@ -1038,7 +1038,7 @@
 
                       <% if Right.where("role_id = ? and (value = ? or value = ? )" , current_user.role_id, 'create_exam' , 'update_exam').any? %>
                         <li>
-                          <%= link_to(new_mark_path) do %>
+                          <%= link_to(marks_path) do %>
                             <span>Marks Devisions</span>
                           <% end %>
                         </li>
