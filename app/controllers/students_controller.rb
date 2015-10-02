@@ -288,6 +288,7 @@ class StudentsController < ApplicationController
   end
 
   def give_discount
+    @student = Student.find(params[:id])
   end
 
 	private

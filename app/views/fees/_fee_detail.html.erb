@@ -15,15 +15,27 @@
     <tbody>
       <% id = 0 %>
       <% @data.try(:each) do |data| %>
-        <tr>
-          <td><%= data[:fb_id] %></td>
-          <td><%= data[:total] %></td>
-          <td><%= data[:paid] %></td>
-          <% id = id + 1 %>
-          <%= hidden_field_tag "flags[#{id}][id]", data[:id] %>
-          <td><%= text_field_tag "flags[#{id}][amount]", data[:pending] %>
-          </td>
-        </tr>
+        <% if data[:fb_id].downcase == 'tution fee' %>
+          <tr>
+            <td><%= data[:fb_id] %></td>
+            <td><%= data[:total] - @discount  %></td>
+            <td><%= data[:paid] %></td>
+            <% id = id + 1 %>
+            <%= hidden_field_tag "flags[#{id}][id]", data[:id] %>
+            <td><%= text_field_tag "flags[#{id}][amount]", data[:pending]-@discount %>
+            </td>
+          </tr>
+        <% else %>
+          <tr>
+            <td><%= data[:fb_id] %></td>
+            <td><%= data[:total]  %></td>
+            <td><%= data[:paid] %></td>
+            <% id = id + 1 %>
+            <%= hidden_field_tag "flags[#{id}][id]", data[:id] %>
+            <td><%= text_field_tag "flags[#{id}][amount]", data[:pending] %>
+            </td>
+          </tr>
+        <% end %>
       <% end %>
     </tbody>
   </table>
