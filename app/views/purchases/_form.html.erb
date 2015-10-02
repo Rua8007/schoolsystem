@@ -2,20 +2,22 @@
   
   <div class="col-md-3 form-group">
     <label>Grade</label>
-    <input type="text" id = "std_grade" class="form-control" >
+    <%= select_tag "grade_id", options_from_collection_for_select(@grades, "id", "name"), class: "form-control", id: "std_grade", required: true %>
   </div>
 
   <div class="col-md-3 form-group">
     <label>Teacher</label>
-    <input type="text" id = "std_contact" class="form-control" >
+    <%= select_tag "employee_id", options_from_collection_for_select(@teachers, "id", "full_name"), class: "form-control", id: "std_contact", required: true %>
   </div>
+
+
 
  
 </div>
   
 <div class="col-md-12">
   <div class="col-md-2 form-group">
-    <label>Item Code</label>
+    <label>Item Name</label>
     <input type="text" id = "code"  class="form-control">
     <span style = "color: red" id = "error" class="hidden">Invalid Code!!! </span>
   </div>
@@ -63,7 +65,7 @@
     
     <div>
       <label>Grand Total</label>
-      <input type="text" id = "Total" value="0" class="form-control" style="width:100%" readonly="true">
+      <input type="text" id = "gtotal" value="0" class="form-control" style="width:100%" readonly="true">
     </div>
     <br>
     <div class="actions">
@@ -72,6 +74,7 @@
       </div>
     </div>
   </div>
+
 
 
  <script type="text/javascript">
@@ -110,9 +113,13 @@ $(document).ready(function(){
   $("#itembtn").click(function (){
     console.log(item);
 
-    var total = parseInt($("#price").val()) * parseInt($("#qty").val());
-  
-    $("#Total").val(total);
+    
+
+
+     var total = parseInt($("#price").val()) * parseInt($("#qty").val());
+    $("#gtotal").val(parseInt($("#gtotal").val()) + total);
+    var subtotal = parseInt($("#gtotal").val());
+    $("#Total").val(subtotal);
 
     var item = {code: $("#code").val(), qty: $("#qty").val(),id: items.length, total: total, price: $('#price').val()};
     items.push(item);
