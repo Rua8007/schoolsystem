@@ -20,8 +20,7 @@
     <%= f.text_area :description %>
   </div>
   <div class="field">
-    <%= f.label :student_id %><br>
-    <%= f.number_field :student_id %>
+    <%= f.hidden_field :student_id, value: @std_id %>
   </div>
   <div class="field">
     <%= f.label :leave_from %><br>
@@ -30,10 +29,6 @@
   <div class="field">
     <%= f.label :leave_to %><br>
     <%= f.date_select :leave_to %>
-  </div>
-  <div class="field">
-    <%= f.label :approved %><br>
-    <%= f.check_box :approved %>
   </div>
   <div class="actions">
     <%= f.submit %>

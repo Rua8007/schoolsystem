@@ -4,7 +4,7 @@ class LeavesController < ApplicationController
   # GET /leaves
   # GET /leaves.json
   def index
-    if current_user.role != 'teacher' && current_user.role != 'student' && current_user.role != 'parent'
+    if current_user.role.rights.where(value: 'approve_leave')
       @leaves = Leave.where(approved: false)
     else
       flash[:alert] = "Not Authorized"
@@ -27,7 +27,7 @@ class LeavesController < ApplicationController
     elsif current_user.role == 'student'
 
     end
-        
+
   end
 
   # GET /leaves/1/edit

@@ -15,6 +15,12 @@ class StudentHolidaysController < ApplicationController
   # GET /student_holidays/new
   def new
     @student_holiday = StudentHoliday.new
+    if current_user.role.name == 'Parent'
+      @std_id = Student.find_by_rollnumber(current_user.email.split('@').first.split('_').last).id
+    elsif current_user.role.name == 'Student'
+      @std_id = Student.find_by_email(current_user.email).id
+    end
+
   end
 
   # GET /student_holidays/1/edit

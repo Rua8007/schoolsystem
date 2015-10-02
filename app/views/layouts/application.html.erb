@@ -640,13 +640,22 @@
                       </ul>
                     </li>
                   <% end %>
-                  <% if Right.where("role_id = ? and value = 'create_prequest'", current_user.role_id ).any? %>
+                  <% if Right.where("role_id = ? and value = 'view_prequest'", current_user.role_id ).any? %>
                     <li>
                       <%= link_to(purchases_path) do %>
                         <i class="glyphicon glyphicon-time"></i>
-                        <span>Puchase Request</span>
+                        <span>All Puchase Reqs</span>
                       <% end %>
 
+                    </li>
+                  <% end %>
+
+                  <% if current_user.role.rights.where(value: 'create_prequest').any? %>
+                    <li>
+                      <%= link_to(new_purchase_path) do %>
+                        <i class="glyphicon glyphicon-time"></i>
+                        <span>Request Purchase</span>
+                      <% end %>
                     </li>
                   <% end %>
 
@@ -704,12 +713,12 @@
 
                 <% end %>
               <%# if current_user.role.name == 'Student' || current_user.role.name == 'Parent' %>
-                    <li>
-                      <%= link_to(new_student_holiday_path) do %>
+                   <!--  <li>
+                      <%#= link_to(new_student_holiday_path) do %>
                         <i class="glyphicon glyphicon-flag"></i>
                         <span>Student Leave</span>
-                      <% end %>
-                    </li>
+                      <%# end %>
+                    </li> -->
                   <%# end %>
               <% if Right.where("role_id = ? and value = 'view_excalender'", current_user.role_id ).any? %>
                 <li>
