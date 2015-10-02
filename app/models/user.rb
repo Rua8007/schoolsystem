@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
    acts_as_messageable
 
   belongs_to :role
+  has_many :fees
 
   def mailboxer_email(object)
  #return the model's email here

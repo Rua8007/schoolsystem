@@ -29,7 +29,10 @@
 
 <html lang="en">
   <div class="bg-light lter b-b wrapper-md">
-  <h1 class="m-n font-thin h3">Fee Invoice </h1>
+  <h1 class="m-n font-thin h3">Fee Invoice
+  <span class= 'pull-right'>Invoice : <%= @fees.first.identifier  %> </span>
+  </h1>
+
   </div>
 
     <link rel="stylesheet" href="style.css" media="all" />
@@ -58,6 +61,14 @@
                         </td>
                         <td>
                         <%= @student.fullname %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="student-profile-td">
+                            Student ID
+                        </td>
+                        <td>
+                        <%= @student.rollnumber %>
                         </td>
                     </tr>
                     <tr>
@@ -104,7 +115,6 @@
           </table>
         </div>
         <div id="invoice">
-          <h6>Invoice  :: <%= @fees.first.identifier  %></h6>
           <div class="date">Date of Submission: <%= @fees.first.created_at.strftime("%m/%d/%Y")  %></div>
         </div>
       </div>
@@ -115,9 +125,9 @@
       <table class="table">
         <thead >
           <tr>
-            <th class="no">Title</th>
-            <th class="desc">Total</th>
-            <th class="total">Fee</th>
+            <th class="no">Description</th>
+            <th class="desc">Total Charges</th>
+            <th class="total">Amount Paid</th>
 
           </tr>
         </thead>

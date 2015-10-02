@@ -40,6 +40,7 @@
     <thead class= "table-head">
     <th>Student ID</th>
     <th>Student Name</th>
+    <th>Grade</th>
     <th>Amount</th>
     <th>User</th>
     <th>Action</th>
@@ -48,14 +49,15 @@
     <% @fees.each do |f| %>
       <% fee = f.last %>
       <tr>
-        <td><%= fee.first.student_id %></td>
+        <td><%= fee.first.student.rollnumber %></td>
         <td><%= Student.find(fee.first.student_id).fullname %></td>
+        <td><%= fee.first.student.grade.full_name %></td>
         <% temp = 0 %>
         <% fee.each do |fe| %>
           <% temp = temp + fe["amount"] %>
         <% end %>
         <td><%= temp %></td>
-        <td><%= fee.first.user_id %></td>
+        <td><%= fee.first.user.email %></td>
 
         <td>
       <% if current_user.role.rights.where(value: "view_fee").any? || current_user.role.name == 'Parent' %>
