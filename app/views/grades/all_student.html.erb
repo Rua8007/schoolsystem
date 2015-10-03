@@ -106,6 +106,7 @@
           <th>Remaining</th>
           <th>Actions</th>
         <% end %>
+        <th> Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -170,6 +171,9 @@
               <%= link_to 'Challan', challan_fees_path({student_id: student.id}) %>
               <%= link_to 'Discount', give_discount_student_path(student.id) %>
             </td>
+          <% end %>
+          <% if current_user.role.name == 'Teacher' %>
+            <td><%= link_to 'Performance Report', new_performance_path({student_id: student.id, bridge_id: @bridge.id}) %>
           <% end %>
         </tr>
       <% end %>

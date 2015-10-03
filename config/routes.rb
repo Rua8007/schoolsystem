@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :performances
   resources :roles
   get 'home/timetable'
   get 'home/sms'

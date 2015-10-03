@@ -20,6 +20,8 @@ class Student < ActiveRecord::Base
 
 	has_many :invoices
 
+	has_many :performances
+
 	validates_uniqueness_of :rollnumber
 	validates_presence_of :rollnumber
 
