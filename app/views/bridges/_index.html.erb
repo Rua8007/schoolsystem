@@ -14,7 +14,8 @@
         <td><%= bridge.subject.name if bridge.subject.present? %></td>
         <td><%= bridge.grade.full_name if bridge.grade.present? %></td>
         <td><%= bridge.employee.full_name if bridge.employee.present? %></td>
-        <td><%= link_to 'View Students', all_student_grade_path(bridge.grade_id) if bridge.grade.present? %>
+        <td><%= link_to 'View Students', all_student_grade_path(bridge) if bridge.grade.present? %>
+
         <%#= link_to 'Edit', edit_bridge_path(bridge) %>
         <%#= link_to 'Delete', bridge, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

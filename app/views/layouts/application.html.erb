@@ -1007,6 +1007,34 @@
                   </li>
                 <% end %>
 
+                <li>
+                    <a href class="auto">
+                      <span class="pull-right text-muted">
+                        <i class="fa fa-fw fa-angle-right text"></i>
+                        <i class="fa fa-fw fa-angle-down text-active"></i>
+                      </span>
+                      <i class="glyphicon glyphicon-shopping-cart"></i>
+                      <span>Performance Report</span>
+                    </a>
+                    <ul class="nav nav-sub dk">
+                      <li class="nav-sub-header">
+                        <%= link_to("") do %>
+                          <span>Performance Report</span>
+                        <% end %>
+                      </li>
+                    <% if current_user.role_id != 'teacher' %>
+
+                      <li>
+                        <%= link_to(performances_path) do %>
+                          <span>All Reports</span>
+                        <% end %>
+                      </li>
+                     
+
+                    </ul>
+                  </li>
+                <% end %>
+
                 <% if Right.where("role_id = ? and value = 'view_exam'", current_user.role_id ).any? %>
 
                   <li>

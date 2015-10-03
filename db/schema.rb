@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150930190311) do
+ActiveRecord::Schema.define(version: 20151003071418) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -401,6 +401,14 @@ ActiveRecord::Schema.define(version: 20150930190311) do
     t.string   "motheremail"
   end
 
+  create_table "performances", force: :cascade do |t|
+    t.integer  "student_id"
+    t.integer  "bridge_id"
+    t.text     "remark"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "periods", force: :cascade do |t|
     t.integer  "time_table_id"
     t.integer  "period_num"
@@ -569,8 +577,8 @@ ActiveRecord::Schema.define(version: 20150930190311) do
     t.string   "behaviour"
     t.string   "fullname"
     t.string   "due_date"
-    t.float    "discount"
     t.string   "specialneed"
+    t.float    "discount"
     t.string   "rollnumber"
   end
 

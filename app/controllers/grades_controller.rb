@@ -38,7 +38,8 @@ class GradesController < ApplicationController
   end
 
   def all_student
-    @grade = Grade.find(params[:id])
+    @bridge = Bridge.find(params[:id])
+    @grade = @bridge.grade
     @students = @grade.students
     @student = @students.first
   end
