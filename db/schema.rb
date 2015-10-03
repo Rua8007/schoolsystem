@@ -569,8 +569,8 @@ ActiveRecord::Schema.define(version: 20150930190311) do
     t.string   "behaviour"
     t.string   "fullname"
     t.string   "due_date"
-    t.float    "discount"
     t.string   "specialneed"
+    t.float    "discount"
     t.string   "rollnumber"
   end
 
