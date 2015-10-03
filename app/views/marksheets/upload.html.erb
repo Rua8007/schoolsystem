@@ -8,7 +8,7 @@
 			<th>Student ID</th>
 			<th>Student Name</th>
 			<% @marks.try(:each) do |mark| %>
-				<th><%= mark.name %> ( <%= mark.passing_marks %> / <%= mark.marks.to_s %>) </th>
+				<th style="width:77px;"><%= mark.name %> ( <%= mark.passing_marks %> / <%= mark.marks.to_s %>) </th>
 			<% end %>
 			<th>Total (<%= @marks.sum(:marks) %>)</th>
 
@@ -26,7 +26,7 @@
 						</td>
 						<% @marks.try(:each) do |mark| %>
 							<td>
-								<input type="text" id = "num-<%=std.id%>-<%=mark.id%>" class = "num" name="marks[<%=std.id %>][<%=mark.name%>][number]" style="10px">
+								<input type="text" id = "num-<%=std.id%>-<%=mark.id%>" class = "num" name="marks[<%=std.id %>][<%=mark.name%>][number]" style="width:77px">
 							</td>
 						<% end %>
 						<td id="total<%=std.id%>">
