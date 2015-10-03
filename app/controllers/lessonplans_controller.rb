@@ -95,7 +95,7 @@ class LessonplansController < ApplicationController
   end
 
   def get_requested
-    if current_user.role.right.where(value: 'approve_lesson').any?
+    if current_user.role.rights.where(value: 'approve_lesson').any?
       @lessonplans = []
       my_lessons = Lessonplan.where(approved: false)
       my_lessons.each do |lp|
