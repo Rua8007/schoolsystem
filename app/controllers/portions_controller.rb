@@ -6,7 +6,7 @@ class PortionsController < ApplicationController
   def index
     @year_plan = YearPlan.find(params[:year_plan])
     if @year_plan.present?
-      if current_user.role == "admin"
+      if current_user.role.rights.where(value: 'approve_portion')
         @portions = @year_plan.portions
       else
         grade_ids = Employee.find_by_email(current_user.email).bridges.pluck(:grade_id)
@@ -26,10 +26,10 @@ class PortionsController < ApplicationController
     @year_plan = YearPlan.find(params[:year_plan])
     if @year_plan.present?
       @portion = @year_plan.portions.build
-      if current_user.role == 'teacher'
+      if current_user.role.name == 'Teacher'
         @grades = Grade.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:grade_id))
         @subjects = Subject.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:subject_id))
-      elsif current_user.role!= 'parent' && current_user.role!= 'student' 
+      else
         # for admins
         @grades = Grade.all
         @subjects = Subject.all
@@ -40,10 +40,10 @@ class PortionsController < ApplicationController
 
   # GET /portions/1/edit
   def edit
-    if current_user.role == 'teacher'
+    if current_user.role.name == 'Teacher'
         # @grades = Grade.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:grade_id))
         @subjects = Subject.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:subject_id))
-      elsif current_user.role!= 'parent' && current_user.role!= 'student' 
+      else
         # for admins
         # @grades = Grade.all
         @subjects = Subject.all
@@ -104,8 +104,8 @@ class PortionsController < ApplicationController
   end
 
   def get_requested
-    if current_user.role == "admin"
-      @portions = [] 
+    if current_user.role.rights.where(value: 'approve_portion')
+      @portions = []
       my_portions = Portion.where.not(approved: true)
       my_portions.each do |portion|
         br = Bridge.where(subject_id: portion.portion_details.first.subject_id, grade_id: portion.grade_id).first
@@ -150,7 +150,7 @@ class PortionsController < ApplicationController
   end
 
   def approve_all_requests
-    if current_user.role == "admin"
+    if current_user.role.rights.where(value: 'approve_portion')
       portions = Portion.where(approved: false)
       portions.each do |portion|
         portion.approved = true
@@ -164,7 +164,7 @@ class PortionsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_portion
-      if current_user.role == "admin"
+      if current_user.role.rights.where(value: 'approve_portion')
         @portion = Portion.find(params[:id])
       else
         @portion = Portion.where(id: params[:id]).first

@@ -26,10 +26,10 @@ class LessonplansController < ApplicationController
     @year_plan = YearPlan.find(params[:year_plan])
     if @year_plan.present?
       @lessonplan = @year_plan.lessonplans.build
-      if current_user.role == 'teacher'
+      if current_user.role.name == 'Teacher'
         @grades = Grade.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:grade_id))
         @subjects = Subject.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:subject_id))
-      elsif current_user.role!= 'parent' && current_user.role!= 'student'
+      else
         # for admins
         @grades = Grade.all
         @subjects = Subject.all
@@ -95,7 +95,7 @@ class LessonplansController < ApplicationController
   end
 
   def get_requested
-    if current_user.role == "admin"
+    if current_user.role.right.where(value: 'approve_lesson').any?
       @lessonplans = []
       my_lessons = Lessonplan.where(approved: false)
       my_lessons.each do |lp|
@@ -141,7 +141,7 @@ class LessonplansController < ApplicationController
   end
 
   def approve_all_requests
-    if current_user.role == "admin"
+    if current_user.role.rights.where(value: 'approve_curriculam')
       lessonplans = Lessonplan.where(approved: false)
       lessonplans.each do |lessonplan|
         lessonplan.approved = true
@@ -155,7 +155,7 @@ class LessonplansController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_lessonplan
-      if current_user.role == "admin"
+      if current_user.role.rights.where(value: 'approve_curriculam')
         @lessonplan = Lessonplan.find(params[:id])
       else
         @lessonplan = Lessonplan.where(id: params[:id]).first

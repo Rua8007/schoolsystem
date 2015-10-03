@@ -26,10 +26,10 @@ class CurriculumsController < ApplicationController
      @year_plan = YearPlan.find(params[:year_plan])
     if @year_plan.present?
       @curriculum = @year_plan.curriculums.build
-      if current_user.role == 'teacher'
+      if current_user.role.name == 'Teacher'
         @grades = Grade.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:grade_id))
         @subjects = Subject.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:subject_id))
-      elsif current_user.role!= 'parent' && current_user.role!= 'student'
+      else
         # for admins
         @grades = Grade.all
         @subjects = Subject.all
@@ -41,10 +41,10 @@ class CurriculumsController < ApplicationController
 
   # GET /curriculums/1/edit
   def edit
-    if current_user.role == 'teacher'
+    if current_user.role.name == 'Teacher'
       @grades = Grade.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:grade_id))
       @subjects = Subject.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:subject_id))
-    elsif current_user.role!= 'parent' && current_user.role!= 'student'
+    else
       # for admins
       @grades = Grade.all
       @subjects = Subject.all
@@ -102,7 +102,7 @@ class CurriculumsController < ApplicationController
   end
 
   def get_requested
-    if current_user.role == "admin"
+    if current_user.role.rights.where(value: 'approve_curriculam')
       @curriculums = []
       my_curs = Curriculum.where(approved: false)
       my_curs.each do |cur|
@@ -150,7 +150,7 @@ class CurriculumsController < ApplicationController
   end
 
   def approve_all_requests
-    if current_user.role == "admin"
+    if current_user.role.rights.where(value: 'approve_curriculam')
       my_curs = Curriculum.where(approved: false)
       my_curs.each do |cur|
         cur.approved = true
@@ -164,7 +164,7 @@ class CurriculumsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_curriculum
-      if current_user.role == "admin"
+      if current_user.role.rights.where(value: 'approve_curriculam')
         @curriculum = Curriculum.find(params[:id])
       else
         @curriculum = Curriculum.where(id: params[:id]).first
