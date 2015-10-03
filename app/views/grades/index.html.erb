@@ -36,7 +36,7 @@
   <tbody>
     <% @grades.each do |grade| %>
       <tr>
-        <td><%= link_to grade.name, all_student_grade_path(grade.id) %></td>
+        <td><%= link_to grade.name, all_student_grades_path({grade_id: grade.id}) %></td>
         <td><%= grade.section %></td>
         <td><%= grade.batch.name %></td>
         <td><%= grade.students.count %></td>

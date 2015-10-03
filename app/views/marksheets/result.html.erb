@@ -28,4 +28,12 @@
 			</tr>
 		<% end %>
 	</tbody>
+	<tfoot class="table-head">
+		<td >Total</td>
+			<% @final.each do |sum| %>
+				<td>
+					<%= sum %>
+				</td>
+			<% end %>
+	</tfoot>
 </table>

@@ -189,7 +189,7 @@ Rails.application.routes.draw do
 
   resources :subjects
   resources :grades do
-    member do
+    collection do
       get 'all_student'
     end
   end

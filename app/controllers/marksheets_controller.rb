@@ -109,7 +109,7 @@ class MarksheetsController < ApplicationController
 
         elsif marksheet.sessionals.any?
           temp[bridge.subject_id] = marksheet.sessionals.sum(:marks)
-        
+
         else
           temp[bridge.subject_id] = 'Result Awaiting'
         end
@@ -139,7 +139,7 @@ class MarksheetsController < ApplicationController
     @marks = []
     @sessionals = @std.grade.marks
     marksheets = @std.marksheets.where(exam_id: params[:exam])
-    puts 
+    puts
     @std.marksheets.where(exam_id: params[:exam]).each do |m|
       sessionals = m.sessionals
       @marks.push({subject: m.bridge.subject.name, sessionals: sessionals})
@@ -155,22 +155,22 @@ class MarksheetsController < ApplicationController
     bridge = Bridge.find(params[:bridge_id])
     @class = bridge.grade
     @marksheets = []
-    
+
     @class.students.each do |std|
       temp = []
       if std.marksheets.where(exam_id: params[:exam_id], bridge_id: params[:bridge_id]).any?
         sessionals = std.marksheets.where(
-          exam_id: params[:exam_id], 
+          exam_id: params[:exam_id],
           bridge_id: params[:bridge_id]
         ).last.sessionals
 
         temp2 = {}
-        sessionals.each {|s| temp2[s.mark_id] = s}       
+        sessionals.each {|s| temp2[s.mark_id] = s}
         sessionals = temp2
       # else
         # sessionals = ["Resutl Awaiting", "Resutl Awaiting", "Resutl Awaiting"]
       end
-      
+
       @marksheets.push({student_id: std.id, student_name: std.fullname, sessionals: sessionals})
     end
 
@@ -201,6 +201,14 @@ class MarksheetsController < ApplicationController
         end
       end
       @marks << {subject: bridge.subject.name, marks: exam_result}
+    end
+    @final = []
+    Exam.all.try(:each) do |ex|
+      sum = 0
+      ex.marksheets.where(student_id: @std.id).each do |ses|
+        sum = ses.sessionals.sum(:marks)
+      end
+      @final << sum
     end
     # return render json: @marks
   end
