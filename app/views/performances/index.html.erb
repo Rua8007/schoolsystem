@@ -33,14 +33,14 @@
 </script>
 
 <div class="bg-light lter b-b wrapper-md">
-  <h1 class="m-n font-thin h3">Performance Reports
-    <a href="<%= new_performance_path %>" class="btn pull-right btn-color" style="width:200px;">Make a new Report</a></h1>
+  <h1 class="m-n font-thin h3">Performance Reports</h1>
 </div>
 
 <div style="overflow: scroll">
   <table id="example" class="table table-striped table-bordered table-responsive" style="overflow: scroll">
     <thead class= "table-head">
     <tr>
+      <th>Date</th>
       <th>Student</th>
       <th>Bridge</th>
       <th>Remark</th>
@@ -51,6 +51,7 @@
   <tbody>
     <% @performances.each do |performance| %>
       <tr>
+        <td><%= performance.create_at.strftime("%d-%m-%Y") %></td>
         <td><%= performance.student.fullname %></td>
         <td><%= performance.bridge.title %></td>
         <td><%= performance.remark %></td>
