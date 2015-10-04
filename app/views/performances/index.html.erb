@@ -51,7 +51,7 @@
   <tbody>
     <% @performances.each do |performance| %>
       <tr>
-        <td><%= performance.create_at.strftime("%d-%m-%Y") %></td>
+        <td><%= performance.created_at.strftime("%d-%m-%Y") %></td>
         <td><%= performance.student.fullname %></td>
         <td><%= performance.bridge.title %></td>
         <td><%= performance.remark %></td>
