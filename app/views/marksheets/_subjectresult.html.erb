@@ -13,12 +13,12 @@
   <tbody>
     <% @marksheets.each do |m| %>
       <tr>
-        <td><%= m[:student_id] %></td>
+        <td><%= Student.find(m[:student_id]).rollnumber %></td>
         <td><%= m[:student_name] %></td>
 
         <% @class.marks.each do |sm| %>
           <% if m[:sessionals].present? %>
-            <td> <%= m[:sessionals][sm.id].try(:marks) || 'N/A' %> </td> 
+            <td> <%= m[:sessionals][sm.id].try(:marks) || 'N/A' %> </td>
 
           <% else %>
             <td> N/A </td>
@@ -26,7 +26,7 @@
         <% end %>
 
         <td>
-          <%#= link_to '', result_card_marksheets_path({student: m[:student_id], exam: @exam.id}),:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
+          <%= link_to '', edit_marks_marksheets_path({student_id: m[:student_id], bridge_id: @bridge_id, exam_id: @exam_id}), method: :post,:class =>  'btn btn-success  glyphicon glyphicon-pencil' %>
         </td>
       </tr>
     <% end %>

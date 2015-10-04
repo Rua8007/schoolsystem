@@ -171,6 +171,8 @@ Rails.application.routes.draw do
       get "subject_result"
       get "get_subject_result"
       get "result"
+      post 'edit_marks'
+      post 'update_marks'
     end
   end
   resources :exams
