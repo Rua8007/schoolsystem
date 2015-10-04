@@ -23,6 +23,7 @@ class GradesController < ApplicationController
   # GET /grades/1/edit
   def edit
     @employees = Employee.where('employee.category.name' => "Academic")
+    @batches = Batch.all
   end
 
   # POST /grades
