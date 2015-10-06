@@ -1,0 +1,65 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Performance Report  </h1>
+</div>
+
+<style type="text/css">
+    @media(min-width: 1200px)
+.abc {
+  width: 1080px;
+}
+</style>
+<div class="abc" style="">
+
+    <div class="container" >
+    	<div class="abc" style="">
+
+    <div class="container" >
+	
+		<br>
+        <div class="col-sm-4">
+            <table class="table">
+                <tbody>
+                    
+                    <tr>
+                        <td class="student-profile-td">
+                            Student name
+                        </td>
+
+                        <td>
+                            <%= @performance.student.fullname %>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="student-profile-td">
+                            Section name
+                        </td>
+
+                        <td>
+                            <%= @performance.bridge.title %>
+                        </td>
+                    </tr>
+
+                     <tr>
+                        <td class="student-profile-td">
+                            Remarks
+                        </td>
+
+                        <td>
+                            <%= @performance.remark %>
+                        </td>
+                    </tr>
+
+                   
+                </tbody>
+            </table>
+            <%= link_to 'Back', performances_path,class: "btn btn-color" %>
+
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+
+
+

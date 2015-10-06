@@ -22,7 +22,8 @@ class GradesController < ApplicationController
 
   # GET /grades/1/edit
   def edit
-    @batches=Batch.all
+    @employees = Employee.where('employee.category.name' => "Academic")
+    @batches = Batch.all
   end
 
   # POST /grades
@@ -30,15 +31,20 @@ class GradesController < ApplicationController
   def create
     @grade = Grade.new(grade_params)
 
-    
+
       if @grade.save
         redirect_to new_bridge_path(class_id: @grade.id), notice: "Class Added Successfully"
-     
+
     end
   end
 
   def all_student
-    @grade = Grade.find(params[:id])
+    if params[:grade_id]
+      @grade = Grade.find(params[:grade_id])
+    else
+      @bridge = Bridge.find(params[:bridge_id])
+      @grade = @bridge.grade
+    end
     @students = @grade.students
     @student = @students.first
   end

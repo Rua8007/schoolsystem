@@ -27,8 +27,55 @@
 </div>
 
 <%= form_tag reply_conversation_path(@conversation), method: :post do %>
-  <div class="form-group">
-    <%= text_area_tag 'body', nil, cols: 3, class: 'form-control', placeholder: 'Type or reply something...', required: true %>
-  </div>
-  <%= submit_tag "Send Message", class: 'btn btn-primary' %>
+
+<div class="container form-holder">
+
+          <fieldset class="sss well well-lg">
+
+            <div class="form-group">
+              <%= text_area_tag 'body', nil, cols: 3, class: 'form-control', placeholder: 'Type or reply something...', required: true %>
+            </div>
+            <%= submit_tag "Send Message", class: 'btn btn-primary' %>
+          </fieldset>
+</div>
 <% end %>
+
+
+
+
+
+
+
+<style type="text/css">
+  .form-holder .col-sm-2 {
+    min-height: 84px;
+  }
+  .form-holder .form-control{
+    width: auto%;
+  }
+  .form-control{
+    border-radius: 7px;
+    border: black;
+  }
+</style>
+
+
+<style type="text/css">
+  .container{
+      width: auto;
+  }
+
+  .sss{
+    border:1px solid#e5e5e5;    
+  }
+
+  .lll{
+    width: auto !important; 
+    background-color: white;
+    padding-right: 16px;
+    padding-left: 15px;
+    border: 1px solid;
+    border-color: #729F32;
+    border-radius: 21px;
+  }
+</style>

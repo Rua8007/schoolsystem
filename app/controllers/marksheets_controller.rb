@@ -25,14 +25,17 @@ class MarksheetsController < ApplicationController
   # POST /marksheets.json
   def create
     @marksheet = Marksheet.new(marksheet_params)
-
-    respond_to do |format|
-      if @marksheet.save
-        format.html { redirect_to upload_marksheet_path(@marksheet.id), notice: 'Marksheet was successfully created.' }
-        format.json { render :show, status: :created, location: @marksheet }
-      else
-        format.html { render :new }
-        format.json { render json: @marksheet.errors, status: :unprocessable_entity }
+    if @marksheet.bridge.marksheets.where(exam_id: @marksheet.exam_id).any?
+      redirect_to :back, alert: "You have already uploaded a Marksheet. Edit the existing one"
+    else
+      respond_to do |format|
+        if @marksheet.save
+          format.html { redirect_to upload_marksheet_path(@marksheet.id), notice: 'Marksheet was successfully created.' }
+          format.json { render :show, status: :created, location: @marksheet }
+        else
+          format.html { render :new }
+          format.json { render json: @marksheet.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -67,18 +70,23 @@ class MarksheetsController < ApplicationController
   end
 
   def uploading
+    marksheet = Marksheet.find(params[:marksheet])
+    std_marks = marksheet.bridge.grade.marks.all
     params[:marks].each do |marks|
-      marksheet = Marksheet.find(params[:marksheet])
-      marksheet.student_id = marks.first
-      std_marks = marksheet.student.grade.marks.all
+      new_marksheet = Marksheet.create
+      new_marksheet.exam_id = marksheet.exam_id
+      new_marksheet.bridge_id = marksheet.bridge_id
+      new_marksheet.student_id = marks.first
       std_marks.each do |mark_type|
-        sessional = marksheet.sessionals.create
+        sessional = new_marksheet.sessionals.create
         sessional.mark_id = mark_type.id
         sessional.marks = marks.last[mark_type.name]["number"]
         sessional.save
       end
-      marksheet.save
+      new_marksheet.save
+      marksheet.delete
     end
+    redirect_to subject_result_marksheets_path
   end
 
   def classresult
@@ -87,26 +95,40 @@ class MarksheetsController < ApplicationController
   def get_class_result
     @class = Grade.find(params[:class_id])
     @marksheet = []
+    @exam = Exam.find(params[:exam_id])
     # @class.bridges.each do |b|
     #   if b.marksheets.find_by_exam_id(params[:exam_id]).present?
     #     @marksheet << b.marksheets.find_by_exam_id(params[:exam_id])
     #   end
     # end
     @class.students.each do |std|
-      temp = []
-      std.marksheets.where(exam_id: params[:exam_id]).each do |m|
-        temp.push({subject: m.bridge.subject_id, marks: m.sessionals.sum(:marks)})
-      end
-      @marksheet.push({student_id: std.id ,marks: temp})
+      temp = {}
 
+      @class.bridges.each do |bridge|
+        marksheet = std.marksheets.where(exam: @exam, bridge: bridge).first
+
+        if marksheet.blank?
+          temp[bridge.subject_id] = 'No marksheet!'
+
+        elsif marksheet.sessionals.any?
+          temp[bridge.subject_id] = marksheet.sessionals.sum(:marks)
+
+        else
+          temp[bridge.subject_id] = 'Result Awaiting'
+        end
+      end
+      # subjects = std.
+
+      # std.marksheets.where(exam_id: params[:exam_id]).each do |m|
+      #   if m.sessionals.any?
+      #     temp.push({subject: m.bridge.subject_id, marks: m.sessionals.sum(:marks)})
+      #   else
+      #     temp.push({subject: m.bridge.subject_id, marks: 'Result Awaiting'})
+      #   end
+      # end
+      @marksheet.push({student_id: std.id, marks: temp})
     end
 
-    puts "-----"*80
-    puts @marksheet.last.inspect 
-    puts @marksheet.last[:student_id] 
-
-    puts @marksheet.last[:marks].first[:marks].inspect 
-    puts "-----"*80
     respond_to do |format|
       format.js
       format.json { render json: {marksheet: @marksheet} }
@@ -115,6 +137,131 @@ class MarksheetsController < ApplicationController
     # return render json: @marksheet
   end
 
+  def edit_marks
+    @student = Student.find(params[:student_id])
+    marks = @student.grade.marks
+
+    @marksheet = @student.marksheets.where("exam_id = ? and bridge_id = ?", params[:exam_id], params[:bridge_id]).first
+    if @marksheet.present?
+      @sessionals = @marksheet.sessionals
+    else
+      @sessionals = false
+      @marksheet = Marksheet.new
+      @marksheet.bridge_id = params[:bridge_id]
+      @marksheet.exam_id = params[:exam_id]
+      @marksheet.student_id = @student.id
+      @marksheet.save
+    end
+    if !@sessionals
+      puts "---------------------------"
+      @marks = marks
+    else
+      @marks = marks.where.not(id: @sessionals.pluck(:mark_id))
+    end
+    # return render json: @sessionals
+  end
+
+  def update_marks
+
+    if params[:sess].present?
+      sess_ids = params[:sess].keys
+      sess_ids.try(:each) do |id|
+        s = Sessional.find(id)
+        s.marks = params[:sess][id][:marks]
+        s.save
+      end
+    end
+    if params[:marks].present?
+      marks_id = params[:marks].keys
+      marks_id.try(:each) do |m|
+        s = Marksheet.find(params[:marksheet_id]).sessionals.new
+        s.marks = params[:marks][m][:marks] || 0
+        s.save
+      end
+    end
+    redirect_to subject_result_marksheets_path, notice: 'Marks Updated Successfully'
+  end
+
+  def result_card
+    @std = Student.find(params[:student])
+    @marks = []
+    @sessionals = @std.grade.marks
+    marksheets = @std.marksheets.where(exam_id: params[:exam])
+    puts
+    @std.marksheets.where(exam_id: params[:exam]).each do |m|
+      sessionals = m.sessionals
+      @marks.push({subject: m.bridge.subject.name, sessionals: sessionals})
+    end
+    # return render json: @marks.first[:sessionals]
+  end
+
+  def subject_result
+    @bridges = Bridge.all
+  end
+
+  def get_subject_result
+    bridge = Bridge.find(params[:bridge_id])
+    @bridge_id = params[:bridge_id]
+    @exam_id = params[:exam_id]
+    @class = bridge.grade
+    @marksheets = []
+
+    @class.students.each do |std|
+      temp = []
+      if std.marksheets.where(exam_id: params[:exam_id], bridge_id: params[:bridge_id]).any?
+        sessionals = std.marksheets.where(
+          exam_id: params[:exam_id],
+          bridge_id: params[:bridge_id]
+        ).last.sessionals
+
+        temp2 = {}
+        sessionals.each {|s| temp2[s.mark_id] = s}
+        sessionals = temp2
+      # else
+        # sessionals = ["Resutl Awaiting", "Resutl Awaiting", "Resutl Awaiting"]
+      end
+
+      @marksheets.push({student_id: std.id, student_name: std.fullname, sessionals: sessionals})
+    end
+
+    respond_to do |format|
+      format.js
+      format.json { render json: {marksheet: @marksheet} }
+    end
+  end
+
+  def result
+    @std = Student.find(params[:student_id])
+    @marks = []
+    # Exam.all.each do |exam|
+    #   @std.grade.bridges.each do |bridge|
+    #     temp = bridge.marksheets.where(exam_id: exam.id, student_id: @std.id)
+    #     marks = {subject: bridge.subject.name, marks: temp}
+    #   end
+    #   # temp = {exam: exam, marks: marks}
+    # end
+    @std.grade.bridges.each do |bridge|
+      exam_result = []
+      Exam.all.each do |exam|
+        if bridge.marksheets.where(exam_id: exam.id).any?
+          temp = bridge.marksheets.where(exam_id: exam.id).first.sessionals.sum(:marks)
+          exam_result << {exam: exam.name , result: temp}
+        else
+          exam_result << {exam: exam.name , result: 0}
+        end
+      end
+      @marks << {subject: bridge.subject.name, marks: exam_result}
+    end
+    @final = []
+    Exam.all.try(:each) do |ex|
+      sum = 0
+      ex.marksheets.where(student_id: @std.id).each do |ses|
+        sum = ses.sessionals.sum(:marks)
+      end
+      @final << sum
+    end
+    # return render json: @marks
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_marksheet

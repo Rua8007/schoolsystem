@@ -1,0 +1,33 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Result Card</h1>
+</div>
+<br>
+<div class="well well-lg">
+	<h4>Student Name:           <%= @std.fullname %></h4>
+	<h4>Student ID:             <%= @std.id %></h4>
+	<h4>Grade:                  <%= @std.grade.full_name %></h4>
+</div>
+<table class="table">
+	<thead class="table-head">
+		<th>Subject</th>
+		<% @sessionals.try(:each) do |mark| %>
+			<th><%= mark.name %> ( <%= mark.passing_marks %> / <%= mark.marks.to_s %>) </th>
+		<% end %>
+		<th>Total (<%= @sessionals.sum(:marks) %>)</th> 
+	</thead>
+	<tbody>
+		<% @marks.each do |mark| %>
+			<tr>
+				<td>
+					<%= mark[:subject] %>
+				</td>
+				<% mark[:sessionals].try(:each) do |sess| %>
+					<td>
+						<%= sess.marks %>
+					</td>
+				<% end %>
+				<td> <%= mark[:sessionals].sum(:marks) %> </td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

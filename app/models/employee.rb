@@ -14,7 +14,9 @@ class Employee < ActiveRecord::Base
 	has_many :routes ,through: :transports
 
 	has_many :marksheets
-	
+
 	has_many :transports
-	
+
+	has_many :purchases
+
 end

@@ -5,6 +5,8 @@ class BridgesController < ApplicationController
   # GET /bridges.json
   def index
     @bridges = Bridge.all
+    @subjects = Subject.all
+    @employees = Employee.all
   end
 
   # GET /bridges/1
@@ -14,7 +16,7 @@ class BridgesController < ApplicationController
 
   # GET /bridges/new
   def new
-     @employee=Employee.all.pluck(:full_name,:id)
+    @employee=Employee.all.pluck(:full_name,:id)
     @bridge = []
     Subject.all.try(:each) do |s|
       temp = {flag: false, subject_id: s.id, employee_id: @employee, class_id: params[:class_id] }
@@ -28,6 +30,24 @@ class BridgesController < ApplicationController
 
   # GET /bridges/1/edit
   def edit
+    @employee = Category.where(name: 'Academic').first.employees
+  end
+
+  def newassign
+    @grade = Grade.find(params[:grade_id])
+    @bridge = @grade.bridges.new
+    @subjects = Subject.all
+    @employees = Employee.all
+
+  end
+
+  def assigned
+    b = Bridge.new
+        b.grade_id = params[:grade_id]
+        b.subject_id = params[:subject_id]
+        b.employee_id = params[:employee_id]
+        b.save
+        redirect_to  grades_path
   end
 
   # POST /bridges
@@ -60,7 +80,7 @@ class BridgesController < ApplicationController
         b.save
       end
     end
-    redirect_to class_subject_bridge_path(params[:grade_id]), alert: "Subjects added successfully"
+    redirect_to new_grade_path, alert: "Subjects added successfully"
   end
 
   # PATCH/PUT /bridges/1
@@ -82,14 +102,19 @@ class BridgesController < ApplicationController
   def destroy
     @bridge.destroy
     respond_to do |format|
-      format.html { redirect_to bridges_url, notice: 'Bridge was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Bridge was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   def class_subject
-    @subjects = Grade.find(params[:id]).bridges
+    @bridges = Grade.find(params[:id]).bridges
     @class = Grade.find(params[:id])
+  end
+
+  def teacher_subject
+    employee = Employee.find_by_email(current_user.email)
+    @bridges = employee.bridges
   end
 
   private

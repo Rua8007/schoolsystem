@@ -1,35 +1,50 @@
+
 <%= stylesheet_link_tag "//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css" %>
 <%= javascript_include_tag "https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js" %>
 <%= javascript_include_tag "//cdn.datatables.net/tabletools/2.2.2/js/dataTables.tableTools.min.js" %>
 <%= javascript_include_tag "https://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js" %>
 <script type="text/javascript">
   $(document).ready(function() {
-
-    $('#example').dataTable({
-        dom: 'T<"clear">lfrtip',
-        tableTools: {
-            "sSwfPath": "https://cdn.datatables.net/tabletools/2.2.2/swf/copy_csv_xls_pdf.swf"
-        }
+    $('#example thead th').each( function (i, v) {
+      // var title = $('#example tfoot th').eq( $(this).index() ).text();
+      var title = $(this).text();
+      if(title != "Actions"){
+        $(this).html(
+        '<input type="text" class="form-control" id="exampleInputName2" placeholder="'+title+' search">'
+        );
+      }
     });
+
+    // DataTable
+    var table = $('#example').DataTable();
+
+    // Apply the search
+    table.columns().eq( 0 ).each( function ( colIdx ) {
+        $( 'input', table.column( colIdx ).header() ).on( 'keyup change', function () {
+            table
+                .column( colIdx )
+                .search( this.value )
+                .draw();
+        } );
+    } );
   });
 
 </script>
 <div class="bg-light lter b-b wrapper-md">
-  <h1 class="m-n font-thin h3">Bus Allotments Register
-  <a href="<%= new_transportfeerecord_path %>" class="btn btn-color pull-right" style="width:200px;">Add transport fee record</a></h1>
+  <h1 class="m-n font-thin h3">Transport Fee Records
+<!--   <a href="<%#= new_transportfeerecord_path %>" class="btn btn-color pull-right" style="width:200px;">Add transport fee record</a></h1> -->
 </div>
-<table class="table" id="example">
-  <thead class= "table-head">
+
+<div style="overflow: scroll">
+  <table id="example" class="table table-striped table-bordered table-responsive" style="overflow: scroll">
+    <thead class= "table-head">
     <tr>
-      <th>St#</th>
+      <th>Submission date</th>
+      <th>Student ID</th>
       <th>Student's name</th>
       <th>Father's name</th>
       <th>Class</th>
-      <th>Driver's name</th>
-      <th>Stop name</th>
-      <th>Vehicle no.</th>
-      <th>Fee</th>
-      <th>Submission date</th>
+      <th>Amount Submitted</th>
       <th>Actions</th>
 
     </tr>
@@ -38,15 +53,13 @@
   <tbody>
     <% @transportfeerecords.each do |transportfeerecord| %>
       <tr>
-        <td><%= transportfeerecord.bus_allotment.student.id %></td>
+
+        <td><%= transportfeerecord.created_at %></td>
+        <td><%= transportfeerecord.bus_allotment.student.rollnumber %></td>
         <td><%= transportfeerecord.bus_allotment.student.fullname %></td>
         <td><%= transportfeerecord.bus_allotment.student.parent.name %></td>
-        <td><%= transportfeerecord.bus_allotment.student.grade.name %></td>
-        <td><%= transportfeerecord.bus_allotment.transport.employee.full_name %></td>
-        <td><%= transportfeerecord.bus_allotment.stop.name %></td>
-        <td><%= transportfeerecord.bus_allotment.transport.vehicle.vehicle_no %></td>
-        <td><%= transportfeerecord.bus_allotment.fee %></td>
-        <td><%= transportfeerecord.created_at %></td>
+        <td><%= transportfeerecord.bus_allotment.student.grade.full_name %></td>
+        <td><%= transportfeerecord.fee %></td>
         <td><%= link_to '', transportfeerecord,:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
             <%= link_to '', edit_transportfeerecord_path(transportfeerecord),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
             <%= link_to '', transportfeerecord, method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
@@ -55,10 +68,11 @@
     <% end %>
   </tbody>
 </table>
+</div>
 
 <br>
 <style type="text/css">
-  
+
 .bcc{
   color :red;
 

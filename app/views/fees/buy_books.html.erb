@@ -1,0 +1,14 @@
+<%= form_tag(books_invoice_fees_path, method: :get) do %>
+
+  <%= hidden_field_tag :student_id, @student.id %>
+  <% @books.try(:each) do |book| %>
+    <%= check_box_tag "books[]", book["id"], book.id %> <%= book.name %> Price: <%= book.price %>
+  <% end %>
+
+  <% @packages.try(:each) do |book| %>
+    <%= check_box_tag "pkgs[]", book["id"], book.id %> <%= book.name %> Price: <%= book.price %>
+  <% end %>
+
+  <%= submit_tag %>
+
+<% end %>

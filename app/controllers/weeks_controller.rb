@@ -8,8 +8,14 @@ class WeeksController < ApplicationController
     @year_plan = YearPlan.find(params[:year_plan_id])
     if @year_plan.present?
       @weeks = @year_plan.weeks.sort_by &:start_date
-      @grades = Grade.all
-      @subjects = Subject.all
+      if current_user.role.name == 'Teacher'
+        @grades = Grade.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:grade_id))
+        @subjects = Subject.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:subject_id))
+      else
+        # for admins
+        @grades = Grade.all
+        @subjects = Subject.all
+      end
     end
   end
 
@@ -85,33 +91,49 @@ class WeeksController < ApplicationController
     # return render json: params.inspect
     @subject = Subject.find(params[:subject_id])
     @grade = Grade.find(params[:grade_id])
+    #make it dynamic later
+    @week_days = ["Sunday","Monday","Tuesday","Wednesday","Thursday"]
+
     @year_plan = YearPlan.find(params[:year_plan_id])
     if @subject.present? && @grade.present? && @year_plan.present?
       # grade_subjects = GradeSubject.where(subject_id: @subject.id, grade_id: @grade.id)
       # @days
-      @weeks = @year_plan.weeks.sort_by &:start_date
+      @weeks = @year_plan.weeks.where(id: params[:week_schedule_id].to_i).sort_by &:start_date
     end
   end
 
   def add_schedule_weeks
+    # return render json: params.inspect
     year = YearPlan.find(params[:year_plan_id])
     subject = Subject.find(params[:subject])
     grade = Grade.find(params[:grade])
     if year.present? && subject.present? && grade.present?
-      weeks = year.weeks.sort_by &:start_date
-      weeks.each_with_index do |week,i|
-        classworks = "classworks_"+i.to_s
-        homeworks  = "homeworks_"+i.to_s
-        params[classworks].each_with_index do |cw,day_num|
-          day_name = "day_"+day_num.to_s
-          week.grade_subjects.create!(subject_id: subject.id, grade_id: grade.id, dayname: day_name, classwork: params[classworks][day_num], homework: params[homeworks][day_num])
+      weeks = Week.where(id: params[:weeks])
+      if weeks.present?
+        weeks.each_with_index do |week,i|
+          classworks = "classworks_"+i.to_s
+          homeworks  = "homeworks_"+i.to_s
+          daynameengs = "daynameeng_"+i.to_s
+          params[classworks].each_with_index do |cw,day_num|
+            day_name = "day_"+day_num.to_s
+            week_schedule = week.grade_subjects.where(subject_id: subject.id, grade_id: grade.id, day_name_eng: params[daynameengs][day_num]).first
+            if week_schedule.present?
+              week_schedule.classwork = params[classworks][day_num]
+              week_schedule.homework = params[homeworks][day_num]
+              week_schedule.approved = false
+              week_schedule.save!
+            else
+              week.grade_subjects.create!(subject_id: subject.id, grade_id: grade.id, dayname: day_name, classwork: params[classworks][day_num], homework: params[homeworks][day_num], day_name_eng: params[daynameengs][day_num])
+            end
+          end
         end
       end
     end
-    redirect_to year_plan_path(year)
+    flash[:success] = "Success"
+    redirect_to root_path
   end
 
- 
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

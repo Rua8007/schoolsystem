@@ -1,8 +1,9 @@
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3">Add Grade</h1>
 </div>
-
-
-<%= render 'form' %>
-
+<% if @batches.nil? %>
+  <h4>Create A Batch First <%= link_to 'New Batch', new_batch_path %></h4>
+<% else %>
+	<%= render 'form' %>
+<% end %>
 

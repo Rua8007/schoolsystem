@@ -1,0 +1,34 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Edit Marks</h1>
+</div>
+<%= form_tag update_marks_marksheets_path, method: :post do %>
+
+  <table class="table table-stripped">
+    <thead class="table-head">
+      <tr>
+        <th>Title</th>
+        <th>Marks</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% if @sessionals != false %>
+        <% @sessionals.try(:each) do |s| %>
+          <tr>
+            <td><%= s.mark.name %></td>
+            <td><%= text_field_tag "sess[#{s.id}][marks]", s.marks %></td>
+          </tr>
+        <% end %>
+      <% end %>
+      <% @marks.try(:each) do |m| %>
+        <tr>
+          <td><%= m.name %></td>
+          <td><%= text_field_tag "marks[#{m.id}][marks]", '' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+
+  </table>
+<%= hidden_field_tag :marksheet_id, @marksheet.id %>
+<%= submit_tag 'Update', class: "pull-right btn btn-success"%>
+<% end %>

@@ -1,0 +1,314 @@
+
+<html lang="en">
+  <div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Purchase Invoice </h1>
+  </div>
+
+    <link rel="stylesheet" href="style.css" media="all" />
+    <div class="clearfix">
+      <div id="logo">
+        <%= image_tag asset_path("img/logo.png"), alt: ".", class: 'img-responsive'%>
+      </div>
+      <div id="company">
+        <h2 class="name">Al Omam International school</h2>
+          <div>Tal Al Asfar, Ar Rihab, Jeddah 23345, Saudi Arabia</div>
+          <div>+966 12 674 1878</div>
+          <div><a href="#">www.alomam.edu.sa/</a></div>
+      </div>
+    </div>
+    <hr>
+    <main>
+      <div class="clearfix">
+        <div id="client" >
+          <h6><div class="to">INVOICE TO:</div></h6>
+          <table class="table">
+                <tbody>
+                    
+                    <tr>
+                        <td class="student-profile-td">
+                            Grade
+                        </td>
+                        <td>
+                        <%= @purchase.grade.id %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="student-profile-td">
+                            Teacher
+                        </td>
+                        <td>
+                        <%= @purchase.employee.full_name %>
+                        </td>
+                    </tr>
+                    
+                </tbody>
+          </table>
+        </div>
+        <div id="invoice">
+          <h6>Invoice  :: <%= @purchase.id %></h6>
+          <div class="date">Date of Invoice: <%= @purchase.created_at.strftime("%m/%d/%Y")  %></div>
+        </div>
+      </div>
+   
+   <div class="clearfix">
+    <div class="client margins">
+
+      <table class="table">
+        <thead >
+          <tr>
+            <th class="desc">Description</th>
+            <th class="unit">Unit Price</th>
+            <th class="qty">Qunatity</th>
+            <th class="total">Total</th>
+          </tr>
+        </thead>
+
+
+        <tbody>
+         <% @purchase.purchaselines.each do |pk| %>
+
+            <td class="desc"><%= pk.code %></td>
+            <td class="unit"><%= pk.price %></td>
+            <td class="qty"><%= pk.quantity %></td>
+            <td class="total"><%= pk.price * pk.quantity %></td>
+          </tr>
+          
+          
+        </tbody>
+        <%end%>
+        
+        <tfoot>
+        
+          <tr>
+            <td colspan="2"></td>
+            <td colspan="1">Grand Total</td>
+            <% subtotal = @purchase.purchaselines.sum('quantity * price') %>
+            <td><%= subtotal %></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    </div>
+     
+    </main>
+    <button class="btn btn-success pull-right" onclick="window.print()">Print</button>
+
+</html>
+
+
+
+
+<style type="text/css">
+  
+
+.margins{
+  margin: 7px 66px 0;
+}
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+a {
+  color: #0087C3;
+  text-decoration: none;
+}
+.student-profile-td{
+  font-weight: bold;
+  font-size:1.0em;
+  background-color: white;
+  }
+
+  .table > tbody > tr > td,
+.table > tfoot > tr > td {
+  padding: 3px 10px;
+  border-top: 1px solid #eaeff0;
+}
+
+
+
+
+header {
+  padding: 5px 0;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #AAAAAA;
+}
+
+#logo {
+  float: left;
+  margin-top: 8px;
+  width: 100px;
+  padding: 20px
+  height: 2px
+}
+
+#logo img {
+  height: 70px;
+}
+
+#company {
+  float: right;
+  text-align: right;
+  font-size: 0.7em;
+}
+
+
+#details {
+  margin-bottom: 50px;
+}
+
+#client {
+  padding-left: 6px;
+  float: left;
+  font-size: 1.0em;
+}
+
+#client .to {
+  color: #777777;
+}
+
+h2.name {
+  font-size: 1.4em;
+  font-weight: normal;
+  margin: 0;
+}
+
+#invoice {
+  float: right;
+  text-align: right;
+  font-size: 0.8em;
+}
+
+#invoice h6 {
+  color: #0087C3;
+  font-size: 1.3em;
+  font-weight: normal;
+  margin: 0  0 10px 0;
+}
+
+#invoice .date {
+  font-size: 1.1em;
+  color: #777777;
+}
+
+table {
+  width: auto;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin-bottom: 2px;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+table th,
+table td {
+  padding: 2px;
+  background: #EEEEEE;
+  text-align: center;
+  border-bottom: 1px solid #FFFFFF;
+}
+
+table th {
+  white-space: nowrap;        
+  font-weight: normal;
+}
+
+table td {
+  text-align: right;
+}
+
+table td h3{
+  color: #57B223;
+  font-size: 0.8em;
+  font-weight: normal;
+  margin: 0 0 0.2em 0;
+}
+
+table .no {
+  color: #FFFFFF;
+  font-size: 0.9em;
+  background: #57B223;
+}
+
+table .desc {
+  text-align: left;
+}
+
+table .unit {
+  background: #DDDDDD;
+}
+
+table .qty {
+}
+
+table .total {
+  background: #57B223;
+  color: #FFFFFF;
+}
+
+table td.unit,
+table td.qty,
+table td.total {
+  font-size: 1.1em;
+}
+
+table tbody tr:last-child td {
+  border: none;
+}
+table tbody tr td {
+  padding: 0px 0px;
+}
+
+table tfoot td {
+  padding: 0px 10px;
+  background: #FFFFFF;
+  border-bottom: none;
+  font-size: 1.3em;
+  white-space: nowrap; 
+  border-top: 1px solid #AAAAAA; 
+}
+
+table tfoot tr:first-child td {
+  border-top: none; 
+}
+
+table tfoot tr:last-child td {
+  color: #57B223;
+  font-size: 1.8em;
+  border-top: 1px solid #57B223; 
+
+}
+
+table tfoot tr td:first-child {
+  border: none;
+}
+
+#thanks{
+  font-size: 2em;
+  margin-bottom: 50px;
+}
+
+#notices{
+  padding-left: 6px;
+  border-left: 6px solid #0087C3;  
+}
+
+#notices .notice {
+  font-size: 1.2em;
+}
+
+@media print { 
+#nav ,#ul,#header,#aside { display :none ;}
+
+body{ width: 100%;
+      margin: 0;
+      padding: 0;          }
+}
+
+
+
+</style>
+
+
+

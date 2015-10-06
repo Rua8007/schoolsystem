@@ -1,19 +1,6 @@
-
-<h2>Grade : <%= @class.name %></h2>
-<table class= "table">
-  <thead>
-    <th>Subject</th>
-    <th>Teacher Name</th>
-    
-  </thead>
-  <tbody>
-    
-      <% @subjects.try(:each) do |b| %>
-        <tr>  
-        	<td><%= b.subject.name %></td>
-        	<td><%= b.employee.full_name %></td>
-        </tr>
-    <% end %>
-
-  </tbody>
-</table>
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Grade Subjects</h1>
+</div>
+<br><br>
+<%= render 'index' %>
+<br>

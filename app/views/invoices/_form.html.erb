@@ -26,42 +26,38 @@
     <input type="text" id = "std_contact" class="form-control" readonly="true">
   </div>
 
-  <div class="col-md-3 form-group">
-    <label>Book #</label>
-    <input type="text" id = "booknum" class="form-control">
-  </div>
 </div>
-  
+
 <div class="col-md-12">
   <div class="col-md-2 form-group">
     <label>Item Code</label>
     <input type="text" id = "code"  class="form-control">
     <span style = "color: red" id = "error" class="hidden">Invalid Code!!! </span>
   </div>
-  
+
   <div class="col-md-2 form-group">
     <label>Item Name</label>
     <input type="text" id = "name" readonly="true" class="form-control">
   </div>
-  
+
   <div class="col-md-2 form-group">
     <label>Item Price</label>
     <input type="text" id = "price"readonly="true"  class="form-control">
   </div>
-  
+
   <div class="col-md-2 form-group">
     <label>Item Quantity</label>
     <input type="text" id = "qty"  class="form-control float">
     <span style = "color: red" id="errmsg"></span>
   </div>
-  
-  <div class="col-md-2 form-group">  
+
+  <div class="col-md-2 form-group">
     <label>Total</label>
     <input type="text" id = "total" readonly="true" class="form-control">
   </div>
   <div  class="col-md-2 form-group">
   <button id = "itembtn" type="button" class="btn btn-success" style="margin-top:23px">Buy</button>
-        
+
   </div>
 </div>
   <br>
@@ -77,7 +73,7 @@
       <th>Actions</th>
     </thead>
     <tbody>
-      
+
     </tbody>
   </table>
   <br>
@@ -156,7 +152,7 @@
     $("#total").val(total);
   })
 
- </script> 
+ </script>
 
 <script>
 $(document).ready(function(){
@@ -222,7 +218,7 @@ $(document).ready(function(){
           document.getElementById("itemtable").deleteRow(i+1);
           console.log(items);
         }
-      } 
+      }
     };
     $("#name").val('');
     $("#price").val('');

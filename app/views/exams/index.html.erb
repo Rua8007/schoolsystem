@@ -1,6 +1,13 @@
 <div class="bg-light lter b-b wrapper-md">
-  <h1 class="m-n font-thin h3">Exams List </h1>
+
+  <h1 class="m-n font-thin h3">Exams
+  <% if current_user.role.rights.where(value: "create_exam").any? %>
+
+  <a href="<%= new_exam_path %>" class="btn btn-color pull-right"  style="width:200px;">Add a new Exam</a>
+<% end %>
+  </h1>
 </div>
+
 <br>
 <table class="table table-stripped">
   <thead class="table-head">
@@ -26,4 +33,3 @@
 
 <br>
 
-<%= link_to 'New Exam', new_exam_path %>

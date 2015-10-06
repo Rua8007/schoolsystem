@@ -1,6 +1,14 @@
 <div class="bg-light lter b-b wrapper-md">
-  <h1 class="m-n font-thin h3"> Grade <%= @grade.full_name %> </h1>
+  <h1 class="m-n font-thin h3"> Grade <%= @grade.full_name %> 
+  <% if current_user.role.rights.where(value: "update_grade").any? %>
+  <%= link_to(newassign_bridges_path({grade_id: @grade.id}), class: "btn pull-right btn-color" ,style: "width:200px;" ) do %>
+    <i class="fa fa-plus"></i>
+    New Assign
+  <% end %>
+ <% end %>
+  </h1>
 </div>
+
 
 
 <h2>Subject's Details</h2>
@@ -14,20 +22,23 @@
 		<% @grade.bridges.try(:each) do |sub| %>
 			<tr>
 				<td>
-					<%= sub.subject.name %>	
+					<%= sub.subject.name %>
 				</td>
 				<td><%= sub.employee.full_name %></td>
 				<td>
-					<%= link_to 'Edit', "javascript:void(0);" , class: 'edit-bridge-btn', style: '' %>
+  				<% if current_user.role.rights.where(value: "update_grade").any? %>
+					<%= link_to '', edit_bridge_path(sub) ,:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
+				<% end %>
+  				<% if current_user.role.rights.where(value: "update_grade").any? %>
+					<%= link_to '', bridge_path(sub), method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
+				<% end %>
 				</td>
 			</tr>
 		<% end %>
 	</tbody>
 </table>
-
-
 <script type="text/javascript">
-	
+
 $(document).ready(function(){
     $('.edit-bridge-btn').on('click',function (e){
       $('#edit_bridge').modal('show');

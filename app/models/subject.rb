@@ -6,5 +6,7 @@ class Subject < ActiveRecord::Base
 	has_many :portion_details
 	has_many :lessonplans
 	has_many :lessonplan_details
+
+	has_many :marksheets, through: :bridges
 	has_many :curriculums
 end

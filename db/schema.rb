@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150902065361) do
+ActiveRecord::Schema.define(version: 20151003071418) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,16 @@ ActiveRecord::Schema.define(version: 20150902065361) do
     t.float    "fee"
   end
 
+  create_table "calenders", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.datetime "starttime"
+    t.datetime "endtime"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "grade"
+  end
+
   create_table "categories", force: :cascade do |t|
     t.string   "name"
     t.string   "prefix"
@@ -73,8 +83,9 @@ ActiveRecord::Schema.define(version: 20150902065361) do
     t.integer  "subject_id"
     t.text     "studentname"
     t.integer  "year_plan_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.boolean  "approved",     default: false
   end
 
   create_table "departments", force: :cascade do |t|
@@ -148,6 +159,17 @@ ActiveRecord::Schema.define(version: 20150902065361) do
     t.integer  "total_experience_months"
   end
 
+  create_table "examcalenders", force: :cascade do |t|
+    t.integer  "bridge_id"
+    t.string   "title"
+    t.text     "description"
+    t.string   "category"
+    t.datetime "starttime"
+    t.datetime "endtime"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "exams", force: :cascade do |t|
     t.string   "name"
     t.integer  "batch_id"
@@ -157,13 +179,24 @@ ActiveRecord::Schema.define(version: 20150902065361) do
     t.string   "end_date"
   end
 
+  create_table "feebreakdowns", force: :cascade do |t|
+    t.integer  "grade_id"
+    t.string   "title"
+    t.integer  "amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "fees", force: :cascade do |t|
     t.integer  "student_id"
     t.integer  "amount"
     t.integer  "user_id"
     t.string   "month"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "feebreakdown_id"
+    t.string   "category"
+    t.integer  "identifier"
   end
 
   create_table "grade_subjects", force: :cascade do |t|
@@ -173,8 +206,10 @@ ActiveRecord::Schema.define(version: 20150902065361) do
     t.string   "dayname"
     t.text     "classwork"
     t.text     "homework"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.boolean  "approved",     default: false
+    t.string   "day_name_eng"
   end
 
   create_table "grades", force: :cascade do |t|
@@ -237,9 +272,10 @@ ActiveRecord::Schema.define(version: 20150902065361) do
     t.text     "studentengage"
     t.text     "newvocabulary"
     t.text     "objectives"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.integer  "year_plan_id"
+    t.boolean  "approved",      default: false
   end
 
   create_table "lines", force: :cascade do |t|
@@ -358,8 +394,19 @@ ActiveRecord::Schema.define(version: 20150902065361) do
     t.string   "officePhone"
     t.string   "mobile"
     t.string   "email"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.string   "mothername"
+    t.string   "mothermobile"
+    t.string   "motheremail"
+  end
+
+  create_table "performances", force: :cascade do |t|
+    t.integer  "student_id"
+    t.integer  "bridge_id"
+    t.text     "remark"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "periods", force: :cascade do |t|
@@ -383,8 +430,10 @@ ActiveRecord::Schema.define(version: 20150902065361) do
   create_table "portions", force: :cascade do |t|
     t.integer  "year_plan_id"
     t.string   "quarter"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.boolean  "approved",     default: false
+    t.integer  "grade_id"
   end
 
   create_table "positions", force: :cascade do |t|
@@ -394,9 +443,41 @@ ActiveRecord::Schema.define(version: 20150902065361) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "purchaselines", force: :cascade do |t|
+    t.integer  "purchase_id"
+    t.string   "code"
+    t.integer  "quantity"
+    t.float    "price"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "purchases", force: :cascade do |t|
+    t.integer  "grade_id"
+    t.integer  "employee_id"
+    t.text     "detail"
+    t.boolean  "approve"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "results", force: :cascade do |t|
     t.integer  "exam_id"
     t.integer  "bridge_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "rights", force: :cascade do |t|
+    t.string   "name"
+    t.string   "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "role_id"
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -435,6 +516,7 @@ ActiveRecord::Schema.define(version: 20150902065361) do
     t.datetime "updated_at",                      null: false
     t.boolean  "epresent",        default: true
     t.boolean  "eleave",          default: false
+    t.boolean  "late",            default: false
   end
 
   create_table "student_holidays", force: :cascade do |t|
@@ -495,6 +577,9 @@ ActiveRecord::Schema.define(version: 20150902065361) do
     t.string   "behaviour"
     t.string   "fullname"
     t.string   "due_date"
+    t.float    "discount"
+    t.string   "specialneed"
+    t.string   "rollnumber"
   end
 
   create_table "subjects", force: :cascade do |t|
@@ -519,6 +604,7 @@ ActiveRecord::Schema.define(version: 20150902065361) do
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
     t.string   "status"
+    t.integer  "identifier"
   end
 
   create_table "transports", force: :cascade do |t|
@@ -545,7 +631,8 @@ ActiveRecord::Schema.define(version: 20150902065361) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
-    t.string   "role"
+    t.integer  "role_id"
+    t.boolean  "is_active"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

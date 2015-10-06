@@ -1,32 +1,79 @@
+
+<%= stylesheet_link_tag "//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css" %>
+<%= javascript_include_tag "https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js" %>
+<%= javascript_include_tag "//cdn.datatables.net/tabletools/2.2.2/js/dataTables.tableTools.min.js" %>
+<%= javascript_include_tag "https://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js" %>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#example thead th').each( function (i, v) {
+      // var title = $('#example tfoot th').eq( $(this).index() ).text();
+      var title = $(this).text();
+      if(title != "Actions"){
+        $(this).html(
+        '<input type="text" class="form-control" id="exampleInputName2" placeholder="'+title+' search">'
+        );
+      }
+    });
+
+    // DataTable
+    var table = $('#example').DataTable();
+
+    // Apply the search
+    table.columns().eq( 0 ).each( function ( colIdx ) {
+        $( 'input', table.column( colIdx ).header() ).on( 'keyup change', function () {
+            table
+                .column( colIdx )
+                .search( this.value )
+                .draw();
+        } );
+    } );
+  });
+
+</script>
+
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3"> Fee Register </h1>
 </div>
 <br>
-<table class="table">
-  <thead class= "table-head">
+<div style="overflow: scroll">
+  <table id="example" class="table table-striped table-bordered table-responsive" style="overflow: scroll">
+    <thead class= "table-head">
     <th>Student ID</th>
     <th>Student Name</th>
+    <th>Grade</th>
     <th>Amount</th>
     <th>User</th>
-    <th>Month</th>
     <th>Action</th>
   </thead>
   <tbody>
-    <% @fees.each do |fee| %>
+    <% @fees.each do |f| %>
+      <% fee = f.last %>
       <tr>
-        <td><%= fee.student_id %></td>
-        <td><%= Student.find(fee.student_id).fullname %></td>
-        <td><%= fee.amount %></td>
-        <td><%= fee.user_id %></td>
-        <td><%= fee.month %></td>
+        <td><%= fee.first.student.rollnumber %></td>
+        <td><%= Student.find(fee.first.student_id).fullname %></td>
+        <td><%= fee.first.student.grade.full_name %></td>
+        <% temp = 0 %>
+        <% fee.each do |fe| %>
+          <% temp = temp + fe["amount"] %>
+        <% end %>
+        <td><%= temp %></td>
+        <td><%= fee.first.user.email %></td>
 
-        <td> <%= link_to '', fee,:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
+        <td>
+      <% if current_user.role.rights.where(value: "view_fee").any? || current_user.role.name == 'Parent' %>
+        <%= link_to '', fee_path(f.first),:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
+      <% end %>
+      <% if current_user.role.rights.where(value: "update_fee").any? %>
         <% if current_user.role != 'student' %>
-              <%= link_to '', edit_fee_path(fee),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
-              <%= link_to '', fee, method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
-          </td> 
+              <%= link_to '', edit_fee_path(f.first),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
+      <% end %>
+      <% if current_user.role.rights.where(value: "delete_fee").any? %>
+              <%= link_to '', fee_path(f.first), method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
+      <% end %>
+          </td>
         <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
+</div>

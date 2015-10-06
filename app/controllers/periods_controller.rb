@@ -99,7 +99,7 @@ class PeriodsController < ApplicationController
       else
         @time_table.destroy
         flash[:alert] = "Number of periods should be same of each day! Try again."
-        redirect_to year_plans_path
+        redirect_to root_path
       end
     else
       flash[:alert] = "Time Table not found"

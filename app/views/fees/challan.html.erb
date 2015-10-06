@@ -1,0 +1,118 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Challan Form
+  	<button class="btn btn-primary pull-right" onclick="window.print()"> Print </button>
+  </h1>
+</div>
+
+<div class="col-md-6">
+	<div>
+		<h3>Al-Omam International School</h3>
+		<div>
+			<div>Tal Al Asfar, Ar Rihab, Jeddah 23345, Saudi Arabia</div>
+      <div>+966 12 674 1878</div>
+      <div>www.alomam.edu.sa/</div>
+		</div>
+		<hr>
+		<div>
+			<span> <strong>Student ID: </strong>  <%= @student.id %></span><br>
+			<span> <strong>Name: </strong>  <%= @student.fullname %></span><br>
+			<span> <strong>Grade: </strong>  <%= @student.grade.full_name %></span><br>
+			<span> <strong>Batch: </strong>  <%= @student.grade.batch.name %></span><br>
+
+		</div>
+		<hr>
+	</div>
+	<table class="table">
+		<thead class="table-head">
+			<th>Title </th>
+			<th>Amount </th>
+		</thead>
+		<tbody>
+			<% @fee_breakdown.each do |f| %>
+				<tr>
+					<td>
+						<%= f.title %>
+					</td>
+
+					<td>
+						<%= f.amount %>
+					</td>
+				</tr>
+			<% end %>
+			<tr>
+				<td>
+					Transport Charges
+				</td>
+
+				<td>
+					<% if @student.bus_allotment.present? %>
+						<% bus_fee = @student.bus_allotment.fee %>
+						<%= @student.bus_allotment.fee || '0' %>
+					<% else %>
+						<% bus_fee = 0 %>
+						N/A
+					<% end %>
+				</td>
+			</tr>
+			<tr>
+				<td>Book Shop Charges</td>
+				<td><%= @bcharges %></td>
+			</tr>
+		</tbody>
+	</table>
+	<hr>
+	<div class="pull-right well well-lg">
+		<span> <strong>Sub Total: </strong>  <%= @fee_breakdown.sum(:amount) + @bcharges + bus_fee %></span><br>
+		<span> <strong>Discount: </strong>  <%= @student.discount || '0' %>%</span><br>
+		<% discount = @student.discount || 0 %>
+		<%  fee_discount =  discount * @fee_breakdown.first.amount/100 %>
+		<span> <strong>Grand Total: </strong>  <%= @fee_breakdown.sum(:amount) + bus_fee - fee_discount + @bcharges %></span><br>
+	</div>
+</div>
+
+<!-- <div class="col-md-6">
+	<div>
+		<h3>Al-Omam International School</h3>
+		<div>
+			<div>Tal Al Asfar, Ar Rihab, Jeddah 23345, Saudi Arabia</div>
+      <div>+966 12 674 1878</div>
+      <div>www.alomam.edu.sa/</div>
+		</div>
+		<hr>
+		<div>
+			<span> <strong>Student ID: </strong>  <%= @student.id %></span><br>
+			<span> <strong>Name: </strong>  <%= @student.fullname %></span><br>
+			<span> <strong>Grade: </strong>  <%= @student.grade.full_name %></span><br>
+			<span> <strong>Batch: </strong>  <%= @student.grade.batch.name %></span><br>
+
+		</div>
+		<hr>
+	</div>
+	<table class="table">
+		<thead class="table-head">
+			<th>Title </th>
+			<th>Amount </th>
+		</thead>
+		<tbody>
+			<% @fee_breakdown.each do |f| %>
+				<tr>
+					<td>
+						<%= f.title %>
+					</td>
+
+					<td>
+						<%= f.amount %>
+					</td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+	<br><br>
+	<div class="pull-right well well-lg">
+		<span> <strong>Sub Total: </strong>  <%= @fee_breakdown.sum(:amount) %></span><br>
+		<span> <strong>Discount: </strong>  <%= @student.discount || '0%' %></span><br>
+		<span> <strong>Grand Total: </strong>  <%= @fee_breakdown.sum(:amount) - ((@student.discount|| 0 * @fee_breakdown.first.amount)/100) %></span><br>
+	</div>
+</div>
+
+ -->

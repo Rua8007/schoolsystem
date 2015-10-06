@@ -15,6 +15,8 @@ class EmployeesController < ApplicationController
   # GET /employees/new
   def new
     @employee = Employee.new
+
+    @employee.employee_number = "emp_" + (Employee.count+1).to_s
     @categories = Category.all
     @departments = Department.all
     @positions = Position.all
@@ -31,15 +33,15 @@ class EmployeesController < ApplicationController
   # POST /employees
   # POST /employees.json
   def create
-    @employee = Employee.new(employee_params)
+    @employee = Employee.create(employee_params)
     respond_to do |format|
       if @employee.save
-        if @employee.category.name == 'Academic'
+        if @employee.category.name.downcase == 'academic'
           u = User.new
           u.email = @employee.email
           u.password = '123'
           u.password_confirmation = '123'
-          u.role = 'teacher'
+          u.role_id = Role.find_by_name('Teacher').id
           u.save
         end
         format.html { redirect_to employees_path, notice: 'Employee was successfully created.' }
@@ -100,7 +102,7 @@ class EmployeesController < ApplicationController
             emp_att_leave = Leave.where("leave_from <= ? AND leave_to >= ? AND employee_id = ? AND approved = true ",params[:attendance_date].to_date,params[:attendance_date].to_date, emp.id).first
 
             emp_att_previous = emp.employee_attendances.where(attendance_date: params[:attendance_date].to_date).first
-             
+
             if emp_att_previous.present?
               @previous_attendance_edit = true
               att = emp_att_previous.epresent
@@ -112,7 +114,7 @@ class EmployeesController < ApplicationController
 
             emp_att = {
                         "emp_id" => "#{emp.id}",
-                        "name" => "#{emp.full_name}", 
+                        "name" => "#{emp.full_name}",
                         "position" => "#{emp.try(:position).try(:name)}",
                         "attendance" => "#{emp_att_leave.present? ? false : att }",
                         "leave" => "#{emp_att_leave.present? ? true : false }",
@@ -131,9 +133,9 @@ class EmployeesController < ApplicationController
           dep_employees.each_with_index do |emp, i|
             emp_att_leave = Leave.where("leave_from <= ? AND leave_to >= ? AND employee_id = ? AND approved = true",params[:attendance_date].to_date,params[:attendance_date].to_date, emp.id).first
 
-            
+
             emp_att_previous = emp.employee_attendances.where(attendance_date: params[:attendance_date].to_date).first
-             
+
             if emp_att_previous.present?
               @previous_attendance_edit = true
               att = emp_att_previous.epresent
@@ -146,7 +148,7 @@ class EmployeesController < ApplicationController
             if emp_att_previous.present?
               emp_att = {
                           "emp_id" => "#{emp.id}",
-                          "name" => "#{emp.full_name}", 
+                          "name" => "#{emp.full_name}",
                           "position" => "#{emp.try(:position).try(:name)}",
                           "attendance" => "#{emp_att_leave.present? ? false : att }",
                           "leave" => "#{emp_att_leave.present? ? true : false }",
@@ -154,7 +156,7 @@ class EmployeesController < ApplicationController
                         }
             else
               emp_att = { "emp_id" => "#{emp.id}",
-                          "name" => "#{emp.full_name}", 
+                          "name" => "#{emp.full_name}",
                           "position" => "#{emp.try(:position).try(:name)}",
                           "attendance" => "#{ emp_att_leave.nil? ? true : false }",
                           "leave" => "#{ emp_att_leave.present? ? true : false }",
@@ -173,8 +175,8 @@ class EmployeesController < ApplicationController
 
   def save_attendances
     # return render json: params.inspect
-    if params[:attendance_date].present? && params[:attendance_date].to_date <= Date.today 
-  
+    if params[:attendance_date].present? && params[:attendance_date].to_date <= Date.today
+
 
       old_attendance = EmployeeAttendance.where(attendance_date: params[:attendance_date].to_date).first
       if old_attendance.present?
@@ -195,7 +197,7 @@ class EmployeesController < ApplicationController
   end
 
   def monthly_attendance_report
-    if current_user.role == 'teacher'
+    if current_user.role.name == 'Teacher'
       @departments = Department.where(id: Employee.find_by_email(current_user.email).department_id)
     else
       @departments = Department.all
@@ -213,7 +215,8 @@ class EmployeesController < ApplicationController
         @department_name = department.name
         employees = department.employees
         @attendances = []
-        if current_user.role != 'teacher'
+        if current_user.role.name != 'Teacher'
+          puts  " -------------in if------------------"
           employees.each_with_index do |employee, i|
             attendance = {}
             attendance.store("name","#{employee.full_name}")
@@ -270,7 +273,7 @@ class EmployeesController < ApplicationController
 
     def save_attendances_helper(params)
       if params[:department].present?
-        
+
         dept = Department.find(params[:department])
         if dept.present?
           dep_employees = dept.employees
@@ -309,7 +312,7 @@ class EmployeesController < ApplicationController
               end
             else
               emp_leave = Leave.where("leave_from <= ? AND leave_to >= ? AND employee_id = ? AND approved = true",params[:attendance_date].to_date,params[:attendance_date].to_date, emp.id).first
-            
+
               if emp_leave.present?
                 emp_attendance = emp.employee_attendances.where(attendance_date: params[:attendance_date].to_date).first
                 if emp_attendance.nil?

@@ -1,0 +1,184 @@
+<div class="col-md-12 ">
+  
+  <div class="col-md-3 form-group">
+    <label>Grade</label>
+    <%= select_tag "grade_id", options_from_collection_for_select(@grades, "id", "name"), class: "form-control", id: "std_grade", required: true %>
+  </div>
+
+  <div class="col-md-3 form-group">
+    <label>Teacher</label>
+    <%= select_tag "employee_id", options_from_collection_for_select(@teachers, "id", "full_name"), class: "form-control", id: "std_contact", required: true %>
+  </div>
+
+
+
+ 
+</div>
+  
+<div class="col-md-12">
+  <div class="col-md-2 form-group">
+    <label>Item Name</label>
+    <input type="text" id = "code"  class="form-control">
+    <span style = "color: red" id = "error" class="hidden">Invalid Code!!! </span>
+  </div>
+  
+  
+  
+  <div class="col-md-2 form-group">
+    <label>Item Price</label>
+    <input type="text" id = "price"  class="form-control">
+  </div>
+  
+  <div class="col-md-2 form-group">
+    <label>Item Quantity</label>
+    <input type="text" id = "qty"  class="form-control float">
+    <span style = "color: red" id="errmsg"></span>
+  </div>
+  
+  <div class="col-md-2 form-group">  
+    <label>Total</label>
+    <input type="text" id = "total" readonly="true" class="form-control">
+  </div>
+  <div  class="col-md-2 form-group">
+  <button id = "itembtn" type="button" class="btn btn-success" style="margin-top:23px">Buy</button>
+        
+  </div>
+</div>
+  <br>
+  <hr>
+  <br>
+
+  <table class="table table-striped" id="itemtable">
+    <thead class="table-head">
+      <th>Code</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Total</th>
+      <th>Actions</th>
+    </thead>
+    <tbody>
+      
+    </tbody>
+  </table>
+  <br>
+  <div class="pull-right">
+    
+    <div>
+      <label>Grand Total</label>
+      <input type="text" id = "gtotal" value="0" class="form-control" style="width:100%" readonly="true">
+    </div>
+    <br>
+    <div class="actions">
+      <div class="col-md-3 form-group pull-right">
+        <input type = "button" class = "btn btn-success pull-right" id = "submit" value="Create Invoice" >
+      </div>
+    </div>
+  </div>
+
+
+
+ <script type="text/javascript">
+  $("#qty").blur(function(){
+    var total = parseInt($("#price").val()) * parseInt($("#qty").val());
+    $("#total").val(total);
+  })
+
+</script>
+
+<script>
+$(document).ready(function(){
+
+  var items = []
+  $("#submit").click(function (){
+    var request = {grade_id: $("#std_grade").val(), employee_id: $("#std_contact").val(),items: items};
+    console.log(request);
+
+    $.ajax({
+      url: '/purchases/invoicing',
+      dataType: "json",
+      type: 'POST',
+      data: request,
+      success: function (data) {
+        if(data="success")
+        {
+          window.location.pathname="purchases"
+        }
+      },
+      error: function (xhr) {
+        return false;
+      }
+    });
+  });
+
+  $("#itembtn").click(function (){
+    console.log(item);
+
+    
+
+
+     var total = parseInt($("#price").val()) * parseInt($("#qty").val());
+    $("#gtotal").val(parseInt($("#gtotal").val()) + total);
+    var subtotal = parseInt($("#gtotal").val());
+    $("#Total").val(subtotal);
+
+    var item = {code: $("#code").val(), qty: $("#qty").val(),id: items.length, total: total, price: $('#price').val()};
+    items.push(item);
+
+    var table = document.getElementById("itemtable");
+    var row = table.insertRow(items.length);
+    var cell6 = row.insertCell(0);
+    var cell1 = row.insertCell(1);
+    var cell2 = row.insertCell(2);
+    var cell3 = row.insertCell(3);
+    var cell4 = row.insertCell(4);
+    cell6.innerHTML = $("#code").val();
+    cell1.innerHTML = $("#price").val();
+    cell2.innerHTML = $("#qty").val();
+    cell3.innerHTML = total;
+    cell4.innerHTML = "<button type='button' id = 'rembtn-"+item.id+"' class= 'btn btn-danger  rembtns' >Remove </Button>"
+    cell4.onclick = function(e){
+      var temp = e.srcElement.id;
+      var id = temp.split('-')[1]
+      console.log(id);
+      var i = 0;
+      for(i; i<items.length; i++)
+      {
+        if(items[i].id == id){
+          $("#gtotal").val(parseInt($("#gtotal").val()) - items[i].total);
+          $("#Total").val(parseInt($("#Total").val()) - items[i].total);
+          items.splice(i, 1);
+          document.getElementById("itemtable").deleteRow(i+1);
+          console.log(items);
+        }
+      } 
+    };
+    $("#name").val('');
+    $("#price").val('');
+    $("#qty").val('');
+    $("#code").val('');
+    $("#total").val('');
+  });
+});
+</script>
+
+
+
+
+
+  <style type="text/css">
+    .form-holder .col-sm-3 {
+      min-height: 84px;
+    }
+    .form-holder .form-control{
+        width: 100%;
+    }
+    .form-control{
+        border-radius: 7px;
+        border: black;
+    }
+</style>
+
+
+
+
+

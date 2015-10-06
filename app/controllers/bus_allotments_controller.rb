@@ -9,7 +9,7 @@ class BusAllotmentsController < ApplicationController
     else
       @bus_allotments = BusAllotment.all
     end
-    
+
   end
 
   # GET /bus_allotments/1
@@ -19,19 +19,27 @@ class BusAllotmentsController < ApplicationController
 
   # GET /bus_allotments/new
   def new
+    @skip = false
+    if(params[:skip])
+      @skip = true
+    end
     @bus_allotment = BusAllotment.new
-    @students=Student.all
-    @route = Route.all.order(:name)
-    @stops = @route.first.stops
-    @transports = @route.first.transports
-
+    @students = Student.all
+    @route = Route.try(:all).order(:name) || ''
+    if @route.any?
+      @stops = @route.first.stops
+      @transports = @route.first.transports
+    else
+      @stops = []
+      @transports = []
+    end
   end
 
   # GET /bus_allotments/1/edit
   def edit
     @students=Student.all
     @transports = @route.first.transports
-   
+
     @route = Route.all.order(:name)
     @stops = @route.first.stops
   end
@@ -40,7 +48,7 @@ class BusAllotmentsController < ApplicationController
   # POST /bus_allotments.json
   def create
     @bus_allotment = BusAllotment.new(bus_allotment_params)
-
+    @bus_allotment.student_id = Student.find_by_rollnumber(@bus_allotment.student_id.to_s).id
     respond_to do |format|
       if @bus_allotment.save
         format.html { redirect_to bus_allotments_path, notice: 'Bus allotment was successfully created.' }
@@ -55,7 +63,7 @@ class BusAllotmentsController < ApplicationController
   def stops_data
     puts '-'*80
     if params[:route_id].present? && params[:route_id] != ""
-      @stops = Route.find(params[:route_id]).stops 
+      @stops = Route.find(params[:route_id]).stops
       @transports = Route.find(params[:route_id]).transports
 
 

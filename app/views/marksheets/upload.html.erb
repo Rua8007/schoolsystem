@@ -2,36 +2,49 @@
   <h1 class="m-n font-thin h3">Upload Subjects</h1>
 </div>
 <br>
-
-<table class="table">
-	<thead class="table-head">
-		<th>Student ID</th>
-		<th>Student Name</th>
-		<% @marks.try(:each) do |mark| %>
-			<th><%= mark.name %> ( <%= mark.passing_marks %> / <%= mark.marks.to_s %>) </th>
-		<% end %>
-		<th>Total (<%= @marks.sum(:marks) %>)</th>
-
-	</thead>
-	<%= form_tag(uploading_marksheets_path, method: :post) do %>
-		<%= hidden_field_tag 'marksheet', @marksheet.id %>
-		<tbody>
-			<% @students.each do |std| %>
-				<tr>
-					<td>
-						<%= std.id %>
-					</td>
-					<td>
-						<%= std.fullname %>
-					</td>
-					<% @marks.try(:each) do |mark| %>
-						<td>
-							<input type="text" name="marks[<%=std.id %>][<%=mark.name%>][number]" style="10px">
-						</td>
-					<% end %>
-				</tr>
+<div style="overflow: scroll;">
+	<table class="table">
+		<thead class="table-head">
+			<th>Student ID</th>
+			<th>Student Name</th>
+			<% @marks.try(:each) do |mark| %>
+				<th style="width:77px;"><%= mark.name %> ( <%= mark.passing_marks %> / <%= mark.marks.to_s %>) </th>
 			<% end %>
-		</tbody>
-</table>
+			<th>Total (<%= @marks.sum(:marks) %>)</th>
+
+		</thead>
+		<%= form_tag(uploading_marksheets_path, method: :post) do %>
+			<%= hidden_field_tag 'marksheet', @marksheet.id %>
+			<tbody>
+				<% @students.each do |std| %>
+					<tr>
+						<td>
+							<%= std.id %>
+						</td>
+						<td>
+							<%= std.fullname %>
+						</td>
+						<% @marks.try(:each) do |mark| %>
+							<td>
+								<input type="text" id = "num-<%=std.id%>-<%=mark.id%>" class = "num" name="marks[<%=std.id %>][<%=mark.name%>][number]" style="width:77px">
+							</td>
+						<% end %>
+						<td id="total<%=std.id%>">
+							0
+						</td>
+					</tr>
+				<% end %>
+			</tbody>
+	</table>
+</div>
 	<%= submit_tag "Submit", class: "btn btn-success pull-right" %>
 <% end %>
+
+<script type="text/javascript">
+	$(".num").keyup(function (e){
+		console.log();
+		var id = e.target.attributes.id.value.split('-')[1];
+		$("#total"+id).text(parseFloat($("#total"+id).text())+ parseFloat($("#"+e.target.attributes.id.value).val()))
+		console.log(e);
+	})
+</script>

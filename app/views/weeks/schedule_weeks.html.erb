@@ -14,13 +14,17 @@
 					<% @weeks.each_with_index do |week,i| %>
 						<div class="week-div" id="week_<%= i %>" style="<%= "display: none;" if i > 0 %>">
 							<fieldset class="sss well well-lg">
-				        <legend class="lll"><%= "Week # #{i+1} "%>&nbsp;&nbsp;&nbsp;<span style="font-size:14px; color:blue;"><%="#{week.start_date.strftime("%d-%m-%Y")} - #{week.end_date.strftime("%d-%m-%Y")}" %><span></legend>
+				        <legend class="lll"><%= "Week "%>&nbsp;&nbsp;&nbsp;<span style="font-size:14px; color:blue;"><%="#{week.start_date.strftime("%d-%m-%Y")} - #{week.end_date.strftime("%d-%m-%Y")}" %><span></legend>
 				        <div class="column col-xs-12 col-sm-12">
 				         
 				         	<div class="day-div-<%= i %>" id="week_day_div_<%= i %>_0">	
 				         		<fieldset class="ttt well well-lg">
 							        <legend class="zzz"><span class="days-<%= i %>"><%= "Day 1" %></span></legend>
 							        <div class="column col-xs-12 col-sm-12">
+							        	<%= hidden_field_tag "weeks[]", week.id %>
+							        	<%= select_tag "daynameeng_#{i}[]", options_for_select([["Select Day" , "" ]] + @week_days.to_a), class: 'form-control' %>
+							        	<br/>
+							        	<%#= select_tag 'daynameeng_#{i}[]', options_for_select(%w[Islam Chritianity Budhism Hinduism Jew]),{}, {class: "form-control", style:"width: 100%"} %>
 							          <div class="form-group">
 							            <label for="exampleInputEmail1">Class Work</label>
 							            <%= text_area_tag "classworks_#{i}[]", nil, placeholder: 'Write Class Work Here...',cols: 70, rows: 7, class: 'form-control', style: 'width:100%' %>
@@ -41,16 +45,16 @@
 						</div>
 
 						<% if i > 0 %>
-							<%= link_to "Previous","", class: "btn btn-info week-previous", style: "display: none;", id: "week_previous_#{ i-1 if i-1 >= 0 }" %>
+							<%#= link_to "Previous","", class: "btn btn-info week-previous", style: "display: none;", id: "week_previous_#{ i-1 if i-1 >= 0 }" %>
 						<% end %>
-						<%= link_to "Next","", class: "btn btn-info week-next", style: "#{ 'display: none;' if i > 0 }", id: "week_next_#{ i+1 if i+1 < @weeks.count }" %>
+						<%#= link_to "Next","", class: "btn btn-info week-next", style: "#{ 'display: none;' if i > 0 }", id: "week_next_#{ i+1 if i+1 < @weeks.count }" %>
 					<% end %>
 				</div>
 			</div>
 		</div>
 		
 		<br/><br/><br/>
-		<%= submit_tag 'Save Schedule', class: 'btn btn-lg btn-success pull-right', style: 'display: none;', id: "submit_tag_id" %>
+		<%= submit_tag 'Save Schedule', class: 'btn btn-lg btn-success pull-right', style: '', id: "submit_tag_id" %>
 	<% end %>
 </div>
 

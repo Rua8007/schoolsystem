@@ -7,27 +7,45 @@
   <tbody>
     <%= form_tag(assign_teacher_bridges_path, method: :post) do %>
       <% i = 0%>
+      <div>
+        <input type="checkbox" id="selecctall" style="margin-left: 17px;margin-top: 18px;" checked="true" /> Selecct All
+      </div>
       <% @bridge.each do |b| %>
         <tr>
           <td>
             <%#= hidden_field_tag 'flags[]', '0' %>
-            <%= check_box_tag "flags[#{i}][check]", b["flag"], true, id: "bridge_#{b["subject_id"]}" %> 
+            <%= check_box_tag "flags[#{i}][check]", b["flag"], true, id: "bridge_#{b["subject_id"]}", class: 'checkbox1' %>
           </td>
           <td>
             <%= text_field_tag "flags[#{i}][subject_id]", Subject.find(b[:subject_id]).name %>
           </td>
 
           <td>
-            <%= select_tag "flags[#{i}][teacher_id]",options_for_select(@employee),{prompt: 'Select Teacher'} %>
+            <%= select_tag "flags[#{i}][teacher_id]",options_for_select(@employee),{prompt: 'Select Teacher', required: true} %>
           </td>
           <%= hidden_field_tag "grade_id", b[:class_id] %>
         </tr>
       <% i = i+1 %>
       <% end %>
-    
-
         <%= submit_tag "Assign Subject", data: { confirm: "Are you sure?" }, class: 'btn btn-success pull-right' %>
     <% end %>
 
   </tbody>
 </table>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#selecctall').click(function(event) {  //on click
+        if(this.checked) { // check select status
+            $('.checkbox1').each(function() { //loop through each checkbox
+                this.checked = true;  //select all checkboxes with class "checkbox1"
+            });
+        }else{
+            $('.checkbox1').each(function() { //loop through each checkbox
+                this.checked = false; //deselect all checkboxes with class "checkbox1"
+            });
+        }
+    });
+
+});
+</script>

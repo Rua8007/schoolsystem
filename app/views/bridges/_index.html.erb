@@ -1,0 +1,24 @@
+<table class="table">
+  <thead class="table-head">
+    <tr>
+      <th>Subject</th>
+      <th>Grade</th>
+      <th>Employee</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @bridges.each do |bridge| %>
+      <tr>
+        <td><%= bridge.subject.name if bridge.subject.present? %></td>
+        <td><%= bridge.grade.full_name if bridge.grade.present? %></td>
+        <td><%= bridge.employee.full_name if bridge.employee.present? %></td>
+        <td><%= link_to 'View Students', all_student_grades_path({bridge_id: bridge.id}) if bridge.grade.present? %>
+
+        <%#= link_to 'Edit', edit_bridge_path(bridge) %>
+        <%#= link_to 'Delete', bridge, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

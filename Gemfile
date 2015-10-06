@@ -16,16 +16,22 @@ gem 'coffee-rails', '~> 4.1.0'
 
 gem "rails-erd"
 
+gem 'httparty'
+
+gem 'wysihtml-rails'
+gem "pundit"
+# gem 'wysihtml-rails'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'momentjs-rails'
 
+
 gem 'country_select'
 gem 'bootstrap-datepicker-rails'
 gem "compass-rails", git: 'https://github.com/Compass/compass-rails', branch: 'master'
 gem 'gravatar_image_tag'
-
+gem 'fullcalendar-rails'
 
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder

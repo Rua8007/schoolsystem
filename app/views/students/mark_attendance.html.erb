@@ -1,3 +1,5 @@
+<% if current_user.role.rights.where(value: "create_sattendence").any? %>
+
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3 text-center">Students Attendance of <%= "#{@grad_name} Grade - #{@attendance_date}" %>
   </h1>
@@ -42,6 +44,7 @@
 	        <th>Student name</th>
 	        <th>Grade</th>
 	        <th>Present/Absent</th>
+	        <th>Late</th>
 	        <th>Leave</th>
 	        <th>Reason</th>
 	      </tr>
@@ -73,6 +76,23 @@
 	          <td>
 	          	<div class="checkbox">
 	              <label class="i-checks">
+	            		<% if student_attendance["late"] == "true" %>
+	                	<%= check_box_tag "lates[]", student_attendance["std_id"], true, id: "late_std_#{student_attendance["std_id"]}", class: 'attendance_checkbox' %>
+	                <% elsif student_attendance["leave"] == "true" %>
+	                	<%= check_box_tag "lates[]" , student_attendance["std_id"], false, id: "late_std_#{student_attendance["std_id"]}", class: 'attendance_checkbox', disabled: true %>
+	               	<% else %>
+	               		<%= check_box_tag "lates[]" , student_attendance["std_id"], false, id: "late_std_#{student_attendance["std_id"]}", class: 'attendance_checkbox' %>
+	               	<% end %>
+	                <i></i>
+	              </label>
+	            </div>
+
+	            
+	          </td>
+
+	          <td>
+	          	<div class="checkbox">
+	              <label class="i-checks">
 	              	<% if student_attendance["leave"] == "true" %>
 	                	<%= check_box_tag "leaves[]" , student_attendance["std_id"], true, id: "leave_std_#{student_attendance["std_id"]}", class: 'leave_checkbox', disabled: true %>
 	                <% else %>
@@ -91,6 +111,8 @@
   	<%= submit_tag "Save Attendance", data: { confirm: "Are you sure?" }, class: 'btn btn-success pull-right' %>
 	<% end %>
 </div>
+
+<% end %>
 
 
 
@@ -130,7 +152,19 @@
 
 			}
     });
+
+    $(".attendance_checkbox").click(function() {
+    	clicked_id = this.id.toString();
+    	clicked_id = clicked_id.split("_");
+    	leave_id = "#leave_std_"+clicked_id[clicked_id.length-1].toString();
+			if(this.checked)
+			{
+				$(leave_id).attr('checked', false);
+			}
+			else
+			{
+
+			}
+    });
   });
 </script> 
-
-

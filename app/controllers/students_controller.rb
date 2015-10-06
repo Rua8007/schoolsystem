@@ -5,29 +5,37 @@ class StudentsController < ApplicationController
 	end
 
 	def new
+    @flag = true
+    if Grade.any?
+      @flag = false
+    end
 		@student = Student.new
+    if Student.all.any?
+      @student_no = Student.last.rollnumber.to_i + 1
+    else
+      @student_no = '15001'
+     end
 	end
 
   def create
-    @student = Student.create(create_params)
-    if @student
+    @student = Student.new(create_params)
+
+    if @student.save
+      @email="std_"+Student.last.rollnumber.to_s+"@alomam.edu.sa"
+      @student.email = @email
       u = User.new
-      u.email = @student.email
+      u.email = @email
       u.password = '123'
       u.password_confirmation = '123'
-      u.role = 'student'
+      u.role_id = Role.find_by_name('Student').id
       u.save
+      @student.save
       emergency = @student.emergencies.create
       emergency.name = params[:student][:emergency][:name]
       emergency.mobile = params[:student][:emergency][:mobile]
       emergency.phone = params[:student][:emergency][:phone]
       emergency.email = params[:student][:emergency][:email]
       emergency.save
-
-      fee = @student.fees.create
-      fee.amount = params[:amount]
-      fee.month = params[:month]
-      fee.save
 
       redirect_to new_parent_path(student_id: @student.id), notice: "Student added"
     else
@@ -51,24 +59,25 @@ class StudentsController < ApplicationController
     end
   end
 
-    
-
   def edit_student
     @student = Student.find(params[:id])
     @edit = true
 
   end
 
-  
-
-  
-
   def assignParent
     # return render json: params
     std = Student.find(params[:id])
-    std.parent_id = params[:student][:parent_id]
+    std.parent_id = Student.find_by_rollnumber(params[:student][:rollnumber]).parent_id
     std.save!
-    redirect_to new_document_path(student_id: std.id)
+    u = User.new
+    @email="prt_"+std.rollnumber.to_s+"@alomam.edu.sa"
+    u.email = @email
+    u.password = '123'
+    u.password_confirmation = '123'
+    u.role_id = Role.find_by_name("Parent").id
+    u.save
+    redirect_to student_path(std.id)
   end
 
   def show
@@ -77,25 +86,17 @@ class StudentsController < ApplicationController
   end
 
   def detail
-    puts "-"*80
-    puts params
-    puts "-"*80
+    @student = Student.find(params[:id])
+    respond_to do |format|
+      format.js
+      format.json { render json: {student: @student } }  # respond with the created JSON object
+    end
+  end
 
-
-    if params[:fee]
-      if Student.find_by_id(params[:id]).present?
-        @student = Student.find_by_id(params[:id])
-      else
-        @student = nil
-      end
-      respond_to do |format|
-        format.json {render json: @student}
-      end
-    else
-      respond_to do |format|
-        format.js
-        format.json { render json: {student: @student } }  # respond with the created JSON object
-      end
+  def detail_by_rollnumber
+    @student = Student.find_by_rollnumber(params[:id])
+    respond_to do |format|
+      format.json { render json: {student: @student } }  # respond with the created JSON object
     end
   end
 
@@ -124,7 +125,7 @@ class StudentsController < ApplicationController
             std_att_leave = StudentHoliday.where("leave_from <= ? AND leave_to >= ? AND student_id = ? AND approved = true ",params[:attendance_date].to_date,params[:attendance_date].to_date, std.id).first
 
             std_att_previous = std.student_attendances.where(attendance_date: params[:attendance_date].to_date).first
-             
+
             if std_att_previous.present?
               @previous_attendance_edit = true
               att = std_att_previous.epresent
@@ -136,7 +137,7 @@ class StudentsController < ApplicationController
 
             std_att = {
                         "std_id" => "#{std.id}",
-                        "name" => "#{std.fullname}", 
+                        "name" => "#{std.fullname}",
                         "grade" => "#{std.try(:grade).try(:name)}",
                         "attendance" => "#{std_att_leave.present? ? false : att }",
                         "leave" => "#{std_att_leave.present? ? true : false }",
@@ -155,9 +156,9 @@ class StudentsController < ApplicationController
           grd_students.each_with_index do |std, i|
             std_att_leave = StudentHoliday.where("leave_from <= ? AND leave_to >= ? AND student_id = ? AND approved = true",params[:attendance_date].to_date,params[:attendance_date].to_date, std.id).first
 
-            
+
             std_att_previous = std.student_attendances.where(attendance_date: params[:attendance_date].to_date).first
-             
+
             if std_att_previous.present?
               @previous_attendance_edit = true
               att = std_att_previous.epresent
@@ -170,7 +171,7 @@ class StudentsController < ApplicationController
             if std_att_previous.present?
               std_att = {
                           "std_id" => "#{std.id}",
-                          "name" => "#{std.fullname}", 
+                          "name" => "#{std.fullname}",
                           "grade" => "#{std.try(:grade).try(:name)}",
                           "attendance" => "#{std_att_leave.present? ? false : att }",
                           "leave" => "#{std_att_leave.present? ? true : false }",
@@ -178,7 +179,7 @@ class StudentsController < ApplicationController
                         }
             else
               std_att = { "std_id" => "#{std.id}",
-                          "name" => "#{std.fullname}", 
+                          "name" => "#{std.fullname}",
                           "grade" => "#{std.try(:grade).try(:name)}",
                           "attendance" => "#{ std_att_leave.nil? ? true : false }",
                           "leave" => "#{ std_att_leave.present? ? true : false }",
@@ -196,9 +197,10 @@ class StudentsController < ApplicationController
   end
 
   def save_attendances
+
     # return render json: params.inspect
-    if params[:attendance_date].present? && params[:attendance_date].to_date <= Date.today 
-  
+    if params[:attendance_date].present? && params[:attendance_date].to_date <= Date.today
+
 
       old_attendance = StudentAttendance.where(attendance_date: params[:attendance_date].to_date).first
       if old_attendance.present?
@@ -232,7 +234,7 @@ class StudentsController < ApplicationController
         @grade_name = grade.name
         students = grade.students
         @attendances = []
-        if current_user.role != 'student'
+        if current_user.role.name != 'Student' && current_user.role.name != 'Parent'
           students.each_with_index do |student, i|
             attendance = {}
             attendance.store("name","#{student.fullname}")
@@ -252,8 +254,15 @@ class StudentsController < ApplicationController
             @attendances << attendance
           end
         else
-          student = Student.find_by_email(current_user.email)
-          i = 0 
+          puts '------------'
+          puts 'in else'
+          puts '------------'
+          if current_user.role.name == 'Student'
+            student = Student.find_by_email(current_user.email)
+          elsif current_user.role.name == 'Parent'
+            student = Student.find_by_rollnumber(current_user.email.split('@').first.split('_').last)
+          end
+          i = 0
           attendance = {}
           attendance.store("name","#{student.fullname}")
           e_attendances = student.student_attendances.where("extract(month from attendance_date) = ? AND extract(year from attendance_date) = ?",month,year)
@@ -280,19 +289,23 @@ class StudentsController < ApplicationController
     return render partial: "students/get_monthly_attendance_report_result"
   end
 
+  def give_discount
+    @student = Student.find(params[:id])
+  end
+
 	private
 
     def create_params
-      params.require(:student).permit(:fullname,:remote_image_url,:first_name, :mobile, :address, :email, :grade_id, :dob,:gender,:middle_name, :last_name, :blood, :birth_place, :nationality, :language, :religion, :city, :state, :country,:phone, :fee, :term, :due_date, :image,:iqamaNumber,:iqamaExpiry, :previousInstitute, :year, :totalMarks, :obtainedMarks, :forthname, :fifthname, :arabicname, :weight,:height,:eyeside,:hearing,:rh,:alergy,:nurology,:physical,:disability,:behaviour, emergencies_attributes:[:name, :phome, :mobile, :email, :student_id])      
+      params.require(:student).permit(:rollnumber,:specialneed,:fullname,:remote_image_url,:first_name, :mobile, :address, :email, :grade_id, :dob,:gender,:middle_name, :last_name, :blood, :birth_place, :nationality, :language, :religion, :city, :state, :country,:phone, :fee, :term, :due_date, :image,:iqamaNumber,:iqamaExpiry, :previousInstitute, :year, :totalMarks, :obtainedMarks, :forthname, :fifthname, :arabicname, :weight,:height,:eyeside,:hearing,:rh,:alergy,:nurology,:physical,:disability,:behaviour, :discount,emergencies_attributes:[:name, :phome, :mobile, :email, :student_id])
     end
 
     def student_params
-      params.require(:student).permit(:fullname,:remote_image_url,:first_name, :mobile, :address, :email, :grade_id, :dob,:gender,:middle_name, :last_name, :blood, :birth_place, :nationality, :language, :religion, :city, :state, :country,:phone, :fee, :term, :due_date, :image,:iqamaNumber,:iqamaExpiry, :previousInstitute, :year, :totalMarks, :obtainedMarks, :forthname, :fifthname, :arabicname, :weight,:height,:eyeside,:hearing,:rh,:alergy,:nurology,:physical,:disability,:behaviour, emergencies_attributes:[:name, :phome, :mobile, :email, :student_id])      
+      params.require(:student).permit(:rollnumber,:specialneed,:fullname,:remote_image_url,:first_name, :mobile, :address, :email, :grade_id, :dob,:gender,:middle_name, :last_name, :blood, :birth_place, :nationality, :language, :religion, :city, :state, :country,:phone, :fee, :term, :due_date, :image,:iqamaNumber,:iqamaExpiry, :previousInstitute, :year, :totalMarks, :obtainedMarks, :forthname, :fifthname, :arabicname, :weight,:height,:eyeside,:hearing,:rh,:alergy,:nurology,:physical,:disability,:behaviour, :discount,emergencies_attributes:[:name, :phome, :mobile, :email, :student_id])
     end
 
     def save_attendances_helper(params)
       if params[:grade].present?
-        
+
         grad = Grade.find(params[:grade])
         if grad.present?
           grd_students = grad.students
@@ -331,7 +344,7 @@ class StudentsController < ApplicationController
               end
             else
               std_leave = StudentHoliday.where("leave_from <= ? AND leave_to >= ? AND student_id = ? AND approved = true",params[:attendance_date].to_date,params[:attendance_date].to_date, std.id).first
-            
+
               if std_leave.present?
                 std_attendance = std.student_attendances.where(attendance_date: params[:attendance_date].to_date).first
                 if std_attendance.nil?

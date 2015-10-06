@@ -26,6 +26,3 @@
 //= require jquery.turbolinks
 //= require chosen-jquery
 //= require messages
-
-
-

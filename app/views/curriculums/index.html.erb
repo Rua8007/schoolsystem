@@ -1,44 +1,64 @@
-
 <%= stylesheet_link_tag "//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css" %>
 <%= javascript_include_tag "https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js" %>
 <%= javascript_include_tag "//cdn.datatables.net/tabletools/2.2.2/js/dataTables.tableTools.min.js" %>
 <%= javascript_include_tag "https://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js" %>
 <script type="text/javascript">
   $(document).ready(function() {
-
-    $('#example').dataTable({
-        dom: 'T<"clear">lfrtip',
-        tableTools: {
-            "sSwfPath": "https://cdn.datatables.net/tabletools/2.2.2/swf/copy_csv_xls_pdf.swf"
-        }
+    $('#example thead th').each( function (i, v) {
+      // var title = $('#example tfoot th').eq( $(this).index() ).text();
+      var title = $(this).text();
+      if(title != "Actions"){
+        $(this).html(
+        '<input type="text" class="form-control" id="exampleInputName2" placeholder="'+title+' search">'
+        );
+      }
     });
 
+    // DataTable
+    var table = $('#example').DataTable();
 
-
+    // Apply the search
+    table.columns().eq( 0 ).each( function ( colIdx ) {
+        $( 'input', table.column( colIdx ).header() ).on( 'keyup change', function () {
+            table
+                .column( colIdx )
+                .search( this.value )
+                .draw();
+        } );
+    } );
   });
 
 </script>
 
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3">Curriculum Plan
-  <a href="<%= new_curriculum_path(year_plan: @year_plan) %>" class="btn btn-color pull-right" style="width:200px;">Add a new Curriculum  Plan</a></h1>
+  <% if current_user.role.name == 'Teacher' %>
+    <a href="<%= new_curriculum_path(year_plan: @year_plan) %>" class="btn btn-color pull-right" style="width:200px;">Add a new Curriculum  Plan</a>
+  <% end %>
+  </h1>
+
   <br>
 </div>
 <br>
-<table class="table" id="example">
-  <thead class= "table-head">
+<div style="overflow: scroll">
+  <table id="example" class="table table-striped table-bordered table-responsive" style="overflow: scroll">
+    <thead class= "table-head">
     <tr>
       <th>Class</th>
       <th>Subject</th>
-      <th>Student </th>
+      <th>Teacher </th>
       <th>Actions</th>
     </tr>
   </thead>
 
   <tbody>
-      
+
     <% @curriculums.each do |curriculum| %>
-      <tr>
+      <% if curriculum.approved == true %>
+        <tr class="approved-row">
+      <% else %>
+        <tr class="disapproved-row">
+      <% end %>
         <td><%= curriculum.grade.name %></td>
         <td><%= curriculum.subject.name %></td>
         <td><%= curriculum.studentname %></td>
@@ -50,6 +70,15 @@
     <% end %>
   </tbody>
 </table>
+</div>
 
-<br>
 
+<style type="text/css">
+tr.approved-row td{
+  color: green;
+}
+
+tr.disapproved-row td{
+  color: red;
+}
+</style>

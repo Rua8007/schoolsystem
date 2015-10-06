@@ -1,0 +1,7 @@
+<%= form_tag(home_sendsms_path, method: :get) do %>
+  <label>Number</label>
+  <%= text_field_tag :number %>
+  <label>Text Body</label>
+  <%= text_area_tag :body %>
+  <%= submit_tag 'Send' %>
+<% end %>

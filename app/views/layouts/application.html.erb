@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="css/font.css" type="text/css" />
   <link rel="stylesheet" href="css/app.css" type="text/css" /> -->
 
-  
+
 
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
@@ -27,7 +27,7 @@
 </head>
 <body>
 <div class="app app-header-fixed  ">
-  
+
   <!-- header -->
   <header id="header" class="app-header navbar" role="menu">
           <!-- navbar header -->
@@ -38,7 +38,7 @@
         <button class="pull-right visible-xs" ui-toggle="off-screen" target=".app-aside" ui-scroll="app">
           <i class="glyphicon glyphicon-align-justify"></i>
         </button>
-        <!-- brand -->        
+        <!-- brand -->
         <a href="#/" class="navbar-brand text-lt">
           <span class="hidden-folded m-l-xs"></span>
         </a>
@@ -68,7 +68,7 @@
 
         <!-- nabar right -->
         <% if current_user %>
-        <ul class="nav navbar-nav navbar-right">          
+        <ul class="nav navbar-nav navbar-right">
           <!-- <li class="dropdown">
 
             <a href="#" data-toggle="dropdown" class="dropdown-toggle">
@@ -76,7 +76,7 @@
               <span class="visible-xs-inline">Notifications</span>
               <span class="badge badge-sm up bg-danger pull-right-xs">2</span>
             </a>
-            
+
             <div class="dropdown-menu w-xl animated fadeInUp">
               <div class="panel bg-white">
                 <div class="panel-heading b-light bg-light">
@@ -105,7 +105,7 @@
                 </div>
               </div>
             </div>
-          
+
           </li> -->
           <li class="dropdown">
             <a href="#" data-toggle="dropdown" class="dropdown-toggle clear" data-toggle="dropdown">
@@ -132,12 +132,12 @@
                   <div class="progress-bar progress-bar-info" data-toggle="tooltip" data-original-title="50%" style="width: 50%"></div>
                 </div>
               </li> -->
-              <!-- <li>
+              <li>
                 <a href>
                   <span class="badge bg-danger pull-right">30%</span>
-                  <span>Settings</span>
+                  <span><%= link_to "Settings", edit_user_registration_path %></span>
                 </a>
-              </li> -->
+              </li>
               <li>
                 <% if current_user && current_user.role == 'student' %>
                   <%= link_to "Profile", student_path(Student.find_by_email(current_user.email).id) %>
@@ -184,7 +184,7 @@
               <!-- <a href="#" data-toggle="dropdown" class="dropdown-toggle hidden-folded">
                 <span class="clear">
                   <span class="block m-t-sm">
-                    <strong class="font-bold text-lt">John.Smith</strong> 
+                    <strong class="font-bold text-lt">John.Smith</strong>
                     <b class="caret"></b>
                   </span>
                   <span class="text-muted text-xs block">Art Director</span>
@@ -231,12 +231,27 @@
                 <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
                   <span>Navigation</span>
                 </li>
-                  
+                <% if Right.where("role_id = ? and value = 'permissions'", current_user.role_id ).any? %>
+                  <li>
+                    <%= link_to(new_right_path) do %>
+                      <i class="glyphicon glyphicon-flag"></i>
+                      <span>User Permissions</span>
+                    <% end %>
+                  </li>
+                <% end %>
 
-                <% if current_user.role != 'accountant' %>
-                  <% if current_user.role != 'student' && current_user.role != 'teacher'  %>
+                <% if Right.where("role_id = ? and value = 'users'", current_user.role_id ).any? %>
+                  <li>
+                    <%= link_to(users_path) do %>
+                      <i class="glyphicon glyphicon-user"></i>
+                      <span>Users</span>
+                    <% end %>
+                  </li>
+                <% end %>
+
+                  <% if Right.where("role_id = ? and value = ?", current_user.role_id , 'view_student' ).any? %>
                     <li>
-                      <a href class="auto">      
+                      <a href class="auto">
                         <span class="pull-right text-muted">
                           <i class="fa fa-fw fa-angle-right text"></i>
                           <i class="fa fa-fw fa-angle-down text-active"></i>
@@ -251,21 +266,26 @@
                           <% end %>
                         </li>
                         <li>
-                          <%= link_to(new_student_path) do %>
-                            <span>Admit Student</span>
+                          <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'create_student').any? %>
+                            <%= link_to(new_student_path) do %>
+                              <span>Admit Student</span>
+                            <% end %>
                           <% end %>
                         </li>
                         <li>
-                          <%= link_to(students_path) do %>
-                            <span>List All Students</span>
+                          <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'view_student').any? %>
+                            <%= link_to(students_path) do %>
+                              <span>List All Students</span>
+                            <% end %>
                           <% end %>
-                        </li>     
+                        </li>
                       </ul>
                     </li>
+                  <% end %>
 
-
+                  <% if Right.where("role_id = ? and value = ?", current_user.role_id , 'view_employee' ).any? %>
                     <li>
-                      <a href class="auto">      
+                      <a href class="auto">
                         <span class="pull-right text-muted">
                           <i class="fa fa-fw fa-angle-right text"></i>
                           <i class="fa fa-fw fa-angle-down text-active"></i>
@@ -279,16 +299,20 @@
                             <span>Employee</span>
                           <% end %>
                         </li>
-                        <li>
-                          <%= link_to(new_employee_path) do %>
-                            <span>New Employee</span>
-                          <% end %>
-                        </li>
-                        <li>
-                          <%= link_to(employees_path) do %>
-                            <span>List All Employees</span>
-                          <% end %>
-                        </li> 
+                        <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'create_employee').any? %>
+                          <li>
+                            <%= link_to(new_employee_path) do %>
+                              <span>New Employee</span>
+                            <% end %>
+                          </li>
+                        <% end %>
+                        <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'view_employee').any? %>
+                          <li>
+                            <%= link_to(employees_path) do %>
+                              <span>List All Employees</span>
+                            <% end %>
+                          </li>
+                        <% end %>
                         <li>
                           <%= link_to(categories_path) do %>
                             <span>Manage Categories</span>
@@ -306,6 +330,8 @@
                         </li>
                       </ul>
                     </li>
+                  <% end %>
+                  <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'update_leave').any? %>
 
                     <li>
                       <%= link_to(leaves_path) do %>
@@ -317,10 +343,240 @@
                       <% end %>
                     </li>
                   <% end %>
-
-                  <% if current_user.role != 'student' %>
+                  <% if current_user.role.rights.where("value = ? or value = ? or value = ? or value = ?",'approve_curriculam', 'approve_lesson', 'approve_portion', 'approve_weekly_plan' ).any? %>
+                      <li>
+                        <a href class="auto">
+                          <span class="pull-right text-muted">
+                            <i class="fa fa-fw fa-angle-right text"></i>
+                            <i class="fa fa-fw fa-angle-down text-active"></i>
+                          </span>
+                          <i class="glyphicon glyphicon-book"></i>
+                          <span>Req. Approvals</span>
+                        </a>
+                        <ul class="nav nav-sub dk">
+                          <li class="nav-sub-header">
+                            <%= link_to("") do %>
+                              <span>Attendance</span>
+                            <% end %>
+                          </li>
+                          <% if current_user.role.rights(value: 'approve_curriculam').any? %>
+                            <li>
+                              <%= link_to(get_requested_curriculums_path) do %>
+                                <span>Curriculums</span>
+                              <% end %>
+                            </li>
+                          <% end %>
+                          <% if current_user.role.rights(value: 'approve_lesson').any? %>
+                            <li>
+                              <%= link_to(get_requested_lessonplans_path) do %>
+                                <span>Lesson Plans</span>
+                              <% end %>
+                            </li>
+                          <% end %>
+                          <% if current_user.role.rights(value: 'approve_portion').any? %>
+                            <li>
+                              <%= link_to(get_requested_portions_path) do %>
+                                <span>Portions</span>
+                              <% end %>
+                            </li>
+                          <% end %>
+                          <% if current_user.role.rights(value: 'approve_weekly_plan').any? %>
+                            <li>
+                              <%= link_to(get_requested_year_plans_path) do %>
+                                <span>Weekly Plans</span>
+                              <% end %>
+                            </li>
+                          <% end %>
+                        </ul>
+                      </li>
+                  <% end %>
+                  <% if Right.where("role_id = ? and value = 'timetable'", current_user.role_id ).any? %>
                     <li>
-                      <a href class="auto">      
+                      <%= link_to(home_timetable_path) do %>
+                        <i class="glyphicon glyphicon-tasks"></i>
+                        <span>Time Tables</span>
+                      <% end %>
+                    </li>
+                  <% end %>
+
+                  <% if current_user.role.name == 'Student' && Student.find_by_email(current_user.email).bus_allotment.present? %>
+                    <li>
+                      <%= link_to(bus_allotment_path(Student.find_by_email(current_user.email).bus_allotment.id)) do %>
+                        <i class="glyphicon glyphicon-tasks"></i>
+                        <span>Transport Details</span>
+                      <% end %>
+                    </li>
+                  <% end %>
+
+                  <% if current_user.role.name == 'Parent' && Student.find_by_rollnumber(current_user.email.split('@').first.split('_').last).bus_allotment.present? %>
+                    <% temp = Student.find_by_rollnumber(current_user.email.split('@').first.split('_').last).id %>
+                    <li>
+                      <%= link_to(bus_allotment_path(Student.find(temp).bus_allotment.id)) do %>
+                        <i class="glyphicon glyphicon-tasks"></i>
+                        <span>Transport Details</span>
+                      <% end %>
+                    </li>
+                  <% end %>
+
+                  <% if current_user.role.name == 'Parent' && Student.find_by_rollnumber(current_user.email.split('@').first.split('_').last).bus_allotment.present? %>
+                    <li>
+                      <%= link_to(transportfeerecords_path) do %>
+                        <i class="glyphicon glyphicon-tasks"></i>
+                        <span>Transport Fee Details</span>
+                      <% end %>
+                    </li>
+                  <% end %>
+
+                  <% if current_user.role.name == 'Parent' %>
+                    <li>
+                      <%= link_to(fees_path) do %>
+                        <i class="glyphicon glyphicon-tasks"></i>
+                        <span>Fee Details</span>
+                      <% end %>
+                    </li>
+                  <% end %>
+
+                  <% if current_user.role.name == 'Parent' || current_user.role.name == 'Student' %>
+                    <% if current_user.role.name == "Parent" %>
+                      <% temp2 = Student.find_by_rollnumber(current_user.email.split('@').first.split('_').last)  %>
+                    <% else %>
+                      <% temp2 = Student.find_by_email(current_user.email)  %>
+                    <% end %>
+                    <li>
+                      <%= link_to(grade_path(temp2.grade_id)) do %>
+                        <i class="glyphicon glyphicon-tasks"></i>
+                        <span>Subject Details</span>
+                      <% end %>
+                    </li>
+                  <% end %>
+
+
+                  <% if current_user.role.name == 'Student' %>
+                    <li>
+                      <%= link_to(result_marksheets_path({student_id: Student.find_by_email(current_user.email).id})) do %>
+                        <i class="glyphicon glyphicon-tasks"></i>
+                        <span>My Result Card</span>
+                      <% end %>
+                    </li>
+                  <% end %>
+
+                  <% if current_user.role.name == 'Parent' %>
+                    <% temp = Student.find_by_rollnumber(current_user.email.split('@').first.split('_').last).id %>
+                    <li>
+                      <%= link_to(result_marksheets_path({student_id: temp})) do %>
+                        <i class="glyphicon glyphicon-tasks"></i>
+                        <span>My Result Card</span>
+                      <% end %>
+                    </li>
+                  <% end %>
+
+                  <% if current_user.role.name == "Parent" %>
+                    <li>
+                      <a href class="auto">
+                        <span class="pull-right text-muted">
+                          <i class="fa fa-fw fa-angle-right text"></i>
+                          <i class="fa fa-fw fa-angle-down text-active"></i>
+                        </span>
+                        <i class="glyphicon glyphicon-book"></i>
+                        <span> Exam Results</span>
+                      </a>
+                      <ul class="nav nav-sub dk">
+                        <% Exam.all.try(:each) do |exam| %>
+                          <li>
+                            <%= link_to(result_card_marksheets_path({student: temp, exam: exam.id})) do %>
+                              <i class="glyphicon glyphicon-flag"></i>
+                              <span><%= exam.name %>s</span>
+                            <% end %>
+                          </li>
+                        <% end %>
+                      </ul>
+                    </li>
+                  <% end %>
+
+                  <% if current_user.role.name == "Student" %>
+                    <li>
+                      <a href class="auto">
+                        <span class="pull-right text-muted">
+                          <i class="fa fa-fw fa-angle-right text"></i>
+                          <i class="fa fa-fw fa-angle-down text-active"></i>
+                        </span>
+                        <i class="glyphicon glyphicon-book"></i>
+                        <span> Exam Results </span>
+                      </a>
+                      <ul class="nav nav-sub dk">
+                        <% Exam.all.try(:each) do |exam| %>
+                          <li>
+                            <%= link_to(result_card_marksheets_path({student: Student.find_by_email(current_user.email).id, exam: exam.id})) do %>
+                              <i class="glyphicon glyphicon-flag"></i>
+                              <span><%= exam.name %>s</span>
+                            <% end %>
+                          </li>
+                        <% end %>
+                      </ul>
+                    </li>
+                  <% end %>
+
+                  <% if current_user.role.name == 'Teacher' %>
+                    <li>
+                      <%= link_to(teacher_subject_bridges_path) do %>
+                        <i class="glyphicon glyphicon-flag"></i>
+                        <span>My Engagments</span>
+                      <% end %>
+                    </li>
+                  <% end %>
+                  <% if Right.where("role_id = ? and value = 'leave_request'", current_user.role_id ).any? %>
+                    <li>
+                      <%= link_to(new_leafe_path) do %>
+                        <i class="glyphicon glyphicon-flag"></i>
+                        <span>Request Leave</span>
+                      <% end %>
+                    </li>
+                  <% end %>
+                  <%# if current_user.role.name == 'Teacher' %>
+                  <% if Right.where("role_id = ? and (value='view_weeklyplans' or value='create_week' or value = 'update_week' or value = 'view_lesson_plans' or value = 'view_curriculum_plans')", current_user.role_id ).any? %>
+
+                    <li>
+                      <a href class="auto">
+                        <span class="pull-right text-muted">
+                          <i class="fa fa-fw fa-angle-right text"></i>
+                          <i class="fa fa-fw fa-angle-down text-active"></i>
+                        </span>
+                        <i class="glyphicon glyphicon-time"></i>
+                        <span>Plans</span>
+                      </a>
+                      <ul class="nav nav-sub dk">
+                        <li class="nav-sub-header">
+                          <%= link_to("") do %>
+                            <span>Plans</span>
+                          <% end %>
+                        </li>
+                        <% if current_user.role.rights.where("value = 'view_curriculum_plans'").any? || current_user.role.name == 'Teacher'%>
+                          <li>
+                            <%= link_to(curriculums_path(year_plan: @year_plan)) do %>
+                              <span>Curriculum Map</span>
+                            <% end %>
+                          </li>
+                        <% end %>
+                        <% if current_user.role.rights.where("value = 'view_lesson_plans'").any? || current_user.role.name == 'Teacher'%>
+                          <li>
+                            <%= link_to(lessonplans_path(year_plan: @year_plan)) do %>
+                              <span>Lesson Plans</span>
+                            <% end %>
+                          </li>
+                        <% end %>
+                        <% if current_user.role.rights.where("value = 'view_weeklyplans' or value = 'create_week' or value = 'update_week' ").any? or current_user.role.name == 'Teacher'%>
+                          <li>
+                            <%= link_to(year_plan_weeks_path(@year_plan)) do %>
+                              <span>Weekly Plans</span>
+                            <% end %>
+                          </li>
+                        <% end %>
+                      </ul>
+                    </li>
+                  <% end %>
+                  <% if Right.where("role_id = ? and (value = 'create_eattendence' or value = 'view_eattendence')", current_user.role_id ).any? %>
+                    <li>
+                      <a href class="auto">
                         <span class="pull-right text-muted">
                           <i class="fa fa-fw fa-angle-right text"></i>
                           <i class="fa fa-fw fa-angle-down text-active"></i>
@@ -334,25 +590,26 @@
                             <span>Attendance</span>
                           <% end %>
                         </li>
-                        <% if current_user.role != 'teacher' %>
-
+                        <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'create_eattendence').any? %>
                           <li>
                             <%= link_to(mark_attendance_calendar_employees_path) do %>
                               <span>Mark Attendance</span>
                             <% end %>
                           </li>
                         <% end %>
-                        <li>
-                          <%= link_to(monthly_attendance_report_employees_path) do %>
-                            <span>Attendance Report</span>
-                          <% end %>
-                        </li> 
+                        <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'view_eattendence').any? %>
+                          <li>
+                            <%= link_to(monthly_attendance_report_employees_path) do %>
+                              <span>Attendance Report</span>
+                            <% end %>
+                          </li>
+                        <% end %>
                       </ul>
                     </li>
                   <% end %>
-                  <% if current_user.role != 'teacher' %>
+                  <% if Right.where("role_id = ? and (value = 'create_sattendence' or value = 'view_sattendence')", current_user.role_id ).any? %>
                     <li>
-                      <a href class="auto">      
+                      <a href class="auto">
                         <span class="pull-right text-muted">
                           <i class="fa fa-fw fa-angle-right text"></i>
                           <i class="fa fa-fw fa-angle-down text-active"></i>
@@ -366,56 +623,141 @@
                             <span>Attendance</span>
                           <% end %>
                         </li>
-                        <% if current_user.role != 'student' %>
+                        <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'create_sattendence').any? %>
                           <li>
                             <%= link_to(mark_attendance_calendar_students_path) do %>
                               <span>Mark Attendance</span>
                             <% end %>
                           </li>
                         <% end %>
-                        <li>
-                          <%= link_to(monthly_attendance_report_students_path) do %>
-                            <span>Attendance Report</span>
-                          <% end %>
-                        </li> 
+                        <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'view_sattendence').any? %>
+                          <li>
+                            <%= link_to(monthly_attendance_report_students_path) do %>
+                              <span>Attendance Report</span>
+                            <% end %>
+                          </li>
+                        <% end %>
                       </ul>
                     </li>
                   <% end %>
-
-                  
-                  <li>
-                    <% if current_user.role != 'student' && current_user.role != 'teacher' %>
-                      <%= link_to(year_plans_path) do %>
+                  <% if Right.where("role_id = ? and value = 'view_prequest'", current_user.role_id ).any? %>
+                    <li>
+                      <%= link_to(purchases_path) do %>
                         <i class="glyphicon glyphicon-time"></i>
-                        <span>Time Table</span>
+                        <span>All Puchase Reqs</span>
                       <% end %>
-                    <% elsif current_user.role == 'student' %>
-                      <%= link_to(time_table_path(TimeTable.find_by_grade_id(Student.find_by_email(current_user.email).grade_id).id)) do %>
+
+                    </li>
+                  <% end %>
+
+                  <% if current_user.role.rights.where(value: 'create_prequest').any? %>
+                    <li>
+                      <%= link_to(new_purchase_path) do %>
                         <i class="glyphicon glyphicon-time"></i>
-                        <span>Time Table</span>
+                        <span>Request Purchase</span>
                       <% end %>
-                    <% end %>
-                  </li>
+                    </li>
+                  <% end %>
 
-                  <li>
-                    <%= link_to(conversations_path) do %>
-                      <i class="glyphicon glyphicon-time"></i>
-                      <span>Conversations</span>
-                    <% end %>
-                    
-                  </li>
-                  
+                    <li>
+                      <%= link_to(conversations_path) do %>
+                        <i class="glyphicon glyphicon-comment"></i>
+                        <% if current_user.mailbox.inbox({:read => false}).count > 0 %>
+                          <b class="badge bg-danger pull-right"><%= current_user.mailbox.inbox({:read => false}).count %></b>
+                        <% end %>
+                        <span>Conversations</span>
+                      <% end %>
+                    </li>
 
-              <% end %>
-              
-              <% if current_user.role != 'teacher' %>
-                <li>
-                  <a href class="auto">      
+              <% if Right.where("role_id = ? and value = 'view_gcalender'", current_user.role_id ).any? %>
+
+                 <li>
+                  <a href class="auto">
                     <span class="pull-right text-muted">
                       <i class="fa fa-fw fa-angle-right text"></i>
                       <i class="fa fa-fw fa-angle-down text-active"></i>
                     </span>
-                    <i class="glyphicon glyphicon-user"></i>
+                    <i class="glyphicon glyphicon-menu-hamburger"></i>
+                    <span>General Calender</span>
+                  </a>
+                  <ul class="nav nav-sub dk">
+                    <li class="nav-sub-header">
+                      <%= link_to("") do %>
+                        <span>Calender</span>
+                      <% end %>
+                    </li>
+                    <li>
+                      <%= link_to(calenders_path(type: 'kg')) do %>
+                        <span>KG1 to KG3 Calenders</span>
+                      <% end %>
+                    </li>
+                    <li>
+                      <%= link_to(calenders_path(type: 'one')) do %>
+                        <span>1 to 3 Calenders</span>
+                      <% end %>
+                    </li>
+                    <li>
+                      <%= link_to(calenders_path(type: 'four')) do %>
+                        <span>4 to 9 Calenders</span>
+                      <% end %>
+                    </li>
+                    <li>
+                      <%= link_to(calenderdetail_calenders_path) do %>
+                        <span>All Events</span>
+                      <% end %>
+                    </li>
+                  </ul>
+                </li>
+
+                <% end %>
+              <%# if current_user.role.name == 'Student' || current_user.role.name == 'Parent' %>
+                   <!--  <li>
+                      <%#= link_to(new_student_holiday_path) do %>
+                        <i class="glyphicon glyphicon-flag"></i>
+                        <span>Student Leave</span>
+                      <%# end %>
+                    </li> -->
+                  <%# end %>
+              <% if Right.where("role_id = ? and value = 'view_excalender'", current_user.role_id ).any? %>
+                <li>
+                  <a href class="auto">
+                    <span class="pull-right text-muted">
+                      <i class="fa fa-fw fa-angle-right text"></i>
+                      <i class="fa fa-fw fa-angle-down text-active"></i>
+                    </span>
+                    <i class="glyphicon glyphicon-menu-hamburger"></i>
+                    <span>Calenders</span>
+                  </a>
+                  <ul class="nav nav-sub dk">
+                    <li class="nav-sub-header">
+                      <%= link_to("") do %>
+                        <span> Exam Calender</span>
+                      <% end %>
+                    </li>
+                    <li>
+                      <%= link_to(examdetail_examcalenders_path) do %>
+                        <span>Exam Calender</span>
+                      <% end %>
+                    </li>
+                    <li>
+                      <%= link_to(quizdetail_examcalenders_path) do %>
+                        <span>Quiz Calenders</span>
+                      <% end %>
+                    </li>
+
+                  </ul>
+                </li>
+              <% end %>
+
+              <% if Right.where("role_id = ? and value = 'view_fee'", current_user.role_id ).any? %>
+
+                <li>
+                  <a href class="auto">
+                    <span class="pull-right text-muted">
+                      <i class="fa fa-fw fa-angle-right text"></i>
+                      <i class="fa fa-fw fa-angle-down text-active"></i>
+                    </span>
+                    <i class="glyphicon glyphicon-file"></i>
                     <span>Fee Register</span>
                   </a>
                   <ul class="nav nav-sub dk">
@@ -424,226 +766,275 @@
                         <span>Fee Register</span>
                       <% end %>
                     </li>
-                    <% if current_user.role != 'student' %>
-
+                    <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'create_fee').any? %>
                       <li>
                         <%= link_to(new_fee_path) do %>
                           <span>Submit Fee</span>
                         <% end %>
                       </li>
+                    <%end%>
+                    <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'view_fee').any? %>
                       <li>
                         <%= link_to(fee_defaulter_fees_path) do %>
                           <span>Fee Defaulters</span>
                         <% end %>
                       </li>
+                    <%end%>
+                    <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'create_fee').any? %>
+                      <li>
+                        <%= link_to(new_feebreakdown_path) do %>
+                          <span>Fee Break Down</span>
+                        <% end %>
+                      </li>
                     <% end %>
-                    <li>
-                      <%= link_to(fees_path) do %>
-                        <span>Fee Records</span>
-                      <% end %>
-                    </li> 
+                    <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'view_fee').any? %>
+                      <li>
+                        <%= link_to(fees_path) do %>
+                          <span>Fee Records</span>
+                        <% end %>
+                      </li>
+                    <% end %>
                   </ul>
                 </li>
-            <% end %>
-            <% if current_user.role != 'student' && current_user.role != 'teacher'%>
-              
+              <% end %>
                 <!-- li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
                   <span>Components</span>
                 </li> -->
-              <% if current_user.role != 'accountant' %>
-                <li>
-                 <li>
-                  <a href class="auto">      
-                    <span class="pull-right text-muted">
-                      <i class="fa fa-fw fa-angle-right text"></i>
-                      <i class="fa fa-fw fa-angle-down text-active"></i>
-                    </span>
-                    <i class="glyphicon glyphicon-user"></i>
-                    <span>Batch</span>
-                  </a>
-                  <ul class="nav nav-sub dk">
-                    <li class="nav-sub-header">
-                      <%= link_to("") do %>
-                        <span>Batch</span>
-                      <% end %>
-                    </li>
-                    <li>
-                      <%= link_to(new_batch_path) do %>
-                        <span>Add Batch</span>
-                      <% end %>
-                    </li>
-                    <li>
-                      <%= link_to(batches_path) do %>
-                        <span>List All Batches</span>
-                      <% end %>
-                    </li> 
-                  </ul>
-                </li>
-
-                <li>
-                  <a href class="auto">      
-                    <span class="pull-right text-muted">
-                      <i class="fa fa-fw fa-angle-right text"></i>
-                      <i class="fa fa-fw fa-angle-down text-active"></i>
-                    </span>
-                    <i class="glyphicon glyphicon-user"></i>
-                    <span>Subject</span>
-                  </a>
-                  <ul class="nav nav-sub dk">
-                    <li class="nav-sub-header">
-                      <%= link_to("") do %>
-                        <span>Subject</span>
-                      <% end %>
-                    </li>
-                    <li>
-                      <%= link_to(new_subject_path) do %>
-                        <span>Add Subject</span>
-                      <% end %>
-                    </li>
-                    <li>
-                      <%= link_to(subjects_path) do %>
-                        <span>List All Subjects</span>
-                      <% end %>
-                    </li> 
-                  </ul>
-                </li>
-
-                <li>
-                 <li>
-                  <a href class="auto">      
-                    <span class="pull-right text-muted">
-                      <i class="fa fa-fw fa-angle-right text"></i>
-                      <i class="fa fa-fw fa-angle-down text-active"></i>
-                    </span>
-                    <i class="glyphicon glyphicon-user"></i>
-                    <span>Grade</span>
-                  </a>
-                  <ul class="nav nav-sub dk">
-                    <li class="nav-sub-header">
-                      <%= link_to("") do %>
-                        <span>Grade</span>
-                      <% end %>
-                    </li>
-                    <li>
-                      <%= link_to(new_grade_path) do %>
-                        <span>Add Grade</span>
-                      <% end %>
-                    </li>
-                    <li>
-                      <%= link_to(grades_path) do %>
-                        <span>List All grades</span>
-                      <% end %>
-                    </li> 
-                  </ul>
-                </li>
-
-              <% end %>  
-            <% end %>
-            <% if current_user.role != 'teacher'  %>
-                <li>
-                  <a href class="auto">      
-                    <span class="pull-right text-muted">
-                      <i class="fa fa-fw fa-angle-right text"></i>
-                      <i class="fa fa-fw fa-angle-down text-active"></i>
-                    </span>
-                    <i class="glyphicon glyphicon-user"></i>
-                    <span>Transport</span>
-                  </a>
-                  <ul class="nav nav-sub dk">
-                    <% if current_user.role != 'student'  %>
+                <% if Right.where("role_id = ? and value = 'batch'", current_user.role_id ).any? %>
+                  <li>
+                   <li>
+                    <a href class="auto">
+                      <span class="pull-right text-muted">
+                        <i class="fa fa-fw fa-angle-right text"></i>
+                        <i class="fa fa-fw fa-angle-down text-active"></i>
+                      </span>
+                      <i class="glyphicon glyphicon-bookmark"></i>
+                      <span>Batch</span>
+                    </a>
+                    <ul class="nav nav-sub dk">
                       <li class="nav-sub-header">
                         <%= link_to("") do %>
-                          <span>Transport</span>
-                        <% end %>
-                      </li>
-                      
-                      <li>
-                        <%= link_to(vehicles_path) do %>
-                          <span>List All Vehicles</span>
+                          <span>Batch</span>
                         <% end %>
                       </li>
                       <li>
-                        <%= link_to(routes_path) do %>
-                          <span>List All Route</span>
-                        <% end %>
-                      </li>
-                      
-                      <li>
-                        <%= link_to(new_stop_path) do %>
-                          <span>New Stop</span>
+                        <%= link_to(new_batch_path) do %>
+                          <span>Add Batch</span>
                         <% end %>
                       </li>
                       <li>
-                        <%= link_to(transports_path) do %>
-                          <span>Transport details</span>
+                        <%= link_to(batches_path) do %>
+                          <span>List All Batches</span>
+                        <% end %>
+                      </li>
+                    </ul>
+                  </li>
+                <% end %>
+                <% if Right.where("role_id = ? and value = 'view_subject'", current_user.role_id ).any? %>
+                  <li>
+                    <a href class="auto">
+                      <span class="pull-right text-muted">
+                        <i class="fa fa-fw fa-angle-right text"></i>
+                        <i class="fa fa-fw fa-angle-down text-active"></i>
+                      </span>
+                      <i class="glyphicon glyphicon-book"></i>
+                      <span>Subject</span>
+                    </a>
+                    <ul class="nav nav-sub dk">
+                      <li class="nav-sub-header">
+                        <%= link_to("") do %>
+                          <span>Subject</span>
+                        <% end %>
+                      </li>
+                      <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'create_subject').any? %>
+                        <li>
+                          <%= link_to(new_subject_path) do %>
+                            <span>Add Subject</span>
+                          <% end %>
+                        </li>
+                      <% end %>
+                      <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'view_subject').any? %>
+                        <li>
+                          <%= link_to(subjects_path) do %>
+                            <span>List All Subjects</span>
+                          <% end %>
+                        </li>
+                      <% end %>
+                    </ul>
+                  </li>
+                <% end %>
+                <% if Right.where("role_id = ? and value = 'view_grade'", current_user.role_id ).any? %>
+                  <li>
+                   <li>
+                    <a href class="auto">
+                      <span class="pull-right text-muted">
+                        <i class="fa fa-fw fa-angle-right text"></i>
+                        <i class="fa fa-fw fa-angle-down text-active"></i>
+                      </span>
+                      <i class="glyphicon glyphicon-list-alt"></i>
+                      <span>Grade</span>
+                    </a>
+                    <ul class="nav nav-sub dk">
+                      <li class="nav-sub-header">
+                        <%= link_to("") do %>
+                          <span>Grade</span>
+                        <% end %>
+                      </li>
+                      <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'create_grade').any? %>
+                        <li>
+                          <%= link_to(new_grade_path) do %>
+                            <span>Add Grade</span>
+                          <% end %>
+                        </li>
+                      <% end %>
+                      <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'view_grade').any? %>
+                        <li>
+                          <%= link_to(grades_path) do %>
+                            <span>List All grades</span>
+                          <% end %>
+                        </li>
+                      <% end %>
+                    </ul>
+                  </li>
+                <% end %>
+                <% if Right.where("role_id = ? and value = 'create_transport'", current_user.role_id ).any? %>
+
+                  <li>
+                    <a href class="auto">
+                      <span class="pull-right text-muted">
+                        <i class="fa fa-fw fa-angle-right text"></i>
+                        <i class="fa fa-fw fa-angle-down text-active"></i>
+                      </span>
+                      <i class="glyphicon glyphicon-plane"></i>
+                      <span>Transport</span>
+                    </a>
+                    <ul class="nav nav-sub dk">
+                        <li class="nav-sub-header">
+                          <%= link_to("") do %>
+                            <span>Transport</span>
+                          <% end %>
+                        </li>
+
+                        <li>
+                          <%= link_to(vehicles_path) do %>
+                            <span>List All Vehicles</span>
+                          <% end %>
+                        </li>
+                        <li>
+                          <%= link_to(routes_path) do %>
+                            <span>List All Route</span>
+                          <% end %>
+                        </li>
+
+                        <li>
+                          <%= link_to(new_stop_path) do %>
+                            <span>New Stop</span>
+                          <% end %>
+                        </li>
+                        <li>
+                          <%= link_to(transports_path) do %>
+                            <span>Transport details</span>
+                          <% end %>
+                        </li>
+                      <li>
+                        <%= link_to(bus_allotments_path) do %>
+                          <span>Allot Transportation details</span>
+                        <% end %>
+                      </li>
+
+                      <li>
+                        <%= link_to(transportfeerecords_path) do %>
+                          <span>Transport Fee Records</span>
+                        <% end %>
+                      </li>
+
+                    </ul>
+                  </li>
+                <% end %>
+                <% if Right.where("role_id = ? and value = 'create_bookshop'", current_user.role_id ).any? %>
+
+                  <li>
+                    <a href class="auto">
+                      <span class="pull-right text-muted">
+                        <i class="fa fa-fw fa-angle-right text"></i>
+                        <i class="fa fa-fw fa-angle-down text-active"></i>
+                      </span>
+                      <i class="glyphicon glyphicon-shopping-cart"></i>
+                      <span>Book shop</span>
+                    </a>
+                    <ul class="nav nav-sub dk">
+                      <li class="nav-sub-header">
+                        <%= link_to("") do %>
+                          <span>Book shop</span>
+                        <% end %>
+                      </li>
+                    <% if current_user.role_id != 'student' %>
+
+                      <li>
+                        <%= link_to(shopcategories_path) do %>
+                          <span>All Categories</span>
+                        <% end %>
+                      </li>
+                      <li>
+                        <%= link_to(add_stock_items_path) do %>
+                          <span>Add Stock</span>
                         <% end %>
                       </li>
                     <% end %>
-                    
-                    <li>
-                      <%= link_to(bus_allotments_path) do %>
-                        <span>Allot Transportation details</span>
-                      <% end %>
-                    </li>
-                    
-                    <li>
-                      <%= link_to(transportfeerecords_path) do %>
-                        <span>Transport Fee Records</span>
-                      <% end %>
-                    </li>
-                    
-                  </ul>
-                </li>
-                <li>
-                  <a href class="auto">      
-                    <span class="pull-right text-muted">
-                      <i class="fa fa-fw fa-angle-right text"></i>
-                      <i class="fa fa-fw fa-angle-down text-active"></i>
-                    </span>
-                    <i class="glyphicon glyphicon-user"></i>
-                    <span>Book shop</span>
-                  </a>
-                  <ul class="nav nav-sub dk">
-                    <li class="nav-sub-header">
-                      <%= link_to("") do %>
-                        <span>Book shop</span>
-                      <% end %>
-                    </li>
-                  <% if current_user.role != 'student' %>
+                      <li>
+                        <%= link_to(items_path) do %>
+                          <span>All Items</span>
+                        <% end %>
+                      </li>
+                      <li>
+                        <%= link_to(packages_path) do %>
+                          <span>All package</span>
+                        <% end %>
+                      </li>
+                    <% end%>
 
-                    <li>
-                      <%= link_to(shopcategories_path) do %>
-                        <span>All Categories</span>
-                      <% end %>
-                    </li>
-                    <li>
-                      <%= link_to(add_stock_items_path) do %>
-                        <span>Add Stock</span>
-                      <% end %>
-                    </li>
-                  <% end %>
-                    <li>
-                      <%= link_to(items_path) do %>
-                        <span>All Items</span>
-                      <% end %>
-                    </li>
-                    <li>
-                      <%= link_to(packages_path) do %>
-                        <span>All package</span>
-                      <% end %>
-                    </li>
-                    
-                    
-                    <li>
-                      <%= link_to(invoices_path) do %>
-                        <span>All invoices</span>
-                      <% end %>
-                    </li>
-                    
-                  </ul>
-                </li>
-          <% end %>
-                <% if current_user.role != 'accountant' %>
+                <% if Right.where("role_id = ? and value = 'view_bookshop'", current_user.role_id ).any? %>
+
+                      <li>
+                        <%= link_to(invoices_path) do %>
+                          <span>All invoices</span>
+                        <% end %>
+                      </li>
+
+                    </ul>
+                  </li>
+                <% end %>
+
+                <li>
+                    <a href class="auto">
+                      <span class="pull-right text-muted">
+                        <i class="fa fa-fw fa-angle-right text"></i>
+                        <i class="fa fa-fw fa-angle-down text-active"></i>
+                      </span>
+                      <i class="glyphicon glyphicon-shopping-cart"></i>
+                      <span>Performance Report</span>
+                    </a>
+                    <ul class="nav nav-sub dk">
+                      <li class="nav-sub-header">
+                        <%= link_to("") do %>
+                          <span>Performance Report</span>
+                        <% end %>
+                      </li>
+                    <% if current_user.role_id != 'teacher' %>
+
+                      <li>
+                        <%= link_to(performances_path) do %>
+                          <span>All Reports</span>
+                        <% end %>
+                      </li>
+                     
+
+                    </ul>
+                  </li>
+                <% end %>
+
+                <% if Right.where("role_id = ? and value = 'view_exam'", current_user.role_id ).any? %>
+
                   <li>
                     <a href class="auto">
                       <span class="pull-right text-muted">
@@ -654,26 +1045,65 @@
                       <span>Examinations</span>
                     </a>
                     <ul class="nav nav-sub dk">
+                      <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'create_exam').any? %>
+                        <li>
+                          <%= link_to(new_exam_path) do %>
+                            <span>Create Exam</span>
+                          <% end %>
+                        </li>
+                      <% end %>
+
+                      <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'view_exam').any? %>
+
+                        <li>
+                          <%= link_to(exams_path) do %>
+                            <span>Exams List</span>
+                          <% end %>
+                        </li>
+                      <% end %>
+
+                      <% if Right.where("role_id = ? and (value = ? or value = ? )" , current_user.role_id, 'create_exam' , 'update_exam').any? %>
+                        <li>
+                          <%= link_to(marks_path) do %>
+                            <span>Marks Devisions</span>
+                          <% end %>
+                        </li>
+                      <% end %>
+                      <% if current_user.role.name == 'Teacher' %>
+                        <li>
+                          <%= link_to(portions_path(year_plan: @year_plan)) do %>
+                            <span>Portions</span>
+                          <% end %>
+                        </li>
+                      <% end %>
+                      <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'upload_marks').any? %>
+                        <li>
+                          <%= link_to(new_marksheet_path) do %>
+                            <span>Upload Marksheet</span>
+                          <% end %>
+                        </li>
+                      <% end %>
+                      <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'view_marksheets').any? %>
+                        <li>
+                          <%= link_to(marksheets_path) do %>
+                            <span>All Marksheet</span>
+                          <% end %>
+                        </li>
+                      <% end %>
+                      <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'view_class_result').any? %>
+                        <li>
+                          <%= link_to(classresult_marksheets_path) do %>
+                            <span>Class Results</span>
+                          <% end %>
+                        </li>
+                      <% end %>
+                    <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'subject_result').any? %>
                       <li>
-                        <%= link_to(new_exam_path) do %>
-                          <span>Create Exam</span>
+                        <%= link_to(subject_result_marksheets_path) do %>
+                          <span>Subject Results</span>
                         <% end %>
                       </li>
-                      <li>
-                        <%= link_to(exams_path) do %>
-                          <span>Exams List</span>
-                        <% end %>
-                      </li>
-                      <li>
-                        <%= link_to(new_marksheet_path) do %>
-                          <span>Upload Marksheet</span>
-                        <% end %>
-                      </li>
-                      <li>
-                        <%= link_to(marksheets_path) do %>
-                          <span>Marksheet</span>
-                        <% end %>
-                      </li>
+                    <% end %>
                       <!-- <li>
                         <a href="ui_icon.html">
                           <b class="badge bg-info pull-right">3</b>
@@ -713,7 +1143,8 @@
                       </li> -->
                     </ul>
                   </li>
-                <% end %>
+                  <% end %>
+
                 <!-- <li>
                   <a href class="auto">
                     <span class="pull-right text-muted">
@@ -842,13 +1273,13 @@
                     </li>
                   </ul>
                 </li> -->
-<!-- 
+<!--
                 <li class="line dk hidden-folded"></li>
-                <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">          
+                <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
                   <span>Your Stuff</span>
                 </li>   -->
 
-                
+
 
               <!--   <li>
                   <a href="page_profile.html">
@@ -893,17 +1324,17 @@
       </div>
   </aside>
   <!-- / aside -->
-  
+
   <!-- content -->
   <div id="content" class="app-content" role="main">
     <div class="app-content-body ">
-      
+
 
 <div class="hbox hbox-auto-xs hbox-auto-sm" style="background-color: white; padding: 0 15px 0">
 
 
 <!-- <div class="hbox hbox-auto-xs hbox-auto-sm" ng-init="
-    app.settings.asideFolded = false; 
+    app.settings.asideFolded = false;
     app.settings.asideDock = false;
   "> -->
  <!-- main -->
@@ -946,20 +1377,16 @@ $(document).ready(function () {
         $("#errmsg").html("Digits Only").show().fadeOut("slow");
                return false;
     }
-   });
-});
-</script>
-<script type="text/javascript">
-$(document).ready(function () {
-  //called when key is pressed in textbox
+  });
+
   $(".numeric").keypress(function (e) {
-     //if the letter is not digit then display error and don't type anything
-     if (e.which != 8 && e.which != 0  && (e.which < 46 || e.which > 57)) {
-        //display error message
-        $("#errmsg").html("Digits Only").show().fadeOut("slow");
-               return false;
+   //if the letter is not digit then display error and don't type anything
+   if (e.which != 8 && e.which != 0  && (e.which < 46 || e.which > 57)) {
+      //display error message
+      $("#errmsg").html("Digits Only").show().fadeOut("slow");
+             return false;
     }
-   });
+  });
 });
 </script>
 

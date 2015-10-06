@@ -1,22 +1,41 @@
 <%= stylesheet_link_tag "//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css" %>
-<%= javascript_include_tag "https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js" %>
+<%= javascript_include_tag "https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js" %>
 <%= javascript_include_tag "//cdn.datatables.net/tabletools/2.2.2/js/dataTables.tableTools.min.js" %>
-<%= javascript_include_tag "https://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js" %>
+<%= javascript_include_tag "https://cdn.datatables.net/plug-ins/1.10.9/integration/bootstrap/3/dataTables.bootstrap.js" %>
+<%#= javascript_include_tag "https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js" %>
+
 <script type="text/javascript">
   $(document).ready(function() {
-
-    $('#example').dataTable({
-        dom: 'T<"clear">lfrtip',
-        tableTools: {
-          "sSwfPath": "https://cdn.datatables.net/tabletools/2.2.2/swf/copy_csv_xls_pdf.swf"
-        }
+    $('#example thead th').each( function (i, v) {
+      // var title = $('#example tfoot th').eq( $(this).index() ).text();
+      var title = $(this).text();
+      if(title != "Actions"){
+        $(this).html(
+        '<input type="text" class="form-control" id="exampleInputName2" placeholder="'+title+' search">'
+        );
+      }
     });
+
+    // DataTable
+    var table = $('#example').DataTable();
+
+    // Apply the search
+    table.columns().eq( 0 ).each( function ( colIdx ) {
+        $( 'input', table.column( colIdx ).header() ).on( 'keyup change', function () {
+            table
+                .column( colIdx )
+                .search( this.value )
+                .draw();
+        } );
+    } );
   });
 
 </script>
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3">Students
-  <a href="<%= new_student_path %>" class="btn pull-right btn-color" style="width:200px;">Admit a new Student</a></h1>
+  <% if current_user.role.rights.where(value: "create_student").any? %>
+    <a href="<%= new_student_path %>" class="btn pull-right btn-color" style="width:200px;">Admit a new Student</a></h1>
+  <% end %>
 </div>
 
 <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
@@ -35,15 +54,9 @@
   </div>
 </div>
 <br/>
-<!--   <div>
-    <input id = "daterange" ui-jq="daterangepicker" ui-options="{
-                format: 'YYYY-MM-DD',
-                startDate: '2015-01-01',
-                endDate: '2015-12-31'
-              }" class="form-control w-md active">
-  </div> -->
-<div >  
-  <table id="example" class="table table-striped table-bordered table-responsive">
+
+<div style="overflow: scroll">
+  <table id="example" class="table table-striped table-bordered table-responsive" style="overflow: scroll">
     <thead class= "table-head">
       <tr>
         <th>Student ID</th>
@@ -60,30 +73,38 @@
       <% @students.try(:each) do |student| %>
         <tr class = "clickable" id="<%= student.id %>">
           <td>
-            <%= student.id %>
+            <%= student.rollnumber %>
           </td>
           <td>
-            <%= student.fullname %>
+            <%= student.fullname  %>
           </td>
           <td>
             <%= student.arabicname %>
           </td>
           <td>
-            <%= student.parent.name %>
+            <%= student.parent.name || '' if student.parent.present? %>
           </td>
           <td>
             <%= student.email %>
           </td>
           <td>
-            <%= student.grade.name %>
+            <%= student.grade.name || '' if student.grade.present? %>
           </td>
           <td>
             <%= student.dob %>
-          </td> 
-          <td><%= link_to '', student,:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
+          </td>
+          <td>
+            <% if current_user.role.rights.where(value: "view_student").any? %>
+              <%= link_to '', student,:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
+            <% end %>
+            <% if current_user.role.rights.where(value: "update_student").any? %>
               <%= link_to '', edit_student_student_path(student),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
+            <% end %>
+
+            <% if current_user.role.rights.where(value: "delete_student").any? %>
               <%= link_to '', student, method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
-          </td>     
+            <% end %>
+          </td>
         </tr>
       <% end %>
     </tbody>
@@ -118,4 +139,14 @@
 
   // $(".datapicker")..datepicker();
 </script>
+
+<style type="text/css">
+  tfoot input {
+    width: 100%;
+    padding: 3px;
+    box-sizing: border-box;
+  }
+</style>
+
+
 

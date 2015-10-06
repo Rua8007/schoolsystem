@@ -1,27 +1,31 @@
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3">Class Result</h1>
 </div>
-
-<div class="well well-lg">
-	<div class = "col-md-6">
+<br>
+<div class="well well-lg" style="padding-bottom:78px;">
+	<div class = "col-md-4">
 		<label>Select Class</label>
-		<select id = "grade">
+		<br>
+		<select id = "grade" class="form-control">
 			<%= Grade.all.try(:each) do |g|%>
-				<option value = "<%= g.id %>"> <%= g.name %> </option>
+				<option value = "<%= g.id %>"> <%= g.full_name %> </option>
 			<% end %>
 		</select>	
 	</div>
 	
-	<div class = "col-md-6">
+	<div class = "col-md-4">
 	
-		<label>Select Class</label>
-		<select id = "exam">
+		<label>Select Exam</label>
+		<br>
+		<select id = "exam" class="form-control">
 			<%= Exam.all.try(:each) do |e|%>
 				<option value = "<%= e.id %>"> <%= e.name %> </option>
 			<% end %>
 		</select>
 	</div>
-	<button class="btn btn-success pull-right" id="resultbtn">Get Report</button>
+	<div class = "col-md-4" style="margin-top:24px;">
+		<button class="btn btn-success" id="resultbtn">Get Report</button>
+	</div>
 </div>
 
 <br>

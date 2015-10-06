@@ -1,0 +1,83 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Calender</h1>
+</div>
+
+
+
+<div class="wrapper-md">
+
+  <div id='calendar'></div>
+  <div class="modal fade" id="event_modal" role="dialog" >
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content" >
+        <div class="modal-header login-modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Create Event</h4>
+        </div>
+
+            <div class="wrapper-md" style="padding-left: 3%; padding-right: 3%;">
+              <%= render 'form' %>
+            </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+    // page is now ready, initialize the calendar...
+
+    $('#calendar').fullCalendar(
+
+    {
+
+      events: '/calenders.json?type=<%= @type %>',
+        dayClick: function(date, jsEvent, view) {
+        // alert('Clicked on: ' + date.format());
+        // alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+        // alert('Current view: ' + view.name);
+        // change the day's background color just for fun
+        // $(this).css('background-color', 'red');
+          console.log(date);
+        // alert("The current date of the calendar is " + today.format('DD-MM-YYYY'));
+        // if( (date.format('DD-MM-YYYY') === today.format('DD-MM-YYYY')) || (date.format('DD-MM-YYYY') < today.format('DD-MM-YYYY')) )
+        // {
+          // if(date.format('DD-MM-YYYY') === today.format('DD-MM-YYYY'))
+          // {
+          //  $(".password-code").hide();
+          // }
+           $("#calender_starttime_3i").val(date._d.getDate());
+           $("#calender_starttime_1i").val(date._d.getFullYear());
+           $("#calender_starttime_2i").val(date._d.getMonth()+1);
+
+           $("#calender_endtime_3i").val(date._d.getDate());
+           $("#calender_endtime_1i").val(date._d.getFullYear());
+           $("#calender_endtime_2i").val(date._d.getMonth()+1);
+           <% if current_user.role.rights.where(value: "create_gcalender").any? %>
+            $("#event_modal").modal();
+           <% end %>
+
+
+      }
+
+
+
+        // put your options and callbacks here
+    })
+
+});
+
+</script>
+
+<style type="text/css">
+  #calender_starttime_1i, #calender_starttime_2i,#calender_starttime_3i,#calender_starttime_4i,#calender_starttime_5i, #calender_endtime_1i, #calender_endtime_2i, #calender_endtime_3i, #calender_endtime_4i, #calender_endtime_5i{
+
+    border-radius: 7px;
+    border: black;
+  }
+</style>
+
+
+
