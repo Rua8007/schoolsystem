@@ -5,9 +5,6 @@
 
   <h4>Create a Grade First <%= link_to 'New Grade', new_grade_path %></h4>
 <% else %>
-<div class="bg-light lter b-b wrapper-md">
-  <h1 class="m-n font-thin h3">Student ID : <%= @student_no %> </h1>
-</div>
 <div class="wrapper-md">
 	<div class="col-md-12">
 		<%= render 'form' %>
