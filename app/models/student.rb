@@ -21,6 +21,7 @@ class Student < ActiveRecord::Base
 	has_many :invoices
 
 	has_many :performances
+	has_many :sessionals
 
 	validates_uniqueness_of :rollnumber
 	validates_presence_of :rollnumber

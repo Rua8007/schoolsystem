@@ -4,29 +4,47 @@
 <br>
 <div class="well well-lg">
 	<h4>Student Name:           <%= @std.fullname %></h4>
-	<h4>Student ID:             <%= @std.id %></h4>
+	<h4>Student ID:             <%= @std.rollnumber %></h4>
 	<h4>Grade:                  <%= @std.grade.full_name %></h4>
+	<h4>Exam:                  <%= @exam.name %></h4>
 </div>
 <table class="table">
 	<thead class="table-head">
-		<th>Subject</th>
-		<% @sessionals.try(:each) do |mark| %>
-			<th><%= mark.name %> ( <%= mark.passing_marks %> / <%= mark.marks.to_s %>) </th>
-		<% end %>
-		<th>Total (<%= @sessionals.sum(:marks) %>)</th> 
+		<tr>
+			<th rowspan="2">Subject</th>
+			<th colspan = "<%= @std.grade.marks.count %>" style = "background:blue !important; text-align: center"> Team Work</th>
+			<th>
+		</tr>
+		<tr style = "background:blue !important;">
+			<% @std.grade.marks.try(:each) do |mark| %>
+				<th><%= mark.name %> </th>
+			<% end %>
+			<th class="table-head"></th>
+		<tr>
+			<th>Max Marks</th>
+			<% @std.grade.marks.try(:each) do |mark| %>
+				<th style = "background:blue !important;"> <%= mark.marks.to_s %> </th>
+			<% end %>
+			<th>Total (<%= @std.grade.marks.sum(:marks) %>)</th>
+		</tr>
+		<tr >
+			<th>Passing Marks</th>
+			<% @std.grade.marks.try(:each) do |mark| %>
+				<th style = "background:blue !important;"> <%= mark.passing_marks.to_s %> </th>
+			<% end %>
+			<th>Total (<%= @std.grade.marks.sum(:passing_marks) %>)</th>
+		</tr>
 	</thead>
 	<tbody>
-		<% @marks.each do |mark| %>
+		<% @sessionals.try(:each) do |k| %>
 			<tr>
-				<td>
-					<%= mark[:subject] %>
-				</td>
-				<% mark[:sessionals].try(:each) do |sess| %>
-					<td>
-						<%= sess.marks %>
-					</td>
+				<td><%= k.keys.first %></td>
+				<% if k[k.keys.first] != 'N/A' %>
+					<% k[k.keys.first].each do |ks| %>
+						<td > <%= ks[ks.keys.first] %></td>
+					<% end %>
 				<% end %>
-				<td> <%= mark[:sessionals].sum(:marks) %> </td>
+				<td><%= k[k.keys.last] %></td>
 			</tr>
 		<% end %>
 	</tbody>

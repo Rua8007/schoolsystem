@@ -1,50 +1,64 @@
-<div class="bg-light lter b-b wrapper-md">
-  <h1 class="m-n font-thin h3">Upload Subjects</h1>
+<div class="well well-lg">
+	<% @marks.each do |m| %>
+		<%= link_to m.name, upload_marksheets_path({id: @marksheet.id, mark_id: m.id}), class: "btn btn-info" %>
+	<% end %>
 </div>
-<br>
-<div style="overflow: scroll;">
-	<table class="table">
-		<thead class="table-head">
-			<th>Student ID</th>
-			<th>Student Name</th>
-			<% @marks.try(:each) do |mark| %>
-				<th style="width:77px;"><%= mark.name %> ( <%= mark.passing_marks %> / <%= mark.marks.to_s %>) </th>
-			<% end %>
-			<th>Total (<%= @marks.sum(:marks) %>)</th>
+<br><br>
+<%= form_tag(uploading_marksheets_path, method: :post, class: 'col-form') do %>
+<div style="overflow:scroll">
+	<div class="pull-right">
+		<input type="button" value = "Add More" id = "addmore" class="btn btn-primary">
+		<%= submit_tag 'Save', class: "btn btn-info" %>
+	</div>
+	<br><br><br>
+	<%= hidden_field_tag :mark_id, @mark.id %>
+	<%= hidden_field_tag :marksheet_id, @marksheet.id %>
 
-		</thead>
-		<%= form_tag(uploading_marksheets_path, method: :post) do %>
-			<%= hidden_field_tag 'marksheet', @marksheet.id %>
-			<tbody>
-				<% @students.each do |std| %>
-					<tr>
-						<td>
-							<%= std.id %>
-						</td>
-						<td>
-							<%= std.fullname %>
-						</td>
-						<% @marks.try(:each) do |mark| %>
-							<td>
-								<input type="text" id = "num-<%=std.id%>-<%=mark.id%>" class = "num" name="marks[<%=std.id %>][<%=mark.name%>][number]" style="width:77px">
-							</td>
-						<% end %>
-						<td id="total<%=std.id%>">
-							0
-						</td>
-					</tr>
-				<% end %>
-			</tbody>
-	</table>
+	<div class="well well-lg col-md-2" style="min-height:500px">
+		<br>
+		<h5>Student Name</h5> <br>
+		<% @students.try(:each) do |std| %>
+			<strong><%= std.fullname %> <br></strong><br>
+		<% end %>
+	</div>
+
+	<% @data.keys.try(:each) do |k| %>
+		<div class="well well-lg con col-md-2" style="padding:10px;min-height:500px; width: 180px">
+			<h5><%= @mark.name %></h5>
+			<%= text_field_tag "up_date[]", k, style:"", disabled: "true" %><br><br>
+			<% @data[k].try(:each) do |dt| %>
+				<%= text_field_tag "up_mark[#{dt.id}]", dt.marks, style:"" %><br><br>
+			<% end %>
+		</div>
+	<% end %>
+	<% if @data.empty? %>
+		<div class="well well-lg col-md-2 con" style="padding:10px;min-height:500px;width: 180px">
+			<h5><%= @mark.name %></h5>
+			<%= text_field_tag "marks_date[]", '', style:"" , class: "datepickerss"%><br><br>
+			<% @students.try(:each) do |std| %>
+				<%= text_field_tag "marks[#{std.id}][]"  %> <br><br>
+			<% end %>
+		</div>
+	<% end %>
 </div>
-	<%= submit_tag "Submit", class: "btn btn-success pull-right" %>
 <% end %>
 
 <script type="text/javascript">
-	$(".num").keyup(function (e){
-		console.log();
-		var id = e.target.attributes.id.value.split('-')[1];
-		$("#total"+id).text(parseFloat($("#total"+id).text())+ parseFloat($("#"+e.target.attributes.id.value).val()))
-		console.log(e);
-	})
+	$("#addmore").click(function (){
+		console.log("I am here");
+		var html = $($('.col-template').html());
+		console.log(html);
+		html.insertAfter($('.col-form .con').last());
+	});
+	$(".datepickerss").datepicker();
 </script>
+
+<div class="col-template hidden">
+	<div class="well well-lg con" style="padding:10px;min-height:500px;width: 180px; float:right">
+		<h5><%= @mark.name %></h5>
+		<%= text_field_tag "marks_date[]", '' ,class: "datepickerss" %><br><br>
+		<% @students.try(:each) do |std| %>
+			<%= text_field_tag "marks[#{std.id}][]"  %> <br><br>
+		<% end %>
+	</div>
+</div>
