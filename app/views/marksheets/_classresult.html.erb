@@ -17,7 +17,7 @@
         <td><%= Student.find(m[:student_id]).fullname %></td>
 
         <% @class.subjects.each do |s| %>
-          <td><%= m[:marks][s.id] || 'N/A' %></td>
+          <td><%= m[:marks][s.name] || 'N/A' %></td>
         <% end %>
         <td>
           <%= link_to '', result_card_marksheets_path({student: m[:student_id], exam: @exam.id}),:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>

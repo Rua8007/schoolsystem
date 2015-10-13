@@ -5,6 +5,7 @@ class MarksController < ApplicationController
   # GET /marks.json
   def index
     @marks = Mark.all
+    @mark = Mark.new
   end
 
   # GET /marks/1

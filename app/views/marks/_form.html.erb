@@ -11,23 +11,23 @@
     </div>
   <% end %>
 
-  <div class="form-group">
+  <div class="form-group col-md-6">
     <label>Title</label>
-    <%= f.text_field :name, class: "form-control" , style: "width:40%" %>
+    <%= f.text_field :name, class: "form-control" , style: "width:100%" %>
   </div>
-  <div class="form-group">
+  <div class="form-group col-md-6">
     <label>Total Marks</label>
-    <%= f.text_field :marks, class: "form-control" , style: "width:40%" %>
+    <%= f.text_field :marks, class: "form-control" , style: "width:100%" %>
   </div>
-  <div class="form-group">
+  <div class="form-group col-md-6">
     <label>Passing Marks</label>
-    <%= f.text_field :passing_marks, class: "form-control" , style: "width:40%" %>
+    <%= f.text_field :passing_marks, class: "form-control" , style: "width:100%" %>
   </div>
-  <div class="form-group">
+  <div class="form-group col-md-6">
     <label>Class</label>
-    <%= f.collection_select :grade_id , Batch.last.grades.order(:name), :id , :name,{},{:style => 'height:34px;width: 40%',  class: 'form-control'} %>
+    <%= f.collection_select :grade_id , Batch.last.grades.order(:name), :id , :full_name,{},{:style => 'height:34px;width: 100%',  class: 'form-control'} %>
   </div>
   <div class="actions">
-    <%= f.submit class: "btn btn-success" %>
+    <%= f.submit 'Create Mark Division', class: "btn btn-success pull-right" %>
   </div>
 <% end %>

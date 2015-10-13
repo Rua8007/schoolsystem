@@ -160,9 +160,6 @@ Rails.application.routes.draw do
 
   resources :marks
   resources :marksheets do
-    member do
-      get "upload"
-    end
     collection do
       post "uploading"
       get "classresult"
@@ -173,6 +170,8 @@ Rails.application.routes.draw do
       get "result"
       post 'edit_marks'
       post 'update_marks'
+      get 'marks_details'
+      get "upload"
     end
   end
   resources :exams
@@ -181,7 +180,7 @@ Rails.application.routes.draw do
   resources :routes
   resources :stops
   resources :vehicles
-
+  resources :sessionals
   resources :weekends do
     collection do
       post 'add_weekends'
