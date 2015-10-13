@@ -12,38 +12,59 @@
 	<thead class="table-head">
 		<tr>
 			<th rowspan="2">Subject</th>
-			<th colspan = "<%= @std.grade.marks.count %>" style = "background:blue !important; text-align: center"> Team Work</th>
-			<th>
+			<th colspan = "<%= @std.grade.marks.count - 1 %>" style = "background:blue !important; text-align: center"> Team Work</th>
+
+			<th colspan = "<%= @std.grade.marks.count - 1 %>" style = "text-align: center" class = "table-head"> Assessment</th>
 		</tr>
 		<tr style = "background:blue !important;">
 			<% @std.grade.marks.try(:each) do |mark| %>
-				<th><%= mark.name %> </th>
+				<% if mark.name != 'Quiz' && mark.name != 'Evaluation' %>
+					<th><%= mark.name %> </th>
+				<% end %>
 			<% end %>
-			<th class="table-head"></th>
+			<th>Total	</th>
+			<th class="table-head">Quiz</th>
+			<th class="table-head">Evaluation</th>
+			<th class="table-head">Total</th>
 		<tr>
 			<th>Max Marks</th>
 			<% @std.grade.marks.try(:each) do |mark| %>
-				<th style = "background:blue !important;"> <%= mark.marks.to_s %> </th>
+				<% if mark.name != 'Quiz' && mark.name != 'Evaluation' %>
+					<th style = "background:blue !important;"> <%= mark.marks.to_s %> </th>
+				<% end %>
 			<% end %>
-			<th>Total (<%= @std.grade.marks.sum(:marks) %>)</th>
+			<th style = "background:blue !important;"><%= @std.grade.marks.where.not("name = 'Quiz' or name = 'Evaluation'").sum(:marks) %></th>
+			<th class="table-head"> <%= @std.grade.marks.find_by_name('Quiz').marks %></th>
+			<th class="table-head"> <%= @std.grade.marks.find_by_name('Evaluation').marks %></th>
+			<th class="table-head"> <%= @std.grade.marks.sum(:marks) %></th>
+
 		</tr>
 		<tr >
 			<th>Passing Marks</th>
 			<% @std.grade.marks.try(:each) do |mark| %>
-				<th style = "background:blue !important;"> <%= mark.passing_marks.to_s %> </th>
+				<% if mark.name != 'Quiz' && mark.name != 'Evaluation' %>
+					<th style = "background:blue !important;"> <%= mark.passing_marks.to_s %> </th>
+				<% end %>
 			<% end %>
-			<th>Total (<%= @std.grade.marks.sum(:passing_marks) %>)</th>
+			<th style = "background:blue !important;"><%= @std.grade.marks.where.not("name = 'Quiz' or name = 'Evaluation'").sum(:passing_marks) %></th>
+			<th class="table-head"> <%= @std.grade.marks.find_by_name('Quiz').passing_marks %></th>
+			<th class="table-head"> <%= @std.grade.marks.find_by_name('Evaluation').passing_marks %></th>
+			<th class="table-head"> <%= @std.grade.marks.sum(:passing_marks) %></th>
+
 		</tr>
 	</thead>
 	<tbody>
 		<% @sessionals.try(:each) do |k| %>
 			<tr>
 				<td><%= k.keys.first %></td>
-				<% if k[k.keys.first] != 'N/A' %>
 					<% k[k.keys.first].each do |ks| %>
-						<td > <%= ks[ks.keys.first] %></td>
+						<% if ks.keys.first.to_s != 'Quiz' && ks.keys.first.to_s!= "Evaluation" %>
+							<% puts "=================" %>
+							<% puts ks.keys.first %>
+							<% puts "=================" %>
+							<td > <%= ks[ks.keys.first] %></td>
+						<% end %>
 					<% end %>
-				<% end %>
 				<td><%= k[k.keys.last] %></td>
 			</tr>
 		<% end %>
