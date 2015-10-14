@@ -1,5 +1,5 @@
 class MarksheetsController < ApplicationController
-  before_action :set_marksheet, only: [:show, :edit, :update, :destroy, :upload]
+  before_action :set_marksheet, only: [:show, :edit, :update, :upload]
 
   # GET /marksheets
   # GET /marksheets.json
@@ -248,7 +248,9 @@ class MarksheetsController < ApplicationController
       slist = @data.where(bridge_id: bd.id)
       @std.grade.marks.each do |mk|
         sum = slist.where(mark_id: mk.id).sum(:marks)
-        gsum = gsum+sum
+        if mk.name != "Quiz" && mk.name != "Evaluation"
+          gsum = gsum+sum
+        end
         temp << {"#{mk.name}": sum}
       end
       if temp.any?
@@ -336,6 +338,17 @@ class MarksheetsController < ApplicationController
       @final << sum
     end
     # return render json: @marks
+  end
+
+  def destroy
+    puts "=======================i am in destroy=============="
+    marksheet = Marksheet.find(params[:marksheet_id])
+    Sessional.where("bridge_id = ? and exam_id = ? and mark_date = ?", marksheet.bridge_id, marksheet.exam_id, params[:id]).delete_all
+    puts marksheet
+
+    puts "=======================i am in destroy=============="
+
+    redirect_to :back
   end
   private
     # Use callbacks to share common setup or constraints between actions.
