@@ -300,11 +300,11 @@ class StudentsController < ApplicationController
 	private
 
     def create_params
-      params.require(:student).permit(:rollnumber,:specialneed,:fullname,:remote_image_url, :created_at,:first_name, :mobile, :address, :email, :grade_id, :dob,:gender,:middle_name, :last_name, :blood, :birth_place, :nationality, :language, :religion, :city, :state, :country,:phone, :fee, :term, :due_date, :image,:iqamaNumber,:iqamaExpiry, :previousInstitute, :year, :totalMarks, :obtainedMarks, :forthname, :fifthname, :arabicname, :weight,:height,:eyeside,:hearing,:rh,:alergy,:nurology,:physical,:disability,:behaviour, :discount,emergencies_attributes:[:name, :phome, :mobile, :email, :student_id])
+      params.require(:student).permit(:passport,:rollnumber,:specialneed,:fullname,:remote_image_url, :created_at,:first_name, :mobile, :address, :email, :grade_id, :dob,:gender,:middle_name, :last_name, :blood, :birth_place, :nationality, :language, :religion, :city, :state, :country,:phone, :fee, :term, :due_date, :image,:iqamaNumber,:iqamaExpiry, :previousInstitute, :year, :totalMarks, :obtainedMarks, :forthname, :fifthname, :arabicname, :weight,:height,:eyeside,:hearing,:rh,:alergy,:nurology,:physical,:disability,:behaviour, :discount,emergencies_attributes:[:name, :phome, :mobile, :email, :student_id])
     end
 
     def student_params
-      params.require(:student).permit(:rollnumber,:specialneed,:fullname,:remote_image_url,:first_name, :mobile, :address, :email, :grade_id, :dob,:gender,:middle_name, :last_name, :blood, :birth_place, :nationality, :language, :religion, :city, :state, :country,:phone, :fee, :term, :due_date, :image,:iqamaNumber,:iqamaExpiry, :previousInstitute, :year, :totalMarks, :obtainedMarks, :forthname, :fifthname, :arabicname, :weight,:height,:eyeside,:hearing,:rh,:alergy,:nurology,:physical,:disability,:behaviour, :discount, :created_at,emergencies_attributes:[:name, :phome, :mobile, :email, :student_id])
+      params.require(:student).permit(:passport,:rollnumber,:specialneed,:fullname,:remote_image_url,:first_name, :mobile, :address, :email, :grade_id, :dob,:gender,:middle_name, :last_name, :blood, :birth_place, :nationality, :language, :religion, :city, :state, :country,:phone, :fee, :term, :due_date, :image,:iqamaNumber,:iqamaExpiry, :previousInstitute, :year, :totalMarks, :obtainedMarks, :forthname, :fifthname, :arabicname, :weight,:height,:eyeside,:hearing,:rh,:alergy,:nurology,:physical,:disability,:behaviour, :discount, :created_at,emergencies_attributes:[:name, :phome, :mobile, :email, :student_id])
     end
 
     def save_attendances_helper(params)
