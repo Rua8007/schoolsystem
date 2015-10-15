@@ -9,30 +9,47 @@
 </div>
 <table class="table">
 	<thead class="table-head">
-		<th>Subject</th>
-		<% @std.grade.batch.exams.all.try(:each) do |exam| %>
-			<th><%= exam.name %> ( <%= @std.grade.marks.sum(:passing_marks) %> / <%= @std.grade.marks.sum(:marks) %>) </th>
-		<% end %>
+		<tr>
+			<th rowspan="2" style="backgroud: purple!">Subject</th>
+			<% i = 0 %>
+			<% Exam.all.try(:each) do |exam| %>
+				<th colspan="2" style=" <%= i.odd? ? 'background: blue !important' : 'background: purple !important' %> ;text-align: center"><%= exam.name %> ( <%= @std.grade.marks.sum(:passing_marks) %> / <%= @std.grade.marks.sum(:marks) %>) </th>
+				<% i = i+1%>
+			<% end %>
+		</tr>
+		<tr>
+			<% i = 0 %>
+			<% Exam.all.try(:each) do |exam| %>
+				<th style=" <%= i.odd? ? 'background: blue !important' : 'background: purple !important' %> ">Full Term Total</th>
+				<th style=" <%= i.odd? ? 'background: blue !important' : 'background: purple !important' %> ">Percentage</th>
+				<% i = i+1%>
+			<% end %>
+		</tr>
 	</thead>
 	<tbody>
-		<% @marks.each do |mark| %>
-			<tr>
+		<% @std.grade.bridges.all.try(:each) do |bd| %>
+		<tr>
+			<td><%= bd.subject.name %></td>
+			<% Exam.all.try(:each) do |exam| %>
+			<%# data = @std.sessionals.where("bridge_id = ?", bd.id).group('bridge_id').sum(:marks) %>
 				<td>
-					<%= mark[:subject] %>
+					<%= s = @std.sessionals.where("bridge_id = ? and exam_id = ?", bd.id, exam.id).sum(:marks) %>
 				</td>
-				<% mark[:marks].each do |m| %>
-					<td>
-						<%= m[:result] %>
-					</td>
-				<% end %>
+				<td>
+					<%= (s*100)/@std.grade.marks.sum(:marks) %>%
+				</td>
+			<% end %>
 			</tr>
 		<% end %>
 	</tbody>
 	<tfoot class="table-head">
 		<td >Total</td>
-			<% @final.each do |sum| %>
+			<% Exam.all.try(:each) do |ex| %>
 				<td>
-					<%= sum %>
+					<%= mr = @std.sessionals.where(exam_id: ex.id).sum(:marks) %>
+				</td>
+				<td>
+					<%= ((mr*100)/(@std.grade.marks.sum(:marks)*@std.grade.bridges.count)).round(2) %>
 				</td>
 			<% end %>
 	</tfoot>

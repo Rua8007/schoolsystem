@@ -309,34 +309,6 @@ class MarksheetsController < ApplicationController
 
   def result
     @std = Student.find(params[:student_id])
-    @marks = []
-    # Exam.all.each do |exam|
-    #   @std.grade.bridges.each do |bridge|
-    #     temp = bridge.marksheets.where(exam_id: exam.id, student_id: @std.id)
-    #     marks = {subject: bridge.subject.name, marks: temp}
-    #   end
-    #   # temp = {exam: exam, marks: marks}
-    # end
-    @std.grade.bridges.each do |bridge|
-      exam_result = []
-      Exam.all.each do |exam|
-        if bridge.marksheets.where(exam_id: exam.id).any?
-          temp = bridge.marksheets.where(exam_id: exam.id).first.sessionals.sum(:marks)
-          exam_result << {exam: exam.name , result: temp}
-        else
-          exam_result << {exam: exam.name , result: 0}
-        end
-      end
-      @marks << {subject: bridge.subject.name, marks: exam_result}
-    end
-    @final = []
-    Exam.all.try(:each) do |ex|
-      sum = 0
-      ex.marksheets.where(student_id: @std.id).each do |ses|
-        sum = ses.sessionals.sum(:marks)
-      end
-      @final << sum
-    end
     # return render json: @marks
   end
 
