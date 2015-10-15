@@ -41,7 +41,7 @@
 		<% if @data.empty? %>
 			<div class="well well-lg col-md-2 con" style="padding:10px;min-height:500px;width: 180px;float:none !important;display: inline-block;vertical-align: top;">
 				<h5><%= @mark.name %></h5>
-				<%= text_field_tag "marks_date[]", '', style:"" , class: "datepickerss", required: true%><br><br>
+				<%= text_field_tag "marks_date[]", '', style:"" , class: "datepickerss", required: true, placeholder: "Select Date" %><br><br>
 				<% @students.try(:each) do |std| %>
 					<%= text_field_tag "marks[#{std.id}][]" , '' ,class: "calculate" %> <br><br>
 				<% end %>
@@ -79,7 +79,7 @@
 <div class="col-template hidden">
 	<div class="well well-lg con" style="padding:10px;min-height:500px;width: 180px; float:none !important;display: inline-block;vertical-align: top;">
 		<h5><%= @mark.name %></h5>
-		<%= text_field_tag "marks_date[]", '' ,class: "datepickerss", required: true %><br><br>
+		<%= text_field_tag "marks_date[]", '' ,class: "datepickerss", required: true, placeholder: "Select Date" %><br><br>
 		<% @students.try(:each) do |std| %>
 			<%= text_field_tag "marks[#{std.id}][]", "" ,class: "calculate " %> <br><br>
 		<% end %>
