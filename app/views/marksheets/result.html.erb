@@ -13,7 +13,7 @@
 			<th rowspan="2" style="backgroud: purple!">Subject</th>
 			<% i = 0 %>
 			<% Exam.all.try(:each) do |exam| %>
-				<th colspan="2" style=" <%= i.odd? ? 'background: blue !important' : 'background: purple !important' %> ;text-align: center"><%= exam.name %> ( <%= @std.grade.marks.sum(:passing_marks) %> / <%= @std.grade.marks.sum(:marks) %>) </th>
+				<th colspan="2" style=" <%= i.odd? ? 'background: blue !important' : 'background: purple !important' %> ;text-align: center"><%= exam.name %>  </th>
 				<% i = i+1%>
 			<% end %>
 		</tr>
@@ -23,6 +23,26 @@
 				<th style=" <%= i.odd? ? 'background: blue !important' : 'background: purple !important' %> ">Full Term Total</th>
 				<th style=" <%= i.odd? ? 'background: blue !important' : 'background: purple !important' %> ">Percentage</th>
 				<% i = i+1%>
+			<% end %>
+		</tr>
+		<tr>
+			<% i = 0 %>
+			<th>Max Marks</th>
+			<% Exam.all.try(:each) do |ex| %>
+				<th style=" <%= i.odd? ? 'background: blue !important' : 'background: purple !important' %> "><%= @std.grade.marks.sum(:marks) %></th>
+				<th style=" <%= i.odd? ? 'background: blue !important' : 'background: purple !important' %> ">100%</th>
+				<% i = i+1%>
+
+			<% end %>
+		</tr>
+		<tr>
+			<% i = 0 %>
+			<th>Passing Marks</th>
+			<% Exam.all.try(:each) do |ex| %>
+				<th style=" <%= i.odd? ? 'background: blue !important' : 'background: purple !important' %> "><%= @std.grade.marks.sum(:passing_marks) %></th>
+				<th style=" <%= i.odd? ? 'background: blue !important' : 'background: purple !important' %> "><%= @std.grade.marks.sum(:passing_marks)*100/@std.grade.marks.sum(:marks) %>%</th>
+				<% i = i+1%>
+
 			<% end %>
 		</tr>
 	</thead>
