@@ -280,26 +280,14 @@ class MarksheetsController < ApplicationController
     bridge = Bridge.find(params[:bridge_id])
     @bridge_id = params[:bridge_id]
     @exam_id = params[:exam_id]
+    @exam = Exam.find(@exam_id)
     @class = bridge.grade
     @marksheets = []
 
-    @class.students.each do |std|
-      temp = []
-      if std.marksheets.where(exam_id: params[:exam_id], bridge_id: params[:bridge_id]).any?
-        sessionals = std.marksheets.where(
-          exam_id: params[:exam_id],
-          bridge_id: params[:bridge_id]
-        ).last.sessionals
-
-        temp2 = {}
-        sessionals.each {|s| temp2[s.mark_id] = s}
-        sessionals = temp2
-      # else
-        # sessionals = ["Resutl Awaiting", "Resutl Awaiting", "Resutl Awaiting"]
-      end
-
-      @marksheets.push({student_id: std.id, student_name: std.fullname, sessionals: sessionals})
-    end
+    @marksheet = @exam.sessionals.where(bridge_id: @bridge_id).group_by{|p| p.student_id}
+    puts "---------------------------"
+    puts @marksheet
+    puts "---------------------------"
 
     respond_to do |format|
       format.js
