@@ -6,28 +6,19 @@
       <% @class.marks.each do |m| %>
         <th><%= m.name %></th>
       <% end %>
-      <th>Actions</th>
+      <th>Total</th>
     </tr>
   </thead>
 
   <tbody>
-    <% @marksheets.each do |m| %>
+    <% @marksheet.keys.each do |m| %>
       <tr>
-        <td><%= Student.find(m[:student_id]).rollnumber %></td>
-        <td><%= m[:student_name] %></td>
-
-        <% @class.marks.each do |sm| %>
-          <% if m[:sessionals].present? %>
-            <td> <%= m[:sessionals][sm.id].try(:marks) || 'N/A' %> </td>
-
-          <% else %>
-            <td> N/A </td>
-          <% end %>
-        <% end %>
-
-        <td>
-          <%= link_to '', edit_marks_marksheets_path({student_id: m[:student_id], bridge_id: @bridge_id, exam_id: @exam_id}), method: :post,:class =>  'btn btn-success  glyphicon glyphicon-pencil' %>
-        </td>
+      <td><%= m %></td>
+      <td><%= Student.find(m).fullname %></td>
+      <% @class.marks.each do |mk| %>
+        <td><%= mk.sessionals.where("exam_id = ? and student_id = ? and bridge_id = ?", @exam_id, m , @bridge_id).sum(:marks) %></td>
+      <% end %>
+      <td><%= Student.find(m).sessionals.where("exam_id = ? and bridge_id = ?", @exam_id, @bridge_id).sum(:marks) %></td>
       </tr>
     <% end %>
   </tbody>

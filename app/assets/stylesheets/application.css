@@ -22,6 +22,52 @@
  *= require bootstrap-datepicker
  *= require chosen
  */
+.round-buttons { width: 100%; text-align: center; padding: 14px; font-size: 0; line-height: 1; box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box; }
+.round-buttons > li { margin: 4px 12px; position: relative; display: inline-block; text-align: center; width:80px; height:80px; border:1px solid #d7d7d7; border-radius:50%; position:relative; }
+
+.depth { overflow: hidden; margin: 4px; width: 72px; height: 72px; border-radius: 50%; background-color: #7FC3DD;
+box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.3);
+-webkit-box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.3);
+-moz-box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.3);
+
+-webkit-transition: all 0.1s ease-in-out; 
+   -moz-transition: all 0.1s ease-in-out;
+     -o-transition: all 0.1s ease-in-out;
+        transition: all 0.1s ease-in-out;
+
+}
+.depth:active { background: #cf6a59;
+  box-shadow: 0 0 4px rgba(0,0,0,0.2) inset;
+  -webkit-box-shadow: 0 0 4px rgba(0,0,0,0.2) inset;
+  -moz-box-shadow: 0 0 4px rgba(0,0,0,0.2) inset;
+}
+.depth > a { width: 62px; height: 62px; position: relative; text-align: center; border-radius: 50%; cursor: pointer; margin: 5px;
+  background: #f7f7f7; 
+  background: -moz-linear-gradient(top,  #ffffff 0%, #f7f7f7 100%); 
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#f7f7f7)); 
+  background: -webkit-linear-gradient(top,  #ffffff 0%,#f7f7f7 100%); 
+  background: -o-linear-gradient(top,  #ffffff 0%,#f7f7f7 100%); 
+  background: -ms-linear-gradient(top,  #ffffff 0%,#f7f7f7 100%); 
+  background: linear-gradient(top,  #ffffff 0%,#f7f7f7 100%); 
+
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.6);
+  -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.6);
+}
+
+.depth > a:active { box-shadow: none; -webkit-box-shadow: none; -moz-box-shadow: none; background: #fafafa; }
+
+.depth > a > i { font-size: 24px; margin: 19px 0; width: 24px; float: none;  text-shadow: 0 1px 0 #ffffff; height: 24px;
+  -webkit-transition: all 0.1s ease-in-out; 
+     -moz-transition: all 0.1s ease-in-out;
+       -o-transition: all 0.1s ease-in-out;
+          transition: all 0.1s ease-in-out;
+}
+.depth > a:hover { background: #fcfcfc; }
+.depth > a:hover > i { color: #3d829c; }
+.depth > a:active > i { color: #cf6a59; }
+
+
 
 .navbar-brand{
 	width: 170px !important;

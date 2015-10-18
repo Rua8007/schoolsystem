@@ -1,5 +1,5 @@
 class MarksheetsController < ApplicationController
-  before_action :set_marksheet, only: [:show, :edit, :update, :destroy, :upload]
+  before_action :set_marksheet, only: [:show, :edit, :update, :upload]
 
   # GET /marksheets
   # GET /marksheets.json
@@ -25,18 +25,18 @@ class MarksheetsController < ApplicationController
   # POST /marksheets.json
   def create
     @marksheet = Marksheet.new(marksheet_params)
-    if @marksheet.bridge.marksheets.where(exam_id: @marksheet.exam_id).any?
-      redirect_to :back, alert: "You have already uploaded a Marksheet. Edit the existing one"
-    else
+    # if @marksheet.bridge.marksheets.where(exam_id: @marksheet.exam_id).any?
+    #   redirect_to :back, alert: "You have already uploaded a Marksheet. Edit the existing one"
+    # else
       respond_to do |format|
         if @marksheet.save
-          format.html { redirect_to upload_marksheet_path(@marksheet.id), notice: 'Marksheet was successfully created.' }
+          format.html { redirect_to upload_marksheets_path({id: @marksheet.id}), notice: 'Marksheet was successfully created.' }
           format.json { render :show, status: :created, location: @marksheet }
         else
           format.html { render :new }
           format.json { render json: @marksheet.errors, status: :unprocessable_entity }
         end
-      end
+      # end
     end
   end
 
@@ -67,25 +67,68 @@ class MarksheetsController < ApplicationController
   def upload
     @students = @marksheet.bridge.grade.students
     @marks = @marksheet.bridge.grade.marks
+    @mark = @marks.first
+    if params[:mark_id].present?
+      @mark = Mark.find(params[:mark_id])
+    end
+    @data = Sessional.where("mark_id = ? and exam_id = ? and bridge_id = ?", @mark.id, @marksheet.exam_id, @marksheet.bridge_id).group_by {|p| p.mark_date}
+    # return render json: @data
   end
 
   def uploading
-    marksheet = Marksheet.find(params[:marksheet])
-    std_marks = marksheet.bridge.grade.marks.all
-    params[:marks].each do |marks|
-      new_marksheet = Marksheet.create
-      new_marksheet.exam_id = marksheet.exam_id
-      new_marksheet.bridge_id = marksheet.bridge_id
-      new_marksheet.student_id = marks.first
-      std_marks.each do |mark_type|
-        sessional = new_marksheet.sessionals.create
-        sessional.mark_id = mark_type.id
-        sessional.marks = marks.last[mark_type.name]["number"]
-        sessional.save
+    # return render json: params
+    mdate = params[:marks_date]
+    sessionals = []
+
+    marksheet = Marksheet.find(params[:marksheet_id])
+
+    all_date = params[:marks]
+    unless all_date.nil?
+      students = all_date.keys
+
+      students.try(:each) do |std|
+        all_date[std].zip(mdate).each do |m,d|
+          temp = Sessional.new
+          temp.student_id = std.to_i
+          temp.exam_id = marksheet.exam_id
+          temp.bridge_id = marksheet.bridge_id
+          temp.mark_id = params[:mark_id]
+          temp.mark_date = d
+          temp.student_id = std
+          temp.marks = m
+          temp.save
+        end
       end
-      new_marksheet.save
-      marksheet.delete
     end
+
+    update_data = params[:up_mark]
+      # return render json: update_data
+
+    unless update_data.nil?
+      update_data.keys.try(:each) do |sess|
+        temp = Sessional.find(sess)
+        temp.marks = update_data[sess].to_f
+        temp.save
+      end
+    end
+
+
+    # marksheet = Marksheet.find(params[:marksheet])
+    # std_marks = marksheet.bridge.grade.marks.all
+    # params[:marks].each do |marks|
+    #   new_marksheet = Marksheet.create
+    #   new_marksheet.exam_id = marksheet.exam_id
+    #   new_marksheet.bridge_id = marksheet.bridge_id
+    #   new_marksheet.student_id = marks.first
+    #   std_marks.each do |mark_type|
+    #     sessional = new_marksheet.sessionals.create
+    #     sessional.mark_id = mark_type.id
+    #     sessional.marks = marks.last[mark_type.name]["number"]
+    #     sessional.save
+    #   end
+    #   new_marksheet.save
+    #   marksheet.delete
+    # end
     redirect_to subject_result_marksheets_path
   end
 
@@ -103,20 +146,27 @@ class MarksheetsController < ApplicationController
     # end
     @class.students.each do |std|
       temp = {}
-
-      @class.bridges.each do |bridge|
-        marksheet = std.marksheets.where(exam: @exam, bridge: bridge).first
-
-        if marksheet.blank?
-          temp[bridge.subject_id] = 'No marksheet!'
-
-        elsif marksheet.sessionals.any?
-          temp[bridge.subject_id] = marksheet.sessionals.sum(:marks)
-
-        else
-          temp[bridge.subject_id] = 'Result Awaiting'
-        end
+      @class.bridges.each do |bd|
+        sessional = bd.sessionals.where("student_id = ? and exam_id = ?", std.id, @exam.id).sum(:marks)
+        temp["#{bd.subject.name}"] = sessional
       end
+
+      # @class.bridges.each do |bridge|
+      #   marksheet = std.marksheets.where(exam: @exam, bridge: bridge).first
+
+      #   if marksheet.blank?
+      #     temp[bridge.subject_id] = 'No marksheet!'
+
+      #   elsif marksheet.sessionals.any?
+      #     temp[bridge.subject_id] = marksheet.sessionals.sum(:marks)
+
+      #   else
+      #     temp[bridge.subject_id] = 'Result Awaiting'
+      #   end
+      # end
+
+
+
       # subjects = std.
 
       # std.marksheets.where(exam_id: params[:exam_id]).each do |m|
@@ -127,7 +177,11 @@ class MarksheetsController < ApplicationController
       #   end
       # end
       @marksheet.push({student_id: std.id, marks: temp})
+
     end
+    puts "===================="
+    puts @marksheet
+    puts "===================="
 
     respond_to do |format|
       format.js
@@ -184,15 +238,38 @@ class MarksheetsController < ApplicationController
 
   def result_card
     @std = Student.find(params[:student])
-    @marks = []
-    @sessionals = @std.grade.marks
-    marksheets = @std.marksheets.where(exam_id: params[:exam])
-    puts
-    @std.marksheets.where(exam_id: params[:exam]).each do |m|
-      sessionals = m.sessionals
-      @marks.push({subject: m.bridge.subject.name, sessionals: sessionals})
+    @marks = @std.grade.marks
+    @exam = Exam.find(params[:exam])
+    @data = @std.sessionals.where(exam_id: params[:exam])
+    @sessionals = []
+    @std.grade.bridges.try(:each) do |bd|
+      temp = []
+      gsum = 0
+      slist = @data.where(bridge_id: bd.id)
+      @std.grade.marks.each do |mk|
+        sum = slist.where(mark_id: mk.id).sum(:marks)
+        if mk.name != "Quiz" && mk.name != "Evaluation"
+          gsum = gsum+sum
+        end
+        temp << {"#{mk.name}": sum}
+      end
+      if temp.any?
+        @sessionals << {"#{bd.subject.name}": temp, total: gsum}
+      else
+        @sessionals << {"#{bd.subject.name}": "N/A" , total: 0}
+      end
     end
-    # return render json: @marks.first[:sessionals]
+
+    # return render json: @sessionals
+    # @marks = []
+    # @sessionals = @std.grade.marks
+    # marksheets = @std.marksheets.where(exam_id: params[:exam])
+    # puts
+    # @std.marksheets.where(exam_id: params[:exam]).each do |m|
+    #   sessionals = m.sessionals
+    #   @marks.push({subject: m.bridge.subject.name, sessionals: sessionals})
+    # end
+    # return render json: @data
   end
 
   def subject_result
@@ -203,26 +280,14 @@ class MarksheetsController < ApplicationController
     bridge = Bridge.find(params[:bridge_id])
     @bridge_id = params[:bridge_id]
     @exam_id = params[:exam_id]
+    @exam = Exam.find(@exam_id)
     @class = bridge.grade
     @marksheets = []
 
-    @class.students.each do |std|
-      temp = []
-      if std.marksheets.where(exam_id: params[:exam_id], bridge_id: params[:bridge_id]).any?
-        sessionals = std.marksheets.where(
-          exam_id: params[:exam_id],
-          bridge_id: params[:bridge_id]
-        ).last.sessionals
-
-        temp2 = {}
-        sessionals.each {|s| temp2[s.mark_id] = s}
-        sessionals = temp2
-      # else
-        # sessionals = ["Resutl Awaiting", "Resutl Awaiting", "Resutl Awaiting"]
-      end
-
-      @marksheets.push({student_id: std.id, student_name: std.fullname, sessionals: sessionals})
-    end
+    @marksheet = @exam.sessionals.where(bridge_id: @bridge_id).group_by{|p| p.student_id}
+    puts "---------------------------"
+    puts @marksheet
+    puts "---------------------------"
 
     respond_to do |format|
       format.js
@@ -232,35 +297,18 @@ class MarksheetsController < ApplicationController
 
   def result
     @std = Student.find(params[:student_id])
-    @marks = []
-    # Exam.all.each do |exam|
-    #   @std.grade.bridges.each do |bridge|
-    #     temp = bridge.marksheets.where(exam_id: exam.id, student_id: @std.id)
-    #     marks = {subject: bridge.subject.name, marks: temp}
-    #   end
-    #   # temp = {exam: exam, marks: marks}
-    # end
-    @std.grade.bridges.each do |bridge|
-      exam_result = []
-      Exam.all.each do |exam|
-        if bridge.marksheets.where(exam_id: exam.id).any?
-          temp = bridge.marksheets.where(exam_id: exam.id).first.sessionals.sum(:marks)
-          exam_result << {exam: exam.name , result: temp}
-        else
-          exam_result << {exam: exam.name , result: 0}
-        end
-      end
-      @marks << {subject: bridge.subject.name, marks: exam_result}
-    end
-    @final = []
-    Exam.all.try(:each) do |ex|
-      sum = 0
-      ex.marksheets.where(student_id: @std.id).each do |ses|
-        sum = ses.sessionals.sum(:marks)
-      end
-      @final << sum
-    end
     # return render json: @marks
+  end
+
+  def destroy
+    puts "=======================i am in destroy=============="
+    marksheet = Marksheet.find(params[:marksheet_id])
+    Sessional.where("bridge_id = ? and exam_id = ? and mark_date = ?", marksheet.bridge_id, marksheet.exam_id, params[:id]).delete_all
+    puts marksheet
+
+    puts "=======================i am in destroy=============="
+
+    redirect_to :back
   end
   private
     # Use callbacks to share common setup or constraints between actions.

@@ -58,6 +58,7 @@
             Al Omam International School</h1>
         </div>
 
+
         <!-- / buttons -->
 
         <!-- link and dropdown -->
@@ -165,6 +166,9 @@
       </div>
       <!-- / navbar collapse -->
   </header>
+
+
+
   <!-- / header -->
 
   <!-- aside -->
@@ -678,7 +682,7 @@
                       <i class="fa fa-fw fa-angle-down text-active"></i>
                     </span>
                     <i class="glyphicon glyphicon-menu-hamburger"></i>
-                    <span>General Calender</span>
+                    <span>Calender</span>
                   </a>
                   <ul class="nav nav-sub dk">
                     <li class="nav-sub-header">
@@ -703,7 +707,7 @@
                     </li>
                     <li>
                       <%= link_to(calenderdetail_calenders_path) do %>
-                        <span>All Events</span>
+                        <span>View All</span>
                       <% end %>
                     </li>
                   </ul>
@@ -726,17 +730,17 @@
                       <i class="fa fa-fw fa-angle-down text-active"></i>
                     </span>
                     <i class="glyphicon glyphicon-menu-hamburger"></i>
-                    <span>Calenders</span>
+                    <span>Exam & Quiz Cal.</span>
                   </a>
                   <ul class="nav nav-sub dk">
                     <li class="nav-sub-header">
                       <%= link_to("") do %>
-                        <span> Exam Calender</span>
+                        <span> Exam Calenders</span>
                       <% end %>
                     </li>
                     <li>
                       <%= link_to(examdetail_examcalenders_path) do %>
-                        <span>Exam Calender</span>
+                        <span>Exam Calenders</span>
                       <% end %>
                     </li>
                     <li>
@@ -997,7 +1001,7 @@
 
                       <li>
                         <%= link_to(invoices_path) do %>
-                          <span>All invoices</span>
+                          <span>Invoice</span>
                         <% end %>
                       </li>
 
@@ -1027,7 +1031,7 @@
                           <span>All Reports</span>
                         <% end %>
                       </li>
-                     
+
 
                     </ul>
                   </li>
@@ -1042,13 +1046,13 @@
                         <i class="fa fa-fw fa-angle-down text-active"></i>
                       </span>
                       <i class="glyphicon glyphicon-briefcase icon"></i>
-                      <span>Examinations</span>
+                      <span>Grade Log</span>
                     </a>
                     <ul class="nav nav-sub dk">
                       <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'create_exam').any? %>
                         <li>
                           <%= link_to(new_exam_path) do %>
-                            <span>Create Exam</span>
+                            <span>Create Term</span>
                           <% end %>
                         </li>
                       <% end %>
@@ -1057,7 +1061,7 @@
 
                         <li>
                           <%= link_to(exams_path) do %>
-                            <span>Exams List</span>
+                            <span>List of Terms</span>
                           <% end %>
                         </li>
                       <% end %>
@@ -1065,7 +1069,7 @@
                       <% if Right.where("role_id = ? and (value = ? or value = ? )" , current_user.role_id, 'create_exam' , 'update_exam').any? %>
                         <li>
                           <%= link_to(marks_path) do %>
-                            <span>Marks Devisions</span>
+                            <span>Create Grade Card</span>
                           <% end %>
                         </li>
                       <% end %>
@@ -1079,21 +1083,14 @@
                       <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'upload_marks').any? %>
                         <li>
                           <%= link_to(new_marksheet_path) do %>
-                            <span>Upload Marksheet</span>
-                          <% end %>
-                        </li>
-                      <% end %>
-                      <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'view_marksheets').any? %>
-                        <li>
-                          <%= link_to(marksheets_path) do %>
-                            <span>All Marksheet</span>
+                            <span>Grade Logs</span>
                           <% end %>
                         </li>
                       <% end %>
                       <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'view_class_result').any? %>
                         <li>
                           <%= link_to(classresult_marksheets_path) do %>
-                            <span>Class Results</span>
+                            <span>Class Result</span>
                           <% end %>
                         </li>
                       <% end %>
@@ -1323,12 +1320,51 @@
         </div>
       </div>
   </aside>
+
   <!-- / aside -->
 
   <!-- content -->
   <div id="content" class="app-content" role="main">
     <div class="app-content-body ">
+      <% if current_user && current_user.role.name == 'Parent' %>
+        <% stuid =  Student.find_by_rollnumber(current_user.email.split('@').first.split('_').last).id %>
+        <div id="user-stats">
+          <ul class="round-buttons">
+          
+              <li ><div class="depth"><a href="" title="View statement" class="tip"><i class="icon-signal"><%= image_tag asset_path("Picture1.png"), alt: ".", class: 'img-responsive', style: "padding-left:10px"%></i></a></div>bagls</li>
+              <li><div class="depth"><a href="" title="Media posts" class="tip"><i class="icon-reorder"><%= image_tag asset_path("Picture2.png"), alt: ".", class: 'img-responsive', style: "padding-left:10px"%></i></a>
+              </div>balla</li>
+              <li><div class="depth"><a href="" title="RSS feed" class="tip"><i class="icon-rss"></i></a></div></li>
+              <li><div class="depth"><a href="" title="Create new task" class="tip"><i class="icon-tasks"></i></a></div></li>
+              <li><div class="depth"><a href="" title="Layout settings" class="tip"><i class="icon-cogs"></i></a></div></li>
+              <li><div class="depth"><a href="" title="Layout settings" class="tip"><i class="icon-cogs"></i></a></div></li>
+              <li><div class="depth"><a href="" title="Layout settings" class="tip"><i class="icon-cogs"></i></a></div></li>
+              <li><div class="depth"><a href="" title="Layout settings" class="tip"><i class="icon-cogs"></i></a></div></li>
+              <li><div class="depth"><a href="" title="Layout settings" class="tip"><i class="icon-cogs"></i></a></div></li>
+              <li><div class="depth"><a href="" title="Layout settings" class="tip"><i class="icon-cogs"></i></a></div></li>
+          </ul>
+        </div>
 
+      <% elsif current_user && current_user.role.name == 'Student' %>
+        <% stuid = Student.find_by_email(current_user.email).id %>
+        <div id="user-stats">
+          <ul class="round-buttons">
+          
+              <li ><div class="depth"><a href="" title="View statement" class="tip"><i class="icon-signal"><%= image_tag asset_path("Picture1.png"), alt: ".", class: 'img-responsive', style: "padding-left:10px"%></i></a></div>bagls</li>
+              <li><div class="depth"><a href="" title="Media posts" class="tip"><i class="icon-reorder"><%= image_tag asset_path("Picture2.png"), alt: ".", class: 'img-responsive', style: "padding-left:10px"%></i></a>
+              </div>balla</li>
+              <li><div class="depth"><a href="" title="RSS feed" class="tip"><i class="icon-rss"></i></a></div></li>
+              <li><div class="depth"><a href="" title="Create new task" class="tip"><i class="icon-tasks"></i></a></div></li>
+              <li><div class="depth"><a href="" title="Layout settings" class="tip"><i class="icon-cogs"></i></a></div></li>
+              <li><div class="depth"><a href="" title="Layout settings" class="tip"><i class="icon-cogs"></i></a></div></li>
+              <li><div class="depth"><a href="" title="Layout settings" class="tip"><i class="icon-cogs"></i></a></div></li>
+              <li><div class="depth"><a href="" title="Layout settings" class="tip"><i class="icon-cogs"></i></a></div></li>
+              <li><div class="depth"><a href="" title="Layout settings" class="tip"><i class="icon-cogs"></i></a></div></li>
+              <li><div class="depth"><a href="" title="Layout settings" class="tip"><i class="icon-cogs"></i></a></div></li>
+          </ul>
+        </div>
+
+      <% end %>
 
 <div class="hbox hbox-auto-xs hbox-auto-sm" style="background-color: white; padding: 0 15px 0">
 
