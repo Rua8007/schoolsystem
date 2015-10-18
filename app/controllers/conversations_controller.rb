@@ -54,6 +54,16 @@ class ConversationsController < ApplicationController
     redirect_to conversations_path
   end
 
+  def unread
+    current_user.mailbox.inbox(:unread => true).count(:id, :distinct => true)
+  end
+
+  def notification
+    current_user.mailbox.notifications(:read => false)
+    redirect_to conversations_path
+
+  end
+
   private
 
   def get_mailbox

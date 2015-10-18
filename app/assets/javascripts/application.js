@@ -23,5 +23,6 @@
 //= require externals/bootstrap-daterangepicker/daterangepicker
 //= require bootstrap-datepicker
 //= require bootstrap-datepicker/core
+//= require jquery.turbolinks
 //= require chosen-jquery
 //= require messages

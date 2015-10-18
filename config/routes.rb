@@ -1,4 +1,15 @@
 Rails.application.routes.draw do
+  resources :curriculums
+  resources :lessonplans
+  resources :portions
+  resources :conversations, only: [:index, :show, :destroy] do
+  member do
+    get :notification
+    post :reply
+    post :restore
+     post :mark_as_read
+end
+end
 
   resources :performances
   resources :roles
