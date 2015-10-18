@@ -1331,17 +1331,22 @@
         <div id="user-stats">
           <ul class="round-buttons">
               <li >
-                <div class="depth"><a href="<%= conversations_path %>" title="View statement" class="tip"><i class="icon-signal"><%= image_tag asset_path("Picture1.png"), alt: ".", class: 'img-responsive', style: "padding-left:10px"%></i></a></div>
+                <div class="depth"><a href="<%= conversations_path %>" title="View statement" class="tip"><i class="icon-signal"><%= image_tag asset_path("msg.ico"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div>
                 Messages
               </li>
-              <li><div class="depth"><a href="<%=performances_path%>" title="Media posts" class="tip"><i class="icon-reorder"><%= image_tag asset_path("Picture2.png"), alt: ".", class: 'img-responsive', style: "padding-left:10px"%></i></a>
+              <li><div class="depth"><a href="<%=performances_path%>" title="Media posts" class="tip"><i class="icon-reorder"><%= image_tag asset_path("Picture16.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a>
               </div>Behaviour
               </li>
-              <li><div class="depth"><a href="<%= fees_path %>" title="RSS feed" class="tip"><i class="icon-rss"></i></a></div> Fee Details</li>
-              <li><div class="depth"><a href="<% home_timetable_path %>" title="Create new task" class="tip"><i class="icon-tasks"></i></a></div>Time Table</li>
-              <li><div class="depth"><a href="<%= result_marksheets_path({student_id: stuid}) %>" title="Layout settings" class="tip"><i class="icon-cogs"></i></a></div>Result Card</li>
-              <li><div class="depth"><a href="<% grade_path(Student.find(stuid).grade_id) %>" title="Layout settings" class="tip"><i class="icon-cogs"></i></a></div>Subjects</li>
-              <li><div class="depth"><a href="<%= monthly_attendance_report_students_path %>" title="Layout settings" class="tip"><i class="icon-cogs"></i></a></div>Attendence</li>
+
+              <li><div class="depth"><a href="<%= fees_path %>" title="RSS feed" class="tip"><i class="icon-rss"><%= image_tag asset_path("Picture7.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div> Fee Details</li>
+
+              <li><div class="depth"><a href="<%= home_timetable_path %>" title="Create new task" class="tip"><i class="icon-tasks"><%= image_tag asset_path("Picture6.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div>Time Table</li>
+
+              <li><div class="depth"><a href="<%= result_marksheets_path({student_id: stuid}) %>" title="Layout settings" class="tip"><i class="icon-cogs"><%= image_tag asset_path("Picture4.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div>Result Card</li>
+
+              <li><div class="depth"><a href="<%= grade_path(Student.find(stuid).grade_id) %>" title="Layout settings" class="tip"><i class="icon-cogs"><%= image_tag asset_path("Picture3.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div>Subjects</li>
+
+              <li><div class="depth"><a href="<%= monthly_attendance_report_students_path %>" title="Layout settings" class="tip"><i class="icon-cogs"><%= image_tag asset_path("Picture5.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div>Attendence</li>
           </ul>
         </div>
 
@@ -1350,16 +1355,20 @@
         <div id="user-stats">
           <ul class="round-buttons">
               <li >
-                <div class="depth"><a href="<%= conversations_path %>" title="View statement" class="tip"><i class="icon-signal"><%= image_tag asset_path("Picture1.png"), alt: ".", class: 'img-responsive', style: "padding-left:10px"%></i></a></div>
+                <div class="depth"><a href="<%= conversations_path %>" title="View statement" class="tip"><i class="icon-signal"><%= image_tag asset_path("msg.ico"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div>
                 Messages
               </li>
-              <li><div class="depth"><a href="<%=performances_path%>" title="Media posts" class="tip"><i class="icon-reorder"><%= image_tag asset_path("Picture2.png"), alt: ".", class: 'img-responsive', style: "padding-left:10px"%></i></a>
+              <li><div class="depth"><a href="<%=performances_path%>" title="Media posts" class="tip"><i class="icon-reorder"><%= image_tag asset_path("Picture16.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a>
               </div>Behaviour
               </li>
-              <li><div class="depth"><a href="<% home_timetable_path %>" title="Create new task" class="tip"><i class="icon-tasks"></i></a></div>Time Table</li>
-              <li><div class="depth"><a href="<%= result_marksheets_path({student_id: stuid}) %>" title="Layout settings" class="tip"><i class="icon-cogs"></i></a></div>Result Card</li>
-              <li><div class="depth"><a href="<% grade_path(Student.find(stuid).grade_id) %>" title="Layout settings" class="tip"><i class="icon-cogs"></i></a></div>Subjects</li>
-              <li><div class="depth"><a href="<%= monthly_attendance_report_students_path %>" title="Layout settings" class="tip"><i class="icon-cogs"></i></a></div>Attendence</li>
+
+              <li><div class="depth"><a href="<%= home_timetable_path %>" title="Create new task" class="tip"><i class="icon-tasks"><%= image_tag asset_path("Picture6.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div>Time Table</li>
+
+              <li><div class="depth"><a href="<%= result_marksheets_path({student_id: stuid}) %>" title="Layout settings" class="tip"><i class="icon-cogs"><%= image_tag asset_path("Picture4.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div>Result Card</li>
+
+              <li><div class="depth"><a href="<%= grade_path(Student.find(stuid).grade_id) %>" title="Layout settings" class="tip"><i class="icon-cogs"><%= image_tag asset_path("Picture3.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div>Subjects</li>
+
+              <li><div class="depth"><a href="<%= monthly_attendance_report_students_path %>" title="Layout settings" class="tip"><i class="icon-cogs"><%= image_tag asset_path("Picture5.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div>Attendence</li>
           </ul>
         </div>
 
