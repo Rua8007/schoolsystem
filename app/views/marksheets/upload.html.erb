@@ -32,18 +32,18 @@
 				<h5><%= @mark.name %></h5>
 				<%= text_field_tag "up_date[]", k, style:"", disabled: "true" %><br><br>
 				<% @data[k].try(:each) do |dt| %>
-					<%= text_field_tag "up_mark[#{dt.id}]", dt.marks, style:"", class: "calculate"%><br><br>
+					<%= text_field_tag "up_mark[#{dt.id}]", dt.marks, style:"", class: "calc"+dt.student_id.to_s %><br><br>
 				<% end %>
 				<br>
 				<%= link_to "Delete", marksheet_path({id: k, marksheet_id: @marksheet.id}), method: 'delete', class: "btn btn-info", style: "margin-left: 60px" %>
 			</div>
 		<% end %>
 		<% if @data.empty? %>
-			<div class="well well-lg col-md-2 con" style="padding:10px;min-height:500px;width: 180px;float:none !important;display: inline-block;vertical-align: top;">
+			<div class="well well-lg col-md-2 con" style="padding:10px;min-height:500px;width: 180px;float:none !important;display:inline-block;vertical-align: top;">
 				<h5><%= @mark.name %></h5>
 				<%= text_field_tag "marks_date[]", '', style:"" , class: "datepickerss", required: true, placeholder: "Select Date" %><br><br>
 				<% @students.try(:each) do |std| %>
-					<%= text_field_tag "marks[#{std.id}][]" , '' ,class: "calculate" %> <br><br>
+					<%= text_field_tag "marks[#{std.id}][]" , '' ,class: "calculate"+std.id.to_s %> <br><br>
 				<% end %>
 			</div>
 		<% end %>
@@ -52,7 +52,7 @@
 			<h5><%= "Total	" %></h5>
 			<%= text_field_tag "max_mark", @mark.marks, style:"" , class: "datepickerss", required: true, disabled: true%><br><br>
 			<% @students.try(:each) do |std| %>
-				<%= text_field_tag "marks[#{std.id}][]",'' ,disabled: true, id: std.id  %> <br><br>
+				<%= text_field_tag "marks[#{std.id}][]",'' ,disabled: true, id: std.id, class: "total"+std.id.to_s %> <br><br>
 			<% end %>
 		</div>
 
@@ -61,19 +61,31 @@
 <% end %>
 
 <script type="text/javascript">
-	$("#addmore").click(function (){
+
+	$("#addmore").on("click", function (){
 		console.log("I am here");
 		var html = $($('.col-template').html());
 		console.log(html);
 		html.insertAfter($('.col-form .con').last());
+		$(".datepickerss").datepicker();
 	});
 	$(".datepickerss").datepicker();
-	$(".calculate").keyup(function(){
-		console.log("here in calculation");
-		$('.calculate').each(function(i, obj) {
-			console.log(obj);
+
+	<% @students.try(:each) do |std| %>
+		$(document).on("blur", '.calc<%= std.id.to_s %>', function(){
+			var sum = 0
+			$('.calc<%= std.id.to_s %>').each(function(i, obj) {
+				if (obj.value != '')
+				{
+					sum = sum + parseFloat(obj.value);
+				}
+			});
+			console.log(sum);
+
+			$(".total<%=std.id.to_s%>").val(sum);
 		});
-	});
+	<% end %>
+
 </script>
 
 <div class="col-template hidden">
@@ -81,7 +93,7 @@
 		<h5><%= @mark.name %></h5>
 		<%= text_field_tag "marks_date[]", '' ,class: "datepickerss", required: true, placeholder: "Select Date" %><br><br>
 		<% @students.try(:each) do |std| %>
-			<%= text_field_tag "marks[#{std.id}][]", "" ,class: "calculate " %> <br><br>
+			<%= text_field_tag "marks[#{std.id}][]", "" ,class: "calc"+std.id.to_s %> <br><br>
 		<% end %>
 	</div>
 </div>
