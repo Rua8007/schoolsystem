@@ -13,53 +13,83 @@
     <div class="container" >
     	<div class="abc" style="">
 
-    <div class="container" >
-	
-		<br>
-        <div class="col-sm-4">
-            <table class="table">
-                <tbody>
-                    
-                    <tr>
-                        <td class="student-profile-td">
-                            Student name
-                        </td>
+            <div class="container" >
 
-                        <td>
-                            <%= @performance.student.fullname %>
-                        </td>
-                    </tr>
+        		<br>
+                <div class="col-sm-12">
+                    <table class="table">
+                        <tbody>
 
-                    <tr>
-                        <td class="student-profile-td">
-                            Section name
-                        </td>
+                            <tr>
+                                <td class="student-profile-td">
+                                    Student
+                                </td>
 
-                        <td>
-                            <%= @performance.bridge.title %>
-                        </td>
-                    </tr>
+                                <td>
+                                    <%= @performance.student.fullname %>
+                                </td>
+                            </tr>
 
-                     <tr>
-                        <td class="student-profile-td">
-                            Remarks
-                        </td>
+                            <tr>
+                                <td class="student-profile-td">
+                                    Grade
+                                </td>
 
-                        <td>
-                            <%= @performance.remark %>
-                        </td>
-                    </tr>
+                                <td>
+                                    <%= @performance.bridge.grade.full_name %>
+                                </td>
+                            </tr>
 
-                   
-                </tbody>
-            </table>
-            <%= link_to 'Back', performances_path,class: "btn btn-color" %>
+                            <tr>
+                                <td class="student-profile-td">
+                                    Subject
+                                </td>
 
+                                <td>
+                                    <%= @performance.bridge.subject.name %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="student-profile-td">
+                                    Teacher
+                                </td>
+
+                                <td>
+                                    <%= @performance.bridge.employee.full_name %>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="student-profile-td">
+                                    Submission Date
+                                </td>
+
+                                <td>
+                                    <%= @performance.created_at.strftime("%d-%m-%Y") %>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div>
+                        <h3>Commendations</h3> <br>
+                        <p><%= @performance.remark %></p>
+                    </div>
+                    <div>
+                        <div style="margin-left: 30px">
+                          <%= check_box :lc,"", checked: @performance.lc, disabled: true %> Lack of concentration and/or distraction during expanation<br>
+                          <%= check_box :fa,"", checked: @performance.fa, disabled: true %> Frequent Absents/ Tardiness<br>
+                          <%= check_box :pw,"", checked: @performance.pw, disabled: true %> Poor work habit<br>
+                          <%= check_box :lk,"", checked: @performance.lk, disabled: true %> Low skill level in basics<br>
+                          <%= check_box :ia,"", checked: @performance.ia, disabled: true %> Incomplete Assignments<br>
+                          <%= check_box :pc,"", checked: @performance.pc, disabled: true %> Poor class participation<br>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
-        </div>
-        </div>
-        </div>
-        </div>
+    </div>
+</div>
 
 
 

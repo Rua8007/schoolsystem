@@ -11,37 +11,44 @@
     </div>
   <% end %>
 
-  
+
 
 
 <br>
 <div class="container form-holder ">
-        <div class="row">
-        <fieldset class="sss well well-lg">
-          <legend class="lll">Create  Performance Report</legend>
-
-
-        <br>
-            <div  class="row">
-              <%= f.hidden_field :student_id, value: @student_id %>
-              <%= f.hidden_field :bridge_id, value: @bridge_id %>
-            <div>
-              <div class="column col-xs-12 col-sm-12">
-                <div class="form-group ">
-                  <div class="field">
-                    <%= f.label :remarks %><br>
-                    <%= f.text_area :remark , cols: 70, rows: 7, class: 'form-control' , required: true, autofocus: true%>
-                  </div>
-                </div>
-              </div>
-            </div>
-              
-            </fieldset>
+  <div class="row">
+  <fieldset class="sss well well-lg">
+    <legend class="lll">Create  Performance Report</legend>
+  <br>
+    <div  class="row">
+      <%= f.hidden_field :student_id, value: @student_id %>
+      <%= f.hidden_field :bridge_id, value: @bridge_id %>
+    <div>
+      <div class="column col-xs-12 col-sm-12">
+        <div class="form-group ">
+          <div class="field">
+            <%= f.label :remarks %><br>
+            <%= f.text_area :remark , cols: 70, rows: 7, class: 'form-control' , autofocus: true%>
           </div>
         </div>
-          <div class="modal-footer">
-            <%= submit_tag 'Create', class: 'btn btn-success' %>
-          </div>
+      </div>
+    </div>
+    <div style="margin-left: 30px">
+      <%= check_box :lc,"" %> Lack of concentration and/or distraction during expanation<br>
+      <%= check_box :fa,"" %> Frequent Absents/ Tardiness<br>
+      <%= check_box :pw,"" %> Poor work habit<br>
+      <%= check_box :lk,"" %> Low skill level in basics<br>
+      <%= check_box :ia,"" %> Incomplete Assignments<br>
+      <%= check_box :pc,"" %> Poor class participation<br>
+    </div>
+
+    </fieldset>
+  </div>
+
+</div>
+    <div class="modal-footer">
+      <%= submit_tag 'Create', class: 'btn btn-success' %>
+    </div>
 <% end %>
 
 
@@ -72,15 +79,15 @@
   }
 
   .sss{
-    border:1px solid#e5e5e5;   padding: 1%; 
+    border:1px solid#e5e5e5;   padding: 1%;
   }
 
   .ttt{
-    border:1px solid green;   padding: 1%; 
+    border:1px solid green;   padding: 1%;
   }
 
   .lll{
-    width: auto !important; 
+    width: auto !important;
     background-color: white;
     padding-right: 16px;
     padding-left: 15px;
@@ -90,7 +97,7 @@
   }
 
   .zzz{
-    width: auto !important; 
+    width: auto !important;
     background-color: white;
     padding-right: 16px;
     padding-left: 15px;

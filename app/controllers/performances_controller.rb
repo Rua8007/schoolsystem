@@ -25,13 +25,36 @@ class PerformancesController < ApplicationController
   def edit
     @students = Student.all
     @bridges = Bridge.all
-  
+
   end
 
   # POST /performances
   # POST /performances.json
   def create
     @performance = Performance.new(performance_params)
+    if params[:lc].length == 2
+      @performance.lc = true
+    end
+
+    if params[:fa].length == 2
+      @performance.fa = true
+    end
+
+    if params[:pc].length == 2
+      @performance.pc = true
+    end
+
+    if params[:pw].length == 2
+      @performance.pw = true
+    end
+
+    if params[:lk].length == 2
+      @performance.lk = true
+    end
+
+    if params[:ia].length == 2
+      @performance.ia = true
+    end
 
     respond_to do |format|
       if @performance.save

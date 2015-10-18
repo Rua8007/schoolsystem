@@ -19,7 +19,7 @@
 </head>
 <body>
 <div class="app app-header-fixed  ">
-  
+
 
 <div class="container w-xxl w-auto-xs" ng-controller="SigninFormController" ng-init="app.settings.container = false;">
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
@@ -30,11 +30,11 @@
     </div>
     <form name="form" class="form-validation">
       <div class="text-danger wrapper text-center" ng-show="authError">
-          
+
       </div>
       <div class="list-group list-group-sm">
         <div class="list-group-item">
-          
+
            <div class="field" >
               <%= f.label :email %><br />
               <%= f.email_field :email, autofocus: true, placeholder: "Email" ,class: "form-control no-border"  %>
@@ -54,11 +54,10 @@
       <%= f.label :remember_me %>
     </div>
   <% end -%>
-      
+
       <div class="actions">
         <%= f.submit "Log in" ,class: "btn btn-lg btn-info btn-block" %>
       </div>
-      <div class="text-center m-t m-b"><%= render "devise/shared/links" %></div>
       <div class="line line-dashed"></div>
     </form>
   </div>

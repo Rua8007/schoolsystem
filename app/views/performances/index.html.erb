@@ -56,8 +56,6 @@
         <td><%= performance.bridge.title %></td>
         <td><%= performance.remark %></td>
         <td><%= link_to '', performance,:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
-       <%= link_to '', edit_performance_path(performance),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
-       <%= link_to '', performance, method: :delete, data: { confirm: 'Are you sure?' },:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash' %></td>
       </tr>
     <% end %>
   </tbody>
