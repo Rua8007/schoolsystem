@@ -10,7 +10,6 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_self
  *= require externals/bootstrap/dist/css/bootstrap
  *= require externals/animate.css/animate
  *= require externals/font-awesome/css/font-awesome
@@ -21,10 +20,12 @@
  *= require fullcalendar
  *= require bootstrap-datepicker
  *= require chosen
+ *= require_self
  */
-.round-buttons { width: 100%; text-align: center; padding: 18px; font-size: 14px; line-height: 0.5 !important; box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box; }
-.round-buttons > li { margin: 4px 12px; position: relative; display: inline-block; text-align: center; width:80px; height:80px; border:1px solid #d7d7d7; border-radius:50%; position:relative; }
-.depth { overflow: hidden; margin: 4px; width: 72px; height: 72px; border-radius: 50%; background-color: #7FC3DD;
+
+.round-buttons {  width: 100%; text-align: center; padding: 18px; font-size: 20px; line-height: 0.5 !important; box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box; }
+.round-buttons > li { vertical-align: top;margin: 4px 12px; position: relative; display: inline-block; text-align: center; width:80px; height:80px; border:1px solid #d7d7d7; border-radius:50%; position:relative; }
+.depth { overflow: hidden; margin: 4px 4px 17px; width: 72px; height: 72px; border-radius: 50%; background-color: #7FC3DD;
 box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.3);
 -webkit-box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.3);
 -moz-box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.3);

@@ -4,8 +4,15 @@ class PerformancesController < ApplicationController
   # GET /performances
   # GET /performances.json
   def index
-    @performances = Performance.all
-
+    if current_user.role.name == 'Parent'
+      temp = Student.find_by_rollnumber(current_user.email.split('@').first.split('_').last).id
+      @performances = Performance.where(student_id: temp)
+    elsif current_user.role.name == 'Student'
+      temp = Student.find_by_email(current_user.email)
+      @performances = Performance.where(student_id: temp)
+    else
+      @performances = Performance.all
+    end
   end
 
   # GET /performances/1
