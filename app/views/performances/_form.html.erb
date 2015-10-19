@@ -33,13 +33,48 @@
         </div>
       </div>
     </div>
-    <div style="margin-left: 30px">
-      <%= check_box :lc,"" %> Lack of concentration and/or distraction during expanation<br>
-      <%= check_box :fa,"" %> Frequent Absents/ Tardiness<br>
-      <%= check_box :pw,"" %> Poor work habit<br>
-      <%= check_box :lk,"" %> Low skill level in basics<br>
-      <%= check_box :ia,"" %> Incomplete Assignments<br>
-      <%= check_box :pc,"" %> Poor class participation<br>
+
+
+
+
+    <div style="margin-left: 30px; font-size:20px;">
+      <div class="checkbox">
+        <label class="i-checks" >
+          <%= check_box :lc,"", class: "leave_checkbox" %>
+          <i></i>Lack of concentration and/or distraction during expanation
+        </label>
+      </div>
+      <div class="checkbox">
+        <label class="i-checks" >
+          <%= check_box :fa,"", class: "leave_checkbox" %>
+          <i ></i>Frequent Absents/ Tardiness
+        </label>
+      </div>
+      <div class="checkbox">
+        <label class="i-checks" >
+          <%= check_box :pw, "", class: "leave_checkbox" %>
+          <i ></i>Poor work habbit
+        </label>
+      </div>
+      <div class="checkbox">
+        <label class="i-checks" >
+          <%= check_box :lk, "", class: "leave_checkbox" %>
+          <i ></i>Low skill level in basics
+        </label>
+      </div>
+      <div class="checkbox">
+        <label class="i-checks" >
+          <%= check_box :ia, "", class: "leave_checkbox" %>
+          <i ></i>Incomplete Assignments
+        </label>
+      </div>
+
+      <div class="checkbox">
+        <label class="i-checks" >
+          <%= check_box :pc, "", class: "leave_checkbox" %>
+          <i ></i>Poor class participation
+        </label>
+      </div>
     </div>
 
     </fieldset>
