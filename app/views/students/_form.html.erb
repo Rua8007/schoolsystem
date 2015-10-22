@@ -8,10 +8,17 @@
   </h4>
 </div>
 
-<div class="col-md-3 pull-right">
-  <label>Date of Submission</label>
-  <%= std.text_field :created_at, class: 'form-control datepicker','data-date-format' => "yyyy-mm-dd" %>
+<div class="col-md-3  pull-right">
+  <label>Quarter</label>
+  <%= std.select :eyeside, options_for_select(%w[1st 2nd 3rd 4th]),{}, {class: "form-control", style: 'width: 100%'} %>
 </div>
+
+<div class="col-md-3 pull-right">
+  <label>Date of Joining</label>
+  <%= std.text_field :created_at, class: 'form-control datepicker','data-date-format' => "yyyy-mm-dd" %>
+
+</div>
+
 <br>
 <br>
 <br>

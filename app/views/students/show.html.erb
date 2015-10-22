@@ -65,6 +65,16 @@
                             <%= @student.iqamaExpiry %>
                         </td>
                     </tr>
+
+                    <tr>
+                        <td class="student-profile-td">
+                            Joining Date
+                        </td>
+
+                        <td>
+                            <%= @student.created_at %>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -112,7 +122,17 @@
                         </td>
                     </tr>
 
-                    
+                    <tr>
+                        <td class="student-profile-td">
+                            Joining Quarter
+                        </td>
+
+                        <td>
+                            <%= @student.eyeside %>
+                        </td>
+                    </tr>
+
+
                 </tbody>
             </table>
             <!-- <p>Section:<label>A</label></p> -->
@@ -178,7 +198,7 @@
                             <%= @student.phone %>
                         </td>
                     </tr>
-                    
+
 
                     <tr>
                         <td>
