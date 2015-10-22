@@ -3,7 +3,7 @@
   	<div class="text-center">
   		<%= "School Year: #{@portion.year_plan.year_name} " %>
   	</div>
-  
+
   	<%= link_to(@portion, method: :delete, class: 'btn m-b-xs btn-sm btn-danger btn-addon pull-right', data: { confirm: 'This will delete current whole portion. Are you sure that you want to make a new one?' }) do %>
 	    <i class="fa fa-plus"></i>
 	    	Remake Portion
@@ -42,5 +42,6 @@
 	</table>
 </div>
 
-<%= link_to 'Edit', edit_portion_path(@portion) %> |
-<%= link_to 'Back', portions_path %>
+<button class="btn btn-success pull-right" onclick="window.print()">Print</button>
+
+<%= link_to 'Edit', edit_portion_path(@portion), class: "btn btn-success" %>

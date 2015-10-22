@@ -1,12 +1,12 @@
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3">
-   
-  
+
+
   <div class="abc form-holder">
   <div class="text-center">
       <%= "School Year: #{@lessonplan.year_plan.year_name} " %>
     </div>
-  
+
     <%= link_to(@lessonplan, method: :delete, class: 'btn m-b-xs btn-sm btn-danger btn-addon pull-right', data: { confirm: 'This will delete current whole lesson plan. Are you sure that you want to make a new one?' }) do %>
 
       <i class="fa fa-plus"></i>
@@ -69,7 +69,7 @@
                   <%= @lessonplan.objectives %>
                 </div>
               </div>
-          </fieldset>       
+          </fieldset>
         </div>
       </div>
 </div>
@@ -94,4 +94,5 @@
   </table>
 </div>
 
-<%= link_to 'Back', root_path %>
+<button class="btn btn-success pull-right" onclick="window.print()">Print</button>
+

@@ -9,29 +9,29 @@
         dom: 'T<"clear">lfrtip',
         tableTools: {
             "sSwfPath": "https://cdn.datatables.net/tabletools/2.2.2/swf/copy_csv_xls_pdf.swf"
-        // },
-        // <%# if @students.count > 0 %>
-        //    "footerCallback": function ( row, data, start, end, display ) {
-        //       var api = this.api(), data;
+        },
+        <% if @students.count > 0 %>
+           "footerCallback": function ( row, data, start, end, display ) {
+              var api = this.api(), data;
 
-        //       // Remove the formatting to get integer data for summation
-        //       var intVal = function ( i ) {
-        //           return typeof i === 'string' ?
-        //               i.replace(/[\$,]/g, '')*1 :
-        //               typeof i === 'number' ?
-        //                   i : 0;
-        //       };
+              // Remove the formatting to get integer data for summation
+              var intVal = function ( i ) {
+                  return typeof i === 'string' ?
+                      i.replace(/[\$,]/g, '')*1 :
+                      typeof i === 'number' ?
+                          i : 0;
+              };
 
-        //       // Total over all pages
-        //       total = api
-        //           .column( 5 )
-        //           .data()
-        //           .reduce( function (a, b) {
-        //               return intVal(a) + intVal(b);
-        //           } );
-        //       $('#totalamount').text('Total Amount: '+total);
-        //   }
-        // <%# end %>
+              // Total over all pages
+              total = api
+                  .column( 6 )
+                  .data()
+                  .reduce( function (a, b) {
+                      return intVal(a) + intVal(b);
+                  } );
+              $('#totalamount').text('Total Amount: '+total);
+          }
+        <% end %>
     });
   });
 </script>
@@ -40,7 +40,7 @@
 
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3">Fee Defaulters
-    <!-- <span id= "totalamount" class= "pull-right"> Total Due </span> -->
+    <span id= "totalamount" class= "pull-right"> Total Due </span>
   </h1>
 </div>
 <div >
@@ -85,3 +85,4 @@
   </table>
 </div>
 
+<button class="btn btn-success pull-right" onclick="window.print()">Print</button>

@@ -14,10 +14,10 @@
         );
       }
     });
- 
+
     // DataTable
     var table = $('#example').DataTable();
- 
+
     // Apply the search
     table.columns().eq( 0 ).each( function ( colIdx ) {
         $( 'input', table.column( colIdx ).header() ).on( 'keyup change', function () {
@@ -35,8 +35,8 @@
 
 <h1>Listing Parents</h1>
 
-<table>
-  <thead >
+<table class="table">
+  <thead class="table-head">
     <tr>
       <th>Name</th>
       <th>Relation</th>
@@ -85,4 +85,5 @@
 
 <br>
 
-<%= link_to 'New Parent', new_parent_path %>
+<button class="btn btn-success pull-right" onclick="window.print()">Print</button>
+

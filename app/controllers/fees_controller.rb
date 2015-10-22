@@ -126,7 +126,7 @@ class FeesController < ApplicationController
   end
 
   def fee_defaulter
-    @students = Student.where("date(due_date)<= ?", Date.today)
+    @students = Student.where("due_date IS NOT NULL AND due_date != '' AND DATE(due_date) <= ?", Date.today)
   end
 
   def challan
