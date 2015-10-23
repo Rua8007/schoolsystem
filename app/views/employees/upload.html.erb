@@ -1,0 +1,8 @@
+<h4>Upload Items List via <span style="font-style:italic;">CSV</span> File</h4>
+<u><strong>First row should be : title, code </strong></u>
+
+
+<%= form_tag import_employees_path, multipart: true do %>
+  <%= file_field_tag :file, :accept => 'text/csv' %>
+  <%= submit_tag "Import", :class => 'btn' %>
+<% end %>

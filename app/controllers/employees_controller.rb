@@ -3,7 +3,26 @@ class EmployeesController < ApplicationController
 
   # GET /employees
   # GET /employees.json
+
+
+  def upload
+
+  end
+
+  def import
+    result = Employee.import(params[:file])
+    puts "in import"
+    if result=="notok"
+      redirect_to :back, :alert => "Error in file."
+    else
+      redirect_to employees_path, :notice => "Items imported."
+    end
+  end
+
   def index
+    if current_user.role.rights.where(value: "view_employee").nil?
+      redirect_to :back, "Sorry! You are not authorized"
+    end
     @employees = Employee.all
   end
 
@@ -14,6 +33,9 @@ class EmployeesController < ApplicationController
 
   # GET /employees/new
   def new
+    if current_user.role.rights.where(value: "create_employee").nil?
+      redirect_to :back, "Sorry! You are not authorized"
+    end
     @employee = Employee.new
 
     @employee.employee_number = "emp_" + (Employee.count+1).to_s
@@ -24,6 +46,9 @@ class EmployeesController < ApplicationController
 
   # GET /employees/1/edit
   def edit
+    if current_user.role.rights.where(value: "update_employee").nil?
+      redirect_to :back, "Sorry! You are not authorized"
+    end
     @categories = Category.all
     @departments = Department.all
     @positions = Position.all
@@ -33,6 +58,9 @@ class EmployeesController < ApplicationController
   # POST /employees
   # POST /employees.json
   def create
+    if current_user.role.rights.where(value: "create_employee").nil?
+      redirect_to :back, "Sorry! You are not authorized"
+    end
     @employee = Employee.create(employee_params)
     respond_to do |format|
       if @employee.save
@@ -56,6 +84,9 @@ class EmployeesController < ApplicationController
   # PATCH/PUT /employees/1
   # PATCH/PUT /employees/1.json
   def update
+    if current_user.role.rights.where(value: "update_employee").nil?
+      redirect_to :back, "Sorry! You are not authorized"
+    end
     respond_to do |format|
       if @employee.update(employee_params)
         format.html { redirect_to employees_path, notice: 'Employee was successfully updated.' }
@@ -70,7 +101,11 @@ class EmployeesController < ApplicationController
   # DELETE /employees/1
   # DELETE /employees/1.json
   def destroy
-    @employee.destroy
+    if current_user.role.rights.where(value: "update_employee").nil?
+      redirect_to :back, "Sorry! You are not authorized"
+    else
+      @employee.destroy
+    end
     respond_to do |format|
       format.html { redirect_to employees_path, notice: 'Employee was successfully destroyed.' }
       format.json { head :no_content }
@@ -78,12 +113,18 @@ class EmployeesController < ApplicationController
   end
 
   def mark_attendance_calendar
+    if current_user.role.rights.where(value: "create_eattendence").nil?
+      redirect_to :back, "Sorry! You are not authorized"
+    end
     @departments = Department.all
     @weekends = Weekend.all
   end
 
   ####### TIME ZONE ISSUES
   def mark_attendance
+    if current_user.role.rights.where(value: "create_eattendence").nil?
+      redirect_to :back, "Sorry! You are not authorized"
+    end
     if params[:attendance_date].present? && ( params[:attendance_date].to_date.strftime("%d-%m-%Y") === Date.today.strftime("%d-%m-%Y") || params[:attendance_date].to_date < Date.today ) && Weekend.find_by_weekend_day(params[:attendance_date].to_date.wday).nil?
       @attendance_date = params[:attendance_date].to_date.strftime("%d-%m-%Y")
       if params[:department].present?
@@ -197,6 +238,9 @@ class EmployeesController < ApplicationController
   end
 
   def monthly_attendance_report
+    if current_user.role.rights.where(value: "view_eattendence").nil?
+      redirect_to :back, "Sorry! You are not authorized"
+    end
     if current_user.role.name == 'Teacher'
       @departments = Department.where(id: Employee.find_by_email(current_user.email).department_id)
     else

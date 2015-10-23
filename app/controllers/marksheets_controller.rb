@@ -14,6 +14,9 @@ class MarksheetsController < ApplicationController
 
   # GET /marksheets/new
   def new
+    if current_user.role.rights.where(value: "upload_marks").nil?
+      redirect_to :back, "Sorry! You are not authorized"
+    end
     @marksheet = Marksheet.new
   end
 
@@ -65,6 +68,9 @@ class MarksheetsController < ApplicationController
   end
 
   def upload
+    if current_user.role.rights.where(value: "upload_marks").nil?
+      redirect_to :back, "Sorry! You are not authorized"
+    end
     @students = @marksheet.bridge.grade.students
     @marks = @marksheet.bridge.grade.marks
     @mark = @marks.first
@@ -133,6 +139,9 @@ class MarksheetsController < ApplicationController
   end
 
   def classresult
+    if current_user.role.rights.where(value: "view_class_result").nil?
+      redirect_to :back, "Sorry! You are not authorized"
+    end
   end
 
   def get_class_result
@@ -274,6 +283,9 @@ class MarksheetsController < ApplicationController
 
   def subject_result
     @bridges = Bridge.all
+    if current_user.role.rights.where(value: "subject_result").nil?
+      redirect_to :back, "Sorry! You are not authorized"
+    end
   end
 
   def get_subject_result

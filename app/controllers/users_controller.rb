@@ -1,5 +1,8 @@
 class UsersController < ApplicationController
   def index
+    if current_user.role.rights.where(value: "users").nil?
+      redirect_to :back, "Sorry! You are not authorized"
+    end
     @users = User.all
   end
 

@@ -4,6 +4,9 @@ class GradesController < ApplicationController
   # GET /grades
   # GET /grades.json
   def index
+    if current_user.role.rights.where(value: "view_grade").nil?
+      redirect_to :back, "Sorry! You are not authorized"
+    end
     @grades = Grade.all
 
   end
@@ -15,6 +18,9 @@ class GradesController < ApplicationController
 
   # GET /grades/new
   def new
+    if current_user.role.rights.where(value: "create_grade").nil?
+      redirect_to :back, "Sorry! You are not authorized"
+    end
     @grade = Grade.new
     @batch = Batch.all.pluck(:name, :id)
     @batches=Batch.all
@@ -22,6 +28,9 @@ class GradesController < ApplicationController
 
   # GET /grades/1/edit
   def edit
+    if current_user.role.rights.where(value: "update_subject").nil?
+      redirect_to :back, "Sorry! You are not authorized"
+    end
     @employees = Employee.where('employee.category.name' => "Academic")
     @batches = Batch.all
   end

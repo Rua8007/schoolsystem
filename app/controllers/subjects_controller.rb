@@ -14,11 +14,17 @@ class SubjectsController < ApplicationController
 
   # GET /subjects/new
   def new
+    if current_user.role.rights.where(value: "create_subject").nil?
+      redirect_to :back, "Sorry! You are not authorized"
+    end
     @subject = Subject.new
   end
 
   # GET /subjects/1/edit
   def edit
+    if current_user.role.rights.where(value: "update_subject").nil?
+      redirect_to :back, "Sorry! You are not authorized"
+    end
   end
 
   # POST /subjects
@@ -54,6 +60,9 @@ class SubjectsController < ApplicationController
   # DELETE /subjects/1
   # DELETE /subjects/1.json
   def destroy
+    if current_user.role.rights.where(value: "delete_subject").nil?
+      redirect_to :back, "Sorry! You are not authorized"
+    end
     @subject.destroy
     respond_to do |format|
       format.html { redirect_to subjects_url, notice: 'Subject was successfully destroyed.' }

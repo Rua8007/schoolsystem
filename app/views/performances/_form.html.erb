@@ -27,7 +27,7 @@
       <div class="column col-xs-12 col-sm-12">
         <div class="form-group ">
           <div class="field">
-            <%= f.label :remarks %><br>
+            <%= f.label :Commendations %><br>
             <%= f.text_area :remark , cols: 70, rows: 7, class: 'form-control' , autofocus: true%>
           </div>
         </div>
@@ -37,42 +37,42 @@
 
 
 
-    <div style="margin-left: 30px; font-size:20px;">
+    <div style="margin-left: 30px; font-size:18px;">
       <div class="checkbox">
-        <label class="i-checks" >
+        <label class="i-checks"  >
           <%= check_box :lc,"", class: "leave_checkbox" %>
-          <i></i>Lack of concentration and/or distraction during expanation
+          <i></i><strong>Lack of concentration and/or distraction during expanation</strong>
         </label>
       </div>
       <div class="checkbox">
         <label class="i-checks" >
           <%= check_box :fa,"", class: "leave_checkbox" %>
-          <i ></i>Frequent Absents/ Tardiness
+          <i ></i><strong>Frequent Absents/ Tardiness</strong>
         </label>
       </div>
       <div class="checkbox">
         <label class="i-checks" >
           <%= check_box :pw, "", class: "leave_checkbox" %>
-          <i ></i>Poor work habbit
+          <i ></i><strong>Poor work habbit</strong>
         </label>
       </div>
       <div class="checkbox">
         <label class="i-checks" >
           <%= check_box :lk, "", class: "leave_checkbox" %>
-          <i ></i>Low skill level in basics
+          <i ></i><strong>Low skill level in basics</strong>
         </label>
       </div>
       <div class="checkbox">
         <label class="i-checks" >
           <%= check_box :ia, "", class: "leave_checkbox" %>
-          <i ></i>Incomplete Assignments
+          <i ></i><strong>Incomplete Assignments</strong>
         </label>
       </div>
 
       <div class="checkbox">
         <label class="i-checks" >
           <%= check_box :pc, "", class: "leave_checkbox" %>
-          <i ></i>Poor class participation
+          <i ></i><strong>Poor class participation</strong>
         </label>
       </div>
     </div>

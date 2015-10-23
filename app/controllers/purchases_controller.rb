@@ -4,6 +4,9 @@ class PurchasesController < ApplicationController
   # GET /purchases
   # GET /purchases.json
   def index
+    if current_user.role.rights.where(value: "view_prequest").nil?
+      redirect_to :back, "Sorry! You are not authorized"
+    end
     @purchases = Purchase.all
   end
 
@@ -14,29 +17,35 @@ class PurchasesController < ApplicationController
 
   # GET /purchases/new
   def new
+    if current_user.role.rights.where(value: "create_prequest").nil?
+      redirect_to :back, "Sorry! You are not authorized"
+    end
     @purchase = Purchase.new
     @grades = Grade.all
     @teachers = Employee.all
     @purchaselines = Purchaseline.all
 
-   
+
   end
 
 
   def invoicing
+    if current_user.role.rights.where(value: "create_prequest").nil?
+      redirect_to :back, "Sorry! You are not authorized"
+    end
     inv = Purchase.create
     items = params[:items]
     inv.grade_id = params[:grade_id]
     inv.employee_id = params[:employee_id]
     inv.save
     items.each do |item|
-      
+
         temp = inv.purchaselines.create
         temp.code = item[1]['code']
         temp.quantity = item[1]['qty'].to_i
         temp.price = item[1]['price'].to_f
         temp.save
-      
+
     end
 
 
@@ -49,12 +58,15 @@ class PurchasesController < ApplicationController
 
   # POST /purchases
   # POST /purchases.json
-  
 
 
-  
+
+
 
   def approve
+    if current_user.role.rights.where(value: "view_prequest").nil?
+      redirect_to :back, "Sorry! You are not authorized"
+    end
     @purchase = Purchase.find(params[:id])
     @purchase.approve = true
     if @purchase.save
@@ -63,14 +75,17 @@ class PurchasesController < ApplicationController
   end
 
   def disapprove
+    if current_user.role.rights.where(value: "create_prequest").nil?
+      redirect_to :back, "Sorry! You are not authorized"
+    end
     @purchase = Purchase.find(params[:id])
     @purchase.approve = false
     if @purchase.save
       redirect_to purchases_path, notice: "Purchase Request Approved Successfully"
     end
   end
-    
- 
+
+
 
   # PATCH/PUT /purchases/1
   # PATCH/PUT /purchases/1.json

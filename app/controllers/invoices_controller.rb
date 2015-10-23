@@ -5,7 +5,7 @@ class InvoicesController < ApplicationController
   # GET /invoices
   # GET /invoices.json
   def index
-    if current_user.role != 'student'
+    if current_user.role.name != 'student'
       @invoices = Invoice.all
     else
       @invoices = Student.find_by_email(current_user.email).invoices

@@ -262,6 +262,8 @@ end
       post 'save_attendances'
       get 'monthly_attendance_report'
       get 'get_monthly_attendance_report_result'
+      get 'upload'
+      post 'import'
     end
   end
   # get 'home/index'

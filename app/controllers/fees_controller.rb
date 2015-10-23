@@ -28,11 +28,17 @@ class FeesController < ApplicationController
 
   # GET /fees/new
   def new
+    if current_user.role.rights.where(value: "create_fee").nil?
+      redirect_to :back, "Sorry! You are not authorized"
+    end
     @fee = Fee.new
   end
 
   # GET /fees/1/edit
   def edit
+    if current_user.role.rights.where(value: "update_fee").nil?
+      redirect_to :back, "Sorry! You are not authorized"
+    end
   end
 
   # POST /fees
@@ -118,6 +124,9 @@ class FeesController < ApplicationController
   # DELETE /fees/1
   # DELETE /fees/1.json
   def destroy
+    if current_user.role.rights.where(value: "delete_fee").nil?
+      redirect_to :back, "Sorry! You are not authorized"
+    end
     @fee.destroy
     respond_to do |format|
       format.html { redirect_to fees_url, notice: 'Fee was successfully destroyed.' }
@@ -126,6 +135,9 @@ class FeesController < ApplicationController
   end
 
   def fee_defaulter
+    if current_user.role.rights.where(value: "view_fee").nil?
+      redirect_to :back, "Sorry! You are not authorized"
+    end
     @students = Student.where("due_date IS NOT NULL AND due_date != '' AND DATE(due_date) <= ?", Date.today)
   end
 

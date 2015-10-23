@@ -1,6 +1,9 @@
 class RightsController < ApplicationController
 
   def new
+    if current_user.role.rights.where(value: "permissions").nil?
+      redirect_to :back, "Sorry! You are not authorized"
+    end
     @roles = Role.all
   end
 
@@ -15,6 +18,9 @@ class RightsController < ApplicationController
   end
 
   def edit
+    if current_user.role.rights.where(value: "permissions").nil?
+      redirect_to :back, "Sorry! You are not authorized"
+    end
     @role = Role.find(params[:id])
     @rights = @role.rights
   end

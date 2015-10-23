@@ -4,6 +4,9 @@ class ExamsController < ApplicationController
   # GET /exams
   # GET /exams.json
   def index
+    if current_user.role.rights.where(value: "view_exam").nil?
+      redirect_to :back, "Sorry! You are not authorized"
+    end
     @exams = Exam.all
   end
 
@@ -14,11 +17,17 @@ class ExamsController < ApplicationController
 
   # GET /exams/new
   def new
+    if current_user.role.rights.where(value: "create_exam").nil?
+      redirect_to :back, "Sorry! You are not authorized"
+    end
     @exam = Exam.new
   end
 
   # GET /exams/1/edit
   def edit
+    if current_user.role.rights.where(value: "update_exam").nil?
+      redirect_to :back, "Sorry! You are not authorized"
+    end
   end
 
   # POST /exams
@@ -54,6 +63,9 @@ class ExamsController < ApplicationController
   # DELETE /exams/1
   # DELETE /exams/1.json
   def destroy
+    if current_user.role.rights.where(value: "delete_exam").nil?
+      redirect_to :back, "Sorry! You are not authorized"
+    end
     @exam.destroy
     respond_to do |format|
       format.html { redirect_to exams_url, notice: 'Exam was successfully destroyed.' }

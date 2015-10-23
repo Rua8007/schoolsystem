@@ -19,6 +19,9 @@ class TransportfeerecordsController < ApplicationController
 
   # GET /transportfeerecords/new
   def new
+    if current_user.role.rights.where(value: "create_transport").nil?
+      redirect_to :back, "Sorry! You are not authorized"
+    end
     @transportfeerecord = Transportfeerecord.new
     @bus_allotment = BusAllotment.new
     @students=Student.all
@@ -27,6 +30,9 @@ class TransportfeerecordsController < ApplicationController
 
   # GET /transportfeerecords/1/edit
   def edit
+    if current_user.role.rights.where(value: "update_transport").nil?
+      redirect_to :back, "Sorry! You are not authorized"
+    end
   end
 
   # POST /transportfeerecords

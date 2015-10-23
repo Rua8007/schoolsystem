@@ -17,6 +17,7 @@ gem 'coffee-rails', '~> 4.1.0'
 gem "rails-erd"
 
 gem 'httparty'
+gem 'roo'
 
 gem 'wysihtml-rails'
 gem "pundit"
