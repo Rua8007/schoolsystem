@@ -1,80 +1,42 @@
-
-
-<div class="bg-light lter b-b wrapper-md">
-  <h1 class="m-n font-thin h3">Transport allotment information  </h1>
+<div id="page-wrapper">
+  <h1 class="m-n font-thin h3">Transport allotment information</h1>
+  </br>
+  </br>
+  
+  <h2 class="m-n font-thin h3">Student Name :  <%= @bus_allotment.student.fullname %></h2>
+  
+  <!-- Specifying an 'open' attribute will make all the content visible when the page loads -->
+  <details>
+    <summary>Student ID :  <%= @bus_allotment.student.id %></summary>
+    
+    <table>
+      <tr>
+        <th scope="row">Transport</th>
+        <td> <%= @bus_allotment.transport.no %></td>
+      </tr>
+      </br>
+      <tr>
+        <th scope="row">Route</th>
+        <td><%= @bus_allotment.route.name %></td>
+      </tr>
+      <tr>
+        <th scope="row">Stop</th>
+        <td><%= @bus_allotment.stop.name%></td>
+      </tr>
+      <tr>
+        <th scope="row">Vehicle</th>
+        <td>
+        <%= @bus_allotment.transport.vehicle.vehicle_no %>
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">Driver</th>
+        <td>
+          <%= @bus_allotment.transport.employee.full_name %>
+        </td>
+      </tr>
+    </table>
+  </details>
+  
+  
 </div>
-
-<style type="text/css">
-    @media(min-width: 1200px)
-.abc {
-  width: 1080px;
-}
-</style>
-<div class="abc" style="">
-
-    <div class="container" >
-    	<div class="abc" style="">
-
-    <div class="container" >
-	
-		<br>
-        <div class="col-sm-4">
-            <table class="table">
-                <tbody>
-                    
-                    <tr>
-                        <td class="student-profile-td">
-                            Student
-                        </td>
-
-                        <td>
-                            <%= @bus_allotment.student.fullname %>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="student-profile-td">
-                            Transport
-                        </td>
-
-                        <td>
-                            <%= @bus_allotment.transport.no %>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="student-profile-td">
-                            Route
-                        </td>
-
-                        <td>
-                            <%= @bus_allotment.route.name %>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="student-profile-td">
-                            Stop
-                        </td>
-
-                        <td>
-                            <%= @bus_allotment.stop.name%>
-                        </td>
-                    </tr>
-
-                    
-
-                   
-                </tbody>
-            </table>
-            <%= link_to 'Back', bus_allotments_path ,class: "btn btn-color"%>
-
-        </div>
-        </div>
-        </div>
-        </div>
-        </div>
-
-
-
-
