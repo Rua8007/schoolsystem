@@ -21,7 +21,7 @@
           </td>
 
           <td>
-            <%= select_tag "flags[#{i}][teacher_id]",options_for_select(@employee),{prompt: 'Select Teacher', required: true} %>
+            <%= select_tag "flags[#{i}][teacher_id]",options_for_select(@employee) %>
           </td>
           <%= hidden_field_tag "grade_id", b[:class_id] %>
         </tr>

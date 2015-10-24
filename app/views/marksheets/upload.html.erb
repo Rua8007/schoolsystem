@@ -26,6 +26,13 @@
 				<strong><%= std.fullname %> <br></strong><br>
 			<% end %>
 		</div>
+		<div class="well well-lg col-md-2" style="min-height:500px; float:none !important;display: inline-block;vertical-align: top; ">
+			<br>
+			<h5> Performance Report</h5> <br>
+			<% @students.try(:each) do |std| %>
+				<strong><%= link_to 'Performance Report', new_performance_path({student_id: std.id, bridge_id: @marksheet.bridge_id}), class: "btn btn-primary", style: "font-size:11px;margin-top: -13px;" %> <br></strong><br>
+			<% end %>
+		</div>
 
 		<% @data.keys.try(:each) do |k| %>
 			<div class="well well-lg con col-md-2" style="padding:10px;min-height:500px; width: 200px;float:none !important;display: inline-block;vertical-align: top;">

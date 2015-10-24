@@ -18,7 +18,7 @@
   <br>
   <% if current_user.role.name == "Teacher" %>
     <div class="field">
-      <label><%= f.label :bridges %></label>
+      <label><%= f.label :subject%></label>
       <select class="form-control" name= "marksheet[bridge_id]" style="width:30%">
         <%= Employee.find_by_email(current_user.email).bridges.try(:each) do |b| %>
           <option value = "<%= b.id %>"> <%= b.grade.name+'-'+b.subject.name%> </option>
