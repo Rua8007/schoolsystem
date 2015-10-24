@@ -64,6 +64,24 @@ class PerformancesController < ApplicationController
       @performance.ia = true
     end
 
+
+
+    if params[:good].length == 2
+      @performance.good = true
+    end
+
+    if params[:st].length == 2
+      @performance.st = true
+    end
+
+    if params[:vg].length == 2
+      @performance.vg = true
+    end
+
+    if params[:exc].length == 2
+      @performance.exc = true
+    end
+
     respond_to do |format|
       if @performance.save
         format.html { redirect_to @performance, notice: 'Performance was successfully created.' }

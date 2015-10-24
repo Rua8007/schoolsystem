@@ -18,10 +18,9 @@
         		<br>
                 <div class="col-sm-12">
                     <table class="table">
-                        <tbody>
-
+                        <tbody style="font-size:15px">
                             <tr>
-                                <td class="student-profile-td">
+                                <td style="font-weight:bolder">
                                     Student
                                 </td>
 
@@ -31,7 +30,7 @@
                             </tr>
 
                             <tr>
-                                <td class="student-profile-td">
+                                <td style="font-weight:bolder">
                                     Grade
                                 </td>
 
@@ -41,7 +40,7 @@
                             </tr>
 
                             <tr>
-                                <td class="student-profile-td">
+                                <td style="font-weight:bolder">
                                     Subject
                                 </td>
 
@@ -50,17 +49,19 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="student-profile-td">
+                                <td style="font-weight:bolder">
                                     Teacher
                                 </td>
 
                                 <td>
-                                    <%= @performance.bridge.employee.full_name %>
+                                    <% if @performance.bridge.employee.present? %>
+                                      <%= @performance.bridge.employee.full_name %>
+                                    <% end %>
                                 </td>
                             </tr>
 
                             <tr>
-                                <td class="student-profile-td">
+                                <td style="font-weight:bolder">
                                     Submission Date
                                 </td>
 
@@ -70,20 +71,83 @@
                             </tr>
                         </tbody>
                     </table>
+                    <br>
                     <div>
-                        <h3>Commendations</h3> <br>
-                        <p><%= @performance.remark || "No Commendations This Time" %> </p>
-                    </div>
-                    <div>
-                        <div style="margin-left: 30px">
-                          <%= check_box :lc,"", checked: @performance.lc, disabled: true %> Lack of concentration and/or distraction during expanation<br>
-                          <%= check_box :fa,"", checked: @performance.fa, disabled: true %> Frequent Absents/ Tardiness<br>
-                          <%= check_box :pw,"", checked: @performance.pw, disabled: true %> Poor work habit<br>
-                          <%= check_box :lk,"", checked: @performance.lk, disabled: true %> Low skill level in basics<br>
-                          <%= check_box :ia,"", checked: @performance.ia, disabled: true %> Incomplete Assignments<br>
-                          <%= check_box :pc,"", checked: @performance.pc, disabled: true %> Poor class participation<br>
+                        <h3><u>Commendations:</u></h3>
+                        <div class="well well-lg">
+                            <h4><%= @performance.remark == "" ? "No Commendations This Time" : @performance.remark %> </h4>
                         </div>
+
                     </div>
+
+
+                    <div style="margin-left: 30px; font-size:18px;" class="col-md-5">
+                      <div class="checkbox">
+                        <label class="i-checks"  >
+                          <%= check_box :lc,"", class: "leave_checkbox" , checked: @performance.lc, disabled: true %>
+                          <i></i><strong>Lack of concentration and/or distraction during expanation</strong>
+                        </label>
+                      </div>
+                      <div class="checkbox">
+                        <label class="i-checks" >
+                          <%= check_box :fa,"", class: "leave_checkbox" , checked: @performance.fa, disabled: true %>
+                          <i ></i><strong>Frequent Absents/ Tardiness</strong>
+                        </label>
+                      </div>
+                      <div class="checkbox">
+                        <label class="i-checks" >
+                          <%= check_box :pw, "", class: "leave_checkbox", checked: @performance.pw, disabled: true %>
+                          <i ></i><strong>Poor work habbit</strong>
+                        </label>
+                      </div>
+                      <div class="checkbox">
+                        <label class="i-checks" >
+                          <%= check_box :lk, "", class: "leave_checkbox", checked: @performance.lk, disabled: true  %>
+                          <i ></i><strong>Low skill level in basics</strong>
+                        </label>
+                      </div>
+                      <div class="checkbox">
+                        <label class="i-checks" >
+                          <%= check_box :ia, "", class: "leave_checkbox", checked: @performance.ia, disabled: true %>
+                          <i ></i><strong>Incomplete Assignments</strong>
+                        </label>
+                      </div>
+
+                      <div class="checkbox">
+                        <label class="i-checks" >
+                          <%= check_box :pc, "", class: "leave_checkbox", checked: @performance.pc, disabled: true %>
+                          <i ></i><strong>Poor class participation</strong>
+                        </label>
+                      </div>
+                    </div>
+
+                    <div style="margin-left: 30px; font-size:18px;" class="col-md-5">
+                      <div class="checkbox">
+                        <label class="i-checks"  >
+                          <%= check_box :st,"", class: "leave_checkbox" , checked: @performance.st, disabled: true %>
+                          <i></i><strong>Satisfactory</strong>
+                        </label>
+                      </div>
+                      <div class="checkbox">
+                        <label class="i-checks" >
+                          <%= check_box :good,"", class: "leave_checkbox" , checked: @performance.good, disabled: true %>
+                          <i ></i><strong>Good</strong>
+                        </label>
+                      </div>
+                      <div class="checkbox">
+                        <label class="i-checks" >
+                          <%= check_box :vg, "", class: "leave_checkbox", checked: @performance.vg, disabled: true %>
+                          <i ></i><strong>Very Good</strong>
+                        </label>
+                      </div>
+                      <div class="checkbox">
+                        <label class="i-checks" >
+                          <%= check_box :exc, "", class: "leave_checkbox", checked: @performance.exc, disabled: true  %>
+                          <i ></i><strong>Excellent</strong>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
 
                 </div>
             </div>

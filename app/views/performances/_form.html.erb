@@ -11,89 +11,100 @@
     </div>
   <% end %>
 
-
-
-
-<br>
-<div class="container form-holder ">
-  <div class="row">
-  <fieldset class="sss well well-lg">
-    <legend class="lll">Create  Performance Report</legend>
   <br>
-    <div  class="row">
-      <%= f.hidden_field :student_id, value: @student_id %>
-      <%= f.hidden_field :bridge_id, value: @bridge_id %>
-    <div>
-      <div class="column col-xs-12 col-sm-12">
-        <div class="form-group ">
-          <div class="field">
-            <%= f.label :Commendations %><br>
-            <%= f.text_area :remark , cols: 70, rows: 7, class: 'form-control' , autofocus: true%>
+  <div class="container form-holder ">
+    <div class="row">
+    <fieldset class="sss well well-lg">
+      <legend class="lll">Create  Performance Report</legend>
+      <br>
+      <div  class="row">
+        <%= f.hidden_field :student_id, value: @student_id %>
+        <%= f.hidden_field :bridge_id, value: @bridge_id %>
+      <div>
+        <div class="column col-xs-12 col-sm-12">
+          <div class="form-group ">
+            <div class="field">
+              <%= f.label :Commendations %><br>
+              <%= f.text_area :remark , cols: 70, rows: 7, class: 'form-control' , autofocus: true%>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
+      <div style="font-size:18px;" class="col-md-5">
+        <div class="checkbox">
+          <label class="i-checks"  >
+            <%= check_box :lc,"", class: "leave_checkbox" %>
+            <i></i><strong>Lack of concentration and/or distraction during expanation</strong>
+          </label>
+        </div>
+        <div class="checkbox">
+          <label class="i-checks" >
+            <%= check_box :fa,"", class: "leave_checkbox" %>
+            <i ></i><strong>Frequent Absents/ Tardiness</strong>
+          </label>
+        </div>
+        <div class="checkbox">
+          <label class="i-checks" >
+            <%= check_box :pw, "", class: "leave_checkbox" %>
+            <i ></i><strong>Poor work habbit</strong>
+          </label>
+        </div>
+        <div class="checkbox">
+          <label class="i-checks" >
+            <%= check_box :lk, "", class: "leave_checkbox" %>
+            <i ></i><strong>Low skill level in basics</strong>
+          </label>
+        </div>
+        <div class="checkbox">
+          <label class="i-checks" >
+            <%= check_box :ia, "", class: "leave_checkbox" %>
+            <i ></i><strong>Incomplete Assignments</strong>
+          </label>
+        </div>
 
-
-
-    <div style="margin-left: 30px; font-size:18px;">
-      <div class="checkbox">
-        <label class="i-checks"  >
-          <%= check_box :lc,"", class: "leave_checkbox" %>
-          <i></i><strong>Lack of concentration and/or distraction during expanation</strong>
-        </label>
-      </div>
-      <div class="checkbox">
-        <label class="i-checks" >
-          <%= check_box :fa,"", class: "leave_checkbox" %>
-          <i ></i><strong>Frequent Absents/ Tardiness</strong>
-        </label>
-      </div>
-      <div class="checkbox">
-        <label class="i-checks" >
-          <%= check_box :pw, "", class: "leave_checkbox" %>
-          <i ></i><strong>Poor work habbit</strong>
-        </label>
-      </div>
-      <div class="checkbox">
-        <label class="i-checks" >
-          <%= check_box :lk, "", class: "leave_checkbox" %>
-          <i ></i><strong>Low skill level in basics</strong>
-        </label>
-      </div>
-      <div class="checkbox">
-        <label class="i-checks" >
-          <%= check_box :ia, "", class: "leave_checkbox" %>
-          <i ></i><strong>Incomplete Assignments</strong>
-        </label>
+        <div class="checkbox">
+          <label class="i-checks" >
+            <%= check_box :pc, "", class: "leave_checkbox" %>
+            <i ></i><strong>Poor class participation</strong>
+          </label>
+        </div>
       </div>
 
-      <div class="checkbox">
-        <label class="i-checks" >
-          <%= check_box :pc, "", class: "leave_checkbox" %>
-          <i ></i><strong>Poor class participation</strong>
-        </label>
+      <div style="font-size:18px;" class="col-md-5">
+        <div class="checkbox">
+          <label class="i-checks"  >
+            <%= check_box :st,"", class: "leave_checkbox" %>
+            <i></i><strong>Satisfactory</strong>
+          </label>
+        </div>
+        <div class="checkbox">
+          <label class="i-checks" >
+            <%= check_box :good,"", class: "leave_checkbox" %>
+            <i ></i><strong>Good</strong>
+          </label>
+        </div>
+        <div class="checkbox">
+          <label class="i-checks" >
+            <%= check_box :vg, "", class: "leave_checkbox" %>
+            <i ></i><strong>Very Good</strong>
+          </label>
+        </div>
+        <div class="checkbox">
+          <label class="i-checks" >
+            <%= check_box :exc, "", class: "leave_checkbox" %>
+            <i ></i><strong>Excellent</strong>
+          </label>
+        </div>
       </div>
-    </div>
-
     </fieldset>
   </div>
-
 </div>
-    <div class="modal-footer">
-      <%= submit_tag 'Create', class: 'btn btn-success' %>
-    </div>
+
+  <div class="modal-footer">
+    <%= submit_tag 'Create', class: 'btn btn-success btn-lg' %>
+  </div>
 <% end %>
-
-
-
-
-
-
-
-
-
 
 <style type="text/css">
   .form-holder .col-sm-2 {
