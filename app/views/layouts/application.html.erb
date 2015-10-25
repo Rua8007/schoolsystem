@@ -902,7 +902,7 @@
                     </ul>
                   </li>
                 <% end %>
-                <% if Right.where("role_id = ? and value = 'create_transport'", current_user.role_id ).any? %>
+                <% if current_user.rights.where("value = 'create_transport' or value = 'view_transport'").any? %>
 
                   <li>
                     <a href class="auto">
@@ -930,12 +930,13 @@
                             <span>List All Route</span>
                           <% end %>
                         </li>
-
-                        <li>
-                          <%= link_to(new_stop_path) do %>
-                            <span>New Stop</span>
-                          <% end %>
-                        </li>
+                        <% if current_user.rights.where("value = 'create_transport'").any? %>
+                          <li>
+                            <%= link_to(new_stop_path) do %>
+                              <span>New Stop</span>
+                            <% end %>
+                          </li>
+                        <% end %>
                         <li>
                           <%= link_to(transports_path) do %>
                             <span>Transport details</span>
@@ -956,7 +957,7 @@
                     </ul>
                   </li>
                 <% end %>
-                <% if Right.where("role_id = ? and value = 'create_bookshop'", current_user.role_id ).any? %>
+                <% if current_user.rights.where("value = 'create_bookshop' or value = 'view_bookshop'").any? %>
 
                   <li>
                     <a href class="auto">
@@ -973,19 +974,19 @@
                           <span>Book shop</span>
                         <% end %>
                       </li>
-                    <% if current_user.role_id != 'student' %>
+                      <% if current_user.rights.where("value = 'create_bookshop'").any? %>
+                        <li>
+                          <%= link_to(shopcategories_path) do %>
+                            <span>All Categories</span>
+                          <% end %>
+                        </li>
 
-                      <li>
-                        <%= link_to(shopcategories_path) do %>
-                          <span>All Categories</span>
-                        <% end %>
-                      </li>
-                      <li>
-                        <%= link_to(add_stock_items_path) do %>
-                          <span>Add Stock</span>
-                        <% end %>
-                      </li>
-                    <% end %>
+                        <li>
+                          <%= link_to(add_stock_items_path) do %>
+                            <span>Add Stock</span>
+                          <% end %>
+                        </li>
+                      <% end %>
                       <li>
                         <%= link_to(items_path) do %>
                           <span>All Items</span>
@@ -996,21 +997,18 @@
                           <span>All package</span>
                         <% end %>
                       </li>
-                    <% end%>
-
-                <% if Right.where("role_id = ? and value = 'view_bookshop'", current_user.role_id ).any? %>
-
                       <li>
                         <%= link_to(invoices_path) do %>
                           <span>Invoice</span>
                         <% end %>
                       </li>
-
                     </ul>
                   </li>
                 <% end %>
 
-                <li>
+                <% if Right.where("role_id = ? and value = 'view_behavior_reports'", current_user.role_id ).any? %>
+
+                  <li>
                     <a href class="auto">
                       <span class="pull-right text-muted">
                         <i class="fa fa-fw fa-angle-right text"></i>
@@ -1025,8 +1023,6 @@
                           <span>Behavior Rep.</span>
                         <% end %>
                       </li>
-                    <% if current_user.role_id != 'teacher' %>
-
                       <li>
                         <%= link_to(performances_path) do %>
                           <span>All Reports</span>

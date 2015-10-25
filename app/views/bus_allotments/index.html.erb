@@ -34,7 +34,11 @@
 
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3">Transport Allotment
-  <a href="<%= new_bus_allotment_path %>" class="btn btn-color pull-right" style="width:200px;">Add Transport Allotment</a></h1>
+  <% if current_user.rights.where("value = 'create_transport'").any? %>
+
+    <a href="<%= new_bus_allotment_path %>" class="btn btn-color pull-right" style="width:200px;">Add Transport Allotment</a>
+  <% end %>
+    </h1>
 </div>
 
 
