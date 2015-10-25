@@ -32,7 +32,7 @@
 </script>
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3">Vehicles
-  <% if current_user.rights.where("value = 'create_transport'").any? %>
+  <% if current_user.role.rights.where("value = 'create_transport'").any? %>
     <a href="<%= new_vehicle_path %>" class="btn btn-color pull-right" style="width:200px;">Add Vehicle</a>
   <% end %>
   </h1>

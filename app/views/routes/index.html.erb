@@ -33,7 +33,7 @@
 
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3">Routes
-  <% if current_user.rights.where("value = 'create_transport'").any? %>
+  <% if current_user.role.rights.where("value = 'create_transport'").any? %>
     <a href="<%= new_route_path %>" class="btn btn-color pull-right"  style="width:200px;">Add a new Route</a>
   <% end %>
   </h1>

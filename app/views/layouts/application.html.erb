@@ -902,7 +902,7 @@
                     </ul>
                   </li>
                 <% end %>
-                <% if current_user.rights.where("value = 'create_transport' or value = 'view_transport'").any? %>
+                <% if current_user.role.rights.where("value = 'create_transport' or value = 'view_transport'").any? %>
 
                   <li>
                     <a href class="auto">
@@ -930,7 +930,7 @@
                             <span>List All Route</span>
                           <% end %>
                         </li>
-                        <% if current_user.rights.where("value = 'create_transport'").any? %>
+                        <% if current_user.role.rights.where("value = 'create_transport'").any? %>
                           <li>
                             <%= link_to(new_stop_path) do %>
                               <span>New Stop</span>
@@ -957,7 +957,7 @@
                     </ul>
                   </li>
                 <% end %>
-                <% if current_user.rights.where("value = 'create_bookshop' or value = 'view_bookshop'").any? %>
+                <% if current_user.role.rights.where("value = 'create_bookshop' or value = 'view_bookshop'").any? %>
 
                   <li>
                     <a href class="auto">
@@ -974,7 +974,7 @@
                           <span>Book shop</span>
                         <% end %>
                       </li>
-                      <% if current_user.rights.where("value = 'create_bookshop'").any? %>
+                      <% if current_user.role.rights.where("value = 'create_bookshop'").any? %>
                         <li>
                           <%= link_to(shopcategories_path) do %>
                             <span>All Categories</span>
