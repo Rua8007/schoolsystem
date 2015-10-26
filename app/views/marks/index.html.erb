@@ -55,10 +55,10 @@
         <td><%= mark.name %></td>
         <td><%= mark.marks %></td>
         <td><%= mark.passing_marks %></td>
-        <td><%= mark.grade_id %></td>
-        <td><%= link_to 'Show', mark %>
-        <%= link_to 'Edit', edit_mark_path(mark) %>
-        <%= link_to 'Destroy', mark, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= mark.grade.full_name %></td>
+        <td><%= link_to '', mark,:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
+        <%= link_to '', edit_mark_path(mark),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
+        <%= link_to '', mark, method: :delete, data: { confirm: 'Are you sure?' },:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash' %></td>
       </tr>
     <% end %>
   </tbody>
