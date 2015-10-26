@@ -64,7 +64,7 @@
         <th>Arabic Name</th>
         <th>Father Name</th>
         <th>Email</th>
-        <th>Class</th>
+        <th>Grade</th>
         <th>Date of Birth</th>
         <th>Actions</th>
       </tr>
@@ -88,7 +88,7 @@
             <%= student.email %>
           </td>
           <td>
-            <%= student.grade.name || '' if student.grade.present? %>
+            <%= student.grade.full_name || '' if student.grade.present? %>
           </td>
           <td>
             <%= student.dob %>
