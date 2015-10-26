@@ -10,7 +10,7 @@ class EmployeesController < ApplicationController
   end
 
   def import
-    result = Employee.import(params[:file])
+    result = Student.import(params[:file])
     puts "in import"
     if result=="notok"
       redirect_to :back, :alert => "Error in file."

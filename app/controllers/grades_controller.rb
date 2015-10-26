@@ -75,6 +75,8 @@ class GradesController < ApplicationController
   # DELETE /grades/1
   # DELETE /grades/1.json
   def destroy
+    @grade.students.delete_all
+    @grade.bridges.delete_all
     @grade.destroy
     respond_to do |format|
       format.html { redirect_to grades_url, notice: 'Grade was successfully destroyed.' }
