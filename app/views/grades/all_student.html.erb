@@ -159,9 +159,9 @@
             <td><%= bcharges %></td>
 
             <% discount = student.discount || 0 %>
-            <% discount = discount * student.grade.feebreakdowns.first.amount/100 %>
+            <% discount = discount * student.grade.feebreakdowns.first.amount/100 if student.grade.feebreakdowns.any? %>
 
-            <td><%= discount %></td>
+            <td><%= discount || 0 %></td>
 
             <% total = bus + (bcharges*12) + total - discount + student.bus_allotment.transportfeerecords.sum(:fee) if bcharges != 0 %>
             <% total = bus + (bcharges*12) + total - discount if bcharges == 0 %>
