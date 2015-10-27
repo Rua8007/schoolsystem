@@ -33,6 +33,8 @@ class StudentsController < ApplicationController
     name = params[:name1]+' ' +params[:name2]+' ' +params[:name3]+' ' +params[:name4]
     aname = params[:aname1]+' ' +params[:aname2]+' ' +params[:aname3]+' ' +params[:aname4]
     @student.fullname = name
+    @student.first_name = params[:name1]
+    @student.middle_name = params[:name2]
     @student.arabicname = aname
     if @student.save
       @email="std_"+Student.last.rollnumber.to_s+"@alomam.edu.sa"
@@ -97,7 +99,7 @@ class StudentsController < ApplicationController
     std.parent_id = Student.find_by_rollnumber(params[:student][:rollnumber]).parent_id
     std.save!
     u = User.new
-    @email="prt_"+std.rollnumber.to_s+"@alomam.edu.sa"
+    @email=std.first_name+'.'+std.middle_name+'_'+std.rollnumber.to_s+"@alomam.edu.sa"
     u.email = @email
     u.password = '123'
     u.password_confirmation = '123'

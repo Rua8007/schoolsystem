@@ -1325,7 +1325,7 @@
     <div class="app-content-body ">
       <% if current_user && current_user.role.name == 'Parent' %>
         <% stuid =  Student.find_by_rollnumber(current_user.email.split('@').first.split('_').last).id %>
-        <div id="user-stats">
+        <div id="user-stats" style="margin-bottom: 20px">
           <ul class="round-buttons">
               <li >
                 <div class="depth"><a href="<%= conversations_path %>" title="View statement" class="tip"><i class="icon-signal"><%= image_tag asset_path("msg.ico"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div><span style="line-height:20px; font-size:17px;">
@@ -1349,7 +1349,7 @@
 
       <% elsif current_user && current_user.role.name == 'Student' %>
         <% stuid = Student.find_by_email(current_user.email).id %>
-        <div id="user-stats">
+        <div id="user-stats" style="margin-bottom: 20px">
           <ul class="round-buttons">
               <li >
                 <div class="depth"><a href="<%= conversations_path %>" title="View statement" class="tip"><i class="icon-signal"><%= image_tag asset_path("msg.ico"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div><span style="line-height:20px; font-size:17px;">

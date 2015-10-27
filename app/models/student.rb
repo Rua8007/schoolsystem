@@ -65,7 +65,7 @@ class Student < ActiveRecord::Base
 				puts 'Creating Parent'
 				puts "=================="
 		    prt = Parent.new
-		    prt.email = "prt_"+emp.rollnumber.to_s+"@alomam.edu.sa"
+		    prt.email = emp.nurology+"_"+emp.rollnumber.to_s+"@alomam.edu.sa"
 		    prt.save!
 		    emp.parent_id = prt.id
 
