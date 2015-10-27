@@ -64,6 +64,14 @@ class PerformancesController < ApplicationController
       @performance.ia = true
     end
 
+    if params[:fail].length == 2
+      @performance.fail = true
+    end
+
+    if params[:les].length == 2
+      @performance.les = true
+    end
+
 
 
     if params[:good].length == 2
@@ -80,6 +88,22 @@ class PerformancesController < ApplicationController
 
     if params[:exc].length == 2
       @performance.exc = true
+    end
+
+    if params[:tal].length == 2
+      @performance.tal = true
+    end
+
+    if params[:sd].length == 2
+      @performance.st = true
+    end
+
+    if params[:res].length == 2
+      @performance.res = true
+    end
+
+    if params[:art].length == 2
+      @performance.art = true
     end
 
     respond_to do |format|

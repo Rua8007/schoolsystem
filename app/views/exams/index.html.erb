@@ -23,9 +23,9 @@
       <tr>
         <td><%= exam.name %></td>
         <td><%= exam.batch.name %></td>
-        <td><%= link_to 'Show', exam %>
-        <%= link_to 'Edit', edit_exam_path(exam) %>
-        <%= link_to 'Destroy', exam, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', exam,:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
+        <%= link_to 'Edit', edit_exam_path(exam),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
+        <%= link_to 'Destroy', exam, method: :delete, data: { confirm: 'Are you sure?' },:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash' %></td>
       </tr>
     <% end %>
   </tbody>

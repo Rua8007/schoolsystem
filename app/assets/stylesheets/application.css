@@ -22,7 +22,32 @@
  *= require chosen
  *= require_self
  */
-
+.btn-performance-report {
+  font-size: 11px;
+    display: block;
+    margin: 0 auto 20px;
+    float: none;
+    padding: 6px 7px;
+    display: block;
+    margin: 0 auto 20px;
+    height: 30px;
+}
+.absense-input {
+    display: block;
+    padding: 6px 7px;
+    margin: 0 auto 20px;
+    height: 30px;
+}
+.student-names {
+   padding: 0 7px 0;
+    display: block;
+    margin: 0 auto 20px;
+    height: 30px;
+    text-align: center;
+}
+.performance-heading {
+  margin: 0;
+}
 
 
 *,
@@ -273,6 +298,34 @@ box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.3);
     margin-top: 15px;
     margin-bottom: 15px;
 }
-
+.performance-holder {
+  padding: 36px 0 0;
+}
+.btn-performance-report {
+  font-size: 11px;
+    display: block;
+    margin: 0 auto 20px;
+    float: none;
+    padding: 6px 7px;
+    display: block;
+    margin: 0 auto 20px;
+    height: 30px;
+}
+.absense-input {
+    display: block;
+    padding: 6px 7px;
+    margin: 0 auto 20px;
+    height: 30px;
+}
+.student-names {
+   padding: 0 7px 0;
+    display: block;
+    margin: 0 auto 20px;
+    height: 30px;
+    text-align: center;
+}
+.performance-area h5 {
+  margin: 0 0 10px;
+}
 
 

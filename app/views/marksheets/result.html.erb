@@ -56,7 +56,7 @@
 					<%= s = @std.sessionals.where("bridge_id = ? and exam_id = ?", bd.id, exam.id).sum(:marks) %>
 				</td>
 				<td>
-					<%= (s*100)/@std.grade.marks.sum(:marks) %>%
+					<%= ((s*100)/@std.grade.marks.sum(:marks)).round(2) %>%
 				</td>
 			<% end %>
 			</tr>

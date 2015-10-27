@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151018132323) do
+ActiveRecord::Schema.define(version: 20151027100119) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -413,6 +413,16 @@ ActiveRecord::Schema.define(version: 20151018132323) do
     t.boolean  "lk"
     t.boolean  "ia"
     t.boolean  "pc"
+    t.boolean  "good"
+    t.boolean  "vg"
+    t.boolean  "st"
+    t.boolean  "exc"
+    t.boolean  "tal"
+    t.boolean  "sd"
+    t.boolean  "res"
+    t.boolean  "fail"
+    t.boolean  "art"
+    t.boolean  "les"
   end
 
   create_table "periods", force: :cascade do |t|
@@ -588,8 +598,8 @@ ActiveRecord::Schema.define(version: 20151018132323) do
     t.string   "behaviour"
     t.string   "fullname"
     t.string   "due_date"
-    t.string   "specialneed"
     t.float    "discount"
+    t.string   "specialneed"
     t.string   "rollnumber"
     t.string   "passport"
   end

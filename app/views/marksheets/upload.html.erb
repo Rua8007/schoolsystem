@@ -5,7 +5,7 @@
 </div>
 <br><br>
 <%= form_tag(uploading_marksheets_path, method: :post, class: 'col-form') do %>
-<div style="">
+<div class="performance-area">
 	<div class="pull-right">
 		<input type="button" value = "Add More" id = "addmore" class="btn btn-primary">
 		<%= submit_tag 'Save', class: "btn btn-info" %>
@@ -20,46 +20,53 @@
 	-webkit-overflow-scrolling: touch;">
 
 		<div class="well well-lg col-md-4" style="min-height:500px; float:none !important;display: inline-block;vertical-align: top;">
-			<br>
-			<h5>Student Name</h5> <br>
-			<% @students.try(:each) do |std| %>
-				<strong><%= std.fullname %> <br></strong><br>
-			<% end %>
+
+			<span style= "background:green; color:white;padding: 7px 80px;font-size: 23px">Student Name</span>
+			<div class="performance-holder">
+				<% @students.try(:each) do |std| %>
+					<strong class="student-names" ><%= std.fullname %> </strong>
+				<% end %>
+			</div>
 		</div>
-		<div class="well well-lg col-md-2" style="min-height:500px; float:none !important;display: inline-block;vertical-align: top; ">
-			<br>
-			<h5> Performance Report</h5> <br>
-			<% @students.try(:each) do |std| %>
-				<strong><%= link_to 'Performance Report', new_performance_path({student_id: std.id, bridge_id: @marksheet.bridge_id}), class: "btn btn-primary", style: "font-size:11px;margin-top: -13px;" %> <br></strong><br>
-			<% end %>
+
+		<div class="well well-lg col-md-2 performance-report" style="min-height:500px; float:none !important;display: inline-block;vertical-align: top; ">
+
+			<h5> Performance Report</h5>
+			<div class="performance-holder">
+				<% @students.try(:each) do |std| %>
+					<%= link_to 'Performance Report', new_performance_path({student_id: std.id, bridge_id: @marksheet.bridge_id}), class: "btn-performance-report btn btn-primary", style: "font-size:11px;" %>
+				<% end %>
+			</div>
 		</div>
 
 		<% @data.keys.try(:each) do |k| %>
 			<div class="well well-lg con col-md-2" style="padding:10px;min-height:500px; width: 200px;float:none !important;display: inline-block;vertical-align: top;">
 				<h5><%= @mark.name %></h5>
-				<%= text_field_tag "up_date[]", k, style:"", disabled: "true" %><br><br>
+				<%= text_field_tag "up_date[]", k, style:"", disabled: "true", class: "absense-input" %>
+
 				<% @data[k].try(:each) do |dt| %>
-					<%= text_field_tag "up_mark[#{dt.id}]", dt.marks, style:"", class: "calc"+dt.student_id.to_s %><br><br>
+					<%= text_field_tag "up_mark[#{dt.id}]", dt.marks, style:"", class: "absense-input calc"+dt.student_id.to_s %>
 				<% end %>
-				<br>
+
 				<%= link_to "Delete", marksheet_path({id: k, marksheet_id: @marksheet.id}), method: 'delete', class: "btn btn-info", style: "margin-left: 60px" %>
 			</div>
 		<% end %>
+
 		<% if @data.empty? %>
 			<div class="well well-lg col-md-2 con" style="padding:10px;min-height:500px;width: 180px;float:none !important;display:inline-block;vertical-align: top;">
 				<h5><%= @mark.name %></h5>
-				<%= text_field_tag "marks_date[]", '', style:"" , class: "datepickerss", required: true, placeholder: "Select Date" %><br><br>
+				<%= text_field_tag "marks_date[]", '', style:"" , class: "datepickerss absense-input", required: true, placeholder: "Select Date" %>
 				<% @students.try(:each) do |std| %>
-					<%= text_field_tag "marks[#{std.id}][]" , '' ,class: "calculate"+std.id.to_s %> <br><br>
+					<%= text_field_tag "marks[#{std.id}][]" , '' ,class: " absense-input calculate"+std.id.to_s %>
 				<% end %>
 			</div>
 		<% end %>
 
 		<div class="well well-lg col-md-2 " style="padding:10px;min-height:500px;width: 180px;float:none !important;display: inline-block;vertical-align: top; margin-left:10px">
-			<h5><%= "Total	" %></h5>
-			<%= text_field_tag "max_mark", @mark.marks, style:"" , class: "datepickerss", required: true, disabled: true%><br><br>
+			<h5><%= "Average	" %></h5>
+			<%= text_field_tag "max_mark", @mark.marks, style:"" , class: "absense-input datepickerss", required: true, disabled: true%>
 			<% @students.try(:each) do |std| %>
-				<%= text_field_tag "marks[#{std.id}][]",'' ,disabled: true, id: std.id, class: "total"+std.id.to_s %> <br><br>
+				<%= text_field_tag "marks[#{std.id}][]",'' ,disabled: true, id: std.id, class: "absense-input total"+std.id.to_s %>
 			<% end %>
 		</div>
 
@@ -81,15 +88,18 @@
 	<% @students.try(:each) do |std| %>
 		$(document).on("blur", '.calc<%= std.id.to_s %>', function(){
 			var sum = 0
+			var av = -1
 			$('.calc<%= std.id.to_s %>').each(function(i, obj) {
 				if (obj.value != '')
 				{
 					sum = sum + parseFloat(obj.value);
 				}
+				av = av+1
 			});
 			console.log(sum);
+			console.log(av);
 
-			$(".total<%=std.id.to_s%>").val(sum);
+			$(".total<%=std.id.to_s%>").val(Math.round(sum/av));
 		});
 	<% end %>
 
@@ -98,9 +108,9 @@
 <div class="col-template hidden">
 	<div class="well well-lg con" style="padding:10px;min-height:500px;width: 180px; float:none !important;display: inline-block;vertical-align: top;">
 		<h5><%= @mark.name %></h5>
-		<%= text_field_tag "marks_date[]", '' ,class: "datepickerss", required: true, placeholder: "Select Date" %><br><br>
+		<%= text_field_tag "marks_date[]", '' ,class: "datepickerss absense-input", required: true, placeholder: "Select Date" %>
 		<% @students.try(:each) do |std| %>
-			<%= text_field_tag "marks[#{std.id}][]", "" ,class: "calc"+std.id.to_s %> <br><br>
+			<%= text_field_tag "marks[#{std.id}][]", "" ,class: "absense-input calc"+std.id.to_s %>
 		<% end %>
 	</div>
 </div>

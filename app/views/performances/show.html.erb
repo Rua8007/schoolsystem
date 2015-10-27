@@ -73,79 +73,125 @@
                     </table>
                     <br>
                     <div>
-                        <h3><u>Commendations:</u></h3>
+                        <h3><u>Remarks:</u></h3>
                         <div class="well well-lg">
-                            <h4><%= @performance.remark == "" ? "No Commendations This Time" : @performance.remark %> </h4>
+                            <h4><%= @performance.remark == "" ? "No Remarks This Time" : @performance.remark %> </h4>
                         </div>
 
                     </div>
 
 
                     <div style="margin-left: 30px; font-size:18px;" class="col-md-5">
+                      <h4><u>Negative</u></h4>
+
                       <div class="checkbox">
                         <label class="i-checks"  >
                           <%= check_box :lc,"", class: "leave_checkbox" , checked: @performance.lc, disabled: true %>
-                          <i></i><strong>Lack of concentration and/or distraction during expanation</strong>
+                          <i></i><strong>Lack of concentration and/or distraction during explanation</strong>
                         </label>
                       </div>
                       <div class="checkbox">
                         <label class="i-checks" >
                           <%= check_box :fa,"", class: "leave_checkbox" , checked: @performance.fa, disabled: true %>
-                          <i ></i><strong>Frequent Absents/ Tardiness</strong>
+                          <i ></i><strong>Frequent Absents/ Tardiness affecting performance</strong>
                         </label>
                       </div>
                       <div class="checkbox">
                         <label class="i-checks" >
                           <%= check_box :pw, "", class: "leave_checkbox", checked: @performance.pw, disabled: true %>
-                          <i ></i><strong>Poor work habbit</strong>
+                          <i ></i><strong>Needs to master basic skills and concepts</strong>
                         </label>
                       </div>
                       <div class="checkbox">
                         <label class="i-checks" >
                           <%= check_box :lk, "", class: "leave_checkbox", checked: @performance.lk, disabled: true  %>
-                          <i ></i><strong>Low skill level in basics</strong>
+                          <i ></i><strong>Poor work habits/ class participation</strong>
                         </label>
                       </div>
                       <div class="checkbox">
                         <label class="i-checks" >
                           <%= check_box :ia, "", class: "leave_checkbox", checked: @performance.ia, disabled: true %>
-                          <i ></i><strong>Incomplete Assignments</strong>
+                          <i ></i><strong>Underperforming in quiz and tests</strong>
                         </label>
                       </div>
 
                       <div class="checkbox">
                         <label class="i-checks" >
                           <%= check_box :pc, "", class: "leave_checkbox", checked: @performance.pc, disabled: true %>
-                          <i ></i><strong>Poor class participation</strong>
+                          <i ></i><strong>Incomplete Assignments HW/CW</strong>
+                        </label>
+                      </div>
+
+                      <div class="checkbox">
+                        <label class="i-checks" >
+                          <%= check_box :fail, "", class: "leave_checkbox", checked: @performance.fail, disabled: true %>
+                          <i ></i><strong>Needs to display positive attitude to learning</strong>
+                        </label>
+                      </div>
+
+                      <div class="checkbox">
+                        <label class="i-checks" >
+                          <%= check_box :les, "", class: "leave_checkbox", checked: @performance.les, disabled: true %>
+                          <i ></i><strong>Needs to improve English communication skills</strong>
                         </label>
                       </div>
                     </div>
 
                     <div style="margin-left: 30px; font-size:18px;" class="col-md-5">
+                      <h4><u>Positive</u></h4>
                       <div class="checkbox">
                         <label class="i-checks"  >
                           <%= check_box :st,"", class: "leave_checkbox" , checked: @performance.st, disabled: true %>
-                          <i></i><strong>Satisfactory</strong>
+                          <i></i><strong>Excellent/ Displays an excellent attitude to learning /Excellent work habits</strong>
                         </label>
                       </div>
                       <div class="checkbox">
                         <label class="i-checks" >
                           <%= check_box :good,"", class: "leave_checkbox" , checked: @performance.good, disabled: true %>
-                          <i ></i><strong>Good</strong>
+                          <i ></i><strong>Talented /Shows initiative and thinks things through for himself</strong>
                         </label>
                       </div>
                       <div class="checkbox">
                         <label class="i-checks" >
                           <%= check_box :vg, "", class: "leave_checkbox", checked: @performance.vg, disabled: true %>
-                          <i ></i><strong>Very Good</strong>
+                          <i ></i><strong>Hard-working/Self-disciplined performing well in quiz and assignments</strong>
                         </label>
                       </div>
                       <div class="checkbox">
                         <label class="i-checks" >
                           <%= check_box :exc, "", class: "leave_checkbox", checked: @performance.exc, disabled: true  %>
-                          <i ></i><strong>Excellent</strong>
+                          <i ></i><strong>Masters skills and concepts easily</strong>
                         </label>
                       </div>
+
+                      <div class="checkbox">
+                        <label class="i-checks" >
+                          <%= check_box :tal, "", class: "leave_checkbox", checked: @performance.tal, disabled: true  %>
+                          <i ></i><strong> Submitting work on time</strong>
+                        </label>
+                      </div>
+
+                      <div class="checkbox">
+                        <label class="i-checks" >
+                          <%= check_box :sd, "", class: "leave_checkbox", checked: @performance.sd, disabled: true  %>
+                          <i ></i><strong>Has shown noticeable improvemend</strong>
+                        </label>
+                      </div>
+
+                      <div class="checkbox">
+                        <label class="i-checks" >
+                          <%= check_box :res, "", class: "leave_checkbox", checked: @performance.res, disabled: true  %>
+                          <i ></i><strong>Is developing a better attitude</strong>
+                        </label>
+                      </div>
+
+                      <div class="checkbox">
+                        <label class="i-checks" >
+                          <%= check_box :art, "", class: "leave_checkbox", checked: @performance.art, disabled: true  %>
+                          <i ></i><strong> Is learning English speaking and/or writing skills</strong>
+                        </label>
+                      </div>
+
                     </div>
                   </div>
 

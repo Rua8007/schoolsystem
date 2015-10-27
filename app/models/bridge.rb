@@ -8,6 +8,6 @@ class Bridge < ActiveRecord::Base
 	has_many :sessionals
 
 	def title
-		self.grade.name+'-'+self.subject.name
+		self.grade.title+'-'+self.subject.name
 	end
 end

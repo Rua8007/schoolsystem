@@ -12,7 +12,7 @@
   <% end %>
   <br>
   <div class="field">
-    <label><%= f.label :exam_id %></label>
+    <label><%= f.label :exam %></label>
     <%= f.collection_select :exam_id , Exam.all.order(:name), :id , :name,{},{:style => 'height:34px;width: 30%',  class: 'form-control'} %>
   </div>
   <br>
@@ -21,16 +21,16 @@
       <label><%= f.label :subject%></label>
       <select class="form-control" name= "marksheet[bridge_id]" style="width:30%">
         <%= Employee.find_by_email(current_user.email).bridges.try(:each) do |b| %>
-          <option value = "<%= b.id %>"> <%= b.grade.name+'-'+b.subject.name%> </option>
+          <option value = "<%= b.id %>"> <%= b.grade.full_name+'-'+b.subject.name%> </option>
         <% end %>
       </select>
     </div>
   <% else %>
     <div class="field">
-      <label><%= f.label :bridge %></label>
+      <label><%= f.label :subject %></label>
       <select class="form-control" name= "marksheet[bridge_id]" style="width:30%">
         <%= Bridge.all.try(:each) do |b| %>
-          <option value = "<%= b.id %>"> <%= b.grade.name+'-'+b.subject.name%> </option>
+          <option value = "<%= b.id %>"> <%= b.grade.full_name+'-'+b.subject.name%> </option>
         <% end %>
       </select>
     </div>

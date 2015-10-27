@@ -12,7 +12,7 @@
 	<thead class="table-head">
 		<tr>
 			<th rowspan="2">Subject</th>
-			<th colspan = "<%= @std.grade.marks.count - 1 %>" style = "background:blue !important; text-align: center"> Term Work</th>
+			<th colspan = "<%= @std.grade.marks.count - 1 %>" style = "background:blue !important; text-align: center"> Term Work(<%= @exam.name %>)</th>
 
 			<th colspan = "<%= @std.grade.marks.count - 1 %>" style = "text-align: center" class = "table-head"> Quiz and Evaluation <%= @exam.name %></th>
 		</tr>
