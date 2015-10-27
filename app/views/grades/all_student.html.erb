@@ -114,7 +114,7 @@
       <% @students.try(:each) do |student| %>
         <tr class = "clickable" id="<%= student.id %>">
           <td>
-            <%= student.id %>
+            <%= student.rollnumber %>
           </td>
           <td>
             <%= student.fullname %>
