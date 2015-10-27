@@ -22,35 +22,7 @@
  *= require chosen
  *= require_self
  */
-.btn-performance-report {
-  font-size: 11px;
-    display: block;
-    margin: 0 auto 20px;
-    float: none;
-    padding: 6px 7px;
-    display: block;
-    margin: 0 auto 20px;
-    height: 30px;
-}
-.absense-input {
-    display: block;
-    padding: 6px 7px;
-    margin: 0 auto 20px;
-    height: 30px;
-}
-.student-names {
-   padding: 0 7px 0;
-    display: block;
-    margin: 0 auto 20px;
-    height: 30px;
-    text-align: center;
-}
-.performance-heading {
-  margin: 0;
-}
 
-
-*,
 *:before,
 *:after {
   -moz-box-sizing: border-box;
