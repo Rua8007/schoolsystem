@@ -120,7 +120,6 @@ th {
 ul {
   list-style: none;
   margin: 0;
-  padding: 10px;
 }
 
 li {
@@ -166,7 +165,6 @@ box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.6);
 }
 
-.depth > a:active { box-shadow: none; -webkit-box-shadow: none; -moz-box-shadow: none; background: #fafafa; }
 
 .depth > a > i { font-size: 24px; margin: 19px 0; width: 24px; float: none;  text-shadow: 0 1px 0 #ffffff; height: 24px;
   -webkit-transition: all 0.1s ease-in-out;
@@ -174,10 +172,6 @@ box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.3);
        -o-transition: all 0.1s ease-in-out;
           transition: all 0.1s ease-in-out;
 }
-.depth > a:hover { background: #fcfcfc; }
-.depth > a:hover > i { color: #3d829c; }
-.depth > a:active > i { color: #cf6a59; }
-
 
 
 .navbar-brand{
