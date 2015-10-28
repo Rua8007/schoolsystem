@@ -1321,6 +1321,22 @@
   <!-- / aside -->
 
   <!-- content -->
+
+<% if current_user && current_user.role.name == 'parent' && current_user.sign_in_count == '1'%>
+  <% if current_user.role.name == "Parent" %>
+        <% temp2 = Student.find_by_rollnumber(current_user.email.split('@').first.split('_').last)  %>
+  
+      <% end %>
+      <li>
+        <%= link_to(edit_student_path(temp2.student_id)) do %>
+          <i class="glyphicon glyphicon-tasks"></i>
+          <span>Student Edit Details</span>
+        <% end %>
+      </li>
+        <% end %>
+      
+
+
   <div id="content" class="app-content" role="main">
     <div class="app-content-body ">
       <% if current_user && current_user.role.name == 'Parent' %>
