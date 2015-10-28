@@ -5,7 +5,7 @@
 <div class="well well-lg">
 	<h4>Student Name:           <%= @std.fullname %></h4>
 	<h4>Student ID:             <%= @std.rollnumber %></h4>
-	<h4>Grade:                  <%#= @std.grade.full_name %></h4>
+	<h4>Grade:                  <%= @std.grade.full_name %></h4>
 </div>
 <table class="table">
 	<thead class="table-head">
@@ -36,7 +36,7 @@
 			<% i = 0 %>
 			<th>Max Marks</th>
 			<% Exam.all.try(:each) do |ex| %>
-				<th style=" <%= i.odd? ? 'background: blue !important' : 'background: purple !important' %> "><%#= @std.grade.marks.sum(:marks) %></th>
+				<th style=" <%= i.odd? ? 'background: blue !important' : 'background: purple !important' %> "><%= @std.grade.marks.sum(:marks) %></th>
 				<th style=" <%= i.odd? ? 'background: blue !important' : 'background: purple !important' %> ">100%</th>
 				<% i = i+1%>
 
@@ -46,37 +46,37 @@
 			<% i = 0 %>
 			<th>Passing Marks</th>
 			<% Exam.all.try(:each) do |ex| %>
-				<th style=" <%= i.odd? ? 'background: blue !important' : 'background: purple !important' %> "><%#= @std.grade.marks.sum(:passing_marks) %></th>
-				<th style=" <%= i.odd? ? 'background: blue !important' : 'background: purple !important' %> "><%#= @std.grade.marks.sum(:passing_marks)*100/@std.grade.marks.sum(:marks) %>%</th>
+				<th style=" <%= i.odd? ? 'background: blue !important' : 'background: purple !important' %> "><%= @std.grade.marks.sum(:passing_marks) %></th>
+				<th style=" <%= i.odd? ? 'background: blue !important' : 'background: purple !important' %> "><%= @std.grade.marks.sum(:passing_marks)*100/@std.grade.marks.sum(:marks) %>%</th>
 				<% i = i+1%>
 
 			<% end %>
 		</tr>
 	</thead>
 	<tbody>
-		<%# @std.grade.bridges.all.try(:each) do |bd| %>
+		<% @std.grade.bridges.all.try(:each) do |bd| %>
 		<tr>
-			<td><%#= bd.subject.name %></td>
+			<td><%= bd.subject.name %></td>
 			<% Exam.all.try(:each) do |exam| %>
-			<%# data = @std.sessionals.where("bridge_id = ?", bd.id).group('bridge_id').sum(:marks) %>
+			<% data = @std.sessionals.where("bridge_id = ?", bd.id).group('bridge_id').sum(:marks) %>
 				<td>
-					<%#= s = @std.sessionals.where("bridge_id = ? and exam_id = ?", bd.id, exam.id).sum(:marks) %>
+					<%= s = @std.sessionals.where("bridge_id = ? and exam_id = ?", bd.id, exam.id).sum(:marks) %>
 				</td>
 				<td>
-					<%#= ((s*100)/@std.grade.marks.sum(:marks)).round(2) %>%
+					<%= ((s*100)/@std.grade.marks.sum(:marks)).round(2) %>%
 				</td>
 			<% end %>
 			</tr>
-		<%# end %>
+		<% end %>
 	</tbody>
 	<tfoot class="table-head">
 		<td >Total</td>
 			<% Exam.all.try(:each) do |ex| %>
 				<td>
-					<%#= mr = @std.sessionals.where(exam_id: ex.id).sum(:marks) %>
+					<%= mr = @std.sessionals.where(exam_id: ex.id).sum(:marks) %>
 				</td>
 				<td>
-					<%#= ((mr*100)/(@std.grade.marks.sum(:marks)*@std.grade.bridges.count)).round(2) %>
+					<%= ((mr*100)/(@std.grade.marks.sum(:marks)*@std.grade.bridges.count)).round(2) %>
 				</td>
 			<% end %>
 	</tfoot>
