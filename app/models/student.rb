@@ -95,6 +95,7 @@ class Student < ActiveRecord::Base
 		    u.is_active = true
 
 	      u.save
+	      emp.save
 
 		  end
 		rescue => e

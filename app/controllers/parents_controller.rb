@@ -27,6 +27,7 @@ class ParentsController < ApplicationController
 
   def edit_parent
     @parent = Parent.find(params[:id])
+    @student = @parent.students.first
     @edit = true
 
   end
@@ -59,13 +60,7 @@ class ParentsController < ApplicationController
 
     respond_to do |format|
       if @parent.update(parent_params)
-        puts 'after update----------------'
-        if params[:commit] == 'Update'
-          format.html { redirect_to students_path, notice: 'Parent Detail Saved.' }
-        else
-          format.html { redirect_to new_document_path(student_id: student.id), notice: 'Parent Detail Saved.' }
-          format.json { render :show, status: :ok, location: @parent }
-        end
+        format.html { redirect_to root_path, notice: 'Parent Detail Saved.' }
       else
         format.html { render :edit }
         format.json { render json: @parent.errors, status: :unprocessable_entity }

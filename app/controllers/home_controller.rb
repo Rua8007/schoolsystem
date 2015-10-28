@@ -1,10 +1,12 @@
 class HomeController < ApplicationController
 
   def index
-     if current_user && current_user.role.name == 'Parent'  && current_user.sign_in_count <2
-       @temp2 = Student.find_by_rollnumber(current_user.email.split('@').first.split('_').last).id 
-       redirect_to edit_student_path(@temp2)
-
+    if current_user && current_user.role.name == 'Parent'  && current_user.sign_in_count < 2
+       @temp2 = Student.find_by_rollnumber(current_user.email.split('@').first.split('_').last)
+       redirect_to edit_student_path(@temp2.id)
+    end
+    if current_user.role.name == 'Parent'
+       @student = Student.find_by_rollnumber(current_user.email.split('@').first.split('_').last)
     end
   end
 
