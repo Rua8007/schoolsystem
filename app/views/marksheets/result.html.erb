@@ -47,7 +47,7 @@
 			<th>Passing Marks</th>
 			<% Exam.all.try(:each) do |ex| %>
 				<th style=" <%= i.odd? ? 'background: blue !important' : 'background: purple !important' %> "><%= @std.grade.marks.sum(:passing_marks) %></th>
-				<th style=" <%= i.odd? ? 'background: blue !important' : 'background: purple !important' %> "><%= @std.grade.marks.sum(:passing_marks)*100/@std.grade.marks.sum(:marks) %>%</th>
+				<th style=" <%= i.odd? ? 'background: blue !important' : 'background: purple !important' %> "><%= (@std.grade.marks.sum(:passing_marks)*100/@std.grade.marks.sum(:marks)).round(2) %>%</th>
 				<% i = i+1%>
 
 			<% end %>
