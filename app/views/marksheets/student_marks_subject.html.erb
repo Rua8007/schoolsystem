@@ -1,14 +1,15 @@
-<%= form_tag(student_marks_marksheets_path)  do %>
+<%= form_tag(student_marks_marksheets_path, method: "post")  do %>
   <br>
-  <div class="field">
+  <div class="field" style="width:40%">
     <label>Select Exam</label>
     <%= select_tag :exam_id, options_from_collection_for_select(@exams,"id", "name"), prompt: "Select Exam",class: "form-control", required: true %>
     <%#= collection_select_tag :exam_id, @exams, :id , :name,{},{:style => 'height:34px;width: 30%',  class: 'form-control'} %>
   </div>
+  <%= hidden_field_tag :student_id, @student.id %>
   <br>
-  <div class="field">
+  <div class="field" style="width:40%">
     <label>Select Subject</label>
-    <%= select_tag :exam_id, options_from_collection_for_select(@bridges,"id", "title"), prompt: "Select Subject",class: "form-control", required: true %>
+    <%= select_tag :bridge_id, options_from_collection_for_select(@bridges,"id", "title"), prompt: "Select Subject",class: "form-control", required: true %>
 
     <%#= collection_select_tag :bridge_id, @bridges, :id , :title,{},{:style => 'height:34px;width: 30%',  class: 'form-control'} %>
 

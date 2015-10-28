@@ -1,0 +1,18 @@
+<div class="row">
+  <% if @data.keys.any? %>
+    <% @data.keys.try(:each) do |mark|%>
+      <div class="well well-lg" style="float: left;width: 100%;">
+        <h4><u><%= Mark.find(mark).name %></u></h4>
+        <% @data[mark].try(:each) do |sess| %>
+          <div class="col-md-3" style="border:solid">
+            <span style = "background:green;color:white; width:100%; display:block;text-align: center;"> <%= sess.mark_date %></span><br>
+            <span> <%= sess.marks %></span>
+          </div>
+        <% end %>
+      </div>
+      <br>
+    <% end %>
+  <% else %>
+    <h4>No Data Found</h4>
+  <% end %>
+</div>

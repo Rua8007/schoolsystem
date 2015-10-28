@@ -325,22 +325,25 @@ class MarksheetsController < ApplicationController
 
   def student_marks_subject
     if current_user.role.name == 'Parent'
-      student = Student.find_by_rollnumber(current_user.email.split('@').first.split('_').last)
-      @bridges = student.grade.bridges
+      @student = Student.find_by_rollnumber(current_user.email.split('@').first.split('_').last)
+      @bridges = @student.grade.bridges
       @exams = Exam.all
     else
       if current_user.role.name == 'Student'
-        student = Student.find_by_rollnumber(current_user.email.split('@').first.split('_').last)
-        @bridges = student.grade.bridges
+        @student = Student.find_by_rollnumber(current_user.email.split('@').first.split('_').last)
+        @bridges = @student.grade.bridges
         @exams = Exam.all
       else
         redirect_to root_path, alert: "Sorry! You are not authorized"
+
       end
     end
   end
 
   def student_marks
-
+    # return render json: params
+    @data = Student.find(params[:student_id]).sessionals.where("exam_id = ? and bridge_id = ?",params[:exam_id], params[:bridge_id]).group_by{|p| p.mark_id}
+    # return render json: @data
   end
 
   private

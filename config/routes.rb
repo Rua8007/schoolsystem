@@ -184,7 +184,7 @@ end
       get 'marks_details'
       get "upload"
       get "student_marks_subject"
-      get "student_marks"
+      post "student_marks"
 
     end
   end
