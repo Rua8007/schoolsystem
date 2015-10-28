@@ -332,7 +332,7 @@ class MarksheetsController < ApplicationController
       if current_user.role.name == 'Student'
         student = Student.find_by_rollnumber(current_user.email.split('@').first.split('_').last)
         @bridges = student.grade.bridges
-        @exams = Exams.all
+        @exams = Exam.all
       else
         redirect_to root_path, alert: "Sorry! You are not authorized"
       end
