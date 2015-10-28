@@ -1,0 +1,20 @@
+<%= form_tag(student_marks_marksheets_path)  do %>
+  <br>
+  <div class="field">
+    <label>Select Exam</label>
+    <%= select_tag :exam_id, options_from_collection_for_select(@exams,"id", "name"), prompt: "Select Exam",class: "form-control", required: true %>
+    <%#= collection_select_tag :exam_id, @exams, :id , :name,{},{:style => 'height:34px;width: 30%',  class: 'form-control'} %>
+  </div>
+  <br>
+  <div class="field">
+    <label>Select Subject</label>
+    <%= select_tag :exam_id, options_from_collection_for_select(@bridges,"id", "title"), prompt: "Select Subject",class: "form-control", required: true %>
+
+    <%#= collection_select_tag :bridge_id, @bridges, :id , :title,{},{:style => 'height:34px;width: 30%',  class: 'form-control'} %>
+
+  </div>
+  <br>
+  <div class="actions pull-right">
+    <%= submit_tag "Upload Marks", class: "btn btn-success form-control"%>
+  </div>
+<% end %>
