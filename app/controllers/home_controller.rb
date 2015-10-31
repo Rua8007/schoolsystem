@@ -6,7 +6,8 @@ class HomeController < ApplicationController
        redirect_to edit_student_path(@temp2.id)
     end
     if current_user.role.name == 'Parent'
-       @student = Student.find_by_rollnumber(current_user.email.split('@').first.split('_').last)
+      @student = Student.find_by_rollnumber(current_user.email.split('@').first.split('_').last)
+      @parent = @student.parent
     end
   end
 

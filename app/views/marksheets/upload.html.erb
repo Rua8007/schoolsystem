@@ -99,7 +99,7 @@
 			console.log(sum);
 			console.log(av);
 
-			$(".total<%=std.id.to_s%>").val(Math.round(sum/av));
+			$(".total<%=std.id.to_s%>").val(Math.round(sum/av).toFixed(2));
 		});
 	<% end %>
 
