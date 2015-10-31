@@ -62,11 +62,11 @@
 
                           <tr>
                               <td class="student-profile-td">
-                                  Class
+                                  Grade
                               </td>
 
                               <td>
-                                <% if !@student.grade_id.present? && @student.grade.present? %>
+                                <% if @student.grade_id.present? && @student.grade.present? %>
                                   <%= @student.grade.full_name %>
                                 <% end %>
                               </td>
