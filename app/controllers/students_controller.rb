@@ -84,6 +84,13 @@ class StudentsController < ApplicationController
       @student = Student.find(params[:id])
       if @student.update_attributes(create_params)
         redirect_to edit_parent_parent_path(@student.parent_id), notice: "Student Successfully updated"
+        # return render json: params
+        emergency = @student.emergency
+        emergency.name = params[:student][:emergency][:name]
+        emergency.mobile = params[:student][:emergency][:mobile]
+        emergency.phone = params[:student][:emergency][:phone]
+        emergency.email = params[:student][:emergency][:email]
+        emergency.save
         # Handle a successful update.
       else
         return render json: @student

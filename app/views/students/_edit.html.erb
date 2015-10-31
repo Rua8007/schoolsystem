@@ -10,12 +10,12 @@
 
 <div class="col-md-3  pull-right">
   <label>Quarter</label>
-  <%= std.select :eyeside, options_for_select(%w[1st 2nd 3rd 4th]),{}, {class: "form-control", style: 'width: 100%'} %>
+  <%= std.text_field :eyeside,class: "form-control", style: 'width: 100%', disabled: true %>
 </div>
 
 <div class="col-md-3 pull-right">
   <label>Date of Joining</label>
-  <%= std.text_field :created_at, class: 'form-control datepicker','data-date-format' => "yyyy-mm-dd" %>
+  <%= std.text_field :created_at, class: 'form-control datepicker','data-date-format' => "yyyy-mm-dd", disabled: true %>
 
 </div>
 
@@ -95,13 +95,13 @@
               <div class="column col-xs-12 col-sm-2">
                 <div class="form-group">
                 <label for="exampleInputEmail1">Iqama Number</label>
-                  <%= std.text_field :iqamaNumber , :style => 'height:34px;width: 100%',  class: 'form-control', autofocus: true %>
+                  <%= std.text_field :iqamaNumber , :style => 'height:34px;width: 100%',  class: 'form-control', autofocus: true, required: true %>
                 </div>
               </div>
               <div class="column col-xs-12 col-sm-2">
                 <div class="form-group">
                 <label for="exampleInputEmail1">Iqama Expiry</label>
-                  <%= std.text_field :iqamaExpiry , :style => 'height:34px;width: 100%',  class: 'form-control datepicker', autofocus: true %>
+                  <%= std.text_field :iqamaExpiry , :style => 'height:34px;width: 100%',  class: 'form-control datepicker', autofocus: true, required: true %>
                 </div>
               </div>
               <div class="column col-xs-12 col-sm-2">
@@ -113,7 +113,7 @@
               <div class="column col-xs-12 col-sm-2">
                 <div class="form-group">
                     <label for="exampleInputPassword1">Place of Birth</label>
-                    <%= std.country_select :birth_place ,{selected: "SA"}, {:style => 'height:34px;width: 100%',  class: 'form-control',} %>
+                    <%= std.country_select :birth_place ,{selected: "SA"}, {:style => 'height:34px;width: 100%',  class: 'form-control'} %>
                 </div>
               </div>
               <div class="column col-xs-12 col-sm-2">
@@ -164,21 +164,21 @@
           <div class="column col-xs-12 col-sm-2">
             <div class="form-group">
                 <label for="exampleInputEmail1">City</label>
-                <%= std.text_field :city, :style => 'height:34px;width: 100%',  class: 'form-control' %>
+                <%= std.text_field :city, :style => 'height:34px;width: 100%',  class: 'form-control', required: true %>
             </div>
           </div>
 
           <div class="column col-xs-12 col-sm-2">
             <div class="form-group">
                 <label for="exampleInputEmail1">Country</label>
-                  <%= std.country_select :country ,{selected: "SA"}, {:style => 'height:34px;width: 100%',  class: 'form-control',} %>
+                  <%= std.country_select :country ,{selected: "SA"}, {:style => 'height:34px;width: 100%',  class: 'form-control',}, required: true %>
               </div>
           </div>
 
           <div class="column col-xs-12 col-sm-2">
             <div class="form-group">
                   <label for="exampleInputPassword1">Phone Number</label>
-                  <%= std.text_field :phone, :style => 'height:34px;width: 100%',  class: 'form-control' %>
+                  <%= std.text_field :phone, :style => 'height:34px;width: 100%',  class: 'form-control', required: true %>
             </div>
           </div>
         </fieldset>
@@ -247,11 +247,46 @@
             </div>
           </div>
         </fieldset>
+        <%= std.fields_for @student.emergency do |b| %>
+          <fieldset class="sss well well-lg">
+            <legend class="lll">Emergency Contact</legend>
+            <div class="column col-xs-12 col-md-12">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Name</label>
+                <%= b.text_field :name , :style => 'height:34px;width: 100%',  class: 'form-control', autofocus: true %>
+
+
+               <%= b.hidden_field :student_id, value: @student.id %>
+              </div>
+            </div>
+
+            <div class="column col-xs-12 col-md-4">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Mobile</label>
+                <%= b.text_field :mobile , :style => 'height:34px;width: 100%',  class: 'form-control', autofocus: true %>
+              </div>
+            </div>
+
+            <div class="column col-xs-12 col-md-4">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Phone</label>
+                <%= b.text_field :phone , :style => 'height:34px;width: 100%',  class: 'form-control', autofocus: true %>
+              </div>
+            </div>
+
+            <div class="column col-xs-12 col-md-4">
+              <div class="form-group">
+                <label for="exampleInputEmail1">E-mail Address</label>
+                <%= b.text_field :email , :style => 'height:34px;width: 100%',  class: 'form-control', autofocus: true %>
+              </div>
+            </div>
+          </fieldset>
+        <% end %>
 
         </div>
       </div>
     </div>
   <div class="form-group">
-    <%= std.submit "Parent Detail", :class => 'btn btn-block btn-success form-control',:style=>'width:24%;float: right;' %>
+    <%= std.submit "Edit Parent Detail", :class => 'btn btn-block btn-success form-control',:style=>'width:24%;' %>
   </div>
 <% end %>

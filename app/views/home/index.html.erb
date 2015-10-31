@@ -6,441 +6,471 @@
 }
 
 </style>
-<% if current_user.role.name == 'Parent' %>
-<hr>
+<div class="modal fade " id="std_modal" role="dialog" data-backdrop="static">
+  <div class="modal-dialog" style="margin:20px; ">
+    <!-- Modal content-->
+    <div class="modal-content" style="width: 207%;">
+      <div class="modal-header login-modal-header" style="text-align:center">
+        <h4>Updata Information <sup> <button class="btn btn-danger" id = "close_modal" style="float:right; "> X</button> </sup> </h4>
 
-<div class="abc" style="">
+      </div>
+      <div class="modal-body">
+        <%= render '/students/edit' %>
 
-    <div class="container" >
-
-        <h3><%=@student.fullname %> <label style="font-weight:normal">(<%= @student.arabicname %>)</label></h3>
-    <br>
-        <div class="col-sm-4">
-            <table class="table">
-                <tbody>
-
-                    <tr>
-                        <td class="student-profile-td">
-                            Roll Number
-                        </td>
-
-                        <td>
-                            <%= @student.rollnumber %>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="student-profile-td">
-                            Class
-                        </td>
-
-                        <td>
-                            <%= @student.grade.full_name %>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="student-profile-td">
-                            Date of Birth
-                        </td>
-
-                        <td>
-                            <%= @student.dob %>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="student-profile-td">
-                            Iqama Number
-                        </td>
-
-                        <td>
-                            <%= @student.iqamaNumber %>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="student-profile-td">
-                            Iqama Expiry
-                        </td>
-
-                        <td>
-                            <%= @student.iqamaExpiry %>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="student-profile-td">
-                            Joining Date
-                        </td>
-
-                        <td>
-                            <%= @student.created_at %>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="col-sm-4">
-            <table class="table">
-                <tbody>
-                    <tr>
-                        <td class="student-profile-td">
-                            Gender
-                        </td>
-
-                        <td>
-                            <%= @student.gender %>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="student-profile-td">
-                            Nationality
-                        </td>
-
-                        <td>
-                            <%= @student.nationality %>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="student-profile-td">
-                            Mother Language
-                        </td>
-
-                        <td>
-                            <%= @student.language %>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="student-profile-td">
-                            Religion
-                        </td>
-
-                        <td>
-                            <%= @student.religion %>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="student-profile-td">
-                            Joining Quarter
-                        </td>
-
-                        <td>
-                            <%= @student.eyeside %>
-                        </td>
-                    </tr>
-
-
-                </tbody>
-            </table>
-            <!-- <p>Section:<label>A</label></p> -->
-        </div>
-
-
-        <div class="col-sm-4">
-          <%= image_tag @student.image, class: "img-responsive student-image" %>
-        </div>
+      </div>
     </div>
-
-    <hr />
-
-    <!-- Nav tabs -->
-    <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#ContactDetails" aria-controls="messages" role="tab" data-toggle="tab">Contact details</a></li>
-        <li role="presentation" ><a href="#PreviousDetails" aria-controls="messages" role="tab" data-toggle="tab">Previous details</a></li>
-        <li role="presentation"><a href="#MedicalBackground" aria-controls="messages" role="tab" data-toggle="tab">Medical Background</a></li>
-
-
-
-    </ul>
-
-    <br>
-
-    <!-- Tab panes -->
-    <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="ContactDetails">
-            <div class="col-sm-3" >
-                <h4 class="student-tabs">Personal Details</h4>
-                <table class="table">
-                    <tr>
-                        <td>
-                            Address
-                        </td>
-                        <td>
-                            <%= @student.address %>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            City
-                        </td>
-                        <td>
-                            <%= @student.city %>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Country
-                        </td>
-                        <td>
-                            <%= @student.country %>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            Phone
-                        </td>
-                        <td>
-                            <%= @student.phone %>
-                        </td>
-                    </tr>
-
-
-                    <tr>
-                        <td>
-                            E-mail
-                        </td>
-                        <td>
-                            <%= @student.email %>
-                        </td>
-                    </tr>
-                </table>
+  </div>
+<% if current_user.role.name == 'Parent' %>
+    <hr>
+    <% if @student.iqamaExpiry.nil? || @student.iqamaExpiry == "" %>
+      <div class="modal fade " id="secret_modal" role="dialog" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" style="margin:20px; ">
+          <!-- Modal content-->
+          <div class="modal-content" style="width: 207%;">
+            <div class="modal-header login-modal-header" style="text-align:center">
+              <h4>Updata Information</h4>
             </div>
+            <div class="modal-body">
+              <%= render '/students/edit' %>
 
-            <div class="col-sm-3">
-                <h4 class="student-tabs">Parent Details</h4>
-                <table class="table">
-                    <tr>
-                        <td>
-                            Father Name
-                        </td>
-                        <td>
-                            <%= @parent.name if @parent.present? %>
-                        </td>
-                    </tr>
-
-
-
-                    <tr>
-                        <td>
-                            Iqama Number
-                        </td>
-                        <td>
-                            <%= @parent.iqamaNumber if @parent.present? %>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            Iqama Expiry
-                        </td>
-                        <td>
-                            <%= @parent.iqamaExpiry if @parent.present? %>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Mother Name
-                        </td>
-                        <td>
-                            <%= @parent.mothername if @parent.present? %>
-                        </td>
-                    </tr>
-
-
-                </table>
             </div>
-
-            <div class="col-sm-3">
-                <h4 class="student-tabs">Parent contact Details</h4>
-                <table class="table">
-
-
-                    <tr>
-                        <td>
-                            Mobile
-                        </td>
-                        <td>
-                            <%= @parent.mobile if @parent.present? %>
-                        </td>
-                    </tr>
-
-
-                    <tr>
-                        <td>
-                            E-mail
-                        </td>
-                        <td>
-                            <%= @parent.email if @parent.present? %>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Mother Mobile
-                        </td>
-                        <td>
-                            <%= @parent.mothermobile if @parent.present? %>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Mother Email Address
-                        </td>
-                        <td>
-                            <%= @parent.motheremail if @parent.present? %>
-                        </td>
-                    </tr>
-
-                </table>
-            </div>
-
-            <div class="col-sm-3">
-                <h4 class="student-tabs">Emergency contact</h4>
-                <table class="table">
-                    <tr>
-                        <td>
-                           Name
-                        </td>
-                        <td>
-                            <%= @student.emergency.name if @student.emergency.present? %>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Email Address
-                        </td>
-                        <td>
-                        <%= @student.emergency.email if @student.emergency.present? %>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            Contact
-                        </td>
-                        <td>
-                        <%= @student.emergency.mobile if @student.emergency.present? %>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-
-        <div role="tabpanel" class="tab-pane" id="PreviousDetails">
-          <div class="col-sm-12">
-            <table class="table">
-              <tbody>
-                <tr>
-                  <td class="student-profile-td">
-                    Previous Institute
-                  </td>
-                  <td>
-                    <%= @student.previousInstitute %>
-                  </td>
-                  <td class="student-profile-td">
-                    Passing Year
-                  </td>
-                  <td>
-                    <%= @student.year %>
-                  </td>
-                  <td class="student-profile-td">
-                    Total Marks
-                  </td>
-                  <td>
-                    <%= @student.totalMarks %>
-                  </td>
-                  <td class="student-profile-td">
-                    Obtained Marks
-                  </td>
-                  <td>
-                    <%= @student.obtainedMarks %>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <hr>
-
           </div>
         </div>
+      </div>
 
 
-        <div role="tabpanel" class="tab-pane" id="MedicalBackground" >
-            <div class="col-sm-6">
-                <table class="table">
+    <% else %>
+      <div class="abc" style="">
+          <div class="container" >
+
+              <h3><%=@student.fullname %> <label style="font-weight:normal">(<%= @student.arabicname %>)</label> <button id = "stud_info" class="btn btn-info btn-small pull-right"> Update Information </button> </h3>
+          <br>
+              <div class="col-sm-4">
+                  <table class="table">
+                      <tbody>
+
+                          <tr>
+                              <td class="student-profile-td">
+                                  Roll Number
+                              </td>
+
+                              <td>
+                                  <%= @student.rollnumber %>
+                              </td>
+                          </tr>
+
+                          <tr>
+                              <td class="student-profile-td">
+                                  Class
+                              </td>
+
+                              <td>
+                                <% if !@student.grade_id.present? && @student.grade.present? %>
+                                  <%= @student.grade.full_name %>
+                                <% end %>
+                              </td>
+                          </tr>
+
+                          <tr>
+                              <td class="student-profile-td">
+                                  Date of Birth
+                              </td>
+
+                              <td>
+                                  <%= @student.dob %>
+                              </td>
+                          </tr>
+
+                          <tr>
+                              <td class="student-profile-td">
+                                  Iqama Number
+                              </td>
+
+                              <td>
+                                  <%= @student.iqamaNumber %>
+                              </td>
+                          </tr>
+
+                          <tr>
+                              <td class="student-profile-td">
+                                  Iqama Expiry
+                              </td>
+
+                              <td>
+                                  <%= @student.iqamaExpiry %>
+                              </td>
+                          </tr>
+
+                          <tr>
+                              <td class="student-profile-td">
+                                  Joining Date
+                              </td>
+
+                              <td>
+                                  <%= @student.created_at %>
+                              </td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+
+              <div class="col-sm-4">
+                  <table class="table">
+                      <tbody>
+                          <tr>
+                              <td class="student-profile-td">
+                                  Gender
+                              </td>
+
+                              <td>
+                                  <%= @student.gender %>
+                              </td>
+                          </tr>
+
+                          <tr>
+                              <td class="student-profile-td">
+                                  Nationality
+                              </td>
+
+                              <td>
+                                  <%= @student.nationality %>
+                              </td>
+                          </tr>
+
+                          <tr>
+                              <td class="student-profile-td">
+                                  Mother Language
+                              </td>
+
+                              <td>
+                                  <%= @student.language %>
+                              </td>
+                          </tr>
+
+                          <tr>
+                              <td class="student-profile-td">
+                                  Religion
+                              </td>
+
+                              <td>
+                                  <%= @student.religion %>
+                              </td>
+                          </tr>
+
+                          <tr>
+                              <td class="student-profile-td">
+                                  Joining Quarter
+                              </td>
+
+                              <td>
+                                  <%= @student.eyeside %>
+                              </td>
+                          </tr>
+
+
+                      </tbody>
+                  </table>
+                  <!-- <p>Section:<label>A</label></p> -->
+              </div>
+
+
+              <div class="col-sm-4">
+                <%= image_tag @student.image, class: "img-responsive student-image" %>
+              </div>
+          </div>
+
+          <hr />
+
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs" role="tablist">
+              <li role="presentation" class="active"><a href="#ContactDetails" aria-controls="messages" role="tab" data-toggle="tab">Contact details</a></li>
+              <li role="presentation" ><a href="#PreviousDetails" aria-controls="messages" role="tab" data-toggle="tab">Previous details</a></li>
+              <li role="presentation"><a href="#MedicalBackground" aria-controls="messages" role="tab" data-toggle="tab">Medical Background</a></li>
+
+
+
+          </ul>
+
+          <br>
+
+          <!-- Tab panes -->
+          <div class="tab-content">
+              <div role="tabpanel" class="tab-pane active" id="ContactDetails">
+                  <div class="col-sm-3" >
+                      <h4 class="student-tabs">Personal Details</h4>
+                      <table class="table">
+                          <tr>
+                              <td>
+                                  Address
+                              </td>
+                              <td>
+                                  <%= @student.address %>
+                              </td>
+                          </tr>
+
+                          <tr>
+                              <td>
+                                  City
+                              </td>
+                              <td>
+                                  <%= @student.city %>
+                              </td>
+                          </tr>
+                          <tr>
+                              <td>
+                                  Country
+                              </td>
+                              <td>
+                                  <%= @student.country %>
+                              </td>
+                          </tr>
+
+                          <tr>
+                              <td>
+                                  Phone
+                              </td>
+                              <td>
+                                  <%= @student.phone %>
+                              </td>
+                          </tr>
+
+
+                          <tr>
+                              <td>
+                                  E-mail
+                              </td>
+                              <td>
+                                  <%= @student.email %>
+                              </td>
+                          </tr>
+                      </table>
+                  </div>
+
+                  <div class="col-sm-3">
+                      <h4 class="student-tabs">Parent Details</h4>
+                      <table class="table">
+                          <tr>
+                              <td>
+                                  Father Name
+                              </td>
+                              <td>
+                                  <%= @parent.name if @parent.present? %>
+                              </td>
+                          </tr>
+
+
+
+                          <tr>
+                              <td>
+                                  Iqama Number
+                              </td>
+                              <td>
+                                  <%= @parent.iqamaNumber if @parent.present? %>
+                              </td>
+                          </tr>
+
+                          <tr>
+                              <td>
+                                  Iqama Expiry
+                              </td>
+                              <td>
+                                  <%= @parent.iqamaExpiry if @parent.present? %>
+                              </td>
+                          </tr>
+                          <tr>
+                              <td>
+                                  Mother Name
+                              </td>
+                              <td>
+                                  <%= @parent.mothername if @parent.present? %>
+                              </td>
+                          </tr>
+
+
+                      </table>
+                  </div>
+
+                  <div class="col-sm-3">
+                      <h4 class="student-tabs">Parent contact Details</h4>
+                      <table class="table">
+
+
+                          <tr>
+                              <td>
+                                  Mobile
+                              </td>
+                              <td>
+                                  <%= @parent.mobile if @parent.present? %>
+                              </td>
+                          </tr>
+
+
+                          <tr>
+                              <td>
+                                  E-mail
+                              </td>
+                              <td>
+                                  <%= @parent.email if @parent.present? %>
+                              </td>
+                          </tr>
+                          <tr>
+                              <td>
+                                  Mother Mobile
+                              </td>
+                              <td>
+                                  <%= @parent.mothermobile if @parent.present? %>
+                              </td>
+                          </tr>
+                          <tr>
+                              <td>
+                                  Mother Email Address
+                              </td>
+                              <td>
+                                  <%= @parent.motheremail if @parent.present? %>
+                              </td>
+                          </tr>
+
+                      </table>
+                  </div>
+
+                  <div class="col-sm-3">
+                      <h4 class="student-tabs">Emergency contact</h4>
+                      <table class="table">
+                          <tr>
+                              <td>
+                                 Name
+                              </td>
+                              <td>
+                                  <%= @student.emergency.name if @student.emergency.present? %>
+                              </td>
+                          </tr>
+                          <tr>
+                              <td>
+                                  Email Address
+                              </td>
+                              <td>
+                              <%= @student.emergency.email if @student.emergency.present? %>
+                              </td>
+                          </tr>
+
+                          <tr>
+                              <td>
+                                  Contact
+                              </td>
+                              <td>
+                              <%= @student.emergency.mobile if @student.emergency.present? %>
+                              </td>
+                          </tr>
+                      </table>
+                  </div>
+              </div>
+
+              <div role="tabpanel" class="tab-pane" id="PreviousDetails">
+                <div class="col-sm-12">
+                  <table class="table">
                     <tbody>
-                        <tr>
-                            <td class="student-profile-td">
-                                Current weight
-                            </td>
-
-                            <td>
-                                <%= @student.weight %>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="student-profile-td">
-                                Current Height
-                            </td>
-
-                            <td>
-                                <%= @student.height %>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="student-profile-td">
-                                Blood Group
-                            </td>
-
-                            <td>
-                                <%= @student.blood %>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="student-profile-td">
-                                Special Needs
-                            </td>
-
-                            <td>
-                                <%= @student.specialneed %>
-                            </td>
-                        </tr>
+                      <tr>
+                        <td class="student-profile-td">
+                          Previous Institute
+                        </td>
+                        <td>
+                          <%= @student.previousInstitute %>
+                        </td>
+                        <td class="student-profile-td">
+                          Passing Year
+                        </td>
+                        <td>
+                          <%= @student.year %>
+                        </td>
+                        <td class="student-profile-td">
+                          Total Marks
+                        </td>
+                        <td>
+                          <%= @student.totalMarks %>
+                        </td>
+                        <td class="student-profile-td">
+                          Obtained Marks
+                        </td>
+                        <td>
+                          <%= @student.obtainedMarks %>
+                        </td>
+                      </tr>
                     </tbody>
-                </table>
-            </div>
+                  </table>
+                  <hr>
 
-            <div class="col-sm-6">
-                <table class="table">
-                    <tbody>
-
-                        <tr>
-                            <td class="student-profile-td">
-                                Learning Disability
-                            </td>
-
-                            <td>
-                                <%= @student.disability %>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-        </div>
-
-    </div>
-</div>
+                </div>
+              </div>
 
 
+              <div role="tabpanel" class="tab-pane" id="MedicalBackground" >
+                  <div class="col-sm-6">
+                      <table class="table">
+                          <tbody>
+                              <tr>
+                                  <td class="student-profile-td">
+                                      Current weight
+                                  </td>
 
+                                  <td>
+                                      <%= @student.weight %>
+                                  </td>
+                              </tr>
+
+                              <tr>
+                                  <td class="student-profile-td">
+                                      Current Height
+                                  </td>
+
+                                  <td>
+                                      <%= @student.height %>
+                                  </td>
+                              </tr>
+
+                              <tr>
+                                  <td class="student-profile-td">
+                                      Blood Group
+                                  </td>
+
+                                  <td>
+                                      <%= @student.blood %>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td class="student-profile-td">
+                                      Special Needs
+                                  </td>
+
+                                  <td>
+                                      <%= @student.specialneed %>
+                                  </td>
+                              </tr>
+                          </tbody>
+                      </table>
+                  </div>
+
+                  <div class="col-sm-6">
+                      <table class="table">
+                          <tbody>
+
+                              <tr>
+                                  <td class="student-profile-td">
+                                      Learning Disability
+                                  </td>
+
+                                  <td>
+                                      <%= @student.disability %>
+                                  </td>
+                              </tr>
+                          </tbody>
+                      </table>
+                  </div>
+
+              </div>
+
+          </div>
+      </div>
+    <% end %>
 
 
 
@@ -504,6 +534,17 @@ $(document).ready(function() {
 
     $('#calendar').fullCalendar({
     })
+    $('#secret_modal').modal('show');
+    $('#std_modal').modal('hide');
+
+
+    $('#stud_info').click(function (){
+      $('#std_modal').modal('show');
+    });
+    $('#close_modal').click(function (){
+      $('#std_modal').modal('hide');
+    });
+
 
 });
 
