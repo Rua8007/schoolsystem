@@ -95,7 +95,7 @@
               <div class="column col-xs-12 col-sm-2">
                 <div class="form-group">
                 <label for="exampleInputEmail1">Iqama Number</label>
-                  <%= std.text_field :iqamaNumber , :style => 'height:34px;width: 100%',  class: 'form-control', autofocus: true, required: true %>
+                  <%= std.text_field :iqamaNumber , :style => 'height:34px;width: 100%',  class: 'form-control numeric', autofocus: true, required: true, maxlength:"10", minlength: "10" %>
                 </div>
               </div>
               <div class="column col-xs-12 col-sm-2">
