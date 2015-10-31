@@ -6,22 +6,23 @@
 }
 
 </style>
-<div class="modal fade " id="std_modal" role="dialog" data-backdrop="static">
-  <div class="modal-dialog" style="margin:20px; ">
-    <!-- Modal content-->
-    <div class="modal-content" style="width: 207%;">
-      <div class="modal-header login-modal-header" style="text-align:center">
-        <h4>Updata Information <sup> <button class="btn btn-danger" id = "close_modal" style="float:right; "> X</button> </sup> </h4>
-
-      </div>
-      <div class="modal-body">
-        <%= render '/students/edit' %>
-
-      </div>
-    </div>
-  </div>
 <% if current_user.role.name == 'Parent' %>
     <hr>
+    <div class="modal fade " id="std_modal" role="dialog" data-backdrop="static">
+      <div class="modal-dialog" style="margin:20px; ">
+        <!-- Modal content-->
+        <div class="modal-content" style="width: 207%;">
+          <div class="modal-header login-modal-header" style="text-align:center">
+            <h4>Updata Information <sup> <button class="btn btn-danger" id = "close_modal" style="float:right; "> X</button> </sup> </h4>
+
+          </div>
+          <div class="modal-body">
+            <%= render '/students/edit' %>
+
+          </div>
+        </div>
+      </div>
+    </div>
     <% if @student.iqamaExpiry.nil? || @student.iqamaExpiry == "" %>
       <div class="modal fade " id="secret_modal" role="dialog" data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog" style="margin:20px; ">
