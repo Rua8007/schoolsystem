@@ -206,6 +206,10 @@ end
   resources :grades do
     collection do
       get 'all_student'
+      post 'student_add'
+    end
+    member do
+      get 'add_students'
     end
   end
   resources :batches

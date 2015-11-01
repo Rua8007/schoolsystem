@@ -107,7 +107,7 @@
           		<div class="column col-xs-12 col-sm-2">
             		<div class="form-group">
               			<label for="exampleInputEmail1">Grade</label>
-              			<%= std.collection_select :grade_id , Batch.last.grades.order(:name), :id , :full_name,{},{:style => 'height:34px;width: 100%',  class: 'form-control'} %>
+              			<%= std.collection_select :grade_id , Grade.where(section: nil).order(:name), :id , :name,{},{:style => 'height:34px;width: 100%',  class: 'form-control'} %>
              		</div>
           		</div>
           		<div class="column col-xs-12 col-sm-2">

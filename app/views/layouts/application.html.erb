@@ -886,9 +886,15 @@
                         <% end %>
                       </li>
                       <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'create_grade').any? %>
+
+                        <li>
+                          <%= link_to(new_grade_path({maingrade: true})) do %>
+                            <span>Add Grade</span>
+                          <% end %>
+                        </li>
                         <li>
                           <%= link_to(new_grade_path) do %>
-                            <span>Add Grade</span>
+                            <span>Add Sections</span>
                           <% end %>
                         </li>
                       <% end %>
@@ -1325,7 +1331,7 @@
 <% if current_user && current_user.role.name == 'parent' && current_user.sign_in_count == '1'%>
   <% if current_user.role.name == "Parent" %>
         <% temp2 = Student.find_by_rollnumber(current_user.email.split('@').first.split('_').last)  %>
-  
+
       <% end %>
       <li>
         <%= link_to(edit_student_path(temp2.student_id)) do %>
@@ -1334,7 +1340,7 @@
         <% end %>
       </li>
         <% end %>
-      
+
 
 
   <div id="content" class="app-content" role="main">

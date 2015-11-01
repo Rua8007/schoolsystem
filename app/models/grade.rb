@@ -12,6 +12,9 @@ class Grade < ActiveRecord::Base
 	has_many :curriculums
 	has_many :feebreakdowns
 	has_many :purchases
+	has_many :associations
+	# has_many :subjects ,through: :associations
+
 
 	has_many :grade_subjects
 	has_many :examcalenders

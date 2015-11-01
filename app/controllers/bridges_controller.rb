@@ -16,10 +16,12 @@ class BridgesController < ApplicationController
 
   # GET /bridges/new
   def new
-    @employee=Employee.all.pluck(:full_name,:id)
+    @employee=Employee.all.order(:full_name).pluck(:full_name,:id)
     @bridge = []
-    Subject.all.try(:each) do |s|
-      temp = {flag: false, subject_id: s.id, employee_id: @employee, class_id: params[:class_id] }
+    grade = Grade.find(params[:class_id])
+
+    Grade.find_by_name(grade.name).associations.try(:each) do |s|
+      temp = {flag: false, subject_id: s.subject_id, employee_id: @employee, class_id: params[:class_id] }
       @bridge << temp
     end
     # @bridge.each do |b|
@@ -36,18 +38,21 @@ class BridgesController < ApplicationController
   def newassign
     @grade = Grade.find(params[:grade_id])
     @bridge = @grade.bridges.new
-    @subjects = Subject.all
+    @subjects = []
+    Grade.find_by_name(@grade.name).associations.try(:each) do |a|
+      @subjects << a.subject
+    end
     @employees = Employee.all
 
   end
 
   def assigned
     b = Bridge.new
-        b.grade_id = params[:grade_id]
-        b.subject_id = params[:subject_id]
-        b.employee_id = params[:employee_id]
-        b.save
-        redirect_to  grades_path
+    b.grade_id = params[:grade_id]
+    b.subject_id = params[:subject_id]
+    b.employee_id = params[:employee_id]
+    b.save
+    redirect_to  grades_path
   end
 
   # POST /bridges

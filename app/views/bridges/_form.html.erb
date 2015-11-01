@@ -17,7 +17,7 @@
             <%= check_box_tag "flags[#{i}][check]", b["flag"], true, id: "bridge_#{b["subject_id"]}", class: 'checkbox1' %>
           </td>
           <td>
-            <%= text_field_tag "flags[#{i}][subject_id]", Subject.find(b[:subject_id]).name %>
+            <%= text_field_tag "flags[#{i}][subject_id]", Subject.find(b[:subject_id]).name, disabled: true %>
           </td>
 
           <td>

@@ -9,4 +9,8 @@ class Subject < ActiveRecord::Base
 
 	has_many :marksheets, through: :bridges
 	has_many :curriculums
+  has_many :associations
+  # has_many :grades,through: :associations
+
+
 end

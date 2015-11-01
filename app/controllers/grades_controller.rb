@@ -3,11 +3,30 @@ class GradesController < ApplicationController
 
   # GET /grades
   # GET /grades.json
+
+  def add_students
+    @grade = Grade.find(params[:id])
+    @students = Grade.find_by_name(@grade.name).students
+  end
+
+  def student_add
+    if params[:flags]
+      student_ids = params[:flags].keys
+      student_ids.try(:each) do |std_id|
+        s = Student.find(std_id)
+        s.grade_id = params[:grade_id]
+        s.save!
+      end
+    end
+    redirect_to all_student_grades_path({grade_id: params[:grade_id]}), notice: "Students added to the Class successfully"
+  end
+
   def index
     if current_user.role.rights.where(value: "view_grade").nil?
-      redirect_to :back, "Sorry! You are not authorized"
+      redirect_to :back, alert: "Sorry! You are not authorized"
+    else
+      @grades = Grade.where.not(section: nil)
     end
-    @grades = Grade.all
 
   end
 
@@ -18,18 +37,24 @@ class GradesController < ApplicationController
 
   # GET /grades/new
   def new
+    # return render json: params
     if current_user.role.rights.where(value: "create_grade").nil?
-      redirect_to :back, "Sorry! You are not authorized"
+      redirect_to :back, alert: "Sorry! You are not authorized"
+    else
+      if params[:maingrade]
+        @maingrade = true
+      end
+      @grade = Grade.new
+      @batch = Batch.all.pluck(:name, :id)
+      @batches=Batch.all
     end
-    @grade = Grade.new
-    @batch = Batch.all.pluck(:name, :id)
-    @batches=Batch.all
+
   end
 
   # GET /grades/1/edit
   def edit
     if current_user.role.rights.where(value: "update_subject").nil?
-      redirect_to :back, "Sorry! You are not authorized"
+      redirect_to :back, alert: "Sorry! You are not authorized"
     end
     @employees = Employee.where('employee.category.name' => "Academic")
     @batches = Batch.all
@@ -39,11 +64,12 @@ class GradesController < ApplicationController
   # POST /grades.json
   def create
     @grade = Grade.new(grade_params)
-
-
-      if @grade.save
+    if @grade.save
+      if params[:maingrade]
+        redirect_to grades_path, notice: "Class Added Successfully"
+      else
         redirect_to new_bridge_path(class_id: @grade.id), notice: "Class Added Successfully"
-
+      end
     end
   end
 
@@ -75,7 +101,9 @@ class GradesController < ApplicationController
   # DELETE /grades/1
   # DELETE /grades/1.json
   def destroy
-    @grade.students.delete_all
+    @grade.students.try(:each) do |std|
+      std.grade_id = nil
+    end
     @grade.bridges.delete_all
     @grade.destroy
     respond_to do |format|

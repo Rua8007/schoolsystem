@@ -33,7 +33,14 @@ class SubjectsController < ApplicationController
     @subject = Subject.new(subject_params)
 
     respond_to do |format|
-      if @subject.save
+      if @subject.save!
+        grades = params[:flags].keys
+        grades.try(:each) do |grade|
+          a = Association.new
+          a.grade_id = grade
+          a.subject_id = @subject.id
+          a.save
+        end
         format.html { redirect_to new_subject_path, notice: 'Subject was successfully created.' }
         format.json { render :show, status: :created, location: @subject }
       else

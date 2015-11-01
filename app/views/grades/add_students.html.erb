@@ -1,0 +1,20 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Add Students In <%= @grade.name+'-'+@grade.section+" "%></h1>
+</div>
+<%= form_tag(student_add_grades_path({grade_id: @grade.id}), method: :post) do %>
+  <% i = 0%>
+  <br>
+  <div class="well well-lg ">
+    <% if @students.any? %>
+      <% @students.try(:each) do |b| %>
+        <%= check_box_tag "flags[#{b.id}][check]", '', false, class: 'checkbox1' %><%= b.fullname %><br>
+        <% i = i+1 %>
+      <% end %>
+    <% else %>
+      <h4>No Student Available In This Class</h4>
+
+    <% end %>
+  </div>
+
+    <%= submit_tag "Add Students", data: { confirm: "Are you sure?" }, class: 'btn btn-success pull-right' %>
+<% end %>

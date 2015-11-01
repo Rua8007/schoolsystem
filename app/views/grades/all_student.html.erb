@@ -56,7 +56,12 @@
 
 </script>
 <div class="bg-light lter b-b wrapper-md">
-  <h1 class="m-n font-thin h3"><%= @grade.name+'-'+@grade.section+" "%>Students</h1>
+  <h1 class="m-n font-thin h3"><%= @grade.name+'-'+@grade.section+" "%>Students
+    <% if current_user.role.rights(name: 'update_student').any? %>
+      <%= link_to "Add Students", add_students_grade_path(@grade.id), class: "btn btn-success pull-right" %>
+    <% end %>
+  </h1>
+
 </div>
 
 <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">

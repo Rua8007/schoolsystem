@@ -4,11 +4,11 @@
   }
 
   .sss{
-    border:1px solid#e5e5e5;   padding: 1%; 
+    border:1px solid#e5e5e5;   padding: 1%;
   }
 
   .lll{
-    width: auto !important; 
+    width: auto !important;
     background-color: white;
     padding-right: 16px;
     padding-left: 15px;
@@ -54,6 +54,10 @@
                         </div>
                     </div>
                     </div>
+                    <h4>Select Grades</h4>
+                    <% Grade.where(section: nil).try(:each) do |g| %>
+                      <%= check_box_tag "flags[#{g.id}][check]", '' , false , class: 'checkbox1' %>&nbsp <%= g.name %><br>
+                    <% end %>
                   </div>
                 </div>
                  <div class="actions">
@@ -77,4 +81,3 @@
         border: black;
     }
 </style>
- 
