@@ -6,7 +6,11 @@ class GradesController < ApplicationController
 
   def add_students
     @grade = Grade.find(params[:id])
-    @students = Grade.find_by_name(@grade.name).students
+    if @grade.campus = 'Boys'
+      @students = Grade.find_by_name(@grade.name).students.where(gender: 'MALE')
+    else
+      @students = Grade.find_by_name(@grade.name).students.where(gender: 'FEMALE')
+    end
   end
 
   def student_add
@@ -25,9 +29,14 @@ class GradesController < ApplicationController
     if current_user.role.rights.where(value: "view_grade").nil?
       redirect_to :back, alert: "Sorry! You are not authorized"
     else
-      @grades = Grade.where.not(section: nil)
+      name = params[:grade_name]
+      @grades = Grade.where("section IS NOT NULL and name = ?", name)
     end
 
+  end
+
+  def all_grades
+    @grades = Grade.where(section: nil)
   end
 
   # GET /grades/1

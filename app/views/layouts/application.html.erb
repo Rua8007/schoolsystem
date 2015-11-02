@@ -894,13 +894,13 @@
                         </li>
                         <li>
                           <%= link_to(new_grade_path) do %>
-                            <span>Add Sections</span>
+                            <span>Add Classes</span>
                           <% end %>
                         </li>
                       <% end %>
                       <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'view_grade').any? %>
                         <li>
-                          <%= link_to(grades_path) do %>
+                          <%= link_to(all_grades_grades_path) do %>
                             <span>List All grades</span>
                           <% end %>
                         </li>

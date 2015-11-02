@@ -49,15 +49,15 @@
                     <%= hidden_field_tag "maingrade", @maingrade %>
                   <% else %>
 
-                    <div class="column col-xs-12 col-sm-4">
+                    <div class="column col-xs-12 col-sm-6">
                         <div class="form-group ">
                           <div class="field">
-                            <%= f.label :Grade_name %><br>
+                            <%= f.label :Grade %><br>
                             <%= f.select :name, options_from_collection_for_select(Grade.where(section: nil),"name", "name"),{prompt: "Select Grade"}, {class: 'form-control', required: true} %>
                           </div>
                         </div>
                     </div>
-                      <div class="column col-xs-12 col-sm-4">
+                      <div class="column col-xs-12 col-sm-6">
                            <div class="form-group ">
                                 <div class="field">
                                   <%= f.label :class %><br>
@@ -65,15 +65,27 @@
                                 </div>
                           </div>
                       </div>
-                      <div class="column col-xs-12 col-sm-4">
+                      <div class="column col-xs-12 col-sm-6">
+                         <div class="form-group ">
+                          <div class="field">
+                            <%= f.label :batch %><br>
+                            <%= f.select :batch_id, options_from_collection_for_select(@batches,"id", "name"),{prompt: "Select batch"}, {class: 'form-control', required: true} %>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="column col-xs-12 col-sm-6">
                            <div class="form-group ">
                             <div class="field">
-                              <%= f.label :batch_id %><br>
-                              <%= f.select :batch_id, options_from_collection_for_select(@batches,"id", "name"),{prompt: "Select batch"}, {class: 'form-control', required: true} %>
+                              <%= f.label :campus %><br>
+                              <%= f.select :campus, options_for_select(%w[Boys Girls]),{}, {class: "form-control", required: true} %>
                             </div>
                           </div>
                         </div>
                       </div>
+                    </div>
+
+
                     <% end %>
                   </div>
                 </div>

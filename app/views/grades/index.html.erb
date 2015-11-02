@@ -15,7 +15,7 @@
 </script>
 
 <div class="bg-light lter b-b wrapper-md">
-  <h1 class="m-n font-thin h3">Students
+  <h1 class="m-n font-thin h3">Classes
   <% if current_user.role.rights.where(value: "create_grade").any? %>
   <a href="<%= new_grade_path %>" class="btn pull-right btn-color" style="width:200px;">Add a new Grade</a></h1>
   <% end %>
@@ -25,9 +25,10 @@
   <table id="example" class="table table-striped table-bordered table-responsive" style="overflow: scroll">
     <thead class= "table-head">
     <tr>
-      <th>Name</th>
-      <th>Section</th>
+      <th>Grade</th>
+      <th>Class</th>
       <th>Batch</th>
+      <th>Campus</th>
       <th>No. of students</th>
       <th> Actions</th>
     </tr>
@@ -39,6 +40,7 @@
         <td><%= link_to grade.name, all_student_grades_path({grade_id: grade.id}) %></td>
         <td><%= grade.section %></td>
         <td><%= grade.batch.name %></td>
+        <td>grade.campus</td>
         <td><%= grade.students.count %></td>
         <td>
           <% if current_user.role.rights.where(value: "view_grade").any? %>

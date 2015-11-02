@@ -207,6 +207,7 @@ end
     collection do
       get 'all_student'
       post 'student_add'
+      get 'all_grades'
     end
     member do
       get 'add_students'
