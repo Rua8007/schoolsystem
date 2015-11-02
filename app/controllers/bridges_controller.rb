@@ -52,7 +52,7 @@ class BridgesController < ApplicationController
     b.subject_id = params[:subject_id]
     b.employee_id = params[:employee_id]
     b.save
-    redirect_to  grades_path
+    redirect_to  grades_path({grade_name: Grade.find(params[:grade_id]).name})
   end
 
   # POST /bridges

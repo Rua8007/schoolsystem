@@ -75,7 +75,7 @@ class GradesController < ApplicationController
     @grade = Grade.new(grade_params)
     if @grade.save
       if params[:maingrade]
-        redirect_to grades_path, notice: "Class Added Successfully"
+        redirect_to grades_path({grade_name: @grade.name}), notice: "Class Added Successfully"
       else
         redirect_to new_bridge_path(class_id: @grade.id), notice: "Class Added Successfully"
       end
@@ -98,7 +98,7 @@ class GradesController < ApplicationController
   def update
     respond_to do |format|
       if @grade.update(grade_params)
-        format.html { redirect_to grades_path, notice: 'Grade was successfully updated.' }
+        format.html { redirect_to grades_path({grade_name: @grade.name}), notice: 'Grade was successfully updated.' }
         format.json { render :show, status: :ok, location: @grade }
       else
         format.html { render :edit }
@@ -129,6 +129,6 @@ class GradesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def grade_params
-      params.require(:grade).permit(:name, :section, :batch_id)
+      params.require(:grade).permit(:name, :section, :batch_id, :campus)
     end
 end
