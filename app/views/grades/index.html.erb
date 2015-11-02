@@ -40,7 +40,7 @@
         <td><%= link_to grade.name, all_student_grades_path({grade_id: grade.id}) %></td>
         <td><%= grade.section %></td>
         <td><%= grade.batch.name %></td>
-        <td>grade.campus</td>
+        <td><%= grade.campus %></td>
         <td><%= grade.students.count %></td>
         <td>
           <% if current_user.role.rights.where(value: "view_grade").any? %>
