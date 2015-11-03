@@ -32,7 +32,8 @@
                         </td>
 
                         <td>
-                            <%= @student.grade.name+'-'+@student.grade.section %>
+                            <%= @student.grade.name if @student.grade.section.nil? %>
+                            <%= @student.grade.name+'-'+@student.grade.section  if !@student.grade.section.nil? %>
                         </td>
                     </tr>
 
