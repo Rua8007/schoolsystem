@@ -8,48 +8,48 @@
 	<h4>Grade:                  <%= @std.grade.full_name %></h4>
 	<h4>Exam:                  <%= @exam.name %></h4>
 </div>
-<table class="table">
+<table class="table table-bordered" style="border-color:black">
 	<thead class="table-head">
 		<tr>
-			<th rowspan="2">Subject</th>
-			<th colspan = "<%= @std.grade.marks.count - 1 %>" style = "background:blue !important; text-align: center"> Term Work(<%= @exam.name %>)</th>
-
-			<th colspan = "<%= @std.grade.marks.count - 1 %>" style = "text-align: center" class = "table-head"> Quiz and Evaluation <%= @exam.name %></th>
+			<th rowspan="2" style="background: #95D6FF; color:black">Subject</th>
+			<th colspan = "<%= @std.grade.marks.count - 2 %>" style = "background:#FEFF99 !important; text-align: center;color:black"> Term Work(<%= @exam.name %>)</th>
+			<th rowspan="2" style="background: #95D6FF; color:black">Quarter TW<br>Total</th>
+			<th colspan = "<%= @std.grade.marks.count - 2 %>" style = "background:#FEFF99 !important; text-align: center;color:black" class = "table-head"> Quiz and Evaluation (<%= @exam.name %>)</th>
+			<th rowspan = "2" style = "background:#003668 !important; text-align: center;color:white" class = "table-head"><%= @exam.name%> Total</th>
 		</tr>
-		<tr style = "background:blue !important;">
+		<tr style="background: #95D6FF; color:black">
 			<% @std.grade.marks.try(:each) do |mark| %>
 				<% if mark.name != 'Quiz' && mark.name != 'Evaluation' %>
 					<th><%= mark.name %> </th>
 				<% end %>
 			<% end %>
-			<th>Total	</th>
-			<th style = "background:grey !important;">Quiz</th>
-			<th style = "background:purple !important;">Evaluation</th>
-			<th class="table-head">Total</th>
-		<tr>
+
+			<th >Quiz</th>
+			<th >Evaluation</th>
+
+		<tr style="background: #95D6FF; color:black">
 			<th>Max Marks</th>
 			<% @std.grade.marks.try(:each) do |mark| %>
 				<% if mark.name != 'Quiz' && mark.name != 'Evaluation' %>
-					<th style = "background:blue !important;"> <%= mark.marks.to_s %> </th>
+					<th > <%= mark.marks.to_s %> </th>
 				<% end %>
 			<% end %>
-			<th style = "background:blue !important;"><%= @std.grade.marks.where.not("name = 'Quiz' or name = 'Evaluation'").sum(:marks) %></th>
-			<th style = "background:grey !important;"> <%= @std.grade.marks.find_by_name('Quiz').marks %></th>
-			<th style = "background:purple !important;"> <%= @std.grade.marks.find_by_name('Evaluation').marks %></th>
-			<th class="table-head"> <%= @std.grade.marks.sum(:marks) %></th>
-
+			<th ><%= @std.grade.marks.where.not("name = 'Quiz' or name = 'Evaluation'").sum(:marks) %></th>
+			<th > <%= @std.grade.marks.find_by_name('Quiz').marks %></th>
+			<th > <%= @std.grade.marks.find_by_name('Evaluation').marks %></th>
+			<th style="background:#003668; color:white"> <%= @std.grade.marks.sum(:marks) %></th>
 		</tr>
-		<tr >
+		<tr style="background: #95D6FF; color:black">
 			<th>Passing Marks</th>
 			<% @std.grade.marks.try(:each) do |mark| %>
 				<% if mark.name != 'Quiz' && mark.name != 'Evaluation' %>
-					<th style = "background:blue !important;"> <%= mark.passing_marks.to_s %> </th>
+					<th > <%= mark.passing_marks.to_s %> </th>
 				<% end %>
 			<% end %>
-			<th style = "background:blue !important;"><%= @std.grade.marks.where.not("name = 'Quiz' or name = 'Evaluation'").sum(:passing_marks) %></th>
-			<th style = "background:grey !important;"> <%= @std.grade.marks.find_by_name('Quiz').passing_marks %></th>
-			<th style = "background:purple !important;"> <%= @std.grade.marks.find_by_name('Evaluation').passing_marks %></th>
-			<th class="table-head"> <%= @std.grade.marks.sum(:passing_marks) %></th>
+			<th ><%= @std.grade.marks.where.not("name = 'Quiz' or name = 'Evaluation'").sum(:passing_marks) %></th>
+			<th > <%= @std.grade.marks.find_by_name('Quiz').passing_marks %></th>
+			<th > <%= @std.grade.marks.find_by_name('Evaluation').passing_marks %></th>
+			<th style="background:#003668; color:white"> <%= @std.grade.marks.sum(:passing_marks) %></th>
 
 		</tr>
 	</thead>
@@ -62,12 +62,12 @@
 							<td > <%= ks[ks.keys.first] %></td>
 						<% end %>
 					<% end %>
-				<td><%= k[k.keys.last] %></td>
-				<td> <%= @std.sessionals.where("exam_id = ? and bridge_id = ? and mark_id = ?", @exam.id, Subject.find_by_name(k.keys.first).bridges.where(grade_id: @std.grade_id).first.id , @std.grade.marks.find_by_name("Quiz")).sum(:marks)  %></td>
+				<td style="background: #95D6FF; color:black"><%= k[k.keys.last] %></td>
+				<td style="background: #FEFF99; color:black"> <%= @std.sessionals.where("exam_id = ? and bridge_id = ? and mark_id = ?", @exam.id, Subject.find_by_name(k.keys.first).bridges.where(grade_id: @std.grade_id).first.id , @std.grade.marks.find_by_name("Quiz")).sum(:marks)  %></td>
 
-				<td> <%= @std.sessionals.where("exam_id = ? and bridge_id = ? and mark_id = ?", @exam.id, Subject.find_by_name(k.keys.first).bridges.where(grade_id: @std.grade_id).first.id , @std.grade.marks.find_by_name("Evaluation")).sum(:marks)  %></td>
+				<td style="background: #FEFF99; color:black"> <%= @std.sessionals.where("exam_id = ? and bridge_id = ? and mark_id = ?", @exam.id, Subject.find_by_name(k.keys.first).bridges.where(grade_id: @std.grade_id).first.id , @std.grade.marks.find_by_name("Evaluation")).sum(:marks)  %></td>
 
-				<td><%= @std.sessionals.where("exam_id = ? and bridge_id = ?", @exam.id, Subject.find_by_name(k.keys.first).bridges.where(grade_id: @std.grade_id).first.id).sum(:marks)  %></td>
+				<td style="background:#003668; color:white"><%= @std.sessionals.where("exam_id = ? and bridge_id = ?", @exam.id, Subject.find_by_name(k.keys.first).bridges.where(grade_id: @std.grade_id).first.id).sum(:marks)  %></td>
 			</tr>
 		<% end %>
 	</tbody>
