@@ -22,7 +22,7 @@
  *= require chosen
  *= require_self
  */
-
+*,
 *:before,
 *:after {
   -moz-box-sizing: border-box;

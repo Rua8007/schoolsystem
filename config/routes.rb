@@ -211,6 +211,8 @@ end
     end
     member do
       get 'add_students'
+      get 'add_subjects'
+      post 'subject_add'
     end
   end
   resources :batches

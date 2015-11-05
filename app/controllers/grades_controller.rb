@@ -1,8 +1,27 @@
 class GradesController < ApplicationController
-  before_action :set_grade, only: [:show, :edit, :update, :destroy]
+  before_action :set_grade, only: [:show, :edit, :update, :destroy, :add_subjects, :subject_add]
 
   # GET /grades
   # GET /grades.json
+
+  def add_subjects
+    @subjects = Subject.all
+
+  end
+
+  def subject_add
+    # return render json: params
+    subjects = params[:flags].keys
+    subjects.try(:each) do |subject|
+      if params[:flags][subject][:check]
+        a = @grade.associations.new
+        a.subject_id = subject
+        a.lectures = params[:flags][subject][:lectures]
+        a.save
+      end
+    end
+    redirect_to new_grade_path, notice: "Subjects has been added successfully...!!!"
+  end
 
   def add_students
     @grade = Grade.find(params[:id])
@@ -75,7 +94,7 @@ class GradesController < ApplicationController
     @grade = Grade.new(grade_params)
     if @grade.save
       if params[:maingrade]
-        redirect_to grades_path({grade_name: @grade.name}), notice: "Class Added Successfully"
+        redirect_to add_subjects_grade_path(@grade.id), notice: "Class Added Successfully"
       else
         redirect_to new_bridge_path(class_id: @grade.id), notice: "Class Added Successfully"
       end

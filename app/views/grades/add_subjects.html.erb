@@ -1,0 +1,22 @@
+<%= form_tag subject_add_grade_path(@grade.id), method: 'POST' do %>
+
+<div class="container">
+  <h4>Select Subjects</h4>
+  <% @subjects.try(:each) do |sub| %>
+    <div class="row">
+      <div class="col-md-5">
+        <br>
+        <%= check_box_tag "flags[#{sub.id}][check]",'' , false , class: 'checkbox1' %>&nbsp <%= sub.name %>
+      </div>
+      <div class="col-md-5">
+        <label>Lectures Per Week</label>
+        <%= text_field_tag "flags[#{sub.id}][lectures]",'' , class: 'form-control numeric' %><br>
+      </div>
+    </div>
+  <% end %>
+  <div class="actions pull-right">
+    <%= submit_tag 'Next', class: 'btn btn-success' %>
+  </div>
+</div>
+
+<% end %>
