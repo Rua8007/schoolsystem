@@ -12,6 +12,7 @@
 //
 //= require jquery-2.1.4
 //= require jquery_ujs
+//= require turbolinks
 //= require externals/bootstrap/dist/js/bootstrap
 //= require ui-load
 //= require ui-jp.config
@@ -23,6 +24,7 @@
 //= require externals/bootstrap-daterangepicker/daterangepicker
 //= require bootstrap-datepicker
 //= require bootstrap-datepicker/core
-//= require jquery.turbolinks
 //= require chosen-jquery
+//= require cocoon
 //= require messages
+//= require grades
