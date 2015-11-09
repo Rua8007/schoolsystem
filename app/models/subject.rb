@@ -17,5 +17,8 @@ class Subject < ActiveRecord::Base
 	accepts_nested_attributes_for :sub_subjects, reject_if: :all_blank, allow_destroy: true
   # has_many :grades,through: :associations
 
+	validates_uniqueness_of :name, :code
+	validates_presence_of :name, :code
+	validates_presence_of :weight, if: 'parent.present?'
 
 end

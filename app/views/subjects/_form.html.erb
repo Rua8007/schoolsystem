@@ -17,14 +17,26 @@
     border-radius: 21px;
   }
 
-  .nested-fields i{
-      margin-top: 30px;
+  .nested-fields .btn-danger{
+      margin-top: 1.6em;
   }
+  #error_explanation {
+    color: #dc6650;
+  }
+
+  .field_with_errors {
+    @extend .control-group;
+    @extend .error;
+  }
+
+   form li{
+       display: block;
+   }
 </style>
 <%= form_for(@subject) do |f| %>
   <% if @subject.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@subject.errors.count, "error") %> prohibited this subject from being saved:</h2>
+      <h3><%= pluralize(@subject.errors.count, "error") %> prohibited this subject from being saved:</h3>
 
       <ul>
       <% @subject.errors.full_messages.each do |message| %>
@@ -69,7 +81,7 @@
               <% end %>
           <% end %>
           <div class="links col-sm-12">
-            <%= link_to_add_association 'Add sub subjects', f, :sub_subjects %>
+            <%= link_to_add_association 'Add sub subjects', f, :sub_subjects, class: 'btn btn-success', role: 'button'  %>
           </div>
         </div>
       </fieldset>
