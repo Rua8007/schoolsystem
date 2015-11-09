@@ -16,11 +16,27 @@
     border-color: #729F32;
     border-radius: 21px;
   }
+
+  .nested-fields .btn-danger{
+      margin-top: 1.6em;
+  }
+  #error_explanation {
+    color: #dc6650;
+  }
+
+  .field_with_errors {
+    @extend .control-group;
+    @extend .error;
+  }
+
+   form li{
+       display: block;
+   }
 </style>
 <%= form_for(@subject) do |f| %>
   <% if @subject.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@subject.errors.count, "error") %> prohibited this subject from being saved:</h2>
+      <h3><%= pluralize(@subject.errors.count, "error") %> prohibited this subject from being saved:</h3>
 
       <ul>
       <% @subject.errors.full_messages.each do |message| %>
@@ -37,7 +53,7 @@
       <fieldset class="sss well well-lg">
         <legend class="lll">Subject Information</legend>
         <div class = "row">
-          <div class="column col-xs-12 col-sm-6">
+          <div class="column col-xs-12 col-sm-5">
             <div class="form-group ">
               <div class="field">
                 <%= f.label :name %><br>
@@ -45,7 +61,7 @@
               </div>
             </div>
           </div>
-          <div class="column col-xs-12 col-sm-6">
+          <div class="column col-xs-12 col-sm-5">
             <div class="form-group ">
               <div class="field">
                 <%= f.label :code %><br>
@@ -54,10 +70,26 @@
             </div>
           </div>
         </div>
-        <div class="actions">
-          <%= f.submit "Create ",:class => 'btn btn-block btn-success form-control',:style=>'width:24%;float: right;' %>
+      </fieldset>
+
+      <fieldset class="sss well well-lg">
+        <legend class="lll">Sub Subjects</legend>
+        <div class = "row">
+          <% if @subject.sub_subjects.present? %>
+              <%= f.fields_for :sub_subjects do |sub| %>
+                  <%= render 'sub_subject_fields', f: sub %>
+              <% end %>
+          <% end %>
+          <div class="links col-sm-12">
+            <%= link_to_add_association 'Add sub subjects', f, :sub_subjects, class: 'btn btn-success', role: 'button'  %>
+          </div>
         </div>
       </fieldset>
+
+      <div class="actions">
+        <%= f.submit @subject.new_record? ? 'Create' : 'Save', class: 'btn btn-block btn-success form-control', style: 'width:24%;float: right;' %>
+      </div>
+
     </div>
   </div>
 

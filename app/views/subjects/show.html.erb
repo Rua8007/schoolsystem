@@ -3,10 +3,11 @@
 </div>
 
 <style type="text/css">
-    @media(min-width: 1200px)
-.abc {
-  width: 1080px;
-}
+    @media(min-width: 1200px) {
+        .abc {
+            width: 1080px;
+        }
+    }
 </style>
 <div class="abc" style="">
 
@@ -16,7 +17,8 @@
     <div class="container" >
 	
 		<br>
-        <div class="col-sm-4">
+        <div class="col-sm-6">
+          <h3><%= @subject.name %></h3>
             <table class="table">
                 <tbody>
                     
@@ -43,7 +45,29 @@
                    
                 </tbody>
             </table>
-            <%= link_to 'Back', subjects_path ,class: "btn btn-color"%>
+          <% if @subject.sub_subjects.present? %>
+            <h3>Sub Subjects</h3>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th class="student-profile-th">Name</th>
+                  <th class="student-profile-th">Code</th>
+                  <th class="student-profile-th">Weightage</th>
+                </tr>
+              </thead>
+              <tbody>
+              <% @subject.sub_subjects.each do |subject| %>
+                <tr>
+                  <td><%= subject.name %></td>
+                  <td><%= subject.code %></td>
+                  <td><%= number_to_percentage subject.weight, precision:2  %></td>
+                </tr>
+              <% end %>
+              </tbody>
+            </table>
+          <% end %>
+
+          <%= link_to 'Back', subjects_path ,class: "btn btn-color"%>
 
         </div>
         </div>

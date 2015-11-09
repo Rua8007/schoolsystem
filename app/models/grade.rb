@@ -19,8 +19,24 @@ class Grade < ActiveRecord::Base
 	has_many :grade_subjects
 	has_many :examcalenders
 
+	validates :name, presence: true
+  validates :name, uniqueness: true, if: 'section.nil?'
+	validate :unique_full_name?
+
 
 	def full_name
 	   "#{name} (#{section})"
+	end
+
+	def unique_full_name?
+    full_name = self.full_name
+    @grades = Grade.where.not section: nil
+    @grades.each do |grade|
+      if full_name == grade.full_name
+        self.errors.add(:section, 'This class is already present.')
+        return false
+      end
+    end
+    true
 	end
 end

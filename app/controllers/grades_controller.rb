@@ -5,7 +5,7 @@ class GradesController < ApplicationController
   # GET /grades.json
 
   def add_subjects
-    @subjects = Subject.all
+    @subjects = Subject.where(parent: nil).order(:name)
 
   end
 
@@ -98,6 +98,11 @@ class GradesController < ApplicationController
       else
         redirect_to new_bridge_path(class_id: @grade.id), notice: "Class Added Successfully"
       end
+    else
+      @batch = Batch.all.pluck(:name, :id)
+      @batches=Batch.all
+      @maingrade = params[:maingrade]
+      render :new
     end
   end
 
