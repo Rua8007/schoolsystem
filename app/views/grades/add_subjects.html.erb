@@ -4,15 +4,30 @@
   <h4>Select Subjects</h4>
   <% @subjects.try(:each) do |sub| %>
     <div class="row">
-      <div class="col-md-5">
+      <div class="col-md-3 col-sm-4">
         <br>
-        <%= check_box_tag "flags[#{sub.id}][check]",'' , false , class: 'checkbox1' %>&nbsp <%= sub.name %>
+        <%= check_box_tag "flags[#{sub.id}][check]",'' , false , class: 'checkbox1 select-subject' %>&nbsp <%= sub.name %>
       </div>
-      <div class="col-md-5">
+      <div class="col-sm-2 col-md-2"></div>
+      <div class="col-md-4 col-sm-4">
         <label>Lectures Per Week</label>
         <%= text_field_tag "flags[#{sub.id}][lectures]",'' , class: 'form-control numeric' %><br>
       </div>
     </div>
+    <% sub.sub_subjects.try(:each) do |s| %>
+      <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-4 col-sm-5">
+          <br>
+          <%= check_box_tag "flags[#{s.id}][check]",'' , false , class: 'checkbox1' %>&nbsp <%= s.name %>
+        </div>
+        <div class="col-md-4 col-sm-6">
+          <label>Lectures Per Week</label>
+          <%= text_field_tag "flags[#{s.id}][lectures]",'' , class: 'form-control numeric' %> <br>
+        </div>
+      </div>
+    <% end %>
+      <hr />
   <% end %>
   <div class="actions pull-right">
     <%= submit_tag 'Next', class: 'btn btn-success' %>

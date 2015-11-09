@@ -4,7 +4,7 @@ class SubjectsController < ApplicationController
   # GET /subjects
   # GET /subjects.json
   def index
-    @subjects = Subject.all
+    @subjects = Subject.where(parent: nil).order(:name)
   end
 
   # GET /subjects/1
@@ -78,6 +78,8 @@ class SubjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def subject_params
-      params.require(:subject).permit(:name, :code)
+      params.require(:subject).permit(:name, :code, :parent_id,
+                                      sub_subjects_attributes: [:id, :name, :code, :parent_id, :weight, :_destroy]
+      )
     end
 end
