@@ -1,5 +1,5 @@
 <div class="bg-light lter b-b wrapper-md">
-  <h1 class="m-n font-thin h3"> All Grades
+  <h1 class="m-n font-thin h3"> All Grades </h1>
 </div>
 <br><br>
 <div style="overflow: scroll">
@@ -8,6 +8,7 @@
     <tr>
       <th>Grade</th>
       <th>No. of students</th>
+      <th>Actions</th>
     </tr>
   </thead>
 
@@ -16,6 +17,14 @@
       <tr>
         <td><%= link_to grade.name, grades_path({grade_name: grade.name}) %></td>
         <td><%= Student.where(grade_id: Grade.where(name: grade.name)).count %></td>
+        <td>
+          <% if current_user.role.rights.where(value: "view_grade").any? %>
+              <%= link_to '', grades_path({grade_name: grade.name}), class: 'btn btn-success  glyphicon glyphicon-ok-circle' %>
+          <% end %>
+          <% if current_user.role.rights.where(value: "update_grade").any? %>
+              <%= link_to '', edit_grade_path(grade, {maingrade: true}),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
