@@ -1,32 +1,39 @@
+<style>
+  hr{
+      margin-top: 10px;
+      margin-bottom: 10px;
+  }
+</style>
 <%= form_tag subject_add_grade_path(@grade.id), method: 'POST' do %>
 
 <div class="container">
-  <h4>Select Subjects</h4>
+  <div class="row"><h3>Select Subjects</h3></div>
   <% @subjects.try(:each) do |sub| %>
     <div class="row">
-      <div class="col-md-3 col-sm-4">
-        <br>
-        <%= check_box_tag "flags[#{sub.id}][check]",'' , false , class: 'checkbox1 select-subject' %>&nbsp <%= sub.name %>
-      </div>
-      <div class="col-sm-2 col-md-2"></div>
-      <div class="col-md-4 col-sm-4">
-        <label>Lectures Per Week</label>
-        <%= text_field_tag "flags[#{sub.id}][lectures]",'' , class: 'form-control numeric' %><br>
-      </div>
+      <% if sub.sub_subjects.present? %>
+        <h4><%= sub.name %></h4>
+      <% else %>
+          <div class="col-md-3 col-sm-4">
+            <%= check_box_tag "flags[#{sub.id}][check]",'' , false , class: 'checkbox1 select-subject' %>&nbsp <%= sub.name %>
+          </div>
+          <div class="col-sm-2 col-md-2"></div>
+          <div class="col-md-4 col-sm-4">
+            <%= text_field_tag "flags[#{sub.id}][lectures]",'' , class: 'form-control numeric', placeholder: 'Lec. Per Week.' %>
+          </div>
+      <% end %>
     </div>
-    <% sub.sub_subjects.try(:each) do |s| %>
-      <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-4 col-sm-5">
-          <br>
-          <%= check_box_tag "flags[#{s.id}][check]",'' , false , class: 'checkbox1' %>&nbsp <%= s.name %>
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <label>Lectures Per Week</label>
-          <%= text_field_tag "flags[#{s.id}][lectures]",'' , class: 'form-control numeric' %> <br>
-        </div>
-      </div>
-    <% end %>
+    <div class="row">
+        <% sub.sub_subjects.try(:each) do |s| %>
+          <div class="col-md-4">
+            <div class="col-md-7 col-sm-5">
+              <%= check_box_tag "flags[#{s.id}][check]",'' , false , class: 'checkbox1' %>&nbsp <%= s.name %>
+            </div>
+            <div class="col-md-5 col-sm-6">
+              <%= text_field_tag "flags[#{s.id}][lectures]",'' , class: 'form-control numeric', placeholder: 'Lec. Per Week.' %>
+            </div>
+          </div>
+        <% end %>
+    </div>
       <hr />
   <% end %>
   <div class="actions pull-right">
