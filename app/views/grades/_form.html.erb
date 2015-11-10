@@ -41,13 +41,21 @@
               <legend class="lll">Grade Information</legend>
               <div class = "row">
                   <% if @maingrade %>
-                    <div class="column col-xs-12 col-sm-4">
+                    <div class="column col-xs-12 col-sm-6">
                         <div class="form-group ">
                           <div class="field">
                             <%= f.label :Grade_name %><br>
                             <%= f.text_field :name, :style => 'height:34px;',  class: 'form-control' , required: true, autofocus: true %>
                           </div>
                         </div>
+                    </div>
+                    <div class="column col-xs-12 col-sm-6">
+                      <div class="form-group ">
+                        <div class="field">
+                          <%= f.label :max_no_of_students %><br>
+                          <%= f.text_field :max_no_of_students, :style => 'height:34px;',  class: 'form-control' , required: true %>
+                        </div>
+                      </div>
                     </div>
                     <%= hidden_field_tag "maingrade", @maingrade %>
                   <% else %>
@@ -56,7 +64,7 @@
                         <div class="form-group ">
                           <div class="field">
                             <%= f.label :Grade %><br>
-                            <%= f.select :name, options_from_collection_for_select(Grade.where(section: nil),"name", "name"),{prompt: "Select Grade"}, {class: 'form-control', required: true} %>
+                            <%= f.select :name, options_from_collection_for_select(Grade.where(section: nil),"name", "name", @grade.name), {prompt: "Select Grade"}, {class: 'form-control', required: true} %>
                           </div>
                         </div>
                     </div>
@@ -81,7 +89,7 @@
                            <div class="form-group ">
                             <div class="field">
                               <%= f.label :section %><br>
-                              <%= f.select :campus, options_for_select(%w[Boys Girls]),{}, {class: "form-control", required: true} %>
+                              <%= f.select :campus, options_for_select(%w[Boys Girls], selected: @grade.campus),{}, {class: "form-control", required: true} %>
                             </div>
                           </div>
                         </div>
@@ -93,7 +101,7 @@
                   </div>
                 </div>
                  <div class="actions">
-                  <%= f.submit "Create ",:class => 'btn btn-block btn-success form-control',:style=>'width:24%;float: right;' %>
+                  <%= f.submit @grade.new_record? ? 'Create' : 'Update', :class => 'btn btn-block btn-success form-control',:style=>'width:24%;float: right;' %>
                 </div>
               </fieldset>
             </div>

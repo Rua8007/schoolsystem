@@ -55,7 +55,7 @@ class GradesController < ApplicationController
   end
 
   def all_grades
-    @grades = Grade.where(section: nil)
+    @grades = Grade.where(section: nil).order(:name)
   end
 
   # GET /grades/1
@@ -84,8 +84,12 @@ class GradesController < ApplicationController
     if current_user.role.rights.where(value: "update_subject").nil?
       redirect_to :back, alert: "Sorry! You are not authorized"
     end
-    @employees = Employee.where('employee.category.name' => "Academic")
-    @batches = Batch.all
+    if params[:maingrade]
+      @maingrade = true
+    else
+      @employees = Employee.where('employee.category.name' => "Academic")
+      @batches = Batch.all
+    end
   end
 
   # POST /grades
@@ -120,14 +124,17 @@ class GradesController < ApplicationController
   # PATCH/PUT /grades/1
   # PATCH/PUT /grades/1.json
   def update
-    respond_to do |format|
-      if @grade.update(grade_params)
-        format.html { redirect_to grades_path({grade_name: @grade.name}), notice: 'Grade was successfully updated.' }
-        format.json { render :show, status: :ok, location: @grade }
+    if @grade.update(grade_params)
+      if params[:maingrade]
+        redirect_to add_subjects_grade_path(@grade.id), notice: 'Grade Updated Successfully'
       else
-        format.html { render :edit }
-        format.json { render json: @grade.errors, status: :unprocessable_entity }
+        redirect_to new_bridge_path(class_id: @grade.id), notice: 'Class Updated Successfully'
       end
+    else
+      @maingrade = params[:maingrade]
+      @batch = Batch.all.pluck(:name, :id)
+      @batches=Batch.all
+      render :edit
     end
   end
 
@@ -153,6 +160,6 @@ class GradesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def grade_params
-      params.require(:grade).permit(:name, :section, :batch_id, :campus)
+      params.require(:grade).permit(:name, :section, :batch_id, :campus, :max_no_of_students)
     end
 end
