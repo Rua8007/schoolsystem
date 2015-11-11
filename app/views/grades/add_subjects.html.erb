@@ -14,7 +14,7 @@
   <% @subjects.try(:each) do |sub| %>
     <div class="row">
       <% if sub.sub_subjects.present? %>
-        <h4><%= sub.name %><%= @grade.id %></h4>
+        <h4><%= sub.name %></h4>
       <% else %>
           <div class="col-md-3 col-sm-4">
             <%= check_box_tag "flags[#{sub.id}][check]",'' , @grade.associations.where(subject_id: sub.id).any? , class: 'checkbox1 select-subject' %>&nbsp <span class="subject-name"><%= sub.name %></span>
