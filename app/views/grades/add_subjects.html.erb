@@ -14,14 +14,15 @@
   <% @subjects.try(:each) do |sub| %>
     <div class="row">
       <% if sub.sub_subjects.present? %>
-        <h4><%= sub.name %></h4>
+        <h4><%= sub.name %><%= @grade.id %></h4>
       <% else %>
           <div class="col-md-3 col-sm-4">
-            <%= check_box_tag "flags[#{sub.id}][check]",'' , false , class: 'checkbox1 select-subject' %>&nbsp <span class="subject-name"><%= sub.name %></span>
+            <%= check_box_tag "flags[#{sub.id}][check]",'' , @grade.associations.where(subject_id: sub.id).any? , class: 'checkbox1 select-subject' %>&nbsp <span class="subject-name"><%= sub.name %></span>
           </div>
           <div class="col-sm-2 col-md-2"></div>
           <div class="col-md-4 col-sm-4">
-            <%= text_field_tag "flags[#{sub.id}][lectures]",'' , class: 'form-control numeric', placeholder: 'Lec. Per Week.' %>
+            <% @association = @grade.associations.where(subject_id: sub.id).first %>
+            <%= text_field_tag "flags[#{sub.id}][lectures]",'' , class: 'form-control numeric', placeholder: 'Lec. Per Week.', value: @association.try(:lectures) %>
           </div>
       <% end %>
     </div>
@@ -29,10 +30,11 @@
         <% sub.sub_subjects.try(:each) do |s| %>
           <div class="col-md-4">
             <div class="col-md-12 col-sm-12">
-              <%= check_box_tag "flags[#{s.id}][check]",'' , false , class: 'checkbox1' %>&nbsp <%= s.name %>
+              <%= check_box_tag "flags[#{s.id}][check]",'' , @grade.associations.where(subject_id: s.id).any? , class: 'checkbox1' %>&nbsp <%= s.name %>
             </div>
+            <% @association = @grade.associations.where(subject_id: s.id).first %>
             <div class="col-md-12 col-sm-12">
-              <%= text_field_tag "flags[#{s.id}][lectures]",'' , class: 'form-control numeric', placeholder: 'Lec. Per Week.' %>
+              <%= text_field_tag "flags[#{s.id}][lectures]",'' , class: 'form-control numeric', placeholder: 'Lec. Per Week.', value: @association.try(:lectures) %>
             </div>
           </div>
         <% end %>

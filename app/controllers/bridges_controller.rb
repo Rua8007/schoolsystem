@@ -20,7 +20,7 @@ class BridgesController < ApplicationController
     @bridge = []
     grade = Grade.find(params[:class_id])
 
-    Grade.find_by_name(grade.name).associations.try(:each) do |s|
+    Grade.where(section: nil).find_by_name(grade.name).associations.try(:each) do |s|
       temp = {flag: false, subject_id: s.subject_id, employee_id: @employee, class_id: params[:class_id] }
       @bridge << temp
     end

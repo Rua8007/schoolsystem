@@ -11,6 +11,7 @@ class GradesController < ApplicationController
 
   def subject_add
     # return render json: params
+    @grade.associations.destroy_all if @grade.associations.present?
     subjects = params[:flags].keys
     subjects.try(:each) do |subject|
       if params[:flags][subject][:check]
