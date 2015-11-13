@@ -1,0 +1,2685 @@
+/*!
+ *  Font Awesome 4.2.0 by @davegandy - http://fontawesome.io - @fontawesome
+ *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
+ */
+/* FONT PATH
+ * -------------------------- */
+@font-face {
+  font-family: 'FontAwesome';
+  src: url(/assets/fontawesome-webfont-c10354f8201a3ee61f5de58859f5a874.eot?v=4.2.0);
+  src: url(/assets/fontawesome-webfont-c10354f8201a3ee61f5de58859f5a874.eot?#iefix&v=4.2.0) format("embedded-opentype"), url(/assets/fontawesome-webfont-4ab8e1522720355b20586ac8f06a976c.woff?v=4.2.0) format("woff"), url(/assets/fontawesome-webfont-cfac7ca6be926c5ab000b2233c275bb9.ttf?v=4.2.0) format("truetype"), url(/assets/fontawesome-webfont-957ee79fc97866e1c55c6d2f8978ace0.svg?v=4.2.0#fontawesomeregular) format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+/* line 18, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* makes the font 33% larger relative to the icon container */
+/* line 27, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-lg {
+  font-size: 1.33333333em;
+  line-height: 0.75em;
+  vertical-align: -15%;
+}
+
+/* line 32, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-2x {
+  font-size: 2em;
+}
+
+/* line 35, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-3x {
+  font-size: 3em;
+}
+
+/* line 38, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-4x {
+  font-size: 4em;
+}
+
+/* line 41, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-5x {
+  font-size: 5em;
+}
+
+/* line 44, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-fw {
+  width: 0.28571429em;
+  text-align: center;
+}
+
+/* line 48, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-ul {
+  padding-left: 0;
+  margin-left: 2.14285714em;
+  list-style-type: none;
+}
+
+/* line 53, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-ul > li {
+  position: relative;
+}
+
+/* line 56, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-li {
+  position: absolute;
+  left: -2.14285714em;
+  width: 2.14285714em;
+  top: 0.14285714em;
+  text-align: center;
+}
+
+/* line 63, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-li.fa-lg {
+  left: -1.85714286em;
+}
+
+/* line 66, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-border {
+  padding: .2em .25em .15em;
+  border: solid 0.08em #eeeeee;
+  border-radius: .1em;
+}
+
+/* line 71, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.pull-right {
+  float: right;
+}
+
+/* line 74, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.pull-left {
+  float: left;
+}
+
+/* line 77, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa.pull-left {
+  margin-right: .3em;
+}
+
+/* line 80, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa.pull-right {
+  margin-left: .3em;
+}
+
+/* line 83, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-spin {
+  -webkit-animation: fa-spin 2s infinite linear;
+  animation: fa-spin 2s infinite linear;
+}
+
+@-webkit-keyframes fa-spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+@keyframes fa-spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+/* line 107, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-rotate-90 {
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
+  -webkit-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+
+/* line 113, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-rotate-180 {
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+  -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+/* line 119, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-rotate-270 {
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+  -webkit-transform: rotate(270deg);
+  -ms-transform: rotate(270deg);
+  transform: rotate(270deg);
+}
+
+/* line 125, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-flip-horizontal {
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1);
+  -webkit-transform: scale(-1, 1);
+  -ms-transform: scale(-1, 1);
+  transform: scale(-1, 1);
+}
+
+/* line 131, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-flip-vertical {
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1);
+  -webkit-transform: scale(1, -1);
+  -ms-transform: scale(1, -1);
+  transform: scale(1, -1);
+}
+
+/* line 137, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+:root .fa-rotate-90,
+:root .fa-rotate-180,
+:root .fa-rotate-270,
+:root .fa-flip-horizontal,
+:root .fa-flip-vertical {
+  filter: none;
+}
+
+/* line 144, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-stack {
+  position: relative;
+  display: inline-block;
+  width: 2em;
+  height: 2em;
+  line-height: 2em;
+  vertical-align: middle;
+}
+
+/* line 152, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-stack-1x,
+.fa-stack-2x {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  text-align: center;
+}
+
+/* line 159, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-stack-1x {
+  line-height: inherit;
+}
+
+/* line 162, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-stack-2x {
+  font-size: 2em;
+}
+
+/* line 165, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-inverse {
+  color: #ffffff;
+}
+
+/* Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
+   readers do not read off random characters that represent icons */
+/* line 170, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-glass:before {
+  content: "\f000";
+}
+
+/* line 173, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-music:before {
+  content: "\f001";
+}
+
+/* line 176, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-search:before {
+  content: "\f002";
+}
+
+/* line 179, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-envelope-o:before {
+  content: "\f003";
+}
+
+/* line 182, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-heart:before {
+  content: "\f004";
+}
+
+/* line 185, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-star:before {
+  content: "\f005";
+}
+
+/* line 188, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-star-o:before {
+  content: "\f006";
+}
+
+/* line 191, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-user:before {
+  content: "\f007";
+}
+
+/* line 194, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-film:before {
+  content: "\f008";
+}
+
+/* line 197, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-th-large:before {
+  content: "\f009";
+}
+
+/* line 200, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-th:before {
+  content: "\f00a";
+}
+
+/* line 203, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-th-list:before {
+  content: "\f00b";
+}
+
+/* line 206, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-check:before {
+  content: "\f00c";
+}
+
+/* line 209, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-remove:before,
+.fa-close:before,
+.fa-times:before {
+  content: "\f00d";
+}
+
+/* line 214, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-search-plus:before {
+  content: "\f00e";
+}
+
+/* line 217, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-search-minus:before {
+  content: "\f010";
+}
+
+/* line 220, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-power-off:before {
+  content: "\f011";
+}
+
+/* line 223, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-signal:before {
+  content: "\f012";
+}
+
+/* line 226, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-gear:before,
+.fa-cog:before {
+  content: "\f013";
+}
+
+/* line 230, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-trash-o:before {
+  content: "\f014";
+}
+
+/* line 233, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-home:before {
+  content: "\f015";
+}
+
+/* line 236, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-file-o:before {
+  content: "\f016";
+}
+
+/* line 239, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-clock-o:before {
+  content: "\f017";
+}
+
+/* line 242, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-road:before {
+  content: "\f018";
+}
+
+/* line 245, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-download:before {
+  content: "\f019";
+}
+
+/* line 248, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-arrow-circle-o-down:before {
+  content: "\f01a";
+}
+
+/* line 251, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-arrow-circle-o-up:before {
+  content: "\f01b";
+}
+
+/* line 254, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-inbox:before {
+  content: "\f01c";
+}
+
+/* line 257, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-play-circle-o:before {
+  content: "\f01d";
+}
+
+/* line 260, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-rotate-right:before,
+.fa-repeat:before {
+  content: "\f01e";
+}
+
+/* line 264, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-refresh:before {
+  content: "\f021";
+}
+
+/* line 267, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-list-alt:before {
+  content: "\f022";
+}
+
+/* line 270, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-lock:before {
+  content: "\f023";
+}
+
+/* line 273, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-flag:before {
+  content: "\f024";
+}
+
+/* line 276, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-headphones:before {
+  content: "\f025";
+}
+
+/* line 279, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-volume-off:before {
+  content: "\f026";
+}
+
+/* line 282, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-volume-down:before {
+  content: "\f027";
+}
+
+/* line 285, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-volume-up:before {
+  content: "\f028";
+}
+
+/* line 288, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-qrcode:before {
+  content: "\f029";
+}
+
+/* line 291, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-barcode:before {
+  content: "\f02a";
+}
+
+/* line 294, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-tag:before {
+  content: "\f02b";
+}
+
+/* line 297, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-tags:before {
+  content: "\f02c";
+}
+
+/* line 300, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-book:before {
+  content: "\f02d";
+}
+
+/* line 303, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-bookmark:before {
+  content: "\f02e";
+}
+
+/* line 306, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-print:before {
+  content: "\f02f";
+}
+
+/* line 309, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-camera:before {
+  content: "\f030";
+}
+
+/* line 312, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-font:before {
+  content: "\f031";
+}
+
+/* line 315, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-bold:before {
+  content: "\f032";
+}
+
+/* line 318, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-italic:before {
+  content: "\f033";
+}
+
+/* line 321, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-text-height:before {
+  content: "\f034";
+}
+
+/* line 324, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-text-width:before {
+  content: "\f035";
+}
+
+/* line 327, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-align-left:before {
+  content: "\f036";
+}
+
+/* line 330, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-align-center:before {
+  content: "\f037";
+}
+
+/* line 333, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-align-right:before {
+  content: "\f038";
+}
+
+/* line 336, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-align-justify:before {
+  content: "\f039";
+}
+
+/* line 339, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-list:before {
+  content: "\f03a";
+}
+
+/* line 342, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-dedent:before,
+.fa-outdent:before {
+  content: "\f03b";
+}
+
+/* line 346, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-indent:before {
+  content: "\f03c";
+}
+
+/* line 349, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-video-camera:before {
+  content: "\f03d";
+}
+
+/* line 352, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-photo:before,
+.fa-image:before,
+.fa-picture-o:before {
+  content: "\f03e";
+}
+
+/* line 357, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-pencil:before {
+  content: "\f040";
+}
+
+/* line 360, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-map-marker:before {
+  content: "\f041";
+}
+
+/* line 363, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-adjust:before {
+  content: "\f042";
+}
+
+/* line 366, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-tint:before {
+  content: "\f043";
+}
+
+/* line 369, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-edit:before,
+.fa-pencil-square-o:before {
+  content: "\f044";
+}
+
+/* line 373, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-share-square-o:before {
+  content: "\f045";
+}
+
+/* line 376, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-check-square-o:before {
+  content: "\f046";
+}
+
+/* line 379, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-arrows:before {
+  content: "\f047";
+}
+
+/* line 382, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-step-backward:before {
+  content: "\f048";
+}
+
+/* line 385, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-fast-backward:before {
+  content: "\f049";
+}
+
+/* line 388, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-backward:before {
+  content: "\f04a";
+}
+
+/* line 391, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-play:before {
+  content: "\f04b";
+}
+
+/* line 394, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-pause:before {
+  content: "\f04c";
+}
+
+/* line 397, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-stop:before {
+  content: "\f04d";
+}
+
+/* line 400, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-forward:before {
+  content: "\f04e";
+}
+
+/* line 403, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-fast-forward:before {
+  content: "\f050";
+}
+
+/* line 406, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-step-forward:before {
+  content: "\f051";
+}
+
+/* line 409, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-eject:before {
+  content: "\f052";
+}
+
+/* line 412, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-chevron-left:before {
+  content: "\f053";
+}
+
+/* line 415, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-chevron-right:before {
+  content: "\f054";
+}
+
+/* line 418, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-plus-circle:before {
+  content: "\f055";
+}
+
+/* line 421, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-minus-circle:before {
+  content: "\f056";
+}
+
+/* line 424, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-times-circle:before {
+  content: "\f057";
+}
+
+/* line 427, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-check-circle:before {
+  content: "\f058";
+}
+
+/* line 430, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-question-circle:before {
+  content: "\f059";
+}
+
+/* line 433, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-info-circle:before {
+  content: "\f05a";
+}
+
+/* line 436, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-crosshairs:before {
+  content: "\f05b";
+}
+
+/* line 439, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-times-circle-o:before {
+  content: "\f05c";
+}
+
+/* line 442, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-check-circle-o:before {
+  content: "\f05d";
+}
+
+/* line 445, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-ban:before {
+  content: "\f05e";
+}
+
+/* line 448, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-arrow-left:before {
+  content: "\f060";
+}
+
+/* line 451, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-arrow-right:before {
+  content: "\f061";
+}
+
+/* line 454, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-arrow-up:before {
+  content: "\f062";
+}
+
+/* line 457, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-arrow-down:before {
+  content: "\f063";
+}
+
+/* line 460, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-mail-forward:before,
+.fa-share:before {
+  content: "\f064";
+}
+
+/* line 464, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-expand:before {
+  content: "\f065";
+}
+
+/* line 467, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-compress:before {
+  content: "\f066";
+}
+
+/* line 470, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-plus:before {
+  content: "\f067";
+}
+
+/* line 473, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-minus:before {
+  content: "\f068";
+}
+
+/* line 476, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-asterisk:before {
+  content: "\f069";
+}
+
+/* line 479, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-exclamation-circle:before {
+  content: "\f06a";
+}
+
+/* line 482, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-gift:before {
+  content: "\f06b";
+}
+
+/* line 485, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-leaf:before {
+  content: "\f06c";
+}
+
+/* line 488, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-fire:before {
+  content: "\f06d";
+}
+
+/* line 491, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-eye:before {
+  content: "\f06e";
+}
+
+/* line 494, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-eye-slash:before {
+  content: "\f070";
+}
+
+/* line 497, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-warning:before,
+.fa-exclamation-triangle:before {
+  content: "\f071";
+}
+
+/* line 501, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-plane:before {
+  content: "\f072";
+}
+
+/* line 504, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-calendar:before {
+  content: "\f073";
+}
+
+/* line 507, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-random:before {
+  content: "\f074";
+}
+
+/* line 510, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-comment:before {
+  content: "\f075";
+}
+
+/* line 513, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-magnet:before {
+  content: "\f076";
+}
+
+/* line 516, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-chevron-up:before {
+  content: "\f077";
+}
+
+/* line 519, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-chevron-down:before {
+  content: "\f078";
+}
+
+/* line 522, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-retweet:before {
+  content: "\f079";
+}
+
+/* line 525, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-shopping-cart:before {
+  content: "\f07a";
+}
+
+/* line 528, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-folder:before {
+  content: "\f07b";
+}
+
+/* line 531, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-folder-open:before {
+  content: "\f07c";
+}
+
+/* line 534, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-arrows-v:before {
+  content: "\f07d";
+}
+
+/* line 537, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-arrows-h:before {
+  content: "\f07e";
+}
+
+/* line 540, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-bar-chart-o:before,
+.fa-bar-chart:before {
+  content: "\f080";
+}
+
+/* line 544, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-twitter-square:before {
+  content: "\f081";
+}
+
+/* line 547, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-facebook-square:before {
+  content: "\f082";
+}
+
+/* line 550, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-camera-retro:before {
+  content: "\f083";
+}
+
+/* line 553, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-key:before {
+  content: "\f084";
+}
+
+/* line 556, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-gears:before,
+.fa-cogs:before {
+  content: "\f085";
+}
+
+/* line 560, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-comments:before {
+  content: "\f086";
+}
+
+/* line 563, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-thumbs-o-up:before {
+  content: "\f087";
+}
+
+/* line 566, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-thumbs-o-down:before {
+  content: "\f088";
+}
+
+/* line 569, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-star-half:before {
+  content: "\f089";
+}
+
+/* line 572, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-heart-o:before {
+  content: "\f08a";
+}
+
+/* line 575, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-sign-out:before {
+  content: "\f08b";
+}
+
+/* line 578, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-linkedin-square:before {
+  content: "\f08c";
+}
+
+/* line 581, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-thumb-tack:before {
+  content: "\f08d";
+}
+
+/* line 584, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-external-link:before {
+  content: "\f08e";
+}
+
+/* line 587, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-sign-in:before {
+  content: "\f090";
+}
+
+/* line 590, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-trophy:before {
+  content: "\f091";
+}
+
+/* line 593, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-github-square:before {
+  content: "\f092";
+}
+
+/* line 596, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-upload:before {
+  content: "\f093";
+}
+
+/* line 599, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-lemon-o:before {
+  content: "\f094";
+}
+
+/* line 602, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-phone:before {
+  content: "\f095";
+}
+
+/* line 605, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-square-o:before {
+  content: "\f096";
+}
+
+/* line 608, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-bookmark-o:before {
+  content: "\f097";
+}
+
+/* line 611, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-phone-square:before {
+  content: "\f098";
+}
+
+/* line 614, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-twitter:before {
+  content: "\f099";
+}
+
+/* line 617, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-facebook:before {
+  content: "\f09a";
+}
+
+/* line 620, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-github:before {
+  content: "\f09b";
+}
+
+/* line 623, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-unlock:before {
+  content: "\f09c";
+}
+
+/* line 626, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-credit-card:before {
+  content: "\f09d";
+}
+
+/* line 629, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-rss:before {
+  content: "\f09e";
+}
+
+/* line 632, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-hdd-o:before {
+  content: "\f0a0";
+}
+
+/* line 635, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-bullhorn:before {
+  content: "\f0a1";
+}
+
+/* line 638, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-bell:before {
+  content: "\f0f3";
+}
+
+/* line 641, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-certificate:before {
+  content: "\f0a3";
+}
+
+/* line 644, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-hand-o-right:before {
+  content: "\f0a4";
+}
+
+/* line 647, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-hand-o-left:before {
+  content: "\f0a5";
+}
+
+/* line 650, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-hand-o-up:before {
+  content: "\f0a6";
+}
+
+/* line 653, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-hand-o-down:before {
+  content: "\f0a7";
+}
+
+/* line 656, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-arrow-circle-left:before {
+  content: "\f0a8";
+}
+
+/* line 659, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-arrow-circle-right:before {
+  content: "\f0a9";
+}
+
+/* line 662, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-arrow-circle-up:before {
+  content: "\f0aa";
+}
+
+/* line 665, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-arrow-circle-down:before {
+  content: "\f0ab";
+}
+
+/* line 668, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-globe:before {
+  content: "\f0ac";
+}
+
+/* line 671, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-wrench:before {
+  content: "\f0ad";
+}
+
+/* line 674, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-tasks:before {
+  content: "\f0ae";
+}
+
+/* line 677, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-filter:before {
+  content: "\f0b0";
+}
+
+/* line 680, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-briefcase:before {
+  content: "\f0b1";
+}
+
+/* line 683, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-arrows-alt:before {
+  content: "\f0b2";
+}
+
+/* line 686, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-group:before,
+.fa-users:before {
+  content: "\f0c0";
+}
+
+/* line 690, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-chain:before,
+.fa-link:before {
+  content: "\f0c1";
+}
+
+/* line 694, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-cloud:before {
+  content: "\f0c2";
+}
+
+/* line 697, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-flask:before {
+  content: "\f0c3";
+}
+
+/* line 700, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-cut:before,
+.fa-scissors:before {
+  content: "\f0c4";
+}
+
+/* line 704, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-copy:before,
+.fa-files-o:before {
+  content: "\f0c5";
+}
+
+/* line 708, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-paperclip:before {
+  content: "\f0c6";
+}
+
+/* line 711, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-save:before,
+.fa-floppy-o:before {
+  content: "\f0c7";
+}
+
+/* line 715, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-square:before {
+  content: "\f0c8";
+}
+
+/* line 718, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-navicon:before,
+.fa-reorder:before,
+.fa-bars:before {
+  content: "\f0c9";
+}
+
+/* line 723, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-list-ul:before {
+  content: "\f0ca";
+}
+
+/* line 726, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-list-ol:before {
+  content: "\f0cb";
+}
+
+/* line 729, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-strikethrough:before {
+  content: "\f0cc";
+}
+
+/* line 732, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-underline:before {
+  content: "\f0cd";
+}
+
+/* line 735, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-table:before {
+  content: "\f0ce";
+}
+
+/* line 738, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-magic:before {
+  content: "\f0d0";
+}
+
+/* line 741, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-truck:before {
+  content: "\f0d1";
+}
+
+/* line 744, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-pinterest:before {
+  content: "\f0d2";
+}
+
+/* line 747, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-pinterest-square:before {
+  content: "\f0d3";
+}
+
+/* line 750, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-google-plus-square:before {
+  content: "\f0d4";
+}
+
+/* line 753, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-google-plus:before {
+  content: "\f0d5";
+}
+
+/* line 756, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-money:before {
+  content: "\f0d6";
+}
+
+/* line 759, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-caret-down:before {
+  content: "\f0d7";
+}
+
+/* line 762, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-caret-up:before {
+  content: "\f0d8";
+}
+
+/* line 765, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-caret-left:before {
+  content: "\f0d9";
+}
+
+/* line 768, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-caret-right:before {
+  content: "\f0da";
+}
+
+/* line 771, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-columns:before {
+  content: "\f0db";
+}
+
+/* line 774, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-unsorted:before,
+.fa-sort:before {
+  content: "\f0dc";
+}
+
+/* line 778, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-sort-down:before,
+.fa-sort-desc:before {
+  content: "\f0dd";
+}
+
+/* line 782, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-sort-up:before,
+.fa-sort-asc:before {
+  content: "\f0de";
+}
+
+/* line 786, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-envelope:before {
+  content: "\f0e0";
+}
+
+/* line 789, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-linkedin:before {
+  content: "\f0e1";
+}
+
+/* line 792, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-rotate-left:before,
+.fa-undo:before {
+  content: "\f0e2";
+}
+
+/* line 796, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-legal:before,
+.fa-gavel:before {
+  content: "\f0e3";
+}
+
+/* line 800, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-dashboard:before,
+.fa-tachometer:before {
+  content: "\f0e4";
+}
+
+/* line 804, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-comment-o:before {
+  content: "\f0e5";
+}
+
+/* line 807, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-comments-o:before {
+  content: "\f0e6";
+}
+
+/* line 810, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-flash:before,
+.fa-bolt:before {
+  content: "\f0e7";
+}
+
+/* line 814, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-sitemap:before {
+  content: "\f0e8";
+}
+
+/* line 817, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-umbrella:before {
+  content: "\f0e9";
+}
+
+/* line 820, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-paste:before,
+.fa-clipboard:before {
+  content: "\f0ea";
+}
+
+/* line 824, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-lightbulb-o:before {
+  content: "\f0eb";
+}
+
+/* line 827, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-exchange:before {
+  content: "\f0ec";
+}
+
+/* line 830, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-cloud-download:before {
+  content: "\f0ed";
+}
+
+/* line 833, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-cloud-upload:before {
+  content: "\f0ee";
+}
+
+/* line 836, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-user-md:before {
+  content: "\f0f0";
+}
+
+/* line 839, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-stethoscope:before {
+  content: "\f0f1";
+}
+
+/* line 842, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-suitcase:before {
+  content: "\f0f2";
+}
+
+/* line 845, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-bell-o:before {
+  content: "\f0a2";
+}
+
+/* line 848, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-coffee:before {
+  content: "\f0f4";
+}
+
+/* line 851, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-cutlery:before {
+  content: "\f0f5";
+}
+
+/* line 854, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-file-text-o:before {
+  content: "\f0f6";
+}
+
+/* line 857, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-building-o:before {
+  content: "\f0f7";
+}
+
+/* line 860, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-hospital-o:before {
+  content: "\f0f8";
+}
+
+/* line 863, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-ambulance:before {
+  content: "\f0f9";
+}
+
+/* line 866, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-medkit:before {
+  content: "\f0fa";
+}
+
+/* line 869, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-fighter-jet:before {
+  content: "\f0fb";
+}
+
+/* line 872, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-beer:before {
+  content: "\f0fc";
+}
+
+/* line 875, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-h-square:before {
+  content: "\f0fd";
+}
+
+/* line 878, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-plus-square:before {
+  content: "\f0fe";
+}
+
+/* line 881, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-angle-double-left:before {
+  content: "\f100";
+}
+
+/* line 884, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-angle-double-right:before {
+  content: "\f101";
+}
+
+/* line 887, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-angle-double-up:before {
+  content: "\f102";
+}
+
+/* line 890, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-angle-double-down:before {
+  content: "\f103";
+}
+
+/* line 893, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-angle-left:before {
+  content: "\f104";
+}
+
+/* line 896, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-angle-right:before {
+  content: "\f105";
+}
+
+/* line 899, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-angle-up:before {
+  content: "\f106";
+}
+
+/* line 902, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-angle-down:before {
+  content: "\f107";
+}
+
+/* line 905, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-desktop:before {
+  content: "\f108";
+}
+
+/* line 908, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-laptop:before {
+  content: "\f109";
+}
+
+/* line 911, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-tablet:before {
+  content: "\f10a";
+}
+
+/* line 914, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-mobile-phone:before,
+.fa-mobile:before {
+  content: "\f10b";
+}
+
+/* line 918, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-circle-o:before {
+  content: "\f10c";
+}
+
+/* line 921, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-quote-left:before {
+  content: "\f10d";
+}
+
+/* line 924, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-quote-right:before {
+  content: "\f10e";
+}
+
+/* line 927, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-spinner:before {
+  content: "\f110";
+}
+
+/* line 930, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-circle:before {
+  content: "\f111";
+}
+
+/* line 933, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-mail-reply:before,
+.fa-reply:before {
+  content: "\f112";
+}
+
+/* line 937, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-github-alt:before {
+  content: "\f113";
+}
+
+/* line 940, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-folder-o:before {
+  content: "\f114";
+}
+
+/* line 943, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-folder-open-o:before {
+  content: "\f115";
+}
+
+/* line 946, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-smile-o:before {
+  content: "\f118";
+}
+
+/* line 949, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-frown-o:before {
+  content: "\f119";
+}
+
+/* line 952, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-meh-o:before {
+  content: "\f11a";
+}
+
+/* line 955, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-gamepad:before {
+  content: "\f11b";
+}
+
+/* line 958, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-keyboard-o:before {
+  content: "\f11c";
+}
+
+/* line 961, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-flag-o:before {
+  content: "\f11d";
+}
+
+/* line 964, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-flag-checkered:before {
+  content: "\f11e";
+}
+
+/* line 967, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-terminal:before {
+  content: "\f120";
+}
+
+/* line 970, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-code:before {
+  content: "\f121";
+}
+
+/* line 973, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-mail-reply-all:before,
+.fa-reply-all:before {
+  content: "\f122";
+}
+
+/* line 977, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-star-half-empty:before,
+.fa-star-half-full:before,
+.fa-star-half-o:before {
+  content: "\f123";
+}
+
+/* line 982, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-location-arrow:before {
+  content: "\f124";
+}
+
+/* line 985, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-crop:before {
+  content: "\f125";
+}
+
+/* line 988, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-code-fork:before {
+  content: "\f126";
+}
+
+/* line 991, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-unlink:before,
+.fa-chain-broken:before {
+  content: "\f127";
+}
+
+/* line 995, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-question:before {
+  content: "\f128";
+}
+
+/* line 998, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-info:before {
+  content: "\f129";
+}
+
+/* line 1001, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-exclamation:before {
+  content: "\f12a";
+}
+
+/* line 1004, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-superscript:before {
+  content: "\f12b";
+}
+
+/* line 1007, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-subscript:before {
+  content: "\f12c";
+}
+
+/* line 1010, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-eraser:before {
+  content: "\f12d";
+}
+
+/* line 1013, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-puzzle-piece:before {
+  content: "\f12e";
+}
+
+/* line 1016, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-microphone:before {
+  content: "\f130";
+}
+
+/* line 1019, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-microphone-slash:before {
+  content: "\f131";
+}
+
+/* line 1022, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-shield:before {
+  content: "\f132";
+}
+
+/* line 1025, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-calendar-o:before {
+  content: "\f133";
+}
+
+/* line 1028, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-fire-extinguisher:before {
+  content: "\f134";
+}
+
+/* line 1031, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-rocket:before {
+  content: "\f135";
+}
+
+/* line 1034, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-maxcdn:before {
+  content: "\f136";
+}
+
+/* line 1037, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-chevron-circle-left:before {
+  content: "\f137";
+}
+
+/* line 1040, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-chevron-circle-right:before {
+  content: "\f138";
+}
+
+/* line 1043, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-chevron-circle-up:before {
+  content: "\f139";
+}
+
+/* line 1046, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-chevron-circle-down:before {
+  content: "\f13a";
+}
+
+/* line 1049, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-html5:before {
+  content: "\f13b";
+}
+
+/* line 1052, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-css3:before {
+  content: "\f13c";
+}
+
+/* line 1055, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-anchor:before {
+  content: "\f13d";
+}
+
+/* line 1058, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-unlock-alt:before {
+  content: "\f13e";
+}
+
+/* line 1061, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-bullseye:before {
+  content: "\f140";
+}
+
+/* line 1064, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-ellipsis-h:before {
+  content: "\f141";
+}
+
+/* line 1067, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-ellipsis-v:before {
+  content: "\f142";
+}
+
+/* line 1070, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-rss-square:before {
+  content: "\f143";
+}
+
+/* line 1073, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-play-circle:before {
+  content: "\f144";
+}
+
+/* line 1076, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-ticket:before {
+  content: "\f145";
+}
+
+/* line 1079, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-minus-square:before {
+  content: "\f146";
+}
+
+/* line 1082, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-minus-square-o:before {
+  content: "\f147";
+}
+
+/* line 1085, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-level-up:before {
+  content: "\f148";
+}
+
+/* line 1088, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-level-down:before {
+  content: "\f149";
+}
+
+/* line 1091, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-check-square:before {
+  content: "\f14a";
+}
+
+/* line 1094, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-pencil-square:before {
+  content: "\f14b";
+}
+
+/* line 1097, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-external-link-square:before {
+  content: "\f14c";
+}
+
+/* line 1100, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-share-square:before {
+  content: "\f14d";
+}
+
+/* line 1103, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-compass:before {
+  content: "\f14e";
+}
+
+/* line 1106, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-toggle-down:before,
+.fa-caret-square-o-down:before {
+  content: "\f150";
+}
+
+/* line 1110, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-toggle-up:before,
+.fa-caret-square-o-up:before {
+  content: "\f151";
+}
+
+/* line 1114, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-toggle-right:before,
+.fa-caret-square-o-right:before {
+  content: "\f152";
+}
+
+/* line 1118, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-euro:before,
+.fa-eur:before {
+  content: "\f153";
+}
+
+/* line 1122, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-gbp:before {
+  content: "\f154";
+}
+
+/* line 1125, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-dollar:before,
+.fa-usd:before {
+  content: "\f155";
+}
+
+/* line 1129, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-rupee:before,
+.fa-inr:before {
+  content: "\f156";
+}
+
+/* line 1133, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-cny:before,
+.fa-rmb:before,
+.fa-yen:before,
+.fa-jpy:before {
+  content: "\f157";
+}
+
+/* line 1139, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-ruble:before,
+.fa-rouble:before,
+.fa-rub:before {
+  content: "\f158";
+}
+
+/* line 1144, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-won:before,
+.fa-krw:before {
+  content: "\f159";
+}
+
+/* line 1148, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-bitcoin:before,
+.fa-btc:before {
+  content: "\f15a";
+}
+
+/* line 1152, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-file:before {
+  content: "\f15b";
+}
+
+/* line 1155, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-file-text:before {
+  content: "\f15c";
+}
+
+/* line 1158, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-sort-alpha-asc:before {
+  content: "\f15d";
+}
+
+/* line 1161, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-sort-alpha-desc:before {
+  content: "\f15e";
+}
+
+/* line 1164, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-sort-amount-asc:before {
+  content: "\f160";
+}
+
+/* line 1167, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-sort-amount-desc:before {
+  content: "\f161";
+}
+
+/* line 1170, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-sort-numeric-asc:before {
+  content: "\f162";
+}
+
+/* line 1173, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-sort-numeric-desc:before {
+  content: "\f163";
+}
+
+/* line 1176, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-thumbs-up:before {
+  content: "\f164";
+}
+
+/* line 1179, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-thumbs-down:before {
+  content: "\f165";
+}
+
+/* line 1182, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-youtube-square:before {
+  content: "\f166";
+}
+
+/* line 1185, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-youtube:before {
+  content: "\f167";
+}
+
+/* line 1188, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-xing:before {
+  content: "\f168";
+}
+
+/* line 1191, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-xing-square:before {
+  content: "\f169";
+}
+
+/* line 1194, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-youtube-play:before {
+  content: "\f16a";
+}
+
+/* line 1197, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-dropbox:before {
+  content: "\f16b";
+}
+
+/* line 1200, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-stack-overflow:before {
+  content: "\f16c";
+}
+
+/* line 1203, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-instagram:before {
+  content: "\f16d";
+}
+
+/* line 1206, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-flickr:before {
+  content: "\f16e";
+}
+
+/* line 1209, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-adn:before {
+  content: "\f170";
+}
+
+/* line 1212, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-bitbucket:before {
+  content: "\f171";
+}
+
+/* line 1215, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-bitbucket-square:before {
+  content: "\f172";
+}
+
+/* line 1218, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-tumblr:before {
+  content: "\f173";
+}
+
+/* line 1221, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-tumblr-square:before {
+  content: "\f174";
+}
+
+/* line 1224, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-long-arrow-down:before {
+  content: "\f175";
+}
+
+/* line 1227, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-long-arrow-up:before {
+  content: "\f176";
+}
+
+/* line 1230, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-long-arrow-left:before {
+  content: "\f177";
+}
+
+/* line 1233, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-long-arrow-right:before {
+  content: "\f178";
+}
+
+/* line 1236, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-apple:before {
+  content: "\f179";
+}
+
+/* line 1239, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-windows:before {
+  content: "\f17a";
+}
+
+/* line 1242, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-android:before {
+  content: "\f17b";
+}
+
+/* line 1245, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-linux:before {
+  content: "\f17c";
+}
+
+/* line 1248, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-dribbble:before {
+  content: "\f17d";
+}
+
+/* line 1251, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-skype:before {
+  content: "\f17e";
+}
+
+/* line 1254, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-foursquare:before {
+  content: "\f180";
+}
+
+/* line 1257, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-trello:before {
+  content: "\f181";
+}
+
+/* line 1260, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-female:before {
+  content: "\f182";
+}
+
+/* line 1263, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-male:before {
+  content: "\f183";
+}
+
+/* line 1266, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-gittip:before {
+  content: "\f184";
+}
+
+/* line 1269, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-sun-o:before {
+  content: "\f185";
+}
+
+/* line 1272, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-moon-o:before {
+  content: "\f186";
+}
+
+/* line 1275, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-archive:before {
+  content: "\f187";
+}
+
+/* line 1278, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-bug:before {
+  content: "\f188";
+}
+
+/* line 1281, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-vk:before {
+  content: "\f189";
+}
+
+/* line 1284, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-weibo:before {
+  content: "\f18a";
+}
+
+/* line 1287, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-renren:before {
+  content: "\f18b";
+}
+
+/* line 1290, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-pagelines:before {
+  content: "\f18c";
+}
+
+/* line 1293, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-stack-exchange:before {
+  content: "\f18d";
+}
+
+/* line 1296, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-arrow-circle-o-right:before {
+  content: "\f18e";
+}
+
+/* line 1299, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-arrow-circle-o-left:before {
+  content: "\f190";
+}
+
+/* line 1302, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-toggle-left:before,
+.fa-caret-square-o-left:before {
+  content: "\f191";
+}
+
+/* line 1306, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-dot-circle-o:before {
+  content: "\f192";
+}
+
+/* line 1309, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-wheelchair:before {
+  content: "\f193";
+}
+
+/* line 1312, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-vimeo-square:before {
+  content: "\f194";
+}
+
+/* line 1315, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-turkish-lira:before,
+.fa-try:before {
+  content: "\f195";
+}
+
+/* line 1319, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-plus-square-o:before {
+  content: "\f196";
+}
+
+/* line 1322, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-space-shuttle:before {
+  content: "\f197";
+}
+
+/* line 1325, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-slack:before {
+  content: "\f198";
+}
+
+/* line 1328, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-envelope-square:before {
+  content: "\f199";
+}
+
+/* line 1331, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-wordpress:before {
+  content: "\f19a";
+}
+
+/* line 1334, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-openid:before {
+  content: "\f19b";
+}
+
+/* line 1337, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-institution:before,
+.fa-bank:before,
+.fa-university:before {
+  content: "\f19c";
+}
+
+/* line 1342, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-mortar-board:before,
+.fa-graduation-cap:before {
+  content: "\f19d";
+}
+
+/* line 1346, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-yahoo:before {
+  content: "\f19e";
+}
+
+/* line 1349, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-google:before {
+  content: "\f1a0";
+}
+
+/* line 1352, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-reddit:before {
+  content: "\f1a1";
+}
+
+/* line 1355, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-reddit-square:before {
+  content: "\f1a2";
+}
+
+/* line 1358, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-stumbleupon-circle:before {
+  content: "\f1a3";
+}
+
+/* line 1361, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-stumbleupon:before {
+  content: "\f1a4";
+}
+
+/* line 1364, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-delicious:before {
+  content: "\f1a5";
+}
+
+/* line 1367, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-digg:before {
+  content: "\f1a6";
+}
+
+/* line 1370, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-pied-piper:before {
+  content: "\f1a7";
+}
+
+/* line 1373, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-pied-piper-alt:before {
+  content: "\f1a8";
+}
+
+/* line 1376, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-drupal:before {
+  content: "\f1a9";
+}
+
+/* line 1379, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-joomla:before {
+  content: "\f1aa";
+}
+
+/* line 1382, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-language:before {
+  content: "\f1ab";
+}
+
+/* line 1385, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-fax:before {
+  content: "\f1ac";
+}
+
+/* line 1388, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-building:before {
+  content: "\f1ad";
+}
+
+/* line 1391, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-child:before {
+  content: "\f1ae";
+}
+
+/* line 1394, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-paw:before {
+  content: "\f1b0";
+}
+
+/* line 1397, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-spoon:before {
+  content: "\f1b1";
+}
+
+/* line 1400, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-cube:before {
+  content: "\f1b2";
+}
+
+/* line 1403, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-cubes:before {
+  content: "\f1b3";
+}
+
+/* line 1406, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-behance:before {
+  content: "\f1b4";
+}
+
+/* line 1409, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-behance-square:before {
+  content: "\f1b5";
+}
+
+/* line 1412, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-steam:before {
+  content: "\f1b6";
+}
+
+/* line 1415, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-steam-square:before {
+  content: "\f1b7";
+}
+
+/* line 1418, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-recycle:before {
+  content: "\f1b8";
+}
+
+/* line 1421, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-automobile:before,
+.fa-car:before {
+  content: "\f1b9";
+}
+
+/* line 1425, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-cab:before,
+.fa-taxi:before {
+  content: "\f1ba";
+}
+
+/* line 1429, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-tree:before {
+  content: "\f1bb";
+}
+
+/* line 1432, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-spotify:before {
+  content: "\f1bc";
+}
+
+/* line 1435, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-deviantart:before {
+  content: "\f1bd";
+}
+
+/* line 1438, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-soundcloud:before {
+  content: "\f1be";
+}
+
+/* line 1441, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-database:before {
+  content: "\f1c0";
+}
+
+/* line 1444, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-file-pdf-o:before {
+  content: "\f1c1";
+}
+
+/* line 1447, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-file-word-o:before {
+  content: "\f1c2";
+}
+
+/* line 1450, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-file-excel-o:before {
+  content: "\f1c3";
+}
+
+/* line 1453, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-file-powerpoint-o:before {
+  content: "\f1c4";
+}
+
+/* line 1456, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-file-photo-o:before,
+.fa-file-picture-o:before,
+.fa-file-image-o:before {
+  content: "\f1c5";
+}
+
+/* line 1461, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-file-zip-o:before,
+.fa-file-archive-o:before {
+  content: "\f1c6";
+}
+
+/* line 1465, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-file-sound-o:before,
+.fa-file-audio-o:before {
+  content: "\f1c7";
+}
+
+/* line 1469, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-file-movie-o:before,
+.fa-file-video-o:before {
+  content: "\f1c8";
+}
+
+/* line 1473, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-file-code-o:before {
+  content: "\f1c9";
+}
+
+/* line 1476, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-vine:before {
+  content: "\f1ca";
+}
+
+/* line 1479, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-codepen:before {
+  content: "\f1cb";
+}
+
+/* line 1482, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-jsfiddle:before {
+  content: "\f1cc";
+}
+
+/* line 1485, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-life-bouy:before,
+.fa-life-buoy:before,
+.fa-life-saver:before,
+.fa-support:before,
+.fa-life-ring:before {
+  content: "\f1cd";
+}
+
+/* line 1492, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-circle-o-notch:before {
+  content: "\f1ce";
+}
+
+/* line 1495, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-ra:before,
+.fa-rebel:before {
+  content: "\f1d0";
+}
+
+/* line 1499, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-ge:before,
+.fa-empire:before {
+  content: "\f1d1";
+}
+
+/* line 1503, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-git-square:before {
+  content: "\f1d2";
+}
+
+/* line 1506, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-git:before {
+  content: "\f1d3";
+}
+
+/* line 1509, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-hacker-news:before {
+  content: "\f1d4";
+}
+
+/* line 1512, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-tencent-weibo:before {
+  content: "\f1d5";
+}
+
+/* line 1515, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-qq:before {
+  content: "\f1d6";
+}
+
+/* line 1518, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-wechat:before,
+.fa-weixin:before {
+  content: "\f1d7";
+}
+
+/* line 1522, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-send:before,
+.fa-paper-plane:before {
+  content: "\f1d8";
+}
+
+/* line 1526, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-send-o:before,
+.fa-paper-plane-o:before {
+  content: "\f1d9";
+}
+
+/* line 1530, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-history:before {
+  content: "\f1da";
+}
+
+/* line 1533, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-circle-thin:before {
+  content: "\f1db";
+}
+
+/* line 1536, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-header:before {
+  content: "\f1dc";
+}
+
+/* line 1539, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-paragraph:before {
+  content: "\f1dd";
+}
+
+/* line 1542, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-sliders:before {
+  content: "\f1de";
+}
+
+/* line 1545, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-share-alt:before {
+  content: "\f1e0";
+}
+
+/* line 1548, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-share-alt-square:before {
+  content: "\f1e1";
+}
+
+/* line 1551, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-bomb:before {
+  content: "\f1e2";
+}
+
+/* line 1554, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-soccer-ball-o:before,
+.fa-futbol-o:before {
+  content: "\f1e3";
+}
+
+/* line 1558, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-tty:before {
+  content: "\f1e4";
+}
+
+/* line 1561, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-binoculars:before {
+  content: "\f1e5";
+}
+
+/* line 1564, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-plug:before {
+  content: "\f1e6";
+}
+
+/* line 1567, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-slideshare:before {
+  content: "\f1e7";
+}
+
+/* line 1570, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-twitch:before {
+  content: "\f1e8";
+}
+
+/* line 1573, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-yelp:before {
+  content: "\f1e9";
+}
+
+/* line 1576, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-newspaper-o:before {
+  content: "\f1ea";
+}
+
+/* line 1579, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-wifi:before {
+  content: "\f1eb";
+}
+
+/* line 1582, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-calculator:before {
+  content: "\f1ec";
+}
+
+/* line 1585, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-paypal:before {
+  content: "\f1ed";
+}
+
+/* line 1588, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-google-wallet:before {
+  content: "\f1ee";
+}
+
+/* line 1591, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-cc-visa:before {
+  content: "\f1f0";
+}
+
+/* line 1594, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-cc-mastercard:before {
+  content: "\f1f1";
+}
+
+/* line 1597, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-cc-discover:before {
+  content: "\f1f2";
+}
+
+/* line 1600, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-cc-amex:before {
+  content: "\f1f3";
+}
+
+/* line 1603, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-cc-paypal:before {
+  content: "\f1f4";
+}
+
+/* line 1606, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-cc-stripe:before {
+  content: "\f1f5";
+}
+
+/* line 1609, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-bell-slash:before {
+  content: "\f1f6";
+}
+
+/* line 1612, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-bell-slash-o:before {
+  content: "\f1f7";
+}
+
+/* line 1615, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-trash:before {
+  content: "\f1f8";
+}
+
+/* line 1618, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-copyright:before {
+  content: "\f1f9";
+}
+
+/* line 1621, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-at:before {
+  content: "\f1fa";
+}
+
+/* line 1624, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-eyedropper:before {
+  content: "\f1fb";
+}
+
+/* line 1627, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-paint-brush:before {
+  content: "\f1fc";
+}
+
+/* line 1630, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-birthday-cake:before {
+  content: "\f1fd";
+}
+
+/* line 1633, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-area-chart:before {
+  content: "\f1fe";
+}
+
+/* line 1636, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-pie-chart:before {
+  content: "\f200";
+}
+
+/* line 1639, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-line-chart:before {
+  content: "\f201";
+}
+
+/* line 1642, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-lastfm:before {
+  content: "\f202";
+}
+
+/* line 1645, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-lastfm-square:before {
+  content: "\f203";
+}
+
+/* line 1648, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-toggle-off:before {
+  content: "\f204";
+}
+
+/* line 1651, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-toggle-on:before {
+  content: "\f205";
+}
+
+/* line 1654, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-bicycle:before {
+  content: "\f206";
+}
+
+/* line 1657, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-bus:before {
+  content: "\f207";
+}
+
+/* line 1660, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-ioxhost:before {
+  content: "\f208";
+}
+
+/* line 1663, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-angellist:before {
+  content: "\f209";
+}
+
+/* line 1666, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-cc:before {
+  content: "\f20a";
+}
+
+/* line 1669, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-shekel:before,
+.fa-sheqel:before,
+.fa-ils:before {
+  content: "\f20b";
+}
+
+/* line 1674, /home/nauman/Development/railsProjects/schoolsystem/app/assets/stylesheets/externals/font-awesome/css/font-awesome.css.scss */
+.fa-meanpath:before {
+  content: "\f20c";
+}

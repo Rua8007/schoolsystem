@@ -12,7 +12,6 @@
 //
 //= require jquery-2.1.4
 //= require jquery_ujs
-//= require turbolinks
 //= require externals/bootstrap/dist/js/bootstrap
 //= require ui-load
 //= require ui-jp.config
