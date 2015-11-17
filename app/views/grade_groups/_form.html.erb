@@ -1,0 +1,97 @@
+<style type="text/css">
+    .container{
+        width: auto;
+    }
+
+    .sss{
+        border:1px solid#e5e5e5;   padding: 1%;
+    }
+
+    .lll{
+        width: auto !important;
+        background-color: white;
+        padding-right: 16px;
+        padding-left: 15px;
+        border: 1px solid;
+        border-color: #729F32;
+        border-radius: 21px;
+    }
+
+    .nested-fields .btn-danger{
+        margin-top: 1.6em;
+    }
+    #error_explanation {
+        color: #dc6650;
+    }
+
+    .field_with_errors {
+    @extend .control-group;
+    @extend .error;
+    }
+
+    form li{
+        display: block;
+    }
+
+    .form-holder .col-sm-4 {
+        min-height: 84px;
+    }
+    .form-holder .form-control{
+        width: 100%;
+    }
+    .form-control{
+        border-radius: 7px;
+        border: black;
+    }
+</style>
+
+<%= form_for(@grade_group) do |f| %>
+  <% if @grade_group.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@grade_group.errors.count, "error") %> prohibited this grade_group from being saved:</h2>
+
+      <ul>
+      <% @grade_group.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+    <div class="container form-holder">
+      <div class="row">
+        <br>
+        <fieldset class="sss well well-lg">
+          <legend class="lll">Grade Group Information</legend>
+          <div class = "row">
+            <div class="column col-xs-12 col-sm-5">
+              <div class="form-group ">
+                <div class="field">
+                  <%= f.label :name %><br>
+                  <%= f.text_field :name, :style => 'height:34px;',  class: 'form-control' , required: true, autofocus: true %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="sss well well-lg">
+          <legend class="lll">Marks Divisions</legend>
+          <div class = "row">
+            <% if @grade_group.marks_divisions.present? %>
+                <%= f.fields_for :marks_divisions do |m| %>
+                    <%= render 'marks_division_fields', f: m %>
+                <% end %>
+            <% end %>
+            <div class="links col-sm-12">
+              <%= link_to_add_association 'Add Marks Divisions', f, :marks_divisions, class: 'btn btn-success', role: 'button'  %>
+            </div>
+          </div>
+        </fieldset>
+
+        <div class="actions">
+          <%= f.submit @grade_group.new_record? ? 'Create' : 'Save', class: 'btn btn-block btn-success form-control', style: 'width:24%;float: right;' %>
+        </div>
+
+      </div>
+    </div>
+<% end %>

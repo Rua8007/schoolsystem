@@ -1,4 +1,4 @@
-<%= form_for(@mark) do |f| %>
+<%= form_for(@mark, url: enter_marks_path(@mark), remote: true, method: :post) do |f| %>
   <% if @mark.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@mark.errors.count, "error") %> prohibited this mark from being saved:</h2>
@@ -11,23 +11,24 @@
     </div>
   <% end %>
 
-  <div class="form-group col-md-6">
-    <label>Title</label>
-    <%= f.text_field :name, class: "form-control" , style: "width:100%" %>
+  <div class="form-group col-md-4">
+    <label>Quarter</label>
+    <%= f.collection_select :exam_id , @exams, :id , :name,{},{:style => 'height:34px;width: 100%',  class: 'form-control'} %>
   </div>
-  <div class="form-group col-md-6">
-    <label>Total Marks</label>
-    <%= f.text_field :marks, class: "form-control" , style: "width:100%" %>
+  <div class="form-group col-md-4">
+    <label>Marks Division</label>
+    <%= f.collection_select :division_id , @marks_divisions, :id , :name,{},{:style => 'height:34px;width: 100%',  class: 'form-control'} %>
   </div>
-  <div class="form-group col-md-6">
-    <label>Passing Marks</label>
-    <%= f.text_field :passing_marks, class: "form-control" , style: "width:100%" %>
+  <div class="form-group col-md-4">
+    <label>Subject</label>
+    <%= f.collection_select :subject_id , @subjects, :id , :name,{},{:style => 'height:34px;width: 100%',  class: 'form-control'} %>
   </div>
-  <div class="form-group col-md-6">
-    <label>Class</label>
-    <%= f.collection_select :grade_id , Batch.last.grades.order(:name), :id , :full_name,{},{:style => 'height:34px;width: 100%',  class: 'form-control'} %>
-  </div>
-  <div class="actions">
-    <%= f.submit 'Create Mark Division', class: "btn btn-success pull-right" %>
+  <div class="col-md-12">
+    <div class="form-group col-md-4">
+      <%= f.hidden_field :report_card_id %>
+    </div>
+    <div class="actions">
+      <%= f.submit 'Show Break Down', class: "btn btn-success pull-right" %>
+    </div>
   </div>
 <% end %>

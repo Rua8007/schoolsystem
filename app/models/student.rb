@@ -22,6 +22,7 @@ class Student < ActiveRecord::Base
 
 	has_many :performances
 	has_many :sessionals
+	has_one :report_card
 
 	validates_uniqueness_of :rollnumber
 	validates_presence_of :rollnumber

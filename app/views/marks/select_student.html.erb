@@ -1,0 +1,60 @@
+<%= stylesheet_link_tag "//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css" %>
+<%= javascript_include_tag "https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js" %>
+<%= javascript_include_tag "//cdn.datatables.net/tabletools/2.2.2/js/dataTables.tableTools.min.js" %>
+<%= javascript_include_tag "https://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js" %>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#example thead th').each( function (i, v) {
+            // var title = $('#example tfoot th').eq( $(this).index() ).text();
+            var title = $(this).text();
+            if(title != "Actions"){
+                $(this).html(
+                        '<input type="text" class="form-control" id="exampleInputName2" placeholder="'+title+' search">'
+                );
+            }
+        });
+
+        // DataTable
+        var table = $('#example').DataTable();
+
+        // Apply the search
+        table.columns().eq( 0 ).each( function ( colIdx ) {
+            $( 'input', table.column( colIdx ).header() ).on( 'keyup change', function () {
+                table
+                        .column( colIdx )
+                        .search( this.value )
+                        .draw();
+            } );
+        } );
+    });
+</script>
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Select A Student</h1>
+  <br>
+</div>
+
+<table class="table" id="example">
+  <thead class="table-head">
+  <tr>
+    <th>StudentID</th>
+    <th>Full Name</th>
+    <th>Father Name</th>
+    <th>Email</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @students.each do |student| %>
+      <tr>
+        <td><%= student.rollnumber %></td>
+        <td><%= link_to student.fullname, select_marks_details_path(student.id, @grade.id, @employee.id) %></td>
+        <td>
+          <% if student.parent.present? %>
+              <%= student.parent.name %>
+          <% end %>
+        </td>
+        <td><%= student.email %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

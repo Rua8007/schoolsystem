@@ -1,0 +1,26 @@
+<div class="col-sm-12 col-xs-12">
+  <div class="column col-xs-12 col-sm-3">
+    <div class="form-group ">
+      <div class="field">
+        <%= f.label :name %><br>
+        <%= f.text_field :name, :style => 'height:34px;',  class: 'form-control' , required: true, autofocus: true %>
+      </div>
+    </div>
+  </div>
+  <div class="column col-xs-12 col-sm-3">
+    <div class="form-group ">
+      <div class="field">
+        <%= f.label :obtained_marks %><br>
+        <%= f.text_field :obtained_marks ,:style => 'height:34px;',  class: 'form-control', autofocus: true %>
+      </div>
+    </div>
+  </div>
+  <div class="column col-xs-12 col-sm-3">
+    <div class="form-group ">
+      <div class="field">
+        <%= f.label :total_marks %><br>
+        <%= f.text_field :total_marks, :style => 'height:34px;',  class: 'form-control' , required: true %>
+      </div>
+    </div>
+  </div>
+</div>

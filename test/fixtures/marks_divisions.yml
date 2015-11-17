@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  passing_marks: 1.5
+  total_marks: 1.5
+
+two:
+  name: MyString
+  passing_marks: 1.5
+  total_marks: 1.5

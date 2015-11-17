@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :grade_groups
   resources :curriculums
   resources :lessonplans
   resources :portions
@@ -170,6 +171,10 @@ end
   resources :stops
 
   resources :marks
+  get 'select_student/:grade_id/:employee_id' => 'marks#select_student', as: :select_student
+  get 'select_marks_details/:student_id/:grade_id/:employee_id' => 'marks#select_marks_details', as: :select_marks_details
+  post 'enter_marks/:id' => 'marks#enter_marks', as: :enter_marks
+  post 'save_marks/:id' => 'marks#save_marks', as: :save_marks
   resources :marksheets do
     collection do
       post "uploading"

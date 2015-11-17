@@ -81,8 +81,12 @@
     <input type="checkbox" class="gen" id="selecctall12" style="margin-left: 17px;margin-top: 18px;" /> Selecct All
     <%= check_box_tag 'exam[view_exam]', '' , false ,class: "exm gen" %> View Exams
     <%= check_box_tag 'exam[create_exam]', '' , false ,class: "exm gen" %> Create Exam
-    <%= check_box_tag 'exam[update_exam]', '' , false ,class: "exm gen" %> Update exam
+    <%= check_box_tag 'exam[update_exam]', '' , false ,class: "exm gen" %> Update Exam
     <%= check_box_tag 'exam[delete_exam]', '' , false ,class: "exm gen" %> Delete exam
+    <%= check_box_tag 'exam[view_grade_group]', '' , false ,class: "exm gen" %> View Grade Group
+    <%= check_box_tag 'exam[create_grade_group]', '' , false ,class: "exm gen" %> Create Grade Group
+    <%= check_box_tag 'exam[update_grade_group]', '' , false ,class: "exm gen" %> Update Grade Group
+    <%= check_box_tag 'exam[delete_grade_group]', '' , false ,class: "exm gen" %> Delete Grade Group
     <%= check_box_tag 'exam[upload_marks]', '' , false ,class: "exm gen" %> Upload Marksheets
     <%= check_box_tag 'exam[view_marksheets]', '' , false ,class: "exm gen" %> View ALl Marksheets
     <%= check_box_tag 'exam[subject_result]', '' , false ,class: "exm gen" %> View Subject Result
@@ -106,6 +110,9 @@
     <%= check_box_tag 'excalender[update_excalender]', '' , false ,class: "ecal gen" %> Update Excalender
     <%= check_box_tag 'excalender[delete_excalender]', '' , false ,class: "ecal gen" %> Delete Excalender
 
+    <br>
+    <br>
+    <%= check_box_tag 'exam[enter_marks]', '' , false ,class: "gen", style: "margin-left:17px;" %> Enter Marks
     <br>
     <br>
     <%= check_box_tag 'timetable[timetable]', '' , false ,class: "gen", style: "margin-left:17px;" %> View Timetable

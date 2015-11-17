@@ -17,6 +17,16 @@ class MarksheetsController < ApplicationController
     if current_user.role.rights.where(value: "upload_marks").nil?
       redirect_to :back, alert: "Sorry! You are not authorized"
     end
+    @bridges = []
+    @grades = Grade.where(section: nil).order('name')
+    @grades.each do |grade|
+      @subgrades = Grade.where('name=? AND section IS NOT NULL', grade.name).order('section')
+      @subgrades.each do |sub_grade|
+         Bridge.where(grade_id: sub_grade.id).try(:each) do |bridge|
+           @bridges << bridge
+         end
+      end
+    end
     @marksheet = Marksheet.new
   end
 

@@ -1,0 +1,50 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Grade Group</h1>
+</div>
+
+<style type="text/css">
+    @media(min-width: 1200px) {
+        .abc {
+            width: 1080px;
+        }
+    }
+</style>
+<div class="abc" style="">
+
+  <div class="container" >
+    <div class="abc" style="">
+
+      <div class="container" >
+
+        <br>
+        <div class="col-sm-6">
+          <h3><%= @grade_group.name %></h3>
+          <% if @grade_group.marks_divisions.present? %>
+              <h4>Marks Divisions</h4>
+              <table class="table">
+                <thead>
+                <tr>
+                  <th class="student-profile-th">Name</th>
+                  <th class="student-profile-th">Total Marks</th>
+                  <th class="student-profile-th">Passing Marks</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% @grade_group.marks_divisions.each do |division| %>
+                    <tr>
+                      <td><%= division.name %></td>
+                      <td><%= division.total_marks %></td>
+                      <td><%= division.passing_marks  %></td>
+                    </tr>
+                <% end %>
+                </tbody>
+              </table>
+          <% end %>
+
+          <%= link_to 'Back', grade_groups_path ,class: "btn btn-color"%>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

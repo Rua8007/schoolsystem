@@ -1,0 +1,11 @@
+<% if current_user.role.rights.where(value: "enter_marks").any? %>
+    <div class="bg-light lter b-b wrapper-md">
+      <h1 class="m-n font-thin h3">Enter Marks</h1>
+    </div>
+    <br>
+    <%= render 'form' %>
+    <h3> Marks Break Down</h3>
+    <div class="col-md-12" id="marks_breakdown">
+      <%= render partial: 'marks_breakdown' %>
+    </div>
+<% end %>

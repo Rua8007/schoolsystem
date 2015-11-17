@@ -13,6 +13,8 @@ class Grade < ActiveRecord::Base
 	has_many :feebreakdowns
 	has_many :purchases
 	has_many :associations
+
+	belongs_to :grade_group
 	# has_many :subjects ,through: :associations
 
 
@@ -47,5 +49,9 @@ class Grade < ActiveRecord::Base
 		else
 			true
 		end
+	end
+
+	def parent
+		Grade.where('name = ? AND section IS NULL', self.name).try(:first)
 	end
 end

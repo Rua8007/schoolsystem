@@ -7,7 +7,7 @@ class ExamsController < ApplicationController
     if current_user.role.rights.where(value: "view_exam").nil?
       redirect_to :back, "Sorry! You are not authorized"
     end
-    @exams = Exam.all
+    @exams = Exam.order('name')
   end
 
   # GET /exams/1
@@ -37,7 +37,7 @@ class ExamsController < ApplicationController
 
     respond_to do |format|
       if @exam.save
-        format.html { redirect_to @exam, notice: 'Exam was successfully created.' }
+        format.html { redirect_to exams_path, notice: 'Exam was successfully created.' }
         format.json { render :show, status: :created, location: @exam }
       else
         format.html { render :new }
@@ -51,7 +51,7 @@ class ExamsController < ApplicationController
   def update
     respond_to do |format|
       if @exam.update(exam_params)
-        format.html { redirect_to @exam, notice: 'Exam was successfully updated.' }
+        format.html { redirect_to exams_path, notice: 'Exam was successfully updated.' }
         format.json { render :show, status: :ok, location: @exam }
       else
         format.html { render :edit }

@@ -1,0 +1,45 @@
+<%= form_for(@mark, url: save_marks_path(@mark), remote: true, method: :post) do |f| %>
+    <% if @mark.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@mark.errors.count, "error") %> prohibited this mark from being saved:</h2>
+
+          <ul>
+            <% @mark.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+    <table class="table" id="example">
+      <thead class="table-head">
+      <tr>
+        <th>Name</th>
+        <th>Obtained Marks</th>
+        <th>Passing Marks</th>
+        <th>Total Marks</th>
+      </tr>
+      </thead>
+
+      <tbody>
+        <td><%= @marks_division.name %></td>
+        <td>
+          <% if @mark.sessionals.present? %>
+            <%= @mark.obtained_marks || 0 %>
+          <% else %>
+            <%= f.text_field :obtained_marks %>
+          <% end %>
+        </td>
+        <td><%= @mark.passing_marks %></td>
+        <td><%= @mark.total_marks %></td>
+      </tbody>
+    </table>
+    <% if @mark.sessionals.present? %>
+        <h4>Details</h4>
+        <%= f.fields_for :sessionals do |m| %>
+            <%= render 'sessional_fields', f: m %>
+        <% end %>
+    <% end %>
+    <div class="actions">
+        <%= f.submit 'Upload Marks', class: "btn btn-success pull-right" %>
+    </div>
+<% end %>
