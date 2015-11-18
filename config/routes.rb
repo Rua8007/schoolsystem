@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :grade_groups
   resources :curriculums
   resources :lessonplans
   resources :portions

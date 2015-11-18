@@ -29,7 +29,7 @@
     <div class="field">
       <label><%= f.label :subject %></label>
       <select class="form-control" name= "marksheet[bridge_id]" style="width:30%">
-        <%= Bridge.all.try(:each) do |b| %>
+        <%= @bridges.try(:each) do |b| %>
           <option value = "<%= b.id %>"> <%= b.grade.full_name+'-'+b.subject.name%> </option>
         <% end %>
       </select>

@@ -1,0 +1,48 @@
+
+<%= stylesheet_link_tag "//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css" %>
+<%= javascript_include_tag "https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js" %>
+<%= javascript_include_tag "//cdn.datatables.net/tabletools/2.2.2/js/dataTables.tableTools.min.js" %>
+<%= javascript_include_tag "https://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js" %>
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        // DataTable
+        $('#example').dataTable({
+            dom: 'T<"clear">lfrtip',
+            tableTools: {
+                "sSwfPath": "https://cdn.datatables.net/tabletools/2.2.2/swf/copy_csv_xls_pdf.swf"
+            }
+        });
+    });
+
+</script>
+
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">All Grade Groups</h1>
+</div>
+<br>
+<div>
+  <table class="table" id="example">
+    <thead class="table-head">
+    <tr>
+      <th>Name</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @grade_groups.each do |group| %>
+        <tr>
+          <td><%= group.name %></td>
+          <td>
+            <% if current_user.role.rights.where(value: "update_grade_group").any? %>
+                <%= link_to '', edit_grade_group_path(group),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
+            <% end %>
+            <% if current_user.role.rights.where(value: "delete_grade_group").any? %>
+                <%= link_to '', group, method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
+            <% end %>
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

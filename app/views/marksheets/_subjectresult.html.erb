@@ -3,10 +3,10 @@
     <tr>
       <th>Student ID</th>
       <th>Student Name</th>
-      <% @class.marks.each do |m| %>
+      <% @class.parent.grade_group.marks.each do |m| %>
         <th><%= m.name %></th>
       <% end %>
-      <th>Total</th>
+      <!--<th>Total</th>-->
     </tr>
   </thead>
 
@@ -15,10 +15,10 @@
       <tr>
       <td><%= Student.find(m).rollnumber %></td>
       <td><%= Student.find(m).fullname %></td>
-      <% @class.marks.each do |mk| %>
-        <td><%= mk.sessionals.where("exam_id = ? and student_id = ? and bridge_id = ?", @exam_id, m , @bridge_id).sum(:marks) %></td>
+      <% @class.parent.grade_group.marks.each do |mk| %>
+        <td><%= mk.sessionals.where("exam_id = ? and student_id = ? and bridge_id = ?", @exam_id, m , @bridge_id).average(:marks) || 0 %> Out Of <%= mk.marks %></td>
       <% end %>
-      <td><%= Student.find(m).sessionals.where("exam_id = ? and bridge_id = ?", @exam_id, @bridge_id).sum(:marks) %></td>
+      <!--<td><%= Student.find(m).sessionals.where("exam_id = ? and bridge_id = ?", @exam_id, @bridge_id).sum(:marks) %></td>-->
       </tr>
     <% end %>
   </tbody>

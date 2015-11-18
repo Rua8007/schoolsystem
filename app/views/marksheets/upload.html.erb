@@ -45,7 +45,7 @@
 				<%= text_field_tag "up_date[]", k, style:"", disabled: "true", class: "absense-input" %>
 
 				<% @data[k].try(:each) do |dt| %>
-					<%= text_field_tag "up_mark[#{dt.id}]", dt.marks, style:"", class: "absense-input calc"+dt.student_id.to_s %>
+					<%= text_field_tag "up_mark[#{dt.id}]", dt.marks, style:"", class: "absense-input calculate"+dt.student_id.to_s %>
 				<% end %>
 
 				<%= link_to "Delete", marksheet_path({id: k, marksheet_id: @marksheet.id}), method: 'delete', class: "btn btn-info", style: "margin-left: 60px" %>
@@ -64,7 +64,7 @@
 
 		<div class="well well-lg col-md-2 " style="padding:10px;min-height:500px;width: 180px;float:none !important;display: inline-block;vertical-align: top; margin-left:10px">
 			<h5><%= "Average	" %></h5>
-			<%= text_field_tag "max_mark", @mark.marks, style:"" , class: "absense-input datepickerss", required: true, disabled: true%>
+			<%= text_field_tag "max_mark", @mark.marks, style:"" , id:'max-marks', class: "absense-input datepickerss", required: true, disabled: true%>
 			<% @students.try(:each) do |std| %>
 				<%= text_field_tag "marks[#{std.id}][]",'' ,disabled: true, id: std.id, class: "absense-input total"+std.id.to_s %>
 			<% end %>
@@ -86,22 +86,54 @@
 	$(".datepickerss").datepicker();
 
 	<% @students.try(:each) do |std| %>
-		$(document).on("blur", '.calc<%= std.id.to_s %>', function(){
-			var sum = 0
-			var av = -1
-			$('.calc<%= std.id.to_s %>').each(function(i, obj) {
-				if (obj.value != '')
+		$(document).on("blur", '.calculate<%= std.id.to_s %>', function(event){
+            obj = event.target;
+            field_value = $(obj).val();
+            max_value = parseFloat($('#max-marks').val());
+            if(field_value.length > 0){
+                field_value = parseFloat(field_value);
+                if(field_value == 'undefined' || field_value > max_value || field_value < 0 || isNaN(field_value)) {
+                    alert('Please Insert A Value Lower Than Maximum Marks. ');
+                    $(obj).css('border-color', 'red');
+                    $(obj).focus();
+                    return false;
+                }
+            }
+			var sum = 0;
+			var av = 0.0;
+			$('.calculate<%= std.id.to_s %>').each(function(i, obj) {
+				if (obj.value != '' && $(obj).is(':visible'))
 				{
 					sum = sum + parseFloat(obj.value);
+                    av = av+1
 				}
-				av = av+1
 			});
 			console.log(sum);
 			console.log(av);
 
-			$(".total<%=std.id.to_s%>").val(Math.round(sum/av).toFixed(2));
+			$(".total<%=std.id.to_s%>").val((sum/av).toFixed(2));
 		});
 	<% end %>
+    $('form').on('submit', function(){
+        submit = true;
+        <% @students.try(:each) do |std| %>
+            $('.calculate<%= std.id.to_s %>').each(function(i, obj) {
+                field_value = $(obj).val();
+                max_value = parseFloat($('#max-marks').val());
+                if(field_value.length > 0){
+                    field_value = parseFloat(field_value);
+                    if(field_value == 'undefined' || field_value > max_value || field_value < 0 || isNaN(field_value)) {
+                        alert('Please Insert A Value Lower Than Maximum Marks. ');
+                        $(obj).css('border-color', 'red');
+                        $(obj).focus();
+                        submit = false;
+                        return submit
+                    }
+                }
+            });
+        <% end %>
+        return submit;
+    });
 
 </script>
 
@@ -110,7 +142,7 @@
 		<h5><%= @mark.name %></h5>
 		<%= text_field_tag "marks_date[]", '' ,class: "datepickerss absense-input", required: true, placeholder: "Select Date" %>
 		<% @students.try(:each) do |std| %>
-			<%= text_field_tag "marks[#{std.id}][]", "" ,class: "absense-input calc"+std.id.to_s %>
+			<%= text_field_tag "marks[#{std.id}][]", "" ,class: "absense-input calculate"+std.id.to_s %>
 		<% end %>
 	</div>
 </div>

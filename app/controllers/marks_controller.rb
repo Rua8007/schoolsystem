@@ -29,7 +29,7 @@ class MarksController < ApplicationController
 
     respond_to do |format|
       if @mark.save
-        format.html { redirect_to @mark, notice: 'Mark was successfully created.' }
+        format.html { redirect_to marks_path, notice: 'Mark was successfully created.' }
         format.json { render :show, status: :created, location: @mark }
       else
         format.html { render :new }
@@ -43,7 +43,7 @@ class MarksController < ApplicationController
   def update
     respond_to do |format|
       if @mark.update(mark_params)
-        format.html { redirect_to @mark, notice: 'Mark was successfully updated.' }
+        format.html { redirect_to marks_path, notice: 'Mark was successfully updated.' }
         format.json { render :show, status: :ok, location: @mark }
       else
         format.html { render :edit }
@@ -70,6 +70,6 @@ class MarksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def mark_params
-      params.require(:mark).permit(:name, :marks, :passing_marks, :grade_id)
+      params.require(:mark).permit(:name, :marks, :passing_marks, :grade_group_id)
     end
 end

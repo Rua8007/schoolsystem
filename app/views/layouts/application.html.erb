@@ -1052,6 +1052,22 @@
                       <span>Grade Log</span>
                     </a>
                     <ul class="nav nav-sub dk">
+
+                      <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'create_grade_group').any? %>
+                          <li>
+                            <%= link_to(new_grade_group_path) do %>
+                                <span>Create Grade Group</span>
+                            <% end %>
+                          </li>
+                      <% end %>
+
+                      <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'view_grade_group').any? %>
+                          <li>
+                            <%= link_to(grade_groups_path) do %>
+                                <span>List Grade Groups</span>
+                            <% end %>
+                          </li>
+                      <% end %>
                       <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'create_exam').any? %>
                         <li>
                           <%= link_to(new_exam_path) do %>

@@ -17,6 +17,16 @@ class MarksheetsController < ApplicationController
     if current_user.role.rights.where(value: "upload_marks").nil?
       redirect_to :back, alert: "Sorry! You are not authorized"
     end
+    @bridges = []
+    @grades = Grade.where(section: nil).order('name')
+    @grades.each do |grade|
+      @subgrades = Grade.where('name=? AND section IS NOT NULL', grade.name).order('section')
+      @subgrades.each do |sub_grade|
+        Bridge.where(grade_id: sub_grade.id).try(:each) do |bridge|
+          @bridges << bridge
+        end
+      end
+    end
     @marksheet = Marksheet.new
   end
 
@@ -72,7 +82,7 @@ class MarksheetsController < ApplicationController
       redirect_to :back, alert: "Sorry! You are not authorized"
     end
     @students = @marksheet.bridge.grade.students
-    @marks = @marksheet.bridge.grade.marks
+    @marks = @marksheet.bridge.grade.parent.grade_group.marks
     @mark = @marks.first
     if params[:mark_id].present?
       @mark = Mark.find(params[:mark_id])
@@ -282,7 +292,16 @@ class MarksheetsController < ApplicationController
   end
 
   def subject_result
-    @bridges = Bridge.all
+    @bridges = []
+    @grades = Grade.where(section: nil).order('name')
+    @grades.each do |grade|
+      @subgrades = Grade.where('name=? AND section IS NOT NULL', grade.name).order('section')
+      @subgrades.each do |sub_grade|
+        Bridge.where(grade_id: sub_grade.id).try(:each) do |bridge|
+          @bridges << bridge
+        end
+      end
+    end
     if current_user.role.rights.where(value: "subject_result").nil?
       redirect_to :back, alert: "Sorry! You are not authorized"
     end
