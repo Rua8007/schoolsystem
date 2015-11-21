@@ -1,8 +1,8 @@
 class RemodelMarks < ActiveRecord::Migration
   def change
-    remove_column :marks, :name
-    remove_column :marks, :marks
-    remove_column :marks, :grade_id
+    remove_column :marks, :name, :string
+    remove_column :marks, :marks, :float
+    remove_column :marks, :grade_id, :integer
 
     add_column :marks, :exam_id, :integer
     add_column :marks, :subject_id, :integer

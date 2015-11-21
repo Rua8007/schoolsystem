@@ -72,19 +72,19 @@
         </div>
       </fieldset>
 
-      <fieldset class="sss well well-lg">
-        <legend class="lll">Sub Subjects</legend>
-        <div class = "row">
-          <% if @subject.sub_subjects.present? %>
-              <%= f.fields_for :sub_subjects do |sub| %>
-                  <%= render 'sub_subject_fields', f: sub %>
-              <% end %>
-          <% end %>
-          <div class="links col-sm-12">
-            <%= link_to_add_association 'Add sub subjects', f, :sub_subjects, class: 'btn btn-success', role: 'button'  %>
-          </div>
-        </div>
-      </fieldset>
+      <!--<fieldset class="sss well well-lg">-->
+        <!--<legend class="lll">Sub Subjects</legend>-->
+        <!--<div class = "row">-->
+          <!--<#% if @subject.sub_subjects.present? %>-->
+              <!--<#%= f.fields_for :sub_subjects do |sub| %>-->
+                  <!--<#%= render 'sub_subject_fields', f: sub %>-->
+              <!--<#% end %>-->
+          <!--<#% end %>-->
+          <!--<div class="links col-sm-12">-->
+            <!--<#%= link_to_add_association 'Add sub subjects', f, :sub_subjects, class: 'btn btn-success', role: 'button'  %>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</fieldset>-->
 
       <div class="actions">
         <%= f.submit @subject.new_record? ? 'Create' : 'Save', class: 'btn btn-block btn-success form-control', style: 'width:24%;float: right;' %>

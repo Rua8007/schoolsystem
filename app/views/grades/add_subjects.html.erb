@@ -26,19 +26,19 @@
           </div>
       <% end %>
     </div>
-    <div class="row">
-        <% sub.sub_subjects.try(:each) do |s| %>
-          <div class="col-md-4">
-            <div class="col-md-12 col-sm-12">
-              <%= check_box_tag "flags[#{s.id}][check]",'' , @grade.associations.where(subject_id: s.id).any? , class: 'checkbox1 select-subject' %>&nbsp <%= s.name %>
-            </div>
-            <% @association = @grade.associations.where(subject_id: s.id).first %>
-            <div class="col-md-12 col-sm-12">
-              <%= text_field_tag "flags[#{s.id}][lectures]",'' , class: 'form-control numeric', placeholder: 'Lec. Per Week.', value: @association.try(:lectures) %>
-            </div>
-          </div>
-        <% end %>
-    </div>
+    <!--<div class="row">-->
+        <!--<#% sub.sub_subjects.try(:each) do |s| %>-->
+          <!--<div class="col-md-4">-->
+            <!--<div class="col-md-12 col-sm-12">-->
+              <!--<#%= check_box_tag "flags[#{s.id}][check]",'' , @grade.associations.where(subject_id: s.id).any? , class: 'checkbox1 select-subject' %>&nbsp <#%= s.name %>-->
+            <!--</div>-->
+            <!--<#% @association = @grade.associations.where(subject_id: s.id).first %>-->
+            <!--<div class="col-md-12 col-sm-12">-->
+              <!--<#%= text_field_tag "flags[#{s.id}][lectures]",'' , class: 'form-control numeric', placeholder: 'Lec. Per Week.', value: @association.try(:lectures) %>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--<#% end %>-->
+    <!--</div>-->
       <hr />
   <% end %>
   <div class="actions pull-right">

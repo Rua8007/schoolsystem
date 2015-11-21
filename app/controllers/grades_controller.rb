@@ -5,8 +5,8 @@ class GradesController < ApplicationController
   # GET /grades.json
 
   def add_subjects
-    @subjects = Subject.where(parent: nil).order(:name)
-
+    # @subjects = Subject.where(parent: nil).order(:name)
+    @subjects = Subject.order('name')
   end
 
   def subject_add

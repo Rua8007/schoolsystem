@@ -72,7 +72,7 @@
                         <div class="form-group ">
                           <div class="field">
                             <%= f.label :Grade %><br>
-                            <%= f.select :name, options_from_collection_for_select(Grade.where(section: nil),"name", "name", @grade.name), {prompt: "Select Grade"}, {class: 'form-control', required: true} %>
+                            <%= f.select :name, options_from_collection_for_select(Grade.where(section: nil).order('name'),"name", "name", @grade.name), {prompt: "Select Grade"}, {class: 'form-control', required: true} %>
                           </div>
                         </div>
                     </div>
