@@ -18,7 +18,7 @@ class MarksController < ApplicationController
       @grades.each do |grade|
         @subgrades = Grade.where('name=? AND section IS NOT NULL', grade.name).order('section')
         @subgrades.each do |sub_grade|
-          bridge = Bridge.where(grade_id: sub_grade.id, employee_id: current_user.id).try(:first)
+          bridge = Bridge.where(grade_id: sub_grade.id, employee_id: Employee.find_by_email(current_user.email).id ).try(:first)
           @bridges << bridge if bridge.present?
         end
       end
