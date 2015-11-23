@@ -11,5 +11,6 @@ class RemodelMarks < ActiveRecord::Migration
 
     add_column :marks, :total_marks, :float
     add_column :marks, :obtained_marks, :float
+    # passing marks already present
   end
 end

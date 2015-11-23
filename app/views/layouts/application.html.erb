@@ -1159,7 +1159,7 @@
                     </ul>
                   </li>
                   <% end %>
-                <% if Right.where("role_id = ? and value = 'enter_marks'", current_user.role_id ).any? %>
+                <% if Right.where("role_id = ? and value = 'enter_marks'", current_user.role_id ).any? or Right.where("role_id = ? and value = 'enter_all_marks'", current_user.role_id ).any? %>
                     <li>
                       <%= link_to(marks_path) do %>
                           <i class="glyphicon glyphicon-flag"></i>

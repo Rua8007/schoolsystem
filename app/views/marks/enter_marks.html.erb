@@ -1,0 +1,83 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3"><%= @class.full_name %>-<%= @exam.name %>-<%= @subject.name %></h1>
+</div>
+<br/>
+<div class="row">
+  <div class="col-sm-10 col-md-10">
+    <% @marks_divisions.each do |division| %>
+        <%= link_to division.name, enter_division_marks_path(@class.id, @subject.id, @exam.id, division.id), {role: 'button', class: 'btn btn-primary' } %>
+    <% end %>
+  </div>
+  <div class="col-sm-2 col-md-2">
+    <button class="pull-right btn btn-success" id="addmore">Add More</button>
+  </div>
+</div>
+<br />
+<%= form_tag(uploading_marksheets_path, method: :post, class: 'col-form') do %>
+<div style=" 	width: 1050px; /* arbitary for demo only */white-space: nowrap; overflow-y: hidden; overflow-x: scroll;-webkit-overflow-scrolling: touch;">
+
+  <div class="well well-lg col-md-4" style="min-height:500px; float:none !important;display: inline-block;vertical-align: top;">
+    <span style= "background:green; color:white;padding: 7px 80px;font-size: 23px">Student Name</span>
+    <div class="performance-holder">
+      <% @students.try(:each) do |std| %>
+          <strong class="student-names" ><%= std.fullname %> </strong>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="well well-lg col-md-2 performance-report" style="min-height:500px; float:none !important;display: inline-block;vertical-align: top; ">
+    <h5> Performance Report</h5>
+    <div class="performance-holder">
+      <% @students.try(:each) do |std| %>
+          <%= link_to 'Performance Report', new_performance_path({student_id: std.id, bridge_id: 19}), class: "btn-performance-report btn btn-primary", style: "font-size:11px;" %>
+      <% end %>
+    </div>
+  </div>
+
+  <% @report_cards = ReportCard.where( grade_id: @class.id, setting_id: @setting.id)
+     @marks = Mark.where(exam_id: @exam.id, subject_id: @subject.id, division_id: @marks_division.id).try(:first)
+  %>
+  <% if @marks.present? and @report_cards.present? %>
+
+  <% else %>
+    <div class="well well-lg col-md-2 con" style="padding:10px;min-height:500px;width: 180px;float:none !important;display:inline-block;vertical-align: top;">
+      <h5><%= @marks_division.name %></h5>
+      <%= text_field_tag "sessionals_date[]", '', style:"" , class: "datepickerss absense-input", required: true, placeholder: "Select Date" %>
+      <% @students.try(:each) do |std| %>
+          <%= text_field_tag "sessionals[#{std.id}][]" , '' ,class: " absense-input calculate"+std.id.to_s %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="well well-lg col-md-2 " style="padding:10px;min-height:500px;width: 180px;float:none !important;display: inline-block;vertical-align: top; margin-left:10px">
+    <h5><%= 'Average' %></h5>
+    <%= text_field_tag "max_mark", @marks_division.total_marks, style:"" , class: "absense-input datepickerss", required: true, disabled: true%>
+    <% @students.try(:each) do |std| %>
+        <%= text_field_tag "marks[#{std.id}][]",'' ,disabled: true, id: std.id, class: "absense-input total"+std.id.to_s %>
+    <% end %>
+  </div>
+
+</div>
+<% end %>
+
+<script type="text/javascript">
+    $("#addmore").on("click", function (){
+
+        console.log("I am here");
+        var html = $($('.col-template').html());
+        console.log(html);
+        html.insertAfter($('.col-form .con').last());
+        $(".datepickerss").datepicker();
+    });
+    $(".datepickerss").datepicker();
+</script>
+
+<div class="col-template hidden">
+  <div class="well well-lg col-md-2 con" style="margin-left: 3px;padding:10px;min-height:500px;width: 180px; float:none !important;display: inline-block;vertical-align: top;">
+    <h5><%= @marks_division.name %></h5>
+    <%= text_field_tag "sessionals_date[]", '' ,class: "datepickerss absense-input", required: true, placeholder: "Select Date" %>
+    <% @students.try(:each) do |std| %>
+        <%= text_field_tag "sessionals[#{std.id}][]", "" ,class: "absense-input calc"+std.id.to_s %>
+    <% end %>
+  </div>
+</div>

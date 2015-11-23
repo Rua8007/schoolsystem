@@ -1,0 +1,24 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Select Subject and Exam</h1>
+</div>
+
+<br />
+
+<h3>Grade: <%= @class.full_name %></h3>
+<%= form_tag(enter_marks_path, method: :post) do |f| %>
+
+    <div class="form-group col-md-4">
+      <label>Subjects</label>
+      <%= select_tag 'subject_id', options_from_collection_for_select(@subjects, :id, :name), class: 'form-control'  %>
+    </div>
+    <div class="form-group col-md-4">
+      <label>Exams</label>
+      <%= select_tag 'exam_id', options_from_collection_for_select(@exams, :id, :name), class: 'form-control'  %>
+    </div>
+    <div class="col-md-12">
+      <%= hidden_field_tag 'grade_id', @class.id %>
+      <div class="actions">
+        <%= submit_tag 'Enter Marks', class: 'btn btn-success' %>
+      </div>
+    </div>
+<% end %>

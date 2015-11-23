@@ -3,6 +3,8 @@ class CreateReportCards < ActiveRecord::Migration
     create_table :report_cards do |t|
       t.belongs_to :student
       t.belongs_to :grade
+      t.belongs_to :batch
+      t.belongs_to :setting_id
       t.text :remarks
 
       t.timestamps null: false

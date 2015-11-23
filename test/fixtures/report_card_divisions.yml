@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  setting_id: 1
+  name: MyString
+  passing_marks: MyString
+  float: MyString
+  total_marks: 1.5
+
+two:
+  setting_id: 1
+  name: MyString
+  passing_marks: MyString
+  float: MyString
+  total_marks: 1.5

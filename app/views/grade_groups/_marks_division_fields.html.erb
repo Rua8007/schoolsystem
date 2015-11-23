@@ -29,21 +29,21 @@
       <div class="col-xs-2 col-sm-2">
         <%= link_to_remove_association '', f, class: 'btn btn-danger glyphicon glyphicon glyphicon-trash' %>
       </div>
-      <div class="col-sm-12">
-        <fieldset class="sss well well-lg">
-          <legend class="lll">Sub Divisions</legend>
-          <div class = "row">
-            <% if f.object.sub_divisions.present? %>
-                <%= f.fields_for :sub_divisions do |sub| %>
-                    <%= render 'sub_division_fields', f: sub %>
-                <% end %>
-            <% end %>
-            <div class="links col-sm-12">
-              <%= link_to_add_association 'Add sub division', f, :sub_divisions, class: 'btn btn-primary', role: 'button'  %>
-            </div>
-          </div>
-        </fieldset>
-      </div>
+      <!--<div class="col-sm-12">-->
+        <!--<fieldset class="sss well well-lg">-->
+          <!--<legend class="lll">Sub Divisions</legend>-->
+          <!--<div class = "row">-->
+            <!--<#% if f.object.sub_divisions.present? %>-->
+                <!--<#%= f.fields_for :sub_divisions do |sub| %>-->
+                    <!--<#%= render 'sub_division_fields', f: sub %>-->
+                <!--<#% end %>-->
+            <!--<#% end %>-->
+            <!--<div class="links col-sm-12">-->
+              <!--<#%= link_to_add_association 'Add sub division', f, :sub_divisions, class: 'btn btn-primary', role: 'button'  %>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</fieldset>-->
+      <!--</div>-->
     </div>
   </div>
 </div>

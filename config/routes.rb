@@ -171,9 +171,10 @@ end
   resources :stops
 
   resources :marks
-  get 'select_student/:grade_id/:employee_id' => 'marks#select_student', as: :select_student
+  get 'select_subject_and_exam/:grade_id/:employee_id' => 'marks#select_subject_and_exam', as: :select_subject_and_exam
   get 'select_marks_details/:student_id/:grade_id/:employee_id' => 'marks#select_marks_details', as: :select_marks_details
-  post 'enter_marks/:id' => 'marks#enter_marks', as: :enter_marks
+  post 'enter_marks/' => 'marks#enter_marks', as: :enter_marks
+  get 'enter_marks/:grade_id/:subject_id/:exam_id/:division_id' => 'marks#enter_marks', as: :enter_division_marks
   post 'save_marks/:id' => 'marks#save_marks', as: :save_marks
   resources :marksheets do
     collection do

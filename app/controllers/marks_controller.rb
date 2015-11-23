@@ -1,29 +1,12 @@
 class MarksController < ApplicationController
+  include MarksHelper
   before_action :set_mark, only: [:show, :edit, :update, :destroy]
 
   # GET /marks
   # GET /marks.json
   def index
-    @bridges = []
     @grades = Grade.where(section: nil).order('name')
-    if current_user.role.rights.where(value: 'enter_all_marks').nil?
-      @grades.each do |grade|
-        @subgrades = Grade.where('name=? AND section IS NOT NULL', grade.name).order('section')
-        @subgrades.each do |sub_grade|
-          bridge = Bridge.where(grade_id: sub_grade.id, employee_id: current_user.id).try(:first)
-          @bridges << bridge if bridge.present?
-        end
-      end
-    else
-      @grades.each do |grade|
-        @subgrades = Grade.where('name=? AND section IS NOT NULL', grade.name).order('section')
-        @subgrades.each do |sub_grade|
-          bridge = Bridge.where(grade_id: sub_grade.id, employee_id: Employee.find_by_email(current_user.email).id ).try(:first)
-          @bridges << bridge if bridge.present?
-        end
-      end
-    end
-
+    @bridges = get_employee_bridges(current_user)
     @classes = []
     @bridges.each do |bridge|
       @classes << bridge.grade
@@ -90,6 +73,39 @@ class MarksController < ApplicationController
     @students = @grade.students
   end
 
+  def select_subject_and_exam
+    @class = Grade.find( params[:grade_id] )
+    @main_grade = @class.parent if @class.present?
+
+    @bridges = get_grade_bridges(current_user, @class.id) rescue []
+    @subjects = []
+    @bridges.each do |bridge|
+      @subjects << bridge.subject
+    end
+    @subjects = @subjects.sort_by { |k| k.name }
+    @exams = Exam.where(batch_id: @class.batch_id).order('name')
+  end
+
+  def enter_marks
+    @class = Grade.find(params[:grade_id])
+    @exam = Exam.find(params[:exam_id])
+    @subject = Subject.find(params[:subject_id])
+    if @class.students.present?
+      @students = @class.students.sort_by { |k| k.fullname }
+    end
+    @main_grade = @class.parent if @class.present?
+    @marks_divisions = @main_grade.grade_group.marks_divisions.order('name')
+    @marks_division = @marks_divisions.first
+    @marks_division = MarksDivision.find(params[:division_id]) if params[:division_id].present?
+
+
+    @setting = ReportCardSetting.find_or_create_by(grade_id: @main_grade.id, batch_id: @class.batch_id) if @main_grade.present?
+    @students.each do |std|
+      ReportCard.find_or_create_by(student_id: std.id, grade_id: @class.id, setting_id_id: @setting.id)
+    end
+    check_marks_division(@setting, @marks_divisions)
+  end
+
   def select_marks_details
     @student = Student.find(params[:student_id])
     @report_card = ReportCard.find_or_create_by(student_id: @student.id, grade_id: @student.grade.id)
@@ -123,26 +139,6 @@ class MarksController < ApplicationController
       end
     else
       flash[:notice] = 'Some Configurations Are Missing.'
-    end
-  end
-
-  def enter_marks
-    @mark = Mark.find_or_initialize_by(mark_params)
-    @marks_division = MarksDivision.find(@mark.division_id)
-    if @mark.new_record?
-      @mark.total_marks = @marks_division.total_marks
-      @mark.passing_marks = @marks_division.passing_marks
-      @mark.save
-    end
-    if @marks_division.sub_divisions.present?
-      @marks_division.sub_divisions.each do |sub_division|
-        @sessional = Sessional.find_or_initialize_by(name: sub_division.name, mark_id: @mark.id, sub_division_id: sub_division.id)
-        if @sessional.new_record?
-          @sessional.total_marks = sub_division.total_marks
-          @sessional.save
-          @mark.sessionals << @sessional
-        end
-      end
     end
   end
 
