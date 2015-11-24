@@ -143,18 +143,40 @@ class MarksController < ApplicationController
   end
 
   def save_marks
-    @mark = Mark.find(params[:id])
-    @marks_division = MarksDivision.find(@mark.division_id)
-    if @mark.update(mark_params)
-      @notice = 'Uploaded Marks Successfully.'
-    else
-      @notice = "Sorry Couldn't Upload Marks."
+    @class = Grade.find(params[:class_id]) if params[:class_id].present?
+    @exam = Exam.find(params[:exam_id]) if params[:exam_id].present?
+    @subject = Subject.find(params[:subject_id]) if params[:subject_id].present?
+    @marks_division = MarksDivision.find(params[:division_id]) if params[:division_id].present?
+
+    @students = params[:sessionals]
+    @students.each do |std|
+      student = Student.find(std.first.to_i) rescue nil
+      std_marks = std.last
+      std_marks.each_with_index do |marks, index|
+        puts "Processing: #{@marks_division} #{index}"
+        if student.present?
+          puts "Entering Marks For: #{student.fullname}"
+          @report_card = ReportCard.find_by student_id: student.id, grade_id: @class.id
+          @mark = Mark.find_or_initialize_by(report_card_id: @report_card.id, exam_id: @exam.id, subject_id: @class.id, division_id: @marks_division.id)
+          @mark.save if @mark.new_record?
+          @sessional = Sessional.find_or_create_by name: "#{@marks_division.name} #{index}", mark_id: @mark.id
+          @sessional.obtained_marks = marks.to_f
+          @sessional.save
+          puts '==================================='
+          puts @sessional.inspect
+          puts '==================================='
+          @mark.obtained_marks = @mark.sessionals.average(:obtained_marks)
+          @mark.passing_marks = @marks_division.passing_marks
+          @mark.total_marks = @marks_division.total_marks
+          @mark.save
+        else
+          flash[:notice] = 'Sorry, Something Bad Happened.'
+          break
+        end
+      end
     end
 
-    if @mark.sessionals.present?
-      @mark.obtained_marks = @mark.sessionals.sum(:obtained_marks)
-      @mark.save
-    end
+    redirect_to enter_division_marks_path( @class.id, @subject.id, @exam.id, @marks_division.id)
   end
 
   private

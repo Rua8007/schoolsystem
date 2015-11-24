@@ -175,7 +175,7 @@ end
   get 'select_marks_details/:student_id/:grade_id/:employee_id' => 'marks#select_marks_details', as: :select_marks_details
   post 'enter_marks/' => 'marks#enter_marks', as: :enter_marks
   get 'enter_marks/:grade_id/:subject_id/:exam_id/:division_id' => 'marks#enter_marks', as: :enter_division_marks
-  post 'save_marks/:id' => 'marks#save_marks', as: :save_marks
+  post 'save_marks' => 'marks#save_marks', as: :save_marks
   resources :marksheets do
     collection do
       post "uploading"
