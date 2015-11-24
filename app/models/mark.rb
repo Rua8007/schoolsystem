@@ -1,7 +1,7 @@
 class Mark < ActiveRecord::Base
-	belongs_to :exam
-	belongs_to :subject
-	belongs_to :marks_division
+	belongs_to :report_card_exam, foreign_key: 'exam_id'
+	belongs_to :report_card_subject, foreign_key: 'subject_id'
+	belongs_to :report_card_division, foreign_key: 'division_id'
 	belongs_to :report_card
 
 	has_many :sessionals

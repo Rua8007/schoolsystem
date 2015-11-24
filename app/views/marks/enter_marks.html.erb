@@ -39,26 +39,40 @@
     </div>
   </div>
 
-  <% @report_cards = ReportCard.where( grade_id: @class.id, setting_id: @setting.id)
-     @marks = Mark.where(exam_id: @exam.id, subject_id: @subject.id, division_id: @marks_division.id).try(:first)
-  %>
-  <% if @marks.present? and @report_cards.present? %>
+  <%
+     @report_card = ReportCard.find_by( grade_id: @class.id, setting_id_id: @setting.id, student_id: @students.first.id) if @students.present?
+     @report_card_exam = ReportCardExam.find_by_exam(@exam) if @exam.present?
+     @report_card_subject = ReportCardSubject.find_by_subject(@subject) if @subject.present?
+     @report_card_division = ReportCardDivision.find_by_marks_division(@marks_division) if @marks_division.present?
+     @mark = Mark.find_or_create_by(report_card_id: @report_card.id, exam_id: @report_card_exam.id, subject_id: @report_card_subject.id, division_id: @report_card_division.id)
 
-  <% else %>
-    <div class="well well-lg col-md-2 con" style="padding:10px;min-height:500px;width: 180px;float:none !important;display:inline-block;vertical-align: top;">
-      <h5><%= @marks_division.name %></h5>
-      <%= text_field_tag "sessionals_date[]", '', style:"" , class: "datepickerss absense-input", required: true, placeholder: "Select Date" %>
-      <% @students.try(:each) do |std| %>
-          <%= text_field_tag "sessionals[#{std.id}][]" , '' ,class: " absense-input calculate"+std.id.to_s %>
-      <% end %>
-    </div>
+  %>
+  <% @mark.sessionals.try(:each) do |sessional| %>
+      <div class="well well-lg col-md-2 con" style="padding:10px;min-height:500px;width: 180px;float:none !important;display:inline-block;vertical-align: top;">
+        <h5><%= sessional.name %></h5>
+        <%= text_field_tag "sessionals_date[]", '', style:"" , class: "datepickerss absense-input", required: true, placeholder: "Select Date" %>
+        <% @students.try(:each) do |std| %>
+            <% @student_report_card = ReportCard.find_by( grade_id: @class.id, setting_id_id: @setting.id, student_id: std.id) %>
+            <% @student_mark = Mark.find_by(report_card_id: @student_report_card.id, exam_id: @report_card_exam.id, subject_id: @report_card_subject.id, division_id: @report_card_division.id) %>
+            <%= text_field_tag "sessionals[#{std.id}][]" , @student_mark.sessionals.find_by(name: sessional.name).obtained_marks ,class: " absense-input calculate"+std.id.to_s %>
+        <% end %>
+      </div>
   <% end %>
+  <div class="well well-lg col-md-2 con" style="padding:10px;min-height:500px;width: 180px;float:none !important;display:inline-block;vertical-align: top;">
+    <h5><%= @marks_division.name %></h5>
+    <%= text_field_tag "sessionals_date[]", '', style:"" , class: "datepickerss absense-input", required: true, placeholder: "Select Date" %>
+    <% @students.try(:each) do |std| %>
+        <%= text_field_tag "sessionals[#{std.id}][]" , '' ,class: " absense-input calculate"+std.id.to_s %>
+    <% end %>
+  </div>
 
   <div class="well well-lg col-md-2 " style="padding:10px;min-height:500px;width: 180px;float:none !important;display: inline-block;vertical-align: top; margin-left:10px">
     <h5><%= 'Average' %></h5>
     <%= text_field_tag "max_mark", @marks_division.total_marks, style:"" , class: "absense-input datepickerss", required: true, disabled: true%>
     <% @students.try(:each) do |std| %>
-        <%= text_field_tag "marks[#{std.id}][]",'' ,disabled: true, id: std.id, class: "absense-input total"+std.id.to_s %>
+        <% @student_report_card = ReportCard.find_by( grade_id: @class.id, setting_id_id: @setting.id, student_id: std.id) %>
+        <% @student_mark = Mark.find_or_create_by(report_card_id: @student_report_card.id, exam_id: @report_card_exam.id, subject_id: @report_card_subject.id, division_id: @report_card_division.id) %>
+        <%= text_field_tag "marks[#{std.id}][]", @student_mark.sessionals.try(:average, :obtained_marks) || 0 ,disabled: true, id: std.id, class: "absense-input total"+std.id.to_s %>
     <% end %>
   </div>
 

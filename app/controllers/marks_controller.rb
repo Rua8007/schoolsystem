@@ -103,7 +103,9 @@ class MarksController < ApplicationController
     @students.each do |std|
       ReportCard.find_or_create_by(student_id: std.id, grade_id: @class.id, setting_id_id: @setting.id)
     end
-    check_marks_division(@setting, @marks_divisions)
+    check_marks_divisions(@setting, @marks_divisions)
+    check_subjects(@setting, [@subject])
+    check_exams(@setting, [@exam])
   end
 
   def select_marks_details
@@ -148,6 +150,10 @@ class MarksController < ApplicationController
     @subject = Subject.find(params[:subject_id]) if params[:subject_id].present?
     @marks_division = MarksDivision.find(params[:division_id]) if params[:division_id].present?
 
+    @report_card_exam = ReportCardExam.find_by_exam(@exam) if @exam.present?
+    @report_card_subject = ReportCardSubject.find_by_subject(@subject) if @subject.present?
+    @report_card_division = ReportCardDivision.find_by_marks_division(@marks_division) if params[:division_id].present?
+
     @students = params[:sessionals]
     @students.each do |std|
       student = Student.find(std.first.to_i) rescue nil
@@ -157,17 +163,17 @@ class MarksController < ApplicationController
         if student.present?
           puts "Entering Marks For: #{student.fullname}"
           @report_card = ReportCard.find_by student_id: student.id, grade_id: @class.id
-          @mark = Mark.find_or_initialize_by(report_card_id: @report_card.id, exam_id: @exam.id, subject_id: @class.id, division_id: @marks_division.id)
+          @mark = Mark.find_or_initialize_by(report_card_id: @report_card.id, exam_id: @report_card_exam.id, subject_id: @report_card_subject.id, division_id: @report_card_division.id)
           @mark.save if @mark.new_record?
-          @sessional = Sessional.find_or_create_by name: "#{@marks_division.name} #{index}", mark_id: @mark.id
+          @sessional = Sessional.find_or_create_by name: "#{@report_card_division.name} #{index}", mark_id: @mark.id
           @sessional.obtained_marks = marks.to_f
           @sessional.save
           puts '==================================='
           puts @sessional.inspect
           puts '==================================='
           @mark.obtained_marks = @mark.sessionals.average(:obtained_marks)
-          @mark.passing_marks = @marks_division.passing_marks
-          @mark.total_marks = @marks_division.total_marks
+          @mark.passing_marks = @report_card_division.passing_marks
+          @mark.total_marks = @report_card_division.total_marks
           @mark.save
         else
           flash[:notice] = 'Sorry, Something Bad Happened.'
