@@ -155,11 +155,12 @@ class MarksController < ApplicationController
     @report_card_division = ReportCardDivision.find_by_marks_division(@marks_division) if params[:division_id].present?
 
     @students = params[:sessionals]
+    @dates = params[:sessionals_date]
     @students.each do |std|
       student = Student.find(std.first.to_i) rescue nil
       std_marks = std.last
       std_marks.each_with_index do |marks, index|
-        puts "Processing: #{@marks_division} #{index}"
+        puts "Processing: #{@marks_division.name} #{index}"
         if student.present?
           puts "Entering Marks For: #{student.fullname}"
           @report_card = ReportCard.find_by student_id: student.id, grade_id: @class.id
@@ -167,6 +168,7 @@ class MarksController < ApplicationController
           @mark.save if @mark.new_record?
           @sessional = Sessional.find_or_create_by name: "#{@report_card_division.name} #{index}", mark_id: @mark.id
           @sessional.obtained_marks = marks.to_f
+          @sessional.mark_date = @dates[index]
           @sessional.save
           puts '==================================='
           puts @sessional.inspect
