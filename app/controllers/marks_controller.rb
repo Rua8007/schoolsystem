@@ -101,7 +101,7 @@ class MarksController < ApplicationController
 
     @setting = ReportCardSetting.find_or_create_by(grade_id: @main_grade.id, batch_id: @class.batch_id) if @main_grade.present?
     @students.each do |std|
-      ReportCard.find_or_create_by(student_id: std.id, grade_id: @class.id, setting_id_id: @setting.id)
+      ReportCard.find_or_create_by(student_id: std.id, grade_id: @class.id, setting_id: @setting.id)
     end
     check_marks_divisions(@setting, @marks_divisions)
     check_subjects(@setting, [@subject])
@@ -160,23 +160,12 @@ class MarksController < ApplicationController
       student = Student.find(std.first.to_i) rescue nil
       std_marks = std.last
       std_marks.each_with_index do |marks, index|
-        puts "Processing: #{@marks_division.name} #{index}"
         if student.present?
-          puts "Entering Marks For: #{student.fullname}"
           @report_card = ReportCard.find_by student_id: student.id, grade_id: @class.id
-          @mark = Mark.find_or_initialize_by(report_card_id: @report_card.id, exam_id: @report_card_exam.id, subject_id: @report_card_subject.id, division_id: @report_card_division.id)
-          @mark.save if @mark.new_record?
-          @sessional = Sessional.find_or_create_by name: "#{@report_card_division.name} #{index}", mark_id: @mark.id
-          @sessional.obtained_marks = marks.to_f
-          @sessional.mark_date = @dates[index]
-          @sessional.save
-          puts '==================================='
-          puts @sessional.inspect
-          puts '==================================='
-          @mark.obtained_marks = @mark.sessionals.average(:obtained_marks)
-          @mark.passing_marks = @report_card_division.passing_marks
-          @mark.total_marks = @report_card_division.total_marks
-          @mark.save
+          @mark = Mark.find_or_create_by(report_card_id: @report_card.id, exam_id: @report_card_exam.id, subject_id: @report_card_subject.id, division_id: @report_card_division.id)
+          @sessional = Sessional.find_or_create_by name: "#{@report_card_division.name} #{index + 1}", mark_id: @mark.id
+          @sessional.update( obtained_marks: marks.to_f, mark_date: @dates[index])
+          @mark.update(obtained_marks: @mark.sessionals.average(:obtained_marks), passing_marks: @report_card_division.passing_marks, total_marks: @report_card_division.total_marks)
         else
           flash[:notice] = 'Sorry, Something Bad Happened.'
           break

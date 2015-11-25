@@ -40,7 +40,7 @@
   </div>
 
   <%
-     @report_card = ReportCard.find_by( grade_id: @class.id, setting_id_id: @setting.id, student_id: @students.first.id) if @students.present?
+     @report_card = ReportCard.find_by( grade_id: @class.id, setting_id: @setting.id, student_id: @students.first.id) if @students.present?
      @report_card_exam = ReportCardExam.find_by_exam(@exam) if @exam.present?
      @report_card_subject = ReportCardSubject.find_by_subject(@subject) if @subject.present?
      @report_card_division = ReportCardDivision.find_by_marks_division(@marks_division) if @marks_division.present?
@@ -53,7 +53,7 @@
         <h5><%= sessional.name %></h5>
         <%= text_field_tag "sessionals_date[]", sessional.mark_date, style:"" , class: "datepickerss absense-input", required: true, placeholder: "Select Date" %>
         <% @students.try(:each) do |std| %>
-            <% @student_report_card = ReportCard.find_by( grade_id: @class.id, setting_id_id: @setting.id, student_id: std.id) %>
+            <% @student_report_card = ReportCard.find_by( grade_id: @class.id, setting_id: @setting.id, student_id: std.id) %>
             <% @student_mark = Mark.find_by(report_card_id: @student_report_card.id, exam_id: @report_card_exam.id, subject_id: @report_card_subject.id, division_id: @report_card_division.id) %>
             <%= text_field_tag "sessionals[#{std.id}][]" , @student_mark.sessionals.find_by(name: sessional.name).obtained_marks ,class: " absense-input calculate"+std.id.to_s %>
         <% end %>
@@ -71,11 +71,11 @@
 
   <div class="well well-lg col-md-2 " style="padding:10px;min-height:500px;width: 180px;float:none !important;display: inline-block;vertical-align: top; margin-left:10px">
     <h5><%= 'Average' %></h5>
-    <%= text_field_tag "max_mark", @marks_division.total_marks, style:"" , class: "absense-input datepickerss", required: true, disabled: true%>
+    <%= text_field_tag "max_mark", @marks_division.total_marks, id: 'max-marks', style:"" , class: "absense-input datepickerss", required: true, disabled: true%>
     <% @students.try(:each) do |std| %>
-        <% @student_report_card = ReportCard.find_by( grade_id: @class.id, setting_id_id: @setting.id, student_id: std.id) %>
+        <% @student_report_card = ReportCard.find_by( grade_id: @class.id, setting_id: @setting.id, student_id: std.id) %>
         <% @student_mark = Mark.find_or_create_by(report_card_id: @student_report_card.id, exam_id: @report_card_exam.id, subject_id: @report_card_subject.id, division_id: @report_card_division.id) %>
-        <%= text_field_tag "marks[#{std.id}][]", @student_mark.sessionals.try(:average, :obtained_marks) || 0 ,disabled: true, id: std.id, class: "absense-input total"+std.id.to_s %>
+        <%= text_field_tag "marks[#{std.id}][]", number_with_precision(@student_mark.sessionals.try(:average, :obtained_marks), precision: 2 ) || 0 ,disabled: true, id: std.id, class: "absense-input total"+std.id.to_s %>
     <% end %>
   </div>
 
@@ -95,6 +95,56 @@
         $(".datepickerss").datepicker();
     });
     $(".datepickerss").datepicker();
+
+    <% @students.try(:each) do |std| %>
+        $(document).on("blur", '.calculate<%= std.id.to_s %>', function(event){
+            obj = event.target;
+            field_value = $(obj).val();
+            max_value = parseFloat($('#max-marks').val());
+            if(field_value.length > 0){
+                field_value = parseFloat(field_value);
+                if(field_value == 'undefined' || field_value > max_value || field_value < 0 || isNaN(field_value)) {
+                    alert('Please Insert A Value Lower Than Maximum Marks. ');
+                    $(obj).css('border-color', 'red');
+                    return false;
+                }
+                else
+                {
+                    $(obj).css('border', '2px solid #ddd');
+                }
+            }
+            var sum = 0;
+            var av = 0.0;
+            $('.calculate<%= std.id.to_s %>').each(function(i, obj) {
+                if (obj.value != '' && $(obj).is(':visible'))
+                {
+                    sum = sum + parseFloat(obj.value);
+                    av = av+1
+                }
+            });
+            $(".total<%=std.id.to_s%>").val((sum/av).toFixed(2));
+        });
+    <% end %>
+    $('form').on('submit', function(){
+        submit = true;
+        <% @students.try(:each) do |std| %>
+        $('.calculate<%= std.id.to_s %>').each(function(i, obj) {
+            field_value = $(obj).val();
+            max_value = parseFloat($('#max-marks').val());
+            if(field_value.length > 0){
+                field_value = parseFloat(field_value);
+                if(field_value == 'undefined' || field_value > max_value || field_value < 0 || isNaN(field_value)) {
+                    alert('Please Insert A Value Lower Than Maximum Marks. ');
+                    $(obj).css('border-color', 'red');
+                    $(obj).focus();
+                    submit = false;
+                    return submit
+                }
+            }
+        });
+        <% end %>
+        return submit;
+    });
 </script>
 
 <div class="col-template hidden">
@@ -102,7 +152,7 @@
     <h5><%= @marks_division.name %></h5>
     <%= text_field_tag "sessionals_date[]", '' ,class: "datepickerss absense-input", required: true, placeholder: "Select Date" %>
     <% @students.try(:each) do |std| %>
-        <%= text_field_tag "sessionals[#{std.id}][]", "" ,class: "absense-input calc"+std.id.to_s %>
+        <%= text_field_tag "sessionals[#{std.id}][]", "" ,class: "absense-input calculate"+std.id.to_s %>
     <% end %>
   </div>
 </div>

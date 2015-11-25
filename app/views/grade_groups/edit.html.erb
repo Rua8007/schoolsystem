@@ -1,6 +1,6 @@
-<h1>Editing Grade Group</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @grade_group %> |
-<%= link_to 'Back', grade_groups_path %>
+<% if current_user.role.rights.where(value: "update_grade_group").any? %>
+    <div class="bg-light lter b-b wrapper-md">
+      <h1 class="m-n font-thin h3">Update Class Grade</h1>
+    </div>
+    <%= render 'form' %>
+<% end %>

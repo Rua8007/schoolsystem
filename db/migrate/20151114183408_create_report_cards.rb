@@ -4,7 +4,7 @@ class CreateReportCards < ActiveRecord::Migration
       t.belongs_to :student
       t.belongs_to :grade
       t.belongs_to :batch
-      t.belongs_to :setting_id
+      t.belongs_to :setting
       t.text :remarks
 
       t.timestamps null: false
