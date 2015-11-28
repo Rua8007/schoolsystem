@@ -1119,6 +1119,14 @@
                         <% end %>
                       </li>
                     <% end %>
+
+                    <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'group_subjects').any? %>
+                      <li>
+                        <%= link_to(group_subjects_path) do %>
+                            <span>Group Subjects</span>
+                        <% end %>
+                      </li>
+                    <% end %>
                       <!-- <li>
                         <a href="ui_icon.html">
                           <b class="badge bg-info pull-right">3</b>

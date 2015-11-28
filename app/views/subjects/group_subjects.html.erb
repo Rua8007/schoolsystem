@@ -1,0 +1,27 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Select A Grade</h1>
+</div>
+<br>
+
+<div class="row">
+  <div class="col-md-12">
+    <%= form_tag(show_subjects_path, method: :post, class: 'col-form', remote: true) do %>
+        <div class="form-group col-md-4">
+          <%= select_tag 'grade_id', options_from_collection_for_select(@grades, :id, :name, @grade.id), class: 'form-control'  %>
+        </div>
+        <div class="col-md-6">
+          <div class="actions">
+            <%= submit_tag 'Select Grade', class: 'btn btn-success' %>
+          </div>
+        </div>
+    <% end %>
+  </div>
+</div>
+
+<hr />
+<div class="row">
+  <div class="col-md-12" id="subjects">
+    <%= render partial: 'show_subjects', locals: { subjects: @subjects, grade: @grade } %>
+  </div>
+
+</div>

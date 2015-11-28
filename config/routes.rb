@@ -209,6 +209,9 @@ end
 
 
   resources :subjects
+  get 'group_subjects' => 'subjects#group_subjects', as: :group_subjects
+  post 'group_subjects' => 'subjects#group_subjects', as: :show_subjects
+  post 'save_subjects_groups' => 'subjects#save_subjects_groups', as: :save_subjects_groups
   resources :grades do
     collection do
       get 'all_student'

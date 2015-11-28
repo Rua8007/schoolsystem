@@ -70,6 +70,44 @@ class SubjectsController < ApplicationController
     end
   end
 
+  def group_subjects
+    @grades = Grade.where(section: nil).order('name')
+    @grade = params[:grade_id].present? ? Grade.find(params[:grade_id]) : @grades.first
+    @bridges = Association.where(grade_id: @grade.id)
+    @subjects = []
+    if @bridges.present?
+      @bridges.each do |bridge|
+        @subjects << bridge.subject if bridge.subject.parent.nil?
+      end
+    end
+
+    @subject = Subject.new
+    @subjects = @subjects.sort_by{ |k| k.name }
+  end
+
+  def save_subjects_groups
+    @grade = Grade.find(params[:grade_id])
+
+    @subjects = params[:subjects] || []
+    @subjects.each do |subject_id|
+      parent = Subject.find(subject_id)
+      children = params[:children]["#{subject_id}"]
+      weights = params[:weight]["#{subject_id}"]
+      parent.sub_subjects.each do |sub_subject|
+        sub_subject.update(parent_id: nil)
+      end
+      if children.present?
+        children.each_with_index do |child_id, index|
+          child = Subject.find(child_id)
+          weight = weights[index] if weights.present?
+          child.update(parent_id: parent.id, weight: (weight || 0.00) )
+        end
+      end
+    end
+
+    redirect_to group_subjects_path, grade_id: @grade.id
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_subject

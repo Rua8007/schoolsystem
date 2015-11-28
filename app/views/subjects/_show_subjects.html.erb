@@ -1,0 +1,80 @@
+<style>
+  .checkbox-div{
+      font-size: 125%;
+      margin-top: 4px;
+  }
+  .subject{
+      height: 30px;
+  }
+  .numeric{
+      height: 25px;
+  }
+</style>
+<% if subjects.present? %>
+<%= form_tag(save_subjects_groups_path, method: :post, class: 'col-form' ) do %>
+  <%= hidden_field_tag 'grade_id', grade.id %>
+  <% subjects.each do |subject| %>
+    <div class="row">
+      <div class="col-sm-11 col-sm-offset-1 <%= "subject_#{subject.id}_main" %>">
+        <h3 class="text-success"><%= subject.name %></h3>
+        <%= hidden_field_tag "subjects[]", subject.id %>
+        <% subject.sub_subjects.each do |sub_subject| %>
+            <div class="row">
+              <div class="col-md-12 subject">
+                <div class="col-md-3 col-sm-3 checkbox-div">
+                  <%= check_box_tag "children[#{subject.id}][]", sub_subject.id , true , class: "subject_#{sub_subject.id}" %>&nbsp <span class="subject-name"><%= sub_subject.name %></span>
+                </div>
+                <div class="col-md-2 col-sm-2">
+                  <%= text_field_tag "weight[#{subject.id}][]",'' , class: 'form-control numeric', placeholder: 'Weightage', value: sub_subject.weight %>
+                </div>
+              </div>
+            </div>
+        <% end %>
+        <% subjects.each do |sub| %>
+            <% if sub.id != subject.id and sub.sub_subjects.blank? %>
+              <div class="row">
+                <div class="col-md-12 subject">
+                  <div class="col-md-3 col-sm-3 checkbox-div">
+                    <%= check_box_tag "children[#{subject.id}][]", sub.id , false , class: "subject_#{sub.id}" %>&nbsp <span class="subject-name"><%= sub.name %></span>
+                  </div>
+                  <div class="col-md-2 col-sm-2" style="display: none">
+                    <%= text_field_tag "weight[#{subject.id}][]",'' , class: 'form-control numeric', placeholder: 'Weightage', value: sub.weight %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+        <% end %>
+
+        <hr/>
+      </div>
+    </div>
+  <% end %>
+  <div class="actions">
+    <%= submit_tag 'Save', class: 'btn btn-primary' %>
+  </div>
+<% end %>
+<% else %>
+    <h5> No subjects assigned to this grade.</h5>
+<% end %>
+
+<script type="text/javascript">
+  $(document).on('click', "input[type='checkbox']", function(event) {
+      if($(this).is(':checked')){
+          // Hide This Subject Under All Others
+          $('.'+$(this).attr('class')+'_main').hide('slow');
+          $('.'+$(this).attr('class')).not(this).each( function() {
+              $(this).parent().parent().hide('slow');
+          });
+          $(this).parent().next().show('slow');
+      }
+      else{
+          // Show This Subject Under All Others
+          $('.'+$(this).attr('class')+'_main').show('slow');
+          $('.'+$(this).attr('class')).not(this).each( function() {
+              $(this).parent().parent().show('slow');
+          });
+          $(this).parent().next().hide('slow');
+
+      }
+  });
+</script>
