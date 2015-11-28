@@ -87,10 +87,16 @@ class SubjectsController < ApplicationController
 
   def save_subjects_groups
     @grade = Grade.find(params[:grade_id])
+    @setting = ReportCardSetting.find_by(grade_id: @grade.id, batch_id: Batch.last.try(:id) )
 
     @subjects = params[:subjects] || []
     @subjects.each do |subject_id|
       parent = Subject.find(subject_id)
+      report_card_parent = @setting.subjects.find_or_create_by(name: parent.name, code: parent.code)
+      report_card_children = ReportCardSubject.where(parent_id: report_card_parent.id)
+      report_card_children.try(:each) do |report_card_subject|
+        report_card_subject.update(parent_id: nil)
+      end
       children = params[:children]["#{subject_id}"]
       weights = params[:weight]["#{subject_id}"]
       parent.sub_subjects.each do |sub_subject|
@@ -100,7 +106,9 @@ class SubjectsController < ApplicationController
         children.each_with_index do |child_id, index|
           child = Subject.find(child_id)
           weight = weights[index] if weights.present?
+          report_card_child = @setting.subjects.find_or_create_by(name: child.name, code: child.code)
           child.update(parent_id: parent.id, weight: (weight || 0.00) )
+          report_card_child.update(parent_id: report_card_parent.id, weight: (weight || 0.00) )
         end
       end
     end

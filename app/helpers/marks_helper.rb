@@ -53,12 +53,12 @@ module MarksHelper
       if setting.subjects.present?
         subjects.each do |subject|
           if setting.subjects.where(name: subject.name, code: subject.code).nil?
-            setting.subjects << ReportCardSubject.new(name: subject.name, code: subject.code)
+            setting.subjects << ReportCardSubject.new(name: subject.name, code: subject.code, parent_id: subject.parent_id, weight: subject.weight)
           end
         end
       else
         subjects.each do |subject|
-          setting.subjects << ReportCardSubject.new(name: subject.name, code: subject.code)
+          setting.subjects << ReportCardSubject.new(name: subject.name, code: subject.code, parent_id: subject.parent_id, weight: subject.weight)
         end
       end
     end
