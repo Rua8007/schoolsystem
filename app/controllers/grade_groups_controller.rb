@@ -69,7 +69,7 @@ class GradeGroupsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def grade_group_params
-      params.require(:grade_group).permit(:name, marks_divisions_attributes: [:id, :name, :passing_marks, :total_marks, :_destroy,
+      params.require(:grade_group).permit(:name, marks_divisions_attributes: [:id, :name, :passing_marks, :total_marks, :is_divisible, :_destroy,
                                                  sub_divisions_attributes: [:id, :name, :total_marks, :_destroy]
                                                  ])
     end

@@ -1,16 +1,17 @@
-<h3><%= klass.full_name %> </h3>
-<table>
-  <thead>
+<h3><%= klass.full_name %> <%= klass.batch.name %></h3>
+<table class="table" style="overflow-x: auto">
+  <thead class="table-head">
   <tr>
     <th><%= exam.name %></th>
     <% setting.subjects.try(:where, parent_id: nil).try(:each) do |subject| %>
         <th><%= subject.name %></th>
     <% end %>
+    <th>Actions</th>
   </tr>
   </thead>
   <tbody>
   <% klass.students.order('first_name, last_name').try(:each) do |std| %>
-      <% report_card = ReportCard.find_by(grade_id: @class.id, student_id: std.id) %>
+      <% report_card = ReportCard.find_by(grade_id: @class.id, student_id: std.id, batch_id: @class.batch_id) %>
       <tr>
         <td><%= std.fullname %></td>
         <% setting.subjects.try(:where, parent_id: nil).try(:each) do |subject| %>
@@ -26,6 +27,9 @@
                 <td><%= (marks.present? ? marks.sum(:obtained_marks) : 0.0)  %></td>
             <% end %>
         <% end %>
+        <td>
+          <%= link_to 'Complete Result Card', result_card_path(std.id, klass.id, klass.batch_id), class: 'btn btn-success' %>
+        </td>
       </tr>
   <% end %>
   </tbody>

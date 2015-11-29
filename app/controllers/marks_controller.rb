@@ -101,47 +101,11 @@ class MarksController < ApplicationController
 
     @setting = ReportCardSetting.find_or_create_by(grade_id: @main_grade.id, batch_id: @class.batch_id) if @main_grade.present?
     @students.each do |std|
-      ReportCard.find_or_create_by(student_id: std.id, grade_id: @class.id, setting_id: @setting.id)
+      ReportCard.find_or_create_by(student_id: std.id, grade_id: @class.id, batch_id: @class.batch_id, setting_id: @setting.id)
     end
     check_marks_divisions(@setting, @marks_divisions)
     check_subjects(@setting, [@subject])
     check_exams(@setting, [@exam])
-  end
-
-  def select_marks_details
-    @student = Student.find(params[:student_id])
-    @report_card = ReportCard.find_or_create_by(student_id: @student.id, grade_id: @student.grade.id)
-    @exams = Exam.where(batch_id: @student.grade.batch_id)
-    @marks_divisions = @student.grade.parent.grade_group.marks_divisions if @student.grade.parent.present?
-        @bridges = Bridge.where(grade_id: params[:grade_id], employee_id: params[:employee_id])
-    @subjects = []
-    @all_subjects = Subject.where(parent: nil).order('name')
-    @all_subjects.each do |subject|
-      @bridges.each do |bridge|
-        @subjects << subject if subject.id == bridge.subject_id
-      end
-    end
-    if @subjects.present? and @exams.present? and @marks_divisions.present? and @report_card.present?
-      @mark = Mark.find_or_initialize_by(exam_id: @exams.first.id, subject_id: @subjects.first.id, division_id: @marks_divisions.first.id, report_card_id: @report_card.id)
-      if @mark.new_record?
-        @mark.total_marks = @marks_divisions.first.total_marks
-        @mark.passing_marks = @marks_divisions.first.passing_marks
-        @mark.save
-      end
-      @marks_division = MarksDivision.find(@mark.division_id)
-      if @marks_division.sub_divisions.present?
-        @marks_division.sub_divisions.each do |sub_division|
-          @sessional = Sessional.find_or_initialize_by(name: sub_division.name, mark_id: @mark.id, sub_division_id: sub_division.id)
-          if @sessional.new_record?
-            @sessional.total_marks = sub_division.total_marks
-            @sessional.save
-            @mark.sessionals << @sessional
-          end
-        end
-      end
-    else
-      flash[:notice] = 'Some Configurations Are Missing.'
-    end
   end
 
   def save_marks
@@ -161,7 +125,7 @@ class MarksController < ApplicationController
       std_marks = std.last
       std_marks.each_with_index do |marks, index|
         if student.present?
-          @report_card = ReportCard.find_by student_id: student.id, grade_id: @class.id
+          @report_card = ReportCard.find_by student_id: student.id, grade_id: @class.id, batch_id: @class.batch_id
           @mark = Mark.find_or_create_by(report_card_id: @report_card.id, exam_id: @report_card_exam.id, subject_id: @report_card_subject.id, division_id: @report_card_division.id)
           @sessional = Sessional.find_or_create_by name: "#{@report_card_division.name} #{index + 1}", mark_id: @mark.id
           @sessional.update( obtained_marks: marks.to_f, mark_date: @dates[index])
@@ -240,6 +204,15 @@ class MarksController < ApplicationController
     @report_card_exams = @setting.exams
 
     @report_card_exam = params[:exam_id].present? ? ReportCardExam.find(params[:exam_id]) : @report_card_exams.first
+  end
+
+  def result_card
+    @student = Student.find(params[:student_id])
+    @class = Grade.find(params[:class_id])
+    @batch = Batch.find(params[:batch_id])
+
+    @report_card = ReportCard.find_by(student_id: @student.id, grade_id: @class.id, batch_id: @batch.id)
+    @setting = @report_card.setting
   end
 
   private

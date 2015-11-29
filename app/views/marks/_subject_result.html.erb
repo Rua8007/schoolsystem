@@ -1,6 +1,6 @@
 <h3><%= @exam.name %> </h3>
-<table>
-  <thead>
+<table class="table">
+  <thead class="table-head">
     <tr>
       <th><%= @subject.name %></th>
       <% @setting.marks_divisions.try(:each) do |division| %>
@@ -11,7 +11,7 @@
   </thead>
   <tbody>
     <% @class.students.order('first_name, last_name').try(:each) do |std| %>
-        <% report_card = ReportCard.find_by(grade_id: @class.id, student_id: std.id) %>
+        <% report_card = ReportCard.find_by(grade_id: @class.id, student_id: std.id, batch_id: @class.batch_id) %>
         <tr>
           <td><%= std.fullname %></td>
           <% @setting.marks_divisions.try(:each) do |division| %>

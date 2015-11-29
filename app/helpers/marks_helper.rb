@@ -37,12 +37,12 @@ module MarksHelper
       if setting.marks_divisions.present?
         marks_divisions.each do |division|
           if setting.marks_divisions.where(name: division.name).nil?
-            setting.marks_divisions << ReportCardDivision.new(name: division.name, total_marks: division.total_marks, passing_marks: division.passing_marks)
+            setting.marks_divisions << ReportCardDivision.new(name: division.name, total_marks: division.total_marks, passing_marks: division.passing_marks, is_divisible: division.is_divisible)
           end
         end
       else
         marks_divisions.each do |division|
-          setting.marks_divisions << ReportCardDivision.new(name: division.name, total_marks: division.total_marks, passing_marks: division.passing_marks)
+          setting.marks_divisions << ReportCardDivision.new(name: division.name, total_marks: division.total_marks, passing_marks: division.passing_marks, is_divisible: division.is_divisible)
         end
       end
     end
@@ -54,14 +54,14 @@ module MarksHelper
         subjects.each do |subject|
           if setting.subjects.where(name: subject.name, code: subject.code).nil?
             parent = Subject.find(subject.parent_id) if subject.parent_id.present?
-            report_card_parent = ReportCard.find_or_create_by(name: parent.name, code: parent.code) if parent.present?
+            report_card_parent = ReportCardSubject.find_or_create_by(name: parent.name, code: parent.code) if parent.present?
             setting.subjects << ReportCardSubject.new(name: subject.name, code: subject.code, parent_id: report_card_parent.try(:id), weight: report_card_parent.try(:weight))
           end
         end
       else
         subjects.each do |subject|
           parent = Subject.find(subject.parent_id) if subject.parent_id.present?
-          report_card_parent = ReportCard.find_or_create_by(name: parent.name, code: parent.code) if parent.present?
+          report_card_parent = ReportCardSubject.find_or_create_by(name: parent.name, code: parent.code) if parent.present?
           setting.subjects << ReportCardSubject.new(name: subject.name, code: subject.code, parent_id: report_card_parent.try(:id), weight: report_card_parent.try(:weight))
         end
       end
