@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="col-md-12">
+    <%= form_tag(show_class_result_path, method: :post, class: 'col-form class-form', remote: true) do %>
+        <div class="form-group col-md-4">
+          <label for="class_id"> Select a class</label>
+          <%= select_tag 'class_id', options_from_collection_for_select(@classes, :id, :full_name, @class.id), class: 'form-control class-select'  %>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="class_id"> Select an exam</label>
+          <%= select_tag 'exam_id', options_from_collection_for_select(@setting.exams, :id, :name, @report_card_exam.id), class: 'form-control class-select'  %>
+        </div>
+        <div class="col-md-2" style="margin-top: 1.7em">
+          <%= submit_tag 'See Result', class: 'btn btn-success' %>
+        </div>
+    <% end %>
+  </div>
+</div>
+
+<hr />
+<div class="row">
+  <div class="col-md-12" id="results">
+    <%= render partial: 'class_result', locals: { klass: @class, exam: @report_card_exam, setting: @setting } %>
+  </div>
+</div>

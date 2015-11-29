@@ -189,16 +189,16 @@ class MarksController < ApplicationController
 
     @class_bridges = @bridges.map{ |k| k if k.grade_id == @class.id }.compact
     #To See Child Subjects Result
-    # @class_bridges.each do |bridge|
-    #   @subjects << bridge.subject
-    # end
-    #To See Child and Parents Both
     @class_bridges.each do |bridge|
-      if bridge.subject.parent_id.present?
-        @subjects << bridge.subject.parent unless @subjects.include?(bridge.subject.parent)
-      end
-      @subjects << bridge.subject unless @subjects.include?(bridge.subject)
+      @subjects << bridge.subject
     end
+    # #To See Child and Parents Both
+    # @class_bridges.each do |bridge|
+    #   if bridge.subject.parent_id.present?
+    #     @subjects << bridge.subject.parent unless @subjects.include?(bridge.subject.parent)
+    #   end
+    #   @subjects << bridge.subject unless @subjects.include?(bridge.subject)
+    # end
 
     @setting = ReportCardSetting.find_or_create_by(grade_id: @main_grade.id, batch_id: @class.batch_id)
     @report_card_subjects = []
@@ -215,6 +215,31 @@ class MarksController < ApplicationController
     @setting = ReportCardSetting.find_by(grade_id: @main_grade.id, batch_id: @class.batch_id)
     @exam = ReportCardExam.find_by_id(params[:exam_id])
     @subject = ReportCardSubject.find_by_id(params[:subject_id])
+  end
+
+  def class_result
+    @bridges = get_all_employee_bridges(current_user)
+    @classes = []
+    @subjects = []
+    @bridges.each do |bridge|
+      @classes << bridge.grade unless @classes.include? bridge.grade
+    end
+    @class = params[:class_id].present? ? Grade.find_by(id: params[:class_id]) : @classes.first
+    @main_grade = @class.parent if @class.present?
+    @class_bridges = @bridges.map{ |k| k if k.grade_id == @class.id }.compact
+    #To See Child Subjects Result
+    @class_bridges.each do |bridge|
+      @subjects << bridge.subject
+    end
+    exams = Exam.where(batch_id: @class.batch_id)
+    @setting = ReportCardSetting.find_or_create_by(grade_id: @main_grade.id, batch_id: @class.batch_id)
+    check_subjects(@setting, @subjects)
+    check_exams(@setting, exams)
+    check_marks_divisions(@setting, @main_grade.grade_group.marks_divisions.order('name'))
+
+    @report_card_exams = @setting.exams
+
+    @report_card_exam = params[:exam_id].present? ? ReportCardExam.find(params[:exam_id]) : @report_card_exams.first
   end
 
   private

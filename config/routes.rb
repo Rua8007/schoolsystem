@@ -179,6 +179,8 @@ end
   get 'subject_result' => 'marks#subject_result', as: :subject_result
   post 'subject_result' => 'marks#subject_result', as: :show_subject_result
   post 'get_subject_result' => 'marks#get_subject_result', as: :get_subject_result
+  get 'class_result' => 'marks#class_result', as: :class_result
+  post 'class_result' => 'marks#class_result', as: :show_class_result
   resources :marksheets do
     collection do
       post "uploading"

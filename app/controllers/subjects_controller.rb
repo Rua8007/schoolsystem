@@ -105,9 +105,15 @@ class SubjectsController < ApplicationController
       if children.present?
         children.each_with_index do |child_id, index|
           child = Subject.find(child_id)
+          weights = weights.reject { |w| w.to_s.empty? }
           weight = weights[index] if weights.present?
           report_card_child = @setting.subjects.find_or_create_by(name: child.name, code: child.code)
           child.update(parent_id: parent.id, weight: (weight || 0.00) )
+          puts '===================================='
+          puts index
+          puts weight
+          puts child.errors.full_messages
+          puts '===================================='
           report_card_child.update(parent_id: report_card_parent.id, weight: (weight || 0.00) )
         end
       end

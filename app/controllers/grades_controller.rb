@@ -11,14 +11,16 @@ class GradesController < ApplicationController
 
   def subject_add
     # return render json: params
-    @grade.associations.destroy_all if @grade.associations.present?
+    # @grade.associations.destroy_all if @grade.associations.present?
     subjects = params[:flags].keys
     subjects.try(:each) do |subject|
       if params[:flags][subject][:check]
-        a = @grade.associations.new
-        a.subject_id = subject
+        a = @grade.associations.find_or_create_by(subject_id: subject)
         a.lectures = params[:flags][subject][:lectures]
         a.save
+      else
+        a = @grade.associations.find_by(subject_id: subject)
+        a.delete if a.present?
       end
     end
     redirect_to new_grade_path, notice: "Subjects has been added successfully...!!!"
