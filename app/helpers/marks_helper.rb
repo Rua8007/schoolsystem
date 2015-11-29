@@ -53,12 +53,16 @@ module MarksHelper
       if setting.subjects.present?
         subjects.each do |subject|
           if setting.subjects.where(name: subject.name, code: subject.code).nil?
-            setting.subjects << ReportCardSubject.new(name: subject.name, code: subject.code, parent_id: subject.parent_id, weight: subject.weight)
+            parent = Subject.find(subject.parent_id) if subject.parent_id.present?
+            report_card_parent = ReportCard.find_or_create_by(name: parent.name, code: parent.code)
+            setting.subjects << ReportCardSubject.new(name: subject.name, code: subject.code, parent_id: report_card_parent.try(:id), weight: report_card_parent.try(:weight))
           end
         end
       else
         subjects.each do |subject|
-          setting.subjects << ReportCardSubject.new(name: subject.name, code: subject.code, parent_id: subject.parent_id, weight: subject.weight)
+          parent = Subject.find(subject.parent_id) if subject.parent_id.present?
+          report_card_parent = ReportCard.find_or_create_by(name: parent.name, code: parent.code)
+          setting.subjects << ReportCardSubject.new(name: subject.name, code: subject.code, parent_id: report_card_parent.try(:id), weight: report_card_parent.try(:weight))
         end
       end
     end
@@ -78,6 +82,29 @@ module MarksHelper
         end
       end
     end
+  end
+
+  def get_all_employee_bridges(current_user)
+      bridges = []
+      grades = Grade.where(section: nil).order('name')
+      if current_user.role.rights.where(value: 'enter_all_marks').any?
+        grades.each do |grade|
+          subgrades = Grade.where('name=? AND section IS NOT NULL', grade.name).order('section')
+          subgrades.each do |sub_grade|
+            sub_bridges = Bridge.where(grade_id: sub_grade.id)
+            bridges = bridges + sub_bridges if sub_bridges.present?
+          end
+        end
+      else
+        grades.each do |grade|
+          subgrades = Grade.where('name=? AND section IS NOT NULL', grade.name).order('section')
+          subgrades.each do |sub_grade|
+            sub_bridges = Bridge.where(grade_id: sub_grade.id, employee_id: (Employee.find_by_email(current_user.email) || current_user).id )
+            bridges = bridges + sub_bridges if sub_bridges.present?
+          end
+        end
+      end
+      bridges
   end
 
 end

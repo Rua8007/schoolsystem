@@ -1,0 +1,20 @@
+<% if subjects.present? and exams.present? %>
+<%= form_tag(get_subject_result_path, method: :post, class: 'col-form', remote: true) do %>
+    <%= hidden_field_tag 'class_id', klass.id %>
+    <div class="form-group col-md-4">
+      <label for="class_id"> Select a class</label>
+      <%= select_tag 'subject_id', options_from_collection_for_select(subjects, :id, :name), class: 'form-control'  %>
+    </div>
+    <div class="form-group col-md-4">
+      <label for="class_id"> Select an exam</label>
+      <%= select_tag 'exam_id', options_from_collection_for_select(exams, :id, :name), class: 'form-control'  %>
+    </div>
+    <div class="col-md-2">
+      <div class="actions" style="margin-top: 1.7em;">
+        <%= submit_tag 'See Result', class: 'btn btn-success' %>
+      </div>
+    </div>
+<% end %>
+<% else %>
+    You have not entered marks for any subjects in this class.
+<% end %>

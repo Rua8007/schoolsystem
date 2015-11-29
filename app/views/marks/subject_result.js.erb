@@ -1,0 +1,5 @@
+$('#subjects').hide();
+$('#subjects').html('<%= j(render partial: 'marks/show_subjects_and_exams', locals: {subjects: @report_card_subjects, exams: @report_card_exams, klass: @class}) %>');
+$('#subjects').show('slow');
+
+$('#results').html('');

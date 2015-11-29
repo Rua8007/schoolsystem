@@ -1,0 +1,44 @@
+<h3><%= @exam.name %> </h3>
+<table>
+  <thead>
+    <tr>
+      <th><%= @subject.name %></th>
+      <% @setting.marks_divisions.try(:each) do |division| %>
+        <th><%= division.name %></th>
+      <% end %>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @class.students.order('first_name, last_name').try(:each) do |std| %>
+        <% report_card = ReportCard.find_by(grade_id: @class.id, student_id: std.id) %>
+        <tr>
+          <td><%= std.fullname %></td>
+          <% @setting.marks_divisions.try(:each) do |division| %>
+              <% if @subject.sub_subjects.present? %>
+                <% mark_sum = 0.0 %>
+                <% @subject.sub_subjects.each do |sub_subject| %>
+                  <% mark = report_card.marks.find_by(subject_id: sub_subject.id, division_id: division.id, exam_id: @exam.id) %>
+                  <% mark_sum = mark_sum + ((mark.obtained_marks * ((sub_subject.weight/100) || 1)) || 0.0) if mark.present? %>
+                <% end %>
+                <td><%= number_with_precision mark_sum, precision: 2 %></td>
+              <% else %>
+                <% mark = report_card.marks.find_by(subject_id: @subject.id, division_id: division.id, exam_id: @exam.id) %>
+                <td><%= mark.try(:obtained_marks) || 0.0 %></td>
+              <% end %>
+          <% end %>
+          <% if @subject.sub_subjects.present? %>
+            <% mark_sum = 0.0 %>
+            <% @subject.sub_subjects.each do |sub_subject| %>
+              <% marks = report_card.marks.where(subject_id: sub_subject.id, exam_id: @exam.id) %>
+              <% mark_sum = mark_sum + (((marks.present? ? marks.sum(:obtained_marks) : 0.0) * ((sub_subject.weight/100) || 1)) || 0.0) if marks.present? %>
+            <% end %>
+            <td><%= number_with_precision mark_sum, precision: 2 %></td>
+          <% else %>
+              <% marks = report_card.marks.where(subject_id: @subject.id, exam_id: @exam.id) %>
+              <td><%= (marks.present? ? marks.sum(:obtained_marks) : 0.0)  %></td>
+          <% end %>
+        </tr>
+    <% end %>
+  </tbody>
+</table>

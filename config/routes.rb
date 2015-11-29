@@ -176,6 +176,9 @@ end
   post 'enter_marks/' => 'marks#enter_marks', as: :enter_marks
   get 'enter_marks/:grade_id/:subject_id/:exam_id/:division_id' => 'marks#enter_marks', as: :enter_division_marks
   post 'save_marks' => 'marks#save_marks', as: :save_marks
+  get 'subject_result' => 'marks#subject_result', as: :subject_result
+  post 'subject_result' => 'marks#subject_result', as: :show_subject_result
+  post 'get_subject_result' => 'marks#get_subject_result', as: :get_subject_result
   resources :marksheets do
     collection do
       post "uploading"

@@ -1114,7 +1114,7 @@
                       <% end %>
                     <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'subject_result').any? %>
                       <li>
-                        <%= link_to(subject_result_marksheets_path) do %>
+                        <%= link_to(subject_result_path) do %>
                           <span>Subject Results</span>
                         <% end %>
                       </li>
