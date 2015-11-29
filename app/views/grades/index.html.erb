@@ -42,15 +42,15 @@
         <td><%= grade.batch.name %></td>
         <td><%= grade.campus %></td>
         <td><%= grade.students.count %></td>
-        <td>
+        <td class="col-sm-3">
           <% if current_user.role.rights.where(value: "view_grade").any? %>
-            <%= link_to '', grade,:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
+            <%= link_to 'Teachers/Subjects', grade,:class =>  'btn btn-success', style: 'font-size: 0.8em' %>
           <% end %>
           <% if current_user.role.rights.where(value: "update_grade").any? %>
-            <%= link_to '', edit_grade_path(grade),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
+            <%= link_to 'Edit', edit_grade_path(grade),:class => ' btn btn-info', style: 'font-size: 0.8em' %>
           <% end %>
           <% if current_user.role.rights.where(value: "delete_grade").any? %>
-            <%= link_to '', grade, method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
+            <%= link_to 'Delete', grade, method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger', style: 'font-size: 0.8em'%>
           <% end %>
         </td>
       </tr>

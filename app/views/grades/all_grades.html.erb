@@ -19,10 +19,10 @@
         <td><%= Student.where(grade_id: Grade.where(name: grade.name)).count %></td>
         <td>
           <% if current_user.role.rights.where(value: "view_grade").any? %>
-              <%= link_to '', grades_path({grade_name: grade.name}), class: 'btn btn-success  glyphicon glyphicon-ok-circle' %>
+              <%= link_to 'View Classes', grades_path({grade_name: grade.name}), class: 'btn btn-success' %>
           <% end %>
           <% if current_user.role.rights.where(value: "update_grade").any? %>
-              <%= link_to '', edit_grade_path(grade, {maingrade: true}),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
+              <%= link_to 'Edit', edit_grade_path(grade, {maingrade: true}),:class => ' btn btn-info'%>
           <% end %>
         </td>
       </tr>
