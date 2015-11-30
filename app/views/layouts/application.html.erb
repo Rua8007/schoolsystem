@@ -1084,13 +1084,6 @@
                           </li>
                       <% end %>
 
-                      <% if Right.where("role_id = ? and (value = ? or value = ? )" , current_user.role_id, 'create_exam' , 'update_exam').any? %>
-                        <li>
-                          <%= link_to(marks_path) do %>
-                            <span>Create Grade Card</span>
-                          <% end %>
-                        </li>
-                      <% end %>
                       <% if current_user.role.name == 'Teacher' %>
                         <li>
                           <%= link_to(portions_path(year_plan: @year_plan)) do %>
@@ -1098,13 +1091,7 @@
                           <% end %>
                         </li>
                       <% end %>
-                      <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'upload_marks').any? %>
-                        <li>
-                          <%= link_to(new_marksheet_path) do %>
-                            <span>Grade Logs</span>
-                          <% end %>
-                        </li>
-                      <% end %>
+
                       <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'view_class_result').any? %>
                         <li>
                           <%= link_to(class_result_path) do %>
@@ -1126,6 +1113,13 @@
                             <span>Group Subjects</span>
                         <% end %>
                       </li>
+                    <% end %>
+                    <% if Right.where("role_id = ? and value = 'enter_marks'", current_user.role_id ).any? or Right.where("role_id = ? and value = 'enter_all_marks'", current_user.role_id ).any? %>
+                       <li>
+                        <%= link_to(marks_path) do %>
+                            <span>Enter Marks</span>
+                        <% end %>
+                       </li>
                     <% end %>
                       <!-- <li>
                         <a href="ui_icon.html">
@@ -1167,14 +1161,6 @@
                     </ul>
                   </li>
                   <% end %>
-                <% if Right.where("role_id = ? and value = 'enter_marks'", current_user.role_id ).any? or Right.where("role_id = ? and value = 'enter_all_marks'", current_user.role_id ).any? %>
-                    <li>
-                      <%= link_to(marks_path) do %>
-                          <i class="glyphicon glyphicon-flag"></i>
-                          <span>Enter Marks</span>
-                      <% end %>
-                    </li>
-                <% end %>
 
 
 
