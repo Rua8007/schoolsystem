@@ -17,7 +17,7 @@
             <th class="col-sm-1 text-center" colspan="<%= @setting.marks_divisions.where(is_divisible: false).try(:length) %>"><%= "#{@setting.marks_divisions.where(is_divisible: false).try(:pluck, :name).try(:join, '&')} #{exam.name}" %> </th>
             <th class="col-sm-1 text-center"><%= "#{@setting.marks_divisions.where(is_divisible: false).try(:pluck, :name).try(:join, '&')} Total" %> </th>
             <th class="col-sm-1 text-center"><%= "#{exam.name} Total" %> </th>
-            <th>%</th>
+            <th class="text-center">%</th>
             <th>Evaluation</th>
         <% end %>
       </tr>
@@ -36,7 +36,7 @@
       </tr>
       <tr>
         <% @setting.exams.each do |exam| %>
-            <td>Full Marks</td>
+            <td class="text-center">Full Marks</td>
             <% @setting.marks_divisions.where(is_divisible: true).try(:each) do |division| %>
                 <td class="text-center"><%= division.total_marks %></td>
             <% end %>
@@ -52,7 +52,7 @@
       </tr>
       <tr>
         <% @setting.exams.each do |exam| %>
-            <td>Passing Marks</td>
+            <td class="text-center">Passing Marks</td>
             <% @setting.marks_divisions.where(is_divisible: true).try(:each) do |division| %>
                 <td class="text-center"><%= division.passing_marks %></td>
             <% end %>
@@ -70,13 +70,55 @@
         <tr>
           <% @setting.exams.each do |exam| %>
               <td class="text-center"><%= subject.name %></td>
+              <% if subject.sub_subjects.present? %>
+                <% termwork = 0.0 %>
+                <% quiz = 0.0 %>
+                <% total_marks = 0.0 %>
+                <% marks = {} %>
+                <% papers = {} %>
+                <% subject.sub_subjects.each do |sub_subject| %>
+                      <% @setting.marks_divisions.where(is_divisible: true).try(:each) do |division| %>
+                          <% marks[:"#{division.name}"] = 0.0 if marks[:"#{division.name}"].nil? %>
+                          <% subject_marks = @report_card.marks.find_by(exam_id: exam.id, subject_id: sub_subject.id, division_id: division.id).try(:obtained_marks) || 0.0 %>
+                          <% marks[:"#{division.name}"] = marks[:"#{division.name}"] + (subject_marks * (sub_subject.weight/100.0)) %>
+                          <% puts sub_subject.name %>
+                          <% puts marks[:"#{division.name}"] %>
+                          <% puts sub_subject.name %>
+
+                      <% end %>
+                      <% @setting.marks_divisions.where(is_divisible: false).try(:each) do |division| %>
+                          <% papers[:"#{division.name}"] = 0.0 if papers[:"#{division.name}"].nil? %>
+                          <% subject_marks = @report_card.marks.find_by(exam_id: exam.id, subject_id: sub_subject.id, division_id: division.id).try(:obtained_marks) || 0.0 %>
+                          <% papers[:"#{division.name}"] = papers[:"#{division.name}"] + (subject_marks * (sub_subject.weight/100.0) ) if papers[:"#{division.name}"].present? %>
+                      <% end %>
+                      <% total_marks = total_marks + (@report_card.marks.where(subject_id: sub_subject.id, exam_id: exam.id).try(:sum, :total_marks) || 0.0) * (sub_subject.weight/100.0) %>
+                <% end %>
+                  <% @setting.marks_divisions.where(is_divisible: true).try(:each) do |division| %>
+                      <td class="text-center"><%= marks[:"#{division.name}"] %></td>
+                      <% termwork = termwork + (marks[:"#{division.name}"] || 0.0) %>
+                  <% end %>
+                  <td class="text-center"><%= number_with_precision(termwork, precision: 2) if termwork > 0.0 %></td>
+                  <% @setting.marks_divisions.where(is_divisible: false).try(:each) do |division| %>
+                      <td class="text-center"><%= papers[:"#{division.name}"] %></td>
+                      <% quiz = quiz + (papers[:"#{division.name}"] || 0.0) %>
+                  <% end %>
+                <td class="text-center"><%= number_with_precision(quiz, precision: 2) if quiz > 0.0 %></td>
+                <td class="text-center"><%= number_with_precision(termwork + quiz, precision: 2) if(termwork+quiz > 0.0) %></td>
+                <td class="text-center">
+                <%
+                   percentage =((termwork + quiz)/total_marks) * 100 if total_marks.present? and total_marks > 0.0
+                %>
+                  <%= number_to_percentage(percentage, precision: 2) %>
+                </td>
+                <td class="text-center"></td>
+              <% else %>
               <% termwork = 0.0 %>
               <% @setting.marks_divisions.where(is_divisible: true).try(:each) do |division| %>
                   <% marks = @report_card.marks.find_by(exam_id: exam.id, subject_id: subject.id, division_id: division.id).try(:obtained_marks) %>
                   <% termwork = termwork + (marks || 0.0) %>
                   <td class="text-center"><%= marks %></td>
               <% end %>
-              <td class="col-sm-1"><%= termwork if termwork > 0.0 %></td>
+              <td class="col-sm-1 text-center"><%= termwork if termwork > 0.0 %></td>
               <% quiz = 0.0 %>
               <% @setting.marks_divisions.where(is_divisible: false).try(:each) do |division| %>
                   <% marks = @report_card.marks.find_by(exam_id: exam.id, subject_id: subject.id, division_id: division.id).try(:obtained_marks) %>
@@ -85,8 +127,15 @@
               <% end %>
               <td class="text-center"><%= quiz if quiz > 0 %></td>
               <td class="text-center"><%= termwork + quiz if(termwork+quiz > 0) %></td>
-              <td></td>
-              <td></td>
+              <td class="text-center">
+                <%
+                   total_marks = @report_card.marks.where(subject_id: subject.id, exam_id: exam.id).try(:sum, :total_marks) || 0.0
+                   percentage =((termwork + quiz)/total_marks) * 100 if total_marks.present? and total_marks > 0.0
+                %>
+                <%= number_to_percentage(percentage, precision: 2) %>
+              </td>
+              <td class="text-center"></td>
+              <% end %>
           <% end %>
         </tr>
       <% end %>
