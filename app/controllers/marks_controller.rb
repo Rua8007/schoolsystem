@@ -100,7 +100,7 @@ class MarksController < ApplicationController
 
 
     @setting = ReportCardSetting.find_or_create_by(grade_id: @main_grade.id, batch_id: @class.batch_id) if @main_grade.present?
-    @students.each do |std|
+    @students.try(:each) do |std|
       ReportCard.find_or_create_by(student_id: std.id, grade_id: @class.id, batch_id: @class.batch_id, setting_id: @setting.id)
     end
     check_marks_divisions(@setting, @marks_divisions)
