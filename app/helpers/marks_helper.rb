@@ -38,6 +38,9 @@ module MarksHelper
         marks_divisions.each do |division|
           if setting.marks_divisions.where(name: division.name).nil?
             setting.marks_divisions << ReportCardDivision.new(name: division.name, total_marks: division.total_marks, passing_marks: division.passing_marks, is_divisible: division.is_divisible)
+          else
+            s = setting.marks_divisions.find_by(name: division.name)
+            s.update(total_marks: division.total_marks, passing_marks: division.passing_marks, is_divisible: division.is_divisible)
           end
         end
       else
