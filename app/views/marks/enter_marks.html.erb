@@ -53,7 +53,7 @@
   <% if @mark.sessionals.present? %>
     <% @mark.sessionals.try(:each) do |sessional| %>
       <div class="well well-lg col-md-2 con" style="padding:10px;min-height:500px;width: 180px;float:none !important;display:inline-block;vertical-align: top;">
-        <h5><%= sessional.name %></h5>
+        <h5><%= sessional.name %><%= @report_card_subject.id %></h5>
         <%= text_field_tag "sessionals_date[]", sessional.mark_date, style:"" , class: "datepickerss absense-input", required: true, placeholder: "Select Date" %>
         <% @students.try(:each) do |std| %>
             <% @student_report_card = ReportCard.find_by( grade_id: @class.id, setting_id: @setting.id, student_id: std.id) %>

@@ -23,10 +23,18 @@
                 <% end %>
                 <td><%= number_with_precision mark_sum, precision: 2 %></td>
               <% else %>
+                <% puts '=====================================' %>
+                  <% puts "Report Card: #{report_card.inspect}" %>
+                <% puts '=====================================' %>
                 <% mark = report_card.marks.find_by(subject_id: @subject.id, division_id: division.id, exam_id: @exam.id) %>
+                  <% puts '=====================================' %>
+                  <% puts "Mark: #{mark.inspect}" %>
+                  <% puts "Subject: #{@subject.inspect}" %>
+                  <% puts '=====================================' %>
                 <td><%= mark.try(:obtained_marks) || 0.0 %></td>
               <% end %>
           <% end %>
+          <!-- For Totals-->
           <% if @subject.sub_subjects.present? %>
             <% mark_sum = 0.0 %>
             <% @subject.sub_subjects.each do |sub_subject| %>

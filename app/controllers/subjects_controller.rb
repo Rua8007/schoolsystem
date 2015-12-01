@@ -109,11 +109,8 @@ class SubjectsController < ApplicationController
           weight = weights[index] if weights.present?
           report_card_child = @setting.subjects.find_or_create_by(name: child.name, code: child.code)
           child.update(parent_id: parent.id, weight: (weight || 0.00) )
-          puts '===================================='
-          puts index
-          puts weight
-          puts child.errors.full_messages
-          puts '===================================='
+          puts "#{child.name} : #{report_card_child.inspect}"
+          puts '========================================'
           report_card_child.update(parent_id: report_card_parent.id, weight: (weight || 0.00) )
         end
       end
