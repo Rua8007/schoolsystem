@@ -21,6 +21,8 @@ class Grade < ActiveRecord::Base
 	has_many :grade_subjects
 	has_many :examcalenders
 
+	after_save :save_grade_group
+
 	validates :name, presence: true
   validate :unique_name
 	validates :max_no_of_students, presence: true, if: 'section.nil?'
@@ -53,5 +55,15 @@ class Grade < ActiveRecord::Base
 
 	def parent
 		Grade.where('name = ? AND section IS NULL', self.name).try(:first)
+	end
+
+	def save_grade_group
+		if self.grade_group.present?
+			self.grade_group.name = self.name
+			self.grade_group.save
+		else
+			self.grade_group = GradeGroup.new(name: self.name)
+			self.grade_group.save
+		end
 	end
 end

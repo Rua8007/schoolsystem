@@ -37,14 +37,10 @@
           <td><%= grade_group.marks_divisions.pluck(:name).join(',') if grade_group.marks_divisions.present? %></td>
           <td>
             <% if current_user.role.rights.where(value: "view_grade_group").any? %>
-                <%= link_to '', grade_group, :class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
+                <%= link_to 'View Class Grade', grade_group, :class =>  'btn btn-success' %>
             <% end %>
             <% if current_user.role.rights.where(value: "update_grade_group").any? %>
-                <%= link_to '', edit_grade_group_path(grade_group),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
-            <% end %>
-            <% if current_user.role.rights.where(value: "delete_grade_group").any? %>
-                <%= link_to '', grade_group, method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
-
+                <%= link_to 'Edit Class Grade', edit_grade_group_path(grade_group),:class => ' btn btn-info' %>
             <% end %>
           </td>
         </tr>

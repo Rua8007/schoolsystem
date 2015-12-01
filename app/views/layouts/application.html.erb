@@ -1068,13 +1068,13 @@
                           <% end %>
                         </li>
                       <% end %>
-                      <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'create_grade_group').any? %>
-                          <li>
-                            <%= link_to(new_grade_group_path) do %>
-                                <span>Create Class Grade</span>
-                            <% end %>
-                          </li>
-                      <% end %>
+                      <!--<% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'create_grade_group').any? %>-->
+                          <!--<li>-->
+                            <!--<%= link_to(new_grade_group_path) do %>-->
+                                <!--<span>Create Class Grade</span>-->
+                            <!--<% end %>-->
+                          <!--</li>-->
+                      <!--<% end %>-->
 
                       <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'create_grade_group').any? %>
                           <li>
