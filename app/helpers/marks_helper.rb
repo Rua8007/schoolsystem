@@ -36,7 +36,7 @@ module MarksHelper
     if marks_divisions.present?
       if setting.marks_divisions.present?
         marks_divisions.each do |division|
-          if setting.marks_divisions.where(name: division.name).nil?
+          if setting.marks_divisions.where(name: division.name).blank?
             setting.marks_divisions << ReportCardDivision.new(name: division.name, total_marks: division.total_marks, passing_marks: division.passing_marks, is_divisible: division.is_divisible)
           else
             s = setting.marks_divisions.find_by(name: division.name)
@@ -55,10 +55,13 @@ module MarksHelper
     if subjects.present?
       if setting.subjects.present?
         subjects.each do |subject|
-          if setting.subjects.where(name: subject.name, code: subject.code).nil?
+          if setting.subjects.where(name: subject.name, code: subject.code).blank?
             parent = Subject.find(subject.parent_id) if subject.parent_id.present?
             report_card_parent = ReportCardSubject.find_or_create_by(name: parent.name, code: parent.code) if parent.present?
             setting.subjects << ReportCardSubject.new(name: subject.name, code: subject.code, parent_id: report_card_parent.try(:id), weight: report_card_parent.try(:weight))
+          else
+            s = setting.subjects.find_by(name: parent.name, code: parent.code)
+            s.update(name: subject.name, code: subject.code, parent_id: report_card_parent.try(:id), weight: report_card_parent.try(:weight))
           end
         end
       else
@@ -75,7 +78,7 @@ module MarksHelper
     if exams.present?
       if setting.exams.present?
         exams.each do |exam|
-          if setting.exams.where(name: exam.name, batch_id: exam.batch_id).nil?
+          if setting.exams.where(name: exam.name, batch_id: exam.batch_id).blank?
             setting.exams << ReportCardExam.new(name: exam.name, batch_id: exam.batch_id)
           end
         end
