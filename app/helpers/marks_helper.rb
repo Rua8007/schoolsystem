@@ -60,8 +60,8 @@ module MarksHelper
             report_card_parent = ReportCardSubject.find_or_create_by(name: parent.name, code: parent.code) if parent.present?
             setting.subjects << ReportCardSubject.new(name: subject.name, code: subject.code, parent_id: report_card_parent.try(:id), weight: report_card_parent.try(:weight))
           else
-            s = setting.subjects.find_by(name: parent.name, code: parent.code)
-            s.update(name: subject.name, code: subject.code, parent_id: report_card_parent.try(:id), weight: report_card_parent.try(:weight))
+            s = setting.subjects.find_by(name: subject.name, code: subject.code)
+            s.update(name: subject.name, code: subject.code, parent_id: subject.parent_id, weight: subject.weight)
           end
         end
       else
