@@ -4,6 +4,10 @@
   .light-grey{ background-color: #F2F2F2; }
   .dark-grey { background-color: #DDD9C4; }
   .dark-blue { background-color: #8DB4E2;}
+
+  .table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
+      border: 1px solid black;
+  }
 </style>
 
 <div class="well well-lg">
@@ -48,14 +52,14 @@
             <% @setting.marks_divisions.where(is_divisible: true).try(:each) do |division| %>
                 <td class="text-center light-blue"><%= division.name %></td>
             <% end %>
-            <td class="col-sm-1"></td>
+            <td class="col-sm-1 dark-grey"></td>
             <% @setting.marks_divisions.where(is_divisible: false).try(:each) do |division| %>
-                <td class="text-center"><%= division.name %></td>
+                <td class="text-center light-grey"><%= division.name %></td>
             <% end %>
             <% if @setting.marks_divisions.where(is_divisible: false).present? %>
-                <td></td>
+                <td class="dark-grey"></td>
             <% end %>
-            <td></td><td></td><td></td>
+            <td class="dark-blue"></td><td class="dark-blue"></td><td class="dark-blue"></td>
         <% end %>
       </tr>
       <tr>
@@ -64,16 +68,16 @@
             <% @setting.marks_divisions.where(is_divisible: true).try(:each) do |division| %>
                 <td class="text-center light-blue"><%= division.total_marks %></td>
             <% end %>
-            <td class="col-sm-1"></td>
+            <td class="col-sm-1 dark-grey"></td>
             <% @setting.marks_divisions.where(is_divisible: false).try(:each) do |division| %>
-                <td class="text-center"><%= division.total_marks %></td>
+                <td class="text-center light-grey"><%= division.total_marks %></td>
             <% end %>
             <% if @setting.marks_divisions.where(is_divisible: false).present? %>
-                <td class="text-center"><%= @setting.marks_divisions.where(is_divisible: false).try(:sum, :total_marks) %></td>
+                <td class="text-center dark-grey"><%= @setting.marks_divisions.where(is_divisible: false).try(:sum, :total_marks) %></td>
             <% end %>
-            <td class="text-center"><%= @setting.marks_divisions.try(:sum, :total_marks) %></td>
-            <td class="text-center">100%</td>
-            <td></td>
+            <td class="text-center dark-blue"><%= @setting.marks_divisions.try(:sum, :total_marks) %></td>
+            <td class="text-center dark-blue">100%</td>
+            <td class="dark-blue"></td>
         <% end %>
       </tr>
       <tr>
@@ -82,16 +86,16 @@
             <% @setting.marks_divisions.where(is_divisible: true).try(:each) do |division| %>
                 <td class="text-center light-blue"><%= division.passing_marks %></td>
             <% end %>
-            <td class="col-sm-1"></td>
+            <td class="col-sm-1 dark-grey"></td>
             <% @setting.marks_divisions.where(is_divisible: false).try(:each) do |division| %>
-                <td class="text-center"><%= division.passing_marks %></td>
+                <td class="text-center light-grey"><%= division.passing_marks %></td>
             <% end %>
             <% if @setting.marks_divisions.where(is_divisible: false).present? %>
-                <td class="text-center"><%= @setting.marks_divisions.where(is_divisible: false).try(:sum, :passing_marks) %></td>
+                <td class="text-center dark-grey"><%= @setting.marks_divisions.where(is_divisible: false).try(:sum, :passing_marks) %></td>
             <% end %>
-            <td class="text-center"><%= @setting.marks_divisions.try(:sum, :passing_marks) %></td>
-            <td class="text-center"><%= number_to_percentage((@setting.marks_divisions.try(:sum, :passing_marks)/@setting.marks_divisions.try(:sum, :total_marks) * 100), precision: 2) %></td>
-            <td></td>
+            <td class="text-center dark-blue"><%= @setting.marks_divisions.try(:sum, :passing_marks) %></td>
+            <td class="text-center dark-blue"><%= number_to_percentage((@setting.marks_divisions.try(:sum, :passing_marks)/@setting.marks_divisions.try(:sum, :total_marks) * 100), precision: 2) %></td>
+            <td class="dark-blue"></td>
         <% end %>
       </tr>
       <% @setting.subjects.where(parent_id: nil).each do |subject| %>
