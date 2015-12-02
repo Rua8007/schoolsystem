@@ -1,4 +1,16 @@
-<h3><%= @student.fullname %>&nbsp;:&nbsp;<%= @class.full_name %>&nbsp;:&nbsp;<%= @class.batch.name %></h3>
+<style>
+  .light-blue{  background-color: #B2D7EC;  }
+  .yellow { background-color: #FEFF99; }
+  .light-grey{ background-color: #F2F2F2; }
+  .dark-grey { background-color: #DDD9C4; }
+  .dark-blue { background-color: #8DB4E2;}
+</style>
+
+<div class="well well-lg">
+  <h4>Student Name:           <%= @student.fullname %></h4>
+  <h4>Student ID:             <%= @student.rollnumber %></h4>
+  <h4>Grade:                  <%= @class.full_name %></h4>
+</div>
 <div class="row">
   <div class="col-sm-12 col-md-12" style="overflow-x: scroll">
     <table class="table table-bordered">
@@ -15,26 +27,26 @@
         <% @setting.exams.each do |exam| %>
             <% termwork_divisions = @setting.marks_divisions.where(is_divisible: true) %>
             <% if termwork_divisions.present? %>
-                <th class="col-sm-1 text-center" colspan="<%= termwork_divisions.try(:length) + 1 %>"><h4>TermWork (<%= exam.name %>)</h4></th>
+                <th class="col-sm-1 text-center light-grey" colspan="<%= termwork_divisions.try(:length) + 1 %>"><h4>TermWork (<%= exam.name %>)</h4></th>
             <% else %>
                 <th></th>
             <% end %>
-            <th class="col-sm-1 text-center">Quarter TW Total</th>
+            <th class="col-sm-1 text-center dark-grey">Quarter TW Total</th>
             <% papers_divisions = @setting.marks_divisions.where(is_divisible: false) %>
             <% if papers_divisions.present? %>
-                <th class="col-sm-1 text-center" colspan="<%= papers_divisions.try(:length) %>">(<%= "#{papers_divisions.try(:pluck, :name).try(:join, '&')} #{exam.name}" %>)</th>
-                <th class="col-sm-1 text-center"><%= "#{papers_divisions.try(:pluck, :name).try(:join, '&')} Total" %> </th>
+                <th class="col-sm-1 text-center light-grey" colspan="<%= papers_divisions.try(:length) %>">(<%= "#{papers_divisions.try(:pluck, :name).try(:join, '&')} #{exam.name}" %>)</th>
+                <th class="col-sm-1 text-center dark-grey"><%= "#{papers_divisions.try(:pluck, :name).try(:join, '&')} Total" %> </th>
             <% end %>
-            <th class="col-sm-1 text-center"><%= "#{exam.name} Total" %> </th>
-            <th class="text-center">%</th>
-            <th>Evaluation</th>
+            <th class="col-sm-1 text-center dark-blue"><%= "#{exam.name} Total" %> </th>
+            <th class="text-center dark-blue">%</th>
+            <th class="dark-blue">Evaluation</th>
         <% end %>
       </tr>
       <tr>
         <% @setting.exams.each do |exam| %>
-            <td class="text-center">Subject</td>
+            <td class="text-center light-blue">Subject</td>
             <% @setting.marks_divisions.where(is_divisible: true).try(:each) do |division| %>
-                <td class="text-center"><%= division.name %></td>
+                <td class="text-center light-blue"><%= division.name %></td>
             <% end %>
             <td class="col-sm-1"></td>
             <% @setting.marks_divisions.where(is_divisible: false).try(:each) do |division| %>
@@ -48,9 +60,9 @@
       </tr>
       <tr>
         <% @setting.exams.each do |exam| %>
-            <td class="text-center">Full Marks</td>
+            <td class="text-center light-blue">Full Marks</td>
             <% @setting.marks_divisions.where(is_divisible: true).try(:each) do |division| %>
-                <td class="text-center"><%= division.total_marks %></td>
+                <td class="text-center light-blue"><%= division.total_marks %></td>
             <% end %>
             <td class="col-sm-1"></td>
             <% @setting.marks_divisions.where(is_divisible: false).try(:each) do |division| %>
@@ -66,9 +78,9 @@
       </tr>
       <tr>
         <% @setting.exams.each do |exam| %>
-            <td class="text-center">Passing Marks</td>
+            <td class="text-center light-blue">Passing Marks</td>
             <% @setting.marks_divisions.where(is_divisible: true).try(:each) do |division| %>
-                <td class="text-center"><%= division.passing_marks %></td>
+                <td class="text-center light-blue"><%= division.passing_marks %></td>
             <% end %>
             <td class="col-sm-1"></td>
             <% @setting.marks_divisions.where(is_divisible: false).try(:each) do |division| %>
