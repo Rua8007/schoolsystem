@@ -24,7 +24,7 @@
             <tr>
                 <% termwork_divisions = @setting.marks_divisions.where(is_divisible: true) %>
                 <% if termwork_divisions.present? %>
-                    <th class="col-sm-1 text-center light-grey" colspan="<%= termwork_divisions.try(:length) + 1 %>"><h4>TermWork (<%= exam.name %>)</h4></th>
+                    <th class="col-sm-4 text-center light-grey" colspan="<%= termwork_divisions.try(:length) + 1 %>"><h4>TermWork (<%= exam.name %>)</h4></th>
                 <% else %>
                     <th></th>
                 <% end %>
@@ -39,7 +39,7 @@
                 <th class="dark-blue">Evaluation</th>
             </tr>
             <tr>
-                <td class="text-center light-blue">Subject</td>
+                <td class="text-center light-blue col-sm-2">Subject</td>
                 <% @setting.marks_divisions.where(is_divisible: true).try(:each) do |division| %>
                     <td class="text-center light-blue"><%= division.name %></td>
                 <% end %>
