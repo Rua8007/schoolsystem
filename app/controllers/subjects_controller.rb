@@ -77,7 +77,9 @@ class SubjectsController < ApplicationController
     @subjects = []
     if @bridges.present?
       @bridges.each do |bridge|
-        @subjects << bridge.subject if bridge.subject.try(:parent).nil?
+        if bridge.subject.present?
+          @subjects << bridge.subject if bridge.subject.try(:parent).nil?
+        end
       end
     end
 
