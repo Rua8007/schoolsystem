@@ -1,0 +1,69 @@
+<style>
+    .nested-fields .btn-danger{
+        margin-top: 1.6em;
+    }
+</style>
+<%= form_for(@setting, url: create_marks_divisions_path(@setting), method: :post) do |f| %>
+    <% if @setting.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@setting.errors.count, "error") %> prohibited this grade_group from being saved:</h2>
+
+          <ul>
+            <% @setting.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+    <div class="container form-holder">
+      <div class="row">
+        <br>
+        <fieldset class="sss well well-lg">
+          <legend class="lll">Grade Information</legend>
+          <div class = "row">
+            <div class="column col-xs-12 col-sm-5">
+              <div class="form-group ">
+                <div class="field">
+                  <%= f.label :name, 'Grade' %><br>
+                  <input type="text" disabled="disabled" value="<%= @setting.grade.try(:name) %>" class="form-control" style="height: 34px;"/>
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="sss well well-lg">
+          <legend class="lll">Term Work</legend>
+          <div class = "row">
+            <% if @setting.marks_divisions.present? %>
+                <%= f.fields_for :marks_divisions do |m| %>
+                    <%= render 'marks_division_fields', f: m %>
+                <% end %>
+            <% end %>
+            <div class="links col-sm-12">
+              <%= link_to_add_association 'Add Marks Divisions', f, :marks_divisions, class: 'btn btn-success', role: 'button'  %>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="sss well well-lg">
+          <legend class="lll">Exams</legend>
+          <div class = "row">
+            <% if @setting.marks_divisions.present? %>
+                <%= f.fields_for :marks_divisions do |m| %>
+                    <%= render 'marks_division_fields', f: m %>
+                <% end %>
+            <% end %>
+            <div class="links col-sm-12">
+              <%= link_to_add_association 'Add Marks Divisions', f, :marks_divisions, class: 'btn btn-success', role: 'button'  %>
+            </div>
+          </div>
+        </fieldset>
+
+        <div class="actions">
+          <%= f.submit 'Next', class: 'btn btn-block btn-success form-control', style: 'width:24%;float: right;' %>
+        </div>
+
+      </div>
+    </div>
+<% end %>

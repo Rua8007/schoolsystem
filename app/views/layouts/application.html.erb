@@ -1068,21 +1068,6 @@
                           <% end %>
                         </li>
                       <% end %>
-                      <!--<% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'create_grade_group').any? %>-->
-                          <!--<li>-->
-                            <!--<%= link_to(new_grade_group_path) do %>-->
-                                <!--<span>Create Class Grade</span>-->
-                            <!--<% end %>-->
-                          <!--</li>-->
-                      <!--<% end %>-->
-
-                      <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'create_grade_group').any? %>
-                          <li>
-                            <%= link_to(grade_groups_path) do %>
-                                <span>List of Class Grades</span>
-                            <% end %>
-                          </li>
-                      <% end %>
 
                       <% if current_user.role.name == 'Teacher' %>
                         <li>
@@ -1107,10 +1092,10 @@
                       </li>
                     <% end %>
 
-                    <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'group_subjects').any? %>
+                    <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'design_report_cards').any? %>
                       <li>
-                        <%= link_to(group_subjects_path) do %>
-                            <span>Group Subjects</span>
+                        <%= link_to(new_report_card_setting_path) do %>
+                            <span style="font-size: 85%">Design Report Cards</span>
                         <% end %>
                       </li>
                     <% end %>

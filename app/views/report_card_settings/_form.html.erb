@@ -1,0 +1,57 @@
+<%= form_for(@setting) do |f| %>
+    <% if @setting.errors.any? %>
+        <div id="error_explanation">
+          <h3><%= pluralize(@setting.errors.count, "error") %> prohibited this subject from being saved:</h3>
+
+          <ul>
+            <% @setting.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="form-holder">
+      <div class="row">
+        <div class="column col-xs-12 col-sm-6">
+          <div class="form-group ">
+            <div class="field">
+              <%= f.label :grade_id, 'Select Grade' %><br>
+              <%= f.select :grade_id, options_from_collection_for_select(Grade.where(section: nil).order('name'), 'id', 'name'), {include_blank: false}, {class: 'form-control'} %>
+            </div>
+          </div>
+        </div>
+        <div class="column col-xs-12 col-sm-6">
+          <div class="form-group ">
+            <div class="field">
+              <%= f.label :exam_id, 'Select Exam' %><br>
+              <%= f.select :exam_id, options_from_collection_for_select(Exam.all.order('name'), 'id', 'name'), {include_blank: false}, {class: 'form-control'} %>
+            </div>
+          </div>
+        </div>
+        <div class="column col-xs-12 col-sm-6">
+          <div class="form-group ">
+            <div class="field">
+              <%= f.label :report_type_id, 'Select Report Type' %><br>
+              <%= f.select :report_type_id, options_from_collection_for_select([[1, 'Quarterly'], [2, 'Semesterly'], [3, 'Comments Based']], :first, :last), {include_blank: false}, {class: 'form-control'} %>
+            </div>
+          </div>
+        </div>
+        <div class="column col-xs-12 col-sm-6">
+          <div class="form-group ">
+            <div class="field">
+              <%= f.label :batch, 'Select Batch' %><br>
+              <%= f.select :batch_id, options_from_collection_for_select(Batch.order('name'), 'id', 'name'), {include_blank: false}, {class: 'form-control'} %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="actions col-sm-2 col-md-2 pull-right">
+          <%= f.submit 'Next', class: 'btn btn-block btn-success form-control' %>
+        </div>
+      </div>
+
+    </div>
+
+<% end %>
