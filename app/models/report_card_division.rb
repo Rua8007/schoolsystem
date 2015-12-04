@@ -4,4 +4,11 @@ class ReportCardDivision < ActiveRecord::Base
     report_card_division.update(total_marks: division.total_marks, passing_marks: division.passing_marks) unless division.total_marks == report_card_division.total_marks and division.passing_marks == report_card_division.passing_marks
     report_card_division
   end
+
+  before_save :check_is_divisible
+
+  def check_is_divisible
+    self.is_divisible = false if self.is_divisible.nil?
+    true
+  end
 end

@@ -1,49 +1,74 @@
-<div class="nested-fields" >
-  <div class="row">
-    <div class="col-sm-12 col-xs-12">
-      <div class="column col-xs-12 col-sm-3">
-        <div class="form-group ">
-          <div class="field">
-            <%= f.label :name %><br>
-            <%= f.text_field :name, :style => 'height:34px;',  class: 'form-control' , required: true, autofocus: true %>
+<% klass = exam ? 'exam' : 'termwork'
+   @display = true
+%>
+<% if f.object.persisted? %>
+    <% if exam %>
+        <% @display = !(f.object.is_divisible) %>
+    <% else %>
+        <% @display = f.object.is_divisible %>
+    <% end %>
+<% end %>
+<% if @display %>
+    <div class="nested-fields" >
+      <div class="row">
+        <div class="col-sm-12 col-xs-12">
+          <div class="column col-xs-12 col-sm-3">
+            <div class="form-group ">
+              <div class="field">
+                <%= f.label :name %><br>
+                <%= f.text_field :name, :style => 'height:34px;',  class: 'form-control' , required: true, autofocus: true %>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div class="column col-xs-12 col-sm-2">
-        <div class="form-group ">
-          <div class="field">
-            <%= f.label :total_marks %><br>
-            <%= f.text_field :total_marks ,:style => 'height:34px;',  class: 'form-control' , required: true, autofocus: true %>
+          <div class="column col-xs-12 col-sm-2">
+            <div class="form-group ">
+              <div class="field">
+                <%= f.label :total_marks %><br>
+                <%= f.text_field :total_marks ,:style => 'height:34px;',  class: "form-control total #{klass}-total" , required: true, autofocus: true %>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
 
-      <div class="column col-xs-12 col-sm-2">
-        <div class="form-group ">
-          <div class="field">
-            <%= f.label :passing_marks %><br>
-            <%= f.text_field :passing_marks ,:style => 'height:34px;',  class: 'form-control' , required: true, autofocus: true %>
+          <div class="column col-xs-12 col-sm-2">
+            <div class="form-group ">
+              <div class="field">
+                <label for="passing_percentage">Passing marks in %</label><br>
+                <input type="text" id="passing_percentage" class="form-control percentage" style="height: 34px" value="<%= number_with_precision( ((f.object.passing_marks/f.object.total_marks || 1) * 100), precision: 2) if f.object.persisted? %>"/>
+              </div>
+            </div>
           </div>
+
+          <div class="column col-xs-12 col-sm-2">
+            <div class="form-group ">
+              <div class="field">
+                <%= f.label :passing_marks %><br>
+                <%= f.text_field :passing_marks ,:style => 'height:34px;',  class: 'form-control passing' , required: true, autofocus: true %>
+              </div>
+            </div>
+          </div>
+
+          <% if !exam %>
+            <%= f.check_box(:is_divisible, { class: 'hidden', checked: 'checked' }, true, false) %>
+          <% end %>
+          <div class="col-xs-2 col-sm-1">
+            <%= link_to_remove_association '', f, class: 'btn btn-danger glyphicon glyphicon glyphicon-trash' %>
+          </div>
+          <!--<div class="col-sm-12">-->
+            <!--<fieldset class="sss well well-lg">-->
+              <!--<legend class="lll">Sub Divisions</legend>-->
+              <!--<div class = "row">-->
+                <!--<#% if f.object.sub_divisions.present? %>-->
+                    <!--<#%= f.fields_for :sub_divisions do |sub| %>-->
+                        <!--<#%= render 'sub_division_fields', f: sub %>-->
+                    <!--<#% end %>-->
+                <!--<#% end %>-->
+                <!--<div class="links col-sm-12">-->
+                  <!--<#%= link_to_add_association 'Add sub division', f, :sub_divisions, class: 'btn btn-primary', role: 'button'  %>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</fieldset>-->
+          <!--</div>-->
         </div>
       </div>
-      <div class="col-xs-2 col-sm-1">
-        <%= link_to_remove_association '', f, class: 'btn btn-danger glyphicon glyphicon glyphicon-trash' %>
-      </div>
-      <!--<div class="col-sm-12">-->
-        <!--<fieldset class="sss well well-lg">-->
-          <!--<legend class="lll">Sub Divisions</legend>-->
-          <!--<div class = "row">-->
-            <!--<#% if f.object.sub_divisions.present? %>-->
-                <!--<#%= f.fields_for :sub_divisions do |sub| %>-->
-                    <!--<#%= render 'sub_division_fields', f: sub %>-->
-                <!--<#% end %>-->
-            <!--<#% end %>-->
-            <!--<div class="links col-sm-12">-->
-              <!--<#%= link_to_add_association 'Add sub division', f, :sub_divisions, class: 'btn btn-primary', role: 'button'  %>-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</fieldset>-->
-      <!--</div>-->
     </div>
-  </div>
-</div>
+<% end %>

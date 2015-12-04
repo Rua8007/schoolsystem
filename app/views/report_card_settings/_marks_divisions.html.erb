@@ -2,6 +2,9 @@
     .nested-fields .btn-danger{
         margin-top: 1.6em;
     }
+    .large-text{
+        font-size: 1.4em;
+    }
 </style>
 <%= form_for(@setting, url: create_marks_divisions_path(@setting), method: :post) do |f| %>
     <% if @setting.errors.any? %>
@@ -35,13 +38,14 @@
         <fieldset class="sss well well-lg">
           <legend class="lll">Term Work</legend>
           <div class = "row">
+            <div class="col-sm-12 col-md-12 large-text">Marks Consumed: <b><span id="termwork-consumed"><%= @setting.marks_divisions.where(is_divisible: true).try(:sum, :total_marks) || 0 %></span></b></div>
             <% if @setting.marks_divisions.present? %>
                 <%= f.fields_for :marks_divisions do |m| %>
-                    <%= render 'marks_division_fields', f: m %>
+                    <%= render 'marks_division_fields', f: m, exam: false %>
                 <% end %>
             <% end %>
             <div class="links col-sm-12">
-              <%= link_to_add_association 'Add Marks Divisions', f, :marks_divisions, class: 'btn btn-success', role: 'button'  %>
+              <%= link_to_add_association 'Add Marks Divisions', f, :marks_divisions, render_options:  {locals: { exam: false }}, class: 'btn btn-success', role: 'button'  %>
             </div>
           </div>
         </fieldset>
@@ -49,13 +53,14 @@
         <fieldset class="sss well well-lg">
           <legend class="lll">Exams</legend>
           <div class = "row">
+            <div class="col-sm-12 col-md-12 large-text">Marks Consumed: <b><span id="exam-consumed"><%= @setting.marks_divisions.where(is_divisible: false).try(:sum, :total_marks) || 0 %></span></b></div>
             <% if @setting.marks_divisions.present? %>
                 <%= f.fields_for :marks_divisions do |m| %>
-                    <%= render 'marks_division_fields', f: m %>
+                    <%= render 'marks_division_fields', f: m, exam: true %>
                 <% end %>
             <% end %>
             <div class="links col-sm-12">
-              <%= link_to_add_association 'Add Marks Divisions', f, :marks_divisions, class: 'btn btn-success', role: 'button'  %>
+              <%= link_to_add_association 'Add Marks Divisions', f, :marks_divisions, render_options:  {locals: { exam: true }}, class: 'btn btn-success', role: 'button'  %>
             </div>
           </div>
         </fieldset>
@@ -67,3 +72,54 @@
       </div>
     </div>
 <% end %>
+
+<script type="text/javascript">
+    $(document).on('blur', '.percentage, .total', function(){
+        var total_marks = $(this).parents('.nested-fields').find('.total').val();
+        var percentage = $(this).parents('.nested-fields').find('.percentage').val();
+        if( total_marks === '' || percentage === ''){
+            $(this).parents('.nested-fields').find('.passing').val(0);
+        }
+        else{
+            total_marks = parseFloat(total_marks);
+            percentage = parseFloat(percentage);
+
+            var passing_marks = total_marks * (percentage/100.0);
+            passing_marks = parseFloat(passing_marks);
+            if(isNaN(passing_marks)){
+                $(this).parents('.nested-fields').find('.passing').val(0);
+            }
+            else{
+                $(this).parents('.nested-fields').find('.passing').val(passing_marks.toFixed(2));
+            }
+
+        }
+    });
+
+    $(document).on('blur', '.termwork-total', function(){
+        alert('Here');
+        var sum = 0.0;
+        $('.termwork-total').each(function(){
+            var val = parseFloat($(this).val());
+            if(isNaN(val)){
+            }
+            else{
+                sum = sum + val;
+            }
+        });
+        $('#termwork-consumed').html(sum);
+    });
+
+    $(document).on('blur', '.exam-total', function(){
+        var sum = 0.0;
+        $('.exam-total').each(function(){
+            var val = parseFloat($(this).val());
+            if(isNaN(val)){
+            }
+            else{
+                sum = sum + val;
+            }
+        });
+        $('#exam-consumed').html(sum);
+    });
+</script>

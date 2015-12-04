@@ -34,13 +34,23 @@ class ReportCardSettingsController < ApplicationController
   end
 
   def create_marks_divisions
+    @setting = ReportCardSetting.find(params[:id])
+    if @setting.update(setting_params)
+      render json: @setting.marks_divisions.to_json
+    else
+      flash[:notice] = @setting.errors.full_messages
+      puts '========================================'
+      puts '========================================'
+      redirect_to new_marks_divisions_path(@setting)
+    end
 
   end
 
   private
 
   def setting_params
-    params.require(:report_card_setting).permit(:grade_id, :batch_id, :exam_id, :report_type_id)
+    params.require(:report_card_setting).permit(:grade_id, :batch_id, :exam_id, :report_type_id,
+                                                marks_divisions_attributes: [:id, :name, :passing_marks, :total_marks, :is_divisible, :_destroy])
   end
 
 end
