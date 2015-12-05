@@ -17,7 +17,7 @@
           <div class="form-group ">
             <div class="field">
               <%= f.label :grade_id, 'Select Grade' %><br>
-              <%= f.select :grade_id, options_from_collection_for_select(Grade.where(section: nil).order('name'), 'id', 'name'), {include_blank: false}, {class: 'form-control'} %>
+              <%= f.select :grade_id, options_from_collection_for_select(Grade.where(section: nil).order('name'), 'id', 'name'), {include_blank: false}, {class: 'form-control', onchange: 'get_grade_exams(this.value);'} %>
             </div>
           </div>
         </div>
@@ -25,7 +25,7 @@
           <div class="form-group ">
             <div class="field">
               <%= f.label :exam_id, 'Select Exam' %><br>
-              <%= f.select :exam_id, options_from_collection_for_select(Exam.all.order('name'), 'id', 'name'), {include_blank: false}, {class: 'form-control'} %>
+              <%= f.select :exam_id, options_from_collection_for_select(@exams, 'id', 'name'), {include_blank: false}, {class: 'form-control exam' } %>
             </div>
           </div>
         </div>
@@ -55,3 +55,28 @@
     </div>
 
 <% end %>
+
+<script type="text/javascript">
+
+  function get_grade_exams(grade_id){
+      $.ajax({
+          url: '/report_card_settings/get_grade_exams',
+          data: {grade_id: grade_id},
+          method: 'POST',
+          dataType: 'json',
+          success: function(data){
+              var select = $('.exam');
+              $(select).html('');
+              if(data.exams.length != 0){
+                  $(data.exams).each(function(index){
+                      $(select).append($('<option />', { value: (this.id), text: this.name }));
+                  });
+              }
+          },
+          error: function(){
+              alert('Cannot load exams. Please refresh the page and try again.');
+          }
+      });
+  }
+
+</script>

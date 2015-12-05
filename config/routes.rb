@@ -326,6 +326,7 @@ end
   resources :report_card_settings
   get '/report_card_settings/create_marks_divisions/:id' => 'report_card_settings#new_marks_divisions', as: :new_marks_divisions
   post '/report_card_settings/create_marks_divisions/:id' => 'report_card_settings#create_marks_divisions', as: :create_marks_divisions
+  post '/report_card_settings/get_grade_exams' => 'report_card_settings#get_grade_exams'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

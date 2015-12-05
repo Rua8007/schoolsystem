@@ -2,6 +2,8 @@ class ReportCardSettingsController < ApplicationController
 
   def new
     @setting = ReportCardSetting.new
+    grade = Grade.where(section: nil).order('name').first
+    @exams = Exam.where(grade_id: grade.id)
   end
 
   def create
@@ -39,11 +41,16 @@ class ReportCardSettingsController < ApplicationController
       render json: @setting.marks_divisions.to_json
     else
       flash[:notice] = @setting.errors.full_messages
-      puts '========================================'
-      puts '========================================'
       redirect_to new_marks_divisions_path(@setting)
     end
 
+  end
+
+  def get_grade_exams
+    grade = Grade.find(params[:grade_id])
+    exams = Exam.where(grade_id: grade.id).order('name')
+
+    render json: {exams: exams}
   end
 
   private
