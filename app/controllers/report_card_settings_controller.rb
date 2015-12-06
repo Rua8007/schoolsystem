@@ -2,8 +2,9 @@ class ReportCardSettingsController < ApplicationController
 
   def new
     @setting = ReportCardSetting.new
-    grade = Grade.where(section: nil).order('name').first
-    @exams = Exam.where(grade_id: grade.id)
+    @grade = params[:grade_id].present? ? Grade.find(params[:grade_id]) : Grade.where(section: nil).order('name').first
+    @exams = Exam.where(grade_id: @grade.id)
+    @exam = params[:exam_id].present? ? Exam.find(params[:exam_id]) : @exams.first
   end
 
   def create
@@ -14,14 +15,14 @@ class ReportCardSettingsController < ApplicationController
         redirect_to new_marks_divisions_path(@setting)
       else
         flash[:notice] = 'Some thing bad happened. Please try again.'
-        redirect_to new_report_card_setting_path
+        redirect_to report_card_setting_new_path(@setting.grade_id, @setting.exam_id)
       end
 
     elsif @setting.report_type_id == setting_params[:report_type_id].to_i
       redirect_to new_marks_divisions_path(@setting)
     else
       flash[:notice] = 'Another report card exists with different report type.'
-      redirect_to new_report_card_setting_path
+      redirect_to report_card_setting_new_path(@setting.grade_id, @setting.exam_id)
     end
   end
 
@@ -33,6 +34,9 @@ class ReportCardSettingsController < ApplicationController
 
   def new_marks_divisions
     @setting = ReportCardSetting.find(params[:id])
+    @previous_setting = ReportCardSetting.where(grade_id: @setting.grade_id).try(:first)
+    puts '============================================='
+    @setting.marks_divisions << @previous_setting.marks_divisions if @previous_setting.present? and @setting.marks_divisions.blank?
   end
 
   def create_marks_divisions

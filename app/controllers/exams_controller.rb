@@ -37,7 +37,8 @@ class ExamsController < ApplicationController
 
     respond_to do |format|
       if @exam.save
-        format.html { redirect_to exams_path, notice: 'Exam was successfully created.' }
+        flash[:notice] = 'Exam was successfully created.'
+        format.html { redirect_to report_card_setting_new_path(@exam.grade_id, @exam.id) }
         format.json { render :show, status: :created, location: @exam }
       else
         format.html { render :new }
@@ -81,6 +82,6 @@ class ExamsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def exam_params
-      params.require(:exam).permit(:name, :batch_id, :start_date, :end_date)
+      params.require(:exam).permit(:name, :batch_id, :start_date, :end_date, :grade_id)
     end
 end
