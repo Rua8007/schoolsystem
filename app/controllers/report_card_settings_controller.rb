@@ -35,7 +35,6 @@ class ReportCardSettingsController < ApplicationController
   def new_marks_divisions
     @setting = ReportCardSetting.find(params[:id])
     @previous_setting = ReportCardSetting.where(grade_id: @setting.grade_id).try(:first)
-    puts '============================================='
     @setting.marks_divisions << @previous_setting.marks_divisions if @previous_setting.present? and @setting.marks_divisions.blank?
   end
 

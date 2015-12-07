@@ -24,11 +24,19 @@
         <fieldset class="sss well well-lg">
           <legend class="lll">Grade Information</legend>
           <div class = "row">
-            <div class="column col-xs-12 col-sm-5">
+            <div class="column col-xs-12 col-sm-4">
               <div class="form-group ">
                 <div class="field">
                   <%= f.label :name, 'Grade' %><br>
                   <input type="text" disabled="disabled" value="<%= @setting.grade.try(:name) %>" class="form-control" style="height: 34px;"/>
+                </div>
+              </div>
+            </div>
+            <div class="column col-xs-12 col-sm-4">
+              <div class="form-group ">
+                <div class="field">
+                  <%= f.label :name, 'Quarter' %><br>
+                  <input type="text" disabled="disabled" value="<%= @setting.exam.try(:name) %>" class="form-control" style="height: 34px;"/>
                 </div>
               </div>
             </div>
@@ -38,7 +46,8 @@
         <fieldset class="sss well well-lg">
           <legend class="lll">Term Work</legend>
           <div class = "row">
-            <div class="col-sm-12 col-md-12 large-text">Marks Consumed: <b><span id="termwork-consumed"><%= @setting.marks_divisions.where(is_divisible: true).try(:sum, :total_marks) || 0 %></span></b></div>
+            <div class="col-sm-6 col-md-6 large-text">Marks Consumed: <b><span id="termwork-consumed"><%= @setting.marks_divisions.where(is_divisible: true).try(:sum, :total_marks) || 0 %></span></b></div>
+            <div class="col-sm-6 col-md-6 large-text"><span class="pull-right">Total Marks Consumed: <b><span id="total-consumed"><%= @setting.marks_divisions.try(:sum, :total_marks) || 0 %></span></b></span></div>
             <% if @setting.marks_divisions.present? %>
                 <%= f.fields_for :marks_divisions do |m| %>
                     <%= render 'marks_division_fields', f: m, exam: false %>
@@ -97,28 +106,51 @@
     });
 
     $(document).on('blur', '.termwork-total', function(){
-        var sum = 0.0;
+        var termwork_sum = 0.0;
         $('.termwork-total').each(function(){
             var val = parseFloat($(this).val());
             if(isNaN(val)){
             }
             else{
-                sum = sum + val;
+                termwork_sum = termwork_sum + val;
             }
         });
-        $('#termwork-consumed').html(sum);
-    });
 
-    $(document).on('blur', '.exam-total', function(){
-        var sum = 0.0;
+        var exam_sum = 0.0;
         $('.exam-total').each(function(){
             var val = parseFloat($(this).val());
             if(isNaN(val)){
             }
             else{
-                sum = sum + val;
+                exam_sum = exam_sum + val;
             }
         });
-        $('#exam-consumed').html(sum);
+
+        $('#termwork-consumed').html(termwork_sum);
+        $('#total-consumed').html(termwork_sum + exam_sum);
+    });
+
+    $(document).on('blur', '.exam-total', function(){
+        var termwork_sum = 0.0;
+        $('.termwork-total').each(function(){
+            var val = parseFloat($(this).val());
+            if(isNaN(val)){
+            }
+            else{
+                termwork_sum = termwork_sum + val;
+            }
+        });
+
+        var exam_sum = 0.0;
+        $('.exam-total').each(function(){
+            var val = parseFloat($(this).val());
+            if(isNaN(val)){
+            }
+            else{
+                exam_sum = exam_sum + val;
+            }
+        });
+        $('#exam-consumed').html(exam_sum);
+        $('#total-consumed').html(termwork_sum + exam_sum);
     });
 </script>
