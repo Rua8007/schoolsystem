@@ -1,0 +1,159 @@
+<style>
+    .light-blue{  background-color: #B2D7EC;  }
+    .yellow { background-color: #FEFF99; }
+    .light-grey{ background-color: #F2F2F2; }
+    .dark-grey { background-color: #DDD9C4; }
+    .dark-blue { background-color: #8DB4E2;}
+
+    .table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
+        border: 1px solid black;
+    }
+
+    .toggle{
+        margin-top: 0.3em;
+    }
+</style>
+<%= form_for(@setting, url: create_headings_path(@setting), method: :post) do |f| %>
+    <% if @setting.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@setting.errors.count, "error") %> prohibited this grade_group from being saved:</h2>
+
+          <ul>
+            <% @setting.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+    <div class="container form-holder">
+      <div class="row">
+        <br>
+        <fieldset class="sss well well-lg">
+          <legend class="lll">Grade Information</legend>
+          <div class = "row">
+            <div class="column col-xs-12 col-sm-4">
+              <div class="form-group ">
+                <div class="field">
+                  <%= f.label :name, 'Grade' %><br>
+                  <input type="text" disabled="disabled" value="<%= @setting.grade.try(:name) %>" class="form-control" style="height: 34px;"/>
+                </div>
+              </div>
+            </div>
+            <div class="column col-xs-12 col-sm-4">
+              <div class="form-group ">
+                <div class="field">
+                  <%= f.label :name, 'Quarter' %><br>
+                  <input type="text" disabled="disabled" value="<%= @setting.exam.try(:name) %>" class="form-control" style="height: 34px;"/>
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+        <br />
+        <div class="col-md-12">
+          <table class="table bordered">
+            <thead>
+            <tr>
+              <th colspan="4" class="col-md-3 text-center light-grey"><h5>(Termwork)</h5></th>
+              <th colspan="1" class="dark-grey"><h5>(Termwork Total)</h5></th>
+              <th colspan="2" class="light-grey"><h5>(Exams)</h5></th>
+              <th colspan="1" class="dark-grey"><h5>(Exams Total)</h5></th>
+              <th colspan="1" class="dark-blue"><h5>(Quarter Total)</h5></th>
+              <th colspan="1" class="dark-blue"><h5>(Quarter Percentage)</h5></th>
+            </tr>
+            </thead>
+
+          </table>
+
+        </div>
+
+        <fieldset class="sss well well-lg">
+          <legend class="lll">Edit Headings</legend>
+          <div class = "row">
+            <% if @setting.headings.present? %>
+                <%= f.fields_for :headings do |h| %>
+                    <%= render 'heading_fields', f: h %>
+                <% end %>
+            <% end %>
+          </div>
+        </fieldset>
+
+        <div class="actions">
+          <%= f.submit 'Next', class: 'btn btn-block btn-success form-control', style: 'width:24%;float: right;' %>
+        </div>
+      </div>
+    </div>
+<% end %>
+
+<script type="text/javascript">
+//    $(document).on('blur', '.percentage, .total', function(){
+//        var total_marks = $(this).parents('.nested-fields').find('.total').val();
+//        var percentage = $(this).parents('.nested-fields').find('.percentage').val();
+//        if( total_marks === '' || percentage === ''){
+//            $(this).parents('.nested-fields').find('.passing').val(0);
+//        }
+//        else{
+//            total_marks = parseFloat(total_marks);
+//            percentage = parseFloat(percentage);
+//
+//            var passing_marks = total_marks * (percentage/100.0);
+//            passing_marks = parseFloat(passing_marks);
+//            if(isNaN(passing_marks)){
+//                $(this).parents('.nested-fields').find('.passing').val(0);
+//            }
+//            else{
+//                $(this).parents('.nested-fields').find('.passing').val(passing_marks.toFixed(2));
+//            }
+//
+//        }
+//    });
+//
+//    $(document).on('blur', '.termwork-total', function(){
+//        var termwork_sum = 0.0;
+//        $('.termwork-total').each(function(){
+//            var val = parseFloat($(this).val());
+//            if(isNaN(val)){
+//            }
+//            else{
+//                termwork_sum = termwork_sum + val;
+//            }
+//        });
+//
+//        var exam_sum = 0.0;
+//        $('.exam-total').each(function(){
+//            var val = parseFloat($(this).val());
+//            if(isNaN(val)){
+//            }
+//            else{
+//                exam_sum = exam_sum + val;
+//            }
+//        });
+//
+//        $('#termwork-consumed').html(termwork_sum);
+//        $('#total-consumed').html(termwork_sum + exam_sum);
+//    });
+//
+//    $(document).on('blur', '.exam-total', function(){
+//        var termwork_sum = 0.0;
+//        $('.termwork-total').each(function(){
+//            var val = parseFloat($(this).val());
+//            if(isNaN(val)){
+//            }
+//            else{
+//                termwork_sum = termwork_sum + val;
+//            }
+//        });
+//
+//        var exam_sum = 0.0;
+//        $('.exam-total').each(function(){
+//            var val = parseFloat($(this).val());
+//            if(isNaN(val)){
+//            }
+//            else{
+//                exam_sum = exam_sum + val;
+//            }
+//        });
+//        $('#exam-consumed').html(exam_sum);
+//        $('#total-consumed').html(termwork_sum + exam_sum);
+//    });
+</script>

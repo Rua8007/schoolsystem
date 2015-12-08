@@ -26,7 +26,7 @@
                 <% if termwork_divisions.present? %>
                     <th class="col-sm-4 text-center light-grey" colspan="<%= termwork_divisions.try(:length) + 1 %>"><h4>TermWork (<%= exam.name %>)</h4></th>
                 <% else %>
-                    <th></th>
+                    <th class="light-grey"></th>
                 <% end %>
                 <th class="col-sm-1 text-center dark-grey">Quarter TW Total</th>
                 <% papers_divisions = @setting.marks_divisions.where(is_divisible: false) %>

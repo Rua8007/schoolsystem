@@ -327,6 +327,10 @@ end
   get '/report_card_settings/new/:grade_id/:exam_id' => 'report_card_settings#new', as: :report_card_setting_new
   get '/report_card_settings/create_marks_divisions/:id' => 'report_card_settings#new_marks_divisions', as: :new_marks_divisions
   post '/report_card_settings/create_marks_divisions/:id' => 'report_card_settings#create_marks_divisions', as: :create_marks_divisions
+
+  get '/report_card_settings/report_card_headings/:id' => 'report_card_settings#new_headings', as: :new_headings
+  post '/report_card_settings/report_card_headings/:id' => 'report_card_settings#create_headings', as: :create_headings
+
   post '/report_card_settings/get_grade_exams' => 'report_card_settings#get_grade_exams'
 
   # Example of regular route:
