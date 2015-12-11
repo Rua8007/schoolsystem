@@ -50,20 +50,56 @@ class ReportCardSettingsController < ApplicationController
 
   def new_headings
     @setting = ReportCardSetting.find(params[:id])
-    if @setting.headings.blank?
       Heading.all.each do |heading|
-        @setting.headings << ReportCardHeading.new(label: '', method: heading.method, show: true)
+        @setting.headings.find_or_create_by(label: '', method: heading.method, show: true)
       end
-    end
   end
 
   def create_headings
     @setting = ReportCardSetting.find(params[:id])
     if @setting.update(setting_params)
-      render json: @setting.headings.to_json
+      redirect_to new_subjects_path(@setting)
     else
       flash[:notice] = @setting.errors.full_messages
       redirect_to new_marks_divisions_path(@setting)
+    end
+  end
+
+  def new_subjects
+    @setting = ReportCardSetting.find(params[:id])
+    @grade = @setting.grade
+    @subjects = []
+    @grade.associations.try(:each) do |bridge|
+      if bridge.subject.present?
+        @subjects << bridge.subject if bridge.subject.present?
+        @setting.subjects.find_or_create_by(name: bridge.subject.name, code: bridge.subject.code)
+      end
+    end
+    @report_card_subjects = @setting.subjects.where(parent: nil)
+  end
+
+  def get_weightage
+    @setting = ReportCardSetting.find(params[:id])
+    @subject = ReportCardSubject.find_by_id(params[:subject_id]) || @setting.subjects.build
+    if @subject.new_record?
+      subject_ids = params[:subjects]
+      subject_ids.each do |id|
+        subject = ReportCardSubject.find(id)
+        @subject.sub_subjects.build(id: subject.id, name: subject.name, code: subject.code, setting_id: subject.setting_id)
+        subject.destroy
+      # Remove This Destroy Statements By Simply Assiging Parent Id Some How
+      # Or Try This @subject.sub_subjects.build(id: subject.id, name: subject.name, code: subject.code, setting_id: subject.setting_id)
+      end
+    end
+  end
+
+  def create_subjects
+    @setting = ReportCardSetting.find(params[:id])
+    if @setting.update(setting_params)
+      render json: @setting.subjects.last.sub_subjects.to_json
+    else
+      flash[:notice] = @setting.errors.full_messages
+      redirect_to new_subjects_path(@setting)
     end
   end
 
@@ -79,7 +115,10 @@ class ReportCardSettingsController < ApplicationController
   def setting_params
     params.require(:report_card_setting).permit(:grade_id, :batch_id, :exam_id, :report_type_id,
                                                 marks_divisions_attributes: [:id, :name, :passing_marks, :total_marks, :is_divisible, :_destroy],
-                                                headings_attributes: [:id, :label, :show])
+                                                headings_attributes: [:id, :label, :show],
+                                                subjects_attributes: [:id, :name, :code,
+                                                  sub_subjects_attributes: [:id, :name, :code, :weight, :parent_id, :setting_id, :_destroy]
+                                                ])
   end
 
 end

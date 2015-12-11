@@ -1,0 +1,175 @@
+<div id="subjects">
+<%= form_for(@setting, url: get_weightage_path(@setting), method: :post, remote: true, html: { id: 'subject-form'} ) do |f| %>
+    <% if @setting.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@setting.errors.count, "error") %> prohibited this grade_group from being saved:</h2>
+
+          <ul>
+            <% @setting.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+    <div class="container form-holder">
+      <div class="row">
+        <br>
+        <fieldset class="sss well well-lg">
+          <legend class="lll">Grade Information</legend>
+          <div class = "row">
+            <div class="column col-xs-12 col-sm-4">
+              <div class="form-group ">
+                <div class="field">
+                  <%= f.label :name, 'Grade' %><br>
+                  <input type="text" disabled="disabled" value="<%= @setting.grade.try(:name) %>" class="form-control" style="height: 34px;"/>
+                </div>
+              </div>
+            </div>
+            <div class="column col-xs-12 col-sm-4">
+              <div class="form-group ">
+                <div class="field">
+                  <%= f.label :name, 'Quarter' %><br>
+                  <input type="text" disabled="disabled" value="<%= @setting.exam.try(:name) %>" class="form-control" style="height: 34px;"/>
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="sss well well-lg">
+          <legend class="lll">Subject Groups</legend>
+          <div class = "row">
+            <table>
+              <tr>
+                <th>Group Name</th>
+                <th>Subjects</th>
+                <th>Actions</th>
+              </tr>
+              <% @setting.subjects.try(:each) do |subject| %>
+                  <% if subject.sub_subjects.present? %>
+                      <tr>
+                        <td><%= subject.name %></td>
+                        <td><%= subject.sub_subjects.pluck(:name).join('-') %></td>
+                        <td><%= link_to 'Edit Group', get_weightage_path(@setting, subject.id), {class: 'btn btn-success', remote: true, method: :post} %></td>
+                      </tr>
+                  <% end %>
+              <% end %>
+            </table>
+
+          </div>
+        </fieldset>
+          <fieldset class="sss well well-lg">
+            <legend class="lll">Group Remaining Subjects</legend>
+            <div class = "row">
+              <% @report_card_subjects.order('name').each do |subject| %>
+                  <% if subject.sub_subjects.blank? %>
+                      <div class="col-md-12">
+                        <div class="col-md-4">
+                          <div class="col-md-6"><label style="font-size: 1.2em;"><%= subject.name %></label></div>
+                          <div class="col-md-6">
+                            <input type="checkbox" name='subjects[]' value = "<%= subject.id %>" class="form-control subject" style="height: 20px;"/>
+                          </div>
+                        </div>
+                      </div>
+                  <% end %>
+              <% end %>
+            </div>
+            <div class="actions">
+              <%= f.submit 'Group Subjects', class: 'btn btn-block btn-success form-control', style: 'width:24%;float: right;' %>
+            </div>
+          </fieldset>
+        <!--<#% @subjects.each do |s|   %>-->
+            <!--<#%= s.name %>-->
+        <!--<#% end %>-->
+      </div>
+    </div>
+<% end %>
+</div>
+
+
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Group Subjects</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12 col-sm-12">
+            <%= form_tag get_weightage_path do %>
+                <div class="row">
+                  <div class="column col-xs-12 col-sm-4">
+                    <div class="form-group ">
+                      <div class="field">
+                        <%= label_tag :name, 'Group Name' %><br>
+                        <%= text_field_tag 'name', nil , {class: 'form-control'} %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="column col-xs-12 col-sm-4">
+                    <div class="form-group ">
+                      <div class="field">
+                        <%= label_tag :name, 'Name' %><br>
+                        <%= text_field_tag 'name[]', 'English Dictation' , {class: 'form-control', readonly: true} %>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="column col-xs-12 col-sm-4">
+                    <div class="form-group ">
+                      <div class="field">
+                        <%= label_tag :weight, 'Weight' %><br>
+                        <%= text_field_tag 'weight[]', '' , {class: 'form-control'} %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="column col-xs-12 col-sm-4">
+                    <div class="form-group ">
+                      <div class="field">
+                        <%= label_tag :name, 'Name' %><br>
+                        <%= text_field_tag 'name[]', 'English Literature' , {class: 'form-control', readonly: true} %>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="column col-xs-12 col-sm-4">
+                    <div class="form-group ">
+                      <div class="field">
+                        <%= label_tag :weight, 'Weight' %><br>
+                        <%= text_field_tag 'weight[]', '' , {class: 'form-control'} %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            <% end %>
+
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal">Save</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script type="text/javascript">
+    $('#subject-form').submit( function(event) {
+        if($('.subject:checked').length < 2) {
+            alert('Please select more than 1 subject to group.');
+            event.preventDefault();
+            return false;
+        }
+        else{
+            return true;
+        }
+     });
+</script>

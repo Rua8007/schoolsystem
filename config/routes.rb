@@ -331,7 +331,11 @@ end
   get '/report_card_settings/report_card_headings/:id' => 'report_card_settings#new_headings', as: :new_headings
   post '/report_card_settings/report_card_headings/:id' => 'report_card_settings#create_headings', as: :create_headings
 
+  get '/report_card_settings/report_card_subjects/:id' => 'report_card_settings#new_subjects', as: :new_subjects
+  post '/report_card_settings/report_card_subjects/:id' => 'report_card_settings#create_subjects', as: :create_subjects
+
   post '/report_card_settings/get_grade_exams' => 'report_card_settings#get_grade_exams'
+  post '/report_card_settings/get_weightage/:id(/:subject_id)' => 'report_card_settings#get_weightage', as: :get_weightage
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
