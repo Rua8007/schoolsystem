@@ -30,6 +30,7 @@ class ReportCardSettingsController < ApplicationController
   end
 
   def show
+    @setting = ReportCardSetting.find(params[:id])
   end
 
   def new_marks_divisions
@@ -51,7 +52,7 @@ class ReportCardSettingsController < ApplicationController
   def new_headings
     @setting = ReportCardSetting.find(params[:id])
       Heading.all.each do |heading|
-        @setting.headings.find_or_create_by(label: heading.label, method: heading.method, show: true)
+        @setting.headings.find_or_create_by(label: heading.label, method: heading.method)
       end
   end
 

@@ -16,6 +16,7 @@
     Heading.create(label: 'Quiz & Evaluations Total', method: 'exams_total' )
     Heading.create(label: 'Quarter 1 Total', method: 'quarter_total' )
     Heading.create(label: '%', method: 'quarter_percentage' )
+    Heading.create(label: 'Evaluation', method: 'evaluation' )
     Heading.create(label: 'Grade', method: 'grade' )
     Heading.create(label: 'Credit Hours', method: 'credit_hours' )
 

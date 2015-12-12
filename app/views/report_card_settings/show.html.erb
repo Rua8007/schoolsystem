@@ -1,0 +1,134 @@
+<style>
+    .light-blue{  background-color: #B2D7EC;  }
+    .yellow { background-color: #FEFF99; }
+    .light-grey{ background-color: #F2F2F2; }
+    .dark-grey { background-color: #DDD9C4; }
+    .dark-blue { background-color: #8DB4E2;}
+
+    .table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
+        border: 1px solid black;
+    }
+
+    td, th{
+        text-align: center;
+    }
+</style>
+
+<div class="row">
+  <div class="col-md-12">
+    <table class="table-bordered">
+      <thead>
+        <% headings = @setting.headings.where(show: true) %>
+        <tr>
+          <th colspan="<%= @setting.termwork + 1 %>" class="col-md-3 light-grey"><%= headings.find_by_method('termwork').try(:label)%></th>
+          <th colspan="<%= @setting.termwork_total %>" class="col-md-1 dark-grey"><%= headings.find_by_method('termwork_total').try(:label)%></th>
+          <th colspan="<%= @setting.exams %>" class="col-md-1 light-grey"><%= headings.find_by_method('exams').try(:label)%></th>
+          <th colspan="<%= @setting.exams_total %>" class="col-md-1 dark-grey"><%= headings.find_by_method('exams_total').try(:label)%></th>
+          <th colspan="<%= @setting.quarter_total %>" class="col-md-1 dark-blue"><%= headings.find_by_method('quarter_total').try(:label)%></th>
+          <th colspan="<%= @setting.quarter_percentage %>" class="col-md-1 dark-blue"><%= headings.find_by_method('quarter_percentage').try(:label)%></th>
+          <th colspan="<%= @setting.evaluation %>" class="col-md-1 dark-blue"><%= headings.find_by_method('evaluation').try(:label)%></th>
+        </tr>
+        <tr>
+          <th class="col-sm-2 light-blue">Subject</th>
+          <% if @setting.marks_divisions.where(is_divisible: true).present? %>
+            <% @setting.marks_divisions.where(is_divisible: true).each do |division| %>
+              <th class="col-sm-1 light-blue"><%= division.name %></th>
+            <% end %>
+          <% else %>
+              <th class="col-sm-1 light-blue"></th>
+          <% end %>
+          <th class="col-sm-1 dark-grey"></th>
+          <% if @setting.marks_divisions.where(is_divisible: false).present? %>
+              <% @setting.marks_divisions.where(is_divisible: false).each do |division| %>
+                  <th class="col-sm-1 light-grey"><%= division.name %></th>
+              <% end %>
+          <% else %>
+            <th class="col-sm-1 light-grey"></th>
+          <% end %>
+          <th class="col-sm-1 dark-grey"></th>
+          <th class="col-sm-1 dark-blue"></th>
+          <th class="col-sm-1 dark-blue"></th>
+          <th class="col-sm-1 dark-blue"></th>
+        </tr>
+        <tr>
+          <th class="col-sm-2 light-blue">Full Marks</th>
+          <% if @setting.marks_divisions.where(is_divisible: true).present? %>
+              <% @setting.marks_divisions.where(is_divisible: true).each do |division| %>
+                  <th class="col-sm-1 light-blue"><%= division.total_marks %></th>
+              <% end %>
+          <% else %>
+              <th class="col-sm-1 light-blue"></th>
+          <% end %>
+          <th class="col-sm-1 dark-grey"><%= @setting.marks_divisions.where(is_divisible: true).try(:sum, :total_marks) || 0 %></th>
+          <% if @setting.marks_divisions.where(is_divisible: false).present? %>
+              <% @setting.marks_divisions.where(is_divisible: false).each do |division| %>
+                  <th class="col-sm-1 light-grey"><%= division.total_marks %></th>
+              <% end %>
+          <% else %>
+              <th class="col-sm-1 light-grey"></th>
+          <% end %>
+          <th class="col-sm-1 dark-grey"><%= @setting.marks_divisions.where(is_divisible: false).try(:sum, :total_marks) || 0 %></th>
+          <th class="col-sm-1 dark-blue"><%= @setting.marks_divisions.try(:sum, :total_marks) || 0 %></th>
+          <th class="col-sm-1 dark-blue">100.00%</th>
+          <th class="col-sm-1 dark-blue"></th>
+        </tr>
+        <tr>
+          <th class="col-sm-2 light-blue">Passing Marks</th>
+          <% if @setting.marks_divisions.where(is_divisible: true).present? %>
+              <% @setting.marks_divisions.where(is_divisible: true).each do |division| %>
+                  <th class="col-sm-1 light-blue"><%= division.passing_marks %></th>
+              <% end %>
+          <% else %>
+              <th class="col-sm-1 light-blue"></th>
+          <% end %>
+          <th class="col-sm-1 dark-grey"><%= @setting.marks_divisions.where(is_divisible: true).try(:sum, :passing_marks) || 0 %></th>
+          <% if @setting.marks_divisions.where(is_divisible: false).present? %>
+              <% @setting.marks_divisions.where(is_divisible: false).each do |division| %>
+                  <th class="col-sm-1 light-grey"><%= division.passing_marks %></th>
+              <% end %>
+          <% else %>
+              <th class="col-sm-1 light-grey"></th>
+          <% end %>
+          <th class="col-sm-1 dark-grey"><%= @setting.marks_divisions.where(is_divisible: false).try(:sum, :passing_marks) || 0 %></th>
+          <th class="col-sm-1 dark-blue"><%= @setting.marks_divisions.try(:sum, :passing_marks) || 0 %></th>
+          <th class="col-sm-1 dark-blue"><%= number_to_percentage((@setting.marks_divisions.try(:sum, :passing_marks) || 0)/(@setting.marks_divisions.try(:sum, :total_marks) || 1) * 100.00, precision: 2) %></th>
+          <th class="col-sm-1 dark-blue"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% subjects = @setting.subjects.where(parent: nil) %>
+        <% if subjects.present? %>
+            <% subjects.order('name').each do |subject| %>
+              <tr>
+                <th class="col-sm-2"><%= subject.name %></th>
+                <% if @setting.marks_divisions.where(is_divisible: true).present? %>
+                    <% @setting.marks_divisions.where(is_divisible: true).each do |division| %>
+                        <th class="col-sm-1"></th>
+                    <% end %>
+                <% else %>
+                    <th class="col-sm-1"></th>
+                <% end %>
+                <th class="col-sm-1"></th>
+                <% if @setting.marks_divisions.where(is_divisible: false).present? %>
+                    <% @setting.marks_divisions.where(is_divisible: false).each do |division| %>
+                        <th class="col-sm-1"></th>
+                    <% end %>
+                <% else %>
+                    <th class="col-sm-1 light-grey"></th>
+                <% end %>
+                <th class="col-sm-1 dark-grey"></th>
+                <th class="col-sm-1 dark-blue"></th>
+                <th class="col-sm-1 dark-blue"></th>
+                <th class="col-sm-1 dark-blue"></th>
+              </tr>
+            <% end %>
+
+        <% end %>
+      </tbody>
+
+    </table>
+
+
+  </div>
+</div>

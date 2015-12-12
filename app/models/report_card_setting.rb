@@ -1,4 +1,8 @@
+require 'report_card_components'
 class ReportCardSetting < ActiveRecord::Base
+
+  include ReportCardComponents
+
   has_many :subjects, class_name: 'ReportCardSubject', foreign_key: 'setting_id'
   accepts_nested_attributes_for :subjects, reject_if: :all_blank, allow_destroy: true
 
