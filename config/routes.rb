@@ -333,6 +333,7 @@ end
 
   get '/report_card_settings/report_card_subjects/:id' => 'report_card_settings#new_subjects', as: :new_subjects
   post '/report_card_settings/report_card_subjects/:id' => 'report_card_settings#create_subjects', as: :create_subjects
+  get '/report_card_settings/delete_group/:id' => 'report_card_settings#delete_subject_group', as: :delete_group
 
   post '/report_card_settings/get_grade_exams' => 'report_card_settings#get_grade_exams'
   post '/report_card_settings/get_weightage/:id(/:subject_id)' => 'report_card_settings#get_weightage', as: :get_weightage

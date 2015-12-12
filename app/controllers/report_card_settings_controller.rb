@@ -51,7 +51,7 @@ class ReportCardSettingsController < ApplicationController
   def new_headings
     @setting = ReportCardSetting.find(params[:id])
       Heading.all.each do |heading|
-        @setting.headings.find_or_create_by(label: '', method: heading.method, show: true)
+        @setting.headings.find_or_create_by(label: heading.label, method: heading.method, show: true)
       end
   end
 
@@ -82,25 +82,33 @@ class ReportCardSettingsController < ApplicationController
     @setting = ReportCardSetting.find(params[:id])
     @subject = ReportCardSubject.find_by_id(params[:subject_id]) || @setting.subjects.build
     if @subject.new_record?
-      subject_ids = params[:subjects]
-      subject_ids.each do |id|
-        subject = ReportCardSubject.find(id)
-        @subject.sub_subjects.build(id: subject.id, name: subject.name, code: subject.code, setting_id: subject.setting_id)
-        subject.destroy
-      # Remove This Destroy Statements By Simply Assiging Parent Id Some How
-      # Or Try This @subject.sub_subjects.build(id: subject.id, name: subject.name, code: subject.code, setting_id: subject.setting_id)
-      end
+       if @subject.save
+          subject_ids = params[:subjects]
+          subject_ids.each do |id|
+          subject = ReportCardSubject.find(id)
+          subject.update(parent_id: @subject.id)
+          end
+       end
     end
   end
 
   def create_subjects
     @setting = ReportCardSetting.find(params[:id])
     if @setting.update(setting_params)
-      render json: @setting.subjects.last.sub_subjects.to_json
+      redirect_to new_subjects_path(@setting)
     else
       flash[:notice] = @setting.errors.full_messages
       redirect_to new_subjects_path(@setting)
     end
+  end
+
+  def delete_subject_group
+    @subject = ReportCardSubject.find(params[:id])
+    @setting = @subject.setting
+    if @subject.destroy
+      flash[:notice] = 'Group Deleted Successfully.'
+    end
+    redirect_to new_subjects_path(@setting)
   end
 
   def get_grade_exams

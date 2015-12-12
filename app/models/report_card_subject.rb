@@ -1,5 +1,7 @@
 class ReportCardSubject < ActiveRecord::Base
 
+  belongs_to :setting, class_name: 'ReportCardSetting', foreign_key: 'setting_id'
+
   belongs_to :parent, class_name: 'ReportCardSubject'
   has_many :sub_subjects, foreign_key: 'parent_id', class_name: 'ReportCardSubject'
   accepts_nested_attributes_for :sub_subjects, reject_if: :all_blank, allow_destroy: true
@@ -8,6 +10,14 @@ class ReportCardSubject < ActiveRecord::Base
     parent = Subject.find(subject.parent_id) if subject.parent_id.present?
     report_card_parent = ReportCardSubject.find_by(name: parent.name, code: parent.code) if parent.present?
     find_or_create_by name: subject.name, code: subject.code, parent_id: report_card_parent.try(:id), weight: report_card_parent.try(:weight)
+  end
+
+  before_destroy :update_sub_subjects
+
+  def update_sub_subjects
+    ReportCardSubject.where(parent_id: self.id).try(:each) do |subject|
+      subject.update(parent_id: nil)
+    end
   end
 
 end
