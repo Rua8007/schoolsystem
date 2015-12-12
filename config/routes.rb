@@ -338,6 +338,8 @@ end
   post '/report_card_settings/get_grade_exams' => 'report_card_settings#get_grade_exams'
   post '/report_card_settings/get_weightage/:id(/:subject_id)' => 'report_card_settings#get_weightage', as: :get_weightage
 
+  get '/select_report_card_settings/select_report_card_setting' => 'report_card_settings#select_report_card_setting', as: :select_report_card
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

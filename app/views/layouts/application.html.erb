@@ -1099,6 +1099,15 @@
                         <% end %>
                       </li>
                     <% end %>
+
+                    <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'edit_report_cards').any? %>
+                      <li>
+                        <%= link_to(select_report_card_path) do %>
+                            <span style="font-size: 85%">Edit Report Cards</span>
+                        <% end %>
+                      </li>
+                    <% end %>
+
                     <% if Right.where("role_id = ? and value = 'enter_marks'", current_user.role_id ).any? or Right.where("role_id = ? and value = 'enter_all_marks'", current_user.role_id ).any? %>
                        <li>
                         <%= link_to(marks_path) do %>

@@ -111,6 +111,10 @@ class ReportCardSettingsController < ApplicationController
     redirect_to new_subjects_path(@setting)
   end
 
+  def select_report_card_setting
+    @grades = Grade.where(section: nil).order('name')
+  end
+
   def get_grade_exams
     grade = Grade.find(params[:grade_id])
     exams = Exam.where(grade_id: grade.id).order('name')
