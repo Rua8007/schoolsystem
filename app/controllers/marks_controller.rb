@@ -83,40 +83,42 @@ class MarksController < ApplicationController
       @subjects << bridge.subject
     end
     @subjects = @subjects.sort_by { |k| k.name }
-    @exams = Exam.where(batch_id: @class.batch_id).order('name')
+    @exams = Exam.where(grade_id: @main_grade.id, batch_id: @class.batch_id).order('name')
   end
 
   def enter_marks
     @class = Grade.find(params[:grade_id])
     @exam = Exam.find(params[:exam_id])
     @subject = Subject.find(params[:subject_id])
+    @main_grade = @class.parent if @class.present?
     if @class.students.present?
       @students = @class.students.sort_by { |k| k.fullname }
     end
-    @main_grade = @class.parent if @class.present?
-    @marks_divisions = @main_grade.grade_group.marks_divisions.order('name')
+
+    @setting = ReportCardSetting.find_by(grade_id: @main_grade.id, batch_id: @class.batch_id, exam_id: @exam.id) if @main_grade.present?
+
+    @marks_divisions = @setting.marks_divisions.order('name')
     @marks_division = @marks_divisions.first
-    @marks_division = MarksDivision.find(params[:division_id]) if params[:division_id].present?
+    @marks_division = ReportCardDivision.find(params[:division_id]) if params[:division_id].present?
 
-
-    @setting = ReportCardSetting.find_or_create_by(grade_id: @main_grade.id, batch_id: @class.batch_id) if @main_grade.present?
     @students.try(:each) do |std|
-      ReportCard.find_or_create_by(student_id: std.id, grade_id: @class.id, batch_id: @class.batch_id, setting_id: @setting.id)
+      ReportCard.find_or_create_by(student_id: std.id, grade_id: @class.id, batch_id: @class.batch_id)
     end
-    check_marks_divisions(@setting, @marks_divisions)
+
     check_subjects(@setting, [@subject])
-    check_exams(@setting, [@exam])
   end
 
   def save_marks
     @class = Grade.find(params[:class_id]) if params[:class_id].present?
     @exam = Exam.find(params[:exam_id]) if params[:exam_id].present?
     @subject = Subject.find(params[:subject_id]) if params[:subject_id].present?
-    @marks_division = MarksDivision.find(params[:division_id]) if params[:division_id].present?
+    @marks_division = ReportCardDivision.find(params[:division_id]) if params[:division_id].present?
 
-    @report_card_exam = ReportCardExam.find_by_exam(@exam) if @exam.present?
-    @report_card_subject = ReportCardSubject.find_by_subject(@subject) if @subject.present?
-    @report_card_division = ReportCardDivision.find_by_marks_division(@marks_division) if params[:division_id].present?
+    @main_grade = @class.parent if @class.present?
+    @setting = ReportCardSetting.find_by(grade_id: @main_grade.id, batch_id: @class.batch_id, exam_id: @exam.id) if @main_grade.present?
+    # @report_card_exam = ReportCardExam.find_by_exam(@exam) if @exam.present?
+    @report_card_subject = @setting.subjects.find_by(name: @subject.name, code: @subject.code) if @subject.present?
+    #@report_card_division = ReportCardDivision.find_by_marks_division(@marks_division) if params[:division_id].present?
 
     @students = params[:sessionals]
     @dates = params[:sessionals_date]
@@ -126,10 +128,10 @@ class MarksController < ApplicationController
       std_marks.each_with_index do |marks, index|
         if student.present?
           @report_card = ReportCard.find_by student_id: student.id, grade_id: @class.id, batch_id: @class.batch_id
-          @mark = Mark.find_or_create_by(report_card_id: @report_card.id, exam_id: @report_card_exam.id, subject_id: @report_card_subject.id, division_id: @report_card_division.id)
-          @sessional = Sessional.find_or_create_by name: "#{@report_card_division.name} #{index + 1}", mark_id: @mark.id
+          @mark = Mark.find_or_create_by(report_card_id: @report_card.id, exam_id: @exam.id, subject_id: @report_card_subject.id, division_id: @marks_division.id)
+          @sessional = Sessional.find_or_create_by name: "#{@marks_division.name} #{index + 1}", mark_id: @mark.id
           @sessional.update( obtained_marks: marks.to_f, mark_date: @dates[index])
-          @mark.update(obtained_marks: @mark.sessionals.average(:obtained_marks), passing_marks: @report_card_division.passing_marks, total_marks: @report_card_division.total_marks)
+          @mark.update(obtained_marks: @mark.sessionals.average(:obtained_marks), passing_marks: @marks_division.passing_marks, total_marks: @marks_division.total_marks)
         else
           flash[:notice] = 'Sorry, Something Bad Happened.'
           break
