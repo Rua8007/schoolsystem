@@ -14,6 +14,8 @@ class Grade < ActiveRecord::Base
 	has_many :purchases
 	has_many :associations
 
+	has_many :exams
+
 	belongs_to :grade_group
 	# has_many :subjects ,through: :associations
 

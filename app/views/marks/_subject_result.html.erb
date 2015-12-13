@@ -1,3 +1,4 @@
+<% if @setting.present? %>
 <h3><%= @exam.name %> </h3>
 <table class="table">
   <thead class="table-head">
@@ -50,3 +51,6 @@
     <% end %>
   </tbody>
 </table>
+<% else %>
+    <h4>Please Design Report Card For This Quarter First.</h4>
+<% end %>

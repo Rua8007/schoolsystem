@@ -151,6 +151,8 @@ class MarksController < ApplicationController
     end
     @class = params[:class_id].present? ? Grade.find_by(id: params[:class_id]) : @classes.first
     @main_grade = @class.parent if @class.present?
+    @exams = @main_grade.exams.where(batch_id: @class.batch_id)
+    @exam = @exams.first
 
 
     @class_bridges = @bridges.map{ |k| k if k.grade_id == @class.id }.compact
@@ -166,20 +168,19 @@ class MarksController < ApplicationController
     #   @subjects << bridge.subject unless @subjects.include?(bridge.subject)
     # end
 
-    @setting = ReportCardSetting.find_or_create_by(grade_id: @main_grade.id, batch_id: @class.batch_id)
+    @setting = ReportCardSetting.find_by(grade_id: @main_grade.id, batch_id: @class.batch_id, exam_id: @exam.id)
     @report_card_subjects = []
     @subjects.each do |sub|
       @report_card_subjects << @setting.subjects.find_by(name: sub.name, code: sub.code)
     end
     @report_card_subjects = @report_card_subjects.compact
-    @report_card_exams = @setting.exams
   end
 
   def get_subject_result
     @class = Grade.find(params[:class_id])
     @main_grade = @class.parent if @class.present?
-    @setting = ReportCardSetting.find_by(grade_id: @main_grade.id, batch_id: @class.batch_id)
-    @exam = ReportCardExam.find_by_id(params[:exam_id])
+    @exam = Exam.find_by_id(params[:exam_id])
+    @setting = ReportCardSetting.find_by(grade_id: @main_grade.id, batch_id: @class.batch_id, exam_id: @exam.id)
     @subject = ReportCardSubject.find_by_id(params[:subject_id])
   end
 
@@ -197,15 +198,10 @@ class MarksController < ApplicationController
     @class_bridges.each do |bridge|
       @subjects << bridge.subject
     end
-    exams = Exam.where(batch_id: @class.batch_id)
-    @setting = ReportCardSetting.find_or_create_by(grade_id: @main_grade.id, batch_id: @class.batch_id)
-    check_subjects(@setting, @subjects)
-    check_exams(@setting, exams)
-    check_marks_divisions(@setting, @main_grade.grade_group.marks_divisions.order('name'))
-
-    @report_card_exams = @setting.exams
-
-    @report_card_exam = params[:exam_id].present? ? ReportCardExam.find(params[:exam_id]) : @report_card_exams.first
+    @exams = Exam.where(grade_id: @main_grade.id, batch_id: @class.batch_id)
+    @exam = params[:exam_id].present? ? Exam.find(params[:exam_id]) : @exams.first
+    @setting = ReportCardSetting.find_by(grade_id: @main_grade.id, batch_id: @class.batch_id, exam_id: @exam.id)
+    check_subjects(@setting, @subjects) if @setting.present?
   end
 
   def result_card

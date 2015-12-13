@@ -1,3 +1,4 @@
+<% if @setting.present? %>
 <h3><%= klass.full_name %> <%= klass.batch.name %></h3>
 <table class="table" style="overflow-x: auto">
   <thead class="table-head">
@@ -34,3 +35,6 @@
   <% end %>
   </tbody>
 </table>
+<% else %>
+    <h5>Please Design A Report Card For This Quarter. </h5>
+<% end %>
