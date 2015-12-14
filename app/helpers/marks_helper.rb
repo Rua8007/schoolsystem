@@ -106,4 +106,56 @@ module MarksHelper
       bridges
   end
 
+  def get_division_marks(report_card, subject, division, exam)
+    if subject.sub_subjects.present?
+      marks = 0
+      subject.sub_subjects.each do |sub_subject|
+        marks = marks + (report_card.marks.find_by(subject_id: sub_subject.id, division_id: division.id, exam_id: exam.id).try(:obtained_marks) || 0) * (sub_subject.weight/100.00)
+      end
+      marks
+    else
+      report_card.marks.find_by(subject_id: subject.id, division_id: division.id, exam_id: exam.id).try(:obtained_marks)
+    end
+  end
+
+  def get_divisions_total(report_card, subject, exam, division_ids)
+    if subject.sub_subjects.present?
+      marks = 0
+      subject.sub_subjects.each do |sub_subject|
+        marks = marks + (report_card.marks.where("subject_id = #{sub_subject.id} AND exam_id = #{exam.id} AND division_id IN(#{division_ids.join(',')})").try(:sum, :obtained_marks) || 0) * (sub_subject.weight/100.00)
+      end
+      marks
+    else
+      report_card.marks.where("subject_id = #{subject.id} AND exam_id = #{exam.id} AND division_id IN(#{division_ids.join(',')})").try(:sum, :obtained_marks)
+    end
+  end
+
+  def get_quarter_total(report_card, subject, exam)
+    if subject.sub_subjects.present?
+      marks = 0
+      subject.sub_subjects.each do |sub_subject|
+        marks = marks + (report_card.marks.where("subject_id = #{sub_subject.id} AND exam_id = #{exam.id}").try(:sum, :obtained_marks) || 0) * (sub_subject.weight/100.00)
+      end
+      marks
+    else
+      report_card.marks.where("subject_id = #{subject.id} AND exam_id = #{exam.id}").try(:sum, :obtained_marks)
+    end
+  end
+
+  def get_quarter_percentage(report_card, setting, subject, exam)
+    if subject.sub_subjects.present?
+      obtained_marks = 0
+      total_marks = 0
+      subject.sub_subjects.each do |sub_subject|
+        obtained_marks = obtained_marks + (report_card.marks.where("subject_id = #{sub_subject.id} AND exam_id = #{exam.id}").try(:sum, :obtained_marks) || 0.00) * (sub_subject.weight/100.00)
+        total_marks = total_marks + (setting.marks_divisions.try(:sum, :total_marks) || 1) * (sub_subject.weight/100.00)
+      end
+      (obtained_marks/total_marks) * 100.00
+    else
+      obtained_marks = report_card.marks.where("subject_id = #{subject.id} AND exam_id = #{exam.id}").try(:sum, :obtained_marks) || 0.00
+      total_marks = setting.marks_divisions.try(:sum, :total_marks) || 1
+      (obtained_marks/total_marks) * 100.00
+    end
+  end
+
 end

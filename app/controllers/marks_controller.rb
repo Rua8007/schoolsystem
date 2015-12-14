@@ -204,13 +204,21 @@ class MarksController < ApplicationController
     check_subjects(@setting, @subjects) if @setting.present?
   end
 
+  def get_grade_exams
+    grade = Grade.find(params[:grade_id])
+    exams = Exam.where(grade_id: grade.id).order('name')
+
+    render json: {exams: exams}
+  end
+
   def result_card
     @student = Student.find(params[:student_id])
     @class = Grade.find(params[:class_id])
+    @main_grade = @class.parent if @class.present?
     @batch = Batch.find(params[:batch_id])
 
     @report_card = ReportCard.find_by(student_id: @student.id, grade_id: @class.id, batch_id: @batch.id)
-    @setting = @report_card.setting
+    @settings = ReportCardSetting.where(grade_id: @main_grade.id, batch_id: @batch.id)
   end
 
   private

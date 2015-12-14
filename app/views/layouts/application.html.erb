@@ -1052,23 +1052,6 @@
                       <span>Grade Log</span>
                     </a>
                     <ul class="nav nav-sub dk">
-                      <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'create_exam').any? %>
-                        <li>
-                          <%= link_to(new_exam_path) do %>
-                            <span>Create Term</span>
-                          <% end %>
-                        </li>
-                      <% end %>
-
-                      <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'view_exam').any? %>
-
-                        <li>
-                          <%= link_to(exams_path) do %>
-                            <span>List of Terms</span>
-                          <% end %>
-                        </li>
-                      <% end %>
-
                       <% if current_user.role.name == 'Teacher' %>
                         <li>
                           <%= link_to(portions_path(year_plan: @year_plan)) do %>

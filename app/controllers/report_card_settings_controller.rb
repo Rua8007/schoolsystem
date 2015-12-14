@@ -116,12 +116,6 @@ class ReportCardSettingsController < ApplicationController
     @grades = Grade.where(section: nil).order('name')
   end
 
-  def get_grade_exams
-    grade = Grade.find(params[:grade_id])
-    exams = Exam.where(grade_id: grade.id).order('name')
-
-    render json: {exams: exams}
-  end
 
   private
 
