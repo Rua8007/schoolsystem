@@ -205,8 +205,9 @@ class MarksController < ApplicationController
   end
 
   def get_grade_exams
-    grade = Grade.find(params[:grade_id])
-    exams = Exam.where(grade_id: grade.id).order('name')
+    klass = Grade.find(params[:class_id])
+    grade = klass.parent if klass.present?
+    exams = Exam.where(grade_id: grade.id, batch_id: klass.batch_id).order('name') if klass.present? and grade.present?
 
     render json: {exams: exams}
   end

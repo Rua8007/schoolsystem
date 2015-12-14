@@ -3,11 +3,11 @@
     <%= form_tag(show_class_result_path, method: :post, class: 'col-form class-form', remote: true) do %>
         <div class="form-group col-md-4">
           <label for="class_id"> Select a class</label>
-          <%= select_tag 'class_id', options_from_collection_for_select(@classes, :id, :full_name, @class.id), class: 'form-control class-select'  %>
+          <%= select_tag 'class_id', options_from_collection_for_select(@classes, :id, :full_name, @class.id), { class: 'form-control class-select', onchange: 'get_grade_exams(this.value);'}  %>
         </div>
         <div class="form-group col-md-4">
           <label for="class_id"> Select an exam</label>
-          <%= select_tag 'exam_id', options_from_collection_for_select(@exams, :id, :name, @exam.id), class: 'form-control class-select'  %>
+          <%= select_tag 'exam_id', options_from_collection_for_select(@exams, :id, :name, @exam.id), {class: 'form-control exam'}  %>
         </div>
         <div class="col-md-2" style="margin-top: 1.7em">
           <%= submit_tag 'See Result', class: 'btn btn-success' %>
@@ -22,3 +22,28 @@
     <%= render partial: 'class_result', locals: { klass: @class, exam: @exam, setting: @setting } %>
   </div>
 </div>
+
+<script type="text/javascript">
+
+    function get_grade_exams(grade_id){
+        $.ajax({
+            url: '/get_grade_exams',
+            data: {class_id: grade_id},
+            method: 'POST',
+            dataType: 'json',
+            success: function(data){
+                var select = $('.exam');
+                $(select).html('');
+                if(data.exams.length != 0){
+                    $(data.exams).each(function(index){
+                        $(select).append($('<option />', { value: (this.id), text: this.name }));
+                    });
+                }
+            },
+            error: function(){
+                alert('Cannot load exams. Please refresh the page and try again.');
+            }
+        });
+    }
+
+</script>

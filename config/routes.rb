@@ -180,6 +180,7 @@ end
   post 'subject_result' => 'marks#subject_result', as: :show_subject_result
   post 'get_subject_result' => 'marks#get_subject_result', as: :get_subject_result
   get 'class_result' => 'marks#class_result', as: :class_result
+  post '/get_grade_exams' => 'marks#get_grade_exams'
   post 'class_result' => 'marks#class_result', as: :show_class_result
   get 'result_card/:student_id/:class_id/:batch_id/' => 'marks#result_card', as: :result_card
   resources :marksheets do
@@ -335,7 +336,6 @@ end
   post '/report_card_settings/report_card_subjects/:id' => 'report_card_settings#create_subjects', as: :create_subjects
   get '/report_card_settings/delete_group/:id' => 'report_card_settings#delete_subject_group', as: :delete_group
 
-  post '/report_card_settings/get_grade_exams' => 'report_card_settings#get_grade_exams'
   post '/report_card_settings/get_weightage/:id(/:subject_id)' => 'report_card_settings#get_weightage', as: :get_weightage
 
   get '/select_report_card_settings/select_report_card_setting' => 'report_card_settings#select_report_card_setting', as: :select_report_card

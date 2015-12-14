@@ -17,7 +17,7 @@
           <div class="form-group ">
             <div class="field">
               <%= f.label :grade_id, 'Select Grade' %><br>
-              <%= f.select :grade_id, options_from_collection_for_select(Grade.where(section: nil).order('name'), 'id', 'name', @grade.id), {include_blank: false}, {class: 'form-control', onchange: 'get_grade_exams(this.value);', readonly: true} %>
+              <%= f.select :grade_id, options_from_collection_for_select(Grade.where(section: nil).order('name'), 'id', 'name', @grade.id), {include_blank: false}, {class: 'form-control', readonly: true} %>
             </div>
           </div>
         </div>
