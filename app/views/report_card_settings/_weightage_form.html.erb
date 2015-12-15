@@ -42,6 +42,9 @@
 
         <fieldset class="sss well well-lg">
           <legend class="lll">Add Weightage</legend>
+          <div class="row">
+            <h3 class="col-md-3 pull-right"> <span>Weight Allocated:</span><span id="weightage"><%= @subject.sub_subjects.try(:sum, :weight) || 0.0 %></span></h3>
+          </div>
           <%= f.fields_for :subjects do |s| %>
             <% if s.object.new_record? || s.object.id == @subject.id %>
                 <div class = "row">
@@ -72,9 +75,10 @@
 <% end %>
 
 <script type="text/javascript">
-    $('#subject-form').submit( function(event) {
-        if($('.subject:checked').length < 2) {
-            alert('Please select more than 1 subject to group.');
+    $('#group-form').submit( function(event) {
+        var weight_sum = calculate_total_weight();
+        if(weight_sum != 100) {
+            alert('Weight of all the subjects must be equal to 100.');
             event.preventDefault();
             return false;
         }
@@ -82,4 +86,22 @@
             return true;
         }
     });
+
+    $(document).on('blur', '.weight', function(){
+        var weight_sum = calculate_total_weight();
+        $('#weightage').html(parseFloat(weight_sum));
+    });
+    
+    function calculate_total_weight(){
+        var weight_sum = 0.0;
+        $('.weight').each(function(){
+            var val = parseFloat($(this).val());
+            if(isNaN(val)){
+            }
+            else{
+                weight_sum = weight_sum + val;
+            }
+        });
+        return weight_sum;
+    }
 </script>

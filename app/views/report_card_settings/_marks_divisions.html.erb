@@ -46,8 +46,8 @@
         <fieldset class="sss well well-lg">
           <legend class="lll">Term Work</legend>
           <div class = "row">
-            <div class="col-sm-6 col-md-6 large-text">Marks Consumed: <b><span id="termwork-consumed"><%= @setting.marks_divisions.where(is_divisible: true).try(:sum, :total_marks) || 0 %></span></b></div>
-            <div class="col-sm-6 col-md-6 large-text"><span class="pull-right">Total Marks Consumed: <b><span id="total-consumed"><%= @setting.marks_divisions.try(:sum, :total_marks) || 0 %></span></b></span></div>
+            <div class="col-sm-6 col-md-6 large-text">Marks Alloted: <b><span id="termwork-consumed"><%= @setting.marks_divisions.where(is_divisible: true).try(:sum, :total_marks) || 0 %></span></b></div>
+            <div class="col-sm-6 col-md-6 large-text"><span class="pull-right">Total Marks Alloted: <b><span id="total-consumed"><%= @setting.marks_divisions.try(:sum, :total_marks) || 0 %></span></b></span></div>
             <% if @setting.marks_divisions.present? %>
                 <%= f.fields_for :marks_divisions do |m| %>
                     <%= render 'marks_division_fields', f: m, exam: false %>
@@ -62,7 +62,7 @@
         <fieldset class="sss well well-lg">
           <legend class="lll">Exams</legend>
           <div class = "row">
-            <div class="col-sm-12 col-md-12 large-text">Marks Consumed: <b><span id="exam-consumed"><%= @setting.marks_divisions.where(is_divisible: false).try(:sum, :total_marks) || 0 %></span></b></div>
+            <div class="col-sm-12 col-md-12 large-text">Marks Alloted: <b><span id="exam-consumed"><%= @setting.marks_divisions.where(is_divisible: false).try(:sum, :total_marks) || 0 %></span></b></div>
             <% if @setting.marks_divisions.present? %>
                 <%= f.fields_for :marks_divisions do |m| %>
                     <%= render 'marks_division_fields', f: m, exam: true %>
