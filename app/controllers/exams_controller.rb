@@ -52,7 +52,8 @@ class ExamsController < ApplicationController
   def update
     respond_to do |format|
       if @exam.update(exam_params)
-        format.html { redirect_to exams_path, notice: 'Exam was successfully updated.' }
+        @setting = ReportCardSetting.find_by(exam_id: @exam.id)
+        format.html { redirect_to edit_report_card_setting_path(@setting), notice: 'Exam was successfully updated.' }
         format.json { render :show, status: :ok, location: @exam }
       else
         format.html { render :edit }

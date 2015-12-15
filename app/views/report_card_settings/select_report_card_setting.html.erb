@@ -7,7 +7,11 @@
   <div class="col-sm-12">
     <% @grades.each do |grade| %>
         <h3 class="col-md-offset-1"><%= "Grade #{grade.name}" %></h3>
+        <% exams = Exam.where(batch_id: Batch.last.id, grade_id: grade.id).order('name') || [] %>
         <ul>
+          <% exams.each do |exam| %>
+            <li><%= link_to exam.name, edit_exam_path(exam) %></li><br />
+          <% end %>
 
         </ul>
 

@@ -27,6 +27,10 @@ class ReportCardSettingsController < ApplicationController
   end
 
   def edit
+    @setting = ReportCardSetting.find(params[:id])
+    @grade = @setting.grade.present? ? @setting.grade : Grade.where(section: nil).order('name').first
+    @exams = Exam.where(grade_id: @grade.id)
+    @exam = @setting.exam.present? ? @setting.exam : @exams.first
   end
 
   def show
