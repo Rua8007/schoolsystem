@@ -39,8 +39,12 @@ class ReportCardSettingsController < ApplicationController
 
   def new_marks_divisions
     @setting = ReportCardSetting.find(params[:id])
-    @previous_setting = ReportCardSetting.where(grade_id: @setting.grade_id).try(:first)
-    @setting.marks_divisions << @previous_setting.marks_divisions if @previous_setting.present? and @setting.marks_divisions.blank?
+    @previous_setting = ReportCardSetting.where(grade_id: @setting.grade_id, batch_id: Batch.last.id).try(:first)
+    if @previous_setting.present? and @setting.marks_divisions.blank?
+      @previous_setting.marks_divisions.try(:each) do |division|
+        @setting.marks_divisions << ReportCardDivision.create(name: division.name, passing_marks: division.passing_marks, total_marks: division.total_marks, is_divisible: division.is_divisible)
+      end
+    end
   end
 
   def create_marks_divisions
@@ -56,7 +60,7 @@ class ReportCardSettingsController < ApplicationController
   def new_headings
     @setting = ReportCardSetting.find(params[:id])
       Heading.all.each do |heading|
-        @setting.headings.find_or_create_by(label: heading.label, method: heading.method)
+        @setting.headings.find_or_create_by(method: heading.method)
       end
   end
 

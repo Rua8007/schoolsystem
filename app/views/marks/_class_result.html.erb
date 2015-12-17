@@ -1,6 +1,6 @@
 <% if @setting.present? %>
 <h3><%= klass.full_name %> <%= klass.batch.name %></h3>
-<table class="table" style="overflow-x: auto">
+<table class="table table-responsive" style="overflow-x: auto">
   <thead class="table-head">
   <tr>
     <th><%= exam.name %></th>
@@ -28,8 +28,9 @@
                 <td><%= (marks.present? ? marks.sum(:obtained_marks) : 0.0)  %></td>
             <% end %>
         <% end %>
-        <td>
-          <%= link_to 'Complete Result Card', result_card_path(std.id, klass.id, klass.batch_id), class: 'btn btn-success' %>
+        <td class="col-md-3">
+          <%= link_to '<small>Result Card</small>'.html_safe, result_card_path(std.id, klass.id, klass.batch_id), class: 'btn btn-success' %>
+          <%= link_to '<small>Complete Result Card</small>'.html_safe, complete_result_card_path(std.id, klass.id, klass.batch_id), class: 'btn btn-primary' %>
         </td>
       </tr>
   <% end %>

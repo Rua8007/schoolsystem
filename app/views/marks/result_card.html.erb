@@ -15,9 +15,11 @@
   <h4>Student ID:             <%= @student.rollnumber %></h4>
   <h4>Grade:                  <%= @class.full_name %></h4>
 </div>
-<% @settings.each do |setting| %>
-    <% exam = setting.exam %>
+<% @exams.each do |exam| %>
+
+    <% setting = @settings.find_by_exam_id(exam.id) %>
     <h3 class="text-center"><%= exam.name %></h3>
+    <% if setting.present? %>
     <div class="row">
       <div class="col-md-12">
         <table class="table-bordered">
@@ -235,4 +237,8 @@
         </table>
       </div>
     </div>
+    <% else %>
+        <p> Design Report Card For This Quarter.</p>
+
+    <% end %>
 <% end %>

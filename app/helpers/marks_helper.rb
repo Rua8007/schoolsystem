@@ -158,4 +158,16 @@ module MarksHelper
     end
   end
 
+  def get_term_subject_total(report_card, subject, exam_ids)
+    if subject.sub_subjects.present?
+      obtained_marks = 0
+      subject.sub_subjects.each do |sub_subject|
+        obtained_marks = obtained_marks + (report_card.marks.where("subject_id = #{sub_subject.id} AND exam_id IN(#{exam_ids.join(',')})").try(:sum, :obtained_marks) || 0.0) * (sub_subject.weight/100.00)
+      end
+      obtained_marks
+    else
+      report_card.marks.where("subject_id = #{subject.id} AND exam_id IN(#{exam_ids.join(',')})").try(:sum, :obtained_marks)
+    end
+  end
+
 end
