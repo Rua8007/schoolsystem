@@ -72,8 +72,10 @@
             </tr>
           </thead>
           <tbody>
+          <% term1_total_obtained_marks = term2_total_obtained_marks = term1_total_marks = term2_total_marks = 0 %>
             <% setting.subjects.where(parent_id: nil).try(:order, :name).try(:each) do |subject| %>
                 <tr>
+                  <%  %>
                   <td><%= subject.name %></td>
                   <td>
                     <% term1_obtained_marks = 0.0 %>
@@ -82,6 +84,8 @@
                         <% actual_subject = setting.subjects.find_by(name: subject.name, code: subject.code) %>
                         <% term1_obtained_marks = term1_obtained_marks + get_quarter_total(@report_card, actual_subject, exam) %>
                     <% end %>
+                    <% term1_total_obtained_marks = term1_total_obtained_marks + term1_obtained_marks %>
+                    <% term1_total_marks = term1_total_marks + term1_total %>
                     <%= term1_obtained_marks %>
                   </td>
                   <td>
@@ -94,6 +98,8 @@
                         <% actual_subject = setting.subjects.find_by(name: subject.name, code: subject.code) %>
                         <% term2_obtained_marks = term2_obtained_marks + get_quarter_total(@report_card, actual_subject, exam) %>
                     <% end %>
+                    <% term2_total_obtained_marks = term2_total_obtained_marks + term2_obtained_marks %>
+                    <% term2_total_marks = term2_total_marks + term2_total %>
                     <%= term2_obtained_marks %>
                   </td>
                   <td>
@@ -106,6 +112,25 @@
                   </td>
                 </tr>
             <% end %>
+            <tr><td colspan="7"></td></tr>
+            <tr>
+              <td>Marks Attained</td>
+              <td><%= term1_total_obtained_marks %></td>
+              <td><%= number_to_percentage((term1_total_obtained_marks/term1_total_marks) * 100, precision: 2) %></td>
+              <td><%= term2_total_obtained_marks %></td>
+              <td><%= number_to_percentage((term2_total_obtained_marks/term2_total_marks) * 100, precision: 2) %></td>
+              <td><%= term1_total_obtained_marks + term2_total_obtained_marks %></td>
+              <td><%= number_to_percentage( ((term1_total_obtained_marks + term2_total_obtained_marks)/(term1_total_marks + term2_total_marks)) * 100, precision: 2) %></td>
+            </tr>
+            <tr>
+              <td>Max. Marks Possible</td>
+              <td><%= term1_total_marks %></td>
+              <td>100%</td>
+              <td><%= term2_total_marks %></td>
+              <td>100%</td>
+              <td><%= term1_total_marks + term2_total_marks %></td>
+              <td>100%</td>
+            </tr>
           </tbody>
         </table>
     <% end  %>
