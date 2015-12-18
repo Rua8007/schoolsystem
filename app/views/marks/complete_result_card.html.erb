@@ -2,12 +2,15 @@
     .light-blue{  background-color: #B2D7EC;  }
     .yellow { background-color: #FEFF99; }
     .light-grey{ background-color: #F2F2F2; }
-    .dark-grey { background-color: #DDD9C4; }
-    .dark-blue { background-color: #8DB4E2;}
+    .dark-grey { background-color: #BFBFBF; }
+    .dark-blue { background-color: #548DD4; color: black;}
 
     .table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
         border: 1px solid black;
         text-align: center;
+        color: black;
+        font-family: "Open Sans", Arial, Helvetica, sans-serif;
+        font-size: 90%;
     }
 </style>
 
@@ -28,13 +31,13 @@
         <% term2_settings = @settings.where("exam_id IN(#{term2.map{|s| s.id}.join(',')})") %>
         <table class="table table-responsive table-bordered">
           <thead>
-            <tr>
+            <tr class="dark-blue">
               <th></th>
               <th colspan="2">Term 1</th>
               <th colspan="2">Term 2</th>
               <th colspan="2">Final Marks</th>
             </tr>
-            <tr>
+            <tr class="dark-blue">
               <th></th>
               <th>Full Term Total</th>
               <th>Percentage</th>
@@ -43,7 +46,7 @@
               <th>Term 1 & 2</th>
               <th>Percentage</th>
             </tr>
-            <tr>
+            <tr class="dark-blue">
               <td>Subject</td>
               <td><%= term1_total = ReportCardDivision.where("setting_id IN(#{term1_settings.pluck(:id).join(',')})").try(:sum, :total_marks) %></td>
               <td>100%</td>
@@ -52,7 +55,7 @@
               <td><%= term1_total + term2_total %></td>
               <td>100%</td>
             </tr>
-            <tr>
+            <tr class="dark-blue">
               <td>Full Marks</td>
               <td><%= term1_total = ReportCardDivision.where("setting_id IN(#{term1_settings.pluck(:id).join(',')})").try(:sum, :total_marks) %></td>
               <td>100%</td>
@@ -61,14 +64,14 @@
               <td><%= term1_total + term2_total %></td>
               <td>100%</td>
             </tr>
-            <tr>
+            <tr class="dark-blue">
               <td>Pass Marks</td>
               <td><%= term1_pass = ReportCardDivision.where("setting_id IN(#{term1_settings.pluck(:id).join(',')})").try(:sum, :passing_marks) %></td>
-              <td>100%</td>
+              <td><%= number_to_percentage((term1_pass/term1_total) * 100, precision: 2) %></td>
               <td><%= term2_pass = ReportCardDivision.where("setting_id IN(#{term2_settings.pluck(:id).join(',')})").try(:sum, :passing_marks) %></td>
-              <td>100%</td>
+              <td><%= number_to_percentage((term1_pass/term1_total) * 100, precision: 2) %></td>
               <td><%= term1_pass + term2_pass %></td>
-              <td>100%</td>
+              <td><%= number_to_percentage(( (term1_pass + term2_pass)/(term1_total + term2_total)) * 100, precision: 2) %></td>
             </tr>
           </thead>
           <tbody>
@@ -105,8 +108,8 @@
                   <td>
                     <%= number_to_percentage((term2_obtained_marks/term2_total *100 ), precision: 2) %>
                   </td>
-                  <td><%= total_obtained_marks = term1_obtained_marks + term2_obtained_marks %></td>
-                  <td>
+                  <td class="dark-grey"><%= total_obtained_marks = term1_obtained_marks + term2_obtained_marks %></td>
+                  <td class="dark-grey">
                     <% total_marks = term1_total + term2_total %>
                     <%= number_to_percentage((total_obtained_marks/total_marks *100 ), precision: 2) %>
                   </td>
