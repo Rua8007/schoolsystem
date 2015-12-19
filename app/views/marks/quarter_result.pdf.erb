@@ -1,0 +1,23 @@
+<style>
+    .light-blue{  background-color: #B2D7EC;  }
+    .yellow { background-color: #FEFF99; }
+    .light-grey{ background-color: #F2F2F2; }
+    .dark-grey { background-color: #DDD9C4; }
+    .dark-blue { background-color: #8DB4E2;}
+
+    .table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
+        border: 1px solid black;
+        text-align: center;
+    }
+    .large-text{
+        font-size: 24px;
+    }
+</style>
+<div class="col-lg-12">
+  <div class="col-md-12">
+    <h4 class="large-text">Student Name:           <%= @student.fullname %></h4>
+    <h4 class="large-text">Student ID:             <%= @student.rollnumber %></h4>
+    <h4 class="large-text">Grade:                  <%= @class.full_name %></h4>
+  </div>
+  <%= render partial: 'marks/quarter_result.html.erb', locals: {exam: @exam} %>
+</div>
