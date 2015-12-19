@@ -5,8 +5,13 @@
   .dark-grey { background-color: #DDD9C4; }
   .dark-blue { background-color: #8DB4E2;}
 
+  .table > caption + thead > tr:first-child > th, .table > colgroup + thead > tr:first-child > th, .table > thead:first-child > tr:first-child > th, .table > caption + thead > tr:first-child > td, .table > colgroup + thead > tr:first-child > td, .table > thead:first-child > tr:first-child > td{
+      border-top: 1px solid black;
+      text-align: center;
+  }
   .table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
       border: 1px solid black;
+      vertical-align: middle;
   }
 </style>
 

@@ -130,7 +130,7 @@ class ReportCardSettingsController < ApplicationController
   def setting_params
     params.require(:report_card_setting).permit(:grade_id, :batch_id, :exam_id, :report_type_id,
                                                 marks_divisions_attributes: [:id, :name, :passing_marks, :total_marks, :is_divisible, :_destroy],
-                                                headings_attributes: [:id, :label, :show],
+                                                headings_attributes: [:id, :label, :show, :color],
                                                 subjects_attributes: [:id, :name, :code,
                                                   sub_subjects_attributes: [:id, :name, :code, :weight, :parent_id, :setting_id, :_destroy]
                                                 ])

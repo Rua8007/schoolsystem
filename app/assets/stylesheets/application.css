@@ -20,6 +20,7 @@
  *= require fullcalendar
  *= require bootstrap-datepicker
  *= require chosen
+ *= require jquery.minicolors
  *= require_self
  */
 *,

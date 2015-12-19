@@ -28,6 +28,7 @@ gem 'jquery-rails'
 gem 'momentjs-rails'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
+gem 'jquery-minicolors-rails'
 
 gem 'country_select'
 gem 'bootstrap-datepicker-rails'

@@ -8,37 +8,37 @@
           <tr>
             <% termwork_heading = headings.find_by_method('termwork') %>
             <% if termwork_heading.present? %>
-                <th colspan="<%= setting.termwork + 1 %>" class="col-md-3 light-grey"><%= termwork_heading.label %></th>
+                <th colspan="<%= setting.termwork + 1 %>" class="col-md-3" style="background-color: <%= termwork_heading.color %>"><%= termwork_heading.label %></th>
             <% end %>
 
             <% termwork_total_heading = headings.find_by_method('termwork_total') %>
             <% if termwork_total_heading.present? %>
-                <th colspan="<%= setting.termwork_total %>" class="col-md-1 dark-grey"><%= termwork_total_heading.label %></th>
+                <th colspan="<%= setting.termwork_total %>" class="col-md-1" style="background-color: <%= termwork_total_heading.color %>"><%= termwork_total_heading.label %></th>
             <% end %>
 
             <% exams_heading = headings.find_by_method('exams') %>
             <% if exams_heading.present? %>
-                <th colspan="<%= setting.exams %>" class="col-md-1 light-grey"><%= exams_heading.label %></th>
+                <th colspan="<%= setting.exams %>" class="col-md-1" style="background-color: <%= exams_heading.color %>"><%= exams_heading.label %></th>
             <% end %>
 
             <% exams_total_heading = headings.find_by_method('exams_total') %>
             <% if exams_total_heading.present? %>
-                <th colspan="<%= setting.exams_total %>" class="col-md-1 dark-grey"><%= exams_total_heading.label %></th>
+                <th colspan="<%= setting.exams_total %>" class="col-md-1" style="background-color: <%= exams_total_heading.color %>"><%= exams_total_heading.label %></th>
             <% end %>
 
             <% quarter_total_heading = headings.find_by_method('quarter_total') %>
             <% if quarter_total_heading.present? %>
-                <th colspan="<%= setting.quarter_total %>" class="col-md-1 dark-blue"><%= quarter_total_heading.label %></th>
+                <th colspan="<%= setting.quarter_total %>" class="col-md-1" style="background-color: <%= quarter_total_heading.color %>"><%= quarter_total_heading.label %></th>
             <% end %>
 
             <% quarter_percentage_heading = headings.find_by_method('quarter_percentage') %>
             <% if quarter_percentage_heading.present? %>
-                <th colspan="<%= setting.quarter_percentage %>" class="col-md-1 dark-blue"><%= quarter_percentage_heading.label %></th>
+                <th colspan="<%= setting.quarter_percentage %>" class="col-md-1" style="background-color: <%= quarter_percentage_heading.color %>"><%= quarter_percentage_heading.label %></th>
             <% end %>
 
             <% evaluation_heading = headings.find_by_method('evaluation') %>
             <% if evaluation_heading.present? %>
-                <th colspan="<%= setting.evaluation %>" class="col-md-1 dark-blue"><%= evaluation_heading.label %></th>
+                <th colspan="<%= setting.evaluation %>" class="col-md-1" style="background-color: <%= evaluation_heading.color %>"><%= evaluation_heading.label %></th>
             <% end %>
           </tr>
           <tr>
