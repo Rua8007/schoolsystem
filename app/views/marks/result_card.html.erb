@@ -17,6 +17,6 @@
 </div>
 <% @exams.each do |exam| %>
     <h3 class="text-center col-md-11"><%= exam.name %></h3>
-    <h3 class="col-md-1 pull-right"><%= link_to 'Print'.html_safe, pdf_result_card_path(@student.id, @class.id, @class.batch_id, exam.id, 'pdf'), class: 'btn btn-success' %></h3>
+    <h3 class="col-md-1 pull-right"><%= link_to 'Print'.html_safe, pdf_result_card_path(@student.id, @class.id, @batch.id, exam.id, 'pdf'), class: 'btn btn-success' %></h3>
     <%= render partial: 'quarter_result', locals: {exam: exam} %>
 <% end %>

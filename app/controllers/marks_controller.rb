@@ -240,6 +240,13 @@ class MarksController < ApplicationController
     @report_card = ReportCard.find_by(student_id: @student.id, grade_id: @class.id, batch_id: @batch.id)
     @exams = Exam.where(grade_id: @main_grade.id, batch_id: @batch.id).order('name') || []
     @settings = ReportCardSetting.where(grade_id: @main_grade.id, batch_id: @batch.id)
+
+    respond_to do |format|
+      format.html{}
+      format.pdf {
+        render pdf: "#{@student.fullname}-#{@batch.name}", template: 'marks/complete_result_card.pdf.erb',  layout: 'pdf.html.erb', orientation: 'Landscape', margin: { top: 5, bottom: 11, left: 0, right: 0}, footer: { center: 'Page: [page] of [topage]'}
+      }
+    end
   end
 
   private

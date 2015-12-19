@@ -185,6 +185,7 @@ end
   get 'result_card/:student_id/:class_id/:batch_id/' => 'marks#result_card', as: :result_card
   get 'result_card/:student_id/:class_id/:batch_id/:exam_id/:format' => 'marks#result_card', as: :pdf_result_card
   get 'complete_result_card/:student_id/:class_id/:batch_id' => 'marks#complete_result_card', as: :complete_result_card
+  get 'complete_result_card/:student_id/:class_id/:batch_id/:format' => 'marks#complete_result_card', as: :complete_pdf_result_card
   resources :marksheets do
     collection do
       post "uploading"
