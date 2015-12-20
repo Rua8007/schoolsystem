@@ -1,7 +1,7 @@
 <%= form_for @bridge do |f| %>
   <div class="col-md-5">
     <label>Select Subject</label>
-    <%= f.collection_select :subject_id , Subject.all.order(:name), :id , :name,{},{:style => 'height:34px;width: 100%',  class: 'form-control'} %>
+    <%= f.collection_select :subject_id , Subject.all.order(:name), :id , :name,{},{:style => 'height:34px;width: 100%',  class: 'form-control', readonly: @bridge.persisted?} %>
   </div>
 
   <div class="col-md-5" >

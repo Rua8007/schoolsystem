@@ -18,11 +18,13 @@ class BridgesController < ApplicationController
   def new
     @employee=Employee.all.order(:full_name).pluck(:full_name,:id)
     @bridge = []
-    grade = Grade.find(params[:class_id])
+    @grade = Grade.find(params[:class_id])
+    main_grade = @grade.parent if @grade.present?
 
-    Grade.where(section: nil).find_by_name(grade.name).associations.try(:each) do |s|
-      temp = {flag: false, subject_id: s.subject_id, employee_id: @employee, class_id: params[:class_id] }
-      @bridge << temp
+    main_grade.associations.try(:each) do |s|
+      bridge = Bridge.find_by(subject_id: s.subject_id, grade_id: @grade.id)
+      temp = {flag: false, subject_id: s.subject_id, employee_id: @employee, class_id: params[:class_id] } if bridge.nil?
+      @bridge << temp if temp.present?
     end
     # @bridge.each do |b|
     #   puts "-"*80
