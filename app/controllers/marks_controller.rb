@@ -226,7 +226,7 @@ class MarksController < ApplicationController
       format.html{}
       format.pdf {
         @exam = Exam.find(params[:exam_id])
-        render pdf: "#{@student.fullname}-#{@exam.name}-#{@batch.name}", template: 'marks/quarter_result.pdf.erb',  layout: 'pdf.html.erb', orientation: 'Landscape', margin: { top: 5, bottom: 11, left: 0, right: 0}, footer: { center: 'Page: [page] of [topage]'}
+        render pdf: "#{@student.fullname}-#{@exam.name}-#{@batch.name}", template: 'marks/quarter_result.pdf.erb',  layout: 'pdf.html.erb', orientation: 'Landscape', margin: { top: 5, bottom: 11, left: 0, right: 0}
       }
     end
   end
@@ -244,7 +244,7 @@ class MarksController < ApplicationController
     respond_to do |format|
       format.html{}
       format.pdf {
-        render pdf: "#{@student.fullname}-#{@batch.name}", template: 'marks/complete_result_card.pdf.erb',  layout: 'pdf.html.erb', orientation: 'Landscape', margin: { top: 5, bottom: 11, left: 0, right: 0}, footer: { center: 'Page: [page] of [topage]'}
+        render pdf: "#{@student.fullname}-#{@batch.name}", template: 'marks/complete_result_card.pdf.erb',  layout: 'pdf.html.erb', orientation: 'Landscape', margin: { top: 5, bottom: 11, left: 0, right: 0}
       }
     end
   end

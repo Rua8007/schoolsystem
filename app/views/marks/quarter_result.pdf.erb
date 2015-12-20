@@ -12,17 +12,15 @@
     .table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
         border: 1px solid black;
         vertical-align: middle;
-    }
-
-    .large-text{
-        font-size: 18px;
+        font-size: 10px;
     }
 </style>
-<div class="col-lg-12">
-  <div class="col-md-12">
-    <h4 class="large-text">Student Name:           <%= @student.fullname %></h4>
-    <h4 class="large-text">Student ID:             <%= @student.rollnumber %></h4>
-    <h4 class="large-text">Grade:                  <%= @class.full_name %></h4>
-  </div>
+<div class="col-md-12">
+  <h5>Student Name:           <span class="text-primary"><%= @student.fullname %></span></h5>
+  <h5>Student ID:             <span class="text-primary"><%= @student.rollnumber %></span></h5>
+  <h5>Grade:                  <span class="text-primary"><%= @class.full_name %></span></h5>
+</div>
+
+<div class="col-md-12">
   <%= render partial: 'marks/quarter_result.html.erb', locals: {exam: @exam} %>
 </div>

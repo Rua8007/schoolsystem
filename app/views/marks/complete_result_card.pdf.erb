@@ -5,19 +5,25 @@
     .dark-grey { background-color: #BFBFBF; }
     .dark-blue { background-color: #548DD4; color: black;}
 
+    .table > caption + thead > tr:first-child > th, .table > colgroup + thead > tr:first-child > th, .table > thead:first-child > tr:first-child > th, .table > caption + thead > tr:first-child > td, .table > colgroup + thead > tr:first-child > td, .table > thead:first-child > tr:first-child > td{
+        border-top: 1px solid black;
+        text-align: center;
+    }
+
     .table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
         border: 1px solid black;
-        text-align: center;
         color: black;
         font-family: "Open Sans", Arial, Helvetica, sans-serif;
         font-size: 90%;
     }
 </style>
 
-<div class="well well-lg">
-  <h4>Student Name:           <%= @student.fullname %></h4>
-  <h4>Student ID:             <%= @student.rollnumber %></h4>
-  <h4>Grade:                  <%= @class.full_name %></h4>
+<div class="col-md-12">
+  <h5>Student Name:           <span class="text-primary"><%= @student.fullname %></span></h5>
+  <h5>Student ID:             <span class="text-primary"><%= @student.rollnumber %></span></h5>
+  <h5>Grade:                  <span class="text-primary"><%= @class.full_name %></span></h5>
 </div>
 
-<%= render partial: 'complete_result.html.erb' %>
+<div class="col-md-12">
+  <%= render partial: 'complete_result.html.erb' %>
+</div>
