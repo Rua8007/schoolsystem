@@ -1,0 +1,1 @@
+jQuery.fn.dataTableExt.oApi.fnGetHiddenNodes=function(e){var r,a=jQuery("tbody tr",e.nTable);if(jQuery.fn.dataTable.versionCheck){var n=new jQuery.fn.dataTable.Api(e);r=n.rows().nodes().toArray()}else r=this.oApi._fnGetTrNodes(e);for(var t=0;t<a.length;t++){var o=jQuery.inArray(a[t],r);-1!=o&&r.splice(o,1)}return r};

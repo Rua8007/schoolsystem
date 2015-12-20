@@ -1,0 +1,1 @@
++function(e){e(function(){e(document).on("click","[ui-nav] a",function(t){var i,n=e(t.target);n.is("a")||(n=n.closest("a")),i=n.parent().siblings(".active"),i&&i.toggleClass("active").find("> ul:visible").slideUp(200),n.parent().hasClass("active")&&n.next().slideUp(200)||n.next().slideDown(200),n.parent().toggleClass("active"),n.next().is("ul")&&t.preventDefault()})})}(jQuery);

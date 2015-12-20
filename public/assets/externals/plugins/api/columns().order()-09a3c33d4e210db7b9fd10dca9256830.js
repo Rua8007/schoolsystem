@@ -1,0 +1,1 @@
+$.fn.dataTable.Api.register("columns().order()",function(r){return this.iterator("columns",function(n,e){for(var t=[],a=0,i=e.length;i>a;a++)t.push([e[a],$.isArray(r)?r[a]:r]);new $.fn.dataTable.Api(n).order(t)})});

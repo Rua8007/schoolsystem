@@ -1,0 +1,1 @@
+jQuery.extend(jQuery.fn.dataTableExt.oSort,{"date-eu-pre":function(e){e=e.replace(" ","");var t,r;if(""==e)return 0;t=e.indexOf(".")>0?e.split("."):e.split("/"),r=t[2]?t[2]:0;var n=t[1];1==n.length&&(n=0+n);var u=t[0];return 1==u.length&&(u=0+u),1*(r+n+u)},"date-eu-asc":function(e,t){return t>e?-1:e>t?1:0},"date-eu-desc":function(e,t){return t>e?1:e>t?-1:0}});

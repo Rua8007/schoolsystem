@@ -1,0 +1,1 @@
+jQuery.extend(jQuery.fn.dataTableExt.oSort,{"title-string-pre":function(t){return t.match(/title="(.*?)"/)[1].toLowerCase()},"title-string-asc":function(t,e){return e>t?-1:t>e?1:0},"title-string-desc":function(t,e){return e>t?1:t>e?-1:0}});

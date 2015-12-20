@@ -1,0 +1,1 @@
+(function(){$(document).ready(function(){return $("body").on("click",".select-subject",function(){return $(this).prop("checked")?$(this).parents(".row").find('input[type="text"]').attr("required","true"):$(this).parents(".row").find('input[type="text"]').attr("required","false")})})}).call(this);

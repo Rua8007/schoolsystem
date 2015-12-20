@@ -1,0 +1,1 @@
++function(t){t(function(){t(document).on("click","[ui-toggle]",function(e){e.preventDefault();var g=t(e.target);g.attr("ui-toggle")||(g=g.closest("[ui-toggle]"));var o=t(g.attr("target"))||g;o.toggleClass(g.attr("ui-toggle"))})})}(jQuery);

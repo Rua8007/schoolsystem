@@ -1,0 +1,1 @@
+jQuery.fn.dataTable.Api.register("page.jumpToData()",function(a,r){var t=this.column(r,{order:"current"}).data().indexOf(a);if(t>=0){var e=Math.floor(t/this.page.info().length);this.page(e).draw(!1)}return this});

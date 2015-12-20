@@ -1,0 +1,1 @@
+jQuery.fn.dataTableExt.oApi.fnDataUpdate=function(n,a,e){jQuery(a).find("TD").each(function(a){var t=n.oApi._fnVisibleToColumnIndex(n,a);n.oApi._fnSetCellData(n,e,t,jQuery(this).html())})};

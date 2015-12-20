@@ -1,0 +1,1 @@
+!function(){var e="$\xa3\u20acc0123456789.-,'",n=jQuery.fn.dataTableExt.oApi._fnEscapeRegex(e),t=new RegExp("[^"+n+"]");jQuery.fn.dataTableExt.aTypes.unshift(function(e){return"string"!=typeof e||t.test(e)?null:"currency"})}();

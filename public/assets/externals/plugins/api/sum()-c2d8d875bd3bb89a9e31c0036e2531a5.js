@@ -1,0 +1,1 @@
+jQuery.fn.dataTable.Api.register("sum()",function(){return this.flatten().reduce(function(e,t){return 1*e+1*t})});

@@ -1,0 +1,1 @@
+jQuery.extend(jQuery.fn.dataTableExt.oSort,{"alt-string-pre":function(t){return t.match(/alt="(.*?)"/)[1].toLowerCase()},"alt-string-asc":function(t,n){return n>t?-1:t>n?1:0},"alt-string-desc":function(t,n){return n>t?1:t>n?-1:0}});

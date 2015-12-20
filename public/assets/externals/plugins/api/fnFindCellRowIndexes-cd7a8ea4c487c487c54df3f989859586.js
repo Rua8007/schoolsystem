@@ -1,0 +1,1 @@
+jQuery.fn.dataTableExt.oApi.fnFindCellRowIndexes=function(a,t,e){var n,o,f,i,l,s,h=[],r=a.aoColumns;for(n=0,o=a.aoData.length;o>n;n++)if(s=a.aoData[n]._aData,void 0===e)for(f=0,i=r.length;i>f;f++)l=this.fnGetData(n,f),l==t&&h.push(n);else this.fnGetData(n,e)==t&&h.push(n);return h};

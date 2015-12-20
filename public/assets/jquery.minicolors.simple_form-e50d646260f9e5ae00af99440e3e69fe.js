@@ -1,0 +1,1 @@
+$(function(){$("[data-minicolors]").each(function(i,o){var n=$(this);n.minicolors(n.data("minicolors"))})});

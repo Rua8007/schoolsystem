@@ -1,0 +1,1 @@
+$.fn.easyPieChart=function(a){return this.each(function(){var t;$.data(this,"easyPieChart")||(t=$.extend({},a,$(this).data()),$.data(this,"easyPieChart",new EasyPieChart(this,t)))})};

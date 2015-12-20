@@ -84,6 +84,6 @@ test:
 #
 production:
   <<: *default
-  database: schoolsystem_production
+  database: schoolsystem_development
   username: postgres
   password: postgres
