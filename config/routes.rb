@@ -343,6 +343,13 @@ end
 
   get '/select_report_card_settings/select_report_card_setting' => 'report_card_settings#select_report_card_setting', as: :select_report_card
 
+  ###################################################################
+  ## Publish Result Routes ##
+  ###################################################################
+
+  get '/select_class' => 'publish_results#select_class', as: :select_class_to_publish
+  get '/publish_result/:class_id/:batch_id' => 'publish_results#publish_result', as: :publish_result
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

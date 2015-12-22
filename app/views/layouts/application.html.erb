@@ -1098,6 +1098,14 @@
                         <% end %>
                        </li>
                     <% end %>
+
+                    <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'publish_results').any? %>
+                      <li>
+                        <%= link_to(select_class_to_publish_path) do %>
+                            <span>Publish Results</span>
+                        <% end %>
+                      </li>
+                    <% end %>
                       <!-- <li>
                         <a href="ui_icon.html">
                           <b class="badge bg-info pull-right">3</b>
