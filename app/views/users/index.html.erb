@@ -13,6 +13,9 @@
         '<input type="text" class="form-control" id="exampleInputName2" placeholder="'+title+' search">'
         );
       }
+      else{
+        $(this).html('<div style="width: 170px;">' + title + '</div>');
+      }
     });
 
     // DataTable
@@ -46,7 +49,7 @@
       <th>Status</th>
       <th>Login Count</th>
       <th>Last Login Time</th>
-      <th>Actions</th>
+      <th style="width: 169px;">Actions</th>
     </tr>
   </thead>
 
@@ -67,12 +70,12 @@
         <td><%= user.sign_in_count %></td>
         <td><%= user.last_sign_in_at %></td>
         <td>
-          <%= link_to '', edit_user_path(user.id),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
-          <%= link_to 'Password', password_user_path(user.id),:class => ' btn btn-warning' %>
+          <%= link_to '', edit_user_path(user.id),:class => ' btn btn-info  glyphicon glyphicon-pencil bcc',style: "width:40px; font-size: 0.8em;" %>
+          <%= link_to 'Password', password_user_path(user.id),:class => ' btn btn-warning', style: 'font-size: 0.8em;' %>
           <% if user.is_active %>
-            <%= link_to 'Disable', enable_user_path({id: user.id, status: "disable"}),:class => ' btn btn-danger ',style: "width:auto;" %>
+            <%= link_to 'Disable', enable_user_path({id: user.id, status: "disable"}),:class => ' btn btn-danger ',style: "width:auto; font-size: 0.8em;" %>
           <% else %>
-            <%= link_to 'Enable', enable_user_path({id: user.id, status: "enable"}),:class => ' btn btn-success  ',style: "width:auto" %>
+            <%= link_to 'Enable', enable_user_path({id: user.id, status: "enable"}),:class => ' btn btn-success  ',style: "width:auto; font-size: 0.8em;" %>
           <% end %>
         </td>
       </tr>

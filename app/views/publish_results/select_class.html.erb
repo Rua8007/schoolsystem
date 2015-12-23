@@ -26,7 +26,7 @@
         <td>
         <% pb = PublishResult.find_by(class_id: grade.id, batch_id: @batch.id) %>
         <% if pb.try(:publish) %>
-              <%= link_to 'Hide Results', hide_result_path(grade.id, @batch.id), { class: 'btn btn-danger', remote: true, data: { confirm: 'Are you sure to hide result?' } } %>
+              <%= link_to 'UnPublish Results', hide_result_path(grade.id, @batch.id), { class: 'btn btn-danger', remote: true, data: { confirm: 'Are you sure to hide result?' } } %>
         <% else %>
             <%= link_to 'Publish Results', publish_result_path(grade.id, @batch.id), { class: 'btn btn-success', remote: true, data: { confirm: 'Are you sure to publish result?' } } %>
         <% end %>

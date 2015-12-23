@@ -31,7 +31,7 @@ class PublishResultsController < ApplicationController
       publish_result.publish = false
       if publish_result.save
         delete_report_card_urls(@class, @batch)
-        @message = 'Results Hidden Successfully.'
+        @message = 'Results UnPublished Successfully.'
       else
         @message = 'Sorry something went bad. Please try again.'
       end
