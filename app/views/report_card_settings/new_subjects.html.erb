@@ -15,6 +15,12 @@
       <div class="col-md-12">
         <%= link_to 'Back', new_headings_path(@setting), class: 'btn btn-primary' %>
         <%= link_to 'Preview', report_card_setting_path(@setting), class: 'btn btn-success' %>
+        <% if Right.where('role_id = ? and value = ?' , current_user.role_id, 'design_report_cards').any? %>
+            <%= link_to 'Create New Card', new_exam_path, class: 'btn btn-info' %>
+        <% end %>
+        <% if Right.where('role_id = ? and value = ?' , current_user.role_id, 'publish_results').any? %>
+            <%= link_to 'Publish Results', select_class_to_publish_path, class: 'btn btn-danger' %>
+        <% end %>
       </div>
     </div>
   </div>

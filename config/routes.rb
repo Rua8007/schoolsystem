@@ -349,6 +349,7 @@ end
 
   get '/select_class' => 'publish_results#select_class', as: :select_class_to_publish
   get '/publish_result/:class_id/:batch_id' => 'publish_results#publish_result', as: :publish_result
+  get '/hide_result/:class_id/:batch_id' => 'publish_results#hide_result', as: :hide_result
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

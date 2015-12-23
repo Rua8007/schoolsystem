@@ -22,4 +22,20 @@ class PublishResultsController < ApplicationController
     end
   end
 
+  def hide_result
+    @class = Grade.find(params[:class_id])
+    @batch = Batch.find(params[:batch_id])
+
+    publish_result = PublishResult.find_by(class_id: @class.id, batch_id: @batch.id)
+    if publish_result.present?
+      publish_result.publish = false
+      if publish_result.save
+        delete_report_card_urls(@class, @batch)
+        @message = 'Results Hidden Successfully.'
+      else
+        @message = 'Sorry something went bad. Please try again.'
+      end
+    end
+  end
+
 end
