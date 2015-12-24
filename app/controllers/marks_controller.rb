@@ -173,7 +173,7 @@ class MarksController < ApplicationController
     @subjects.each do |sub|
       @report_card_subjects << @setting.subjects.find_by(name: sub.name, code: sub.code)
     end
-    @report_card_subjects = @report_card_subjects.compact
+    @report_card_subjects = @report_card_subjects.compact.sort!{ |x,y| x.name <=> y.name }
   end
 
   def get_subject_result

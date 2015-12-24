@@ -2,7 +2,7 @@
   <div class="col-md-12">
     <%= form_tag(show_subject_result_path, method: :post, class: 'col-form class-form', remote: true) do %>
         <div class="form-group col-md-4">
-          <label for="class_id"> Select a class</label>
+          <label for="class_id"> Select Class</label>
           <%= select_tag 'class_id', options_from_collection_for_select(@classes, :id, :full_name, @class.id), class: 'form-control class-select'  %>
         </div>
     <% end %>

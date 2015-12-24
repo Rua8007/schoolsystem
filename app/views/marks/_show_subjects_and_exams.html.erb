@@ -2,11 +2,11 @@
 <%= form_tag(get_subject_result_path, method: :post, class: 'col-form', remote: true) do %>
     <%= hidden_field_tag 'class_id', klass.id %>
     <div class="form-group col-md-4">
-      <label for="class_id"> Select a class</label>
+      <label for="class_id"> Select Subject</label>
       <%= select_tag 'subject_id', options_from_collection_for_select(subjects, :id, :name), class: 'form-control'  %>
     </div>
     <div class="form-group col-md-4">
-      <label for="class_id"> Select an exam</label>
+      <label for="class_id"> Select Quarter</label>
       <%= select_tag 'exam_id', options_from_collection_for_select(exams, :id, :name), class: 'form-control'  %>
     </div>
     <div class="col-md-2">
