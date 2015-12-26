@@ -254,6 +254,15 @@
                   </li>
                 <% end %>
 
+                <% if Right.where("role_id = ? and value = 'send_sms'", current_user.role_id ).any? %>
+                  <li>
+                    <%= link_to(home_sms_path) do %>
+                      <i class="glyphicon glyphicon-flag"></i>
+                      <span>Send SMS</span>
+                    <% end %>
+                  </li>
+                <% end %>
+
                   <% if Right.where("role_id = ? and value = ?", current_user.role_id , 'view_student' ).any? %>
                     <li>
                       <a href class="auto">
