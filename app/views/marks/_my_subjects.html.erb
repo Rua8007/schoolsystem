@@ -1,0 +1,21 @@
+<style type="text/css">
+  .subject-box{
+      padding: 0;
+      width: 10% !important;
+  }
+  .subject{
+      min-height: 60px; background-color: #19B5FE; text-align: center; vertical-align: middle; color: #fff; position: relative;
+      border-right: 1px solid #fff; padding-top: 18%; cursor: pointer; font-weight: bold;
+  }
+  .subject.active{
+      background-color: #3A539B;
+  }
+</style>
+
+<div class="col-md-12">
+  <% @subjects.each do |subject| %>
+    <div class="col-md-1 subject-box">
+      <div class="subject <%= 'active' if subject.id == @subject.id %>"><%= subject.name %></div>
+    </div>
+  <% end %>
+</div>

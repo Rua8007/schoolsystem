@@ -1,0 +1,4 @@
+$('#subjects').hide('slow');
+$('#subjects').html('<%= j(render partial: 'my_subjects') %>');
+$('#subjects').show('slow');
+$('#results').html('<%= j(render partial: 'my_result') %>');
