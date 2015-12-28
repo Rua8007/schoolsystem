@@ -249,6 +249,29 @@ class MarksController < ApplicationController
     end
   end
 
+  def my_results
+    @student = Student.find_by_rollnumber(current_user.email.split('@').first.split('_').last) if current_user.role.name == 'Parent'
+    @student = Student.find_by_email(current_user.email) if current_user.role.name == 'Student'
+    @class = @student.grade
+    if @class.present?
+      @batch = @class.batch
+      @main_grade = @class.parent
+      @report_card = ReportCard.find_by(grade_id: @class.id, student_id: @student.id, batch_id: @batch.id)
+    end
+
+    @exams = Exam.where(batch_id: @batch.id, grade_id: @main_grade.id).order('name')
+    @exam = params[:exam_id].present? ? Exam.find(params[:exam_id]) : @exams.first
+
+    @setting = ReportCardSetting.find_by(grade_id: @main_grade.id, batch_id: @batch.id, exam_id: @exam.id)
+    @subjects = @setting.subjects.where(parent_id: nil).order('name')
+    @subject = params[:subject_id].present? ? ReportCardSubject.find(params[:subject_id]) : @subjects.first
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_mark

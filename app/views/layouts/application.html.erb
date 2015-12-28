@@ -1049,6 +1049,15 @@
                   </li>
                 <% end %>
 
+                <% if current_user.role.name == 'Parent' or current_user.role.name == 'Student' %>
+                    <li>
+                      <%= link_to(my_results_path) do %>
+                          <i class="glyphicon glyphicon-stats"></i>
+                          <span>My Results</span>
+                      <% end %>
+                    </li>
+                <% end %>
+
                 <% if Right.where("role_id = ? and value = 'view_exam'", current_user.role_id ).any? %>
 
                   <li>

@@ -186,6 +186,9 @@ end
   get 'result_card/:student_id/:class_id/:batch_id/:exam_id/:format' => 'marks#result_card', as: :pdf_result_card
   get 'complete_result_card/:student_id/:class_id/:batch_id' => 'marks#complete_result_card', as: :complete_result_card
   get 'complete_result_card/:student_id/:class_id/:batch_id/:format' => 'marks#complete_result_card', as: :complete_pdf_result_card
+
+  ##### Parents/Students Portal #####
+  match 'my_results/' => 'marks#my_results', as: :my_results, via: [:get, :post]
   resources :marksheets do
     collection do
       post "uploading"
