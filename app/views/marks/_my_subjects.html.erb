@@ -15,7 +15,7 @@
 <div class="col-md-12">
   <% @subjects.each do |subject| %>
     <div class="col-md-1 subject-box">
-      <div class="subject <%= 'active' if subject.id == @subject.id %>"><%= subject.name %></div>
+      <div class="subject <%= 'active' if subject.id == @subject.id %>" id="<%= subject.id %>"><%= subject.name %></div>
     </div>
   <% end %>
 </div>

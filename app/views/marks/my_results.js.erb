@@ -1,4 +1,6 @@
 $('#subjects').hide('slow');
 $('#subjects').html('<%= j(render partial: 'my_subjects') %>');
 $('#subjects').show('slow');
-$('#results').html('<%= j(render partial: 'my_result') %>');
+$('#results').hide('slow');
+$('#results').html('<%= j(render partial: 'my_results') %>');
+$('#results').show('slow');

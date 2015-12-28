@@ -256,14 +256,15 @@ class MarksController < ApplicationController
     if @class.present?
       @batch = @class.batch
       @main_grade = @class.parent
+      @report_card = ReportCard.find_by(grade_id: @class.id, student_id: @student.id, batch_id: @batch.id)
     end
 
-    @exams = Exam.where(batch_id: @batch.id, grade_id: @main_grade.id)
+    @exams = Exam.where(batch_id: @batch.id, grade_id: @main_grade.id).order('name')
     @exam = params[:exam_id].present? ? Exam.find(params[:exam_id]) : @exams.first
 
     @setting = ReportCardSetting.find_by(grade_id: @main_grade.id, batch_id: @batch.id, exam_id: @exam.id)
     @subjects = @setting.subjects.where(parent_id: nil).order('name')
-    @subject = @subjects.first
+    @subject = params[:subject_id].present? ? ReportCardSubject.find(params[:subject_id]) : @subjects.first
 
     respond_to do |format|
       format.html
