@@ -1,4 +1,4 @@
-<% if @class.present? %>
+<% if @class.present? and @report_card.present? and @setting.present? %>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript">
         // Load the Visualization API and the piechart package.
@@ -28,7 +28,7 @@
       </div>
     </div>
 <% else %>
-    <h2>This student is not assigned a class.</h2>
+    <h2>This student is not assigned a class or result is not compiled yet.</h2>
 <% end %>
 
 
