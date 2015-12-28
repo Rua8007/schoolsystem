@@ -29,9 +29,9 @@ class GradesController < ApplicationController
   def add_students
     @grade = Grade.find(params[:id])
     if @grade.campus = 'Boys'
-      @students = Grade.find_by_name(@grade.name).students.where(gender: 'MALE')
+      @students = @grade.parent.students.where(gender: 'MALE') rescue []
     else
-      @students = Grade.find_by_name(@grade.name).students.where(gender: 'FEMALE')
+      @students = @grade.parent.students.where(gender: 'MALE') rescue []
     end
   end
 

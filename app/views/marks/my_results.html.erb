@@ -1,31 +1,35 @@
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-<script type="text/javascript">
-    // Load the Visualization API and the piechart package.
-    google.load('visualization', '1.0', {'packages':['corechart']});
-</script>
-<div class="row">
-  <div class="col-md-12">
-    <%= form_tag(show_subject_result_path, method: :post, class: 'col-form class-form', remote: true) do %>
-        <div class="form-group col-md-4">
-          <label for="class_id"> Select Quarter</label>
-          <%= select_tag 'class_id', options_from_collection_for_select(@exams, :id, :name, @exam.id), class: 'form-control exam-select'  %>
-        </div>
-    <% end %>
-  </div>
-</div>
+<% if @class.present? %>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+        // Load the Visualization API and the piechart package.
+        google.load('visualization', '1.0', {'packages':['corechart']});
+    </script>
+    <div class="row">
+      <div class="col-md-12">
+        <%= form_tag(show_subject_result_path, method: :post, class: 'col-form class-form', remote: true) do %>
+            <div class="form-group col-md-4">
+              <label for="class_id"> Select Quarter</label>
+              <%= select_tag 'class_id', options_from_collection_for_select(@exams, :id, :name, @exam.id), class: 'form-control exam-select'  %>
+            </div>
+        <% end %>
+      </div>
+    </div>
 
-<hr />
+    <hr />
 
-<div class="row">
-  <div class="col-md-12" id="subjects">
-    <%= render partial: 'my_subjects' %>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-12" id="results">
-    <%= render partial: 'my_results' %>
-  </div>
-</div>
+    <div class="row">
+      <div class="col-md-12" id="subjects">
+        <%= render partial: 'my_subjects' %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12" id="results">
+        <%= render partial: 'my_results' %>
+      </div>
+    </div>
+<% else %>
+    <h2>This student is not assigned a class.</h2>
+<% end %>
 
 
 <script type="text/javascript">
