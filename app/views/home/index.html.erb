@@ -10,15 +10,26 @@
         min-height: 220px;
         max-height: 220px;
         color: white;
-        padding-top: 1em;
+        padding-top: 0.7em;
     }
+    .long-box{
+        min-height: 335px;
+        max-height: 335px;
+        color: white;
+        padding-top: 0.7em;
+    }
+
+
     .blue-box   {   background-color: #3498db; }
     .green-box  {   background-color: #2ecc71; }
     .red-box    {   background-color: #e74c3c; }
     .purple-box {   background-color: #8e44ad; }
+    .dark-box   {   background-color: #0C0C1E; }
+    .grey-box   {   background-color: #6C7A89; }
     .text-label{  font-size: 1.4em; }
     .text { font-size: 1.6em; }
-    .heading{ font-size: 2em; margin-bottom: 0.4em; border-bottom: 0.05em solid #fff; }
+    .heading{ font-size: 2em; }
+    .inner-box{ background-color: #fff; height: 150px; color: #58666e; padding-top: 0.8em;}
 
 </style>
 <% if current_user.role.name == 'Parent' %>
@@ -73,80 +84,103 @@
             <div class="col-sm-12">
               <div class="col-sm-6 box green-box">
                 <div class="heading">Personal</div>
-                <div class="row">
-                  <div class="col-sm-3 text-label">ID</div>
-                  <div class="col-sm-9 text"><%= @student.rollnumber %></div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-3 text-label">Phone</div>
-                  <div class="col-sm-9 text"><%= @student.phone %></div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-3 text-label">Email</div>
-                  <div class="col-sm-9 text"><%= @student.email %></div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-3 text-label">Joining</div>
-                  <div class="col-sm-9 text"><%= @student.created_at.to_date %></div>
+                <div class="col-md-12 inner-box">
+                  <div class="row">
+                    <div class="col-sm-3 text-label">ID</div>
+                    <div class="col-sm-9 text"><%= @student.rollnumber %></div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-3 text-label">Phone</div>
+                    <div class="col-sm-9 text"><%= @student.phone %></div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-3 text-label">Email</div>
+                    <div class="col-sm-9 text"><%= @student.email %></div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-3 text-label">Joining</div>
+                    <div class="col-sm-9 text"><%= @student.created_at.to_date %></div>
+                  </div>
                 </div>
               </div>
               <div class="col-sm-6 box blue-box">
-                <div class="heading">Title To Insert</div>
-                <div class="row">
-                  <div class="col-sm-3 text-label">Address</div>
-                  <div class="col-sm-9 text"><%= "#{@student.address} #{@student.city}, #{@student.country}" %></div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-3 text-label">Phone</div>
-                  <div class="col-sm-9 text"><%= @student.phone %></div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-3 text-label">Email</div>
-                  <div class="col-sm-9 text"><%= @student.email %></div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-3 text-label">Joining</div>
-                  <div class="col-sm-9 text"><%= @student.created_at.to_date %></div>
+                <div class="heading">Fee Info</div>
+                <div class="col-md-12 inner-box">
+                  <div class="row">
+                    <div class="col-sm-4 text-label text-center" style="color: #3498db;">Total</div>
+                    <div class="col-sm-4 text-label text-center" style="color: #2ecc71;">Paid</div>
+                    <div class="col-sm-4 text-label text-center" style="color: #e74c3c;">Balance</div>
+                  </div>
+                  <div class="row">
+                  </div>
                 </div>
               </div>
               <div class="col-sm-6 box red-box">
                 <div class="heading">Parents</div>
-                <div class="row">
-                  <div class="col-sm-4 text-label">Father's Name</div>
-                  <div class="col-sm-8 text"><%= @student.parent.name if @student.parent.present? %></div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-4 text-label">Father's Phone</div>
-                  <div class="col-sm-8 text"><%= @student.parent.mobile if @student.parent.present? %></div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-4 text-label">Mother's Name</div>
-                  <div class="col-sm-8 text"><%= @student.parent.mothername if @student.parent.present? %></div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-4 text-label">Mother's Phone</div>
-                  <div class="col-sm-8 text"><%= @student.parent.mothermobile if @student.parent.present? %></div>
+                <div class="col-md-12 inner-box">
+                  <div class="row">
+                    <div class="col-sm-4 text-label">Father's Name</div>
+                    <div class="col-sm-8 text"><%= @student.parent.name if @student.parent.present? %></div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-4 text-label">Father's Phone</div>
+                    <div class="col-sm-8 text"><%= @student.parent.mobile if @student.parent.present? %></div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-4 text-label">Mother's Name</div>
+                    <div class="col-sm-8 text"><%= @student.parent.mothername if @student.parent.present? %></div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-4 text-label">Mother's Phone</div>
+                    <div class="col-sm-8 text"><%= @student.parent.mothermobile if @student.parent.present? %></div>
+                  </div>
                 </div>
               </div>
               <div class="col-sm-6 box purple-box">
-                <div class="heading">Parents</div>
-                <div class="row">
-                  <div class="col-sm-4 text-label">Father's Name</div>
-                  <div class="col-sm-8 text"><%= @student.parent.name if @student.parent.present? %></div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-4 text-label">Father's Phone</div>
-                  <div class="col-sm-8 text"><%= @student.parent.mobile if @student.parent.present? %></div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-4 text-label">Mother's Name</div>
-                  <div class="col-sm-8 text"><%= @student.parent.mothername if @student.parent.present? %></div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-4 text-label">Mother's Phone</div>
-                  <div class="col-sm-8 text"><%= @student.parent.mothermobile if @student.parent.present? %></div>
+                <div class="heading">Location<span class="pull-right">Add</span></div>
+                <div class="col-md-12 inner-box">
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+        <br />
+        <div class="row">
+          <div class="col-md-12">
+            <div class="col-md-12">
+              <div class="col-md-6 long-box dark-box">
+                <div class="heading">Contact Us</div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <form>
+                      <div class="form-group">
+                        <label for="department">Department</label>
+                        <select class="form-control" id="department">
+                          <option>Principal</option><option>Accounts</option><option>Academic</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" class="form-control" id="subject" placeholder="Subject">
+                      </div>
+                      <div class="form-group">
+                        <textarea class="form-control" rows="3"></textarea>
+                      </div>
+                      <button type="submit" class="btn btn-success">Submit</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6 long-box grey-box">
+                <div class="heading">My Subjects</div>
+                  <div class="col-md-12 inner-box">
+                    <div class="row">
+
+                    </div>
+                  </div>
+              </div>
+
             </div>
           </div>
         </div>
