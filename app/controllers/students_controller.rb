@@ -30,6 +30,7 @@ class StudentsController < ApplicationController
       redirect_to :back, alert: "Sorry! You are not authorized"
     end
     # return render json: params
+
     @student = Student.new(create_params)
     name = params[:name1]+' ' +params[:name2]+' ' +params[:name3]+' ' +params[:name4]
     aname = params[:aname1]+' ' +params[:aname2]+' ' +params[:aname3]+' ' +params[:aname4]
@@ -37,7 +38,10 @@ class StudentsController < ApplicationController
     @student.first_name = params[:name1]
     @student.middle_name = params[:name2]
     @student.arabicname = aname
+
     if @student.save
+      @student.delay.testi
+
       @email="std_"+Student.last.rollnumber.to_s+"@alomam.edu.sa"
       @student.email = @email
       u = User.new

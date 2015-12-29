@@ -9,39 +9,42 @@
   <h1 class="m-n font-thin h3"> SMS Notifications Panel </h1>
 </div>
 <br><br>
+<%= form_tag(home_sendsms_path, method: :get) do %>
 
 <div class="container" style="padding-left:0px !important">
   <div class="container">
     <fieldset class="sss well well-lg">
       <legend class="lll">Message Body</legend>
 
-      <textarea rows="5" cols="130" id = "msgbdy"></textarea>
+      <textarea rows="5" cols="130" name = "msgbdy" id = "msgbdy"></textarea>
       <br>
       <legend class="lll">Send To</legend>
       <div class="checkbox">
         <label class="i-checks"  >
-          <%= check_box :all,"", class: "leave_checkbox" %>
+          <%= check_box_tag :all,"", false,  class: "leave_checkbox" %>
           <i></i><strong>All Users</strong>
         </label>
       </div>
       <div class="checkbox">
         <label class="i-checks" >
-          <%= check_box :parent,"", class: "leave_checkbox" %>
+          <%= check_box_tag :parent,"", false,  class: "leave_checkbox" %>
           <i ></i><strong>Parents </strong>
         </label>
       </div>
       <div class="checkbox">
         <label class="i-checks" >
-          <%= check_box :staff, "", class: "leave_checkbox" %>
+          <%= check_box_tag :staff, "", false,  class: "leave_checkbox" %>
           <i ></i><strong>Staff Members</strong>
         </label>
       </div>
       <br><br>
-      <input type="button" value="Send Test SMS" onclick="find();" class="btn btn-success pull-right" />
+      <!-- <input type="button" value="Send Test SMS" onclick="find();" class="btn btn-success pull-right" /> -->
+      <%= submit_tag 'Send', class: 'btn btn-success pull-right' %>
 
     </fieldset>
   </div>
 </div>
+<% end %>
 <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
 <script>
     var ContentData = "{'UserName': 'test9', 'Password': '123', 'SenderName': 'DreamSMS', 'Message': 'test rest', 'Mobiles': '0544479655'}";
@@ -51,58 +54,9 @@
     function find() {
       // console.log("parent is checked",$('#parent_').is(":checked") )
       var send_to
+        send_to = '0531560085,0544479655'
 
-      if ($('#all_').is(":checked")){
-        var parents_numbers = '<%= Parent.all.pluck(:mobile).collect { |n| n.to_s } %>'
-        parents_numbers =  parents_numbers.replace('[', '')
-        parents_numbers =  parents_numbers.replace(/&quot;/g, '')
-        parents_numbers =  parents_numbers.replace(']', '')
-        parents_numbers =  parents_numbers.replace(' ', '')
-
-        var employee_numbers = '<%= Employee.all.pluck(:mobile_number).collect { |n| n.to_s } %>'
-        console.log(employee_numbers)
-        employee_numbers =  employee_numbers.replace('[', '')
-        employee_numbers =  employee_numbers.replace(/&quot;/g, '')
-        employee_numbers =  employee_numbers.replace(']', '')
-        employee_numbers =  employee_numbers.replace(' ', '')
-
-        send_to = parents_numbers + ',' + employee_numbers
-        console.log(send_to)
-
-        send_to =  send_to.replace(/ /g,'')
-        send_to =  send_to.replace(/,,/g , ',')
-        console.log(send_to)
-
-        send_to =  send_to.replace(/,,/g , ',')
-        send_to =  send_to.replace(/,,/g , '')
-        console.log(send_to)
-
-      }
-      if ($('#parent_').is(":checked")){
-        var parents_numbers = '<%= Parent.all.pluck(:mobile).collect { |n| n.to_s } %>'
-        parents_numbers =  parents_numbers.replace('[', '')
-        parents_numbers =  parents_numbers.replace(/&quot;/g, '')
-        parents_numbers =  parents_numbers.replace(']', '')
-        parents_numbers =  parents_numbers.replace(' ', '')
-        send_to = parents_numbers
-        send_to =  send_to.replace(/ /g,'')
-        send_to =  send_to.replace(/,,/g , ',')
-        send_to =  send_to.replace(/,,/g , '')
-      }
-      if ($('#staff_').is(":checked")){
-        var employee_numbers = '<%= Employee.all.pluck(:mobile_number).collect { |n| n.to_s } %>'
-        console.log(employee_numbers)
-        employee_numbers =  employee_numbers.replace('[', '')
-        employee_numbers =  employee_numbers.replace(/&quot;/g, '')
-        employee_numbers =  employee_numbers.replace(']', '')
-        send_to = employee_numbers
-        send_to =  send_to.replace(/ /g,'')
-        send_to =  send_to.replace(/,,/g , ',')
-        send_to =  send_to.replace(/,,/g , '')
-      }
-        send_to = '+923134145612'
-
-      var ContentData = "{'UserName': 'test9', 'Password': '123', 'SenderName': 'Al Omam International', 'Message': '"+$('#msgbdy').val()+"', 'Mobiles': '"+send_to+"'}";
+      var ContentData = "{'UserName': 'nation', 'Password': '123', 'SenderName': 'Al Omam International', 'Message': '"+$('#msgbdy').val()+"', 'Mobiles': '"+send_to+"'}";
 
       console.log(ContentData);
 

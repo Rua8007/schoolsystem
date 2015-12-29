@@ -16,9 +16,47 @@ class HomeController < ApplicationController
   end
 
   def sendsms
-    response = HTTParty.get('http://dreamsms.net/sendHexEncoded.HTML?UserName=test9&Password=123&senderName=DreamSMS&message=test&MobileNo=544479655&txtlang=1')
-    return render json: response
-    # http://dreamsms.net/sendHexEncoded.HTML?UserName=test9&Password=123&senderName=Drea mSMS&message=test&MobileNo=541847555&txtlang=1
+    # return render json: params
+    send_to = ''
+    if params[:all]
+
+      employee_numbers = Employee.all.pluck(:mobile_number).collect { |n| n.to_s }.to_s
+      employee_numbers = employee_numbers.gsub('[', '')
+      employee_numbers = employee_numbers.gsub(']', '')
+
+      parents_numbers = Parent.all.pluck(:mobile).collect { |n| n.to_s }.to_s
+      parents_numbers = parents_numbers.gsub('[', '')
+      parents_numbers = parents_numbers.gsub(']', '')
+
+      send_to = employee_numbers + ',' + parents_numbers
+      send_to = send_to.gsub(' ', '')
+      send_to = send_to.gsub(',""', '')
+      return render json: send_to
+      # send_to =  send_to.replace(/ /,'')
+      # send_to =  send_to.replace(/,,/ , ',')
+
+      # send_to =  send_to.replace(/,,/ , ',')
+      # send_to =  send_to.replace(/,,/ , '')
+      result = SmsService.new.delay.sendsms(params[:msgbdy], send_to)
+
+
+    else
+      if params[:parent].present?
+        parents_numbers = Parent.all.pluck(:mobile).collect { |n| n.to_s }.to_s
+        parents_numbers = parents_numbers.gsub('[', '')
+        parents_numbers = parents_numbers.gsub(']', '')
+        result = SmsService.new.delay.sendsms(params[:msgbdy], parents_numbers)
+
+      end
+
+      if params[:staff].present?
+        employee_numbers = Employee.all.pluck(:mobile_number).collect { |n| n.to_s }.to_s
+        employee_numbers = employee_numbers.gsub('[', '')
+        employee_numbers = employee_numbers.gsub(']', '')
+        result = SmsService.new.delay.sendsms(params[:msgbdy], employee_numbers)
+      end
+    end
+    # result = SmsService.new.delay.sendsms(params[:msgbdy], send_to)
   end
 
 end
