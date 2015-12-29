@@ -16,6 +16,7 @@ module Schoolsystem
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     # config.time_zone = 'Central Time (US & Canada)'
 config.encoding = "utf-8"
+config.active_job.queue_adapter = :delayed_job
     # config.assets.enabled = true
     # config.assets.paths << Rails.root.join("app", "assets", "plugins", "codeprettifier")
     # config.assets.paths << Rails.root.join("app", "assets", "plugins", "easypiechart")
