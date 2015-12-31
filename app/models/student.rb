@@ -97,8 +97,6 @@ class Student < ActiveRecord::Base
 		  user.save
 		  emp.save
 
-
-
       # ======================employee script end======================
 		  end
 		rescue => e
