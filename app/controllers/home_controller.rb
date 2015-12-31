@@ -6,6 +6,8 @@ class HomeController < ApplicationController
       @student = Student.find_by_rollnumber(current_user.email.split('@').first.split('_').last)
       @parent = @student.parent
       @student_no = @student.rollnumber
+
+      @bridges = Bridge.where(grade_id: @student.grade_id) if @student.present?
     end
   end
 

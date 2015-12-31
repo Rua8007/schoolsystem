@@ -2,15 +2,13 @@
   .division{  float: left; height: 40px; min-width: 100px; max-width: 100px; background-color: #3A539B; color: #fff; padding: 3%; text-align: center;  }
   .division-marks{ float: left; height: 40px; min-width: 100px; max-width: 100px; color: #3A539B; background-color: #fff; padding: 3%; text-align: center;}
 </style>
-<div class="col-md-12">
-  <h3><%= @subject.name %></h3>
-</div>
+<br />
 <div class="" style="display: table; margin: 0 auto;">
   <% @setting.marks_divisions.order('name').where(is_divisible: true).try(:each) do |division| %>
       <div class="division"><%= division.name %></div>
   <% end %>
 </div>
-<div class="" style="display: table; margin: 0 auto;">
+<div class="" style="display: table; margin: 0 auto; border-bottom: 5px solid #3A539B">
   <% @setting.marks_divisions.order('name').where(is_divisible: true).try(:each) do |division| %>
       <% obtained_marks = (@report_card.marks.where(division_id: division.id, subject_id: @subject.id, exam_id: @exam.id).try(:sum, :obtained_marks) || 0) %>
       <div class="division-marks"><%= "#{obtained_marks}/#{division.total_marks}" %></div>

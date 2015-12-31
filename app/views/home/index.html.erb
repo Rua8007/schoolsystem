@@ -30,6 +30,7 @@
     .text { font-size: 1.6em; }
     .heading{ font-size: 2em; }
     .inner-box{ background-color: #fff; height: 150px; color: #58666e; padding-top: 0.8em;}
+    .long-inner-box{ overflow: auto; background-color: #fff; height: 270px; color: #58666e; padding-top: 0.8em;}
 
 </style>
 <% if current_user.role.name == 'Parent' %>
@@ -174,10 +175,17 @@
 
               <div class="col-md-6 long-box grey-box">
                 <div class="heading">My Subjects</div>
-                  <div class="col-md-12 inner-box">
-                    <div class="row">
-
+                  <div class="col-md-12 long-inner-box">
+                    <div class="row" style="text-align: center;">
+                      <div class="col-md-6"><b><h3 style="margin-top: 0; ">Teacher</h3></b></div>
+                      <div class="col-md-6"><b><h3 style="margin-top: 0; ">Subject</h3></b></div>
                     </div>
+                    <% @bridges.try(:each) do |bridge| %>
+                      <div class="row" style="text-align: center;">
+                        <div class="col-md-6 text-label"><%= Employee.find_by_id(bridge.employee_id).try(:full_name) || 'Teacher Not Found.' %></div>
+                        <div class="col-md-6 text"><%= Subject.find_by_id(bridge.subject_id).try(:name) %></div>
+                      </div>
+                    <% end %>
                   </div>
               </div>
 
