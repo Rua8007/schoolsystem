@@ -303,6 +303,3 @@ DEPENDENCIES
   will_paginate
   wkhtmltopdf-binary
   wysihtml-rails
-
-BUNDLED WITH
-   1.10.6
