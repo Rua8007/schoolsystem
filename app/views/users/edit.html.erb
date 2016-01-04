@@ -1,10 +1,10 @@
 <div class="well well-lg" >
-  <h2>Edit User</h2>
-
+  <u><h1>Edit User</h1></u>
+  <br>
   <%= form_for @user do |f| %>
     <div class="field">
       <label> Email </label>
-      <%= f.email_field :email,autofocus: true, class: "form-control" , style: "width:40%", disabled: true %>
+      <%= f.email_field :email,autofocus: true, class: "form-control" , style: "width:40%", disabled: false %>
     </div>
 
     <div class="field">
