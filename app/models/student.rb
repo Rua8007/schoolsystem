@@ -41,29 +41,27 @@ class Student < ActiveRecord::Base
 		puts "--------in begin--------"
 
 		  CSV.foreach(file.path, headers: true) do |row|
-		  #   emp = new
-		  #   emp.attributes = row.to_hash.slice(*row.to_hash.keys)
-		  #   puts "========file opened=========="
-		  # 	puts emp
-		  # 	puts "========file opened=========="
-		  #   if Student.all.any?
-		  #     emp.rollnumber = Student.last.rollnumber.to_i + 1
-		  #   else
-		  #     emp.rollnumber = '15001'
-		  #   end
+		    emp = new
+		    emp.attributes = row.to_hash.slice(*row.to_hash.keys)
+		    puts "========file opened=========="
+		  	puts emp
+		  	puts "========file opened=========="
+		    if Student.all.any?
+		      emp.rollnumber = Student.last.rollnumber.to_i + 1
+		    else
+		      emp.rollnumber = '15001'
+		    end
 
-		  #   emerg = emp.emergencies.new
-	   #    emerg.name = emp.hearing
-	   #    emp.hearing = ''
-	   #    emerg.mobile = emp.rh
-	   #    emp.rh = ''
-	   #    emerg.phone = emp.alergy
-	   #    emp.alergy = ''
-	   #    emerg.email = emp.email
-	   #    emp.email = ''
 
-		  #   emp.save!
-
+		    emp.save
+		    # blood = father number
+		    p = Parent.create
+		    emp.parent_id = p.id
+		    p.mobile = emp.blood
+		    p.mothermobile = emp.rh
+		    emp.blood = ''
+		    emp.rh = ''
+		    emp.email = emp.email.downcase+'_'+emp.rollnumber+'@alomam.edu.sa'
 
 	   #    email="std_"+emp.rollnumber.to_s+"@alomam.edu.sa"
 	   #    emp.email = email
@@ -74,28 +72,28 @@ class Student < ActiveRecord::Base
 				# puts "=================="
 
 
-	   #    u = User.new
-	   #    u.email = email
-	   #    u.password = '123'
-	   #    u.password_confirmation = '123'
-	   #    u.role_id = Role.find_by_name('Student').id
-		  #   u.is_active = true
+	      u = User.new
+	      u.email = emp.email
+	      u.password = '123'
+	      u.password_confirmation = '123'
+	      u.role_id = Role.find_by_name('Parent').id
+		    u.is_active = true
 
-	   #    u.save
-	   #    emp.save
-
+	      u.save
+	      emp.save
+	      puts "+++++++++++++++++++"
       # ================== Student script end==========================
       # ===========================employee script=======================
- 			emp = Employee.new
-		  emp.attributes = row.to_hash.slice(*row.to_hash.keys)
-		  emp.category_id = Category.find_by_name('Academic').id
-		  emp.department_id = Department.first.id
-		  user = Role.find_by_name('Teacher').users.new
-		  user.email = emp.email
-		  user.password = '123'
-		  user.password_confirmation = '123'
-		  user.save
-		  emp.save
+ 			# emp = Employee.new
+		  # emp.attributes = row.to_hash.slice(*row.to_hash.keys)
+		  # emp.category_id = Category.find_by_name('Academic').id
+		  # emp.department_id = Department.first.id
+		  # user = Role.find_by_name('Teacher').users.new
+		  # user.email = emp.email
+		  # user.password = '123'
+		  # user.password_confirmation = '123'
+		  # user.save
+		  # emp.save
 
       # ======================employee script end======================
 		  end
