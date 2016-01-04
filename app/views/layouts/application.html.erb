@@ -310,20 +310,20 @@
                       <ul class="nav nav-sub dk">
                         <li class="nav-sub-header">
                           <%= link_to("") do %>
-                            <span>Employee</span>
+                            <span>Teachers</span>
                           <% end %>
                         </li>
                         <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'create_employee').any? %>
                           <li>
                             <%= link_to(new_employee_path) do %>
-                              <span>New Employee</span>
+                              <span>New Teacher</span>
                             <% end %>
                           </li>
                         <% end %>
                         <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'view_employee').any? %>
                           <li>
                             <%= link_to(employees_path) do %>
-                              <span>List All Employees</span>
+                              <span>List All Teachers</span>
                             <% end %>
                           </li>
                         <% end %>
