@@ -2,6 +2,11 @@
   <h1 class="m-n font-thin h3">Select A Class</h1>
 </div>
 
+<br>
+<div class="pull-right">
+  <%= link_to 'Publish All', publish_all_path(@batch.id), class: 'btn btn-success', method: :post, data: {confirm: 'Are you sure you want to publish all results?'} %>
+  <%= link_to 'UnPublish All', hide_all_path(@batch.id), class: 'btn btn-danger', method: :post, data: {confirm: 'Are you sure you want to unpublish all results?'} %>
+</div>
 <br />
 <div class="alert alert-info main-alert" id="alert" style="display: none">
   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
