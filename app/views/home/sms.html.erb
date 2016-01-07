@@ -6,7 +6,7 @@
 #   <%#= submit_tag 'Send' %>
 # <%# end %> -->
 <div class="bg-light lter b-b wrapper-md">
-  <h1 class="m-n font-thin h3"> SMS Notifications Panel </h1>
+  <h1 class="m-n font-thin h3"> Notifications Panel </h1>
 </div>
 <br><br>
 <%= form_tag(home_sendsms_path, method: :get) do %>
@@ -16,24 +16,36 @@
     <fieldset class="sss well well-lg">
       <legend class="lll">Message Body</legend>
 
+      <div class="checkbox">
+        <label class="i-checks" >
+          <%= check_box_tag :email, "", false,  class: "leave_checkbox" %>
+          <i ></i>Email
+        </label>
+
+        <label class="i-checks" >
+          <%= check_box_tag :sms, "", true,  class: "leave_checkbox" %>
+          <i ></i>SMS
+        </label>
+      </div>
+
       <textarea rows="5" cols="130" name = "msgbdy" id = "msgbdy"></textarea>
       <br>
       <legend class="lll">Send To</legend>
       <div class="checkbox">
         <label class="i-checks"  >
-          <%= check_box_tag :all,"", false,  class: "leave_checkbox" %>
+          <%= check_box_tag :all, 'all', true,  class: "leave_checkbox" %>
           <i></i><strong>All Users</strong>
         </label>
       </div>
       <div class="checkbox">
         <label class="i-checks" >
-          <%= check_box_tag :parent,"", false,  class: "leave_checkbox" %>
+          <%= check_box_tag :parent, 'parent', false,  class: "leave_checkbox" %>
           <i ></i><strong>Parents </strong>
         </label>
       </div>
       <div class="checkbox">
         <label class="i-checks" >
-          <%= check_box_tag :staff, "", false,  class: "leave_checkbox" %>
+          <%= check_box_tag :staff, 'staff', false,  class: "leave_checkbox" %>
           <i ></i><strong>Staff Members</strong>
         </label>
       </div>
