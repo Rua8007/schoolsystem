@@ -13,6 +13,7 @@ class HomeController < ApplicationController
   end
 
   def sms
+    redirect_to root_path unless Right.where("role_id = ? and value = 'send_sms'", current_user.role_id ).any?
   end
 
   def sendsms
@@ -39,36 +40,17 @@ class HomeController < ApplicationController
     if params[:sms]
       send_to = ''
       if params[:all]
-
-        employee_numbers = Employee.all.pluck(:mobile_number).collect { |n| n.to_s }.to_s
-        employee_numbers = employee_numbers.gsub('[', '')
-        employee_numbers = employee_numbers.gsub(']', '')
-
-        parents_numbers = Parent.all.pluck(:mobile).collect { |n| n.to_s }.to_s
-        parents_numbers = parents_numbers.gsub('[', '')
-        parents_numbers = parents_numbers.gsub(']', '')
-
-        send_to = employee_numbers + ',' + parents_numbers
-        send_to = send_to.gsub(' ', '')
-        send_to = send_to.gsub(',""', '')
-        # send_to =  send_to.replace(/ /,'')
-        # send_to =  send_to.replace(/,,/ , ',')
-
-        # send_to =  send_to.replace(/,,/ , ',')
-        # send_to =  send_to.replace(/,,/ , '')
+        number = Employee.all.pluck(:mobile_number) + Parent.all.pluck(:mobile)
+        send_to = number.join(',')
         result = SmsService.new.delay.sendsms(params[:msgbdy], send_to)
       else
         if params[:parent].present?
-          parents_numbers = Parent.all.pluck(:mobile).collect { |n| n.to_s }.to_s
-          parents_numbers = parents_numbers.gsub('[', '')
-          parents_numbers = parents_numbers.gsub(']', '')
+          parents_numbers = Parent.all.pluck(:mobile).join(',')
           result = SmsService.new.delay.sendsms(params[:msgbdy], parents_numbers)
         end
 
         if params[:staff].present?
-          employee_numbers = Employee.all.pluck(:mobile_number).collect { |n| n.to_s }.to_s
-          employee_numbers = employee_numbers.gsub('[', '')
-          employee_numbers = employee_numbers.gsub(']', '')
+          employee_numbers = Employee.all.pluck(:mobile_number).join(',')
           result = SmsService.new.delay.sendsms(params[:msgbdy], employee_numbers)
         end
       end
