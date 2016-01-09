@@ -21,6 +21,7 @@
  *= require bootstrap-datepicker
  *= require chosen
  *= require jquery.minicolors
+ *= require select2
  *= require_self
  */
 *,

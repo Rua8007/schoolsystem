@@ -28,3 +28,4 @@
 //= require cocoon
 //= require messages
 //= require grades
+//= require select2

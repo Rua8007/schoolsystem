@@ -29,11 +29,28 @@ class HomeController < ApplicationController
       else
         emails = []
         if params[:parent].present?
-          emails = Parent.pluck(:email)
+          emails = emails + Parent.pluck(:email) rescue []
         end
         if params[:staff].present?
-          emails = Employee.pluck(:email)
+          emails = emails + Employee.pluck(:email)
         end
+        if params[:student].present?
+          student_ids = params[:students]
+          student_ids.try(:each) do |std_id|
+            std = Student.find(std_id)
+            emails << std.email if std.present?
+          end
+        end
+
+        if params[:grade].present?
+          grade_ids = params[:grades]
+          grade_ids.try(:each) do |grade_id|
+            students = Student.where(grade_id: grade_id)
+            emails = emails + students.pluck(:email) if students.present?
+          end
+        end
+
+        emails = emails.compact
         EmailService.new.delay.send_email(emails, msg)
       end
       result = true
@@ -55,10 +72,33 @@ class HomeController < ApplicationController
           employee_numbers = Employee.all.pluck(:mobile_number).join(',')
           result = SmsService.new.delay.sendsms(params[:msgbdy], employee_numbers)
         end
+
+        student_numbers = []
+        if params[:student].present?
+          student_numbers = []
+          student_ids = params[:students]
+          student_ids.try(:each) do |std_id|
+            std = Student.find(std_id)
+            student_numbers << std.mobile if std.present?
+          end
+          student_numbers = student_numbers.compact.join(',')
+          result = SmsService.new.delay.sendsms(params[:msgbdy], student_numbers) if student_numbers.present?
+        end
+
+        if params[:grade].present?
+          student_numbers = []
+          grade_ids = params[:grades]
+          grade_ids.try(:each) do |grade_id|
+            students = Student.where(grade_id: grade_id)
+            student_numbers = student_numbers + students.pluck(:mobile) if students.present?
+          end
+          student_numbers = student_numbers.compact.join(',')
+          result = SmsService.new.delay.sendsms(params[:msgbdy], student_numbers) if student_numbers.present?
+        end
       end
     end
     flash[:notice] = 'Notifications sent.'
-    redirect_to home_sms_path() if result
+    redirect_to home_sms_path()
   end
 
 end
