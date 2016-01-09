@@ -57,35 +57,35 @@
   </div>
 </div>
 <% end %>
-<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+<!--<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>-->
 <script>
-    var ContentData = "{'UserName': 'test9', 'Password': '123', 'SenderName': 'DreamSMS', 'Message': 'test rest', 'Mobiles': '0544479655'}";
-
-    console.log(ContentData);
-    //ContentData = JSON.stringify(ContentData);
-    function find() {
-      // console.log("parent is checked",$('#parent_').is(":checked") )
-      var send_to
-        send_to = '0531560085,0544479655'
-
-      var ContentData = "{'UserName': 'nation', 'Password': '123', 'SenderName': 'Al Omam International', 'Message': '"+$('#msgbdy').val()+"', 'Mobiles': '"+send_to+"'}";
-
-      console.log(ContentData);
-
-        $.ajax({
-            type: 'POST',
-            url: 'http://rest.dreamsms.net/sms',
-            contentType: 'application/json; charset=utf-8',
-            data: ContentData,
-            dataType: 'text',
-            accept: 'application/json charset=utf-8'
-        }).done(function (ResultData) {
-            $('#dvResult').text(ResultData);
-            window.location.href = "/";
-        }).error(function (jqXHR, textStatus, errorThrown) {
-            $('#dvResult').text(jqXHR.responseText || textStatus);
-        });
-    }
+//    var ContentData = "{'UserName': 'test9', 'Password': '123', 'SenderName': 'DreamSMS', 'Message': 'test rest', 'Mobiles': '0544479655'}";
+//
+//    console.log(ContentData);
+//    //ContentData = JSON.stringify(ContentData);
+//    function find() {
+//      // console.log("parent is checked",$('#parent_').is(":checked") )
+//      var send_to
+//        send_to = '0531560085,0544479655'
+//
+//      var ContentData = "{'UserName': 'nation', 'Password': '123', 'SenderName': 'Al Omam International', 'Message': '"+$('#msgbdy').val()+"', 'Mobiles': '"+send_to+"'}";
+//
+//      console.log(ContentData);
+//
+//        $.ajax({
+//            type: 'POST',
+//            url: 'http://rest.dreamsms.net/sms',
+//            contentType: 'application/json; charset=utf-8',
+//            data: ContentData,
+//            dataType: 'text',
+//            accept: 'application/json charset=utf-8'
+//        }).done(function (ResultData) {
+//            $('#dvResult').text(ResultData);
+//            window.location.href = "/";
+//        }).error(function (jqXHR, textStatus, errorThrown) {
+//            $('#dvResult').text(jqXHR.responseText || textStatus);
+//        });
+//    }
   </script>
 
 

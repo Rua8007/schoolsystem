@@ -39,6 +39,7 @@ gem "compass-rails", git: 'https://github.com/Compass/compass-rails', branch: 'm
 gem 'gravatar_image_tag'
 gem 'fullcalendar-rails'
 gem 'cocoon'
+gem 'select2-rails'
 
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
