@@ -174,18 +174,20 @@
               </div>
 
               <div class="col-md-6 long-box grey-box">
-                <div class="heading">My Subjects</div>
+                <div class="heading">Teachers & Subjects</div>
                   <div class="col-md-12 long-inner-box">
-                    <div class="row" style="text-align: center;">
-                      <div class="col-md-6"><b><h3 style="margin-top: 0; ">Teacher</h3></b></div>
-                      <div class="col-md-6"><b><h3 style="margin-top: 0; ">Subject</h3></b></div>
+                    <div class="row" style="padding-left: 20px; padding-right: 20px;">
+                      <table class="table table-bordered table-condensed" style="font-size: 0.8em;">
+                        <tr><th class="col-sm-5">Teacher</th> <th class="col-sm-5">Subject</th></tr>
+                        <% @bridges.try(:each) do |bridge| %>
+                          <tr>
+                            <td><%= Employee.find_by_id(bridge.employee_id).try(:full_name) || 'Teacher Not Found.' %></td>
+                            <td><%= Subject.find_by_id(bridge.subject_id).try(:name) %></td>
+                          </tr>
+                        <% end %>
+
+                      </table>
                     </div>
-                    <% @bridges.try(:each) do |bridge| %>
-                      <div class="row" style="text-align: center;">
-                        <div class="col-md-6 text-label"><%= Employee.find_by_id(bridge.employee_id).try(:full_name) || 'Teacher Not Found.' %></div>
-                        <div class="col-md-6 text"><%= Subject.find_by_id(bridge.subject_id).try(:name) %></div>
-                      </div>
-                    <% end %>
                   </div>
               </div>
 

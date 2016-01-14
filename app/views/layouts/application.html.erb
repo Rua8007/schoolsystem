@@ -464,72 +464,6 @@
                     </li>
                   <% end %>
 
-
-                  <% if current_user.role.name == 'Student' %>
-                    <li>
-                      <%= link_to(result_marksheets_path({student_id: Student.find_by_email(current_user.email).id})) do %>
-                        <i class="glyphicon glyphicon-tasks"></i>
-                        <span>My Result Card</span>
-                      <% end %>
-                    </li>
-                  <% end %>
-
-                  <% if current_user.role.name == 'Parent' %>
-                    <% temp = Student.find_by_rollnumber(current_user.email.split('@').first.split('_').last).id %>
-                    <li>
-                      <%= link_to(result_marksheets_path({student_id: temp})) do %>
-                        <i class="glyphicon glyphicon-tasks"></i>
-                        <span>My Result Card</span>
-                      <% end %>
-                    </li>
-                  <% end %>
-
-                  <% if current_user.role.name == "Parent" %>
-                    <li>
-                      <a href class="auto">
-                        <span class="pull-right text-muted">
-                          <i class="fa fa-fw fa-angle-right text"></i>
-                          <i class="fa fa-fw fa-angle-down text-active"></i>
-                        </span>
-                        <i class="glyphicon glyphicon-book"></i>
-                        <span> Exam Results</span>
-                      </a>
-                      <ul class="nav nav-sub dk">
-                        <% Exam.all.try(:each) do |exam| %>
-                          <li>
-                            <%= link_to(result_card_marksheets_path({student: temp, exam: exam.id})) do %>
-                              <i class="glyphicon glyphicon-flag"></i>
-                              <span><%= exam.name %>s</span>
-                            <% end %>
-                          </li>
-                        <% end %>
-                      </ul>
-                    </li>
-                  <% end %>
-
-                  <% if current_user.role.name == "Student" %>
-                    <li>
-                      <a href class="auto">
-                        <span class="pull-right text-muted">
-                          <i class="fa fa-fw fa-angle-right text"></i>
-                          <i class="fa fa-fw fa-angle-down text-active"></i>
-                        </span>
-                        <i class="glyphicon glyphicon-book"></i>
-                        <span> Exam Results </span>
-                      </a>
-                      <ul class="nav nav-sub dk">
-                        <% Exam.all.try(:each) do |exam| %>
-                          <li>
-                            <%= link_to(result_card_marksheets_path({student: Student.find_by_email(current_user.email).id, exam: exam.id})) do %>
-                              <i class="glyphicon glyphicon-flag"></i>
-                              <span><%= exam.name %>s</span>
-                            <% end %>
-                          </li>
-                        <% end %>
-                      </ul>
-                    </li>
-                  <% end %>
-
                   <% if current_user.role.name == 'Teacher' %>
                     <li>
                       <%= link_to(teacher_subject_bridges_path) do %>
@@ -1372,23 +1306,22 @@
         <% stuid =  Student.find_by_rollnumber(current_user.email.split('@').first.split('_').last).id %>
         <div id="user-stats" style="margin-bottom: 20px">
           <ul class="round-buttons">
+              <li><div class="depth"><a href="<%= root_path %>" title="Dashboard" class="tip"><i class="icon-rss"><%= image_tag asset_path("Picture25.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div><span style="line-height:20px; font-size:17px;"> Dashboard </span></li>
               <li >
-                <div class="depth"><a href="<%= conversations_path %>" title="View statement" class="tip"><i class="icon-signal"><%= image_tag asset_path("msg.ico"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div><span style="line-height:20px; font-size:17px;">
+                <div class="depth"><a href="<%= conversations_path %>" title="View statement" class="tip"><i class="icon-signal"><%= image_tag asset_path("msg.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div><span style="line-height:20px; font-size:17px;">
                 Messages</span>
               </li>
-              <li><div class="depth"><a href="<%=performances_path%>" title="Media posts" class="tip"><i class="icon-reorder"><%= image_tag asset_path("Picture16.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a>
+              <li><div class="depth"><a href="<%=performances_path%>" title="Media posts" class="tip"><i class="icon-reorder"><%= image_tag asset_path("NewPicture16.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a>
               </div> <span style="line-height:20px; font-size:17px;"> Behaviour</span>
               </li>
 
               <li><div class="depth"><a href="<%= fees_path %>" title="RSS feed" class="tip"><i class="icon-rss"><%= image_tag asset_path("Picture7.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div><span style="line-height:20px; font-size:17px;"> Fee Details </span></li>
 
-              <li><div class="depth"><a href="<%= home_timetable_path %>" title="Create new task" class="tip"><i class="icon-tasks"><%= image_tag asset_path("Picture6.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div><span style="line-height:20px; font-size:17px;">Time Table </span></li>
+              <li><div class="depth"><a href="<%= home_timetable_path %>" title="Create new task" class="tip"><i class="icon-tasks"><%= image_tag asset_path("NewPicture6.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div><span style="line-height:20px; font-size:17px;">Time Table </span></li>
 
-              <li><div class="depth"><a href="<%= student_marks_subject_marksheets_path({student_id: stuid}) %>" title="Layout settings" class="tip"><i class="icon-cogs"><%= image_tag asset_path("Picture4.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div><span style="line-height:20px; font-size:17px;">Result Card </span></li>
+              <li><div class="depth"><a href="<%= grade_path(Student.find(stuid).grade_id) %>" title="Layout settings" class="tip"><i class="icon-cogs"><%= image_tag asset_path("NewPicture3.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div><span style="line-height:20px; font-size:17px;">Subjects</span></li>
 
-              <li><div class="depth"><a href="<%= grade_path(Student.find(stuid).grade_id) %>" title="Layout settings" class="tip"><i class="icon-cogs"><%= image_tag asset_path("Picture3.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div><span style="line-height:20px; font-size:17px;">Subjects</span></li>
-
-              <li><div class="depth"><a href="<%= monthly_attendance_report_students_path %>" title="Layout settings" class="tip"><i class="icon-cogs"><%= image_tag asset_path("Picture5.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div><span style="line-height:20px; font-size:17px;">Attendence</span></li>
+              <li><div class="depth"><a href="<%= monthly_attendance_report_students_path %>" title="Layout settings" class="tip"><i class="icon-cogs"><%= image_tag asset_path("NewPicture5.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div><span style="line-height:20px; font-size:17px;">Attendence</span></li>
           </ul>
         </div>
 
@@ -1405,8 +1338,6 @@
               </li>
 
               <li><div class="depth"><a href="<%= home_timetable_path %>" title="Create new task" class="tip"><i class="icon-tasks"><%= image_tag asset_path("Picture6.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div><span style="line-height:20px; font-size:17px;">Time Table</span></li>
-
-              <li><div class="depth"><a href="<%= student_marks_subject_marksheets_path({student_id: stuid}) %>" title="Layout settings" class="tip"><i class="icon-cogs"><%= image_tag asset_path("Picture4.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div><span style="line-height:20px; font-size:17px;">Result Card</span></li>
 
               <li><div class="depth"><a href="<%= grade_path(Student.find(stuid).grade_id) %>" title="Layout settings" class="tip"><i class="icon-cogs"><%= image_tag asset_path("Picture3.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div><span style="line-height:20px; font-size:17px;">Subjects</span></li>
 
