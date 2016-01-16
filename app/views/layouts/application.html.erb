@@ -468,7 +468,7 @@
                     <li>
                       <%= link_to(teacher_subject_bridges_path) do %>
                         <i class="glyphicon glyphicon-flag"></i>
-                        <span>My Engagments</span>
+                        <span>Responsibilities</span>
                       <% end %>
                     </li>
                   <% end %>
@@ -530,7 +530,7 @@
                           <i class="fa fa-fw fa-angle-down text-active"></i>
                         </span>
                         <i class="glyphicon glyphicon-book"></i>
-                        <span> Staff Attendance</span>
+                        <span> My Attendance</span>
                       </a>
                       <ul class="nav nav-sub dk">
                         <li class="nav-sub-header">
@@ -1329,22 +1329,38 @@
         <% stuid = Student.find_by_email(current_user.email).id %>
         <div id="user-stats" style="margin-bottom: 20px">
           <ul class="round-buttons">
-              <li >
-                <div class="depth"><a href="<%= conversations_path %>" title="View statement" class="tip"><i class="icon-signal"><%= image_tag asset_path("msg.ico"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div><span style="line-height:20px; font-size:17px;">
+            <li><div class="depth"><a href="<%= root_path %>" title="Dashboard" class="tip"><i class="icon-rss"><%= image_tag asset_path("Picture25.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div><span style="line-height:20px; font-size:17px;"> Dashboard </span></li>
+            <li >
+              <div class="depth"><a href="<%= conversations_path %>" title="View statement" class="tip"><i class="icon-signal"><%= image_tag asset_path("msg.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div><span style="line-height:20px; font-size:17px;">
                 Messages</span>
-              </li>
-              <li><div class="depth"><a href="<%=performances_path%>" title="Media posts" class="tip"><i class="icon-reorder"><%= image_tag asset_path("Picture16.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div>
-                <span style="line-height:20px; font-size:17px;"> Behaviour</span>
-              </li>
+            </li>
+            <li><div class="depth"><a href="<%=performances_path%>" title="Media posts" class="tip"><i class="icon-reorder"><%= image_tag asset_path("NewPicture16.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a>
+            </div> <span style="line-height:20px; font-size:17px;"> Behaviour</span>
+            </li>
 
-              <li><div class="depth"><a href="<%= home_timetable_path %>" title="Create new task" class="tip"><i class="icon-tasks"><%= image_tag asset_path("Picture6.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div><span style="line-height:20px; font-size:17px;">Time Table</span></li>
+            <li><div class="depth"><a href="<%= home_timetable_path %>" title="Create new task" class="tip"><i class="icon-tasks"><%= image_tag asset_path("NewPicture6.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div><span style="line-height:20px; font-size:17px;">Time Table </span></li>
 
-              <li><div class="depth"><a href="<%= grade_path(Student.find(stuid).grade_id) %>" title="Layout settings" class="tip"><i class="icon-cogs"><%= image_tag asset_path("Picture3.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div><span style="line-height:20px; font-size:17px;">Subjects</span></li>
+            <li><div class="depth"><a href="<%= grade_path(Student.find(stuid).grade_id) %>" title="Layout settings" class="tip"><i class="icon-cogs"><%= image_tag asset_path("NewPicture3.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div><span style="line-height:20px; font-size:17px;">Subjects</span></li>
 
-              <li><div class="depth"><a href="<%= monthly_attendance_report_students_path %>" title="Layout settings" class="tip"><i class="icon-cogs"><%= image_tag asset_path("Picture5.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div><span style="line-height:20px; font-size:17px;">Attendence</span></li>
+            <li><div class="depth"><a href="<%=  %>" title="Layout settings" class="tip"><i class="icon-cogs"><%= image_tag asset_path("NewPicture5.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div><span style="line-height:20px; font-size:17px;">Attendence</span></li>
           </ul>
         </div>
 
+      <% elsif current_user && current_user.role.name == 'Teacher' %>
+          <% teacher_id = Employee.find_by_email(current_user.email).id %>
+          <div id="user-stats" style="margin-bottom: 20px">
+            <ul class="round-buttons">
+              <li><div class="depth"><a href="<%= root_path %>" title="Dashboard" class="tip"><i class="icon-rss"><%= image_tag asset_path("Picture25.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div><span style="line-height:20px; font-size:14px;"> Dashboard </span></li>
+              <li><div class="depth"><a href="<%= home_timetable_path %>" title="Create new task" class="tip"><i class="icon-tasks"><%= image_tag asset_path("NewPicture6.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div><span style="line-height:20px; font-size:14px;">Time Table </span></li>
+              <% if Right.where("role_id = ? and value = 'enter_marks'", current_user.role_id ).any? or Right.where("role_id = ? and value = 'enter_all_marks'", current_user.role_id ).any? %>
+                  <li><div class="depth"><a href="<%= marks_path %>" title="Layout settings" class="tip"><i class="icon-cogs"><%= image_tag asset_path("NewPicture9.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div><span style="line-height:20px; font-size:13px;">Enter Marks</span></li>
+              <% end %>
+              <li><div class="depth"><a href="<%= teacher_subject_bridges_path %>" title="Layout settings" class="tip"><i class="icon-cogs"><%= image_tag asset_path("NewPicture8.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div><span style="line-height:20px; font-size:13px;">Responsibilities</span></li>
+              <li><div class="depth"><a href="#" title="Layout settings" class="tip"><i class="icon-cogs"><%= image_tag asset_path("Picture5.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div><span style="line-height:20px; font-size:14px;">MyAttendance</span></li>
+              <li><div class="depth"><a href="<%= lessonplans_path(year_plan: @year_plan) %>" title="View statement" class="tip"><i class="icon-signal"><%= image_tag asset_path('NewPicture7.png'), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div><span style="line-height:20px; font-size:12px;">Lesson Plans</span></li>
+              <li><div class="depth"><a href="<%= leaves_path %>" title="Layout settings" class="tip"><i class="icon-cogs"><%= image_tag asset_path("NewPicture5.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div><span style="line-height:20px; font-size:14px;">Leave Requests</span></li>
+            </ul>
+          </div>
       <% end %>
 
 <div class="hbox hbox-auto-xs hbox-auto-sm" style="background-color: white; padding: 0 15px 0">

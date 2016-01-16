@@ -8,6 +8,9 @@ class HomeController < ApplicationController
       @student_no = @student.rollnumber
 
       @bridges = Bridge.where(grade_id: @student.grade_id) if @student.present?
+    elsif current_user.role.name == 'Teacher'
+      @teacher = Employee.find_by_email(current_user.email)
+      @bridges = Bridge.where(employee_id: @teacher.id) if @teacher.present?
     end
   end
 
