@@ -25,38 +25,7 @@ class HomeController < ApplicationController
     # return render json: params
 
     if params[:email]
-      msg = params[:msgbdy]
-      if params[:all]
-        emails = Employee.pluck(:email) + Parent.pluck(:email) rescue []
-        EmailService.new.delay.send_email(emails, msg)
-      else
-        emails = []
-        if params[:parent].present?
-          emails = emails + Parent.pluck(:email) rescue []
-        end
-        if params[:staff].present?
-          emails = emails + Employee.pluck(:email)
-        end
-        if params[:student].present?
-          student_ids = params[:students]
-          student_ids.try(:each) do |std_id|
-            std = Student.find(std_id)
-            emails << std.email if std.present?
-          end
-        end
-
-        if params[:grade].present?
-          grade_ids = params[:grades]
-          grade_ids.try(:each) do |grade_id|
-            students = Student.where(grade_id: grade_id)
-            emails = emails + students.pluck(:email) if students.present?
-          end
-        end
-
-        emails = emails.compact
-        EmailService.new.delay.send_email(emails, msg)
-      end
-      result = true
+      EmailService.new(params).delay.send_email
     end
 
     if params[:sms]

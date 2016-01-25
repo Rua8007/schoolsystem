@@ -24,6 +24,12 @@ class Student < ActiveRecord::Base
 	has_many :sessionals
 	has_one :report_card
 
+	EMAIL_ATTRIBUTES = {
+			name: '{{student.fullname}}',
+			rollnumber: '{{student.rollnumber}}',
+      gender: '{{student.gender}}'
+  }
+
 	validates_uniqueness_of :rollnumber
 	validates_presence_of :rollnumber
 

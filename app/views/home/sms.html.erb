@@ -14,6 +14,7 @@
   .select2.select2-container{
     width: 100% !important;
   }
+  .tag-info{ cursor: pointer; }
 </style>
 
 <div class="bg-light lter b-b wrapper-md">
@@ -24,66 +25,94 @@
 
 <div class="container" style="padding-left:0px !important">
   <div class="container">
-    <fieldset class="sss well well-lg">
-      <legend class="lll">Message Body</legend>
+    <div class="col-md-9">
+      <fieldset class="sss well well-lg">
+        <legend class="lll">Message Body</legend>
 
-      <div class="checkbox">
-        <label class="i-checks" >
-          <%= check_box_tag :email, "", false,  class: "leave_checkbox" %>
-          <i ></i>Email
-        </label>
+        <div class="checkbox">
+          <label class="i-checks" >
+            <%= check_box_tag :email, "", false,  class: "leave_checkbox" %>
+            <i ></i>Email
+          </label>
 
-        <label class="i-checks" >
-          <%= check_box_tag :sms, "", true,  class: "leave_checkbox" %>
-          <i ></i>SMS
-        </label>
-      </div>
+          <label class="i-checks" >
+            <%= check_box_tag :sms, "", true,  class: "leave_checkbox" %>
+            <i ></i>SMS
+          </label>
+        </div>
 
-      <textarea rows="5" cols="130" name = "msgbdy" id = "msgbdy"></textarea>
-      <br>
-      <legend class="lll">Send To</legend>
-      <div class="checkbox">
-        <label class="i-checks"  >
-          <%= check_box_tag :all, 'all', true,  class: "leave_checkbox" %>
-          <i></i><strong>All Users</strong>
-        </label>
-      </div>
-      <div class="checkbox">
-        <label class="i-checks" >
-          <%= check_box_tag :parent, 'parent', false,  class: "leave_checkbox" %>
-          <i ></i><strong>Parents </strong>
-        </label>
-      </div>
-      <div class="checkbox">
-        <label class="i-checks" >
-          <%= check_box_tag :staff, 'staff', false,  class: "leave_checkbox" %>
-          <i ></i><strong>Staff Members</strong>
-        </label>
-      </div>
-      <div class="checkbox">
-        <label class="i-checks" >
-          <%= check_box_tag :grade, 'grade', false,  class: "leave_checkbox grade" %>
-          <i ></i><strong>Grades</strong>
-        </label>
-      </div>
-      <div class="grade-show" style="padding-left: 0; display: none;">
+        <textarea rows="5" cols="100" name = "msgbdy" id = "msgbdy"></textarea>
+        <br>
+        <legend class="lll">Send To</legend>
+        <div class="checkbox">
+          <label class="i-checks"  >
+            <%= check_box_tag :all_students, 'Student', true,  class: "leave_checkbox" %>
+            <i></i><strong>All Students</strong>
+          </label>
+        </div>
+        <div class="checkbox">
+          <label class="i-checks"  >
+            <%= check_box_tag :all_employees, 'Employee', true,  class: "leave_checkbox" %>
+            <i></i><strong>All Employee</strong>
+          </label>
+        </div>
+        <div class="checkbox">
+          <label class="i-checks"  >
+            <%= check_box_tag :all_parents, 'Parent', true,  class: "leave_checkbox" %>
+            <i></i><strong>All Parents</strong>
+          </label>
+        </div>
+        <div class="checkbox">
+          <label class="i-checks" >
+            <%= check_box_tag :parent, 'parent', false,  class: "leave_checkbox" %>
+            <i ></i><strong>Parents </strong>
+          </label>
+        </div>
+        <div class="checkbox">
+          <label class="i-checks" >
+            <%= check_box_tag :staff, 'staff', false,  class: "leave_checkbox" %>
+            <i ></i><strong>Staff Members</strong>
+          </label>
+        </div>
+        <div class="checkbox">
+          <label class="i-checks" >
+            <%= check_box_tag :grade, 'grade', false,  class: "leave_checkbox grade" %>
+            <i ></i><strong>Grades</strong>
+          </label>
+        </div>
+        <div class="grade-show" style="padding-left: 0; display: none;">
           <%= select_tag :grades, options_from_collection_for_select(Grade.where("section IS NOT NULL AND batch_id = #{Batch.last.id}").order('name'), :id, :full_name), class: 'select-tag form-control', multiple: true %>
-      </div>
+        </div>
 
-      <div class="checkbox">
-        <label class="i-checks" >
-          <%= check_box_tag :student, 'student', false,  class: "leave_checkbox student" %>
-          <i ></i><strong>Students</strong>
-        </label>
-      </div>
-      <div class="student-show" style="padding-left: 0; display: none;">
-        <%= select_tag :students, options_from_collection_for_select(Student.all, :id, :rollnumber), class: 'select-tag form-control', multiple: true %>
-      </div>
-      <br><br>
-      <!-- <input type="button" value="Send Test SMS" onclick="find();" class="btn btn-success pull-right" /> -->
-      <%= submit_tag 'Send', class: 'btn btn-success pull-right' %>
+        <div class="checkbox">
+          <label class="i-checks" >
+            <%= check_box_tag :student, 'student', false,  class: "leave_checkbox student" %>
+            <i ></i><strong>Students</strong>
+          </label>
+        </div>
+        <div class="student-show" style="padding-left: 0; display: none;">
+          <%= select_tag :students, options_from_collection_for_select(Student.all, :id, :rollnumber), class: 'select-tag form-control', multiple: true %>
+        </div>
+        <br><br>
+        <!-- <input type="button" value="Send Test SMS" onclick="find();" class="btn btn-success pull-right" /> -->
+        <%= submit_tag 'Send', class: 'btn btn-success pull-right' %>
 
-    </fieldset>
+      </fieldset>
+    </div>
+    <div class="col-md-3 sss well well-lg" style="margin-top: 1.5%; font-size: 1.4em;">
+      <h3>Student Info</h3>
+      <% Student::EMAIL_ATTRIBUTES.keys.each do |key| %>
+          <span class="label label-primary tag-info" data-value="<%= Student::EMAIL_ATTRIBUTES[key] %>"><%= key.to_s.titleize %></span>
+      <% end %>
+      <h3>Teacher Info</h3>
+      <% Employee::EMAIL_ATTRIBUTES.keys.each do |key| %>
+          <span class="label label-primary tag-info" data-value="<%= Employee::EMAIL_ATTRIBUTES[key] %>"><%= key.to_s.titleize %></span>
+      <% end %>
+      <h3>Parent Info</h3>
+      <% Parent::EMAIL_ATTRIBUTES.keys.each do |key| %>
+          <span class="label label-primary tag-info" data-value="<%= Parent::EMAIL_ATTRIBUTES[key] %>"><%= key.to_s.titleize %></span>
+      <% end %>
+    </div>
   </div>
 </div>
 <% end %>
@@ -99,6 +128,10 @@
     });
 
     $('.select-tag').select2();
+
+    $('.tag-info').on('click', function(){
+      $('#msgbdy').val($('#msgbdy').val() + $(this).data('value'));
+    });
   });
 //    var ContentData = "{'UserName': 'test9', 'Password': '123', 'SenderName': 'DreamSMS', 'Message': 'test rest', 'Mobiles': '0544479655'}";
 //

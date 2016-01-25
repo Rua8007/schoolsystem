@@ -19,6 +19,12 @@ class Employee < ActiveRecord::Base
 
 	has_many :purchases
 
+	EMAIL_ATTRIBUTES = {
+			name: '{{employee.full_name}}',
+			emp_number: '{{employee.employee_number}}',
+			gender: '{{employee.gender}}'
+	}
+
 
 	def self.import(file)
 		puts "--------in import of model--------"

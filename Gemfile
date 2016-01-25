@@ -53,6 +53,7 @@ gem 'bootstrap-will_paginate'
 gem 'will_paginate'
 gem 'chosen-rails'
 gem 'jquery-turbolinks'
+gem 'mustache', '~> 1.0', '>= 1.0.2'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
