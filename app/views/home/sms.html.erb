@@ -52,34 +52,45 @@
         </div>
         <div class="checkbox">
           <label class="i-checks"  >
-            <%= check_box_tag :all_employees, 'Employee', true,  class: "leave_checkbox" %>
-            <i></i><strong>All Employee</strong>
+            <%= check_box_tag :all_employees, 'Employee', false,  class: "leave_checkbox" %>
+            <i></i><strong>All Employees</strong>
           </label>
         </div>
         <div class="checkbox">
           <label class="i-checks"  >
-            <%= check_box_tag :all_parents, 'Parent', true,  class: "leave_checkbox" %>
+            <%= check_box_tag :all_parents, 'Parent', false,  class: "leave_checkbox" %>
             <i></i><strong>All Parents</strong>
           </label>
         </div>
         <div class="checkbox">
           <label class="i-checks" >
-            <%= check_box_tag :parent, 'parent', false,  class: "leave_checkbox" %>
+            <%= check_box_tag :parent, 'parent', false,  class: "leave_checkbox parent" %>
             <i ></i><strong>Parents </strong>
           </label>
         </div>
+
+        <div class="parent-show" style="padding-left: 0; display: none;">
+          <%= select_tag :parents, options_from_collection_for_select(Student.order('rollnumber'), :id, :rollnumber), class: 'select-tag form-control', multiple: true %>
+        </div>
+
         <div class="checkbox">
           <label class="i-checks" >
-            <%= check_box_tag :staff, 'staff', false,  class: "leave_checkbox" %>
+            <%= check_box_tag :staff, 'staff', false,  class: "leave_checkbox staff" %>
             <i ></i><strong>Staff Members</strong>
           </label>
         </div>
+
+        <div class="staff-show" style="padding-left: 0; display: none;">
+          <%= select_tag :staff_members, options_from_collection_for_select(Employee.order('full_name'), :id, :full_name), class: 'select-tag form-control', multiple: true %>
+        </div>
+
         <div class="checkbox">
           <label class="i-checks" >
             <%= check_box_tag :grade, 'grade', false,  class: "leave_checkbox grade" %>
             <i ></i><strong>Grades</strong>
           </label>
         </div>
+
         <div class="grade-show" style="padding-left: 0; display: none;">
           <%= select_tag :grades, options_from_collection_for_select(Grade.where("section IS NOT NULL AND batch_id = #{Batch.last.id}").order('name'), :id, :full_name), class: 'select-tag form-control', multiple: true %>
         </div>
@@ -91,7 +102,7 @@
           </label>
         </div>
         <div class="student-show" style="padding-left: 0; display: none;">
-          <%= select_tag :students, options_from_collection_for_select(Student.all, :id, :rollnumber), class: 'select-tag form-control', multiple: true %>
+          <%= select_tag :students, options_from_collection_for_select(Student.order('rollnumber'), :id, :rollnumber), class: 'select-tag form-control', multiple: true %>
         </div>
         <br><br>
         <!-- <input type="button" value="Send Test SMS" onclick="find();" class="btn btn-success pull-right" /> -->
@@ -125,6 +136,14 @@
 
     $('.student').on('click', function(){
       $('.student-show').toggle('slow');
+    });
+
+    $('.staff').on('click', function(){
+      $('.staff-show').toggle('slow');
+    });
+
+    $('.parent').on('click', function(){
+      $('.parent-show').toggle('slow');
     });
 
     $('.select-tag').select2();

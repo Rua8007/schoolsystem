@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+  <div style="width: 20%; float: left;">
+    <%= image_tag asset_path('img/logo.png') %>
+  </div>
+  <div style="width: 80%; padding-left: 15px; padding-right: 15px;"><h2>Al Omam International School</h2></div>
+
+  <p>
+    <%= @msg %>
+  </p>
+
+  <p style="width: 100%;">
+  <div>Regards,</div>
+  <div>Al-Omam International School.</div>
+  <div>Office: 012 - 6746557 - 6741878 / Fax: 012 - 2872504</div>
+  <div>Al Rehab Dist., Jeddah - KSA.</div>
+  <div>http://alomam.edu.sa/</div>
+  </p>
+
+  <div style="width: 100%; text-align: center; border-top: 5px dotted #ccc; padding: 15px; border-bottom: 5px dotted #ccc;">
+    If you need help, visit our
+    <%= link_to 'Support Page', 'http://alomam.edu.sa/index.php/login/contact-us', style: 'color: #E68DAB' %>,
+    contact us at <span style="color: #E68DAB">ask@alomam.edu.sa</span> or call at
+    <span style="color: #E68DAB">012 - 6746557</span>
+  </div>
+
+  <div style="width: 100%; text-align: center; padding-top: 30px;">
+    Follow us on
+  </div>
+
+</body>
+</html>
