@@ -4,10 +4,10 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 <body>
-  <div style="width: 20%; float: left;">
+  <div style="width: 25%; float: left;">
     <%= image_tag asset_path('img/logo.png') %>
   </div>
-  <div style="width: 80%; padding-left: 15px; padding-right: 15px;"><h2>Al Omam International School</h2></div>
+  <div style="width: 75%; padding-left: 15px; padding-right: 15px;"><h1>Al Omam International School</h1></div>
 
   <p>
     <%= @msg %>
@@ -20,6 +20,13 @@
   <div>Al Rehab Dist., Jeddah - KSA.</div>
   <div>http://alomam.edu.sa/</div>
   </p>
+
+  <div style="margin-bottom: 20px; width: 100%;">
+    <%= link_to 'Login', root_url,
+        style: 'background-color: #CC3366; color: white; font-size: 2em; padding: 0.5em;
+            text-decoration: none; margin-left: 90%;'
+    %>
+  </div>
 
   <div style="width: 100%; text-align: center; border-top: 5px dotted #ccc; padding: 15px; border-bottom: 5px dotted #ccc;">
     If you need help, visit our
