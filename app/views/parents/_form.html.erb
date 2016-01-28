@@ -49,22 +49,23 @@
       <legend class="lll">Contact Information</legend>
         <div class="column col-xs-12 col-md-4">
           <div class="form-group">
-            <label for="exampleInputEmail1">Mobile</label>
+            <label for="exampleInputEmail1" style="color: red;">Mobile(for notifications)</label>
             <%= f.text_field :mobile , :style => 'height:34px;',  class: 'form-control', required: true, autofocus: true %>
           </div>
         </div>
 
         <div class="column col-xs-12 col-md-7">
           <div class="form-group">
-            <label for="exampleInputEmail1">E-mail Address</label>
+            <label for="exampleInputEmail1" style="color: red;">Email(for notifications)</label>
             <%= f.text_field :email , :style => 'height:34px;',  class: 'form-control', required: true, autofocus: true, disabled: @edit ? true : false %>
           </div>
         </div>
       </div>
     </fieldset>
   </div>
+  </div>
 
-  <div class="abc form-holder">
+<div class="abc form-holder">
   <div class="row">
     <fieldset class="sss well well-lg">
       <legend class="lll">Personal Information (Parent 2)</legend>
@@ -87,9 +88,9 @@
             <%= f.text_field :motheremail , :style => 'height:34px;',  class: 'form-control', required: true, autofocus: true %>
           </div>
         </div>
-      </div>
     </fieldset>
   </div>
+</div>
 
 
       <% if @flag %>
@@ -150,7 +151,7 @@
     min-height: 84px;
   }
   .form-holder .form-control{
-    width: auto%;
+    width: auto;
   }
   .form-control{
     border-radius: 7px;

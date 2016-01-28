@@ -47,7 +47,8 @@ class EmailService
     klass.constantize.all.each do |object|
       "#{klass}Email".constantize.template = msg
       email_msg = "#{klass}Email".constantize.new(object).render
-      NotificationMailer.generic_email(object.email, email_msg).deliver if object.email.present?
+      email = object.class == Student ? object.secondary_email : object.email
+      NotificationMailer.generic_email(email, email_msg).deliver if email.present?
     end
   end
 
@@ -66,7 +67,7 @@ class EmailService
       std = Student.find(std_id)
       StudentEmail.template = msg
       email_msg = StudentEmail.new(std).render if std.present?
-      NotificationMailer.generic_email(std.email, email_msg).deliver if std.present? and std.email.present?
+      NotificationMailer.generic_email(std.secondary_email, email_msg).deliver if std.present? and std.secondary_email.present?
     end
   end
 

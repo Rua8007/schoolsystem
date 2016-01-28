@@ -27,9 +27,16 @@ class Student < ActiveRecord::Base
 	EMAIL_ATTRIBUTES = {
 			name: '{{student.fullname}}',
 			rollnumber: '{{student.rollnumber}}',
-      gender: '{{student.gender}}'
+      login_info: '{{student.login_info}}'
   }
 
+	def login_info
+		if self.email.present?
+      "Email: #{self.email} Password: #{User::DEFAULT_PASSWORD}"
+		else
+			'Not Found...'
+		end
+	end
 	validates_uniqueness_of :rollnumber
 	validates_presence_of :rollnumber
 

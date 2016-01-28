@@ -181,6 +181,22 @@
                   <%= std.text_field :phone, :style => 'height:34px;width: 100%',  class: 'form-control', required: true %>
             </div>
           </div>
+          <div class="column col-xs-12 col-sm-2">
+            <div class="form-group">
+              <label for="exampleInputPassword1" style="color: red;">Mobile(for notifications)</label>
+                <%= std.text_field :mobile, :style => 'height:34px;width: 100%',  class: 'form-control' %>
+            </div>
+          </div>
+
+          <div class="column col-xs-12 col-sm-3">
+            <div class="form-group">
+              <label for="exampleInputEmail1" style="color:red;">Sec. Email(for notifications)</label>
+                <%= std.email_field :secondary_email , :id => 'email_field' , :style => 'height:34px;width: 100%', class: 'form-control' %>
+              <div class = "hide" id= "error_div">
+                <span style = "color:red;" id="error_text">  </span>
+              </div>
+            </div>
+          </div>
         </fieldset>
         <fieldset class="sss well well-lg">
           <legend class="lll">Medical Information</legend>

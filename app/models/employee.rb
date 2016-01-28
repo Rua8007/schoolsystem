@@ -22,8 +22,16 @@ class Employee < ActiveRecord::Base
 	EMAIL_ATTRIBUTES = {
 			name: '{{employee.full_name}}',
 			emp_number: '{{employee.employee_number}}',
-			gender: '{{employee.gender}}'
+			login_info: '{{student.login_info}}'
 	}
+
+  def login_info
+    if self.email.present?
+      "Email: #{self.email} Password: #{User::DEFAULT_PASSWORD}"
+    else
+      'Not Found...'
+    end
+  end
 
 
 	def self.import(file)
