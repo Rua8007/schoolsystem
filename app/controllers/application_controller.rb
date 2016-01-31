@@ -8,6 +8,8 @@ class ApplicationController < ActionController::Base
 
   before_filter :authenticate_user!
 
+  layout :layout_by_resource
+
   # rescue_from ActiveRecord::RecordNotFound do
   # flash[:warning] = 'Resource not found.'
   # redirect_back_or root_path
@@ -16,6 +18,15 @@ class ApplicationController < ActionController::Base
 def redirect_back_or(path)
   redirect_to request.referer || path
 end
+
+
+  def layout_by_resource
+    if devise_controller? && resource_name == :user
+      'login'
+    else
+      'application'
+    end
+  end
 
   def get_leave_requests_count
     @leave_requests_count = Leave.where(approved: false).count
