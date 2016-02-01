@@ -9,13 +9,27 @@
 
 
 <body class="login" >
-  <div class="login-panel">
-    <div class="login-logo">
-      <%= image_tag 'img/logo.png' %>
+  <div class=" col-md-12" style="padding-top: 7%;">
+    <div class="col-md-offset-2 col-md-4 img">
+      <%= image_tag 'login-back.jpg', class: 'img-responsive' %>
     </div>
-    <div class="login-panel-body">
-      <%= yield %>
+    <div class="col-md-4 login-box">
+      <div class="login-logo">
+        <h1 style="color: white;">Web Portal</h1>
+
+      </div>
+      <div class="login-panel-body">
+        <%= yield %>
+      </div>
     </div>
   </div>
+  <div class="col-md-12" style="margin-top: 4%; text-align: center;">
+    <%= image_tag 'img/logo.png' %>
+    <h6 class="school-name">Al-Omam International School</h6>
+  </div>
+  <div class="col-md-12" style="margin-top: 1em; color: #666; text-align: center; font-size: 0.8em;">
+    <%= link_to 'Copyright © Alomam International for Education & Training Powered by Whetstonez'.html_safe, 'http://www.whetstonez.com' %>
+  </div>
+
 </body>
 </html>
