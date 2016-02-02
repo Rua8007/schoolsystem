@@ -65,6 +65,7 @@ end
 # gem 'bcrypt', '~> 3.1.7'
 gem 'puma', '~> 2.3.2'
 gem 'rails_12factor', group: :production
+gem 'daemons'
 
 
 # Use Unicorn as the app server
