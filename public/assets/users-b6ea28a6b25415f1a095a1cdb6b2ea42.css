@@ -1,0 +1,73 @@
+@media only screen and (max-width: 992px) {
+  /* line 6, /home/devsinc/schoolsystem/app/assets/stylesheets/users.scss */
+  body.login {
+    background-image: unset;
+    background-color: #ccc !important;
+  }
+}
+/* line 11, /home/devsinc/schoolsystem/app/assets/stylesheets/users.scss */
+.login-panel {
+  width: 450px;
+  margin: 0 auto;
+  padding-top: 5%;
+}
+
+/* line 16, /home/devsinc/schoolsystem/app/assets/stylesheets/users.scss */
+.login-panel-body {
+  background: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 6px 6px rgba(0, 0, 0, 0.1);
+  padding: 50px;
+}
+/* line 22, /home/devsinc/schoolsystem/app/assets/stylesheets/users.scss */
+.login-panel-body .links {
+  margin-top: 1em;
+}
+/* line 24, /home/devsinc/schoolsystem/app/assets/stylesheets/users.scss */
+.login-panel-body .links a:hover {
+  background: none;
+  text-decoration: none;
+}
+
+/* line 30, /home/devsinc/schoolsystem/app/assets/stylesheets/users.scss */
+.login-logo {
+  padding: 20px 0;
+}
+
+/* line 33, /home/devsinc/schoolsystem/app/assets/stylesheets/users.scss */
+.login-logo a {
+  width: 242px;
+  margin: auto;
+  display: block;
+}
+
+/* line 38, /home/devsinc/schoolsystem/app/assets/stylesheets/users.scss */
+.form-control {
+  border-radius: 0px;
+  box-shadow: none;
+}
+
+/* line 42, /home/devsinc/schoolsystem/app/assets/stylesheets/users.scss */
+.login-panel .glyphicon {
+  position: relative;
+  top: 0;
+  right: 0;
+}
+
+/* Large Devices, Wide Screens */
+/* Medium Devices, Desktops */
+@media only screen and (max-width: 992px) {
+  /* line 55, /home/devsinc/schoolsystem/app/assets/stylesheets/users.scss */
+  body.login {
+    background-image: unset;
+    background-color: #ccc !important;
+  }
+}
+/* Small Devices, Tablets */
+@media only screen and (max-width: 768px) {
+  /* line 63, /home/devsinc/schoolsystem/app/assets/stylesheets/users.scss */
+  .login-panel {
+    width: 90%;
+  }
+}
+/* Extra Small Devices, Phones */
+/* Custom, iPhone Retina */
