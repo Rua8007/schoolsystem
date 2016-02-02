@@ -1,7 +1,9 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Rights for <%= @role.name %> </h1>
+</div>
 <div class="abc form-holder">
 <div class="row">
-  <div class="sss well well-lg">
-    <h2>Rights for <%= @role.name %></h2>
+  <div class="sss">
     <% @rights.try(:each) do |right| %>
       <div class = "alert alert-danger col-md-2" >
         <span><%= right.value.humanize %> <sup class = "pull-right" style  = "color: red"><strong><%= link_to 'X', right_path(right), method: :delete %></strong></sup></span>
@@ -14,149 +16,179 @@
 <br>
 <div class="row">
 <div class=" well well-lg">
-  <h2>Add Roles</h2>
-  <input type="checkbox" id="selecctall" style="margin-left: 17px;margin-top: 18px;" /> Selecct All
+  <h3>Add Roles</h3>
+  <input type="checkbox" id="selecctall" style="margin-left: 17px;margin-top: 18px;" /> Select All
   <br><br>
   <%= form_tag(add_roles_rights_path , method: 'POST' ) do %>
-    <input type="checkbox" class="gen" id="selecctall1" style="margin-left: 17px;margin-top: 18px;" /> Selecct All
-    <%= check_box_tag 'student[view_student]', '' , false ,class: "std gen" %> View Student
-    <%= check_box_tag 'student[create_student]', '' , false ,class: "std gen" %> Create Student
-    <%= check_box_tag 'student[update_student]', '' , false ,class: "std gen" %> Update Student
-    <%= check_box_tag 'student[delete_student]', '' , false ,class: "std gen" %> Delete Student
+    <h4><u><u>Students</u></u></h4>
+    <input type="checkbox" class="gen" id="selecctall1" style="margin-left: 17px;margin-top: 18px;" /> Select All
+    <%= check_box_tag 'student[view_student]', '' , @rights.where(value: "view_student").any? ? true : false ,class: "std gen" %> View Student
+    <%= check_box_tag 'student[create_student]', '' , @rights.where(value: "create_student").any? ? true : false ,class: "std gen" %> Create Student
+    <%= check_box_tag 'student[update_student]', '' , @rights.where(value: "update_student").any? ? true : false ,class: "std gen" %> Update Student
+    <%= check_box_tag 'student[delete_student]', '' , @rights.where(value: "delete_student").any? ? true : false ,class: "std gen" %> Delete Student
     <br>
-    <input type="checkbox" class="gen" id="selecctall2" style="margin-left: 17px;margin-top: 18px;" /> Selecct All
-    <%= check_box_tag 'employee[view_employee]', '' , false ,class: "emp gen" %> View employee
-    <%= check_box_tag 'employee[create_employee]', '' , false ,class: "emp gen" %> Create employee
-    <%= check_box_tag 'employee[update_employee]', '' , false ,class: "emp gen" %> Update employee
-    <%= check_box_tag 'employee[delete_employee]', '' , false ,class: "emp gen" %> Delete employee
+    <hr>
+    <h4><u>Employees</u></h4>
+    <input type="checkbox" class="gen" id="selecctall2" style="margin-left: 17px;margin-top: 18px;" /> Select All
+    <%= check_box_tag 'employee[view_employee]', '' , @rights.where(value: "view_employee").any? ? true : false ,class: "emp gen" %> View employee
+    <%= check_box_tag 'employee[create_employee]', '' , @rights.where(value: "create_employee").any? ? true : false ,class: "emp gen" %> Create employee
+    <%= check_box_tag 'employee[update_employee]', '' , @rights.where(value: "update_employee").any? ? true : false ,class: "emp gen" %> Update employee
+    <%= check_box_tag 'employee[delete_employee]', '' , @rights.where(value: "delete_employee").any? ? true : false ,class: "emp gen" %> Delete employee
     <br>
-    <input type="checkbox" class="gen" id="selecctall3" style="margin-left: 17px;margin-top: 18px;" /> Selecct All
-    <%= check_box_tag 'leave[view_leave]', '' , false ,class: " lea gen" %> View leave
-    <%= check_box_tag 'leave[create_leave]', '' , false ,class: " lea gen" %> Create leave
-    <%= check_box_tag 'leave[update_leave]', '' , false ,class: " lea gen" %> Update leave
-    <%= check_box_tag 'leave[delete_leave]', '' , false ,class: " lea gen" %> Delete leave
+    <hr>
+    <h4><u>Leave Management</u></h4>
+    <input type="checkbox" class="gen" id="selecctall3" style="margin-left: 17px;margin-top: 18px;" /> Select All
+    <%= check_box_tag 'leave[view_leave]', '' , @rights.where(value: "view_leave").any? ? true : false ,class: " lea gen" %> View leave
+    <%= check_box_tag 'leave[create_leave]', '' , @rights.where(value: "create_leave").any? ? true : false ,class: " lea gen" %> Create leave
+    <%= check_box_tag 'leave[update_leave]', '' , @rights.where(value: "update_leave").any? ? true : false ,class: " lea gen" %> Update leave
+    <%= check_box_tag 'leave[delete_leave]', '' , @rights.where(value: "delete_leave").any? ? true : false ,class: " lea gen" %> Delete leave
     <br>
-    <input type="checkbox" class="gen" id="selecctall4" style="margin-left: 17px;margin-top: 18px;" /> Selecct All
-    <%= check_box_tag 'sattendence[view_sattendence]', '' , false ,class: "sat gen" %> View Student attendence
-    <%= check_box_tag 'sattendence[create_sattendence]', '' , false ,class: "sat gen" %> Mark Student attendence
+    <hr>
+    <h4><u>Student Attendence</u></h4>
+    <input type="checkbox" class="gen" id="selecctall4" style="margin-left: 17px;margin-top: 18px;" /> Select All
+    <%= check_box_tag 'sattendence[view_sattendence]', '' , @rights.where(value: "view_sattendence").any? ? true : false ,class: "sat gen" %> View Student attendence
+    <%= check_box_tag 'sattendence[create_sattendence]', '' , @rights.where(value: "create_sattendence").any? ? true : false ,class: "sat gen" %> Mark Student attendence
     <br>
-    <input type="checkbox" class="gen" id="selecctall5" style="margin-left: 17px;margin-top: 18px;" /> Selecct All
-    <%= check_box_tag 'eattendence[view_eattendence]', '' , false ,class: "eat gen" %> View Employee attendence
-    <%= check_box_tag 'eattendence[create_eattendence]', '' , false ,class: "eat gen" %> Mark Employee attendence
+    <hr>
+    <h4><u>Employees Attendece</u></h4>
+    <input type="checkbox" class="gen" id="selecctall5" style="margin-left: 17px;margin-top: 18px;" /> Select All
+    <%= check_box_tag 'eattendence[view_eattendence]', '' , @rights.where(value: "view_eattendence").any? ? true : false ,class: "eat gen" %> View Employee attendence
+    <%= check_box_tag 'eattendence[create_eattendence]', '' , @rights.where(value: "create_eattendence").any? ? true : false ,class: "eat gen" %> Mark Employee attendence
     <br>
-    <input type="checkbox" class="gen" id="selecctall6" style="margin-left: 17px;margin-top: 18px;" /> Selecct All
-    <%= check_box_tag 'prequest[view_prequest]', '' , false ,class: "pre gen" %> Approve request
-    <%= check_box_tag 'prequest[create_prequest]', '' , false ,class: "pre gen" %> Create Purchase request
+        <hr>
+    <h4><u>Purchase Requests</u></h4>
+    <input type="checkbox" class="gen" id="selecctall6" style="margin-left: 17px;margin-top: 18px;" /> Select All
+    <%= check_box_tag 'prequest[view_prequest]', '' , @rights.where(value: "view_prequest").any? ? true : false ,class: "pre gen" %> Approve request
+    <%= check_box_tag 'prequest[create_prequest]', '' , @rights.where(value: "create_prequest").any? ? true : false ,class: "pre gen" %> Create Purchase request
     <br>
-    <input type="checkbox" class="gen" id="selecctall7" style="margin-left: 17px;margin-top: 18px;" /> Selecct All
-    <%= check_box_tag 'fee[view_fee]', '' , false ,class: "fee gen" %> View fee
-    <%= check_box_tag 'fee[create_fee]', '' , false ,class: "fee gen" %> Create fee
-    <%= check_box_tag 'fee[update_fee]', '' , false ,class: "fee gen" %> Update fee
-    <%= check_box_tag 'fee[delete_fee]', '' , false ,class: "fee gen" %> Delete fee
+        <hr>
+    <h4><u>Accounts and Fees</u></h4>
+    <input type="checkbox" class="gen" id="selecctall7" style="margin-left: 17px;margin-top: 18px;" /> Select All
+    <%= check_box_tag 'fee[view_fee]', '' , @rights.where(value: "view_fee").any? ? true : false ,class: "fee gen" %> View fee
+    <%= check_box_tag 'fee[create_fee]', '' , @rights.where(value: "create_fee").any? ? true : false ,class: "fee gen" %> Create fee
+    <%= check_box_tag 'fee[update_fee]', '' , @rights.where(value: "update_fee").any? ? true : false ,class: "fee gen" %> Update fee
+    <%= check_box_tag 'fee[delete_fee]', '' , @rights.where(value: "delete_fee").any? ? true : false ,class: "fee gen" %> Delete fee
     <br>
-    <input type="checkbox" class="gen" id="selecctall8" style="margin-left: 17px;margin-top: 18px;" /> Selecct All
-    <%= check_box_tag 'subject[view_subject]', '' , false ,class: "sub gen" %> View subject
-    <%= check_box_tag 'subject[create_subject]', '' , false ,class: "sub gen" %> Create subject
-    <%= check_box_tag 'subject[update_subject]', '' , false ,class: "sub gen" %> Update subject
-    <%= check_box_tag 'subject[delete_subject]', '' , false ,class: "sub gen" %> Delete subject
+    <hr>
+    <h4><u>Subjects</u></h4>
+    <input type="checkbox" class="gen" id="selecctall8" style="margin-left: 17px;margin-top: 18px;" /> Select All
+    <%= check_box_tag 'subject[view_subject]', '' , @rights.where(value: "view_subject").any? ? true : false ,class: "sub gen" %> View subject
+    <%= check_box_tag 'subject[create_subject]', '' , @rights.where(value: "create_subject").any? ? true : false ,class: "sub gen" %> Create subject
+    <%= check_box_tag 'subject[update_subject]', '' , @rights.where(value: "update_subject").any? ? true : false ,class: "sub gen" %> Update subject
+    <%= check_box_tag 'subject[delete_subject]', '' , @rights.where(value: "delete_subject").any? ? true : false ,class: "sub gen" %> Delete subject
     <br>
-    <input type="checkbox" class="gen" id="selecctall9" style="margin-left: 17px;margin-top: 18px;" /> Selecct All
-    <%= check_box_tag 'grade[view_grade]', '' , false ,class: "grd gen" %> View grade
-    <%= check_box_tag 'grade[create_grade]', '' , false ,class: "grd gen" %> Create grade
-    <%= check_box_tag 'grade[update_grade]', '' , false ,class: "grd gen" %> Update grade
-    <%= check_box_tag 'grade[delete_grade]', '' , false ,class: "grd gen" %> Delete grade
+    <hr>
+    <h4><u>Grades</u></h4>
+    <input type="checkbox" class="gen" id="selecctall9" style="margin-left: 17px;margin-top: 18px;" /> Select All
+    <%= check_box_tag 'grade[view_grade]', '' , @rights.where(value: "view_grade").any? ? true : false ,class: "grd gen" %> View grade
+    <%= check_box_tag 'grade[create_grade]', '' , @rights.where(value: "create_grade").any? ? true : false ,class: "grd gen" %> Create grade
+    <%= check_box_tag 'grade[update_grade]', '' , @rights.where(value: "update_grade").any? ? true : false ,class: "grd gen" %> Update grade
+    <%= check_box_tag 'grade[delete_grade]', '' , @rights.where(value: "delete_grade").any? ? true : false ,class: "grd gen" %> Delete grade
     <br>
-    <input type="checkbox" class="gen" id="selecctall10" style="margin-left: 17px;margin-top: 18px;" /> Selecct All
-    <%= check_box_tag 'transport[view_transport]', '' , false ,class: "tra gen" %> View transport
-    <%= check_box_tag 'transport[create_transport]', '' , false ,class: "tra gen" %> Create transport
-    <%= check_box_tag 'transport[update_transport]', '' , false ,class: "tra gen" %> Update transport
-    <%= check_box_tag 'transport[delete_transport]', '' , false ,class: "tra gen" %> Delete transport
+    <hr>
+    <h4><u>Transports</u></h4>
+    <input type="checkbox" class="gen" id="selecctall10" style="margin-left: 17px;margin-top: 18px;" /> Select All
+    <%= check_box_tag 'transport[view_transport]', '' , @rights.where(value: "view_transport").any? ? true : false ,class: "tra gen" %> View transport
+    <%= check_box_tag 'transport[create_transport]', '' , @rights.where(value: "create_transport").any? ? true : false ,class: "tra gen" %> Create transport
+    <%= check_box_tag 'transport[update_transport]', '' , @rights.where(value: "update_transport").any? ? true : false ,class: "tra gen" %> Update transport
+    <%= check_box_tag 'transport[delete_transport]', '' , @rights.where(value: "delete_transport").any? ? true : false ,class: "tra gen" %> Delete transport
     <br>
-    <input type="checkbox" class="gen" id="selecctall11" style="margin-left: 17px;margin-top: 18px;" /> Selecct All
-    <%= check_box_tag 'bookshop[view_bookshop]', '' , false ,class: "book gen" %> View bookshop
-    <%= check_box_tag 'bookshop[create_bookshop]', '' , false ,class: "book gen" %> Create bookshop
-    <%= check_box_tag 'bookshop[update_bookshop]', '' , false ,class: "book gen" %> Update bookshop
-    <%= check_box_tag 'bookshop[delete_bookshop]', '' , false ,class: "book gen" %> Delete bookshop
+    <hr>
+    <h4><u>Bookshop</u></h4>
+    <input type="checkbox" class="gen" id="selecctall11" style="margin-left: 17px;margin-top: 18px;" /> Select All
+    <%= check_box_tag 'bookshop[view_bookshop]', '' , @rights.where(value: "view_bookshop").any? ? true : false ,class: "book gen" %> View bookshop
+    <%= check_box_tag 'bookshop[create_bookshop]', '' , @rights.where(value: "create_bookshop").any? ? true : false ,class: "book gen" %> Create bookshop
+    <%= check_box_tag 'bookshop[update_bookshop]', '' , @rights.where(value: "update_bookshop").any? ? true : false ,class: "book gen" %> Update bookshop
+    <%= check_box_tag 'bookshop[delete_bookshop]', '' , @rights.where(value: "delete_bookshop").any? ? true : false ,class: "book gen" %> Delete bookshop
     <br>
-    <input type="checkbox" class="gen" id="selecctall12" style="margin-left: 17px;margin-top: 18px;" /> Selecct All
-    <%= check_box_tag 'exam[view_exam]', '' , false ,class: "exm gen" %> View Exams
-    <%= check_box_tag 'exam[create_exam]', '' , false ,class: "exm gen" %> Create Exam
-    <%= check_box_tag 'exam[update_exam]', '' , false ,class: "exm gen" %> Update Exam
-    <%= check_box_tag 'exam[delete_exam]', '' , false ,class: "exm gen" %> Delete exam
-    <%= check_box_tag 'exam[enter_marks]', '' , false ,class: "exm gen" %> Enter Marks
-    <%= check_box_tag 'exam[enter_all_marks]', '' , false ,class: "exm gen" %> Enter All Marks
-    <!--<#%= check_box_tag 'exam[upload_marks]', '' , false ,class: "exm gen" %> Upload Marksheets
-    <#%= check_box_tag 'exam[view_marksheets]', '' , false ,class: "exm gen" %> View ALl Marksheets -->
-    <%= check_box_tag 'exam[subject_result]', '' , false ,class: "exm gen" %> View Subject Result
-    <%= check_box_tag 'exam[view_class_result]', '' , false ,class: "exm gen" %> View Class Result
+    <hr>
+    <h4><u>Examination</u></h4>
+    <input type="checkbox" class="gen" id="selecctall12" style="margin-left: 17px;margin-top: 18px;" /> Select All
+    <%= check_box_tag 'exam[view_exam]', '' , @rights.where(value: "view_exam").any? ? true : false ,class: "exm gen" %> View Exams
+    <%= check_box_tag 'exam[create_exam]', '' , @rights.where(value: "create_exam").any? ? true : false ,class: "exm gen" %> Create Exam
+    <%= check_box_tag 'exam[update_exam]', '' , @rights.where(value: "update_exam").any? ? true : false ,class: "exm gen" %> Update Exam
+    <%= check_box_tag 'exam[delete_exam]', '' , @rights.where(value: "delete_exam").any? ? true : false ,class: "exm gen" %> Delete exam
+    <%= check_box_tag 'exam[enter_marks]', '' , @rights.where(value: "enter_marks").any? ? true : false ,class: "exm gen" %> Enter Marks
+    <%= check_box_tag 'exam[enter_all_marks]', '' , @rights.where(value: "enter_all_marks").any? ? true : false ,class: "exm gen" %> Enter All Marks
+    <!--<#%= check_box_tag 'exam[upload_marks]', '' , @rights.where(value: "").any? ? true : false ,class: "exm gen" %> Upload Marksheets
+    <#%= check_box_tag 'exam[view_marksheets]', '' , @rights.where(value: "").any? ? true : false ,class: "exm gen" %> View ALl Marksheets -->
+    <%= check_box_tag 'exam[subject_result]', '' , @rights.where(value: "subject_result").any? ? true : false ,class: "exm gen" %> View Subject Result
+    <%= check_box_tag 'exam[view_class_result]', '' , @rights.where(value: "view_class_result").any? ? true : false ,class: "exm gen" %> View Class Result
 
     <br>
     <br>
-    <%= check_box_tag 'exam[design_report_cards]', '' , false ,class: "gen", style: "margin-left:17px;" %> Design Report Cards
-    <%= check_box_tag 'exam[edit_report_cards]', '' , false ,class: "gen", style: "margin-left:17px;" %> Edit Report Cards
+    <%= check_box_tag 'exam[design_report_cards]', '' , @rights.where(value: "design_report_cards").any? ? true : false ,class: "gen", style: "margin-left:17px;" %> Design Report Cards
+    <%= check_box_tag 'exam[edit_report_cards]', '' , @rights.where(value: "edit_report_cards").any? ? true : false ,class: "gen", style: "margin-left:17px;" %> Edit Report Cards
 
     <br>
     <br>
-    <%= check_box_tag 'exam[publish_results]', '' , false ,class: "gen", style: "margin-left:17px;" %> Publish Results
+    <%= check_box_tag 'exam[publish_results]', '' , @rights.where(value: "publish_results").any? ? true : false ,class: "gen", style: "margin-left:17px;" %> Publish Results
 
     <br>
-    <input type="checkbox" class="gen" id="selecctall13" style="margin-left: 17px;margin-top: 18px;" /> Selecct All
-    <%= check_box_tag 'approve[approve_curriculam]', '' , false ,class: "plan gen" %> Approve Curriculam
-    <%= check_box_tag 'approve[approve_lesson]', '' , false ,class: "plan gen" %> Approve Lesson Plan
-    <%= check_box_tag 'approve[approve_portion]', '' , false ,class: "plan gen" %> Approve Portions
-    <%= check_box_tag 'approve[approve_weekly_plan]', '' , false ,class: "plan gen" %> Approve Weekly Plans
+    <hr>
+    <h4><u>Approve Curriculams and Plans</u></h4>
+    <input type="checkbox" class="gen" id="selecctall13" style="margin-left: 17px;margin-top: 18px;" /> Select All
+    <%= check_box_tag 'approve[approve_curriculam]', '' , @rights.where(value: "approve_curriculam").any? ? true : false ,class: "plan gen" %> Approve Curriculam
+    <%= check_box_tag 'approve[approve_lesson]', '' , @rights.where(value: "approve_lesson").any? ? true : false ,class: "plan gen" %> Approve Lesson Plan
+    <%= check_box_tag 'approve[approve_portion]', '' , @rights.where(value: "approve_portion").any? ? true : false ,class: "plan gen" %> Approve Portions
+    <%= check_box_tag 'approve[approve_weekly_plan]', '' , @rights.where(value: "approve_weekly_plan").any? ? true : false ,class: "plan gen" %> Approve Weekly Plans
     <br>
-    <input type="checkbox" class="gen" id="selecctall14" style="margin-left: 17px;margin-top: 18px;" /> Selecct All
-    <%= check_box_tag 'calender[view_gcalender]', '' , false ,class: "cal gen" %> View Gcalender
-    <%= check_box_tag 'calender[create_gcalender]', '' , false ,class: "cal gen" %> Create Gcalender
-    <%= check_box_tag 'calender[update_gcalender]', '' , false ,class: "cal gen" %> Update Gcalender
-    <%= check_box_tag 'calender[delete_gcalender]', '' , false ,class: "cal gen" %> Delete Gcalender
+    <hr>
+    <h4><u>General Calendars</u></h4>
+    <input type="checkbox" class="gen" id="selecctall14" style="margin-left: 17px;margin-top: 18px;" /> Select All
+    <%= check_box_tag 'calender[view_gcalender]', '' , @rights.where(value: "view_gcalender").any? ? true : false ,class: "cal gen" %> View Gcalender
+    <%= check_box_tag 'calender[create_gcalender]', '' , @rights.where(value: "create_gcalender").any? ? true : false ,class: "cal gen" %> Create Gcalender
+    <%= check_box_tag 'calender[update_gcalender]', '' , @rights.where(value: "update_gcalender").any? ? true : false ,class: "cal gen" %> Update Gcalender
+    <%= check_box_tag 'calender[delete_gcalender]', '' , @rights.where(value: "delete_gcalender").any? ? true : false ,class: "cal gen" %> Delete Gcalender
     <br>
-    <input type="checkbox" class="gen" id="selecctall15" style="margin-left: 17px;margin-top: 18px;" /> Selecct All
-    <%= check_box_tag 'excalender[view_excalender]', '' , false ,class: "ecal gen" %> View Excalender
-    <%= check_box_tag 'excalender[create_excalender]', '' , false ,class: "ecal gen" %> Create Excalender
-    <%= check_box_tag 'excalender[update_excalender]', '' , false ,class: "ecal gen" %> Update Excalender
-    <%= check_box_tag 'excalender[delete_excalender]', '' , false ,class: "ecal gen" %> Delete Excalender
+    <hr>
+    <h4><u>Exam Calendars</u></h4>
+    <input type="checkbox" class="gen" id="selecctall15" style="margin-left: 17px;margin-top: 18px;" /> Select All
+    <%= check_box_tag 'excalender[view_excalender]', '' , @rights.where(value: "view_excalender").any? ? true : false ,class: "ecal gen" %> View Excalender
+    <%= check_box_tag 'excalender[create_excalender]', '' , @rights.where(value: "create_excalender").any? ? true : false ,class: "ecal gen" %> Create Excalender
+    <%= check_box_tag 'excalender[update_excalender]', '' , @rights.where(value: "update_excalender").any? ? true : false ,class: "ecal gen" %> Update Excalender
+    <%= check_box_tag 'excalender[delete_excalender]', '' , @rights.where(value: "delete_excalender").any? ? true : false ,class: "ecal gen" %> Delete Excalender
 
     <br>
-    <br>
-    <%= check_box_tag 'exam[enter_marks]', '' , false ,class: "gen", style: "margin-left:17px;" %> Enter Marks
-    <br>
-    <br>
-    <%= check_box_tag 'timetable[timetable]', '' , false ,class: "gen", style: "margin-left:17px;" %> View Timetable
+    <hr>
+    <h4><u>Settings and Others</u></h4>
+    <%= check_box_tag 'exam[enter_marks]', '' , @rights.where(value: "enter_marks").any? ? true : false ,class: "gen", style: "margin-left:17px;" %> Enter Marks
     <br>
     <br>
-    <%= check_box_tag 'batch[batch]', '' , false ,class: "gen", style: "margin-left:17px;" %> Access Batch
+    <%= check_box_tag 'timetable[timetable]', '' , @rights.where(value: "timetable").any? ? true : false ,class: "gen", style: "margin-left:17px;" %> View Timetable
     <br>
     <br>
-    <%= check_box_tag 'conversation[conversation]', '' , false ,class: "gen", style: "margin-left:17px;" %> Conversation
-
+    <%= check_box_tag 'batch[batch]', '' , @rights.where(value: "batch").any? ? true : false ,class: "gen", style: "margin-left:17px;" %> Access Batch
     <br>
     <br>
-    <%= check_box_tag 'users[users]', '' , false ,class: "gen", style: "margin-left:17px;" %> Users
-    <br>
-    <br>
-    <%= check_box_tag 'permissions[permissions]', '' , false ,class: "gen", style: "margin-left:17px;" %> User Permissions
-    <br>
-    <br>
-    <%= check_box_tag 'permissions[send_sms]', '' , false ,class: "gen", style: "margin-left:17px;" %> Send SMS
-    <br>
-    <br>
-
-    <%= check_box_tag 'leave_request[leave_request]', '' , false ,class: "gen", style: "margin-left:17px;" %> Request Leave
+    <%= check_box_tag 'conversation[conversation]', '' , @rights.where(value: "conversation").any? ? true : false ,class: "gen", style: "margin-left:17px;" %> Conversation
 
     <br>
     <br>
-    <%= check_box_tag 'leave_request[view_behavior_reports]', '' , false ,class: "gen", style: "margin-left:17px;" %> View Behavior Report
+    <%= check_box_tag 'users[users]', '' , @rights.where(value: "users").any? ? true : false ,class: "gen", style: "margin-left:17px;" %> Users
     <br>
     <br>
-    <%= check_box_tag 'plans[create_week]', '' , false ,class: "gen", style: "margin-left:17px;" %> Create Week For Plans
-    <%= check_box_tag 'plans[update_week]', '' , false ,class: "gen", style: "margin-left:17px;" %> Update Weeks
-    <%= check_box_tag 'plans[view_weeklyplans]', '' , false ,class: "gen", style: "margin-left:17px;" %> View Weekly Plans
+    <%= check_box_tag 'permissions[permissions]', '' , @rights.where(value: "permissions").any? ? true : false ,class: "gen", style: "margin-left:17px;" %> User Permissions
+    <br>
+    <br>
+    <%= check_box_tag 'permissions[send_sms]', '' , @rights.where(value: "send_sms").any? ? true : false ,class: "gen", style: "margin-left:17px;" %> Send SMS
+    <br>
+    <br>
 
-    <%= check_box_tag 'plans[view_lesson_plans]', '' , false ,class: "gen", style: "margin-left:17px;" %> View Lesson Plans
+    <%= check_box_tag 'leave_request[leave_request]', '' , @rights.where(value: "leave_request").any? ? true : false ,class: "gen", style: "margin-left:17px;" %> Request Leave
 
-    <%= check_box_tag 'plans[view_curriculum_plans]', '' , false ,class: "gen", style: "margin-left:17px;" %> View Curriculums
+    <br>
+    <br>
+    <%= check_box_tag 'leave_request[view_behavior_reports]', '' , @rights.where(value: "view_behavior_reports").any? ? true : false ,class: "gen", style: "margin-left:17px;" %> View Behavior Report
+    <br>
+    <br>
+    <%= check_box_tag 'plans[create_week]', '' , @rights.where(value: "create_week").any? ? true : false ,class: "gen", style: "margin-left:17px;" %> Create Week For Plans
+    <%= check_box_tag 'plans[update_week]', '' , @rights.where(value: "update_week").any? ? true : false ,class: "gen", style: "margin-left:17px;" %> Update Weeks
+    <%= check_box_tag 'plans[view_weeklyplans]', '' , @rights.where(value: "view_weeklyplans").any? ? true : false ,class: "gen", style: "margin-left:17px;" %> View Weekly Plans
+
+    <%= check_box_tag 'plans[view_lesson_plans]', '' , @rights.where(value: "view_lesson_plans").any? ? true : false ,class: "gen", style: "margin-left:17px;" %> View Lesson Plans
+
+    <%= check_box_tag 'plans[view_curriculum_plans]', '' , @rights.where(value: "view_curriculum_plans").any? ? true : false ,class: "gen", style: "margin-left:17px;" %> View Curriculums
 
     <br>
     <br>
