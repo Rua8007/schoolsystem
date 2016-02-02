@@ -76,19 +76,27 @@
 }
 
 .img {
-  padding-top: 5.4%;
   min-height: 440px;
-  img{ min-height: 355px; box-shadow: 0 6px 6px rgba(0, 0, 0, 0.5);}
+  max-height: 440px;
+  .login-back{ min-height: 355px; box-shadow: 0 6px 6px rgba(0, 0, 0, 0.5);}
 }
 
-.school-name{
-  margin-left: 0.2em;
-  margin-top: 0.5em;
-  margin-bottom: 0;
-  font-size: 3em;
-  text-align: center;
+.school-name {
   color: white;
-  vertical-align: bottom;
+  margin-left: 0.5em;
+  font-size: 2em;
+}
+
+.logo-box {
+  min-height: 145px;
+  max-height: 145px;
+  padding-left: 0;
+}
+
+.login-box{
+  margin-top: 145px;
+  min-height: 440px;
+  max-height: 440px;
 }
 
 body.login{
