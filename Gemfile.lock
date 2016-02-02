@@ -10,6 +10,7 @@ GIT
 
 GEM
   remote: https://rubygems.org/
+  remote: https://rails-assets.org/
   specs:
     actionmailer (4.2.1)
       actionpack (= 4.2.1)
@@ -180,6 +181,9 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.2.1)
       sprockets-rails
+    rails-assets-datetimepicker (2.4.5)
+      rails-assets-jquery (>= 1.7.2)
+    rails-assets-jquery (2.2.0)
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
     rails-dom-testing (1.0.7)
@@ -295,6 +299,7 @@ DEPENDENCIES
   puma (~> 2.3.2)
   pundit
   rails (= 4.2.1)
+  rails-assets-datetimepicker!
   rails-erd
   rails_12factor
   rmagick
@@ -310,3 +315,6 @@ DEPENDENCIES
   will_paginate
   wkhtmltopdf-binary
   wysihtml-rails
+
+BUNDLED WITH
+   1.10.6

@@ -29,3 +29,4 @@
 //= require messages
 //= require grades
 //= require select2
+//= require datetimepicker

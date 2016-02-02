@@ -24,6 +24,7 @@
  *= require select2
  *= require users
  *= require_self
+ *= require datetimepicker
  */
 *,
 *:before,

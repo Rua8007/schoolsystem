@@ -57,6 +57,10 @@ gem 'mustache', '~> 1.0', '>= 1.0.2'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
+source 'https://rails-assets.org' do
+  gem 'rails-assets-datetimepicker'
+end
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 gem 'puma', '~> 2.3.2'
