@@ -21,7 +21,7 @@
   <h1 class="m-n font-thin h3"> Notifications Panel </h1>
 </div>
 <br><br>
-<%= form_tag(home_sendsms_path, method: :get) do %>
+<%= form_tag(home_sendsms_path, method: :get) do |f| %>
 
 <div class="container" style="padding-left:0px !important">
   <div class="container">
@@ -41,7 +41,8 @@
           </label>
         </div>
 
-        <textarea rows="5" cols="100" name = "msgbdy" id = "msgbdy"></textarea>
+        <%= bootsy_area 'msg', 'body', {name: 'msgbdy', rows: 5, cols: 100} %>
+        <!--<textarea class="bootsy_text_area" rows="5" cols="100" name = "msgbdy" id = "msgbdy"></textarea>-->
         <br>
         <legend class="lll">Send To</legend>
         <div class="checkbox">
@@ -149,6 +150,7 @@
     $('.select-tag').select2();
 
     $('.tag-info').on('click', function(){
+      $('iframe').contents().find('body').html($('iframe').contents().find('body').html() + $(this).data('value') );
       $('#msgbdy').val($('#msgbdy').val() + $(this).data('value'));
     });
   });
