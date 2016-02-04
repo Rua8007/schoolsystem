@@ -33,11 +33,11 @@
   <%= hidden_field_tag 'division_id', @marks_division.id %>
   <div style=" 	width: 1050px; /* arbitary for demo only */white-space: nowrap; overflow-y: hidden; overflow-x: scroll;-webkit-overflow-scrolling: touch;">
 
-    <div class="well well-lg col-md-3" style="text-align: center; min-height:500px; float:none !important;display: inline-block;vertical-align: top;">
+    <div class="well well-lg col-md-3" style="min-height:500px; float:none !important;display: inline-block;vertical-align: top;">
       <span style= "background:green; color:white;padding: 7px 10px;font-size: 15px">Student Name</span>
       <div class="performance-holder">
         <% @students.try(:each) do |std| %>
-            <strong class="student-names" ><%= std.fullname %> </strong>
+            <strong class="student-names" style="text-align: left;"><%= std.fullname %> </strong>
         <% end %>
       </div>
     </div>
@@ -45,8 +45,10 @@
     <div class="well well-lg col-md-2 performance-report" style="min-height:500px; float:none !important;display: inline-block;vertical-align: top; ">
       <h5> Performance Report</h5>
       <div class="performance-holder">
-        <% @students.try(:each) do |std| %>
-            <%= link_to 'Performance Report', new_performance_path({student_id: std.id, bridge_id: 19}), class: "btn-performance-report btn btn-primary", style: "font-size:11px;" %>
+        <% if @bridge.present? %>
+          <% @students.try(:each) do |std| %>
+              <%= link_to 'Performance Report', new_performance_path({student_id: std.id, bridge_id: @bridge.id}), class: "btn-performance-report btn btn-primary", style: "font-size:11px;" %>
+          <% end %>
         <% end %>
       </div>
     </div>
@@ -60,7 +62,7 @@
     <% if @mark.sessionals.present? %>
         <% @mark.sessionals.try(:each) do |sessional| %>
             <div class="well well-lg col-md-2 con" style="padding:10px;min-height:500px;width: 180px;float:none !important;display:inline-block;vertical-align: top;">
-              <h5></h5>
+              <h5>Date</h5>
               <%= text_field_tag "sessionals_date[]", sessional.mark_date, style:"" , class: "datepickerss absense-input", required: true, placeholder: "Select Date" %>
               <% @students.try(:each) do |std| %>
                   <% @student_report_card = ReportCard.find_by( grade_id: @class.id, batch_id: @class.batch_id, student_id: std.id) %>
@@ -157,7 +159,7 @@
 
 <div class="col-template hidden">
   <div class="well well-lg col-md-2 con" style="margin-left: 3px;padding:10px;min-height:500px;width: 180px; float:none !important;display: inline-block;vertical-align: top;">
-    <h5><%= @marks_division.name %></h5>
+    <h5>Date</h5>
     <%= text_field_tag "sessionals_date[]", '' ,class: "datepickerss absense-input", required: true, placeholder: "Select Date" %>
     <% @students.try(:each) do |std| %>
         <%= text_field_tag "sessionals[#{std.id}][]", "" ,class: "absense-input calculate"+std.id.to_s %>

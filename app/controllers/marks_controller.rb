@@ -95,6 +95,10 @@ class MarksController < ApplicationController
       @students = @class.students.sort_by { |k| k.fullname }
     end
 
+    if current_user.role.name == 'Teacher'
+      @bridge = Bridge.find_by(grade_id: @class.id, employee_id: Employee.find_by_email(current_user.email).try(:id), subject_id: @subject.id)
+    end
+
     @setting = ReportCardSetting.find_by(grade_id: @main_grade.id, batch_id: @class.batch_id, exam_id: @exam.id) if @main_grade.present?
 
     @marks_divisions = @setting.marks_divisions.order('name')
