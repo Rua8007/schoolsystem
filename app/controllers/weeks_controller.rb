@@ -49,8 +49,8 @@ class WeeksController < ApplicationController
 
     respond_to do |format|
       if @week.save
-        @week.year_week_id = @year_plan.weeks.count
-        @week.save!
+        # @week.year_week_id = @year_plan.weeks.count
+        # @week.save!
 
         format.html { redirect_to year_plan_weeks_path(@year_plan.id), notice: 'Week was successfully created.' }
         format.json { render :show, status: :created, location: @week }

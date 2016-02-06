@@ -10,12 +10,16 @@
 <%= form_tag subject_add_grade_path(@grade.id), method: 'POST' do %>
 
 <div class="container">
-  <div class="row"><h3>Select Subjects</h3></div>
-  <% @subjects.try(:each) do |sub| %>
+  <div class="row">
+    <h3>Select Subjects</h3>
+    <h3>Selected: <span class="subject-count"><%= @grade.associations.length %></span>/<%= @subjects.length %></h3>
+  </div>
+  <% @subjects.try(:each_with_index) do |sub, index| %>
     <div class="row">
       <% if sub.sub_subjects.present? %>
         <h4><%= sub.name %></h4>
       <% else %>
+          <div class="col-sm-1"><%= index + 1 %></div>
           <div class="col-md-3 col-sm-4">
             <%= check_box_tag "flags[#{sub.id}][check]",'' , @grade.associations.where(subject_id: sub.id).any? , class: 'checkbox1 select-subject' %>&nbsp <span class="subject-name"><%= sub.name %></span>
           </div>
@@ -47,3 +51,16 @@
 </div>
 
 <% end %>
+
+<script type="text/javascript">
+  $('.select-subject').on('click', function(){
+    var count = parseInt($('.subject-count').html());
+    if($(this).is(':checked')){
+      count = count + 1;
+    }
+    else{
+      count = count - 1;
+    }
+    $('.subject-count').html(count);
+  });
+</script>

@@ -383,14 +383,14 @@
                           <% end %>
                           <% if current_user.role.rights(value: 'approve_lesson').any? %>
                             <li>
-                              <%= link_to(get_requested_lessonplans_path) do %>
+                              <%= link_to(get_requested_lessonplans_path, method: 'POST')  do %>
                                 <span>Lesson Plans</span>
                               <% end %>
                             </li>
                           <% end %>
                           <% if current_user.role.rights(value: 'approve_portion').any? %>
                             <li>
-                              <%= link_to(get_requested_portions_path) do %>
+                              <%= link_to(get_requested_portions_path, method: 'POST') do %>
                                 <span>Portions</span>
                               <% end %>
                             </li>

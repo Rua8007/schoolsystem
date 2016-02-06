@@ -36,7 +36,7 @@ end
 
   resources :lessonplans do
     collection do
-      get :get_requested
+      post :get_requested
       post :approve_requested
       post :disapprove_requested
       post :approve_all_requests
@@ -45,7 +45,7 @@ end
 
   resources :portions do
     collection do
-      get :get_requested
+      post :get_requested
       post :approve_requested
       post :disapprove_requested
       post :approve_all_requests
