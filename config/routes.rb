@@ -273,6 +273,8 @@ end
     end
   end
 
+  post '/users/enable_or_disable_users' => 'users#enable_or_disable_users'
+
   get 'home/index'
 
   resources :bridges do
