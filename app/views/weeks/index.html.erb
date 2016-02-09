@@ -57,6 +57,7 @@
         <th>Week #</th>
         <th>Start date</th>
         <th>End date</th>
+        <th>Expiry Date</th>
        <!--  <th>Holiday description</th> -->
         <th>Actions</th>
       </tr>
@@ -65,11 +66,11 @@
       <% @weeks.each do |week| %>
         <tr>
           <td><%= week.year_week_id %></td>
-          <td><%= week.start_date.strftime("%d-%m-%Y") %></td>
-          <td><%= week.end_date.strftime("%d-%m-%Y") %></td>
-          <!-- <td><%#= week.holiday_description %></td> -->
+          <td><%= week.start_date.strftime('%d-%m-%Y') %></td>
+          <td><%= week.end_date.strftime('%d-%m-%Y') %></td>
+          <td><%= week.expiry_date.strftime('%d-%m-%Y') %></td>
           <td>
-            <% if current_user.role.name == 'Teacher' %>
+            <% if current_user.role.name == 'Teacher' and week.expiry_date >= Date.today %>
               <%= link_to '', 'javascript:void(0);',:class =>  'btn btn-success  glyphicon glyphicon-ok-circle start-plan-btn', id: "#{week.id}"%>
             <% end %>
             <% if current_user.role.rights.where(value: 'update_week').any? %>

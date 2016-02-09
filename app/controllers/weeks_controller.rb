@@ -28,7 +28,7 @@ class WeeksController < ApplicationController
   # GET /weeks/new
   def new
     @year_plan = YearPlan.find(params[:year_plan_id])
-    max_week = @year_plan.weeks.count+1
+    max_week = @year_plan.weeks.maximum(:year_week_id) + 1
     @week = Week.new(year_week_id: max_week)
 
   end
@@ -46,6 +46,7 @@ class WeeksController < ApplicationController
     @year_plan = YearPlan.find(params[:year_plan_id])
     if @year_plan.present?
       @week = @year_plan.weeks.build(week_params)
+      @week.expiry_date = @week.start_date + 3 if @week.expiry_date.nil?
     end
 
     respond_to do |format|
@@ -144,6 +145,6 @@ class WeeksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def week_params
-      params.require(:week).permit(:year_week_id, :start_date, :end_date, :holiday_description)
+      params.require(:week).permit(:year_week_id, :start_date, :end_date, :expiry_date, :holiday_description)
     end
 end
