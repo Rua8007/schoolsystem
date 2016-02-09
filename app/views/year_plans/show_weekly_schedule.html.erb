@@ -1,5 +1,6 @@
 <div class="bg-light lter b-b wrapper-md">
   <h3 class="m-n text-center">WEEKLY PLANS</h3>
+  <h4 class="m-n text-center">Week # <%= "#{@week.year_week_id}" %></h4>
   <h4 class="m-n text-center">
   SY: <%= "#{@year_plan.year_name}" %> <br/><br/>
   <%= "Grade: #{@grade.full_name} " %>&nbsp;&nbsp;&nbsp;&nbsp;<%= "From: #{@week.start_date.strftime("%d-%m-%Y")}" %>&nbsp;&nbsp;<%= "To: #{@week.end_date.strftime("%d-%m-%Y")}" %>

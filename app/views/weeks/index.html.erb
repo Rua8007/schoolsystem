@@ -18,7 +18,7 @@
       <div class="form-group">
         <label>Week</label>
         <!-- <p>Some text in the modal.</p> -->
-        <%= select_tag :week_id, options_from_collection_for_select(@weeks,"id", "start_end_date"),
+        <%= select_tag :week_id, options_from_collection_for_select(@weeks,"id", "label"),
             prompt: "Select Week", class: "form-control", required: true %>
       </div>
 
