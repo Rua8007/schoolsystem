@@ -49,9 +49,9 @@
 
     <div class="form-group">
       <div class='input-group date' id='datetimepicker3' class="datepicker1">
-        <input type='text' id="week_expiry_date" <%= (current_user.role.name == 'Admin')? '' : 'disabled=true' %> name="week[expiry_date]" data-date-format="yyyy-mm-dd" class="form-control" value="<%= @week.expiry_date %>" required />
+        <input type='text' id="week_expiry_date" <%= (current_user.role.name == Role::SUPER_USER_ROLE)? '' : 'disabled=true' %> name="week[expiry_date]" data-date-format="yyyy-mm-dd" class="form-control" value="<%= @week.expiry_date %>" required />
     <span class="input-group-addon">
-      <span class="glyphicon glyphicon-calendar" style="<%= (current_user.role.name == 'Admin')? '' : 'display:none'  %>"></span>
+      <span class="glyphicon glyphicon-calendar" style="<%= (current_user.role.name == Role::SUPER_USER_ROLE)? '' : 'display:none'  %>"></span>
     </span>
       </div>
     </div>
