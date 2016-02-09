@@ -7,6 +7,6 @@ class Week < ActiveRecord::Base
 	end
 
 	def label
-		"# #{year_week_id} #{start_date.strftime("%d/%m")} - #{end_date.strftime("%d/%m")}"
+		"Week# #{year_week_id} - (#{start_date.strftime('%d-%m-%Y')} / #{end_date.strftime('%d-%m-%Y')})"
 	end
 end
