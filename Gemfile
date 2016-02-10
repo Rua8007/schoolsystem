@@ -40,6 +40,7 @@ gem 'gravatar_image_tag'
 gem 'fullcalendar-rails'
 gem 'cocoon'
 gem 'select2-rails'
+gem 'bootsy'
 
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount Bootsy::Engine => '/bootsy', as: 'bootsy'
   resources :grade_groups
   resources :curriculums
   resources :lessonplans
@@ -35,7 +36,7 @@ end
 
   resources :lessonplans do
     collection do
-      get :get_requested
+      post :get_requested
       post :approve_requested
       post :disapprove_requested
       post :approve_all_requests
@@ -44,7 +45,7 @@ end
 
   resources :portions do
     collection do
-      get :get_requested
+      post :get_requested
       post :approve_requested
       post :disapprove_requested
       post :approve_all_requests
@@ -271,6 +272,8 @@ end
       get 'enable'
     end
   end
+
+  post '/users/enable_or_disable_users' => 'users#enable_or_disable_users'
 
   get 'home/index'
 

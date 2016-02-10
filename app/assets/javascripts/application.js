@@ -12,6 +12,7 @@
 //
 //= require jquery-2.1.4
 //= require jquery_ujs
+//= require bootsy
 //= require jquery.minicolors
 //= require externals/bootstrap/dist/js/bootstrap
 //= require ui-load

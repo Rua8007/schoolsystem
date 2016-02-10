@@ -41,6 +41,19 @@
   </div>
 
   <div class="form-group">
+    <%= f.label :expiry_date %><br>
+
+    <div class="form-group">
+      <div class='input-group date' id='datetimepicker3' class="datepicker1">
+        <input type='text' id="week_expiry_date" name="week[expiry_date]" data-date-format="yyyy-mm-dd" class="form-control" value="<%= @week.expiry_date %>" required />
+  <span class="input-group-addon">
+    <span class="glyphicon glyphicon-calendar"></span>
+  </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
     <%= f.label :holiday_description %><br>
     <%= f.text_field :holiday_description, class: "form-control" %>
   </div>
@@ -60,6 +73,9 @@
       format: "yyyy-mm-dd"
     });
     $('#datetimepicker2').datepicker({
+      format: "yyyy-mm-dd"
+    });
+    $('#datetimepicker3').datepicker({
       format: "yyyy-mm-dd"
     });
 

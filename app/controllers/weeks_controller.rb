@@ -9,11 +9,12 @@ class WeeksController < ApplicationController
     if @year_plan.present?
       @weeks = @year_plan.weeks.sort_by &:start_date
       if current_user.role.name == 'Teacher'
-        @grades = Grade.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:grade_id))
+        @grades = Grade.where("id IN(#{Employee.find_by_email(current_user.email).bridges.try(:pluck, :grade_id).try(:join, ',')})
+                  and section IS NOT NULL").order('name, section')
         @subjects = Subject.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:subject_id))
       else
         # for admins
-        @grades = Grade.all
+        @grades = Grade.where('section IS NOT NULL').order('name, section')
         @subjects = Subject.all
       end
     end
@@ -27,7 +28,7 @@ class WeeksController < ApplicationController
   # GET /weeks/new
   def new
     @year_plan = YearPlan.find(params[:year_plan_id])
-    max_week = @year_plan.weeks.count+1
+    max_week = @year_plan.weeks.maximum(:year_week_id) + 1
     @week = Week.new(year_week_id: max_week)
 
   end
@@ -45,12 +46,13 @@ class WeeksController < ApplicationController
     @year_plan = YearPlan.find(params[:year_plan_id])
     if @year_plan.present?
       @week = @year_plan.weeks.build(week_params)
+      @week.expiry_date = @week.start_date + 3 if @week.expiry_date.nil?
     end
 
     respond_to do |format|
       if @week.save
-        @week.year_week_id = @year_plan.weeks.count
-        @week.save!
+        # @week.year_week_id = @year_plan.weeks.count
+        # @week.save!
 
         format.html { redirect_to year_plan_weeks_path(@year_plan.id), notice: 'Week was successfully created.' }
         format.json { render :show, status: :created, location: @week }
@@ -143,6 +145,6 @@ class WeeksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def week_params
-      params.require(:week).permit(:year_week_id, :start_date, :end_date, :holiday_description)
+      params.require(:week).permit(:year_week_id, :start_date, :end_date, :expiry_date, :holiday_description)
     end
 end

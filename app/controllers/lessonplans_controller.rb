@@ -41,6 +41,14 @@ class LessonplansController < ApplicationController
 
   # GET /lessonplans/1/edit
   def edit
+    if current_user.role.name == 'Teacher'
+      @grades = Grade.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:grade_id))
+      @subjects = Subject.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:subject_id))
+    else
+      # for admins
+      @grades = Grade.all
+      @subjects = Subject.all
+    end
   end
 
   # POST /lessonplans

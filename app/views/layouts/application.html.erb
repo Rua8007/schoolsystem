@@ -383,14 +383,14 @@
                           <% end %>
                           <% if current_user.role.rights(value: 'approve_lesson').any? %>
                             <li>
-                              <%= link_to(get_requested_lessonplans_path) do %>
+                              <%= link_to(get_requested_lessonplans_path, method: 'POST')  do %>
                                 <span>Lesson Plans</span>
                               <% end %>
                             </li>
                           <% end %>
                           <% if current_user.role.rights(value: 'approve_portion').any? %>
                             <li>
-                              <%= link_to(get_requested_portions_path) do %>
+                              <%= link_to(get_requested_portions_path, method: 'POST') do %>
                                 <span>Portions</span>
                               <% end %>
                             </li>
@@ -1323,6 +1323,7 @@
               <li><div class="depth"><a href="<%= grade_path(Student.find(stuid).grade_id) %>" title="Layout settings" class="tip"><i class="icon-cogs"><%= image_tag asset_path("NewPicture3.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div><span style="line-height:20px; font-size:17px;">Subjects</span></li>
 
               <li><div class="depth"><a href="<%= monthly_attendance_report_students_path %>" title="Layout settings" class="tip"><i class="icon-cogs"><%= image_tag asset_path("NewPicture5.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div><span style="line-height:20px; font-size:17px;">Attendence</span></li>
+              <li><div class="depth"><a href="<%= my_results_path %>" title="Layout settings" class="tip"><i class="icon-cogs"><%= image_tag asset_path("NewPicture9.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div><span style="line-height:20px; font-size:17px;">My Results</span></li>
           </ul>
         </div>
 
@@ -1343,7 +1344,8 @@
 
             <li><div class="depth"><a href="<%= grade_path(Student.find(stuid).grade_id) %>" title="Layout settings" class="tip"><i class="icon-cogs"><%= image_tag asset_path("NewPicture3.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div><span style="line-height:20px; font-size:17px;">Subjects</span></li>
 
-            <li><div class="depth"><a href="<%=  %>" title="Layout settings" class="tip"><i class="icon-cogs"><%= image_tag asset_path("NewPicture5.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div><span style="line-height:20px; font-size:17px;">Attendence</span></li>
+            <li><div class="depth"><a href="<%= monthly_attendance_report_students_path %>" title="Layout settings" class="tip"><i class="icon-cogs"><%= image_tag asset_path("NewPicture5.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div><span style="line-height:20px; font-size:17px;">Attendence</span></li>
+            <li><div class="depth"><a href="<%= my_results_path %>" title="Layout settings" class="tip"><i class="icon-cogs"><%= image_tag asset_path("NewPicture9.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div><span style="line-height:20px; font-size:17px;">My Results</span></li>
           </ul>
         </div>
 
@@ -1357,9 +1359,9 @@
                   <li><div class="depth"><a href="<%= marks_path %>" title="Layout settings" class="tip"><i class="icon-cogs"><%= image_tag asset_path("NewPicture9.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div><span style="line-height:20px; font-size:13px;">Enter Marks</span></li>
               <% end %>
               <li><div class="depth"><a href="<%= teacher_subject_bridges_path %>" title="Layout settings" class="tip"><i class="icon-cogs"><%= image_tag asset_path("NewPicture8.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div><span style="line-height:20px; font-size:13px;">Responsibilities</span></li>
-              <li><div class="depth"><a href="#" title="Layout settings" class="tip"><i class="icon-cogs"><%= image_tag asset_path("Picture5.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div><span style="line-height:20px; font-size:14px;">MyAttendance</span></li>
+              <li><div class="depth"><a href="<%= monthly_attendance_report_employees_path %>" title="Layout settings" class="tip"><i class="icon-cogs"><%= image_tag asset_path("Picture5.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div><span style="line-height:20px; font-size:14px;">MyAttendance</span></li>
               <li><div class="depth"><a href="<%= lessonplans_path(year_plan: @year_plan) %>" title="View statement" class="tip"><i class="icon-signal"><%= image_tag asset_path('NewPicture7.png'), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div><span style="line-height:20px; font-size:12px;">Lesson Plans</span></li>
-              <li><div class="depth"><a href="<%= leaves_path %>" title="Layout settings" class="tip"><i class="icon-cogs"><%= image_tag asset_path("NewPicture5.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div><span style="line-height:20px; font-size:14px;">Leave Requests</span></li>
+              <li><div class="depth"><a href="<%= new_leafe_path %>" title="Layout settings" class="tip"><i class="icon-cogs"><%= image_tag asset_path("NewPicture5.png"), alt: ".", class: 'img-responsive', style: "padding:4px;"%></i></a></div><span style="line-height:20px; font-size:14px;">Request Leave</span></li>
             </ul>
           </div>
       <% end %>
