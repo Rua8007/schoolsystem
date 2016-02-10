@@ -93,9 +93,13 @@ class BridgesController < ApplicationController
   # PATCH/PUT /bridges/1
   # PATCH/PUT /bridges/1.json
   def update
+    puts
+    puts params.inspect
+    puts
     respond_to do |format|
       if @bridge.update(bridge_params)
-        format.html { redirect_to @bridge, notice: 'Bridge was successfully updated.' }
+        return render json: @bridge
+        format.html { redirect_to grade_path(@bridge.grade_id), notice: 'Bridge was successfully updated.' }
         format.json { render :show, status: :ok, location: @bridge }
       else
         format.html { render :edit }

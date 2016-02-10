@@ -1,14 +1,14 @@
 <%= form_for @bridge do |f| %>
   <div class="col-md-5">
     <label>Select Subject</label>
-    <%= f.collection_select :subject_id , Subject.all.order(:name), :id , :name,{},{:style => 'height:34px;width: 100%',  class: 'form-control', readonly: @bridge.persisted?} %>
+    <%= f.text_field :subject_id ,:style => 'height:34px;width: 100%',  class: 'form-control', readonly: true, value: @bridge.subject.name %>
   </div>
 
   <div class="col-md-5" >
     <label>Select Teacher</label>
-    <%= f.collection_select :employee , @employee, :id , :full_name,{},{:style => 'height:34px;width: 100%',  class: 'form-control'} %>
+    <%= f.collection_select :employee_id , @employee, :id , :full_name,{},{:style => 'height:34px;width: 100%',  class: 'form-control'} %>
   </div>
   <div>
-    <%= f.submit "Update", data: { confirm: "Are you sure?" }, class: 'btn btn-success', style: 'margin-top:23px;' %>
+    <%= f.submit "Update", data: { confirm: "Are you sure, You want to edit Assignment?" }, class: 'btn btn-success', style: 'margin-top:23px;' %>
   </div>
 <% end %>

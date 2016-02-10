@@ -24,7 +24,7 @@
 				<td>
 					<%= sub.subject.name %>
 				</td>
-				<td><%= sub.employee.full_name %></td>
+				<td><%= sub.employee.full_name if sub.employee.present? %></td>
 				<td>
   				<% if current_user.role.rights.where(value: "update_grade").any? %>
 					<%= link_to '', edit_bridge_path(sub) ,:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
