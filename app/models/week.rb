@@ -3,6 +3,7 @@ class Week < ActiveRecord::Base
 	belongs_to :year_plan
 
 	validates :start_date, :end_date, :expiry_date, presence: true
+	validates :year_week_id, uniqueness: true
 
 	validate :check_expiry_date
 

@@ -1,0 +1,61 @@
+<div class="col-md-12">
+  <%= form_tag update_weekly_schedule_year_plan_path, { method: :post } do  %>
+      <div class="container form-holder">
+        <div class="container">
+          <% @schedules.each do |schedule| %>
+              <fieldset class="sss well well-lg">
+                <legend class="lll"><%= schedule.day_name_eng %></legend>
+                <%= hidden_field_tag 'ids[]', schedule.id %>
+                <div class="form-group col-md-12">
+                  <%= label_tag :classwork %>
+                  <%= text_area_tag 'classworks[]', schedule.classwork, {style: 'height:100px;', class: 'form-control', required: true} %>
+                </div>
+                <div class="form-group col-md-12">
+                  <%= label_tag :homework %>
+                  <%= text_area_tag 'homeworks[]', schedule.homework, {style: 'height:100px;', class: 'form-control', required: true} %>
+                </div>
+              </fieldset>
+          <% end %>
+          <div class="actions pull-right">
+            <%= submit_tag 'Save', class: "btn btn-success" %>
+          </div>
+        </div>
+      </div>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+
+  $(document).ready(function(){
+    $(".edit-week").click(function (e){
+      // console.log($(this).attr("id"));
+      $("#week_id").val($(this).attr("id"));
+      cw_class = ".cw-"+$(this).attr("id").toString();
+      hw_class = ".hw-"+$(this).attr("id").toString();
+      subj_class = ".subj-"+$(this).attr("id").toString();
+      $("#classwork").val($(cw_class).text());
+      $("#homework").val($(hw_class).text());
+
+      // $("#subject").val($(subj_class).text());
+
+
+      $("#subject option").filter(function() {
+        //may want to use $.trim in here
+        return $(this).text() == $(subj_class).text();
+      }).prop('selected', true);
+
+      $("#edit_week_modal").modal();
+    });
+  });
+</script>
+
+
+<style type="text/css">
+  tr.approved-row td{
+    color: green;
+  }
+
+  tr.disapproved-row td{
+    color: red;
+  }
+</style>

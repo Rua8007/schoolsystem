@@ -120,70 +120,29 @@ class YearPlansController < ApplicationController
     @year_plan = YearPlan.find(params[:id])
     @grade = Grade.find(params[:grade_id])
     @week = Week.find(params[:week_id])
-    @subjects = Subject.all
+
+    if current_user.role.name == 'Teacher'
+      @subjects = Subject.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:subject_id)).order('name')
+    else
+      @subjects = Subject.all.order('name')
+    end
+    @subject = params[:subject_id].present? ? Subject.find(params[:subject_id]) : Subject.find(18)
     @results = []
     @weekends = Weekend.all
-    Date::DAYNAMES.each_with_index do |day,i|
-      if @weekends.find{ |w| w.weekend_day == i}.nil?
-        result_day = {}
-
-        schedules = GradeSubject.where("grade_id = ? AND week_id =  ? AND lower(day_name_eng) = ?",params[:grade_id],params[:week_id], day.downcase).all
-        subjects = []
-        schedules.each do |schedule|
-          subject = {}
-          subject.store("subject",schedule.subject.name)
-          subject.store("cw",schedule.classwork)
-          subject.store("hw",schedule.homework)
-          subject.store("approved_status",schedule.approved)
-          subject.store("id",schedule.id)
-          # puts "--------"*100
-          subjects << subject
-          # puts "*********************************"
-        end
-
-        if schedules.present?
-          result_day.store(day.to_s,subjects)
-        end
-        # puts
-
-        @results << result_day
-      end
-    end
+    @schedules = GradeSubject.where("subject_id = ? AND grade_id = ? AND week_id =  ?", @subject.id, params[:grade_id], params[:week_id] )
   end
 
   def update_weekly_schedule
-    # return render json: params.inspect
-    week = GradeSubject.find(params[:week_id])
-    edited = false
-    if week.present?
-      subject = Subject.find(params[:subject])
-      if subject.present?
-        if week.subject_id != subject.id
-          week.subject_id = subject.id
-          edited = true
-        end
-        if params[:classwork] != week.classwork
-          week.classwork = params[:classwork]
-          edited = true
-        end
-        if params[:homework] != week.homework
-          week.homework = params[:homework]
-          edited = true
-        end
-        if edited
-          week.approved = false
-          week.save!
-          flash[:success] = "successfully edited the week."
-        else
-          flash[:alert] = "No changes were made."
-        end
-
-      else
-        flash[:alert] = "Subject not found."
-      end
-    else
-      flash[:alert] = "Week not found."
+    schedule_ids = params[:ids]
+    class_works = params[:classworks]
+    home_works = params[:homeworks]
+    schedule_ids.try(:each_with_index) do |schedule_id, index|
+      schedule = GradeSubject.find schedule_id
+      schedule.homework = home_works[index] if home_works.present?
+      schedule.classwork = class_works[index] if class_works.present?
+      schedule.save
     end
+    flash[:notice] = 'Request Completed.'
     redirect_to root_path
   end
 
