@@ -26,11 +26,11 @@
 		<% @grade.bridges.try(:each) do |sub| %>
 			<tr>
 				<td>
-					<%= sub.subject.name %>
+					<%= sub.subject.name if sub.subject.present? %>
 				</td>
-				<td><%= sub.employee.try(:full_name) %></td>
-        <td><%= sub.employee.try(:email) %></td>
-        <td><%= sub.employee.try(:mobile_number) %></td>
+				<td><%= sub.employee.try(:full_name) if sub.employee.present? %></td>
+        <td><%= sub.employee.try(:email) if sub.employee.present? %></td>
+        <td><%= sub.employee.try(:mobile_number) if sub.employee.present? %></td>
 				<td>
   				<% if current_user.role.rights.where(value: "update_grade").any? %>
 					<%= link_to '', edit_bridge_path(sub) ,:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
