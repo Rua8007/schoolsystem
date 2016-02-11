@@ -94,13 +94,15 @@ class WeeksController < ApplicationController
     @subject = Subject.find(params[:subject_id])
     @grade = Grade.find(params[:grade_id])
     #make it dynamic later
-    @week_days = ["Sunday","Monday","Tuesday","Wednesday","Thursday"]
+    @all_days = ["Sunday","Monday","Tuesday","Wednesday","Thursday"]
 
     @year_plan = YearPlan.find(params[:year_plan_id])
     if @subject.present? && @grade.present? && @year_plan.present?
       # grade_subjects = GradeSubject.where(subject_id: @subject.id, grade_id: @grade.id)
       # @days
       @weeks = @year_plan.weeks.where(id: params[:week_schedule_id].to_i).sort_by &:start_date
+      @taken_days = GradeSubject.where(subject_id: @subject.id, grade_id: @grade.id, week_id: @weeks.first.id).pluck(:day_name_eng) rescue nil
+      @week_days = @all_days - @taken_days
     end
   end
 
