@@ -21,8 +21,8 @@ class PurchasesController < ApplicationController
       redirect_to :back, "Sorry! You are not authorized"
     end
     @purchase = Purchase.new
-    @grades = Grade.all
-    @teachers = Employee.all
+    @grades = Grade.where('section IS NOT NULL').order('name')
+    @teachers = Employee.order('full_name')
     @purchaselines = Purchaseline.all
 
 

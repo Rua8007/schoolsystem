@@ -17,9 +17,13 @@
                 </div>
               </fieldset>
           <% end %>
-          <div class="actions pull-right">
-            <%= submit_tag 'Save', class: "btn btn-success" %>
-          </div>
+          <% if (current_user.role.name == 'Teacher' and @week.expiry_date >= Date.today) or current_user.role.name == Role::SUPER_USER_ROLE %>
+              <div class="actions pull-right">
+                <%= submit_tag 'Save', class: "btn btn-success" %>
+              </div>
+          <% else %>
+              <%= link_to 'Expired', 'javascript:void(0);',:class =>  'btn btn-danger pull-right'%>
+          <% end %>
         </div>
       </div>
   <% end %>
