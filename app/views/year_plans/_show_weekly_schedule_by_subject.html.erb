@@ -1,3 +1,4 @@
+<% if @schedules.present? %>
 <div class="col-md-12">
   <%= form_tag update_weekly_schedule_year_plan_path, { method: :post } do  %>
       <div class="container form-holder">
@@ -23,6 +24,11 @@
       </div>
   <% end %>
 </div>
+<% else %>
+    <div class="col-md-12 text-center">
+      <h3>No Plans Added For This Subject.</h3>
+    </div>
+<% end %>
 
 <script type="text/javascript">
 

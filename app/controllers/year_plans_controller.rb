@@ -126,7 +126,7 @@ class YearPlansController < ApplicationController
     else
       @subjects = Subject.all.order('name')
     end
-    @subject = params[:subject_id].present? ? Subject.find(params[:subject_id]) : Subject.find(18)
+    @subject = params[:subject_id].present? ? Subject.find(params[:subject_id]) : @subjects.first
     @results = []
     @weekends = Weekend.all
     @schedules = GradeSubject.where("subject_id = ? AND grade_id = ? AND week_id =  ?", @subject.id, params[:grade_id], params[:week_id] )
