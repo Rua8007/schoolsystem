@@ -64,7 +64,7 @@ class BridgesController < ApplicationController
 
     respond_to do |format|
       if @bridge.save
-        format.html { redirect_to @bridge, notice: 'Bridge was successfully created.' }
+        format.html { redirect_to @bridge, notice: 'Assignment was successfully created.' }
         format.json { render :show, status: :created, location: @bridge }
       else
         format.html { render :new }
@@ -96,7 +96,7 @@ class BridgesController < ApplicationController
     respond_to do |format|
       if @bridge.update(bridge_params)
         # return render json: @bridge
-        format.html { redirect_to grade_path(@bridge.grade_id), notice: 'Bridge was successfully updated.' }
+        format.html { redirect_to grade_path(@bridge.grade_id), notice: 'Subject was successfully updated.' }
         format.json { render :show, status: :ok, location: @bridge }
       else
         format.html { render :edit }
@@ -110,7 +110,7 @@ class BridgesController < ApplicationController
   def destroy
     @bridge.destroy
     respond_to do |format|
-      format.html { redirect_to :back, notice: 'Bridge was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Subject Assignment was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

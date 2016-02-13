@@ -21,7 +21,14 @@ class UsersController < ApplicationController
       end
     end
     u = User.find(params[:id])
+    email = u.email
     u.update_attributes(user_params)
+    if u.role.name == 'Teacher'
+      u = User.find(params[:id])
+      emp = Employee.find_by_email(email)
+      emp.email = u.email
+      emp.save
+    end
     redirect_to users_path, notice: "User Updated Successfully"
   end
 

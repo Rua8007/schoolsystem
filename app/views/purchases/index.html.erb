@@ -15,10 +15,10 @@
         );
       }
     });
- 
+
     // DataTable
     var table = $('#example').DataTable();
- 
+
     // Apply the search
     table.columns().eq( 0 ).each( function ( colIdx ) {
         $( 'input', table.column( colIdx ).header() ).on( 'keyup change', function () {
@@ -41,7 +41,7 @@
 
 
 
-<div style="overflow: scroll">  
+<div style="overflow: scroll">
   <table id="example" class="table table-striped table-bordered table-responsive" style="overflow: scroll">
     <thead class= "table-head">
       <th>Grade</th>
@@ -54,7 +54,7 @@
       <% @purchases.each do |purchase| %>
         <tr>
           <td><%= purchase.grade_id %></td>
-          <td><%= purchase.employee.full_name %></td>
+          <td><%= purchase.employee.full_name if purchase.employee.present? %></td>
           <td>
         <% if current_user.role.rights.where(value: "edit_prequest").any? %>
           <% if purchase.approve.nil? %>
@@ -69,7 +69,7 @@
           <% end %>
         <% end %>
 
-            
+
           <td>
           <% if current_user.role.rights.where(value: "view_prequest").any? %>
               <%= link_to '', purchase,:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>

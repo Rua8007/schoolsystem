@@ -87,8 +87,15 @@ class EmployeesController < ApplicationController
     if current_user.role.rights.where(value: "update_employee").nil?
       redirect_to :back, "Sorry! You are not authorized"
     end
+
     respond_to do |format|
+      email = @employee.email
       if @employee.update(employee_params)
+        if @employee.category.name == 'Academic'
+          u = User.find_by_email(email)
+          u.email = @employee.email
+          u.save!
+        end
         format.html { redirect_to employees_path, notice: 'Employee was successfully updated.' }
         format.json { render :show, status: :ok, location: @employee }
       else

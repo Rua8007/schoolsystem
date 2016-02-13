@@ -29,7 +29,7 @@ end
   end
 
   def get_leave_requests_count
-    @leave_requests_count = Leave.where(approved: false).count
+    @leave_requests_count = Leave.where(approved: nil).count
     @year_plan = YearPlan.first
   end
 end
