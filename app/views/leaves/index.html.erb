@@ -9,44 +9,61 @@
   <table class="table table-striped">
     <thead>
       <tr>
-        <th>Employee #</th>
-        <th>Employee</th>
-        <th>Reason</th>
-        <th>Description</th>
-        <th>Leave from</th>
-        <th>Leave to</th>
-        <th colspan="2"></th>
+        <th style="width:7%">Emp #</th>
+        <th style="width:10%">Employee</th>
+        <th style="width:10%">Reason</th>
+        <th style="width:10%">Description</th>
+        <th style="width:10%">Leave from</th>
+        <th style="width:10%">Leave to</th>
+        <th style="width:30%">Status</th>
       </tr>
     </thead>
 
     <tbody>
-      <% @leaves.each do |leave| %>
+      <% @leaves.try(:each) do |leave| %>
         <tr>
           <td><%= leave.try(:employee).try(:employee_number) %></td>
           <td><%= leave.try(:employee).try(:full_name) %></td>
           <td><%= leave.reason %></td>
-          <td><%= leave.description %></td>
+          <td><%= link_to leave.description, leave %></td>
           <td><%= leave.leave_from %></td>
           <td><%= leave.leave_to %></td>
 
           <td>
 
-          <%= form_tag(approve_leave_leafe_path(leave), method: :post) do %>
-            <% if current_user.role.rights.where(value: "update_leave").any? %>
-              <button class="btn btn-sm btn-success" type="submit" id="usr_"
-                      data-toggle="tooltip"
-                      data-original-title="Approve Employee Request">
-                <i class="glyphicon glyphicon-ok"></i>
-              </button>
-            <%end%>
+          <% if leave.approved.nil? %>
+            <%= form_tag(approve_leave_leafe_path(leave), method: :post) do %>
+              <% if current_user.role.rights.where(value: "update_leave").any? %>
+                <%= text_field_tag :comment, '' , class: 'form-control'  %>
+  <!--               <button class="btn btn-sm btn-success" type="submit" id="usr_"
+                        data-toggle="tooltip"
+                        data-original-title="Approve Employee Request">
+                  <i class="glyphicon glyphicon-ok"></i>
+                </button> -->
+                <div style="margin-left:35%">
+                  <%= submit_tag 'Accpet', class: " btn-success" %>
+
+                  <!-- <button class="btn btn-sm btn-danger" type="submit" id="usr_rej"
+                          data-toggle="tooltip"
+                          data-original-title="Reject Employee Request">
+                    <i class="glyphicon glyphicon-remove"></i>
+
+                  </button> -->
+                  <%= submit_tag 'Reject', class: " btn-danger " %>
+                </div>
+              <%end%>
+            <% end %>
           <% end %>
-          </td>
-          <td>
-          <% if current_user.role.rights.where(value: "delete_leave").any? %>
-            <%= link_to(leave, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger') do %>
-              <i class="glyphicon glyphicon-remove"></i>
-            <% end %>
-            <% end %>
+          <% if leave.approved %>
+            <div class=""> <%= leave.comment || 'No Comment' %></div>
+            <div class=""> <span style = "background:green; border-radius: 50%; color:white; padding:1%" ><i class="glyphicon glyphicon-ok"></i></span></div>
+          <% end %>
+
+          <% if leave.approved == false %>
+            <div class=""> <%= leave.comment || 'No Comment' %></div>
+            <div class=""> <span style = "background:red; border-radius: 50%; color:white; padding:1%" ><i class="glyphicon glyphicon-remove"></i></span></div>
+          <% end %>
+
           </td>
         </tr>
       <% end %>

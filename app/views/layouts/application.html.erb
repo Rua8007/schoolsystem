@@ -349,14 +349,42 @@
                   <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'update_leave').any? %>
 
                     <li>
-                      <%= link_to(leaves_path) do %>
-                        <i class="glyphicon glyphicon-flag"></i>
-                        <% if @leave_requests_count.to_i > 0 %>
-                          <b class="badge bg-danger pull-right"><%= @leave_requests_count %></b>
-                        <% end %>
-                        <span>Leave Requests</span>
-                      <% end %>
-                    </li>
+                        <a href class="auto">
+                          <span class="pull-right text-muted">
+                            <i class="fa fa-fw fa-angle-right text"></i>
+                            <i class="fa fa-fw fa-angle-down text-active"></i>
+                          </span>
+                          <i class="glyphicon glyphicon-book"></i>
+                          <span>Leave Requests</span>
+                        </a>
+                        <ul class="nav nav-sub dk">
+                          <li class="nav-sub-header">
+                            <%= link_to("") do %>
+                              <span>Leave Requests</span>
+                            <% end %>
+                          </li>
+                          <li>
+                            <%= link_to(leaves_path(news: true)) do %>
+                              <% if @leave_requests_count.to_i > 0 %>
+                                <b class="badge bg-danger pull-right"><%= @leave_requests_count %></b>
+                              <% end %>
+                              <span>New Leaves</span>
+                            <% end %>
+                          </li>
+
+                          <li>
+                              <%= link_to(leaves_path(approved: true)) do %>
+                              <span>Approved Leaves</span>
+                            <% end %>
+                          </li>
+                          <li>
+                              <%= link_to(leaves_path(rejected: true)) do %>
+                              <span>Rejected Leaves</span>
+                            <% end %>
+                          </li>
+                        </ul>
+                      </li>
+
                   <% end %>
                   <% if current_user.role.rights.where("value = ? or value = ? or value = ? or value = ?",'approve_curriculam', 'approve_lesson', 'approve_portion', 'approve_weekly_plan' ).any? %>
                       <li>
@@ -480,6 +508,14 @@
                         <span>Request Leave</span>
                       <% end %>
                     </li>
+
+                    <li>
+                      <%= link_to(leaves_path) do %>
+                        <i class="glyphicon glyphicon-flag"></i>
+                        <span>My Leaves</span>
+                      <% end %>
+                    </li>
+
                   <% end %>
                   <%# if current_user.role.name == 'Teacher' %>
                   <% if Right.where("role_id = ? and (value='view_weeklyplans' or value='create_week' or value = 'update_week' or value = 'view_lesson_plans' or value = 'view_curriculum_plans')", current_user.role_id ).any? %>
