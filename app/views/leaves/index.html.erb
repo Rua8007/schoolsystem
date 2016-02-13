@@ -9,6 +9,7 @@
   <table class="table table-striped">
     <thead>
       <tr>
+        <th>Employee #</th>
         <th>Employee</th>
         <th>Reason</th>
         <th>Description</th>
@@ -21,6 +22,7 @@
     <tbody>
       <% @leaves.each do |leave| %>
         <tr>
+          <td><%= leave.try(:employee).try(:employee_number) %></td>
           <td><%= leave.try(:employee).try(:full_name) %></td>
           <td><%= leave.reason %></td>
           <td><%= leave.description %></td>

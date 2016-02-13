@@ -36,7 +36,7 @@
                   </div>
                 </div>
               </div>
- 
+
               <div class="field">
                 <%= f.label :employee_id, style: 'display:none'  %><br>
                 <%= f.number_field :employee_id, style: 'display:none'  %>
@@ -45,7 +45,7 @@
                 <div class="form-group ">
                   <div class="field">
                     <%= f.label :leave_from %><br>
-                    <%= f.date_select :leave_from, {class: 'form-control', required: true} %>
+                    <%= f.datetime_select :leave_from, {class: 'form-control', required: true} %>
                   </div>
                 </div>
               </div>
@@ -53,7 +53,7 @@
                 <div class="form-group  ">
                   <div class="field  " >
                     <%= f.label :leave_to %><br>
-                    <%= f.date_select :leave_to,:html=>{:class => "form-control"} %>
+                    <%= f.datetime_select :leave_to,:html=>{:class => "form-control"} %>
                   </div>
                 </div>
               </div>
