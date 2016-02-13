@@ -12,11 +12,11 @@ class LeavesController < ApplicationController
       elsif params[:rejected]
         @leaves = Leave.where(approved: false)
       else
-        @leaves = Employee.find_by_email(current_user.email).leaves if Employee.find_by_email(current_user.email)
+        @leaves = Leave.where(employee_id: Employee.find_by_email(current_user.email).id) if Employee.find_by_email(current_user.email)
       end
     else
       if current_user.role.rights.where(value: 'create_leave')
-        @leaves = Employee.find_by_email(current_user.email).leaves if Employee.find_by_email(current_user.email)
+        @leaves = Leave.where(employee_id: Employee.find_by_email(current_user.email).id) if Employee.find_by_email(current_user.email)
       else
         flash[:alert] = "Not Authorized"
         redirect_to home_index_path
