@@ -147,10 +147,10 @@ end
       collection do
         get 'schedule_weeks', :as => :schedule_weeks
         post 'add_schedule_weeks', :as => :add_schedule_weeks
-
       end
     end
   end
+  get 'print_weekly_schedule/:week_id/:grade_id' => 'year_plans#print_weekly_schedule', as: :print_weekly_schedule
 
   resources :fees do
     collection do
