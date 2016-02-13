@@ -2,7 +2,7 @@
   
   <div class="col-md-3 form-group">
     <label>Grade</label>
-    <%= select_tag "grade_id", options_from_collection_for_select(@grades, "id", "name"), class: "form-control", id: "std_grade", required: true %>
+    <%= select_tag "grade_id", options_from_collection_for_select(@grades, "id", "full_name"), class: "form-control", id: "std_grade", required: true %>
   </div>
 
   <div class="col-md-3 form-group">

@@ -3,6 +3,11 @@
   </h1>
 </div>
 
+<% if @week_days.blank? %>
+    <div class="col-md-12 text-center">
+      <h3>Plans For All Days Of Week Have Been Made.</h3>
+    </div>
+<% else  %>
 <div class="wrapper-md">
 	<%= form_tag add_schedule_weeks_year_plan_weeks_path([@year_plan]), method: :post do %>
 		<%= hidden_field_tag "total_weeks", @weeks.count %>
@@ -14,7 +19,7 @@
 					<% @weeks.each_with_index do |week,i| %>
 						<div class="week-div" id="week_<%= i %>" style="<%= "display: none;" if i > 0 %>">
 							<fieldset class="sss well well-lg">
-				        <legend class="lll"><%= "Week "%>&nbsp;&nbsp;&nbsp;<span style="font-size:14px; color:blue;"><%="#{week.start_date.strftime("%d-%m-%Y")} - #{week.end_date.strftime("%d-%m-%Y")}" %><span></legend>
+				        <legend class="lll"><%= "Week "%>&nbsp;&nbsp;&nbsp;<span style="font-size:14px; color:blue;"><%="#{week.start_date.strftime("%d-%m-%Y")} - #{week.end_date.strftime("%d-%m-%Y")}" %></span></legend>
 				        <div class="column col-xs-12 col-sm-12">
 				         
 				         	<div class="day-div-<%= i %>" id="week_day_div_<%= i %>_0">	
@@ -57,6 +62,7 @@
 		<%= submit_tag 'Save Schedule', class: 'btn btn-lg btn-success pull-right', style: '', id: "submit_tag_id" %>
 	<% end %>
 </div>
+<% end %>
 
 <script type="text/javascript">
 	$(document).ready(function(){

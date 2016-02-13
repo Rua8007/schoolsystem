@@ -2,151 +2,41 @@
   <h3 class="m-n text-center">WEEKLY PLANS</h3>
   <h4 class="m-n text-center">Week # <%= "#{@week.year_week_id}" %></h4>
   <h4 class="m-n text-center">
-  SY: <%= "#{@year_plan.year_name}" %> <br/><br/>
-  <%= "Grade: #{@grade.full_name} " %>&nbsp;&nbsp;&nbsp;&nbsp;<%= "From: #{@week.start_date.strftime("%d-%m-%Y")}" %>&nbsp;&nbsp;<%= "To: #{@week.end_date.strftime("%d-%m-%Y")}" %>
+    SY: <%= "#{@year_plan.year_name}" %> <br/><br/>
+    <%= "Grade: #{@grade.full_name} " %>&nbsp;&nbsp;&nbsp;&nbsp;<%= "From: #{@week.start_date.strftime("%d-%m-%Y")}" %>&nbsp;&nbsp;<%= "To: #{@week.end_date.strftime("%d-%m-%Y")}" %>
   </h4>
 </div>
+<br />
 
-<div class="wrapper-md">
-  <table class="table table-striped">
-    <thead class="table-head">
-      <th></th>
-      <th class="text-center">Subject</th>
-      <th class="text-center">Class work</th>
-      <th class="text-center">Home work</th>
-      <th class="text-center">Actions</th>
-    </thead>
-    <tbody>
-      <% @results.each do |res| %>
-        <% Date::DAYNAMES.each_with_index do |day,i| %>
-          <% if @weekends.find{ |w| w.weekend_day == i}.nil? %>
-            <% if res[day].present? %>
-              <% res[day].each_with_index do |row,j| %>
-                <% if row["approved_status"] == "true" %>
-                  <tr class="approved-row">
-                <% else %>
-                  <tr class="disapproved-row">
-                <% end %>
-                  <% if j == 0 %>
-                    <td rowspan="<%= res[day].count %>" class="text-center"><strong> <%= day %></strong> </td>
-                  <% end %>
-
-                  <% if row["approved_status"].nil? || row["approved_status"] == "" || row["approved_status"] == "false" %>
-                    <td class="text-center">
-                  <% else %>
-
-                    <td class="text-center">
-                  <% end %>
-
-
-                    <span class="<%= 'subj-'+row['id'].to_s %>"><%= row["subject"] %></span>
-                  </td>
-                  <% if row["approved_status"].nil? || row["approved_status"] == "" || row["approved_status"] == "false" %>
-                    <td class="text-center">
-                  <% else %>
-
-                    <td class="text-center">
-                  <% end %>
-                    <span class="<%= 'cw-'+row['id'].to_s %>"><%= row["cw"] %></span>
-                  </td>
-                  <% if row["approved_status"].nil? || row["approved_status"] == "" || row["approved_status"] == "false" %>
-                    <td class="text-center">
-                  <% else %>
-                    <td class="text-center">
-                  <% end %>
-                    <span class="<%= 'hw-'+row['id'].to_s  %>">
-                      <%= row["hw"] %>
-                    </span>
-                  </td>
-                  <td class="text-center"><%= link_to "Edit","javascript:void(0);", class: 'btn btn-small btn-info edit-week', id: "#{row['id']}" %>
-                  <%= link_to 'Delete',delete_weekly_schedule_year_plan_path(row['id']), method: :delete, class: 'btn btn-small btn-danger', data: { confirm: 'This will delete current time table. Are you sure that you want to make a new one?' } %></td>
-                </tr>
-              <% end %>
-            <% end %>
-          <% end %>
-        <% end %>
-      <% end %>
-        <!-- <tr>
-            <td colspan=3
-                <div>12 Sales Total; 4 March, 3 April, 12 July, 14 August</div>
-            </td>
-        </tr> -->
-    </tbody>
-  </table>
-
-
-  <div class="modal fade" id="edit_week_modal" role="dialog">
-    <div class="modal-dialog">
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Edit Schedule</h4>
-        </div>
-        <%= form_tag(update_weekly_schedule_year_plan_path, method: :post) do %>
-          <%= hidden_field_tag :week_id, "" %>
-          <div class="modal-body">
-
-            <div class="form-group">
-              <label>Subject</label>
-              <!-- <p>Some text in the modal.</p> -->
-              <%= select_tag :subject, options_from_collection_for_select(@subjects, "id", "name" ),
-                  prompt: "Select Subject", class: "form-control", required: true %>
-            </div>
-            <div class="form-group">
-              <label>Class Work</label>
-              <!-- <p>Some text in the modal.</p> -->
-              <%= text_area_tag "classwork", nil, placeholder: 'Write Class Work Here...',cols: 70, rows: 7, class: 'form-control', style: 'width:100%' %>
-            </div>
-            <div class="form-group">
-              <label>Home Work</label>
-              <!-- <p>Some text in the modal.</p> -->
-              <%= text_area_tag "homework", nil, placeholder: 'Write Home Work Here...',cols: 70, rows: 7, class: 'form-control', style: 'width:100%' %>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <%= submit_tag 'Save', class: 'btn btn-success' %>
-          </div>
-        <% end %>
-      </div>
-    </div>
+<div class="col-sm-6">
+  <%= label_tag 'Select Subject' %>
+  <div class="form-group">
+    <%= hidden_field_tag 'id', params[:id] %>
+    <%= hidden_field_tag 'week_id', params[:week_id], {id: 'week_id'} %>
+    <%= hidden_field_tag 'grade_id', params[:grade_id], {id: 'grade_id'} %>
+    <%= select_tag 'subject_id', options_from_collection_for_select(@subjects.order('name'), :id, :name), class: 'form-control select_subject' %>
   </div>
 </div>
 
+<div class="col-sm-6">
+
+</div>
+
+<div class="weekly-schedule">
+  <%= render partial: 'show_weekly_schedule_by_subject' %>
+</div>
 
 <script type="text/javascript">
-
-  $(document).ready(function(){
-    $(".edit-week").click(function (e){
-      // console.log($(this).attr("id"));
-      $("#week_id").val($(this).attr("id"));
-      cw_class = ".cw-"+$(this).attr("id").toString();
-      hw_class = ".hw-"+$(this).attr("id").toString();
-      subj_class = ".subj-"+$(this).attr("id").toString();
-      $("#classwork").val($(cw_class).text());
-      $("#homework").val($(hw_class).text());
-
-      // $("#subject").val($(subj_class).text());
-
-
-      $("#subject option").filter(function() {
-          //may want to use $.trim in here
-          return $(this).text() == $(subj_class).text();
-      }).prop('selected', true);
-
-      $("#edit_week_modal").modal();
+  $('.select_subject').on('change', function(){
+    $.ajax({
+      url: '<%= show_weekly_schedule_year_plan_path %>',
+      data: {
+        subject_id: $(this).val(),
+        grade_id: $('#grade_id').val(),
+        week_id: $('#week_id').val()
+      },
+      dataType: 'script'
     });
   });
+
 </script>
-
-
-<style type="text/css">
-tr.approved-row td{
-  color: green;
-}
-
-tr.disapproved-row td{
-  color: red;
-}
-</style>

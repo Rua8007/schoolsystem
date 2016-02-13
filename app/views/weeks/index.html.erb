@@ -58,8 +58,9 @@
         <th>Start date</th>
         <th>End date</th>
         <th>Expiry Date</th>
+        <th>Time Left</th>
        <!--  <th>Holiday description</th> -->
-        <th>Actions</th>
+        <th class="col-md-3">Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -69,11 +70,16 @@
           <td><%= week.start_date.strftime('%d-%m-%Y') %></td>
           <td><%= week.end_date.strftime('%d-%m-%Y') %></td>
           <td><%= week.expiry_date.strftime('%d-%m-%Y') %></td>
+          <% time_left = (week.expiry_date - Date.today).to_i %>
+          <td style="color:red;"><%= time_left > 0 ? "#{time_left} days left." : 'Expired' %></td>
           <td>
             <% if current_user.role.name == 'Teacher' and week.expiry_date >= Date.today %>
-              <%= link_to '', 'javascript:void(0);',:class =>  'btn btn-success  glyphicon glyphicon-ok-circle start-plan-btn', id: "#{week.id}"%>
+              <%= link_to 'Make Weekly Plans', 'javascript:void(0);',:class =>  'btn btn-success start-plan-btn', id: "#{week.id}"%>
+            <% else %>
+                <%= link_to 'Expired', 'javascript:void(0);',:class =>  'btn btn-danger'%>
             <% end %>
             <% if current_user.role.rights.where(value: 'update_week').any? %>
+
               <%= link_to '', edit_year_plan_week_path(@year_plan.id,week),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
               <%= link_to '', "/year_plans/#{@year_plan.id}/weeks/#{week.id}", method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
             <% end %>

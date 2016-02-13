@@ -20,7 +20,7 @@ class LeavesController < ApplicationController
   # GET /leaves/new
   def new
     @leave = Leave.new
-    if current_user.role == 'teacher'
+    if current_user.role == 'Teacher'
       @leave.employee_id = Employee.find_by_email(current_user.email).id
     elsif current_user.role == 'parent'
 
@@ -38,7 +38,7 @@ class LeavesController < ApplicationController
   # POST /leaves.json
   def create
     @leave = Leave.new(leave_params)
-
+    @leave.employee_id = Employee.find_by_email(current_user.email).id if @leave.employee_id.nil?
     respond_to do |format|
       if @leave.save
         format.html { redirect_to leaves_path, notice: 'Leave was successfully created.' }
