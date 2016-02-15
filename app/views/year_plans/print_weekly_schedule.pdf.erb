@@ -1,0 +1,27 @@
+<h3 class="text-center"> <%= @week.label %> </h3>
+<% if @print_schedules.present? %>
+    <table class="table table-bordered" style="font-size: 12px;">
+      <thead>
+        <tr>
+          <th style="width: 10%;">Day</th>
+          <th>Subject</th>
+          <th>Class Work</th>
+          <th>Home Work</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% prev_day_name = '' %>
+        <% @print_schedules.each do |schedule| %>
+          <tr>
+            <td><%= schedule.day_name_eng == prev_day_name ? '' : schedule.day_name_eng %></td>
+            <td><%= schedule.subject.name %></td>
+            <td><%= schedule.classwork %></td>
+            <td><%= schedule.homework %></td>
+          </tr>
+          <% prev_day_name = schedule.day_name_eng %>
+        <% end %>
+      </tbody>
+
+    </table>
+<% else %>
+<% end %>

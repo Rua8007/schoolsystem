@@ -130,6 +130,20 @@ class YearPlansController < ApplicationController
     @results = []
     @weekends = Weekend.all
     @schedules = GradeSubject.where("subject_id = ? AND grade_id = ? AND week_id =  ?", @subject.id, params[:grade_id], params[:week_id] )
+
+    if params[:commit] == 'Show Weekly Plan'
+
+      if current_user.role.name == Role::SUPER_USER_ROLE
+        @print_schedules = GradeSubject.where('grade_id = ? AND week_id =  ?',
+                           params[:grade_id], params[:week_id] ).try(:order, 'day_name_eng')
+      else
+        @print_schedules = GradeSubject.where("grade_id = ? AND week_id =  ? AND subject_id IN(#{@subjects.pluck(:id).join(',')})",
+                                              params[:grade_id], params[:week_id] ).try(:order, 'day_name_eng')
+      end
+
+      render pdf: "#{@week.label}", template: 'year_plans/print_weekly_schedule.pdf.erb',
+             layout: 'pdf.html.erb', orientation: 'Landscape', margin: { top: 5, bottom: 11, left: 5, right: 5}
+    end
   end
 
   def update_weekly_schedule

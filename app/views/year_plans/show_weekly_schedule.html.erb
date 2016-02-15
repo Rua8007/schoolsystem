@@ -8,6 +8,8 @@
 </div>
 <br />
 
+<% if @week.expiry_date > Date.today %>
+
 <div class="col-sm-6">
   <%= label_tag 'Select Subject' %>
   <div class="form-group">
@@ -19,13 +21,14 @@
 </div>
 
 <div class="col-sm-6">
-
 </div>
 
 <div class="weekly-schedule">
   <%= render partial: 'show_weekly_schedule_by_subject' %>
 </div>
-
+<% else %>
+    <h3 class="text-center">This Week Has Been Expired.</h3>
+<% end %>
 <script type="text/javascript">
   $('.select_subject').on('change', function(){
     $.ajax({
