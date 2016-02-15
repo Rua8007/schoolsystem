@@ -15,6 +15,7 @@ class FeebreakdownsController < ApplicationController
   # GET /feebreakdowns/new
   def new
     @feebreakdown = Feebreakdown.new
+    @grades = Grade.all.pluck(:name, :id)
   end
 
   # GET /feebreakdowns/1/edit
@@ -24,16 +25,21 @@ class FeebreakdownsController < ApplicationController
   # POST /feebreakdowns
   # POST /feebreakdowns.json
   def create
-    @feebreakdown = Feebreakdown.new(feebreakdown_params)
-
-    respond_to do |format|
-      if @feebreakdown.save
-        format.html { redirect_to @feebreakdown, notice: 'Feebreakdown was successfully created.' }
-        format.json { render :show, status: :created, location: @feebreakdown }
-      else
-        format.html { render :new }
-        format.json { render json: @feebreakdown.errors, status: :unprocessable_entity }
+    # return render json: params
+    titles = params[:titles]
+    amounts = params[:amounts]
+    titles.zip(amounts).each do |title, amount|
+      if title != '' || amount != ''
+        feebreakdown = Feebreakdown.new
+        feebreakdown.grade_id = params[:grade]
+        feebreakdown.title = title
+        feebreakdown.amount = amount
+        feebreakdown.save
       end
+    end
+    respond_to do |format|
+      format.html { redirect_to feebreakdowns_path, notice: 'Feebreakdowns were successfully created.' }
+      format.json { render :show, status: :created, location: @feebreakdown }
     end
   end
 

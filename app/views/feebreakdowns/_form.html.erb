@@ -1,30 +1,64 @@
-<%= form_for(@feebreakdown) do |f| %>
-  <% if @feebreakdown.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@feebreakdown.errors.count, "error") %> prohibited this feebreakdown from being saved:</h2>
-
-      <ul>
-      <% @feebreakdown.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+<div class='form-temp'>
+  <div class="field" style="margin-bottom: 10px">
+    <input type="button" id="submit_form" value="Save", class="btn btn-success pull-right" style="margin-left:5px">
+    <span class = "pull-right"><input type="button" value = "Add More" id = "addmore" class="btn btn-primary"></span>
+    <%#= f.label :grade_id %>
+    <%#= f.collection_select :grade_id , Batch.last.grades.order(:name), :id , :full_name,{},{:style => 'height:34px;width: 90%',  class: 'form-control'} %>
+  </div>
+  <hr>
+  <%= form_tag feebreakdowns_path, method: 'post', class: "form-str"  do %>
+    <div class = "col-md-12">
+      <label>Select Grade</label><br>
+      <%= select_tag "grade",options_for_select(@grades), class: 'form-control' %>
+    </div>
+    <div class='con col-md-4'>
+      <div class="field">
+        <label>Title</label> <br>
+        <%= text_field_tag 'titles[]','',class: 'form-control',:style => 'height:34px;width: 90%' %>
+      </div>
+      <div class="field">
+        <label>Amount</label> <br>
+        <%= number_field_tag "amounts[]",'',class: 'form-control',:style => 'height:34px;width: 90%' %>
+      </div>
+      <br>
+      <div class="actions">
+        <%#= f.submit class: "btn btn-success" %>
+      </div>
     </div>
   <% end %>
+</div>
 
-  <div class="field">
-    <%= f.label :grade_id %><br>
-    <%= f.collection_select :grade_id , Batch.last.grades.order(:name), :id , :full_name,{},{:style => 'height:34px;width: 30%',  class: 'form-control'} %>
+<div class="col-template hidden">
+  <div class="con col-md-4">
+      <div class="field">
+        <label>Title</label> <br>
+        <%= text_field_tag 'titles[]','',class: 'form-control',:style => 'height:34px;width: 90%' %>
+      </div>
+      <div class="field">
+        <label>Amount</label> <br>
+        <%= number_field_tag 'amounts[]','',class: 'form-control',:style => 'height:34px;width: 90%' %>
+      </div>
+      <br>
+      <div class="actions">
+        <%#= f.submit class: "btn btn-success" %>
+      </div>
   </div>
-  <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title,class: 'form-control',:style => 'height:34px;width: 30%' %>
-  </div>
-  <div class="field">
-    <%= f.label :amount %><br>
-    <%= f.number_field :amount,class: 'form-control',:style => 'height:34px;width: 30%' %>
-  </div>
-  <br>
-  <div class="actions">
-    <%= f.submit class: "btn btn-success" %>
-  </div>
-<% end %>
+</div>
+<br><br>
+
+
+
+<script type="text/javascript">
+  $("#addmore").on("click", function (){
+    console.log("I am here");
+    var html = $($('.col-template').html());
+    console.log(html);
+    html.insertAfter($('.form-temp .con').last());
+  });
+
+  $("#submit_form").click(function(){
+    $('form').each(function(){
+      $(this).submit();
+    });
+  })
+</script>

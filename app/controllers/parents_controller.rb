@@ -39,13 +39,6 @@ class ParentsController < ApplicationController
     student = Student.find(params[:student_id])
 
     if @parent.save
-      u = User.new
-      @email=student.first_name+'.'+student.middle_name+'_'+student.rollnumber.to_s+"@alomam.edu.sa"
-      u.email = @email
-      u.password = '123'
-      u.password_confirmation = '123'
-      u.role_id = Role.find_by_name("Parent").id
-      u.save
       student.parent_id = @parent.id
       student.save
       redirect_to student_path(student.id)

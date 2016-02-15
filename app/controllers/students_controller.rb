@@ -42,7 +42,7 @@ class StudentsController < ApplicationController
     if @student.save
       @student.delay.testi
 
-      @email="std_"+Student.last.rollnumber.to_s+"@alomam.edu.sa"
+      @email=params[:name1]+'.'+params[:name2]+'_'+Student.last.rollnumber.to_s+"@alomam.edu.sa"
       @student.email = @email
       u = User.new
       u.email = @email
