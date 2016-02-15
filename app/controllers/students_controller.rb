@@ -48,7 +48,7 @@ class StudentsController < ApplicationController
       u.email = @email
       u.password = '123'
       u.password_confirmation = '123'
-      u.role_id = Role.find_by_name('Student').id
+      u.role_id = Role.find_by_name('Parent').id
       u.save
       @student.save
       emergency = @student.emergencies.create
