@@ -5,13 +5,12 @@
     <%#= f.label :grade_id %>
     <%#= f.collection_select :grade_id , Batch.last.grades.order(:name), :id , :full_name,{},{:style => 'height:34px;width: 90%',  class: 'form-control'} %>
   </div>
-  <hr>
   <%= form_tag feebreakdowns_path, method: 'post', class: "form-str"  do %>
     <div class = "col-md-12">
       <label>Select Grade</label><br>
-      <%= select_tag "grade",options_for_select(@grades), class: 'form-control' %>
+      <%= select_tag "grade",options_for_select(@grades), class: 'form-control' %><br>
     </div>
-    <div class='con col-md-4'>
+    <div class='con col-md-4 well well-lg'>
       <div class="field">
         <label>Title</label> <br>
         <%= text_field_tag 'titles[]','',class: 'form-control',:style => 'height:34px;width: 90%' %>
@@ -29,7 +28,7 @@
 </div>
 
 <div class="col-template hidden">
-  <div class="con col-md-4">
+  <div class="con col-md-4 well well-lg">
       <div class="field">
         <label>Title</label> <br>
         <%= text_field_tag 'titles[]','',class: 'form-control',:style => 'height:34px;width: 90%' %>
