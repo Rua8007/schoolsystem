@@ -42,13 +42,13 @@ class StudentsController < ApplicationController
     if @student.save
       @student.delay.testi
 
-      @email="std_"+Student.last.rollnumber.to_s+"@alomam.edu.sa"
+      @email=params[:name1]+'.'+params[:name2]+'_'+Student.last.rollnumber.to_s+"@alomam.edu.sa"
       @student.email = @email
       u = User.new
       u.email = @email
       u.password = '123'
       u.password_confirmation = '123'
-      u.role_id = Role.find_by_name('Student').id
+      u.role_id = Role.find_by_name('Parent').id
       u.save
       @student.save
       emergency = @student.emergencies.create
