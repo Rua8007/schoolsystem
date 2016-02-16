@@ -150,7 +150,7 @@ end
       end
     end
   end
-  get 'print_weekly_schedule/:week_id/:grade_id' => 'year_plans#print_weekly_schedule', as: :print_weekly_schedule
+  get 'show_weekly_schedule/:id/:week_id/:grade_id' => 'year_plans#show_weekly_schedule', as: :print_weekly_schedule
 
   resources :fees do
     collection do

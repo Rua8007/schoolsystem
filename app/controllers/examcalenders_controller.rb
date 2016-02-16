@@ -42,7 +42,7 @@ class ExamcalendersController < ApplicationController
   end
 
   def examdetail
-    @grades = Grade.all
+    @grades = Grade.where('section IS NOT NULL').order('name')
   end
 
   def examdata
@@ -65,7 +65,7 @@ class ExamcalendersController < ApplicationController
   end
 
   def quizdetail
-    @grades = Grade.all
+    @grades = Grade.where('section IS NOT NULL').order('name')
 
   end
 

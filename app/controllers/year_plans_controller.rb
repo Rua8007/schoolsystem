@@ -131,7 +131,7 @@ class YearPlansController < ApplicationController
     @weekends = Weekend.all
     @schedules = GradeSubject.where("subject_id = ? AND grade_id = ? AND week_id =  ?", @subject.id, params[:grade_id], params[:week_id] )
 
-    if params[:commit] == 'Show Weekly Plan'
+    if params[:commit] == 'Show Weekly Plan' or params[:format] == 'pdf'
 
       if current_user.role.name == Role::SUPER_USER_ROLE
         @print_schedules = GradeSubject.where('grade_id = ? AND week_id =  ?',
@@ -141,8 +141,14 @@ class YearPlansController < ApplicationController
                                               params[:grade_id], params[:week_id] ).try(:order, 'day_name_eng')
       end
 
-      render pdf: "#{@week.label}", template: 'year_plans/print_weekly_schedule.pdf.erb',
-             layout: 'pdf.html.erb', orientation: 'Landscape', margin: { top: 5, bottom: 11, left: 5, right: 5}
+      respond_to do |format|
+        format.pdf {
+          render pdf: "#{@week.label}", template: 'year_plans/print_weekly_schedule.pdf.erb',
+                 layout: 'pdf.html.erb', orientation: 'Landscape', margin: { top: 5, bottom: 11, left: 5, right: 5}
+
+        }
+        format.html{ render 'complete_weekly_schedule' }
+      end
     end
   end
 

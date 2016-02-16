@@ -74,15 +74,16 @@
           <% time_left = (week.expiry_date - Date.today).to_i %>
           <td style="color:red;"><%= time_left > 0 ? "#{time_left} days left." : 'Expired' %></td>
           <td>
-            <% if current_user.role.name == 'Teacher' and week.expiry_date >= Date.today %>
-              <%= link_to 'Make Weekly Plans', 'javascript:void(0);',:class =>  'btn btn-success start-plan-btn', id: "#{week.id}"%>
-            <% else %>
-                <%= link_to 'Expired', 'javascript:void(0);',:class =>  'btn btn-danger' if current_user.role.name == 'Teacher' %>
-            <% end %>
-            <% if current_user.role.rights.where(value: 'update_week').any? %>
-
-              <%= link_to '', edit_year_plan_week_path(@year_plan.id,week),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
-              <%= link_to '', "/year_plans/#{@year_plan.id}/weeks/#{week.id}", method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
+            <% if current_user.role.name == 'Teacher' %>
+              <% if week.expiry_date >= Date.today %>
+                <%= link_to 'Make Weekly Plans', 'javascript:void(0);',:class =>  'btn btn-success start-plan-btn', id: "#{week.id}"%>
+              <% else %>
+                <%= link_to 'Expired', 'javascript:void(0);',:class =>  'btn btn-danger' %>
+              <% end %>
+            <% elsif current_user.role.rights.where(value: 'update_week') %>
+                <%= link_to 'Make Weekly Plans', 'javascript:void(0);',:class =>  'btn btn-success start-plan-btn', id: "#{week.id}"%>
+                <%= link_to '', edit_year_plan_week_path(@year_plan.id,week),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
+                <%= link_to '', "/year_plans/#{@year_plan.id}/weeks/#{week.id}", method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
             <% end %>
           </td>
 

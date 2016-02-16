@@ -1,0 +1,5 @@
+<%= render partial: 'complete_weekly_schedule' %>
+
+<% if @print_schedules.present? and current_user.role.name == Role::SUPER_USER_ROLE%>
+    <%= link_to 'Print Weekly Plan', print_weekly_schedule_path(@year_plan.id, @week.id, @grade.id, 'pdf'), class: 'btn btn-success' %>
+<% end %>

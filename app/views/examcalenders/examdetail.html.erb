@@ -19,7 +19,7 @@
             <div class="form-group ">
               <div class="field">
                 <%= label_tag  :Grade_ID %><br>
-                <%= select_tag :grade_id, options_from_collection_for_select(@grades,"id", "name"),
+                <%= select_tag :grade_id, options_from_collection_for_select(@grades,"id", "full_name"),
                   prompt: "Select Grades", class: "form-control", required: true %>
               </div>
             </div>

@@ -198,10 +198,26 @@
       </div>
     <% end %>
 <% elsif current_user.role.name == 'Teacher' %>
+    <div class="modal fade " id="std_modal" role="dialog" data-backdrop="static">
+      <div class="modal-dialog modal-lg" style="">
+        <!-- Modal content-->
+        <div class="modal-content" style="">
+          <div class="modal-header login-modal-header" style="text-align:center">
+            <h4>Updata Information <sup> <button class="btn btn-danger" id = "close_modal" style="float:right; "> X</button> </sup> </h4>
+
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <%= render '/employees/form' %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="row">
       <div class="col-sm-12">
         <h3 class="col-sm-12">
-          <%= "#{@teacher.try(:full_name)}" %>
+          <%= "#{@employee.try(:full_name)}" %>
           <button id = "stud_info" class="btn btn-info btn-small pull-right"> Update Information </button>
         </h3>
       </div>
@@ -214,19 +230,19 @@
             <div class="col-md-12 inner-box">
               <div class="row">
                 <div class="col-sm-3 text-label">ID</div>
-                <div class="col-sm-9 text"><%= @teacher.employee_number %></div>
+                <div class="col-sm-9 text"><%= @employee.employee_number %></div>
               </div>
               <div class="row">
                 <div class="col-sm-3 text-label">Gender</div>
-                <div class="col-sm-9 text"><%= @teacher.gender %></div>
+                <div class="col-sm-9 text"><%= @employee.gender %></div>
               </div>
               <div class="row">
                 <div class="col-sm-3 text-label">Joining</div>
-                <div class="col-sm-9 text"><%= @teacher.date_of_joining %></div>
+                <div class="col-sm-9 text"><%= @employee.date_of_joining %></div>
               </div>
               <div class="row">
                 <div class="col-sm-3 text-label">Birthday</div>
-                <div class="col-sm-9 text"><%= @teacher.date_of_birth %></div>
+                <div class="col-sm-9 text"><%= @employee.date_of_birth %></div>
               </div>
             </div>
           </div>
@@ -235,19 +251,19 @@
             <div class="col-md-12 inner-box">
               <div class="row">
                 <div class="col-sm-3 text-label">Address</div>
-                <div class="col-sm-9 text"><%= @teacher.address1 || @teacher.address2 %></div>
+                <div class="col-sm-9 text"><%= @employee.address1 || @employee.address2 %></div>
               </div>
               <div class="row">
                 <div class="col-sm-3 text-label">Mobile</div>
-                <div class="col-sm-9 text"><%= @teacher.mobile_number %></div>
+                <div class="col-sm-9 text"><%= @employee.mobile_number %></div>
               </div>
               <div class="row">
                 <div class="col-sm-3 text-label">Home Ph.</div>
-                <div class="col-sm-9 text"><%= @teacher.home_phone %></div>
+                <div class="col-sm-9 text"><%= @employee.home_phone %></div>
               </div>
               <div class="row">
                 <div class="col-sm-3 text-label">Email</div>
-                <div class="col-sm-9 text"><%= @teacher.email %></div>
+                <div class="col-sm-9 text"><%= @employee.email %></div>
               </div>
             </div>
           </div>
@@ -330,8 +346,7 @@
 $(document).ready(function() {
 
 
-    $('#calendar').fullCalendar({
-    })
+    $('#calendar').fullCalendar({});
     $('#secret_modal').modal('show');
     $('#std_modal').modal('hide');
 

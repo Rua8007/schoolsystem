@@ -155,7 +155,7 @@ class StudentsController < ApplicationController
     if !current_user.role.rights.where(value: "create_sattendence").any?
       redirect_to :back, alert: "Sorry! You are not authorized"
     end
-    @grades = Grade.all
+    @grades = Grade.where('section IS NOT NULL').order('name')
     @weekends = Weekend.all
   end
 
@@ -281,7 +281,7 @@ class StudentsController < ApplicationController
     if current_user.role.rights.where(value: "view_sattendence").nil?
       redirect_to :back, alert: "Sorry! You are not authorized"
     else
-      @grades = Grade.all
+      @grades = Grade.where('section IS NOT NULL').order('name')
     end
 
   end
