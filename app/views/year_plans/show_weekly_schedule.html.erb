@@ -8,7 +8,7 @@
 </div>
 <br />
 
-<% if @week.expiry_date > Date.today %>
+<% if @week.expiry_date > Date.today or current_user.role.rights.where(value: 'update_week').any?  %>
 
 <div class="col-sm-6">
   <%= label_tag 'Select Subject' %>
@@ -27,7 +27,7 @@
   <%= render partial: 'show_weekly_schedule_by_subject' %>
 </div>
 <% else %>
-    <h3 class="text-center">This Week Has Been Expired.</h3>
+    <h3 class="text-center">This Week Has Been Expired Or You Dont Have Rights To Edit.</h3>
 <% end %>
 <script type="text/javascript">
   $('.select_subject').on('change', function(){
