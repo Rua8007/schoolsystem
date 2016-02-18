@@ -237,11 +237,28 @@
                 <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
                   <span>Navigation</span>
                 </li>
+                <% if Right.where("role_id = ? and value = 'permissions'", current_user.role_id ).any? || Right.where("role_id = ? and value = 'users'", current_user.role_id ).any? %>
+
+                <li>
+                <a href class="auto">
+                  <span class="pull-right text-muted">
+                    <i class="fa fa-fw fa-angle-right text"></i>
+                    <i class="fa fa-fw fa-angle-down text-active"></i>
+                  </span>
+                  <i class="glyphicon glyphicon-th"></i>
+                  <span>Master Setup</span>
+                </a>
+                <ul class="nav nav-sub dk">
+                  <li class="nav-sub-header">
+                    <%= link_to("") do %>
+                      <span>Master Setup</span>
+                    <% end %>
+                  </li>
                 <% if Right.where("role_id = ? and value = 'permissions'", current_user.role_id ).any? %>
                   <li>
                     <%= link_to(new_right_path) do %>
                       <i class="glyphicon glyphicon-flag"></i>
-                      <span>User Permissions</span>
+                      <span>Permission</span>
                     <% end %>
                   </li>
                 <% end %>
@@ -254,7 +271,7 @@
                     <% end %>
                   </li>
                 <% end %>
-
+              </ul></li><% end %>
                 <% if Right.where("role_id = ? and value = 'send_sms'", current_user.role_id ).any? %>
                   <li>
                     <%= link_to(home_sms_path) do %>
@@ -625,25 +642,43 @@
                       </ul>
                     </li>
                   <% end %>
-                  <% if Right.where("role_id = ? and value = 'view_prequest'", current_user.role_id ).any? %>
-                    <li>
+                    <% if Right.where("role_id = ? and value = 'view_prequest'", current_user.role_id ).any? || current_user.role.rights.where(value: 'create_prequest').any? %>
+
+                  <li>
+                  <a href class="auto">
+                    <span class="pull-right text-muted">
+                      <i class="fa fa-fw fa-angle-right text"></i>
+                      <i class="fa fa-fw fa-angle-down text-active"></i>
+                    </span>
+                    <i class="glyphicon glyphicon-menu-hamburger"></i>
+                    <span>Purchases Panel</span>
+                  </a>
+                  <ul class="nav nav-sub dk">
+                    <li class="nav-sub-header">
+                      <%= link_to("") do %>
+                        <span>Calender</span>
+                      <% end %>
+                    </li>
+                    <% if Right.where("role_id = ? and value = 'view_prequest'", current_user.role_id ).any? %>
+
+                    <li style="margin-left: -40px" >
                       <%= link_to(purchases_path) do %>
                         <i class="glyphicon glyphicon-time"></i>
-                        <span>All Puchase Reqs</span>
+                        <span>Puchase Reqs</span>
                       <% end %>
 
                     </li>
                   <% end %>
 
                   <% if current_user.role.rights.where(value: 'create_prequest').any? %>
-                    <li>
+                    <li style="margin-left: -40px">
                       <%= link_to(new_purchase_path) do %>
                         <i class="glyphicon glyphicon-time"></i>
                         <span>Request Purchase</span>
                       <% end %>
                     </li>
                   <% end %>
-
+                  </ul></li><% end %>
                     <li>
                       <%= link_to(conversations_path) do %>
                         <i class="glyphicon glyphicon-comment"></i>
