@@ -48,13 +48,22 @@ class GradesController < ApplicationController
   end
 
   def index
-    if current_user.role.rights.where(value: "view_grade").nil?
+    if current_user.role.rights.where(value: "view_grade").blank?
       redirect_to :back, alert: "Sorry! You are not authorized"
     else
-      name = params[:grade_name]
-      @grades = Grade.where("section IS NOT NULL and name = ?", name)
+      respond_to do |format|
+        format.html{
+          name = params[:grade_name]
+          @grades = Grade.where("section IS NOT NULL and name = ?", name) if name.present?
+        }
+        format.pdf {
+          @grades = Grade.where('section IS NOT NULL').order('name')
+          @title = 'All Classes List'
+          render pdf: 'classes.pdf', template: 'grades/index.pdf.erb',  layout: 'pdf.html.erb',
+                 orientation: 'Portrait', show_as_html: false, margin: { top: 5, bottom: 10, left: 5, right: 5}
+        }
+      end
     end
-
   end
 
   def all_grades
@@ -64,6 +73,15 @@ class GradesController < ApplicationController
   # GET /grades/1
   # GET /grades/1.json
   def show
+    respond_to do |format|
+      format.html
+      format.pdf {
+        @bridges = @grade.bridges
+        @title = "Grade: #{@grade.full_name} - Subject Assignments"
+        render pdf: 'subjects_assignments.pdf', template: 'grades/show.pdf.erb',  layout: 'pdf.html.erb',
+               orientation: 'Portrait', show_as_html: false, margin: { top: 5, bottom: 10, left: 5, right: 5}
+      }
+    end
   end
 
   # GET /grades/new

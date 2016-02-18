@@ -1,9 +1,19 @@
 class UsersController < ApplicationController
   def index
-    if current_user.role.rights.where(value: "users").nil?
-      redirect_to :back, "Sorry! You are not authorized"
+    if current_user.role.rights.where(value: "users").blank?
+      flash[:alert] =  'Sorry! You are not authorized.'
+      redirect_to root_path
     end
     @users = User.all
+
+    respond_to do |format|
+      format.html
+      format.pdf{
+        @title = 'Users List'
+        render pdf: 'users.pdf', template: 'users/index.pdf.erb',  layout: 'pdf.html.erb',
+               orientation: 'Portrait',show_as_html: false, margin: { top: 5, bottom: 10, left: 5, right: 5}
+      }
+    end
   end
 
   def new

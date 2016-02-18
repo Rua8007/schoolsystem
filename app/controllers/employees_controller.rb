@@ -20,10 +20,19 @@ class EmployeesController < ApplicationController
   end
 
   def index
-    if current_user.role.rights.where(value: "view_employee").nil?
+    if current_user.role.rights.where(value: "view_employee").blank?
       redirect_to :back, "Sorry! You are not authorized"
     end
-    @employees = Employee.all
+    @employees = Employee.order('full_name')
+
+    respond_to do |format|
+      format.html
+      format.pdf{
+        @title = 'Teachers List'
+        render pdf: 'employees.pdf', template: 'employees/index.pdf.erb',  layout: 'pdf.html.erb',
+               orientation: 'Portrait',show_as_html: false, margin: { top: 5, bottom: 10, left: 5, right: 5}
+      }
+    end
   end
 
   # GET /employees/1
@@ -96,7 +105,7 @@ class EmployeesController < ApplicationController
           u.email = @employee.email
           u.save!
         end
-        format.html { redirect_to employees_path, notice: 'Employee was successfully updated.' }
+        format.html { redirect_to root_path, notice: 'Employee was successfully updated.' }
         format.json { render :show, status: :ok, location: @employee }
       else
         format.html { render :edit }

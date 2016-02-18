@@ -1,33 +1,37 @@
-<div class="bg-light lter b-b wrapper-md">
-  <h3 class="m-n text-center">WEEKLY PLANS</h3>
-  <h4 class="m-n text-center">Week # <%= "#{@week.year_week_id}" %></h4>
-  <h4 class="m-n text-center">
-    SY: <%= "#{@year_plan.year_name}" %> <br/><br/>
-    <%= "Grade: #{@grade.full_name} " %>&nbsp;&nbsp;&nbsp;&nbsp;<%= "From: #{@week.start_date.strftime("%d-%m-%Y")}" %>&nbsp;&nbsp;<%= "To: #{@week.end_date.strftime("%d-%m-%Y")}" %>
-  </h4>
-</div>
-<br />
-
-<% if @week.expiry_date > Date.today or current_user.role.rights.where(value: 'update_week').any?  %>
-
-<div class="col-sm-6">
-  <%= label_tag 'Select Subject' %>
-  <div class="form-group">
-    <%= hidden_field_tag 'id', params[:id] %>
-    <%= hidden_field_tag 'week_id', params[:week_id], {id: 'week_id'} %>
-    <%= hidden_field_tag 'grade_id', params[:grade_id], {id: 'grade_id'} %>
-    <%= select_tag 'subject_id', options_from_collection_for_select(@subjects.order('name'), :id, :name), class: 'form-control select_subject' %>
+<% if @subjects.present? %>
+  <div class="bg-light lter b-b wrapper-md">
+    <h3 class="m-n text-center">WEEKLY PLANS</h3>
+    <h4 class="m-n text-center">Week # <%= "#{@week.year_week_id}" %></h4>
+    <h4 class="m-n text-center">
+      SY: <%= "#{@year_plan.year_name}" %> <br/><br/>
+      <%= "Grade: #{@grade.full_name} " %>&nbsp;&nbsp;&nbsp;&nbsp;<%= "From: #{@week.start_date.strftime("%d-%m-%Y")}" %>&nbsp;&nbsp;<%= "To: #{@week.end_date.strftime("%d-%m-%Y")}" %>
+    </h4>
   </div>
-</div>
+  <br />
 
-<div class="col-sm-6">
-</div>
+  <% if @week.expiry_date > Date.today or current_user.role.rights.where(value: 'update_week').any?  %>
 
-<div class="weekly-schedule">
-  <%= render partial: 'show_weekly_schedule_by_subject' %>
-</div>
+  <div class="col-sm-6">
+    <%= label_tag 'Select Subject' %>
+    <div class="form-group">
+      <%= hidden_field_tag 'id', params[:id] %>
+      <%= hidden_field_tag 'week_id', params[:week_id], {id: 'week_id'} %>
+      <%= hidden_field_tag 'grade_id', params[:grade_id], {id: 'grade_id'} %>
+      <%= select_tag 'subject_id', options_from_collection_for_select(@subjects.order('name'), :id, :name), class: 'form-control select_subject' %>
+    </div>
+  </div>
+
+  <div class="col-sm-6">
+  </div>
+
+  <div class="weekly-schedule">
+    <%= render partial: 'show_weekly_schedule_by_subject' %>
+  </div>
+  <% else %>
+      <h3 class="text-center">This Week Has Been Expired Or You Dont Have Rights To Edit.</h3>
+  <% end %>
 <% else %>
-    <h3 class="text-center">This Week Has Been Expired Or You Dont Have Rights To Edit.</h3>
+    <h3 class="text-center">Please Assign Subject To Teacher.</h3>
 <% end %>
 <script type="text/javascript">
   $('.select_subject').on('change', function(){

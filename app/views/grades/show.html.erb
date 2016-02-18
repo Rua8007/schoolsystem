@@ -1,11 +1,12 @@
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3"> Grade <%= @grade.full_name %>
   <% if current_user.role.rights.where(value: "update_grade").any? %>
-  <%= link_to(newassign_bridges_path({grade_id: @grade.id}), class: "btn pull-right btn-color" ,style: "width:200px;" ) do %>
-    <i class="fa fa-plus"></i>
-    New Assign
+    <%= link_to(newassign_bridges_path({grade_id: @grade.id}), class: "btn pull-right btn-color" ,style: "width:200px;" ) do %>
+      <i class="fa fa-plus"></i>
+        New Assign
+      <% end %>
   <% end %>
- <% end %>
+  <%= link_to 'Print PDF', grade_path(@grade, 'pdf'), class: 'btn btn-primary pull-right', style: 'margin-right: 3px;' %>
   </h1>
 </div>
 

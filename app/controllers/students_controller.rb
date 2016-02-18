@@ -6,6 +6,14 @@ class StudentsController < ApplicationController
     else
   		@students = Student.all
       @student = @students.first
+      respond_to do |format|
+        format.html
+        format.pdf{
+          @title = 'All Students List'
+          render pdf: 'students.pdf', template: 'students/index.pdf.erb',  layout: 'pdf.html.erb',
+                 orientation: 'Portrait', show_as_html: false, margin: { top: 5, bottom: 10, left: 5, right: 5}
+        }
+      end
     end
 	end
 

@@ -24,11 +24,21 @@ class Student < ActiveRecord::Base
 	has_many :sessionals
 	has_one :report_card
 
+  validates_uniqueness_of :rollnumber
+  validates_presence_of :rollnumber
+
 	EMAIL_ATTRIBUTES = {
 			name: '{{student.fullname}}',
 			rollnumber: '{{student.rollnumber}}',
       login_info: '{{student.login_info}}'
   }
+
+	LIST_HEADER = [ {label: 'ID',          method: 'rollnumber'},
+									{label: 'full_name',   method: 'fullname'},
+									{label: 'father_name', method: 'father_name'},
+									{label: 'email',       method: 'email'},
+									{label: 'grade',       method: 'grade_name'}
+	]
 
 	def login_info
 		if self.email.present?
@@ -36,9 +46,15 @@ class Student < ActiveRecord::Base
 		else
 			'Not Found...'
 		end
-	end
-	validates_uniqueness_of :rollnumber
-	validates_presence_of :rollnumber
+  end
+
+  def father_name
+    parent.try(:name)
+  end
+
+  def grade_name
+    grade.try(:full_name)
+  end
 
 
 	def testi

@@ -25,12 +25,23 @@ class Employee < ActiveRecord::Base
 			login_info: '{{student.login_info}}'
 	}
 
+	LIST_HEADER = [ {label: 'name',      method: 'full_name'},
+									{label: 'emp_num',   method: 'employee_number'},
+									{label: 'category',  method: 'category_name'},
+									{label: 'gender',    method: 'gender'},
+									{label: 'mobile',    method: 'mobile_number'}
+	]
+
   def login_info
     if self.email.present?
       "Email: #{self.email} Password: #{User::DEFAULT_PASSWORD}"
     else
       'Not Found...'
     end
+  end
+
+  def category_name
+    category.try(:name)
   end
 
 

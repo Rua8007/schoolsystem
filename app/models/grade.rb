@@ -30,6 +30,30 @@ class Grade < ActiveRecord::Base
 	validates :max_no_of_students, presence: true, if: 'section.nil?'
 	validate :unique_full_name?
 
+	LIST_HEADER = [ {label: 'grade',          method: 'name'},
+									{label: 'class',          method: 'section'},
+									{label: 'batch',          method: 'batch_name'},
+									{label: 'section',        method: 'section_type'},
+									{label: 'no_of_students', method: 'no_of_students'}
+	]
+
+
+  def batch_name
+    batch.try(:name)
+  end
+
+  def section_type
+    case section
+      when 'A'
+        'Boys'
+      when 'B'
+        'Girls'
+    end
+  end
+
+  def no_of_students
+    students.try(:count)
+  end
 
 	def full_name
 	   "#{name} (#{section})"

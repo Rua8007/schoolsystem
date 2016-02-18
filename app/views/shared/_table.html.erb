@@ -1,0 +1,22 @@
+<% if records.present? %>
+    <table class="table table bordered">
+      <thead>
+        <tr>
+          <% headers.each do |header| %>
+            <th><%= header[:label].try(:titleize) %></th>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <% records.each do |record| %>
+          <tr>
+            <% headers.each do |header| %>
+                <td><%= record.send header[:method] %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+<% else %>
+    <h3>This List Is Empty.</h3>
+<% end %>

@@ -16,9 +16,11 @@
 
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3">Classes
-  <% if current_user.role.rights.where(value: "create_grade").any? %>
-  <a href="<%= new_grade_path %>" class="btn pull-right btn-color" style="width:200px;">Add a new Class</a></h1>
-  <% end %>
+    <% if current_user.role.rights.where(value: "create_grade").any? %>
+      <a href="<%= new_grade_path %>" class="btn pull-right btn-color" style="width:200px;">Add a new Class</a>
+      <%= link_to 'Print All Classes', grades_path('pdf'), class: 'btn btn-primary pull-right', style: 'margin-right: 3px;' %>
+    <% end %>
+  </h1>
 </div>
 <br><br>
 <div style="overflow: scroll">
