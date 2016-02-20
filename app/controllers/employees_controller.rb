@@ -22,16 +22,17 @@ class EmployeesController < ApplicationController
   def index
     if current_user.role.rights.where(value: "view_employee").blank?
       redirect_to :back, "Sorry! You are not authorized"
-    end
-    @employees = Employee.order('full_name')
+    else
+      @employees = Employee.order('full_name')
 
-    respond_to do |format|
-      format.html
-      format.pdf{
-        @title = 'Teachers List'
-        render pdf: 'employees.pdf', template: 'employees/index.pdf.erb',  layout: 'pdf.html.erb',
-               orientation: 'Portrait',show_as_html: false, margin: { top: 5, bottom: 10, left: 5, right: 5}
-      }
+      respond_to do |format|
+        format.html
+        format.pdf{
+          @title = 'Teachers List'
+          render pdf: 'employees.pdf', template: 'employees/index.pdf.erb',  layout: 'pdf.html.erb',
+                 orientation: 'Portrait',show_as_html: false, margin: { top: 5, bottom: 10, left: 5, right: 5}
+        }
+      end
     end
   end
 
