@@ -12,7 +12,7 @@ class HomeController < ApplicationController
       @categories = Category.order(:name)
       @departments = Department.order(:name)
       @employee = Employee.find_by_email(current_user.email)
-      @bridges = Bridge.where(employee_id: @teacher.id) if @teacher.present?
+      @bridges = @employee.bridges if @employee.present?
     end
   end
 

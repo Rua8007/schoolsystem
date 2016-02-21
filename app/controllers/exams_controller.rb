@@ -65,12 +65,9 @@ class ExamsController < ApplicationController
   # DELETE /exams/1
   # DELETE /exams/1.json
   def destroy
-    if current_user.role.rights.where(value: "delete_exam").nil?
-      redirect_to :back, "Sorry! You are not authorized"
-    end
     @exam.destroy
     respond_to do |format|
-      format.html { redirect_to exams_url, notice: 'Exam was successfully destroyed.' }
+      format.html { redirect_to select_report_card_path, notice: 'Request Processed Successfully.' }
       format.json { head :no_content }
     end
   end

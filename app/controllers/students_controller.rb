@@ -2,7 +2,7 @@ class StudentsController < ApplicationController
 	def index
 
     if !current_user.role.rights.where(value: "view_student").any?
-      redirect_to :back, alert: "Sorry! You are not authorized"
+      redirect_to root_path, alert: "Sorry! You are not authorized"
     else
   		@students = Student.all
       @student = @students.first
@@ -19,7 +19,7 @@ class StudentsController < ApplicationController
 
 	def new
     if !current_user.role.rights.where(value: "create_student").any?
-      redirect_to :back, alert: "Sorry! You are not authorized"
+      redirect_to root_path, alert: "Sorry! You are not authorized"
     end
     @flag = true
     if Grade.any?
@@ -35,7 +35,7 @@ class StudentsController < ApplicationController
 
   def create
     if !current_user.role.rights.where(value: "create_student").any?
-      redirect_to :back, alert: "Sorry! You are not authorized"
+      redirect_to root_path, alert: "Sorry! You are not authorized"
     end
     # return render json: params
 
@@ -75,7 +75,7 @@ class StudentsController < ApplicationController
   def edit
     # return render json: params
     if !current_user.role.rights.where(value: "update_student").any?
-      redirect_to :back, alert: "Sorry! You are not authorized"
+      redirect_to root_path, alert: "Sorry! You are not authorized"
     end
     @student = Student.find(params[:id])
     @student_no = @student.rollnumber
@@ -88,7 +88,7 @@ class StudentsController < ApplicationController
     puts "in update"
     puts "+++++++++++++++++++++++"
     if !current_user.role.rights.where(value: "update_student").any?
-      redirect_to :back, alert: "Sorry! You are not authorized"
+      redirect_to root_path, alert: "Sorry! You are not authorized"
     else
       puts "+++++++++++++++++++++++"
       puts "in update"
@@ -114,7 +114,7 @@ class StudentsController < ApplicationController
 
   def edit_student
     if !current_user.role.rights.where(value: "update_student").any?
-      redirect_to :back, alert: "Sorry! You are not authorized"
+      redirect_to root_path, alert: "Sorry! You are not authorized"
     end
     @student = Student.find(params[:id])
     @edit = true
@@ -123,7 +123,7 @@ class StudentsController < ApplicationController
 
   def assignParent
     if !current_user.role.rights.where(value: "create_student").any?
-      redirect_to :back, alert: "Sorry! You are not authorized"
+      redirect_to root_path, alert: "Sorry! You are not authorized"
     end
     # return render json: params
     std = Student.find(params[:id])
@@ -161,7 +161,7 @@ class StudentsController < ApplicationController
 
   def mark_attendance_calendar
     if !current_user.role.rights.where(value: "create_sattendence").any?
-      redirect_to :back, alert: "Sorry! You are not authorized"
+      redirect_to root_path, alert: "Sorry! You are not authorized"
     end
     @grades = Grade.where('section IS NOT NULL').order('name')
     @weekends = Weekend.all
@@ -170,7 +170,7 @@ class StudentsController < ApplicationController
   ####### TIME ZONE ISSUES
   def mark_attendance
     if !current_user.role.rights.where(value: "create_sattendence").any?
-      redirect_to :back, alert: "Sorry! You are not authorized"
+      redirect_to root_path, alert: "Sorry! You are not authorized"
     end
     if params[:attendance_date].present? && ( params[:attendance_date].to_date.strftime("%d-%m-%Y") === Date.today.strftime("%d-%m-%Y") || params[:attendance_date].to_date < Date.today ) && Weekend.find_by_weekend_day(params[:attendance_date].to_date.wday).nil?
       @attendance_date = params[:attendance_date].to_date.strftime("%d-%m-%Y")
@@ -287,7 +287,7 @@ class StudentsController < ApplicationController
 
   def monthly_attendance_report
     if current_user.role.rights.where(value: "view_sattendence").nil?
-      redirect_to :back, alert: "Sorry! You are not authorized"
+      redirect_to root_path, alert: "Sorry! You are not authorized"
     else
       @grades = Grade.where('section IS NOT NULL').order('name')
     end

@@ -45,7 +45,11 @@
                         <div class="form-group ">
                           <div class="field">
                             <%= f.label :Grade_name %><br>
-                            <%= f.text_field :name, :style => 'height:34px;',  class: 'form-control' , required: true, autofocus: true %>
+                            <% if @grade.new_record? %>
+                              <%= f.text_field :name, :style => 'height:34px;',  class: 'form-control' , required: true, autofocus: true %>
+                            <% else %>
+                              <%= f.text_field :name, :style => 'height:34px;',  class: 'form-control' , required: true, autofocus: true, readonly: true %>
+                            <% end %>
                           </div>
                         </div>
                     </div>
@@ -72,7 +76,12 @@
                         <div class="form-group ">
                           <div class="field">
                             <%= f.label :Grade %><br>
-                            <%= f.select :name, options_from_collection_for_select(Grade.where(section: nil).order('name'),"name", "name", @grade.name), {prompt: "Select Grade"}, {class: 'form-control', required: true} %>
+                            <% if @grade.new_record? %>
+                                <%= f.select :name, options_from_collection_for_select(Grade.where(section: nil).order('name'),"name", "name", @grade.name), {prompt: "Select Grade"}, {class: 'form-control', required: true} %>
+                            <% else %>
+                                <%= f.select :name, options_from_collection_for_select(Grade.where(section: nil).order('name'),"name", "name", @grade.name), {prompt: "Select Grade"}, {class: 'form-control', required: true, readonly: true} %>
+                            <% end %>
+
                           </div>
                         </div>
                     </div>

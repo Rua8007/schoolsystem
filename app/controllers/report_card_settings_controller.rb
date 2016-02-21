@@ -37,6 +37,20 @@ class ReportCardSettingsController < ApplicationController
     @setting = ReportCardSetting.find(params[:id])
   end
 
+  def destroy
+    @setting = ReportCardSetting.find(params[:id])
+    @exam = Exam.find(@setting.exam_id)
+    @report_cards = ReportCard.where(setting_id: @setting.id)
+    @report_cards.destroy_all
+    @exam.destroy
+    @setting.destroy
+
+    flash[:notice] = 'Request Processed Successfully.'
+
+    redirect_to select_report_card_path
+
+  end
+
   def new_marks_divisions
     @setting = ReportCardSetting.find(params[:id])
     @previous_setting = ReportCardSetting.where(grade_id: @setting.grade_id, batch_id: Batch.last.id).try(:first)

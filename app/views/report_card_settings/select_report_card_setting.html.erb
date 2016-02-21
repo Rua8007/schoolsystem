@@ -18,7 +18,17 @@
             <ul class="list-group">
               <li class="list-group-item active"><%= "Grade #{grade.name}" %></li>
               <% exams.each do |exam| %>
-                <li class="list-group-item"><%= link_to exam.name, edit_exam_path(exam) %></li>
+                <li class="list-group-item">
+                  <%= link_to exam.name, edit_exam_path(exam) %>
+                  <% report_card = ReportCardSetting.find_by(grade_id: grade.id, exam_id: exam.id, batch_id: Batch.last.id) rescue nil %>
+                  <% if report_card.present? %>
+                    <%= link_to('Delete', report_card_setting_path(report_card), method: 'delete' ,
+                              class: 'pull-right btn btn-danger', data: { confirm: 'Are you sure?'}) %>
+                  <% else %>
+                      <%= link_to('Delete', exam_path(exam), method: 'delete' ,
+                                  class: 'pull-right btn btn-danger', data: { confirm: 'Are you sure?'}) %>
+                  <% end %>
+                </li>
               <% end %>
             </ul>
         <% end %>

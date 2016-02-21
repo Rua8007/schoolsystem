@@ -21,7 +21,7 @@ class EmployeesController < ApplicationController
 
   def index
     if current_user.role.rights.where(value: "view_employee").blank?
-      redirect_to :back, "Sorry! You are not authorized"
+      redirect_to root_path, alert: 'Sorry! You are not authorized'
     else
       @employees = Employee.order('full_name')
 

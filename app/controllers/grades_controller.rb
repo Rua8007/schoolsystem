@@ -23,7 +23,12 @@ class GradesController < ApplicationController
         a.delete if a.present?
       end
     end
-    redirect_to new_grade_path, notice: "Subjects has been added successfully...!!!"
+    @classes = Grade.where("name = '#{@grade.name}' AND section IS NOT NULL")
+    if @classes.present?
+      redirect_to grades_path({grade_name: @grade.name}), notice: "Subjects has been added successfully...!!!"
+    else
+      redirect_to new_grade_path, notice: "Subjects has been added successfully...!!!"
+    end
   end
 
   def add_students
@@ -31,8 +36,10 @@ class GradesController < ApplicationController
     if @grade.campus = 'Boys'
       @students = @grade.parent.students.where(gender: 'MALE') rescue []
     else
-      @students = @grade.parent.students.where(gender: 'MALE') rescue []
+      @students = @grade.parent.students.where(gender: 'FEMALE') rescue []
     end
+
+
   end
 
   def student_add
@@ -49,7 +56,7 @@ class GradesController < ApplicationController
 
   def index
     if current_user.role.rights.where(value: "view_grade").blank?
-      redirect_to :back, alert: "Sorry! You are not authorized"
+      redirect_to root_path, alert: "Sorry! You are not authorized"
     else
       respond_to do |format|
         format.html{
@@ -88,7 +95,7 @@ class GradesController < ApplicationController
   def new
     # return render json: params
     if current_user.role.rights.where(value: "create_grade").nil?
-      redirect_to :back, alert: "Sorry! You are not authorized"
+      redirect_to root_path, alert: "Sorry! You are not authorized"
     else
       if params[:maingrade]
         @maingrade = true
@@ -103,7 +110,7 @@ class GradesController < ApplicationController
   # GET /grades/1/edit
   def edit
     if current_user.role.rights.where(value: "update_subject").nil?
-      redirect_to :back, alert: "Sorry! You are not authorized"
+      redirect_to root_path, alert: "Sorry! You are not authorized"
     end
     if params[:maingrade]
       @maingrade = true
