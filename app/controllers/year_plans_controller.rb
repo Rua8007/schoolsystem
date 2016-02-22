@@ -13,8 +13,8 @@ class YearPlansController < ApplicationController
   def show
     @weeks = @year_plan.weeks.sort_by &:start_date
     if current_user.role.name == 'Teacher'
-      @grades = Grade.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:grade_id))
-      @subjects = Subject.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:subject_id))
+      @grades = Grade.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:grade_id)) rescue []
+      @subjects = Subject.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:subject_id)) rescue []
     else
       # for admins
       @grades = Grade.all
@@ -105,7 +105,7 @@ class YearPlansController < ApplicationController
     @year_plan = YearPlan.find(params[:id])
     @weeks = @year_plan.weeks.sort_by &:start_date
     if current_user.role.name == 'Teacher'
-      @grades = Grade.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:grade_id))
+      @grades = Grade.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:grade_id)) rescue []
       # @subjects = Subject.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:subject_id))
     else
       # for admins
@@ -122,7 +122,7 @@ class YearPlansController < ApplicationController
     @week = Week.find(params[:week_id])
 
     if current_user.role.name == 'Teacher'
-      @subjects = Subject.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:subject_id)).order('name')
+      @subjects = Subject.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:subject_id)).order('name') rescue []
     else
       @subjects = Subject.all.order('name')
     end
