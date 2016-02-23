@@ -2,10 +2,4 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-$(document).ready ->
-  $('body').on 'click', '.select-subject' , ->
-    if $(this).prop('checked')
-      $(this).parents('.row').find('input[type="text"]').attr('required', 'true')
-    else
-      $(this).parents('.row').find('input[type="text"]').attr('required', 'false')
 

@@ -13,6 +13,7 @@
   <div class="row">
     <h3>Select Subjects</h3>
     <h3>Selected: <span class="subject-count"><%= @grade.associations.length %></span>/<%= @subjects.length %></h3>
+    <h3>Lec Per Week: <span class="lec-count"><%= @grade.associations.try(:sum, :lectures) %></span>/<%= 40 %></h3>
   </div>
   <% @subjects.try(:each_with_index) do |sub, index| %>
     <div class="row">
@@ -21,12 +22,12 @@
       <% else %>
           <div class="col-sm-1"><%= index + 1 %></div>
           <div class="col-md-3 col-sm-4">
-            <%= check_box_tag "flags[#{sub.id}][check]",'' , @grade.associations.where(subject_id: sub.id).any? , class: 'checkbox1 select-subject' %>&nbsp <span class="subject-name"><%= sub.name %></span>
+            <%= check_box_tag "flags[#{sub.id}][check]",'' , @grade.associations.where(subject_id: sub.id).any? , data: { subject: "#{sub.name}"}, class: "checkbox1 select-subject check_#{sub.name}" %>&nbsp <span class="subject-name"><%= sub.name %></span>
           </div>
           <div class="col-sm-2 col-md-2"></div>
           <div class="col-md-4 col-sm-4">
             <% @association = @grade.associations.where(subject_id: sub.id).first %>
-            <%= text_field_tag "flags[#{sub.id}][lectures]",'' , class: 'form-control numeric', placeholder: 'Lec. Per Week.', value: @association.try(:lectures) %>
+            <%= text_field_tag "flags[#{sub.id}][lectures]",'' , class: 'form-control numeric lec-per-week', id: "#{sub.name}", placeholder: 'Lec. Per Week.', value: @association.try(:lectures) %>
           </div>
       <% end %>
     </div>
@@ -56,11 +57,38 @@
   $('.select-subject').on('click', function(){
     var count = parseInt($('.subject-count').html());
     if($(this).is(':checked')){
+      $(this).parents('.row').find('input[type="text"]').attr('required', 'true');
       count = count + 1;
     }
     else{
+      alert(1);
+      $(this).parents('.row').find('input[type="text"]').removeAttr('required');
       count = count - 1;
     }
     $('.subject-count').html(count);
+  });
+
+  $('.lec-per-week').on('focusout', function(){
+    var count =  0 ;
+    $('.lec-per-week').each(function(){
+      var lecture = 0;
+      lecture = ($(this).val());
+      lecture = parseInt(lecture);
+      if(!(isNaN(lecture))){
+        count = count + lecture;
+      }
+      $('.lec-count').html(count);
+    });
+  });
+
+  $('form').on('submit', function(){
+    if(parseInt($('.lec-count').html()) > 40){
+      alert('Lec. Per Week Is Greater Than 40.');
+      return false;
+    }
+    else{
+      return true;
+    }
+
   });
 </script>

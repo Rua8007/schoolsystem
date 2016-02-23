@@ -38,7 +38,7 @@
 html {
   font-family: Helvetica, Arial, sans-serif;
   font-size: 100%;
-  background: #333;
+  /*background: #333;*/
   -webkit-font-smoothing: antialiased;
 }
 
