@@ -186,6 +186,13 @@ class MarksController < ApplicationController
     @exam = Exam.find_by_id(params[:exam_id])
     @setting = ReportCardSetting.find_by(grade_id: @main_grade.id, batch_id: @class.batch_id, exam_id: @exam.id)
     @subject = ReportCardSubject.find_by_id(params[:subject_id])
+
+    respond_to do |format|
+      format.js
+      format.pdf{
+        render pdf: "#{@subject.name}_#{@exam.name}", layout: 'pdf.html.erb', template: 'marks/get_subject_result.pdf.erb'
+      }
+    end
   end
 
   def class_result

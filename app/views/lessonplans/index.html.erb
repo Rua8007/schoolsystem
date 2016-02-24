@@ -57,7 +57,7 @@
       <% else %>
         <tr class="disapproved-row">
       <% end %>
-        <td><%= link_to "#{lessonplan.grade.name}",lessonplan_path(lessonplan) %></td>
+        <td><%= link_to "#{lessonplan.grade.try(:full_name)}",lessonplan_path(lessonplan) %></td>
         <td><%= lessonplan.subject.name %></td>
         <td><%= link_to '', lessonplan,:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
             <%= link_to '', edit_lessonplan_path(lessonplan),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
