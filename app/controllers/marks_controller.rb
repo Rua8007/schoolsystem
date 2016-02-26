@@ -190,7 +190,10 @@ class MarksController < ApplicationController
     respond_to do |format|
       format.js
       format.pdf{
-        render pdf: "#{@subject.name}_#{@exam.name}", layout: 'pdf.html.erb', template: 'marks/get_subject_result.pdf.erb'
+        render pdf: "#{@subject.name}_#{@exam.name}", template: 'marks/get_subject_result.pdf.erb',
+               layout: 'pdf.html.erb', margin: { top: 30, bottom: 11, left: 5, right: 5},
+               header: { html: { template: 'shared/pdf_portrait_header.html.erb'} }, show_as_html: false,
+               footer: { html: { template: 'shared/pdf_portrait_footer.html.erb'} }
       }
     end
   end
@@ -237,7 +240,10 @@ class MarksController < ApplicationController
       format.html{}
       format.pdf {
         @exam = Exam.find(params[:exam_id])
-        render pdf: "#{@student.fullname}-#{@exam.name}-#{@batch.name}", template: 'marks/quarter_result.pdf.erb',  layout: 'pdf.html.erb', orientation: 'Landscape', margin: { top: 5, bottom: 11, left: 0, right: 0}
+        render pdf: "#{@student.fullname}-#{@exam.name}-#{@batch.name}", template: 'marks/quarter_result.pdf.erb',
+               layout: 'pdf.html.erb', orientation: 'Landscape', margin: { top: 30, bottom: 11, left: 5, right: 5},
+               header: { html: { template: 'shared/pdf_landscape_header.html.erb'} }, show_as_html: false,
+               footer: { html: { template: 'shared/pdf_landscape_footer.html.erb'} }
       }
     end
   end
@@ -255,7 +261,10 @@ class MarksController < ApplicationController
     respond_to do |format|
       format.html{}
       format.pdf {
-        render pdf: "#{@student.fullname}-#{@batch.name}", template: 'marks/complete_result_card.pdf.erb',  layout: 'pdf.html.erb', orientation: 'Landscape', margin: { top: 5, bottom: 11, left: 0, right: 0}
+        render pdf: "#{@student.fullname}-#{@batch.name}", template: 'marks/complete_result_card.pdf.erb',
+               layout: 'pdf.html.erb', orientation: 'Landscape', margin: { top: 30, bottom: 11, left: 5, right: 5},
+               header: { html: { template: 'shared/pdf_landscape_header.html.erb'} }, show_as_html: false,
+               footer: { html: { template: 'shared/pdf_landscape_footer.html.erb'} }
       }
     end
   end
@@ -281,6 +290,21 @@ class MarksController < ApplicationController
       format.html
       format.js
     end
+  end
+
+  def print_all_students_results
+    @class    = Grade.find(params[:class_id]) if params[:class_id].present?
+    @exam     = Exam.find(params[:exam_id]) if params[:exam_id].present?
+    @batch    = Batch.find(params[:batch_id]) if params[:batch_id].present?
+    @main_grade = @class.parent if @class.present?
+    @exams = Exam.where(grade_id: @main_grade.id, batch_id: @batch.id).order('name') || []
+    @settings = ReportCardSetting.where(grade_id: @main_grade.id, batch_id: @batch.id)
+
+    render pdf: "#{@class.full_name}-#{@batch.name}", template: 'marks/print_all_students_results.pdf.erb',
+           layout: 'pdf.html.erb', orientation: 'Landscape', margin: { top: 30, bottom: 11, left: 5, right: 5},
+           header: { html: { template: 'shared/pdf_landscape_header.html.erb'} }, show_as_html: false,
+           footer: { html: { template: 'shared/pdf_landscape_footer.html.erb'} }
+
   end
 
   private

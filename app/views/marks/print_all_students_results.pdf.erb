@@ -1,0 +1,17 @@
+<% @class.students.try(:each) do |std| %>
+    <% @student = std %>
+    <% @report_card = ReportCard.find_by(student_id: @student.id, grade_id: @class.id, batch_id: @batch.id) %>
+    <% if @exam.present? %>
+        <h4 class="text-center"><%= "#{@student.fullname} - #{@student.rollnumber}" %></h4>
+        <h4 class="text-center"><%= "#{@class.full_name} - #{@exam.name}" %></h4>
+      <%= render partial: 'marks/quarter_result.html.erb', locals: {exam: @exam } %>
+      <div class="page-break"></div>
+    <% else %>
+        <% @exams.each do |exam| %>
+            <h4 class="text-center"><%= "#{@student.fullname} - #{@student.rollnumber}" %></h4>
+            <h4 class="text-center"><%= "#{@class.full_name} - #{exam.name}" %></h4>
+            <%= render partial: 'marks/quarter_result.html.erb', locals: {exam: exam } %>
+            <div class="page-break"></div>
+        <% end %>
+    <% end %>
+<% end %>

@@ -143,8 +143,10 @@ class YearPlansController < ApplicationController
 
       respond_to do |format|
         format.pdf {
-          render pdf: "#{@week.label}", template: 'year_plans/print_weekly_schedule.pdf.erb',
-                 layout: 'pdf.html.erb', orientation: 'Landscape', margin: { top: 5, bottom: 11, left: 5, right: 5}
+          render pdf: "#{@week.label}", template: 'year_plans/print_weekly_schedule.pdf.erb', layout: 'pdf.html.erb',
+                 margin: { top: 30, bottom: 11, left: 5, right: 5},
+                 header: { html: { template: 'shared/pdf_portrait_header.html.erb'} }, show_as_html: false,
+                 footer: { html: { template: 'shared/pdf_portrait_footer.html.erb'} }
 
         }
         format.html{ render 'complete_weekly_schedule' }

@@ -67,7 +67,9 @@ class GradesController < ApplicationController
           @grades = Grade.where('section IS NOT NULL').order('name')
           @title = 'All Classes List'
           render pdf: 'classes.pdf', template: 'grades/index.pdf.erb',  layout: 'pdf.html.erb',
-                 orientation: 'Portrait', show_as_html: false, margin: { top: 5, bottom: 10, left: 5, right: 5}
+                 margin: { top: 30, bottom: 11, left: 5, right: 5},
+                 header: { html: { template: 'shared/pdf_portrait_header.html.erb'} }, show_as_html: false,
+                 footer: { html: { template: 'shared/pdf_portrait_footer.html.erb'} }
         }
       end
     end
@@ -86,7 +88,9 @@ class GradesController < ApplicationController
         @bridges = @grade.bridges
         @title = "Grade: #{@grade.full_name} - Subject Assignments"
         render pdf: 'subjects_assignments.pdf', template: 'grades/show.pdf.erb',  layout: 'pdf.html.erb',
-               orientation: 'Portrait', show_as_html: false, margin: { top: 5, bottom: 10, left: 5, right: 5}
+               margin: { top: 30, bottom: 11, left: 5, right: 5},
+               header: { html: { template: 'shared/pdf_portrait_header.html.erb'} }, show_as_html: false,
+               footer: { html: { template: 'shared/pdf_portrait_footer.html.erb'} }
       }
     end
   end

@@ -189,6 +189,8 @@ end
   get 'complete_result_card/:student_id/:class_id/:batch_id' => 'marks#complete_result_card', as: :complete_result_card
   get 'complete_result_card/:student_id/:class_id/:batch_id/:format' => 'marks#complete_result_card', as: :complete_pdf_result_card
 
+  get 'print_all_students_results' => 'marks#print_all_students_results', as: :print_all_students_results
+
   ##### Parents/Students Portal #####
   match 'my_results/' => 'marks#my_results', as: :my_results, via: [:get, :post]
   resources :marksheets do

@@ -1,5 +1,12 @@
 <% if @setting.present? %>
-<h3><%= klass.full_name %> <%= klass.batch.name %></h3>
+  <div class="col-md-2 pull-right">
+    <%= link_to 'Print All Quarters Result', print_all_students_results_path({class_id: @class.id, batch_id: @class.batch_id}), class: 'pull-right btn btn-success' %>
+  </div>
+  <div class="col-md-2 pull-right">
+    <%= link_to "Print #{exam.name} Result", print_all_students_results_path({class_id: @class.id, batch_id: @class.batch_id, exam_id: exam.id}), class: 'pull-right btn btn-primary' %>
+  </div>
+  <h3><%= klass.full_name %> <%= klass.batch.name %></h3>
+
 <table class="table table-responsive" style="overflow-x: auto">
   <thead class="table-head">
   <tr>

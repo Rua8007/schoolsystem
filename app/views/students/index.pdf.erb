@@ -1,2 +1,2 @@
-<%= render partial: 'shared/pdf_header.html.erb' %>
+<h3 class="text-center"><%= @title %></h3>
 <%= render partial: 'shared/table.html.erb', locals: {records: @students, headers: Student::LIST_HEADER} %>
