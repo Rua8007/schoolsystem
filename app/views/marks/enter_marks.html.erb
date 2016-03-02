@@ -7,7 +7,7 @@
 <br/>
 <%= form_tag(save_marks_path, method: :post, class: 'col-form') do %>
 <div class="row">
-  <div class="col-sm-9 col-md-9">
+  <div class="col-sm-8 col-md-8">
     <% @marks_divisions.where(is_divisible: true).try(:each) do |division| %>
         <% klass = (@marks_division.id == division.id)? 'btn btn-success' : 'btn btn-primary' %>
         <%= link_to division.name, enter_division_marks_path(@class.id, @subject.id, @exam.id, division.id), {role: 'button', class: klass } %>
@@ -18,10 +18,11 @@
         <%= link_to division.name, enter_division_marks_path(@class.id, @subject.id, @exam.id, division.id), {role: 'button', class: klass } %>
     <% end %>
   </div>
-  <div class="col-sm-3 col-md-3">
+  <div class="col-sm-4 col-md-4">
     <div class="pull-right">
       <%= submit_tag 'Save Marks', class: 'btn btn-info' %>
       <button class="btn btn-success" id="addmore">Add More</button>
+      <%= link_to 'Upload From CSV', upload_csv_path(@class.id, @exam.id, @subject.id), class: 'btn btn-primary' %>
     </div>
   </div>
 </div>
@@ -67,7 +68,7 @@
               <% @students.try(:each) do |std| %>
                   <% @student_report_card = ReportCard.find_by( grade_id: @class.id, batch_id: @class.batch_id, student_id: std.id) %>
                   <% @student_mark = Mark.find_by(report_card_id: @student_report_card.id, exam_id: @exam.id, subject_id: @report_card_subject.id, division_id: @marks_division.id) %>
-                  <%= text_field_tag "sessionals[#{std.id}][]" , @student_mark.sessionals.find_by(name: sessional.name).obtained_marks ,class: " absense-input calculate"+std.id.to_s %>
+                  <%= text_field_tag "sessionals[#{std.id}][]" , (@student_mark.sessionals.find_by(name: sessional.name).try(:obtained_marks) rescue nil),class: " absense-input calculate"+std.id.to_s %>
               <% end %>
             </div>
         <% end %>

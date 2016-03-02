@@ -1,3 +1,4 @@
+require 'csv'
 class MarksController < ApplicationController
   include MarksHelper
   before_action :set_mark, only: [:show, :edit, :update, :destroy]
@@ -293,18 +294,84 @@ class MarksController < ApplicationController
   end
 
   def print_all_students_results
-    @class    = Grade.find(params[:class_id]) if params[:class_id].present?
-    @exam     = Exam.find(params[:exam_id]) if params[:exam_id].present?
-    @batch    = Batch.find(params[:batch_id]) if params[:batch_id].present?
+    @class      = Grade.find(params[:class_id]) if params[:class_id].present?
+    @exam       = Exam.find(params[:exam_id]) if params[:exam_id].present?
+    @batch      = Batch.find(params[:batch_id]) if params[:batch_id].present?
     @main_grade = @class.parent if @class.present?
-    @exams = Exam.where(grade_id: @main_grade.id, batch_id: @batch.id).order('name') || []
-    @settings = ReportCardSetting.where(grade_id: @main_grade.id, batch_id: @batch.id)
+    @exams      = Exam.where(grade_id: @main_grade.id, batch_id: @batch.id).order('name') || []
+    @settings   = ReportCardSetting.where(grade_id: @main_grade.id, batch_id: @batch.id)
 
     render pdf: "#{@class.full_name}-#{@batch.name}", template: 'marks/print_all_students_results.pdf.erb',
            layout: 'pdf.html.erb', orientation: 'Landscape', margin: { top: 30, bottom: 11, left: 5, right: 5},
            header: { html: { template: 'shared/pdf_landscape_header.html.erb'} }, show_as_html: false,
            footer: { html: { template: 'shared/pdf_landscape_footer.html.erb'} }
 
+  end
+
+  def upload_csv
+    @class      = Grade.find(params[:class_id])     if params[:class_id].present?
+    @exam       = Exam.find(params[:exam_id])       if params[:exam_id].present?
+    @subject    = Subject.find(params[:subject_id]) if params[:subject_id].present?
+
+  end
+
+  def process_csv
+
+    @class      = Grade.find(params[:class_id])     if params[:class_id].present?
+    @main_grade = @class.parent if @class.present?
+    @exam       = Exam.find(params[:exam_id])       if params[:exam_id].present?
+    @subject    = Subject.find(params[:subject_id]) if params[:subject_id].present?
+    @setting    = ReportCardSetting.find_by(grade_id: @main_grade.id,
+                  batch_id: @class.batch_id, exam_id: @exam.id) if @main_grade.present?
+
+    text = File.read(params[:csv].tempfile) if params[:csv].present?
+    begin
+      if text.present?
+        csv = CSV.parse(text)
+        marks_divisions = csv[5]
+        csv.each_with_index do |row, row_index|
+          check = row[0].to_i rescue nil
+          if row_index > 7 and check.present? and check != 0
+            puts "Row: =============================================== #{row.inspect} ========================================="
+            student_name = row[1].strip
+            student = Student.find_by_fullname(student_name)
+            puts "Student:========================================= #{student.inspect} ========================================="
+            marks_divisions.each_with_index do |division, division_index|
+
+              puts "Division Name: ========================================= #{division} ========================================="
+              if division.present? and division.respond_to?(:to_i) and division.to_i == 0 and division != 'Names'
+                marks_division = @setting.marks_divisions.find_by_name(division.strip)
+                puts "Marks Division: ========================================= #{marks_division.inspect} ========================================="
+                report_card_subject = @setting.subjects.find_by(name: @subject.name, code: @subject.code) if @subject.present?
+                report_card = ReportCard.find_by student_id: student.id, grade_id: @class.id, batch_id: @class.batch_id
+                puts "Found Report Card: #{report_card.inspect}"
+
+                if marks_division.present? and report_card_subject.present? and student.present? and report_card.present?
+                  puts '==========================Entering Marks ============================================'
+                  mark = Mark.find_or_create_by(report_card_id: report_card.id, exam_id: @exam.id,
+                                                subject_id: report_card_subject.id, division_id: marks_division.id)
+
+                  puts "Found Mark: #{mark.inspect}"
+                  mark.sessionals.try(:destroy_all)
+                  sessional = Sessional.find_or_create_by name: "#{marks_division.name} 1", mark_id: mark.id
+                  puts "Division Index: #{division_index}"
+                  puts "File Marks: #{row[division_index].try(:to_f)}"
+                  sessional.update( obtained_marks: row[division_index].try(:to_f), mark_date: Date.today)
+                  mark.update(obtained_marks: mark.sessionals.average(:obtained_marks), passing_marks: marks_division.passing_marks, total_marks: marks_division.total_marks)
+                end
+              end
+            end
+          end
+        end
+        flash[:alert] = 'Marks Uploaded Successfully.'
+      else
+        flash[:alert] = 'Bad Format. Please See the Sample File.'
+      end
+    rescue
+      flash[:notice] = 'Bad Format. Please See the Sample File.'
+    end
+
+    redirect_to select_subject_and_exam_path(@class.id, current_user.id)
   end
 
   private
