@@ -334,13 +334,13 @@ class MarksController < ApplicationController
           check = row[0].to_i rescue nil
           if row_index > 7 and check.present? and check != 0
             puts "Row: =============================================== #{row.inspect} ========================================="
-            student_name = row[1].strip
-            student = Student.find_by_fullname(student_name)
+            rollnumber = row[0].strip
+            student = Student.find_by_rollnumber(rollnumber)
             puts "Student:========================================= #{student.inspect} ========================================="
             marks_divisions.each_with_index do |division, division_index|
 
               puts "Division Name: ========================================= #{division} ========================================="
-              if division.present? and division.respond_to?(:to_i) and division.to_i == 0 and division != 'Names'
+              if division.present? and division.respond_to?(:to_i) and division.to_i == 0 and division != 'Names' and student.present?
                 marks_division = @setting.marks_divisions.find_by_name(division.strip)
                 puts "Marks Division: ========================================= #{marks_division.inspect} ========================================="
                 report_card_subject = @setting.subjects.find_by(name: @subject.name, code: @subject.code) if @subject.present?
