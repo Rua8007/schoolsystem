@@ -7,7 +7,7 @@
     </div>
     <div class="form-group col-md-4">
       <label for="class_id"> Select Quarter</label>
-      <%= select_tag 'exam_id', options_from_collection_for_select(exams, :id, :name), class: 'form-control'  %>
+      <%= select_tag 'exam_id', options_from_collection_for_select(exams, :id, :name, @exam.id), class: 'form-control exam-select'  %>
     </div>
     <div class="col-md-2">
       <div class="actions" style="margin-top: 1.7em;">
@@ -18,3 +18,20 @@
 <% else %>
     You have not entered marks for any subjects in this class.
 <% end %>
+
+<script type="text/javascript">
+  $(document).on('change', '.exam-select',function(){
+    var exam_id = $(this).val();
+    var class_id = $('.class-select').val();
+    $.ajax({
+      url: '/subject_result',
+      method: 'post',
+      dataType: 'script',
+      data: {
+        class_id: class_id,
+        exam_id:  exam_id
+      }
+    });
+  });
+
+</script>

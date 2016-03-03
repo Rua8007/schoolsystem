@@ -157,7 +157,8 @@ class MarksController < ApplicationController
     @class = params[:class_id].present? ? Grade.find_by(id: params[:class_id]) : @classes.first
     @main_grade = @class.parent if @class.present?
     @exams = @main_grade.exams.where(batch_id: @class.batch_id)
-    @exam = @exams.first
+    @exam = Exam.find(params[:exam_id]) if params[:exam_id].present?
+    @exam = @exams.first if @exam.nil?
 
 
     @class_bridges = @bridges.map{ |k| k if k.grade_id == @class.id }.compact
