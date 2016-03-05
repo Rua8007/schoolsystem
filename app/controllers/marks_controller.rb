@@ -375,6 +375,54 @@ class MarksController < ApplicationController
     redirect_to select_subject_and_exam_path(@class.id, current_user.id)
   end
 
+  def download_sample
+    @class      = Grade.find(params[:class_id])     if params[:class_id].present?
+    @main_grade = @class.parent if @class.present?
+    @exam       = Exam.find(params[:exam_id])       if params[:exam_id].present?
+    @subject    = Subject.find(params[:subject_id]) if params[:subject_id].present?
+    @setting    = ReportCardSetting.find_by(grade_id: @main_grade.id,
+                                            batch_id: @class.batch_id, exam_id: @exam.id) if @main_grade.present?
+    @employee  = Employee.find_by_email(current_user.email)
+
+    csv_string = CSV.generate do |csv|
+      csv << ["#{Constants::SCHOOL_NAME}"]
+      csv << ["#{@exam.name} Grade Sheet"]
+
+      division_array = ['', "Teacher: #{@employee.try(:name)}"]
+      @setting.marks_divisions.where(is_divisible: true).try(:each) do |division|
+        division_array << ' '
+      end
+      division_array << "Grade: #{@class.full_name}"
+      csv << division_array
+      csv << []
+      division_array = ['', "Subject: #{@subject.name}"]
+      @setting.marks_divisions.where(is_divisible: true).try(:each) do |division|
+        division_array << ' '
+      end
+
+      division_array = division_array + ['Quarter TW Total', 'Quiz & Evaluations Q2', ' ', 'Quiz & Evaluation total' ]
+      csv << division_array
+
+      division_array = ['', 'Names']
+      @setting.marks_divisions.where(is_divisible: true).try(:each) do |division|
+        division_array << division.name
+      end
+      division_array << "#{@setting.marks_divisions.where(is_divisible: true).try(:sum, :total_marks)}"
+
+      @setting.marks_divisions.where(is_divisible: false).try(:each) do |division|
+        division_array << division.name
+      end
+      division_array << "#{@setting.marks_divisions.where(is_divisible: false).try(:sum, :total_marks)}"
+      csv << division_array
+
+      @class.students.try(:each) do |student|
+        csv << ["#{student.rollnumber}", "#{student.fullname}"]
+      end
+    end
+
+    send_data csv_string, type: 'application/csv', filename: 'sample.csv'
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_mark

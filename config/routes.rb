@@ -192,6 +192,7 @@ end
   get 'print_all_students_results' => 'marks#print_all_students_results', as: :print_all_students_results
   get 'upload_csv/:class_id/:exam_id/:subject_id' => 'marks#upload_csv', as: :upload_csv
   post 'process_csv' => 'marks#process_csv', as: :process_csv
+  get 'download_sample/:class_id/:exam_id/:subject_id' => 'marks#download_sample', as: :download_sample
 
   ##### Parents/Students Portal #####
   match 'my_results/' => 'marks#my_results', as: :my_results, via: [:get, :post]

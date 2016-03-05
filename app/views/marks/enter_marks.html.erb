@@ -7,7 +7,7 @@
 <br/>
 <%= form_tag(save_marks_path, method: :post, class: 'col-form') do %>
 <div class="row">
-  <div class="col-sm-8 col-md-8">
+  <div class="col-sm-7 col-md-7">
     <% @marks_divisions.where(is_divisible: true).try(:each) do |division| %>
         <% klass = (@marks_division.id == division.id)? 'btn btn-success' : 'btn btn-primary' %>
         <%= link_to division.name, enter_division_marks_path(@class.id, @subject.id, @exam.id, division.id), {role: 'button', class: klass } %>
@@ -18,11 +18,12 @@
         <%= link_to division.name, enter_division_marks_path(@class.id, @subject.id, @exam.id, division.id), {role: 'button', class: klass } %>
     <% end %>
   </div>
-  <div class="col-sm-4 col-md-4">
+  <div class="col-sm-5 col-md-5">
     <div class="pull-right">
       <%= submit_tag 'Save Marks', class: 'btn btn-info' %>
       <button class="btn btn-success" id="addmore">Add More</button>
       <%= link_to 'Upload From CSV', upload_csv_path(@class.id, @exam.id, @subject.id), class: 'btn btn-primary' %>
+      <%= link_to 'Sample', download_sample_path(@class.id, @exam.id, @subject.id), class: 'btn btn-primary' %>
     </div>
   </div>
 </div>
