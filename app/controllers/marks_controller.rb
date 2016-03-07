@@ -93,7 +93,7 @@ class MarksController < ApplicationController
     @subject = Subject.find(params[:subject_id])
     @main_grade = @class.parent if @class.present?
     if @class.students.present?
-      @students = @class.students.sort_by { |k| k.fullname }
+      @students = @class.students.sort_by { |k| k.rollnumber }
     end
 
     if current_user.role.name == 'Teacher'
@@ -329,10 +329,9 @@ class MarksController < ApplicationController
     begin
       if text.present?
         csv = CSV.parse(text)
-        marks_divisions = csv[5]
+        marks_divisions = csv[0]
         csv.each_with_index do |row, row_index|
-          check = row[0].to_i rescue nil
-          if row_index > 7 and check.present? and check != 0
+          if row_index > 0
             puts "Row: =============================================== #{row.inspect} ========================================="
             rollnumber = row[0].strip
             student = Student.find_by_rollnumber(rollnumber)
@@ -353,7 +352,6 @@ class MarksController < ApplicationController
                                                 subject_id: report_card_subject.id, division_id: marks_division.id)
 
                   puts "Found Mark: #{mark.inspect}"
-                  mark.sessionals.try(:destroy_all)
                   sessional = Sessional.find_or_create_by name: "#{marks_division.name} 1", mark_id: mark.id
                   puts "Division Index: #{division_index}"
                   puts "File Marks: #{row[division_index].try(:to_f)}"
@@ -385,34 +383,15 @@ class MarksController < ApplicationController
     @employee  = Employee.find_by_email(current_user.email)
 
     csv_string = CSV.generate do |csv|
-      csv << ["#{Constants::SCHOOL_NAME}"]
-      csv << ["#{@exam.name} Grade Sheet"]
-
-      division_array = ['', "Teacher: #{@employee.try(:name)}"]
-      @setting.marks_divisions.where(is_divisible: true).try(:each) do |division|
-        division_array << ' '
-      end
-      division_array << "Grade: #{@class.full_name}"
-      csv << division_array
-      csv << []
-      division_array = ['', "Subject: #{@subject.name}"]
-      @setting.marks_divisions.where(is_divisible: true).try(:each) do |division|
-        division_array << ' '
-      end
-
-      division_array = division_array + ['Quarter TW Total', 'Quiz & Evaluations Q2', ' ', 'Quiz & Evaluation total' ]
-      csv << division_array
 
       division_array = ['', 'Names']
       @setting.marks_divisions.where(is_divisible: true).try(:each) do |division|
         division_array << division.name
       end
-      division_array << "#{@setting.marks_divisions.where(is_divisible: true).try(:sum, :total_marks)}"
 
       @setting.marks_divisions.where(is_divisible: false).try(:each) do |division|
         division_array << division.name
       end
-      division_array << "#{@setting.marks_divisions.where(is_divisible: false).try(:sum, :total_marks)}"
       csv << division_array
 
       @class.students.try(:each) do |student|

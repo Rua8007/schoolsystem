@@ -23,7 +23,7 @@
       <%= submit_tag 'Save Marks', class: 'btn btn-info' %>
       <button class="btn btn-success" id="addmore">Add More</button>
       <%= link_to 'Upload From CSV', upload_csv_path(@class.id, @exam.id, @subject.id), class: 'btn btn-primary' %>
-      <%= link_to 'Sample', download_sample_path(@class.id, @exam.id, @subject.id), class: 'btn btn-primary' %>
+      <%= link_to 'Sample File', download_sample_path(@class.id, @exam.id, @subject.id), class: 'btn btn-primary' %>
     </div>
   </div>
 </div>
@@ -34,6 +34,15 @@
   <%= hidden_field_tag 'subject_id', @subject.id %>
   <%= hidden_field_tag 'division_id', @marks_division.id %>
   <div style=" 	width: 1050px; /* arbitary for demo only */white-space: nowrap; overflow-y: hidden; overflow-x: scroll;-webkit-overflow-scrolling: touch;">
+
+    <div class="well well-lg col-md-2" style="min-height:500px; float:none !important;display: inline-block;vertical-align: top;">
+      <span style= "background:green; color:white;padding: 7px 10px;font-size: 15px">Student ID</span>
+      <div class="performance-holder">
+        <% @students.try(:each) do |std| %>
+            <strong class="student-names" style="text-align: left;"><%= std.rollnumber%> </strong>
+        <% end %>
+      </div>
+    </div>
 
     <div class="well well-lg col-md-3" style="min-height:500px; float:none !important;display: inline-block;vertical-align: top;">
       <span style= "background:green; color:white;padding: 7px 10px;font-size: 15px">Student Name</span>
