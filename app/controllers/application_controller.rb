@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :get_leave_requests_count
 
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :set_locale
 
   layout :layout_by_resource
 
@@ -28,8 +28,17 @@ end
     end
   end
 
+
+  def set_locale
+    I18n.locale = params[:locale] || I18n.default_locale
+  end
+
   def get_leave_requests_count
     @leave_requests_count = Leave.where(approved: nil).count
     @year_plan = YearPlan.first
+  end
+
+  def default_url_options(options = {})
+    { :locale => I18n.locale }
   end
 end

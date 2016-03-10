@@ -149,6 +149,8 @@
                   <%= link_to "Profile", employee_path(Employee.find_by_email(current_user.email).id) %>
                 <% end %>
               </li>
+              <li><%= link_to 'English', root_path({locale: 'en'}) %></li>
+              <li><%= link_to 'Arabic', root_path({locale: 'ar'}) %></li>
               <!-- <li>
                 <a ui-sref="app.docs">
                   <span class="label bg-info pull-right">new</span>
@@ -216,7 +218,7 @@
                 <li>
                   <a href>
                     <span class="badge bg-danger pull-right">3</span>
-                    Notifications
+                    <%= t('notification.notifications') %>
                   </a>
                 </li>
                 <li class="divider"></li>
@@ -246,7 +248,7 @@
                     <i class="fa fa-fw fa-angle-down text-active"></i>
                   </span>
                   <i class="glyphicon glyphicon-th"></i>
-                  <span>Master Setup</span>
+                  <span><%= 'Master Setup' %></span>
                 </a>
                 <ul class="nav nav-sub dk">
                   <li class="nav-sub-header">
@@ -276,7 +278,7 @@
                   <li>
                     <%= link_to(home_sms_path) do %>
                       <i class="glyphicon glyphicon-flag"></i>
-                      <span>Notifications</span>
+                      <span><%= t('notification.notifications') %></span>
                     <% end %>
                   </li>
                 <% end %>
@@ -289,25 +291,25 @@
                           <i class="fa fa-fw fa-angle-down text-active"></i>
                         </span>
                         <i class="glyphicon glyphicon-th"></i>
-                        <span>Students</span>
+                        <span><%= t('student.students') %></span>
                       </a>
                       <ul class="nav nav-sub dk">
                         <li class="nav-sub-header">
                           <%= link_to("") do %>
-                            <span>Students</span>
+                            <span><%= t('student.students') %></span>
                           <% end %>
                         </li>
                         <li>
                           <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'create_student').any? %>
                             <%= link_to(new_student_path) do %>
-                              <span>Admit Student</span>
+                              <span><%= t('student.admit_student') %></span>
                             <% end %>
                           <% end %>
                         </li>
                         <li>
                           <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'view_student').any? %>
                             <%= link_to(students_path) do %>
-                              <span>List All Students</span>
+                              <span><%= t('student.list_all_students') %></span>
                             <% end %>
                           <% end %>
                         </li>
@@ -323,41 +325,41 @@
                           <i class="fa fa-fw fa-angle-down text-active"></i>
                         </span>
                         <i class="glyphicon glyphicon-user"></i>
-                        <span>Teachers</span>
+                        <span><%= t('teacher.teachers')%></span>
                       </a>
                       <ul class="nav nav-sub dk">
                         <li class="nav-sub-header">
                           <%= link_to("") do %>
-                            <span>Teachers</span>
+                            <span><%= t('teacher.teachers') %></span>
                           <% end %>
                         </li>
                         <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'create_employee').any? %>
                           <li>
                             <%= link_to(new_employee_path) do %>
-                              <span>New Teacher</span>
+                              <span><%= t('teacher.new_employee') %></span>
                             <% end %>
                           </li>
                         <% end %>
                         <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'view_employee').any? %>
                           <li>
                             <%= link_to(employees_path) do %>
-                              <span>List All Teachers</span>
+                              <span><%= t('teacher.list_all_employess') %></span>
                             <% end %>
                           </li>
                         <% end %>
                         <li>
                           <%= link_to(categories_path) do %>
-                            <span>Manage Categories</span>
+                            <span><%= t('book_shop.manage_categories') %></span>
                           <% end %>
                         </li>
                         <li>
                           <%= link_to(departments_path) do %>
-                            <span>Manage Dept.</span>
+                            <span><%= t('teacher.manage_departments') %></span>
                           <% end %>
                         </li>
                         <li>
                           <%= link_to(positions_path) do %>
-                            <span>Manage Positions</span>
+                            <span><%= t('teacher.manage_positions') %></span>
                           <% end %>
                         </li>
                       </ul>
@@ -372,12 +374,12 @@
                             <i class="fa fa-fw fa-angle-down text-active"></i>
                           </span>
                           <i class="glyphicon glyphicon-book"></i>
-                          <span>Leave Requests</span>
+                          <span><%= t('leaves_request.leaves_requests') %></span>
                         </a>
                         <ul class="nav nav-sub dk">
                           <li class="nav-sub-header">
                             <%= link_to("") do %>
-                              <span>Leave Requests</span>
+                              <span><%= t('leaves_request.leaves_requests') %></span>
                             <% end %>
                           </li>
                           <li>
@@ -385,18 +387,18 @@
                               <% if @leave_requests_count.to_i > 0 %>
                                 <b class="badge bg-danger pull-right"><%= @leave_requests_count %></b>
                               <% end %>
-                              <span>New Leaves</span>
+                              <span><%= t('leaves_request.new_leave') %></span>
                             <% end %>
                           </li>
 
                           <li>
                               <%= link_to(leaves_path(approved: true)) do %>
-                              <span>Approved Leaves</span>
+                              <span><%= t('leaves_request.approved_leaves') %></span>
                             <% end %>
                           </li>
                           <li>
                               <%= link_to(leaves_path(rejected: true)) do %>
-                              <span>Rejected Leaves</span>
+                              <span><%= t('leaves_request.rejected_leaves') %></span>
                             <% end %>
                           </li>
                         </ul>
@@ -411,18 +413,18 @@
                             <i class="fa fa-fw fa-angle-down text-active"></i>
                           </span>
                           <i class="glyphicon glyphicon-book"></i>
-                          <span>Req. Approvals</span>
+                          <span><%= t('req_approval.request_approval') %></span>
                         </a>
                         <ul class="nav nav-sub dk">
                           <li class="nav-sub-header">
                             <%= link_to("") do %>
-                              <span>Attendance</span>
+                              <span><%= t('req_approval.attendance') %></span>
                             <% end %>
                           </li>
                           <% if current_user.role.rights(value: 'approve_curriculam').any? %>
                             <li>
                               <%= link_to(get_requested_curriculums_path) do %>
-                                <span>Curriculums</span>
+                                <span><%= t('plans.curriculum_plan') %></span>
                               <% end %>
                             </li>
                           <% end %>
@@ -454,7 +456,7 @@
                     <li>
                       <%= link_to(home_timetable_path) do %>
                         <i class="glyphicon glyphicon-tasks"></i>
-                        <span>Time Tables</span>
+                        <span><%= t('timetable.timetable') %></span>
                       <% end %>
                     </li>
                   <% end %>
@@ -463,7 +465,7 @@
                     <li>
                       <%= link_to(bus_allotment_path(Student.find_by_email(current_user.email).bus_allotment.id)) do %>
                         <i class="glyphicon glyphicon-tasks"></i>
-                        <span>Transport Details</span>
+                        <span><%= t('transport.transport_details') %></span>
                       <% end %>
                     </li>
                   <% end %>
@@ -473,7 +475,7 @@
                     <li>
                       <%= link_to(bus_allotment_path(Student.find(temp).bus_allotment.id)) do %>
                         <i class="glyphicon glyphicon-tasks"></i>
-                        <span>Transport Details</span>
+                        <span><%= t('transport.transport_details') %></span>
                       <% end %>
                     </li>
                   <% end %>
@@ -482,7 +484,7 @@
                     <li>
                       <%= link_to(transportfeerecords_path) do %>
                         <i class="glyphicon glyphicon-tasks"></i>
-                        <span>Transport Fee Details</span>
+                        <span><%= t('transport.transport_fee_records') %></span>
                       <% end %>
                     </li>
                   <% end %>
@@ -544,32 +546,32 @@
                           <i class="fa fa-fw fa-angle-down text-active"></i>
                         </span>
                         <i class="glyphicon glyphicon-time"></i>
-                        <span>Plans</span>
+                        <span><%= t('plan.plans') %></span>
                       </a>
                       <ul class="nav nav-sub dk">
                         <li class="nav-sub-header">
                           <%= link_to("") do %>
-                            <span>Plans</span>
+                            <span><%= t('plan.plans') %></span>
                           <% end %>
                         </li>
                         <% if current_user.role.rights.where("value = 'view_curriculum_plans'").any? || current_user.role.name == 'Teacher'%>
                           <li>
                             <%= link_to(curriculums_path(year_plan: @year_plan)) do %>
-                              <span>Curriculum Map</span>
+                              <span><%= t('plan.curriculum_plan') %></span>
                             <% end %>
                           </li>
                         <% end %>
                         <% if current_user.role.rights.where("value = 'view_lesson_plans'").any? || current_user.role.name == 'Teacher'%>
                           <li>
                             <%= link_to(lessonplans_path(year_plan: @year_plan)) do %>
-                              <span>Lesson Plans</span>
+                              <span><%= t('plan.lesson_plan') %></span>
                             <% end %>
                           </li>
                         <% end %>
                         <% if current_user.role.rights.where("value = 'view_weeklyplans' or value = 'create_week' or value = 'update_week' ").any? or current_user.role.name == 'Teacher'%>
                           <li>
                             <%= link_to(year_plan_weeks_path(@year_plan)) do %>
-                              <span>Weekly Plans</span>
+                              <span><%= t('plan.weekend_days') %></span>
                             <% end %>
                           </li>
                         <% end %>
@@ -584,25 +586,25 @@
                           <i class="fa fa-fw fa-angle-down text-active"></i>
                         </span>
                         <i class="glyphicon glyphicon-book"></i>
-                        <span> My Attendance</span>
+                        <span><%= t('attendance.my_attendance') %></span>
                       </a>
                       <ul class="nav nav-sub dk">
                         <li class="nav-sub-header">
                           <%= link_to("") do %>
-                            <span>Attendance</span>
+                            <span><%= t('attendance.attendance') %></span>
                           <% end %>
                         </li>
                         <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'create_eattendence').any? %>
                           <li>
                             <%= link_to(mark_attendance_calendar_employees_path) do %>
-                              <span>Mark Attendance</span>
+                              <span><%= t('attendance.mark_attendance') %></span>
                             <% end %>
                           </li>
                         <% end %>
                         <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'view_eattendence').any? %>
                           <li>
                             <%= link_to(monthly_attendance_report_employees_path) do %>
-                              <span>Attendance Report</span>
+                              <span><%= t('attendance.attendance_report') %></span>
                             <% end %>
                           </li>
                         <% end %>
@@ -617,7 +619,7 @@
                           <i class="fa fa-fw fa-angle-down text-active"></i>
                         </span>
                         <i class="glyphicon glyphicon-book"></i>
-                        <span> Student Attend.</span>
+                        <span><%= t('attendance.student_attendance') %></span>
                       </a>
                       <ul class="nav nav-sub dk">
                         <li class="nav-sub-header">
@@ -628,14 +630,14 @@
                         <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'create_sattendence').any? %>
                           <li>
                             <%= link_to(mark_attendance_calendar_students_path) do %>
-                              <span>Mark Attendance</span>
+                              <span><%= t('attendance.mark_attendance') %></span>
                             <% end %>
                           </li>
                         <% end %>
                         <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'view_sattendence').any? %>
                           <li>
                             <%= link_to(monthly_attendance_report_students_path) do %>
-                              <span>Attendance Report</span>
+                              <span><%= t('attendance.attendance_report') %></span>
                             <% end %>
                           </li>
                         <% end %>
@@ -685,7 +687,7 @@
                         <% if current_user.mailbox.inbox({:read => true}).count > 0 %>
                           <b class="badge bg-danger pull-right"><%= current_user.mailbox.inbox({:read => false}).count %></b>
                         <% end %>
-                        <span>Conversations</span>
+                        <span><%= t('conversation.conversations') %></span>
                       <% end %>
                     </li>
 
@@ -829,22 +831,22 @@
                         <i class="fa fa-fw fa-angle-down text-active"></i>
                       </span>
                       <i class="glyphicon glyphicon-bookmark"></i>
-                      <span>Batch</span>
+                      <span><%= t('grade_log.batch') %></span>
                     </a>
                     <ul class="nav nav-sub dk">
                       <li class="nav-sub-header">
                         <%= link_to("") do %>
-                          <span>Batch</span>
+                          <span><%= t('batch.batch') %></span>
                         <% end %>
                       </li>
                       <li>
                         <%= link_to(new_batch_path) do %>
-                          <span>Add Batch</span>
+                          <span><%= t('grade_log.add_batch') %></span>
                         <% end %>
                       </li>
                       <li>
                         <%= link_to(batches_path) do %>
-                          <span>List All Batches</span>
+                          <span><%= t('grade_log.list_all_batches') %></span>
                         <% end %>
                       </li>
                     </ul>
@@ -858,25 +860,25 @@
                         <i class="fa fa-fw fa-angle-down text-active"></i>
                       </span>
                       <i class="glyphicon glyphicon-book"></i>
-                      <span>Subject</span>
+                      <span><%= t('subject.subjects') %></span>
                     </a>
                     <ul class="nav nav-sub dk">
                       <li class="nav-sub-header">
                         <%= link_to("") do %>
-                          <span>Subject</span>
+                          <span><%= t('subject.subjects') %></span>
                         <% end %>
                       </li>
                       <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'create_subject').any? %>
                         <li>
                           <%= link_to(new_subject_path) do %>
-                            <span>Add Subject</span>
+                            <span><%= t('subject.add_subject') %></span>
                           <% end %>
                         </li>
                       <% end %>
                       <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'view_subject').any? %>
                         <li>
                           <%= link_to(subjects_path) do %>
-                            <span>List All Subjects</span>
+                            <span><%= t('subject.list_all_subjects') %></span>
                           <% end %>
                         </li>
                       <% end %>
@@ -892,31 +894,31 @@
                         <i class="fa fa-fw fa-angle-down text-active"></i>
                       </span>
                       <i class="glyphicon glyphicon-list-alt"></i>
-                      <span>Grade</span>
+                      <span><%= t('grade.grades') %></span>
                     </a>
                     <ul class="nav nav-sub dk">
                       <li class="nav-sub-header">
                         <%= link_to("") do %>
-                          <span>Grade</span>
+                          <span><%= t('grade.grades') %></span>
                         <% end %>
                       </li>
                       <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'create_grade').any? %>
 
                         <li>
                           <%= link_to(new_grade_path({maingrade: true})) do %>
-                            <span>Add Grade</span>
+                            <span><%= t('grade.add_grade') %></span>
                           <% end %>
                         </li>
                         <li>
                           <%= link_to(new_grade_path) do %>
-                            <span>Add Classes</span>
+                            <span><%= t('grade.add_classes') %></span>
                           <% end %>
                         </li>
                       <% end %>
                       <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'view_grade').any? %>
                         <li>
                           <%= link_to(all_grades_grades_path) do %>
-                            <span>List All grades</span>
+                            <span><%= t('grade.list_all_grades') %></span>
                           <% end %>
                         </li>
                       <% end %>
@@ -932,46 +934,46 @@
                         <i class="fa fa-fw fa-angle-down text-active"></i>
                       </span>
                       <i class="glyphicon glyphicon-plane"></i>
-                      <span>Transport</span>
+                      <span><%= t('transport.transport') %></span>
                     </a>
                     <ul class="nav nav-sub dk">
                         <li class="nav-sub-header">
                           <%= link_to("") do %>
-                            <span>Transport</span>
+                            <span><%= t('transport.transport') %></span>
                           <% end %>
                         </li>
 
                         <li>
                           <%= link_to(vehicles_path) do %>
-                            <span>List All Vehicles</span>
+                            <span><%= t('transport.list_all_vehicles') %></span>
                           <% end %>
                         </li>
                         <li>
                           <%= link_to(routes_path) do %>
-                            <span>List All Route</span>
+                            <span><%= t('transport.list_all_route') %></span>
                           <% end %>
                         </li>
                         <% if current_user.role.rights.where("value = 'create_transport'").any? %>
                           <li>
                             <%= link_to(new_stop_path) do %>
-                              <span>New Stop</span>
+                              <span><%= t('transport.new_stop') %></span>
                             <% end %>
                           </li>
                         <% end %>
                         <li>
                           <%= link_to(transports_path) do %>
-                            <span>Transport details</span>
+                            <span><%= t('transport.transport_details') %></span>
                           <% end %>
                         </li>
                       <li>
                         <%= link_to(bus_allotments_path) do %>
-                          <span>Allot Transportation details</span>
+                          <span><%= t('transport.allot_transportation_details') %></span>
                         <% end %>
                       </li>
 
                       <li>
                         <%= link_to(transportfeerecords_path) do %>
-                          <span>Transport Fee Records</span>
+                          <span><%= t('transport.transport_fee_records') %></span>
                         <% end %>
                       </li>
 
@@ -987,40 +989,40 @@
                         <i class="fa fa-fw fa-angle-down text-active"></i>
                       </span>
                       <i class="glyphicon glyphicon-shopping-cart"></i>
-                      <span>Book shop</span>
+                      <span><%= t('book_shop.bookshops') %></span>
                     </a>
                     <ul class="nav nav-sub dk">
                       <li class="nav-sub-header">
                         <%= link_to("") do %>
-                          <span>Book shop</span>
+                          <span><%= t('book_shop.bookshops') %></span>
                         <% end %>
                       </li>
                       <% if current_user.role.rights.where("value = 'create_bookshop'").any? %>
                         <li>
                           <%= link_to(shopcategories_path) do %>
-                            <span>All Categories</span>
+                            <span><%= t('book_shop.all_categories') %></span>
                           <% end %>
                         </li>
 
                         <li>
                           <%= link_to(add_stock_items_path) do %>
-                            <span>Add Stock</span>
+                            <span><%= t('book_shop.add_stock') %></span>
                           <% end %>
                         </li>
                       <% end %>
                       <li>
                         <%= link_to(items_path) do %>
-                          <span>All Items</span>
+                          <span><%= t('book_shop.all_items') %></span>
                         <% end %>
                       </li>
                       <li>
                         <%= link_to(packages_path) do %>
-                          <span>All package</span>
+                          <span><%= t('book_shop.all_package') %></span>
                         <% end %>
                       </li>
                       <li>
                         <%= link_to(invoices_path) do %>
-                          <span>Invoice</span>
+                          <span><%= t('book_shop.invoices') %></span>
                         <% end %>
                       </li>
                     </ul>
@@ -1073,7 +1075,7 @@
                         <i class="fa fa-fw fa-angle-down text-active"></i>
                       </span>
                       <i class="glyphicon glyphicon-briefcase icon"></i>
-                      <span>Grade Log</span>
+                      <span><%= t('grade_log.grade_logs') %></span>
                     </a>
                     <ul class="nav nav-sub dk">
                       <% if current_user.role.name == 'Teacher' %>
@@ -1087,7 +1089,7 @@
                       <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'design_report_cards').any? %>
                           <li>
                             <%= link_to(new_exam_path) do %>
-                                <span style="font-size: 85%">Design Report Cards</span>
+                                <span style="font-size: 85%"><%= t('grade_log.design_report_cards') %></span>
                             <% end %>
                           </li>
                       <% end %>
@@ -1095,7 +1097,7 @@
                       <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'edit_report_cards').any? %>
                           <li>
                             <%= link_to(select_report_card_path) do %>
-                                <span style="font-size: 85%">Edit Report Cards</span>
+                                <span style="font-size: 85%"><%= t('grade_log.edit_report_cards') %></span>
                             <% end %>
                           </li>
                       <% end %>
@@ -1103,7 +1105,7 @@
                       <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'subject_result').any? %>
                           <li>
                             <%= link_to(subject_result_path) do %>
-                                <span>Subject Result</span>
+                                <span><%= t('grade_log.subject_result') %></span>
                             <% end %>
                           </li>
                       <% end %>
@@ -1111,7 +1113,7 @@
                       <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'view_class_result').any? %>
                         <li>
                           <%= link_to(class_result_path) do %>
-                            <span>Class Result</span>
+                            <span><%= t('grade_log.class_result') %></span>
                           <% end %>
                         </li>
                       <% end %>
@@ -1127,7 +1129,7 @@
                     <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'publish_results').any? %>
                       <li>
                         <%= link_to(select_class_to_publish_path) do %>
-                            <span>Publish Results</span>
+                            <span><%= t('grade_log.publish_results') %></span>
                         <% end %>
                       </li>
                     <% end %>

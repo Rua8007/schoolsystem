@@ -27,8 +27,8 @@ class LessonplansController < ApplicationController
     if @year_plan.present?
       @lessonplan = @year_plan.lessonplans.build
       if current_user.role.name == 'Teacher'
-        @grades = Grade.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:grade_id))
-        @subjects = Subject.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:subject_id))
+        @grades = Grade.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:grade_id)) rescue nil
+        @subjects = Subject.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:subject_id)) rescue nil
       else
         # for admins
         @grades = Grade.all
@@ -57,15 +57,24 @@ class LessonplansController < ApplicationController
     @year_plan = YearPlan.find(params[:lessonplan][:year_plan_id])
 
     if @year_plan.present?
-      @lessonplan = @year_plan.lessonplans.build(lessonplan_params)
-
-   respond_to do |format|
+      grade_ids = params[:lessonplan][:grade_id] || []
+      grade_ids = grade_ids.compact
+      grade_ids.each do |grade_id|
+        @lessonplan = Lessonplan.find_or_initialize_by(grade_id: grade_id, subject_id: lessonplan_params[:subject_id],
+                                         year_plan_id: lessonplan_params[:year_plan_id] )
+        @lessonplan.assign_attributes(lessonplan_params)
+        @lessonplan.grade_id = grade_id
+        @success = false
         if @lessonplan.save
-
           params[:lessonplan_detail_days].each_with_index do |detail_day,i|
             @lessonplan.lessonplan_details.create!(period: params[:lessonplan_detail_days][i], procedure: params[:lessonplan_detail_details][i])
           end
+          @success = true
+        end
+      end
 
+   respond_to do |format|
+        if @success
           format.html { redirect_to lessonplans_path(year_plan: @year_plan.id), notice: 'Lesson plan was successfully created. And requested for approval' }
           format.json { render :show, status: :created, location: @lessonplan }
         else

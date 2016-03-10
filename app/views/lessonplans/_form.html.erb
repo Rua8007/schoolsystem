@@ -1,3 +1,8 @@
+<style type="text/css">
+  li, .select2 {
+    display: block;
+  }
+</style>
 <%= form_for(@lessonplan) do |f| %>
   <% if @lessonplan.errors.any? %>
     <div id="error_explanation">
@@ -22,7 +27,11 @@
               <div class="column col-xs-12 col-sm-3">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Class</label>
-                    <%= f.select :grade_id, options_from_collection_for_select(@grades,"id", "full_name"),{prompt: "Select Class"}, {class: 'form-control', required: true} %>
+                    <% if @lessonplan.new_record? %>
+                      <%= f.select :grade_id, options_from_collection_for_select(@grades,"id", "full_name"),{prompt: "Select Class"}, {class: 'form-control select-tag', required: true, multiple: true } if @grades.present? %>
+                    <% else %>
+                      <%= f.select :grade_id, options_from_collection_for_select(@grades,"id", "full_name"),{prompt: "Select Class"}, {class: 'form-control', required: true} %>
+                    <% end %>
                 </div>
               </div>
               <div class="column col-xs-12 col-sm-3">
@@ -106,6 +115,7 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
+    $('.select-tag').select2();
     $(function() {
       $(document).on('click','.add-lessonplan-detail', function (e) {
         e.preventDefault();
