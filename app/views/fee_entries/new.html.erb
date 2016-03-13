@@ -1,0 +1,11 @@
+<div class="row">
+  <%= render partial: 'shared/fee_navigation' %>
+</div>
+
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">New Fee Entry</h1>
+</div>
+
+<%= render 'form' %>
+
+<%= link_to 'Back', fee_entries_path, class: 'btn btn-primary' %>

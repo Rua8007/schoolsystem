@@ -24,3 +24,6 @@ en:
 
   notification:
     send: 'Send'
+
+  fee:
+    fee_entries: 'Fee Entries'

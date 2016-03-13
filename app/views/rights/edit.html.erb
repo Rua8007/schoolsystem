@@ -149,6 +149,14 @@
     <%= check_box_tag 'excalender[update_excalender]', '' , @rights.where(value: "update_excalender").any? ? true : false ,class: "ecal gen" %> Update Excalender
     <%= check_box_tag 'excalender[delete_excalender]', '' , @rights.where(value: "delete_excalender").any? ? true : false ,class: "ecal gen" %> Delete Excalender
 
+    <br />
+    <hr />
+    <h4><u>Fee Module</u></h4>
+    <input type="checkbox" class="gen" id="selecctall16" style="margin-left: 17px;margin-top: 18px;" /> Select All
+    <%= check_box_tag 'fee[view_fee]', '' , @rights.where(value: "view_fee").any? ? true : false , class: 'fee gen' %> View Fee Module
+    <br />
+    <%= check_box_tag 'fee[create_fee_entries]', '' , @rights.where(value: 'create_fee_entries').any? ? true : false , class: 'fee gen' %> Create Fee Entries
+
     <br>
     <hr>
     <h4><u>Settings and Others</u></h4>
@@ -431,6 +439,20 @@
                 this.checked = false; //deselect all checkboxes with class "checkbox1"
             });
         }
+    });
+    $('#selecctall16').click(function(event) {  //on click
+      console.log('i am selected');
+      if(this.checked) { // check select status
+        console.log("in checked")
+        $('.fee').each(function() { //loop through each checkbox
+          console.log("in loop")
+          this.checked = true;  //select all checkboxes with class "checkbox1"
+        });
+      }else{
+        $('.fee').each(function() { //loop through each checkbox
+          this.checked = false; //deselect all checkboxes with class "checkbox1"
+        });
+      }
     });
 
     $('#selecctall').click(function(event) {  //on click

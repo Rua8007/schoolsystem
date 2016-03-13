@@ -1,0 +1,2 @@
+module FeeEntriesHelper
+end
