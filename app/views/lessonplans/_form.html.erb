@@ -30,7 +30,7 @@
                     <% if @lessonplan.new_record? %>
                       <%= f.select :grade_id, options_from_collection_for_select(@grades,"id", "full_name"),{prompt: "Select Class"}, {class: 'form-control select-tag', required: true, multiple: true } if @grades.present? %>
                     <% else %>
-                      <%= f.select :grade_id, options_from_collection_for_select(@grades,"id", "full_name"),{prompt: "Select Class"}, {class: 'form-control', required: true} %>
+                      <%= f.select :grade_id, options_from_collection_for_select(@grades,"id", "full_name", @lessonplan.grade_id),{prompt: "Select Class"}, {class: 'form-control', required: true} %>
                     <% end %>
                 </div>
               </div>

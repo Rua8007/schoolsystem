@@ -46,7 +46,7 @@ class LessonplansController < ApplicationController
       @subjects = Subject.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:subject_id))
     else
       # for admins
-      @grades = Grade.all
+      @grades = Grade.where('section IS NOT NULL').order('name')
       @subjects = Subject.all
     end
   end
