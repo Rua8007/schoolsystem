@@ -20,7 +20,7 @@
 						<div class="week-div" id="week_<%= i %>" style="<%= "display: none;" if i > 0 %>">
 							<fieldset class="sss well well-lg">
 				        <legend class="lll"><%= "Week "%>&nbsp;&nbsp;&nbsp;<span style="font-size:14px; color:blue;"><%="#{week.start_date.strftime("%d-%m-%Y")} - #{week.end_date.strftime("%d-%m-%Y")}" %></span></legend>
-				        <div class="column col-xs-12 col-sm-12">
+				        <div class="column col-xs-12 col-sm-12 weeks">
 				         
 				         	<div class="day-div-<%= i %>" id="week_day_div_<%= i %>_0">	
 				         		<fieldset class="ttt well well-lg">
@@ -71,9 +71,11 @@
         if($(this).val() === 'Weekly'){
           $('.add-day').hide();
           $('.rem-day').hide();
+          $('.weeks legend').html('Weekly');
         }else{
           $('.add-day').show();
           $('.rem-day').show();
+          $('.weeks legend').html('Day 1');
         }
 
       });
