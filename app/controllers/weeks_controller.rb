@@ -95,7 +95,7 @@ class WeeksController < ApplicationController
     @subject = Subject.find(params[:subject_id])
     @grade = Grade.find(params[:grade_id])
     #make it dynamic later
-    @all_days = ["Sunday","Monday","Tuesday","Wednesday","Thursday"]
+    @all_days = ["Sunday","Monday","Tuesday","Wednesday","Thursday", "Weekly"]
 
     @year_plan = YearPlan.find(params[:year_plan_id])
     if @subject.present? && @grade.present? && @year_plan.present?

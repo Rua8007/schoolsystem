@@ -27,7 +27,7 @@
 							        <legend class="zzz"><span class="days-<%= i %>"><%= "Day 1" %></span></legend>
 							        <div class="column col-xs-12 col-sm-12">
 							        	<%= hidden_field_tag "weeks[]", week.id %>
-							        	<%= select_tag "daynameeng_#{i}[]", options_for_select([["Select Day" , "" ]] + @week_days.to_a), class: 'form-control' %>
+							        	<%= select_tag "daynameeng_#{i}[]", options_for_select([["Select Day" , "" ]] + @week_days.to_a), class: 'form-control select-day' %>
 							        	<br/>
 							        	<%#= select_tag 'daynameeng_#{i}[]', options_for_select(%w[Islam Chritianity Budhism Hinduism Jew]),{}, {class: "form-control", style:"width: 100%"} %>
 							          <div class="form-group">
@@ -67,6 +67,16 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$(function() {
+      $('body').on('change', '.select-day', function(){
+        if($(this).val() === 'Weekly'){
+          $('.add-day').hide();
+          $('.rem-day').hide();
+        }else{
+          $('.add-day').show();
+          $('.rem-day').show();
+        }
+
+      });
 	    $(document).on('click','.add-day', function (e) {
 	    	e.preventDefault();
 	      first_id = $(this).attr("id");

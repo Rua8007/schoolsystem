@@ -571,7 +571,7 @@
                         <% if current_user.role.rights.where("value = 'view_weeklyplans' or value = 'create_week' or value = 'update_week' ").any? or current_user.role.name == 'Teacher'%>
                           <li>
                             <%= link_to(year_plan_weeks_path(@year_plan)) do %>
-                              <span><%= t('plan.weekend_days') %></span>
+                              <span>Weekly Plans</span>
                             <% end %>
                           </li>
                         <% end %>
