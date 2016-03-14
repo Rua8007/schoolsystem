@@ -370,5 +370,8 @@ Rails.application.routes.draw do
     ## Fee moudle Routes ##
     ####################################################################
     resources :fee_entries
+    resources :dues
+
+    post 'dues/search_student' => 'dues#search_student', as: :search_student
   end
 end

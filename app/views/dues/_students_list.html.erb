@@ -1,0 +1,26 @@
+<% if @students.present? %>
+
+    <table class="table" id="example">
+      <thead class="table-head">
+      <tr>
+        <th>StudentID</th>
+        <th>Full Name</th>
+        <th>Email</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <% @students.each do |student| %>
+          <tr>
+            <td><%= student.rollnumber %></td>
+            <td><%= student.fullname %></td>
+            <td><%= student.email %></td>
+            <td><%= link_to 'Fee Plan', '#', class: 'btn btn-primary' %></td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+<% else %>
+    <h3 class="text-center">Sorry! No Students Match that Criterion.</h3>
+<% end %>
