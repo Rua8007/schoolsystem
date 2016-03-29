@@ -1,4 +1,5 @@
-<%= form_for(@due) do |f| %>
+<%= @fee_entries.pluck :name %>
+<%= form_for(@student, ) do |f| %>
   <% if @due.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@due.errors.count, "error") %> prohibited this due from being saved:</h2>

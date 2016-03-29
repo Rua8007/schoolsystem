@@ -16,7 +16,7 @@
             <td><%= student.rollnumber %></td>
             <td><%= student.fullname %></td>
             <td><%= student.email %></td>
-            <td><%= link_to 'Fee Plan', '#', class: 'btn btn-primary' %></td>
+            <td><%= link_to 'Fee Plan', create_fee_plan_path(student.id), class: 'btn btn-primary' %></td>
           </tr>
       <% end %>
       </tbody>

@@ -1,5 +1,5 @@
 class DuesController < ApplicationController
-  before_action :set_due, only: [:show, :edit, :update, :destroy]
+  # before_action :set_due, only: [:show, :edit, :update, :destroy]
 
   # GET /dues
   # GET /dues.json
@@ -81,6 +81,25 @@ class DuesController < ApplicationController
 
   end
 
+  def create_fee_plan
+    @student = Student.find(params[:student_id]) if params[:student_id].present?
+    @main_grade = @student.grade.parent
+    @fee_entries = FeeEntry.where(grade_id: @main_grade.id)
+    @fee_entries.each do |fee_entry|
+      Due.find_or_create_by(student_id: @student.id, feeable: fee_entry, grade_id: @main_grade.id)
+    end
+  end
+
+  def save_fee_plan
+    @student = Student.find(params[:student][:id])
+    if @student.update(student_params)
+      redirect_to create_fee_plan_path(@student), notice: 'Fee Plan Saved Successfully'
+    else
+      redirect_to create_fee_plan_path(@student), notice: 'Sorry Something Bad Happened.'
+    end
+
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_due
@@ -90,5 +109,9 @@ class DuesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def due_params
       params.require(:due).permit(:feeable, :mode_id, :total, :paid, :balance, :discount, :student_id, :grade_id)
+    end
+
+    def student_params
+      params.require(:student).permit(:id, dues_attributes: [:id, :show, :mode_id, :total, :paid, :balance, :feeable_id, :feeable_type, :grade_id])
     end
 end

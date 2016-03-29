@@ -1,0 +1,47 @@
+<div class="row">
+  <%= render partial: 'shared/fee_navigation' %>
+</div>
+
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Create fee Plan</h1>
+</div>
+<br><br>
+<%= form_for @student, url: save_fee_plan_path, method: 'post' do |f| %>
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-2"></div>
+      <div class="col-sm-2"><h4>Mode</h4></div>
+      <div class="col-sm-2"><h4>Total</h4></div>
+      <div class="col-sm-2"><h4>Paid</h4></div>
+      <div class="col-sm-2"><h4>Balance</h4></div>
+
+    </div>
+    <%= f.hidden_field :id %>
+    <%= f.fields_for :dues do |d| %>
+        <div class="row">
+          <div class="col-sm-1"><%= d.check_box :show %></div>
+          <div class="col-sm-2"><span style="font-size: 22px;"><%= d.object.feeable.name %></span></div>
+          <%= d.hidden_field :feeable_id %>
+          <%= d.hidden_field :feeable_type %>
+          <%= d.hidden_field :grade_id %>
+          <div class="col-sm-2">
+            <%= d.select :mode_id, options_from_collection_for_select(FeeMode.order('no_of_payments'), :id, :name), {}, {class: 'form-control'} %>
+          </div>
+          <div class="col-sm-2">
+            <%= d.text_field :total, class: 'form-control', readonly: true, value: d.object.feeable.total_amount %>
+          </div>
+
+          <div class="col-sm-2">
+            <%= d.text_field :paid, class: 'form-control' %>
+          </div>
+
+          <div class="col-sm-2">
+            <%= d.text_field :balance, class: 'form-control', readonly: true %>
+          </div>
+        </div>
+
+    <% end %>
+    <div class="col-md-12 actions" style="margin-top: 10px;">
+      <%= f.submit 'Save Fee Plan', class: 'btn btn-success pull-right' %>
+    </div>
+<% end %>

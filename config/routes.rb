@@ -373,5 +373,7 @@ Rails.application.routes.draw do
     resources :dues
 
     post 'dues/search_student' => 'dues#search_student', as: :search_student
+    get  'dues/create_fee_plan/:student_id' => 'dues#create_fee_plan', as: :create_fee_plan
+    post 'dues/save_fee_plan' => 'dues#save_fee_plan', as: :save_fee_plan
   end
 end
