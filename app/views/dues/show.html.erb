@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Feeable:</strong>
+  <%= @due.feeable %>
+</p>
+
+<p>
+  <strong>Mode:</strong>
+  <%= @due.mode_id %>
+</p>
+
+<p>
+  <strong>Total:</strong>
+  <%= @due.total %>
+</p>
+
+<p>
+  <strong>Paid:</strong>
+  <%= @due.paid %>
+</p>
+
+<p>
+  <strong>Balance:</strong>
+  <%= @due.balance %>
+</p>
+
+<p>
+  <strong>Discount:</strong>
+  <%= @due.discount %>
+</p>
+
+<p>
+  <strong>Student:</strong>
+  <%= @due.student_id %>
+</p>
+
+<p>
+  <strong>Grade:</strong>
+  <%= @due.grade_id %>
+</p>
+
+<%= link_to 'Edit', edit_due_path(@due) %> |
+<%= link_to 'Back', dues_path %>

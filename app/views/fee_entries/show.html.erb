@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @fee_entry.name %>
+</p>
+
+<p>
+  <strong>Total amount:</strong>
+  <%= @fee_entry.total_amount %>
+</p>
+
+<p>
+  <strong>Mandatory:</strong>
+  <%= @fee_entry.mandatory %>
+</p>
+
+<p>
+  <strong>Grade:</strong>
+  <%= @fee_entry.grade_id %>
+</p>
+
+<%= link_to 'Edit', edit_fee_entry_path(@fee_entry) %> |
+<%= link_to 'Back', fee_entries_path %>

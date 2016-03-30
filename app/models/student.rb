@@ -24,6 +24,9 @@ class Student < ActiveRecord::Base
 	has_many :sessionals
 	has_one :report_card
 
+	has_many :dues, dependent: :destroy
+	accepts_nested_attributes_for :dues, allow_destroy: :true
+
   validates_uniqueness_of :rollnumber
   validates_presence_of :rollnumber
 

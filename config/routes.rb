@@ -366,54 +366,14 @@ Rails.application.routes.draw do
     post 'publish_all/:batch_id' => 'publish_results#publish_all', as: :publish_all
     post 'hide_all/:batch_id' => 'publish_results#hide_all', as: :hide_all
 
-    # Example of regular route:
-    #   get 'products/:id' => 'catalog#view'
+    ####################################################################
+    ## Fee moudle Routes ##
+    ####################################################################
+    resources :fee_entries
+    resources :dues
 
-    # Example of named route that can be invoked with purchase_url(id: product.id)
-    #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
-
-    # Example resource route (maps HTTP verbs to controller actions automatically):
-    #   resources :products
-
-    # Example resource route with options:
-    #   resources :products do
-    #     member do
-    #       get 'short'
-    #       post 'toggle'
-    #     end
-    #
-    #     collection do
-    #       get 'sold'
-    #     end
-    #   end
-
-    # Example resource route with sub-resources:
-    #   resources :products do
-    #     resources :comments, :sales
-    #     resource :seller
-    #   end
-
-    # Example resource route with more complex sub-resources:
-    #   resources :products do
-    #     resources :comments
-    #     resources :sales do
-    #       get 'recent', on: :collection
-    #     end
-    #   end
-
-    # Example resource route with concerns:
-    #   concern :toggleable do
-    #     post 'toggle'
-    #   end
-    #   resources :posts, concerns: :toggleable
-    #   resources :photos, concerns: :toggleable
-
-    # Example resource route within a namespace:
-    #   namespace :admin do
-    #     # Directs /admin/products/* to Admin::ProductsController
-    #     # (app/controllers/admin/products_controller.rb)
-    #     resources :products
-    #   end
-
+    post 'dues/search_student' => 'dues#search_student', as: :search_student
+    get  'dues/create_fee_plan/:student_id' => 'dues#create_fee_plan', as: :create_fee_plan
+    post 'dues/save_fee_plan' => 'dues#save_fee_plan', as: :save_fee_plan
   end
 end

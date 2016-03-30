@@ -1,0 +1,50 @@
+<%= @fee_entries.pluck :name %>
+<%= form_for(@student, ) do |f| %>
+  <% if @due.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@due.errors.count, "error") %> prohibited this due from being saved:</h2>
+
+      <ul>
+      <% @due.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :feeable %><br>
+    <%= f.text_field :feeable %>
+  </div>
+  <div class="field">
+    <%= f.label :mode_id %><br>
+    <%= f.number_field :mode_id %>
+  </div>
+  <div class="field">
+    <%= f.label :total %><br>
+    <%= f.text_field :total %>
+  </div>
+  <div class="field">
+    <%= f.label :paid %><br>
+    <%= f.text_field :paid %>
+  </div>
+  <div class="field">
+    <%= f.label :balance %><br>
+    <%= f.text_field :balance %>
+  </div>
+  <div class="field">
+    <%= f.label :discount %><br>
+    <%= f.text_field :discount %>
+  </div>
+  <div class="field">
+    <%= f.label :student_id %><br>
+    <%= f.number_field :student_id %>
+  </div>
+  <div class="field">
+    <%= f.label :grade_id %><br>
+    <%= f.number_field :grade_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

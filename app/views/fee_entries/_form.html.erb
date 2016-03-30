@@ -1,0 +1,127 @@
+<style type="text/css">
+  .container{
+    width: auto;
+  }
+
+  .sss{
+    border:1px solid#e5e5e5;   padding: 1%;
+  }
+
+  .lll{
+    width: auto !important;
+    background-color: white;
+    padding-right: 16px;
+    padding-left: 15px;
+    border: 1px solid;
+    border-color: #729F32;
+    border-radius: 21px;
+  }
+
+  .nested-fields .btn-danger{
+    margin-top: 1.6em;
+  }
+  #error_explanation {
+    color: #dc6650;
+  }
+
+  .field_with_errors {
+  @extend .control-group;
+  @extend .error;
+  }
+
+  form li{
+    display: block;
+  }
+</style>
+<%= form_for(@fee_entry) do |f| %>
+    <% if @fee_entry.errors.any? %>
+        <div id="error_explanation">
+          <h3><%= pluralize(@fee_entry.errors.count, "error") %> prohibited this fee_entry from being saved:</h3>
+
+          <ul>
+            <% @fee_entry.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+
+    <div class="container form-holder">
+      <div class="row">
+        <br>
+        <fieldset class="sss well well-lg">
+          <legend class="lll">Fee Entry</legend>
+          <div class = "row">
+            <div class="column col-xs-12 col-sm-6">
+              <div class="form-group ">
+                <div class="field">
+                  <%= f.label :grade_id, 'Grade' %><br>
+                  <% if @fee_entry.new_record? %>
+                      <%= f.select :grade_id, options_from_collection_for_select(@grades,'id', 'name'),{prompt: 'Select Grade'}, {class: 'form-control select-tag', required: true, multiple: true } if @grades.present? %>
+                  <% else %>
+                      <%= f.select :grade_id, options_from_collection_for_select(@grades,'id', 'name', @fee_entry.grade_id),{prompt: 'Select Grade'}, {class: 'form-control', required: true} %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+            <div class="column col-xs-12 col-sm-6">
+              <div class="form-group ">
+                <div class="field">
+                  <%= f.label :name %><br>
+                  <%= f.text_field :name, style: 'height:34px;',  class: 'form-control' , required: true, autofocus: true %>
+                </div>
+              </div>
+            </div>
+
+            <div class="column col-xs-12 col-sm-6">
+              <div class="form-group ">
+                <div class="field">
+                  <%= f.label :total_amount %><br>
+                  <%= f.text_field :total_amount, style: 'height:34px;',  class: 'form-control' , required: true, autofocus: true %>
+                </div>
+              </div>
+            </div>
+
+            <div class="column col-xs-12 col-sm-6">
+              <div class="form-group ">
+                <div class="field">
+                  <%= f.label :mandatory %><br>
+                  <%= f.check_box :mandatory %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+        <div class="actions">
+          <%= f.submit @fee_entry.new_record? ? 'Create' : 'Save', class: 'btn btn-block btn-success form-control', style: 'width:24%;float: right;' %>
+        </div>
+
+      </div>
+    </div>
+
+<% end %>
+
+<style type="text/css">
+  .form-holder .col-sm-4 {
+    min-height: 84px;
+  }
+  .form-holder .form-control{
+    width: 100%;
+  }
+  .form-control{
+    border-radius: 7px;
+    border: black;
+  }
+  li, .select2 {
+    display: block;
+  }
+</style>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.select-tag').select2();
+  });
+
+</script>
