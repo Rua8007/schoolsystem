@@ -100,6 +100,31 @@ class DuesController < ApplicationController
 
   end
 
+  def give_estimate
+    @student  = Student.new(temporary: true)
+    @grades   = Grade.where(section: nil).order('name')
+    @grade    = params[:grade_id].present? ? Grade.find(params[:grade_id]) : @grades.first
+
+    @fee_entries = FeeEntry.where(grade_id: @grade.id)
+    @fee_entries.each do |fee_entry|
+      @student.dues.build(grade_id: @grade.id, feeable: fee_entry, paid: 0, balance: fee_entry.total_amount)
+    end
+  end
+
+  def save_temporary_student
+    @student = Student.new student_params
+    @student.temporary = true
+    @student.rollnumber = "Std#{Student.where(temporary: true).length + 1}"
+    if @student.save
+      redirect_to give_estimate_path, notice: 'Fee Plan Saved Successfully'
+    else
+      puts '========================================'
+      puts "Error: #{@student.errors.full_messages}"
+      puts '========================================'
+      redirect_to give_estimate_path, notice: 'Sorry Something Bad Happened.'
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_due
@@ -112,6 +137,6 @@ class DuesController < ApplicationController
     end
 
     def student_params
-      params.require(:student).permit(:id, dues_attributes: [:id, :show, :mode_id, :total, :paid, :balance, :feeable_id, :feeable_type, :grade_id])
+      params.require(:student).permit(:id, :grade_id, :fullname, :email, dues_attributes: [:id, :show, :mode_id, :total, :paid, :balance, :feeable_id, :feeable_type, :grade_id])
     end
 end
