@@ -36,7 +36,7 @@
             <% end %>
         <% end %>
         <td class="col-md-3">
-          <%= link_to '<small>Result Card</small>'.html_safe, result_card_path({student_id: std.id, grade_id: klass.id, batch_id: klass.batch_id}), class: 'btn btn-success' %>
+          <%= link_to '<small>Result Card</small>'.html_safe, result_card_path({student_id: std.id, class_id: klass.id, batch_id: klass.batch_id}), class: 'btn btn-success' %>
           <%= link_to '<small>Final Result Card</small>'.html_safe, complete_result_card_path(std.id, klass.id, klass.batch_id), class: 'btn btn-primary' %>
         </td>
       </tr>
