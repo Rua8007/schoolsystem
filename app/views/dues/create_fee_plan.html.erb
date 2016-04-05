@@ -19,7 +19,7 @@
     <%= f.hidden_field :id %>
     <%= f.fields_for :dues do |d| %>
         <div class="row">
-          <div class="col-sm-1"><%= d.check_box :show %></div>
+          <div class="col-sm-1"><%= d.check_box :show, {class: 'fee-select', id: d.object.id} %></div>
           <div class="col-sm-2"><span style="font-size: 22px;"><%= d.object.feeable.name %></span></div>
           <%= d.hidden_field :feeable_id %>
           <%= d.hidden_field :feeable_type %>
@@ -28,11 +28,11 @@
             <%= d.select :mode_id, options_from_collection_for_select(FeeMode.order('no_of_payments'), :id, :name), {}, {class: 'form-control'} %>
           </div>
           <div class="col-sm-2">
-            <%= d.text_field :total, class: 'form-control', readonly: true, value: d.object.feeable.total_amount %>
+            <%= d.text_field :total, class: "form-control total_#{d.object.id}", readonly: true, value: d.object.feeable.total_amount %>
           </div>
 
           <div class="col-sm-2">
-            <%= d.text_field :paid, class: 'form-control' %>
+            <%= d.text_field :paid, class: "form-control paid_#{d.object.id}" %>
           </div>
 
           <div class="col-sm-2">
@@ -45,3 +45,42 @@
       <%= f.submit 'Save Fee Plan', class: 'btn btn-success pull-right' %>
     </div>
 <% end %>
+
+<div class="row">
+  <div class="col-md-12">
+    <h3>Grand Total: <span class="total"><%= @student.dues.where(show: true).try(:sum, :total) || 0.00 %></span></h3>
+  </div>
+
+  <div class="col-md-12">
+    <h3>Total Paid: <span class="paid"><%= @student.dues.where(show: true).try(:sum, :paid) || 0.00 %></span></h3>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $('.fee-select').on('click', function(){
+
+    var total = $('.total_'+$(this).attr('id')).val();
+    total = parseFloat(total);
+    var paid = $('.paid_'+$(this).attr('id')).val();
+    paid = parseFloat(paid);
+
+    var grand_total = $('.total').html();
+    grand_total = parseFloat(grand_total);
+
+    var grand_paid = $('.paid').html();
+    grand_paid = parseFloat(grand_paid);
+
+    if($(this).is(':checked')){
+      grand_total = grand_total + total;
+      grand_paid = grand_paid + paid;
+    }
+    else{
+      grand_total = grand_total - total;
+      grand_paid = grand_paid - paid;
+    }
+    $('.total').html(grand_total);
+    $('.paid').html(grand_paid);
+
+  });
+
+</script>

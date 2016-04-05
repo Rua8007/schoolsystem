@@ -1,0 +1,73 @@
+<%= form_for @student, url: save_temporary_student_path, method: 'post' do |f| %>
+    <div class="row">
+      <div class="col-md-6">
+        <label>Select Grade</label>
+        <%= f.select :grade_id, options_from_collection_for_select(@grades, :id, :name, @grade.id),
+                     {}, { class: 'grade-select form-control'} %>
+      </div>
+    </div>
+
+    <br />
+    <br />
+
+    <div class="row">
+      <div class="col-md-3">
+        <label>Fullname</label>
+        <%= f.text_field :fullname, class: 'form-control' %>
+      </div>
+
+      <div class="col-md-3">
+        <label>Email</label>
+        <%= f.text_field :email, class: 'form-control' %>
+      </div>
+
+      <%#= TODO Please Add Parent Information In This Form and White List Them In Dues Controller.  %>
+    </div>
+
+    <br />
+    <br />
+
+    <% if @student.dues.present? %>
+        <div class="row">
+          <div class="col-sm-1"></div>
+          <div class="col-sm-2"></div>
+          <div class="col-sm-2"><h4>Mode</h4></div>
+          <div class="col-sm-2"><h4>Total</h4></div>
+          <div class="col-sm-2"><h4>Paid</h4></div>
+          <div class="col-sm-2"><h4>Balance</h4></div>
+
+        </div>
+        <%= f.hidden_field :id %>
+        <%= f.fields_for :dues do |d| %>
+            <div class="row">
+              <div class="col-sm-1"><%= d.check_box :show, {class: 'fee-select', id: d.object.id} %></div>
+              <div class="col-sm-2"><span style="font-size: 22px;"><%= d.object.feeable.name %></span></div>
+              <%= d.hidden_field :feeable_id %>
+              <%= d.hidden_field :feeable_type %>
+              <%= d.hidden_field :grade_id %>
+              <div class="col-sm-2">
+                <%= d.select :mode_id, options_from_collection_for_select(FeeMode.order('no_of_payments'), :id, :name), {}, {class: 'form-control'} %>
+              </div>
+              <div class="col-sm-2">
+                <%= d.text_field :total, class: 'form-control total', readonly: true, value: d.object.feeable.total_amount %>
+              </div>
+
+              <div class="col-sm-2">
+                <%= d.text_field :paid, class: 'form-control paid' %>
+              </div>
+
+              <div class="col-sm-2">
+                <%= d.text_field :balance, class: 'form-control', readonly: true %>
+              </div>
+            </div>
+            <br />
+        <% end %>
+    <% else %>
+        <div class="col-md-12"><h4>Please create fee entries first.</h4></div>
+    <% end %>
+
+
+    <div class="col-md-12 actions" style="margin-top: 10px;">
+      <%= f.submit 'Save Fee Plan', class: 'btn btn-success pull-right' %>
+    </div>
+<% end %>

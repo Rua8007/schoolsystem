@@ -1,0 +1,67 @@
+<div class="row">
+  <%= render partial: 'shared/fee_navigation' %>
+</div>
+
+<div class="row">
+  <div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-thin h3">Estimated Fee</h1>
+  </div>
+  <br><br>
+
+  <div class="col-md-12">
+    <div id="fee_entries">
+      <%= render partial: 'fee_entries' %>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Grand Total: <span class="grand_total"><%= @student.dues.where(show: true).try(:sum, :total) || 0.00 %></span></h3>
+      </div>
+
+      <div class="col-md-12">
+        <h3>Total Paid: <span class="total_paid"><%= @student.dues.where(show: true).try(:sum, :paid) || 0.00 %></span></h3>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(document).on('change', '.grade-select', function(){
+    var grade_id = $(this).val();
+    $.ajax({
+      url: '/give_estimate',
+      data: {grade_id: grade_id},
+      method: 'GET',
+      dataType: 'SCRIPT'
+    });
+  });
+
+  $(document).on('click', '.fee-select', function(){
+
+    console.log($(this).closest('.row').find('.total').val());
+
+    var total = $(this).closest('.row').find('.total').val();
+    total = parseFloat(total);
+    var paid = $(this).closest('.row').find('.paid').val();
+    paid = parseFloat(paid);
+
+    var grand_total = $('.grand_total').html();
+    grand_total = parseFloat(grand_total);
+
+    var grand_paid = $('.total_paid').html();
+    grand_paid = parseFloat(grand_paid);
+
+    if($(this).is(':checked')){
+      grand_total = grand_total + total;
+      grand_paid = grand_paid + paid;
+    }
+    else{
+      grand_total = grand_total - total;
+      grand_paid = grand_paid - paid;
+    }
+    $('.grand_total').html(grand_total);
+    $('.total_paid').html(grand_paid);
+
+  });
+
+</script>
