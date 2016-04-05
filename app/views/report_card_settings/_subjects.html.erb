@@ -70,10 +70,14 @@
               <% @report_card_subjects.order('name').each do |subject| %>
                   <% if subject.sub_subjects.blank? %>
                       <div class="col-md-12">
-                        <div class="col-md-4">
-                          <div class="col-md-6"><label style="font-size: 1.2em;"><%= subject.name %></label></div>
-                          <div class="col-md-6">
+                        <div class="col-md-10">
+                          <div class="col-md-3"><label style="font-size: 1.2em;"><%= subject.name %></label></div>
+                          <div class="col-md-4">
                             <input type="checkbox" name='subjects[]' value = "<%= subject.id %>" class="form-control subject" style="height: 20px;"/>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="col-md-6">Take Exam</div>
+                            <div class="col-md-6"><input type="checkbox" name='take_exam[]' value = "<%= subject.id %>" class="form-control subject" style="height: 20px;"/></div>
                           </div>
                         </div>
                       </div>

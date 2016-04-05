@@ -108,8 +108,12 @@ class ReportCardSettingsController < ApplicationController
        if @subject.save
           subject_ids = params[:subjects]
           subject_ids.each do |id|
-          subject = ReportCardSubject.find(id)
-          subject.update(parent_id: @subject.id)
+            subject = ReportCardSubject.find(id)
+            if params[:take_exam].include? subject.id
+              subject.update(parent_id: @subject.id, take_exam: true)
+            else
+              subject.update(parent_id: @subject.id, take_exam: false)
+            end
           end
        end
     end

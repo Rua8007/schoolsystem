@@ -1,6 +1,9 @@
 <div class="well well-lg">
 	<% @marks.each do |m| %>
-		<%= link_to m.name, upload_marksheets_path({id: @marksheet.id, mark_id: m.id}), class: "btn btn-info" %>
+		<% if @marksheet.subject.take_exam && m.name == 'Quiz'%>
+		<% else %>
+			<%= link_to m.name, upload_marksheets_path({id: @marksheet.id, mark_id: m.id}), class: "btn btn-info" %>
+		<% end %>
 	<% end %>
 </div>
 <br><br>
