@@ -109,7 +109,7 @@ class ReportCardSettingsController < ApplicationController
           subject_ids = params[:subjects]
           subject_ids.each do |id|
             subject = ReportCardSubject.find(id)
-              subject.update(parent_id: @subject.id)
+            subject.update(parent_id: @subject.id)
 
             # if params[:take_exam].include? subject.id
             #   subject.update(parent_id: @subject.id, take_exam: true)
@@ -124,7 +124,7 @@ class ReportCardSettingsController < ApplicationController
   def create_subjects
     @setting = ReportCardSetting.find(params[:id])
     if @setting.update(setting_params)
-      redirect_to new_subjects_path(@setting)zzzzzzzzzzz
+      redirect_to new_subjects_path(@setting)
     else
       flash[:notice] = @setting.errors.full_messages
       redirect_to new_subjects_path(@setting)
