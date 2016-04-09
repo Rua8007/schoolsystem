@@ -1,6 +1,6 @@
 <div class="well well-lg">
 	<% @marks.each do |m| %>
-		<% if @marksheet.subject.take_exam && m.name == 'Quiz'%>
+		<% if @grade.report_card_settings.find_by_exam_id(@exam.id).take_exam && m.name == 'Quiz'%>
 		<% else %>
 			<%= link_to m.name, upload_marksheets_path({id: @marksheet.id, mark_id: m.id}), class: "btn btn-info" %>
 		<% end %>

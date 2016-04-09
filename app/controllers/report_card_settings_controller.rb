@@ -122,6 +122,11 @@ class ReportCardSettingsController < ApplicationController
   end
 
   def create_subjects
+    puts "==========================="
+    puts "==========================="
+    puts params.inspect
+    puts "==========================="
+    puts "==========================="
     @setting = ReportCardSetting.find(params[:id])
     if @setting.update(setting_params)
       redirect_to new_subjects_path(@setting)
@@ -152,7 +157,7 @@ class ReportCardSettingsController < ApplicationController
                                                 marks_divisions_attributes: [:id, :name, :passing_marks, :total_marks, :is_divisible, :_destroy],
                                                 headings_attributes: [:id, :label, :show, :color],
                                                 subjects_attributes: [:id, :name, :code,
-                                                  sub_subjects_attributes: [:id, :name, :code, :weight, :parent_id, :setting_id, :_destroy]
+                                                  sub_subjects_attributes: [:id, :name, :code, :weight, :parent_id, :setting_id, :_destroy, :take_exam]
                                                 ])
   end
 

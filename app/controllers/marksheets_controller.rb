@@ -82,6 +82,8 @@ class MarksheetsController < ApplicationController
       redirect_to root_path, alert: "Sorry! You are not authorized"
     end
     @students = @marksheet.bridge.grade.students
+    @grade = @marksheet.bridge.grade
+    @exam = @marksheet.exam
     @marks = @marksheet.bridge.grade.marks
     @mark = @marks.first
     if params[:mark_id].present?
