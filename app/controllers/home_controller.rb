@@ -19,22 +19,6 @@ class HomeController < ApplicationController
   def timetable
   end
 
-  def sms
-    redirect_to root_path unless Right.where("role_id = ? and value = 'send_sms'", current_user.role_id ).any?
-  end
 
-  def sendsms
-    # return render json: params
-
-    if params[:email]
-      EmailService.new(params).delay.send_email
-    end
-
-    if params[:sms]
-      SmsService.new(params).delay.send_sms
-    end
-    flash[:notice] = 'Notifications sent.'
-    redirect_to home_sms_path()
-  end
 
 end
