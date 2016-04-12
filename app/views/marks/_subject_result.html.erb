@@ -1,5 +1,6 @@
 <% if @setting.present? %>
-  <h3><%= @exam.name %> </h3>
+  <h3><%= @exam.name %> </h3><br>
+  <h3><strong>Teacher Name:</strong>  <%= @teacher.full_name %></h3>
   <%= link_to 'Print PDF', print_subject_result_path({class_id: @class.id, subject_id: @subject.id, exam_id: @exam.id, format: 'pdf'}),
                            class: 'pull-right btn btn-primary', style: 'margin-top: -45px;'
   %>

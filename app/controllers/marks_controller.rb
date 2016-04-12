@@ -188,11 +188,11 @@ class MarksController < ApplicationController
     @exam = Exam.find_by_id(params[:exam_id])
     @setting = ReportCardSetting.find_by(grade_id: @main_grade.id, batch_id: @class.batch_id, exam_id: @exam.id)
     @subject = ReportCardSubject.find_by_id(params[:subject_id])
-
+    @teacher = @class.bridges.where(subject_id: Subject.find_by_name(@subject.name)).last.employee
     respond_to do |format|
       format.js
       format.pdf{
-        render pdf: "#{@subject.name}_#{@exam.name}", template: 'marks/get_subject_result.pdf.erb',
+        render pdf: "#{@subject.name}_#{@exam.name}_#{@teacher.full_name}", template: 'marks/get_subject_result.pdf.erb',
                layout: 'pdf.html.erb', margin: { top: 30, bottom: 11, left: 5, right: 5},
                header: { html: { template: 'shared/pdf_portrait_header.html.erb'} }, show_as_html: false,
                footer: { html: { template: 'shared/pdf_portrait_footer.html.erb'} }

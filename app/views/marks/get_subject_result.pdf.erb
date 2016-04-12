@@ -1,2 +1,5 @@
-<h3 class="text-center"><%= "#{@class.full_name} - #{@exam.name} - #{@subject.name} Result" %></h3>
+<h3 class="text-center"><%= "#{@class.full_name} - #{@exam.name} - #{@subject.name} Result" %><br>
+Teacher Name: <%= "#{@teacher.full_name}" %><br>
+<h5 class="text-center"><%= Time.now.strftime("Printed On: %m/%d/%Y") %></h5>
+</h3>
 <%= render partial: 'marks/result_common.html.erb' %>
