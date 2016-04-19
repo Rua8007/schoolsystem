@@ -1,0 +1,27 @@
+<h2>  </h2>
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Database Backups
+    <%= link_to(home_create_backup_path, class: "btn pull-right btn-color" ,style: "width:200px;" ) do %>
+    <i class="fa fa-plus"></i>
+    Create Backup
+    <%end%>
+  </h1>
+</div>
+<div>
+  <table class="table">
+    <% @backups.each do |object| %>
+      <!-- puts "=====listing=========" -->
+      <tr>
+      <td><%= object[:name] %> </td>
+      <td><%= link_to 'Download', object[:url], class: 'btn btn-primary', download: true %></td>
+      <td><%= link_to 'Restore', home_restore_backup_path(object), method: 'post', class: 'btn btn-info' %></td>
+<!--       # respo = s3.get_object(bucket:'alomam', key: object.key)
+      # s3.get_object({ bucket:'alomam', key: object.key } , target: '/')
+      puts "============body=============="
+      puts respo.body.inspect -->
+
+      <!-- # puts "#{object.key} => #{object.etag}" -->
+      <tr>
+    <% end %>
+  </table>
+</div>

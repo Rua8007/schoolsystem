@@ -273,6 +273,12 @@
                     <% end %>
                   </li>
                 <% end %>
+                <li>
+                  <%= link_to(users_path) do %>
+                    <i class="glyphicon glyphicon-user"></i>
+                    <span>Backups</span>
+                  <% end %>
+                </li>
               </ul></li><% end %>
                 <% if Right.where("role_id = ? and value = 'send_sms'", current_user.role_id ).any? %>
                   <li>

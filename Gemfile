@@ -24,6 +24,7 @@ gem 'roo'
 
 gem 'wysihtml-rails'
 gem "pundit"
+gem 'aws-sdk', '~> 2'
 # gem 'wysihtml-rails'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -55,6 +56,8 @@ gem 'will_paginate'
 gem 'chosen-rails'
 gem 'jquery-turbolinks'
 gem 'mustache', '~> 1.0', '>= 1.0.2'
+
+
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 

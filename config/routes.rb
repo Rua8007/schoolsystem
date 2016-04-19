@@ -19,6 +19,9 @@ Rails.application.routes.draw do
     get 'home/timetable'
     get 'home/sms'
     get 'home/sendsms'
+    get 'home/backups'
+    post 'home/restore_backup'
+    get 'home/create_backup'
 
     resources :rights do
       collection do
