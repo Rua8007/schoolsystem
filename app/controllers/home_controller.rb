@@ -64,18 +64,22 @@ class HomeController < ApplicationController
     name = params[:name]
     s3.get_object({ bucket:'alomam', key: params[:key] },
       target: Rails.root.join("s3_downloads/#{name}.tar"))
-    puts "downloading is done"
-    puts "downloading is done"
-    puts "downloading is done"
-    puts "downloading is done"
+
     `tar -xvf ~/schoolsystem/s3_downloads/#{name}.tar`
-    `dropdb schoolsystem_development`
-    `psql -U postgres -d schoolsystem_development -f miguest_backup/databases/PostgreSQL.sql`
-    redirect_to root_path, notice: 'Backup Restored Successfully..!!!'
+    `rake environment db:drop`
+    `rake db:create`
+    # `export PGPASSWORD='postgres'`
+    `PGPASSWORD=postgres psql schoolsystem_development postgres < miguest_backup/databases/PostgreSQL.sql`
+    # puts 'postgres'
+    # `psql schoolsystem_development postgres < miguest_backup/databases/PostgreSQL.sql`
+    # `pg_restore -c -d schoolsystem_development miguest_backup/databases/PostgreSQL.sql`
+    redirect_to home_backups_path, notice: 'Backup Restored Successfully..!!!'
   end
 
   def create_backup
-    `backup perform --trigger miguest_backup`
+    Bundler.with_clean_env do
+      `backup perform --trigger miguest_backup`
+    end
     redirect_to home_backups_path, notice: 'Backup Created Successfully..!!!'
   end
 end
