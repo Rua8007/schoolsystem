@@ -160,6 +160,9 @@
     <br>
     <hr>
     <h4><u>Settings and Others</u></h4>
+    <%= check_box_tag 'exam[access_backups]', '' , @rights.where(value: "access_backups").any? ? true : false ,class: "gen", style: "margin-left:17px;" %> Access Backups
+    <br>
+    <br>
     <%= check_box_tag 'exam[enter_marks]', '' , @rights.where(value: "enter_marks").any? ? true : false ,class: "gen", style: "margin-left:17px;" %> Enter Marks
     <br>
     <br>

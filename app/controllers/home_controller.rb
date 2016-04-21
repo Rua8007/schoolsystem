@@ -78,4 +78,18 @@ class HomeController < ApplicationController
     end
     redirect_to home_backups_path, notice: 'Backup Created Successfully..!!!'
   end
+
+  def confirm_password
+    @redirection = params[:redirection]
+  end
+
+  def confirm_admin
+    user = User.find_by_email(params[:email])
+    if user && user.role.rights.find_by_value('access_backups') && user.valid_password?(params[:password])
+
+      redirect_to params[:redirection], notice: 'Access Granted...!!!'
+    else
+      redirect_to :back , alert: 'Invalid Admin Credentials'
+    end
+  end
 end

@@ -22,6 +22,10 @@ Rails.application.routes.draw do
     get 'home/backups'
     post 'home/restore_backup'
     get 'home/create_backup'
+    get 'home/confirm_password'
+    post 'home/confirm_admin'
+
+
 
     resources :rights do
       collection do
