@@ -37,9 +37,6 @@ Rails.application.configure do
   # Raises helpful error messages.
   config.assets.raise_runtime_errors = true
   config.action_mailer.default_url_options = { host: 'localhost:3000' }
-  ENV['AWS_REGION'] = 'us-west-2'
-  ENV['AWS_ACCESS_KEY_ID'] = 'AKIAI5IDBNSEJHNF4PTQ'
-  ENV['AWS_SECRET_ACCESS_KEY'] = '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'
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true

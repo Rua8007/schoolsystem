@@ -25,6 +25,7 @@ gem 'roo'
 gem 'wysihtml-rails'
 gem "pundit"
 gem 'aws-sdk', '~> 2'
+gem 'figaro'
 # gem 'wysihtml-rails'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
