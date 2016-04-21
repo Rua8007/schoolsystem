@@ -13,7 +13,7 @@
       <tr>
       <td><%= object[:name] %> </td>
       <td><%= link_to 'Download', object[:url], class: 'btn btn-primary', download: true %></td>
-      <td><%= link_to 'Restore', home_restore_backup_path(object), method: 'post', class: 'btn btn-info' %></td>
+      <td><%= link_to 'Restore', home_restore_backup_path(object), method: 'post',data: { confirm: 'Are you sure?' }, class: 'btn btn-info' %></td>
 <!--       # respo = s3.get_object(bucket:'alomam', key: object.key)
       # s3.get_object({ bucket:'alomam', key: object.key } , target: '/')
       puts "============body=============="
