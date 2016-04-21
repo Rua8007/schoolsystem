@@ -15,10 +15,6 @@ class ApplicationController < ActionController::Base
   # redirect_back_or root_path
 #end
 
-  ENV['AWS_REGION'] = 'us-west-2'
-  ENV['AWS_ACCESS_KEY_ID'] = 'AKIAI5IDBNSEJHNF4PTQ'
-  ENV['AWS_SECRET_ACCESS_KEY'] = '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'
-
   def redirect_back_or(path)
     redirect_to request.referer || path
   end
