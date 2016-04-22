@@ -4,7 +4,15 @@ require 'sms_templates/employee_sms'
 
 class SmsService
   def self.send_message(body, send_to)
-    body = body.gsub("&nbsp", ' ')
+    puts "================in send sms=============="
+
+    puts body
+    body = body.gsub("&nbsp;", " ")
+    puts body
+
+    puts "================in send sms=============="
+    puts "================in send sms=============="
+
     # response = HTTParty.post('http://dreamsms.net/sendHexEncoded.HTML?UserName=test9&Password=123&senderName=Al-omam&message=testing&MobileNo=+923134145612&txtlang=1')
     response = HTTParty.post("http://rest.dreamsms.net/sms",
               {
