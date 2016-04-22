@@ -114,7 +114,7 @@
     <div class="col-md-3 sss well well-lg" style="margin-top: 1.5%; font-size: 1.4em;">
       <h3><%= t('notification.student_info') %></h3>
       <% Student::EMAIL_ATTRIBUTES.keys.each do |key| %>
-          <span class="label label-primary tag-info" data-value="<%= Student::EMAIL_ATTRIBUTES[key] %>"><%= key.to_s.titleize %></span>
+          <span class="label label-primary tag-info" data-value="<%= Student::EMAIL_ATTRIBUTES[key] %>"><%= key.to_s == 'rollnumber' ? 'Student ID' : key.to_s.titleize %></span>
       <% end %>
       <h3><%= t('notification.teacher_info') %></h3>
       <% Employee::EMAIL_ATTRIBUTES.keys.each do |key| %>
