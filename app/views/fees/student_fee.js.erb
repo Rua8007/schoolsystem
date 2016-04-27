@@ -1,1 +1,4 @@
+<% if @student.nil? %>
+  $('#std_error').removeClass('hidden');
+<% end %>
 $('#record').html('<%= escape_javascript render "fee_detail" %>');

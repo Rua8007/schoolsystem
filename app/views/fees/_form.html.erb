@@ -2,7 +2,6 @@
 <div class="form-group col-md-4">
   <label>Enter Student ID</label><br>
   <input type="text" class="form-control" id="fee_student_id" >
-  <span style = "color: red" id = "std_error" class="hidden">Invalid Student ID...!!! </span>
 </div>
 
 <div id = "record">
@@ -22,7 +21,7 @@
       .done(function(data){
         console.log(data)
         if(data != null){
-          $('#std_error').addClass('hidden');
+          // $('#std_error').addClass('hidden');
           // var val = data.term;
           // console.log("done function", val);
           // if(val == 'Monthly'){
@@ -43,7 +42,7 @@
         }
         else{
           console.log("i am hereajdfklasdjfkljasdklfj")
-          $('#std_error').removeClass('hidden');
+          // $('#std_error').removeClass('hidden');
         }
 
         });

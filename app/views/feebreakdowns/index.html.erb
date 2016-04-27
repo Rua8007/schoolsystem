@@ -15,7 +15,7 @@
   <tbody>
     <% @feebreakdowns.each do |feebreakdown| %>
       <tr>
-        <td><%= feebreakdown.grade_id %></td>
+        <td><%= feebreakdown.grade.full_name if feebreakdown.grade %></td>
         <td><%= feebreakdown.title %></td>
         <td><%= feebreakdown.amount %></td>
         <td><%= link_to 'Show', feebreakdown %>

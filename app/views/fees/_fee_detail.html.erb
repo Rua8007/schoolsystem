@@ -1,48 +1,59 @@
-<%=form_tag(fees_path, method: :post) do %>
+<% if !@student.nil? %>
+ <% puts "lkajsdfkljasdklfjasdklfjklasdf" %>
+ <% puts "lkajsdfkljasdklfjasdklfjklasdf" %>
+ <% puts "lkajsdfkljasdklfjasdklfjklasdf" %>
+  <%=form_tag(fees_path, method: :post) do %>
+    <div class="col-md-6">
+      <label>Next Due Date</label>
+      <%= text_field_tag :due_date, '' ,class: "form-control datepicker" %>
+    </div>
+    <table class="table">
+      <thead class="table-head">
+        <th>Description</th>
+        <th>Total Fee</th>
+        <th>Received</th>
+        <th>Pending</th>
+      </thead>
 
-  <div class="col-md-6">
-    <label>Next Due Date</label>
-    <%= text_field_tag :due_date, '' ,class: "form-control datepicker" %>
-  </div>
-  <table class="table">
-    <thead class="table-head">
-      <th>Description</th>
-      <th>Total Fee</th>
-      <th>Received</th>
-      <th>Pending</th>
-    </thead>
-
-    <tbody>
-      <% id = 0 %>
-      <% @data.try(:each) do |data| %>
-        <% if data[:fb_id].downcase == 'tution fee' %>
-          <tr>
-            <td><%= data[:fb_id] %></td>
-            <td><%= data[:total] - @discount  %></td>
-            <td><%= data[:paid] %></td>
-            <% id = id + 1 %>
-            <%= hidden_field_tag "flags[#{id}][id]", data[:id] %>
-            <td><%= text_field_tag "flags[#{id}][amount]", data[:pending]-@discount %>
-            </td>
-          </tr>
-        <% else %>
-          <tr>
-            <td><%= data[:fb_id] %></td>
-            <td><%= data[:total]  %></td>
-            <td><%= data[:paid] %></td>
-            <% id = id + 1 %>
-            <%= hidden_field_tag "flags[#{id}][id]", data[:id] %>
-            <td><%= text_field_tag "flags[#{id}][amount]", data[:pending] %>
-            </td>
-          </tr>
+      <tbody>
+        <% id = 0 %>
+        <% @data.try(:each) do |data| %>
+          <% if data[:fb_id].downcase == 'tution fee' %>
+            <tr>
+              <td><%= data[:fb_id] %></td>
+              <td><%= data[:total] - @discount  %></td>
+              <td><%= data[:paid] %></td>
+              <% id = id + 1 %>
+              <%= hidden_field_tag "flags[#{id}][id]", data[:id] %>
+              <td><%= text_field_tag "flags[#{id}][amount]", data[:pending]-@discount %>
+              </td>
+            </tr>
+          <% else %>
+            <tr>
+              <td><%= data[:fb_id] %></td>
+              <td><%= data[:total]  %></td>
+              <td><%= data[:paid] %></td>
+              <% id = id + 1 %>
+              <%= hidden_field_tag "flags[#{id}][id]", data[:id] %>
+              <td><%= text_field_tag "flags[#{id}][amount]", data[:pending] %>
+              </td>
+            </tr>
+          <% end %>
         <% end %>
-      <% end %>
-    </tbody>
-  </table>
-  <%= hidden_field_tag :student_id, @student.id %>
-  <%= submit_tag 'Submit' %>
+      </tbody>
+    </table>
+    <%= hidden_field_tag :student_id, @student.id %>
+    <%= submit_tag 'Submit' %>
+  <% end %>
+<% else %>
+  <% puts "aaaaaaaaaaaaaaa" %>
+  <% puts "aaaaaaaaaaaaaaa" %>
+  <% puts "aaaaaaaaaaaaaaa" %>
+  <span style = "color: red" id = "std_error">Invalid Student ID...!!! </span>
 <% end %>
-
 <script type="text/javascript">
-   $(".datepicker").datepicker({ Format: '%YYYY-%MM-%DD' });
+  <% if @student.nil? %>
+    $('#std_error').removeClass('hidden');
+  <% end %>
+  $(".datepicker").datepicker({ Format: '%YYYY-%MM-%DD' });
 </script>
