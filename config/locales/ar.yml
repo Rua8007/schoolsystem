@@ -38,8 +38,8 @@ ar:
     login_count_search: "بحث عدد مرات الدخول"
     last_login_time_search: "آخر تسجيل دخول"
     actions: "الإجراءات"
-  
-  
+
+
   notification:
     notifications: "الإشعارات"
     notifications_panel: "لوحة الإخطارات"
@@ -62,7 +62,7 @@ ar:
     parents_info: "معلومات أولياء الأمور"
     parent_already_exists: "ولي أمر موجود بالفعل"
     students: "الطلاب"
-  
+
   student:
     students: "الطلاب"
     admit_student: "إدراج طالب"
@@ -140,8 +140,9 @@ ar:
     create_student: "إنشاء طالب"
     update_student: "تحديث طالب"
     delete_student: "حذف طالب"
-  
+
   teacher:
+    list_all_employees: "معلمون"
     teachers: "معلمون"
     new_employee: "موظف جديد"
     employee_name_search: "بحث اسم الموظف"
@@ -186,7 +187,7 @@ ar:
     create_employee: "إنشاء موظف"
     update_employee: "موظف تحديث"
     delete_employee: "حذف موظف"
-  
+
   book_shop:
     bookshops: "المكتبات"
     add_stock: "إضافة مخزن"
@@ -221,8 +222,8 @@ ar:
     all_categories: "جميع الفئات"
     all_items: "جميع العناصر"
     all_package: "كل الحزم"
-  
-  
+
+
   conversation:
     conversations: "المحادثات"
     start_conversation: "بدء محادثة"
@@ -252,8 +253,8 @@ ar:
     fee_defaulters: "الرسوم الأساسية"
     fee_break down: "تفاصيل الرسوم"
     fee_records: "سجلات الرسوم"
-  
-  
+
+
   grade_log:
     grade_logs: "الصف سجلات"
     create_new_report_card: "إنشاء بطاقة تقرير جديد"
@@ -305,7 +306,7 @@ ar:
     class_result: "نتيجة الصف"
 
 
-  
+
   grade:
     grades: "درجات"
     add_grade: "إضافة صف"
@@ -348,7 +349,7 @@ ar:
     attendance_report: "تقرير الحضور"
     student_attendance: "الحضور طالب"
 
-  
+
   student_attend:
     create_attendence: "إنشاء حضور"
     view_attendence: "عرض حضور"
@@ -361,7 +362,7 @@ ar:
     update_subject: "تحديث المادة"
     delete_subject: "حذف المادة"
     list_all_subjects: "قائمة جميع الموضوعات"
-  
+
   transport:
     transport: "نقل"
     vehicles: "المركبات"
@@ -402,8 +403,8 @@ ar:
     transport_details: "تفاصيل النقل"
     allot_transportation_details: "تفاصيل النقل"
     transport_fee_records: "سجلات رسوم النقل"
-  
-  
+
+
   timetable:
     timetable: "الجدول"
 
@@ -418,18 +419,18 @@ ar:
     approve_lesson: "الموافقة على خطة الدرس"
     approve_portion: "الموافقة على جزء"
     approve_weekly plan: "الموافقة على خطة الأسبوعية"
-  
+
   purchases:
     purchases: "مشتريات"
     purchase_request: "طلب شراء"
-  
+
   exam_quiz_cal:
     quiz_information: "معلومات الاختبار القصير"
     new_quiz_calender: "تقويم اختبار قصير"
     quiz_calender: "تقويم الاختبارات القصيرة"
     exam_calenders: "تقويم الاختبارات"
     quiz_calenders: "تقويم الاختبارات القصيرة"
-  
-  
+
+
   calender:
     view_all: "مشاهدة الكل"

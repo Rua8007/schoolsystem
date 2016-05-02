@@ -3,7 +3,7 @@
     display: block;
   }
 </style>
-<%= form_for(@lessonplan) do |f| %>
+<%= form_for @lessonplan, html: {multipart: true} do |f| %>
   <% if @lessonplan.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@lessonplan.errors.count, "error") %> prohibited this lessonplan from being saved:</h2>
@@ -97,6 +97,10 @@
         <div class="form-group">
           <span>Procedures Followed</span>
           <%= text_area_tag "lessonplan_detail_details[]", nil, placeholder: 'Write Procedures Details here...',cols: 70, rows: 7, class: 'form-control', style: 'width:100%' %>
+        </div>
+        <div class="form-group">
+          <span>Upload Document</span>
+          <%= file_field_tag "lessonplan_detail_file[]"%>
         </div>
       </div>
     </fieldset>

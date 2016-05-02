@@ -51,6 +51,7 @@ gem 'jbuilder', '~> 2.0'
 gem "rmagick"
 gem 'activesupport-json_encoder'
 gem "carrierwave"
+gem 'fog'
 gem "mailboxer"
 gem 'bootstrap-will_paginate'
 gem 'will_paginate'

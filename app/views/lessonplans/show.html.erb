@@ -18,13 +18,13 @@
               <div class="column col-xs-12 col-sm-3">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Class</label>
-                    <%= @lessonplan.grade.name %>
+                    <%= @lessonplan.grade.name if @lessonplan.grade %>
                 </div>
               </div>
               <div class="column col-xs-12 col-sm-3">
                 <div class="form-group">
                 <label for="exampleInputEmail1">Subject</label>
-                  <%= @lessonplan.subject.name %>
+                  <%= @lessonplan.subject.name if @lessonplan.subject %>
                 </div>
               </div>
               <div class="column col-xs-12 col-sm-3">
@@ -81,13 +81,21 @@
       <tr>
         <th class="text-center">Day</th>
         <th class="text-center">Procedure</th>
+        <th class="text-center">Attachments</th>
       </tr>
     </thead>
-    <tbody class="text-center">
+    <tbody class="">
       <% @lessonplan.lessonplan_details.each do |pd| %>
         <tr>
           <td><%= pd.period%></td>
           <td><%= pd.procedure %></td>
+          <td>
+            <% if pd.attachment.present? %>
+              <%= link_to 'Download', pd.attachment_url, class: 'btn btn-primary', download: true %>
+            <% else %>
+              N/A
+            <% end %>
+          </td>
         </tr>
       <% end %>
     </tbody>

@@ -54,6 +54,8 @@ class LessonplansController < ApplicationController
   # POST /lessonplans
   # POST /lessonplans.json
   def create
+
+    # return render json: params[:lessonplan_detail_file]
     @year_plan = YearPlan.find(params[:lessonplan][:year_plan_id])
 
     if @year_plan.present?
@@ -67,7 +69,10 @@ class LessonplansController < ApplicationController
         @success = false
         if @lessonplan.save
           params[:lessonplan_detail_days].each_with_index do |detail_day,i|
-            @lessonplan.lessonplan_details.create!(period: params[:lessonplan_detail_days][i], procedure: params[:lessonplan_detail_details][i])
+            # return render json: params[:lessonplan_detail_file][i]
+            avs = @lessonplan.lessonplan_details.create!(period: params[:lessonplan_detail_days][i], procedure: params[:lessonplan_detail_details][i])
+            avs.attachment = params[:lessonplan_detail_file][i]
+            avs.save!
           end
           @success = true
         end
