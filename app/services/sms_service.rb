@@ -7,7 +7,7 @@ class SmsService
     puts "================in send sms=============="
 
     puts body
-    body = body.gsub("&nbsp;", " ")
+    body = html_escape_once(value).gsub("\n", "\r\n<br/>").html_safe
     puts body
 
     puts "================in send sms=============="
