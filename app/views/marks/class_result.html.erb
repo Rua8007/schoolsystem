@@ -1,5 +1,5 @@
-<div class="row">
-  <div class="col-md-12">
+<div class="row" >
+  <div class="col-md-12" >
     <%= form_tag(show_class_result_path, method: :post, class: 'col-form class-form', remote: true) do %>
         <div class="form-group col-md-4">
           <label for="class_id"> Select a class</label>
@@ -18,7 +18,7 @@
 
 <hr />
 <div class="row">
-  <div class="col-md-12" id="results">
+  <div class="col-md-12" id="results" style = "overflow:scroll">
     <%= render partial: 'class_result', locals: { klass: @class, exam: @exam, setting: @setting } %>
   </div>
 </div>

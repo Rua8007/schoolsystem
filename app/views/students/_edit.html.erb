@@ -99,6 +99,12 @@
               </div>
               <div class="column col-xs-12 col-sm-2">
                 <div class="form-group">
+                    <label for="exampleInputEmail1">Grade</label>
+                    <%= std.collection_select :grade_id, Grade.where("section is not null"), :id , :full_name,{},{:style => 'height:34px;width: 100%',  class: 'form-control'} %>
+                </div>
+              </div>
+              <div class="column col-xs-12 col-sm-2">
+                <div class="form-group">
                     <label for="exampleInputPassword1">Date of Birth</label>
                     <%= std.text_field :dob , :style => 'height:34px;width: 100%', class: 'form-control datepicker' %>
                 </div>

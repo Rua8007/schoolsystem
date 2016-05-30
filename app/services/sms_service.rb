@@ -8,7 +8,7 @@ class SmsService
 
     puts body
     body = body.gsub("&nbsp;", " ")
-    body = body.gsub("<br>", '\n')
+    body = body.gsub("<br>", "\n")
     puts body
 
     puts "================in send sms=============="

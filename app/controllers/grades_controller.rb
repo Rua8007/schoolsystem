@@ -9,6 +9,28 @@ class GradesController < ApplicationController
     @subjects = Subject.order('name')
   end
 
+  def promote
+    @grades = Grade.where("section is not null").order(:name)
+    @main_grades = Grade.where(section: nil).order(:name)
+  end
+
+  def promoter
+    @grade = Grade.find(params[:grade_id])
+    @promote_to = params[:promote_to]
+    @students = @grade.students
+  end
+
+  def promote_students
+    student_ids = params[:students]
+    promote_to = params[:promote_to]
+    student_ids.try(:each) do |std_id|
+      std = Student.find(std_id)
+      std.grade_id = promote_to
+      std.save!
+    end
+    return render json: params
+  end
+
   def subject_add
     # return render json: params
     # @grade.associations.destroy_all if @grade.associations.present?

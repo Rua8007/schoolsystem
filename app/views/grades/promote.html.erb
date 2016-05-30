@@ -1,0 +1,12 @@
+<%= form_tag promoter_grades_path do %>
+  <div class="col-md-5">
+    <label>Select Grade</label>
+    <%= select_tag "grade_id",options_for_select(@grades.collect{ |u| [u.full_name, u.id] }), class: 'form-control' %>
+  </div>
+  <div class="col-md-5">
+    <label>Promote to</label>
+    <%= select_tag "promote_to",options_for_select(@main_grades.collect{ |u| [u.name, u.id] }), class: 'form-control' %>
+  </div>
+  <br>
+  <%= submit_tag 'Next', class: 'btn btn-primary', style: "float:right; margin-right:25px" %>
+<% end %>

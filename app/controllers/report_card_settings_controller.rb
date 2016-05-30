@@ -111,18 +111,18 @@ class ReportCardSettingsController < ApplicationController
             subject = ReportCardSubject.find(id)
             subject.update(parent_id: @subject.id)
 
-            # if params[:take_exam].include? subject.id
-            #   subject.update(parent_id: @subject.id, take_exam: true)
-            # else
-            #   subject.update(parent_id: @subject.id, take_exam: false)
-            # end
+            if params[:take_exam].include? subject.id
+              subject.update(parent_id: @subject.id, take_exam: true)
+            else
+              subject.update(parent_id: @subject.id, take_exam: false)
+            end
           end
        end
     end
   end
 
   def create_subjects
-    puts "==========================="
+    puts "==========++++++++++================="
     puts "==========================="
     puts params.inspect
     puts "==========================="

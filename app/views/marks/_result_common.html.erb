@@ -10,7 +10,7 @@
   </thead>
   <tbody>
   <% @class.students.order('first_name, last_name').try(:each) do |std| %>
-      <% report_card = ReportCard.find_by(grade_id: @class.id, student_id: std.id, batch_id: @class.batch_id) %>
+      <% report_card = ReportCard.find_by(grade_id: @class.id, student_id: std.id, batch_id: Batch.last.id) %>
       <tr>
         <td><%= std.fullname %></td>
         <% @setting.marks_divisions.try(:each) do |division| %>

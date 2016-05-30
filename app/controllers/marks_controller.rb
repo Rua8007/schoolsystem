@@ -84,7 +84,7 @@ class MarksController < ApplicationController
       @subjects << bridge.subject
     end
     @subjects = @subjects.sort_by { |k| k.name }
-    @exams = Exam.where(grade_id: @main_grade.id, batch_id: @class.batch_id).order('name')
+    @exams = Exam.where(grade_id: @main_grade.id, batch_id: Batch.last.id).order('name')
   end
 
   def enter_marks
@@ -92,6 +92,9 @@ class MarksController < ApplicationController
     @exam = Exam.find(params[:exam_id])
     @subject = Subject.find(params[:subject_id])
     @main_grade = @class.parent if @class.present?
+    @setting    = ReportCardSetting.find_by(grade_id: @main_grade.id,
+                  batch_id: Batch.last.id, exam_id: @exam.id) if @main_grade.present?
+    @report_card_subject = @setting.subjects.find_by(name: @subject.name, code: @subject.code)
     if @class.students.present?
       @students = @class.students.sort_by { |k| k.rollnumber }
     end
@@ -100,14 +103,14 @@ class MarksController < ApplicationController
       @bridge = Bridge.find_by(grade_id: @class.id, employee_id: Employee.find_by_email(current_user.email).try(:id), subject_id: @subject.id)
     end
 
-    @setting = ReportCardSetting.find_by(grade_id: @main_grade.id, batch_id: @class.batch_id, exam_id: @exam.id) if @main_grade.present?
+    @setting = ReportCardSetting.find_by(grade_id: @main_grade.id, batch_id: Batch.last.id, exam_id: @exam.id) if @main_grade.present?
 
     @marks_divisions = @setting.marks_divisions.order('name')
     @marks_division = @marks_divisions.first
     @marks_division = ReportCardDivision.find(params[:division_id]) if params[:division_id].present?
 
     @students.try(:each) do |std|
-      ReportCard.find_or_create_by(student_id: std.id, grade_id: @class.id, batch_id: @class.batch_id)
+      ReportCard.find_or_create_by(student_id: std.id, grade_id: @class.id, batch_id: Batch.last.id)
     end
 
     check_subjects(@setting, [@subject])
@@ -120,7 +123,7 @@ class MarksController < ApplicationController
     @marks_division = ReportCardDivision.find(params[:division_id]) if params[:division_id].present?
 
     @main_grade = @class.parent if @class.present?
-    @setting = ReportCardSetting.find_by(grade_id: @main_grade.id, batch_id: @class.batch_id, exam_id: @exam.id) if @main_grade.present?
+    @setting = ReportCardSetting.find_by(grade_id: @main_grade.id, batch_id: Batch.last.id, exam_id: @exam.id) if @main_grade.present?
     # @report_card_exam = ReportCardExam.find_by_exam(@exam) if @exam.present?
     @report_card_subject = @setting.subjects.find_by(name: @subject.name, code: @subject.code) if @subject.present?
     #@report_card_division = ReportCardDivision.find_by_marks_division(@marks_division) if params[:division_id].present?
@@ -132,7 +135,7 @@ class MarksController < ApplicationController
       std_marks = std.last
       std_marks.each_with_index do |marks, index|
         if student.present?
-          @report_card = ReportCard.find_by student_id: student.id, grade_id: @class.id, batch_id: @class.batch_id
+          @report_card = ReportCard.find_by student_id: student.id, grade_id: @class.id, batch_id: Batch.last.id
           @mark = Mark.find_or_create_by(report_card_id: @report_card.id, exam_id: @exam.id, subject_id: @report_card_subject.id, division_id: @marks_division.id)
           @sessional = Sessional.find_or_create_by name: "#{@marks_division.name} #{index + 1}", mark_id: @mark.id
           @sessional.update( obtained_marks: marks.to_f, mark_date: @dates[index])
@@ -156,7 +159,7 @@ class MarksController < ApplicationController
     end
     @class = params[:class_id].present? ? Grade.find_by(id: params[:class_id]) : @classes.first
     @main_grade = @class.parent if @class.present?
-    @exams = @main_grade.exams.where(batch_id: @class.batch_id)
+    @exams = @main_grade.exams.where(batch_id: Batch.last.id)
     @exam = Exam.find(params[:exam_id]) if params[:exam_id].present?
     @exam = @exams.first if @exam.nil?
 
@@ -174,7 +177,7 @@ class MarksController < ApplicationController
     #   @subjects << bridge.subject unless @subjects.include?(bridge.subject)
     # end
 
-    @setting = ReportCardSetting.find_by(grade_id: @main_grade.id, batch_id: @class.batch_id, exam_id: @exam.id)
+    @setting = ReportCardSetting.find_by(grade_id: @main_grade.id, batch_id: Batch.last.id, exam_id: @exam.id)
     @report_card_subjects = []
     @subjects.each do |sub|
       @report_card_subjects << @setting.subjects.find_by(name: sub.name, code: sub.code)
@@ -186,7 +189,7 @@ class MarksController < ApplicationController
     @class = Grade.find(params[:class_id])
     @main_grade = @class.parent if @class.present?
     @exam = Exam.find_by_id(params[:exam_id])
-    @setting = ReportCardSetting.find_by(grade_id: @main_grade.id, batch_id: @class.batch_id, exam_id: @exam.id)
+    @setting = ReportCardSetting.find_by(grade_id: @main_grade.id, batch_id: Batch.last.id, exam_id: @exam.id)
     @subject = ReportCardSubject.find_by_id(params[:subject_id])
     @teacher = @class.bridges.where(subject_id: Subject.find_by_name(@subject.name)).last.employee
     respond_to do |format|
@@ -214,9 +217,9 @@ class MarksController < ApplicationController
     @class_bridges.each do |bridge|
       @subjects << bridge.subject
     end
-    @exams = Exam.where(grade_id: @main_grade.id, batch_id: @class.batch_id)
+    @exams = Exam.where(grade_id: @main_grade.id, batch_id: Batch.last.id)
     @exam = params[:exam_id].present? ? Exam.find(params[:exam_id]) : @exams.first
-    @setting = ReportCardSetting.find_by(grade_id: @main_grade.id, batch_id: @class.batch_id, exam_id: @exam.id)
+    @setting = ReportCardSetting.find_by(grade_id: @main_grade.id, batch_id: Batch.last.id, exam_id: @exam.id)
     check_subjects(@setting, @subjects) if @setting.present?
   end
 
@@ -323,7 +326,7 @@ class MarksController < ApplicationController
     @exam       = Exam.find(params[:exam_id])       if params[:exam_id].present?
     @subject    = Subject.find(params[:subject_id]) if params[:subject_id].present?
     @setting    = ReportCardSetting.find_by(grade_id: @main_grade.id,
-                  batch_id: @class.batch_id, exam_id: @exam.id) if @main_grade.present?
+                  batch_id: Batch.last.id, exam_id: @exam.id) if @main_grade.present?
 
     text = File.read(params[:csv].tempfile) if params[:csv].present?
     begin
@@ -343,7 +346,7 @@ class MarksController < ApplicationController
                 marks_division = @setting.marks_divisions.find_by_name(division.strip)
                 puts "Marks Division: ========================================= #{marks_division.inspect} ========================================="
                 report_card_subject = @setting.subjects.find_by(name: @subject.name, code: @subject.code) if @subject.present?
-                report_card = ReportCard.find_by student_id: student.id, grade_id: @class.id, batch_id: @class.batch_id
+                report_card = ReportCard.find_by student_id: student.id, grade_id: @class.id, batch_id: Batch.last.id
                 puts "Found Report Card: #{report_card.inspect}"
 
                 if marks_division.present? and report_card_subject.present? and student.present? and report_card.present?
@@ -379,7 +382,7 @@ class MarksController < ApplicationController
     @exam       = Exam.find(params[:exam_id])       if params[:exam_id].present?
     @subject    = Subject.find(params[:subject_id]) if params[:subject_id].present?
     @setting    = ReportCardSetting.find_by(grade_id: @main_grade.id,
-                                            batch_id: @class.batch_id, exam_id: @exam.id) if @main_grade.present?
+                                            batch_id: Batch.last.id, exam_id: @exam.id) if @main_grade.present?
     @employee  = Employee.find_by_email(current_user.email)
 
     csv_string = CSV.generate do |csv|

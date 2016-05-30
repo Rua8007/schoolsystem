@@ -245,6 +245,9 @@ Rails.application.routes.draw do
         get 'all_student'
         post 'student_add'
         get 'all_grades'
+        get 'promote'
+        post 'promoter'
+        post 'promote_students'
       end
       member do
         get 'add_students'

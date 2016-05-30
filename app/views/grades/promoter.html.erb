@@ -1,0 +1,44 @@
+<%= form_tag promote_students_grades_path do %>
+
+  <table>
+    <thead class="table-head" >
+      <th><input type="checkbox" id="selecctall" style="width:10%" /> <label>Select All</label></th>
+      <th>Roll Number</th>
+      <th>Student Name</th>
+    </thead>
+    <tbody>
+      <% @students.try(:each) do |std| %>
+        <tr>
+          <td>
+            <%= check_box_tag 'students[]', std.id , false ,class: "std gen" %>
+          </td>
+          <td><%= std.rollnumber %></td>
+          <td>
+            <%= std.fullname %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= hidden_field_tag :promote_to, @promote_to %>
+  <br>
+  <br>
+  <%= submit_tag "Promote", class: "btn btn-success pull-right", data: { confirm: "Are you sure You want to promote these students?" } %>
+<% end %>
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#selecctall').click(function(event) {  //on click
+        if(this.checked) { // check select status
+          $('.gen').each(function() { //loop through each checkbox
+              this.checked = true;  //select all checkboxes with class "checkbox1"
+          });
+        }else{
+          $('.gen').each(function() { //loop through each checkbox
+              this.checked = false; //deselect all checkboxes with class "checkbox1"
+          });
+        }
+    });
+  });
+</script>

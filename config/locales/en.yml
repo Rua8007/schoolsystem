@@ -27,3 +27,5 @@ en:
 
   fee:
     fee_entries: 'Fee Entries'
+  promote:
+    promotions: "Promote"

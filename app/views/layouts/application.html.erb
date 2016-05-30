@@ -1190,6 +1190,15 @@
                   <% end %>
 
 
+                  <%# if Right.where("role_id = ? and value = ?" , current_user.role_id, 'view_fee').any? %>
+                        <li>
+                          <%= link_to(promote_grades_path) do %>
+                              <i class="glyphicon glyphicon-usd"></i>
+                              <span><%= t('promote.promotions') %></span>
+                          <% end %>
+                        </li>
+                  <%# end %>
+
 
                 <!-- <li>
                   <a href class="auto">
