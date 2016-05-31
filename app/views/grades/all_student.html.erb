@@ -57,8 +57,8 @@
 </script>
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3"><%= @grade.name+'-'+@grade.section+" "%>Students
-    <% if current_user.role.rights.where(name: 'create_student').any? %>
-      <%= link_to "Add DStudents", add_students_grade_path(@grade.id), class: "btn btn-success pull-right" %>
+    <% if current_user.role.rights.where(value: 'create_student').any? %>
+      <%= link_to "Add Students", add_students_grade_path(@grade.id), class: "btn btn-success pull-right" %>
     <% end %>
   </h1>
 
