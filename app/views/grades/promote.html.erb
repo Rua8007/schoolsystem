@@ -1,7 +1,7 @@
 <%= form_tag promoter_grades_path do %>
   <div class="col-md-5">
     <label>Select Grade</label>
-    <%= select_tag "grade_id",options_for_select(@grades.collect{ |u| [u.full_name, u.id] }), class: 'form-control' %>
+    <%= select_tag "grade_id",options_for_select(@grades.collect{ |u| [u.full_name, u.id] }),prompt: "Select Grade", class: 'form-control' %>
   </div>
   <div class="col-md-5">
     <label>Promote to</label>
@@ -10,3 +10,19 @@
   <br>
   <%= submit_tag 'Next', class: 'btn btn-primary', style: "float:right; margin-right:25px" %>
 <% end %>
+
+
+<script type="text/javascript">
+  $("#grade_id").change(function(e){
+    $.get("/grades/get_classes", {grade_id: $("#grade_id").val()},function(data){
+      $("#promote_to").empty();
+      var array1 = data
+      console.log(data)
+
+      for(i=0; i< data.grades.length; i++){
+        console.log(data.grades[i])
+        $("#promote_to").append("<option value='"+data.grades[i].id+"'>"+data.grades[i].name+"("+data.grades[i].section+")</option>");
+      }
+    });
+  });
+</script>

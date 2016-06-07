@@ -248,6 +248,7 @@ Rails.application.routes.draw do
         get 'promote'
         post 'promoter'
         post 'promote_students'
+        get 'get_classes'
       end
       member do
         get 'add_students'

@@ -4,7 +4,12 @@ class StudentsController < ApplicationController
     if !current_user.role.rights.where(value: "view_student").any?
       redirect_to root_path, alert: "Sorry! You are not authorized"
     else
-  		@students = Student.all
+      if params[:deleted]
+        @students = Student.deleted
+        @dropped = true
+      else
+        @students = Student.all
+      end
       @student = @students.first
       respond_to do |format|
         format.html
@@ -356,6 +361,21 @@ class StudentsController < ApplicationController
 
   def give_discount
     @student = Student.find(params[:id])
+  end
+
+  def destroy
+    if params[:restore]
+      std = Student.deleted.find(params[:id])
+      std.is_deleted = false
+      std.save
+      # return render json: params
+      redirect_to students_path(deleted: true),notice: "Student has been Restored Successfully...!!!"
+    else
+      std = Student.find(params[:id])
+      std.is_deleted = true
+      std.save
+      redirect_to students_path,notice: "Student has been dropped Successfully...!!!"
+    end
   end
 
 	private

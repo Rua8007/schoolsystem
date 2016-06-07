@@ -42,6 +42,11 @@ class Student < ActiveRecord::Base
 									{label: 'email',       method: 'email'},
 									{label: 'grade',       method: 'grade_name'}
 	]
+	default_scope {where(:is_deleted => false)}
+
+	def self.deleted
+  	self.unscoped.where(is_deleted: true)
+	end
 
 	def login_info
 		if self.email.present?

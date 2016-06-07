@@ -98,8 +98,14 @@
               <%= link_to '', edit_student_student_path(student),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
             <% end %>
 
-            <% if current_user.role.rights.where(value: "delete_student").any? %>
-              <%= link_to '', student, method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
+            <% if @dropped %>
+              <% if current_user.role.rights.where(value: "delete_student").any? %>
+                <%= link_to 'Restore', student_path({id: student.id, restore: true}), method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger'%>
+              <% end %>
+            <% else %>
+              <% if current_user.role.rights.where(value: "delete_student").any? %>
+                <%= link_to '', student, method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
+              <% end %>
             <% end %>
           </td>
         </tr>

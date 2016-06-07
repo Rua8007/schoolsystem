@@ -85,8 +85,7 @@ class HomeController < ApplicationController
 
   def confirm_admin
     user = User.find_by_email(params[:email])
-    if user && user.role.rights.find_by_value('access_backups') && user.valid_password?(params[:password])
-
+    if user && user.valid_password?(params[:password])
       redirect_to params[:redirection], notice: 'Access Granted...!!!'
     else
       redirect_to :back , alert: 'Invalid Admin Credentials'

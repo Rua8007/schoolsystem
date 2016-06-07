@@ -28,4 +28,8 @@ en:
   fee:
     fee_entries: 'Fee Entries'
   promote:
+    title: "Promote/Demote"
     promotions: "Promote"
+    deleted_students: "Dropped Outs"
+    change_grade: "Change Grade"
+    demotions: "Demote"

@@ -319,6 +319,14 @@
                             <% end %>
                           <% end %>
                         </li>
+
+                        <li>
+                          <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'delete_student').any? %>
+                            <%= link_to(students_path({deleted: true})) do %>
+                              <span><%= t('promote.deleted_students') %></span>
+                            <% end %>
+                          <% end %>
+                        </li>
                       </ul>
                     </li>
                   <% end %>
@@ -1191,12 +1199,36 @@
 
 
                   <%# if Right.where("role_id = ? and value = ?" , current_user.role_id, 'view_fee').any? %>
+                    <li>
+                    <a href class="auto">
+                      <span class="pull-right text-muted">
+                        <i class="fa fa-fw fa-angle-right text"></i>
+                        <i class="fa fa-fw fa-angle-down text-active"></i>
+                      </span>
+                      <i class="glyphicon glyphicon-briefcase icon"></i>
+                      <span><%= t('promote.title') %></span>
+                    </a>
+                    <ul class="nav nav-sub dk">
                         <li>
-                          <%= link_to(promote_grades_path) do %>
+                          <%= link_to(home_confirm_password_path({redirection:promote_grades_path})) do %>
                               <i class="glyphicon glyphicon-usd"></i>
                               <span><%= t('promote.promotions') %></span>
                           <% end %>
                         </li>
+                        <li>
+                          <%= link_to(home_confirm_password_path({redirection:promote_grades_path})) do %>
+                              <i class="glyphicon glyphicon-usd"></i>
+                              <span><%= t('promote.change_grade') %></span>
+                          <% end %>
+                        </li>
+                        <li>
+                          <%= link_to(home_confirm_password_path({redirection:promote_grades_path})) do %>
+                              <i class="glyphicon glyphicon-usd"></i>
+                              <span><%= t('promote.demotions') %></span>
+                          <% end %>
+                        </li>
+                    </ul>
+                  </li>
                   <%# end %>
 
 

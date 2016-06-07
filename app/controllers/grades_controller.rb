@@ -11,13 +11,22 @@ class GradesController < ApplicationController
 
   def promote
     @grades = Grade.where("section is not null").order(:name)
-    @main_grades = Grade.where(section: nil).order(:name)
+    @main_grades = []
   end
 
   def promoter
     @grade = Grade.find(params[:grade_id])
     @promote_to = params[:promote_to]
     @students = @grade.students
+  end
+
+  def get_classes
+    puts "+=+=+"*100
+    grade = Grade.find(params[:grade_id])
+    grades = Grade.where("section is not null and campus = ? and name != ?", grade.campus, grade.name)
+    respond_to do |format|
+      format.json {render json: {grades: grades}}
+    end
   end
 
   def promote_students
