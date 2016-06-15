@@ -37,7 +37,7 @@ class GradesController < ApplicationController
       std.grade_id = promote_to
       std.save!
     end
-    return render json: params
+    # return render json: params
   end
 
   def subject_add
