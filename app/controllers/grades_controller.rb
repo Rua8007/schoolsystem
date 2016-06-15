@@ -37,7 +37,7 @@ class GradesController < ApplicationController
       std.grade_id = promote_to
       std.save!
     end
-    redirect_to root_path, notice: "Students Has Been Promoted Successfully..!"
+    redirect_to root_path, notice: "Grades has been updated Successfully..!"
     # return render json: params
   end
 

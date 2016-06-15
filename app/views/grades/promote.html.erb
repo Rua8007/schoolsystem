@@ -5,7 +5,7 @@
   </div>
   <div class="col-md-5">
     <label>Promote to</label>
-    <%= select_tag "promote_to",options_for_select(@main_grades.collect{ |u| [u.name, u.id] }), class: 'form-control' %>
+    <%= select_tag "promote/demote",options_for_select(@main_grades.collect{ |u| [u.name, u.id] }), class: 'form-control' %>
   </div>
   <br>
   <%= submit_tag 'Next', class: 'btn btn-primary', style: "float:right; margin-right:25px" %>
