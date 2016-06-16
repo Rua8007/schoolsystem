@@ -24,7 +24,7 @@
         <div class="row">
           <fieldset class="sss well well-lg">
             <legend class="lll">Lesson Plan Information</legend>
-              <div class="column col-xs-12 col-sm-3">
+              <div class="column col-xs-12 col-sm-4">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Class</label>
                     <% if @lessonplan.new_record? %>
@@ -34,43 +34,43 @@
                     <% end %>
                 </div>
               </div>
-              <div class="column col-xs-12 col-sm-3">
+              <div class="column col-xs-12 col-sm-4">
                 <div class="form-group">
                 <label for="exampleInputEmail1">Subject</label>
                   <%= f.select :subject_id, options_from_collection_for_select(@subjects,"id", "name"),{prompt: "Select Subject"}, {class: 'form-control', required: true} %>
                 </div>
               </div>
-              <div class="column col-xs-12 col-sm-3">
+              <div class="column col-xs-12 col-sm-4">
                 <div class="form-group">
                 <label for="exampleInputEmail1">Topic</label>
                   <%= f.text_field :topic , :style => 'height:34px;width: 100%',  class: 'form-control', autofocus: true %>
                 </div>
               </div>
-              <div class="column col-xs-12 col-sm-3">
+              <div class="column col-xs-12 col-sm-4">
                 <div class="form-group">
                 <label for="exampleInputEmail1">Selection</label>
                   <%= f.text_field :selection , :style => 'height:34px;width: 100%',  class: 'form-control ', autofocus: true %>
                 </div>
               </div>
-              <div class="column col-xs-12 col-sm-3">
+              <div class="column col-xs-12 col-sm-4">
                 <div class="form-group">
                 <label for="exampleInputEmail1">Start date</label>
                   <%= f.text_field :startdate , :style => 'height:34px;width: 100%',  class: 'form-control datepicker', autofocus: true %>
                 </div>
               </div>
-              <div class="column col-xs-12 col-sm-3">
+              <div class="column col-xs-12 col-sm-4">
                 <div class="form-group">
                 <label for="exampleInputEmail1">End date</label>
                   <%= f.text_field :enddate , :style => 'height:34px;width: 100%',  class: 'form-control datepicker ', autofocus: true %>
                 </div>
               </div>
-              <div class="column col-xs-12 col-sm-6">
+              <div class="column col-xs-12 col-sm-6" style="display:none">
                 <div class="form-group">
                 <label for="exampleInputEmail1">Students will engage in</label>
                   <%= f.text_area :studentengage , :style => 'height:44px;width: 100%',  class: 'form-control ', autofocus: true %>
                 </div>
               </div>
-              <div class="column col-xs-12 col-sm-12">
+              <div class="column col-xs-12 col-sm-12" style="display:none">
                 <div class="form-group">
                 <label for="exampleInputEmail1">New Vocabulary</label>
                   <%= f.text_field :newvocabulary , :style => 'height:34px;width: 100%',  class: 'form-control ', autofocus: true %>
