@@ -23,6 +23,8 @@ ar:
   # sample localization file for fnglish. add more files in this directory for other locales.
   # see https://github.com/svenfuchs/rails-i18n/tree/master/rails%2flocale for starting points.
   user:
+    deleted_students: "طلاب المحذوفة"
+    master_setup: "إعداد الرئيسية"
     user_permissions: "صلاحيات المستخدم"
     users: "المستخدمين"
     new_role: "دور جديدة"
@@ -38,6 +40,7 @@ ar:
     login_count_search: "بحث عدد مرات الدخول"
     last_login_time_search: "آخر تسجيل دخول"
     actions: "الإجراءات"
+    backup: "دعم"
 
 
   notification:
@@ -238,8 +241,11 @@ ar:
     lesson_plan: "خطة الدرس"
     employees_attendance: "الموظفين الحضور"
     weekend_days: "عطلة نهاية الأسبوع"
+    portions: "أجزاء"
+    weekly_plan: "الخطط الأسبوعية"
 
   fees_register:
+    fee_register: "رسوم التسجيل"
     create_fees_breakdown: "إنشاء تفاصيل الرسوم"
     add_more: "أضف المزيد"
     select_grade: "حدد الصف"
@@ -251,8 +257,9 @@ ar:
     delete_fee: "حذف رسوم"
     submit_fee: "إرسال رسوم"
     fee_defaulters: "الرسوم الأساسية"
-    fee_break down: "تفاصيل الرسوم"
+    fee_break_down: "تفاصيل الرسوم"
     fee_records: "سجلات الرسوم"
+    fee_entries: "مقالات رسوم"
 
 
   grade_log:
@@ -341,6 +348,10 @@ ar:
     view_leave: "عرض إجازة"
     update_leave: "إجازة تحديث"
     delete_leave: "حذف إجازة"
+    approved_leaves: "أوراق الموافقة"
+    rejected_leaves: "أوراق رفضت"
+    request_leave: "طلب إجازة"
+    my_leaves: "إجازة"
 
   attendance:
     my_attendance: "حضوري"
@@ -412,9 +423,10 @@ ar:
     batch: "دفعة"
 
   req_approval:
+    request_approval: "طلب الموافقة"
     view_weeklyplans: "عرض الخطة الأسبوعية"
-    view_lesson plans: "عرض تحضير الدروس"
-    view_curriculum plans: "عرض خطة المنهج"
+    view_lesson_plans: "عرض تحضير الدروس"
+    view_curriculum_plans: "عرض خطة المنهج"
     approve_curriculam: "الموافقة على خطة المنهج"
     approve_lesson: "الموافقة على خطة الدرس"
     approve_portion: "الموافقة على جزء"
@@ -425,6 +437,7 @@ ar:
     purchase_request: "طلب شراء"
 
   exam_quiz_cal:
+    title: "الامتحان و الاختبار التقويم"
     quiz_information: "معلومات الاختبار القصير"
     new_quiz_calender: "تقويم اختبار قصير"
     quiz_calender: "تقويم الاختبارات القصيرة"
@@ -434,3 +447,9 @@ ar:
 
   calender:
     view_all: "مشاهدة الكل"
+    calender: "تقويم"
+
+  promote:
+    promote_and_demote: "تعزيز و تخفيض"
+    promotions: "الترقيات"
+    demotions:  "الاستبعاد"
