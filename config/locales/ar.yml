@@ -42,6 +42,14 @@ ar:
     actions: "الإجراءات"
     backup: "دعم"
 
+  panel:
+    dashboard: "لوحة القيادة"
+    messages: "رسائل"
+    behaviour: "سلوك"
+    fee_entries: "مقالات رسوم"
+    my_result: "بلدي النتيجة"
+    enter_marks: "إدخال علامات"
+    responsibilities: "المسؤوليات"
 
   notification:
     notifications: "الإشعارات"
