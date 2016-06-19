@@ -585,7 +585,7 @@
                         <% if current_user.role.rights.where("value = 'view_weeklyplans' or value = 'create_week' or value = 'update_week' ").any? or current_user.role.name == 'Teacher'%>
                           <li>
                             <%= link_to(year_plan_weeks_path(@year_plan)) do %>
-                              <span>Weekly Plans</span>
+                              <span><%= t('plan.weekly_plan') %></span>
                             <% end %>
                           </li>
                         <% end %>
@@ -1094,7 +1094,7 @@
                       <% if current_user.role.name == 'Teacher' %>
                         <li>
                           <%= link_to(portions_path(year_plan: @year_plan)) do %>
-                            <span>Portions</span>
+                            <span><%= t('plan.portions') %></span>
                           <% end %>
                         </li>
                       <% end %>
@@ -1134,7 +1134,7 @@
                     <% if Right.where("role_id = ? and value = 'enter_marks'", current_user.role_id ).any? or Right.where("role_id = ? and value = 'enter_all_marks'", current_user.role_id ).any? %>
                        <li>
                         <%= link_to(marks_path) do %>
-                            <span>Enter Marks</span>
+                            <span><%= t('panel.enter_marks') %></span>
                         <% end %>
                        </li>
                     <% end %>
