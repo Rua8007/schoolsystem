@@ -131,6 +131,13 @@ module MarksHelper
   end
 
   def get_quarter_total(report_card, subject, exam)
+    puts "ajdfljasklfjasdklfjasdklfj"
+    puts "ajdfljasklfjasdklfjasdklfj"
+    puts "ajdfljasklfjasdklfjasdklfj"
+    puts "ajdfljasklfjasdklfjasdklfj"
+    puts subject.inspect
+    puts "ajdfljasklfjasdklfjasdklfj"
+    puts "ajdfljasklfjasdklfjasdklfj"
     if subject.present? && subject.sub_subjects.present?
       marks = 0
       subject.sub_subjects.each do |sub_subject|
