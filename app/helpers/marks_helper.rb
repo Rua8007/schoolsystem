@@ -135,7 +135,7 @@ module MarksHelper
     puts "ajdfljasklfjasdklfjasdklfj"
     puts "ajdfljasklfjasdklfjasdklfj"
     puts "ajdfljasklfjasdklfjasdklfj"
-    puts subject.inspect
+    puts subject.id
     puts "ajdfljasklfjasdklfjasdklfj"
     puts "ajdfljasklfjasdklfjasdklfj"
     if subject.present? && subject.sub_subjects.present?
