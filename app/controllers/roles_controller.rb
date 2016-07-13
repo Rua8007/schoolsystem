@@ -14,7 +14,11 @@ class RolesController < ApplicationController
 
   # GET /roles/new
   def new
-    @role = Role.new
+    if !current_user.role.rights.where(value: "permissions").any?
+      redirect_to root_path, alert: "Sorry! You are not authorized"
+    else
+      @role = Role.new
+    end
   end
 
   # GET /roles/1/edit

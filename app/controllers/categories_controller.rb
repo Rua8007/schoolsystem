@@ -4,21 +4,33 @@ class CategoriesController < ApplicationController
   # GET /categories
   # GET /categories.json
   def index
+    if current_user.role.rights.where(value: "create_employee").blank?
+      redirect_to root_path, alert: "Sorry! You are not authorized"
+    end
     @categories = Category.all
   end
 
   # GET /categories/1
   # GET /categories/1.json
   def show
+    if current_user.role.rights.where(value: "create_employee").blank?
+      redirect_to root_path, alert: "Sorry! You are not authorized"
+    end
   end
 
   # GET /categories/new
   def new
+    if current_user.role.rights.where(value: "create_employee").blank?
+      redirect_to root_path, alert: "Sorry! You are not authorized"
+    end
     @category = Category.new
   end
 
   # GET /categories/1/edit
   def edit
+    if current_user.role.rights.where(value: "create_employee").blank?
+      redirect_to root_path, alert: "Sorry! You are not authorized"
+    end
   end
 
   # POST /categories

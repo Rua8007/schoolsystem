@@ -4,6 +4,9 @@ class DepartmentsController < ApplicationController
   # GET /departments
   # GET /departments.json
   def index
+    if current_user.role.rights.where(value: "create_employee").blank?
+      redirect_to root_path, alert: "Sorry! You are not authorized"
+    end
     @departments = Department.all
   end
 
@@ -14,11 +17,17 @@ class DepartmentsController < ApplicationController
 
   # GET /departments/new
   def new
+    if current_user.role.rights.where(value: "create_employee").blank?
+      redirect_to root_path, alert: "Sorry! You are not authorized"
+    end
     @department = Department.new
   end
 
   # GET /departments/1/edit
   def edit
+    if current_user.role.rights.where(value: "create_employee").blank?
+      redirect_to root_path, alert: "Sorry! You are not authorized"
+    end
   end
 
   # POST /departments

@@ -254,10 +254,11 @@ class MarksController < ApplicationController
   end
 
   def complete_result_card
+    @fors = 'pdf'
     @student = Student.find(params[:student_id])
     @class = Grade.find(params[:class_id])
     @main_grade = @class.parent if @class.present?
-    @batch = Batch.find(params[:batch_id])
+    @batch = Batch.last
 
     @report_card = ReportCard.find_by(student_id: @student.id, grade_id: @class.id, batch_id: @batch.id)
     @exams = Exam.where(grade_id: @main_grade.id, batch_id: @batch.id).order('name') || []

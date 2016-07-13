@@ -1197,32 +1197,32 @@
                   <% end %>
 
 
-                  <%# if Right.where("role_id = ? and value = ?" , current_user.role_id, 'view_fee').any? %>
+                  <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'promote').any? %>
                     <li>
-                    <a href class="auto">
-                      <span class="pull-right text-muted">
-                        <i class="fa fa-fw fa-angle-right text"></i>
-                        <i class="fa fa-fw fa-angle-down text-active"></i>
-                      </span>
-                      <i class="glyphicon glyphicon-briefcase icon"></i>
-                      <span><%= t('promote.promote_and_demote') %></span>
-                    </a>
-                    <ul class="nav nav-sub dk">
+                      <a href class="auto">
+                        <span class="pull-right text-muted">
+                          <i class="fa fa-fw fa-angle-right text"></i>
+                          <i class="fa fa-fw fa-angle-down text-active"></i>
+                        </span>
+                        <i class="glyphicon glyphicon-briefcase icon"></i>
+                        <span><%= t('promote.promote_and_demote') %></span>
+                      </a>
+                      <ul class="nav nav-sub dk">
                         <li>
                           <%= link_to(home_confirm_password_path({redirection:promote_grades_path})) do %>
-                              <i class="glyphicon glyphicon-usd"></i>
-                              <span><%= t('promote.promotions') %></span>
+                            <i class="glyphicon glyphicon-usd"></i>
+                            <span><%= t('promote.promotions') %></span>
                           <% end %>
                         </li>
                         <li>
                           <%= link_to(home_confirm_password_path({redirection:promote_grades_path})) do %>
-                              <i class="glyphicon glyphicon-usd"></i>
-                              <span><%= t('promote.demotions') %></span>
+                            <i class="glyphicon glyphicon-usd"></i>
+                            <span><%= t('promote.demotions') %></span>
                           <% end %>
                         </li>
-                    </ul>
-                  </li>
-                  <%# end %>
+                      </ul>
+                    </li>
+                  <% end %>
 
 
                 <!-- <li>

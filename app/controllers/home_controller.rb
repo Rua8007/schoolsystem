@@ -21,7 +21,7 @@ class HomeController < ApplicationController
   end
 
   def sms
-    redirect_to root_path unless Right.where("role_id = ? and value = 'send_sms'", current_user.role_id ).any?
+    redirect_to root_path, alert: "Sorry! You are not authorized" unless Right.where("role_id = ? and value = 'send_sms'", current_user.role_id ).any?
   end
 
   def sendsms
@@ -39,44 +39,57 @@ class HomeController < ApplicationController
   end
 
   def backups
-    s3 = Aws::S3::Client.new
-    s4 = Aws::S3::Resource.new(
-        :access_key_id     => ENV["AMAZON_ACCESS_KEY"],
-        :secret_access_key => ENV["AMAZON_SECRET_KEY"]
-      )
-    resp = s3.list_objects(bucket: 'alomam')
-    @backups = []
+    if !current_user.role.rights.where(value: "access_backups").any?
+      redirect_to root_path, alert: "Sorry! You are not authorized"
+    else
 
-    resp.contents.last(10).each do |object|
-      name = object.key.to_s.split('/')[2]
-      # s3.get_object({ bucket:'alomam', key: object.key } ,
-      #   target: Rails.root.join("s3_downloads/#{name}.tar"))
-      @backups<< {
-        key: object.key,
-        name: name,
-        url: s4.bucket('alomam').object(object.key).presigned_url(:get, expires_in: 3600)
-      }
+      s3 = Aws::S3::Client.new
+      s4 = Aws::S3::Resource.new(
+          :access_key_id     => ENV["AMAZON_ACCESS_KEY"],
+          :secret_access_key => ENV["AMAZON_SECRET_KEY"]
+        )
+      resp = s3.list_objects(bucket: 'alomam')
+      @backups = []
+
+      resp.contents.last(10).each do |object|
+        name = object.key.to_s.split('/')[2]
+        # s3.get_object({ bucket:'alomam', key: object.key } ,
+        #   target: Rails.root.join("s3_downloads/#{name}.tar"))
+        @backups<< {
+          key: object.key,
+          name: name,
+          url: s4.bucket('alomam').object(object.key).presigned_url(:get, expires_in: 3600)
+        }
+      end
     end
   end
 
   def restore_backup
-    s3 = Aws::S3::Client.new
-    name = params[:name]
-    s3.get_object({ bucket:'alomam', key: params[:key] },
-      target: Rails.root.join("s3_downloads/#{name}.tar"))
+    if !current_user.role.rights.where(value: "access_backups").any?
+      redirect_to root_path, alert: "Sorry! You are not authorized"
+    else
+      s3 = Aws::S3::Client.new
+      name = params[:name]
+      s3.get_object({ bucket:'alomam', key: params[:key] },
+        target: Rails.root.join("s3_downloads/#{name}.tar"))
 
-    `tar -xvf ~/schoolsystem/s3_downloads/#{name}.tar` #extract backup tar file
-    `rake environment db:drop` #drop existing database
-    `rake db:create` #create database
-    `PGPASSWORD=postgres psql schoolsystem_production postgres < miguest_backup/databases/PostgreSQL.sql` #restore
-    redirect_to home_backups_path, notice: 'Backup Restored Successfully..!!!'
+      `tar -xvf ~/schoolsystem/s3_downloads/#{name}.tar` #extract backup tar file
+      `rake environment db:drop` #drop existing database
+      `rake db:create` #create database
+      `PGPASSWORD=postgres psql schoolsystem_production postgres < miguest_backup/databases/PostgreSQL.sql` #restore
+      redirect_to home_backups_path, notice: 'Backup Restored Successfully..!!!'
+    end
   end
 
   def create_backup
-    Bundler.with_clean_env do
-      `backup perform --trigger miguest_backup`
+    if !current_user.role.rights.where(value: "access_backups").any?
+      redirect_to root_path, alert: "Sorry! You are not authorized"
+    else
+      Bundler.with_clean_env do
+        `backup perform --trigger miguest_backup`
+      end
+      redirect_to home_backups_path, notice: 'Backup Created Successfully..!!!'
     end
-    redirect_to home_backups_path, notice: 'Backup Created Successfully..!!!'
   end
 
   def confirm_password

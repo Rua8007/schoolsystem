@@ -24,7 +24,7 @@
   <h4>Grade:                  <%= @class.full_name %></h4>
 </div>
 
-<div class="col-md-12"><%= link_to 'Print', complete_pdf_result_card_path(@student.id, @class.id, @batch.id, 'pdf'), class: 'btn btn-success pull-right' %></div>
+<div class="col-md-12"><%= link_to 'Print', complete_pdf_result_card_path(@student.id, @class.id, @batch.id , format: 'pdf'), class: 'btn btn-success pull-right' %></div>
 <br>
 
-<%= render partial: 'complete_result' %>
+<%= render 'complete_result' %>

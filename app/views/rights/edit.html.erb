@@ -182,6 +182,9 @@
     <%= check_box_tag 'permissions[permissions]', '' , @rights.where(value: "permissions").any? ? true : false ,class: "gen", style: "margin-left:17px;" %> User Permissions
     <br>
     <br>
+    <%= check_box_tag 'permissions[promote]', '' , @rights.where(value: "promote").any? ? true : false ,class: "gen", style: "margin-left:17px;" %> Promote/Demote Students
+    <br>
+    <br>
     <%= check_box_tag 'permissions[send_sms]', '' , @rights.where(value: "send_sms").any? ? true : false ,class: "gen", style: "margin-left:17px;" %> Send SMS
     <br>
     <br>
