@@ -67,6 +67,13 @@
                   <% term1_obtained_marks = 0.0 %>
                   <% term1.each do |exam| %>
                       <% setting = term1_settings.find_by(exam_id: exam.id) %>
+                      <% puts "data-----------------------" %>
+                      <% puts exam.id %>
+                      <% puts setting.inspect %>
+                      <% puts subject.name %>
+                      <% puts subject.code %>
+
+                      <% puts "data-----------------------" %>
                       <% actual_subject = setting.subjects.find_by(name: subject.name, code: subject.code) %>
                       <% term1_obtained_marks = term1_obtained_marks + get_quarter_total(@report_card, actual_subject, exam) %>
                   <% end %>
