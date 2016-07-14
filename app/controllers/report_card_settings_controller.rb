@@ -111,7 +111,7 @@ class ReportCardSettingsController < ApplicationController
             subject = ReportCardSubject.find(id)
             subject.update(parent_id: @subject.id)
 
-            if params[:take_exam].include? subject.id
+            if params[:take_exam] && params[:take_exam].include? subject.id
               subject.update(parent_id: @subject.id, take_exam: true)
             else
               subject.update(parent_id: @subject.id, take_exam: false)
