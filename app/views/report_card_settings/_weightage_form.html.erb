@@ -87,21 +87,25 @@
         }
     });
 
-    $(document).on('blur', '.weight', function(){
+    $(document).on('blur', '.weight_value', function(){
         var weight_sum = calculate_total_weight();
+        console.log('sun in blur:  ',weight_sum);
         $('#weightage').html(parseFloat(weight_sum));
     });
 
     function calculate_total_weight(){
         var weight_sum = 0.0;
-        $('.weight').each(function(){
+        $('.weight_value').each(function(){
             var val = parseFloat($(this).val());
+            console.log('sun in calculate:  ',val);
+
             if(isNaN(val)){
             }
             else{
                 weight_sum = weight_sum + val;
             }
         });
+
         return weight_sum;
     }
 </script>
