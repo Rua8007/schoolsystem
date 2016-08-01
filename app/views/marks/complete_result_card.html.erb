@@ -18,11 +18,18 @@
     }
 </style>
 
-<div class="well well-lg">
-  <h4>Student Name:           <%= @student.fullname %></h4>
-  <h4>Student ID:             <%= @student.rollnumber %></h4>
-  <h4>Grade:                  <%= @class.full_name %></h4>
-</div>
+<table class="col-md-9 table">
+  <tbody>
+    <tr>
+    <td style = "height:15px"><h5><span class="text-primary"><%= @student.arabicname %> </span>       <span class = "pull-right"> أسم الطالب </span> </h5></td></tr>
+
+    <tr><td style = "height:15px"><h5>Student Name:           <span class="text-primary"><%= @student.fullname %></span></h5></td></tr>
+    <tr><td style = "height:15px"><h5>Student ID:             <span class="text-primary"><%= @student.rollnumber %></span></h5></td></tr>
+    <tr><td style = "height:15px"><h5>Grade:                  <span class="text-primary"><%= @class.full_name %></span></h5></td></tr>
+    <tr><td style = "height:15px"><h5>Academic Year: <span class="text-primary"><%= @batch.name %></span></h5></td>
+    </tr>
+  </tbody>
+</table>
 
 <div class="col-md-12"><%= link_to 'Print', complete_pdf_result_card_path(@student.id, @class.id, @batch.id , format: 'pdf'), class: 'btn btn-success pull-right' %></div>
 <br>
