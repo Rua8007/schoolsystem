@@ -72,8 +72,8 @@
             <td>Total Avarage</td>
             <td colspan="3"><%= (term1_total_obtained_marks + term2_total_obtained_marks)/2 %></td>
             <td colspan="2">
-              <%= percentage = number_to_percentage( ((term1_total_obtained_marks + term2_total_obtained_marks)/(term1_total_marks + term2_total_marks)) * 100, precision: 2) %>
-                <%= percentage = percentage.to_f %>
+              <% percentage = number_to_percentage( ((term1_total_obtained_marks + term2_total_obtained_marks)/(term1_total_marks + term2_total_marks)) * 100, precision: 2) %>
+                <% percentage = percentage.to_f %>
                 <% if percentage >= 97 %>
                   A+
                 <% end %>
