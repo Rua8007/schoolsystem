@@ -147,9 +147,11 @@ module MarksHelper
     else
       puts
       puts "in else"
-      puts sub_subject.inspect
+      puts subject.inspect
       puts
-      report_card.marks.where("subject_id = #{subject.id} AND exam_id = #{exam.id}").try(:sum, :obtained_marks)
+      if subject.present?
+        report_card.marks.where("subject_id = #{subject.id} AND exam_id = #{exam.id}").try(:sum, :obtained_marks)
+      end
     end
   end
 
