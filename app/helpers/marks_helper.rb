@@ -151,6 +151,8 @@ module MarksHelper
       puts
       if subject.present?
         report_card.marks.where("subject_id = #{subject.id} AND exam_id = #{exam.id}").try(:sum, :obtained_marks)
+      else
+        0
       end
     end
   end
