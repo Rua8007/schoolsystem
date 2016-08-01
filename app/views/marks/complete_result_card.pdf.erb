@@ -18,11 +18,15 @@
     }
 </style>
 
-<div class="col-md-12">
-  <h5>Student Name:           <span class="text-primary"><%= @student.fullname %></span></h5>
-  <h5>Student ID:             <span class="text-primary"><%= @student.rollnumber %></span></h5>
-  <h5>Grade:                  <span class="text-primary"><%= @class.full_name %></span></h5>
-</div>
+<table class="col-md-12 table table-bordered">
+  <tr>
+    <h5><span class="text-primary"><%= @student.arabicname %> </span>        أسم الطالب</h5>
+    <h5>Student Name:           <span class="text-primary"><%= @student.fullname %></span></h5>
+    <h5>Student ID:             <span class="text-primary"><%= @student.rollnumber %></span></h5>
+    <h5>Grade:                  <span class="text-primary"><%= @class.full_name %></span></h5>
+    <h5>Academic Year: <span class="text-primary"><%= @batch.name %></span></h5>
+  </tr>
+</table>
 
 <div class="col-md-12">
   <%= render partial: 'complete_result.html.erb' %>
