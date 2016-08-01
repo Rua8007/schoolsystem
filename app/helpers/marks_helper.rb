@@ -131,16 +131,20 @@ module MarksHelper
   end
 
   def get_quarter_total(report_card, subject, exam)
-    puts "ajdfljasklfjasdklfjasdklfj"
-    puts "ajdfljasklfjasdklfjasdklfj"
-    puts "ajdfljasklfjasdklfjasdklfj"
-    puts "ajdfljasklfjasdklfjasdklfj"
-    puts subject.id
-    puts "ajdfljasklfjasdklfjasdklfj"
-    puts "ajdfljasklfjasdklfjasdklfj"
+
     if subject.present? && subject.sub_subjects.present?
+          puts "ajdfljasklfjasdklfjasdklfj"
+          puts "ajdfljasklfjasdklfjasdklfj"
+          puts "ajdfljasklfjasdklfjasdklfj"
+          puts "ajdfljasklfjasdklfjasdklfj"
+          puts "ajdfljasklfjasdklfjasdklfj"
+          puts "ajdfljasklfjasdklfjasdklfj"
       marks = 0
       subject.sub_subjects.each do |sub_subject|
+        puts
+        puts "in sub subjects in if"
+        puts sub_subject.inspect
+        puts
         marks = marks + (report_card.marks.where("subject_id = #{sub_subject.id} AND exam_id = #{exam.id}").try(:sum, :obtained_marks) || 0) * (sub_subject.weight/100.00)
       end
       marks
