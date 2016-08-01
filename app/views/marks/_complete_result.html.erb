@@ -85,7 +85,7 @@
 
                   <% term1_total_obtained_marks = term1_total_obtained_marks + term1_obtained_marks %>
                   <% term1_total_marks = term1_total_marks + term1_total %>
-                  <%= term1_obtained_marks %>
+                  <%= term1_obtained_marks.round(2) %>
                 </td>
                 <td>
                   <%= number_to_percentage((term1_obtained_marks/term1_total *100 ), precision: 2) %>
@@ -99,7 +99,7 @@
                   <% end %>
                   <% term2_total_obtained_marks = term2_total_obtained_marks + term2_obtained_marks %>
                   <% term2_total_marks = term2_total_marks + term2_total %>
-                  <%= term2_obtained_marks %>
+                  <%= term2_obtained_marks.round(2) %>
                 </td>
                 <td>
                   <%= number_to_percentage((term2_obtained_marks/term2_total *100 ), precision: 2) %>
