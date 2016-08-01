@@ -20,9 +20,9 @@
               <th>Subjects انًىاد اندراسية</th>
               <th>Maximun Grade  اندرجة انعظًى</th>
               <th>Passing Grade  درجة اننجاح</th>
-              <th>Term 1 Average يعدل انفصم اندراسي األول</th>
-              <th>Term 2 Average يعدل انفصم اندراسي انثاني</th>
-              <th>Yearly Average يعدل انعاو اندراسي</th>
+              <th>Term 1 Average <br> يعدل انفصم اندراسي األول</th>
+              <th>Term 2 Average <br> يعدل انفصم اندراسي انثاني</th>
+              <th>Yearly Average <br> يعدل انعاو اندراسي</th>
             </tr>
           </thead>
           <tbody>
@@ -69,8 +69,8 @@
             <td><%= (term1_total_obtained_marks + term2_total_obtained_marks).round(2) %></td>
           </tr>
           <tr>
-            <td>Total Avarage    المعدل العام النهائي أو الكلي</td>
-            <td colspan="3"><%= ((term1_total_obtained_marks + term2_total_obtained_marks)/2).round(2) %></td>
+            <td colspan="2">Total Avarage    المعدل العام النهائي أو الكلي</td>
+            <td colspan="2"><%= ((term1_total_obtained_marks + term2_total_obtained_marks)/2).round(2) %></td>
             <td colspan="2">
               <% percentage = number_to_percentage( ((term1_total_obtained_marks + term2_total_obtained_marks)/(term1_total_marks + term2_total_marks)) * 100, precision: 2) %>
                 <% percentage = percentage.to_f %>
@@ -118,12 +118,12 @@
             </td>
           </tr>
           <tr>
-            <td>Absence  عدد أياو انغياب</td>
-            <td colspan="5">0</td>
+            <td colspan="2">Absence  عدد أياو انغياب</td>
+            <td colspan="4">0</td>
           </tr>
           <tr>
-            <td>Name of Examination Supervisor</td>
-            <td colspan="3">Mrs. Lubna Ali A/Kareem</td>
+            <td colspan="2">Name of Examination Supervisor</td>
+            <td colspan="2">Mrs. Lubna Ali A/Kareem</td>
             <td>Signature</td>
             <td></td>
           </tr>
