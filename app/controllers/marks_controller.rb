@@ -269,8 +269,8 @@ class MarksController < ApplicationController
       format.pdf {
         render pdf: "#{@student.fullname}-#{@batch.name}", template: 'marks/complete_result_card.pdf.erb',
                layout: 'pdf.html.erb', orientation: 'portrait', margin: { top: 30, bottom: 11, left: 5, right: 5},
-               header: { html: { template: 'shared/pdf_landscape_header.html.erb'} }, show_as_html: false,
-               footer: { html: { template: 'shared/pdf_landscape_footer.html.erb'} }
+               header: { html: { template: 'shared/pdf_portrait_header.html.erb'} }, show_as_html: false,
+               footer: { html: { template: 'shared/pdf_portrait_footer.html.erb'} }
       }
     end
   end
