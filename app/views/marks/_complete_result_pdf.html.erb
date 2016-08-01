@@ -17,12 +17,12 @@
         <table class="table table-responsive table-bordered" style="width:100%">
           <thead>
             <tr class="dark-blue" style="padding: 0px 10px; font-size:15px; width: 20px">
-              <th>Subjects</th>
-              <th>Maximun Grade</th>
-              <th>Passing Grade</th>
-              <th>Term 1 Average</th>
-              <th>Term 2 Average</th>
-              <th>Yearly Average</th>
+              <th>Subjects انًىاد اندراسية</th>
+              <th>Maximun Grade  اندرجة انعظًى</th>
+              <th>Passing Grade  درجة اننجاح</th>
+              <th>Term 1 Average يعدل انفصم اندراسي األول</th>
+              <th>Term 2 Average يعدل انفصم اندراسي انثاني</th>
+              <th>Yearly Average يعدل انعاو اندراسي</th>
             </tr>
           </thead>
           <tbody>
@@ -61,7 +61,7 @@
               </tr>
           <% end %>
           <tr>
-            <td>Grand Total </td>
+            <td>Grand Total يًاإلج ىعًجًان </td>
             <td><%= total_full %></td>
             <td><%= total_pass %></td>
             <td><%= term1_total_obtained_marks %></td>
@@ -69,7 +69,7 @@
             <td><%= term1_total_obtained_marks + term2_total_obtained_marks %></td>
           </tr>
           <tr>
-            <td>Total Avarage</td>
+            <td>Total Avarage    المعدل العام النهائي أو الكلي</td>
             <td colspan="3"><%= (term1_total_obtained_marks + term2_total_obtained_marks)/2 %></td>
             <td colspan="2">
               <% percentage = number_to_percentage( ((term1_total_obtained_marks + term2_total_obtained_marks)/(term1_total_marks + term2_total_marks)) * 100, precision: 2) %>
@@ -116,6 +116,16 @@
 
 
             </td>
+          </tr>
+          <tr>
+            <td>Absence  عدد أياو انغياب</td>
+            <td colspan="5">0</td>
+          </tr>
+          <tr>
+            <td>Name of Examination Supervisor</td>
+            <td colspan="3">Mrs. Lubna Ali A/Kareem</td>
+            <td>Signature</td>
+            <td></td>
           </tr>
           </tbody>
         </table>
