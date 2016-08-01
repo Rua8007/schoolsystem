@@ -4,8 +4,7 @@
 <% term2_total = 0 %>
 <% term1_obtained_marks = 0.0 %>
 <% term1_total_obtained_marks = 0.0 %>
-<%= term2_total_obtained_marks = 0.0 %>
-
+<% term2_total_obtained_marks = 0.0 %>
 <% if @settings.length < 3 %>
     <p class="text-center"> Design All Report Cards For This Grade.</p>
 <% else %>
@@ -17,10 +16,10 @@
         <% term2_settings = @settings.where("exam_id IN(#{term2.map{|s| s.id}.join(',')})") %>
         <table class="table table-responsive table-bordered">
           <thead>
-            <tr class="dark-blue">
+            <tr class="dark-blue" style="padding: 0px 10px: height:10px; font-size:9px">
               <th>Subjects</th>
-              <th class="dark-grey">Maximun Grade</th>
-              <th class="dark-grey">Passing Grade</th>
+              <th>Maximun Grade</th>
+              <th>Passing Grade</th>
               <th>Term 1 Average</th>
               <th>Term 2 Average</th>
               <th>Yearly Average</th>
@@ -29,7 +28,7 @@
           <tbody>
           <% term1_total_obtained_marks = term2_total_obtained_marks = term1_total_marks = term2_total_marks = 0 %>
           <% setting.subjects.where(parent_id: nil).try(:order, :name).try(:each) do |subject| %>
-              <tr style="padding: 0px 10px: height:10px; font-size:8px">
+              <tr style="padding: 0px 10px: height:10px; font-size:9px">
                 <%  %>
                 <td><%= subject.name %></td>
                 <td class="dark-grey"><%= term1_total = ReportCardDivision.where("setting_id IN(#{term1_settings.pluck(:id).join(',')})").try(:sum, :total_marks) %></td>
