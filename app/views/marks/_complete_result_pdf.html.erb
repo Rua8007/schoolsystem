@@ -117,7 +117,7 @@
           </tr>
           <tr>
             <td colspan="2">Absence  عدد أياو انغياب</td>
-            <td colspan="4">0</td>
+            <td colspan="4"><%= @student.student_attendances.where(epresent: false).count%> </td>
           </tr>
           <tr>
             <td colspan="2">Name of Examination Supervisor</td>
