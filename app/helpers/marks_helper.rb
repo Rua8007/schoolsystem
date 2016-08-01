@@ -141,14 +141,14 @@ module MarksHelper
           puts "ajdfljasklfjasdklfjasdklfj"
       marks = 0
       subject.sub_subjects.each do |sub_subject|
-        puts
-        puts "in sub subjects in if"
-        puts sub_subject.inspect
-        puts
         marks = marks + (report_card.marks.where("subject_id = #{sub_subject.id} AND exam_id = #{exam.id}").try(:sum, :obtained_marks) || 0) * (sub_subject.weight/100.00)
       end
       marks
     else
+      puts
+      puts "in else"
+      puts sub_subject.inspect
+      puts
       report_card.marks.where("subject_id = #{subject.id} AND exam_id = #{exam.id}").try(:sum, :obtained_marks)
     end
   end
