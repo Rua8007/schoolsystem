@@ -62,11 +62,11 @@
           <% end %>
           <tr>
             <td>Grand Total يًاإلج ىعًجًان </td>
-            <td><%= total_full %></td>
-            <td><%= total_pass %></td>
-            <td><%= term1_total_obtained_marks %></td>
-            <td><%= term2_total_obtained_marks %></td>
-            <td><%= term1_total_obtained_marks + term2_total_obtained_marks %></td>
+            <td><%= total_full.round(2) %></td>
+            <td><%= total_pass.round(2) %></td>
+            <td><%= term1_total_obtained_marks.round(2) %></td>
+            <td><%= term2_total_obtained_marks.round(2) %></td>
+            <td><%= (term1_total_obtained_marks + term2_total_obtained_marks).round(2) %></td>
           </tr>
           <tr>
             <td>Total Avarage    المعدل العام النهائي أو الكلي</td>
