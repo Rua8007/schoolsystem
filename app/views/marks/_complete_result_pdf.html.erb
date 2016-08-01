@@ -14,7 +14,7 @@
         <% setting = @settings.find_by(exam_id: term1.first) %>
         <% term1_settings = @settings.where("exam_id IN(#{term1.map{|s| s.id}.join(',')})") %>
         <% term2_settings = @settings.where("exam_id IN(#{term2.map{|s| s.id}.join(',')})") %>
-        <table class="table table-responsive table-bordered">
+        <table class="table table-responsive table-bordered" style="width:100%">
           <thead>
             <tr class="dark-blue" style="padding: 0px 10px; font-size:15px; width: 20px">
               <th>Subjects</th>
@@ -70,7 +70,52 @@
           </tr>
           <tr>
             <td>Total Avarage</td>
-            <td colspan="6"><%= (term1_total_obtained_marks + term2_total_obtained_marks)/2 %></td>
+            <td colspan="3"><%= (term1_total_obtained_marks + term2_total_obtained_marks)/2 %></td>
+            <td colspan="2">
+              <% percentage = number_to_percentage( ((term1_total_obtained_marks + term2_total_obtained_marks)/(term1_total_marks + term2_total_marks)) * 100, precision: 2) %>
+
+                <% if percentage >= 97 %>
+                  A+
+                <% end %>
+                <% if percentage >= 93 percentage < 97 %>
+                  A
+                <% end %>
+                <% if percentage >= 90 percentage < 93 %>
+                  A-
+                <% end %>
+                <% if percentage >= 87 percentage < 90 %>
+                  B+
+                <% end %>
+                <% if percentage >= 83 percentage < 87 %>
+                  B
+                <% end %>
+                <% if percentage >= 80 percentage < 93 %>
+                  B-
+                <% end %>
+                <% if percentage >= 77 percentage < 80 %>
+                  C+
+                <% end %>
+                <% if percentage >= 73 percentage < 77 %>
+                  C
+                <% end %>
+                <% if percentage >= 70 percentage < 73 %>
+                  C-
+                <% end %>
+                <% if percentage >= 67 percentage < 70 %>
+                  D+
+                <% end %>
+                <% if percentage >= 63 percentage < 67 %>
+                  D
+                <% end %>
+                <% if percentage >= 60 percentage < 63 %>
+                  D-
+                <% end %>
+                <% if percentage < 60  %>
+                  F
+                <% end %>
+
+
+            </td>
           </tr>
           </tbody>
         </table>

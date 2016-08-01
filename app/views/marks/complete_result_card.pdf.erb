@@ -17,15 +17,15 @@
         font-size: 90%;
     }
 </style>
-<table class="col-md-9 table table-bordered">
+<table class="col-md-12 table table-bordered" style="width:100%">
   <tbody>
     <tr >
-    <td style = "height:15px; padding: 0px 1px"><h6><span class="text-primary"><%= @student.arabicname %> </span>       <span class = "pull-right"> أسم الطالب </span> </h6></td></tr>
+    <td><h6><span><%= @student.arabicname %> </span>       :<span class = "pull-right">  اسم الطالب/ـة </span> </h6></td></tr>
 
-    <tr><td style = "height:15px; padding: 0px 1px"><h6>Student Name:           <span class="text-primary"><%= @student.fullname %></span></h6></td></tr>
-    <tr><td style = "height:15px; padding: 0px 1px"><h6>Student ID:             <span class="text-primary"><%= @student.rollnumber %></span></h6></td></tr>
-    <tr><td style = "height:15px; padding: 0px 1px"><h6>Grade:                  <span class="text-primary"><%= @class.full_name %></span></h6></td></tr>
-    <tr><td style = "height:15px; padding: 0px 1px"><h6>Academic Year: <span class="text-primary"><%= @batch.name %></span></h6></td>
+    <tr><td><h4>Student Name:           <span style: "margin-left: 20px"><%= @student.fullname %></span></h4></td></tr>
+    <tr><td><h4>Student ID:             <span style: "margin-left: 20px"><%= @student.rollnumber %></span></h4></td></tr>
+    <tr><td><h4>Grade:                  <span style: "margin-left: 20px"><%= @class.full_name %></span></h4></td></tr>
+    <tr><td><h4>Academic Year: <span style: "margin-left: 20px"><%= @batch.name %></span></h4></td>
     </tr>
   </tbody>
 </table>
