@@ -14,119 +14,121 @@
         <% setting = @settings.find_by(exam_id: term1.first) %>
         <% term1_settings = @settings.where("exam_id IN(#{term1.map{|s| s.id}.join(',')})") %>
         <% term2_settings = @settings.where("exam_id IN(#{term2.map{|s| s.id}.join(',')})") %>
-        <table class="table table-responsive table-bordered" style="width:100%">
-          <thead>
-            <tr class="dark-blue" style="padding: 0px 10px; font-size:12px; width: 20px">
-              <th>Subjects انًىاد اندراسية</th>
-              <th>Maximun Grade  اندرجة انعظًى</th>
-              <th>Passing Grade  درجة اننجاح</th>
-              <th>Term 1 Average <br> يعدل انفصم اندراسي األول</th>
-              <th>Term 2 Average <br> يعدل انفصم اندراسي انثاني</th>
-              <th>Yearly Average <br> يعدل انعاو اندراسي</th>
-            </tr>
-          </thead>
-          <tbody>
-          <% term1_total_obtained_marks = term2_total_obtained_marks = term1_total_marks = term2_total_marks = 0 %>
-          <% setting.subjects.where(parent_id: nil).try(:order, :name).try(:each) do |subject| %>
-              <tr style="padding: 0px 10px; font-size:12px">
-                <%  %>
-                <td><b><%= subject.name %></b></td>
-                <td class="light-blue"><%= term1_total = ReportCardDivision.where("setting_id IN(#{term1_settings.pluck(:id).join(',')})").try(:sum, :total_marks) %></td>
-                  <% total_full = total_full + term1_total %>
-                <td class="light-blue"><%= term1_pass = ReportCardDivision.where("setting_id IN(#{term1_settings.pluck(:id).join(',')})").try(:sum, :passing_marks) %></td>
-                  <% total_pass = total_pass + term1_pass %>
-                <td class="light-red">
-                  <% term1_obtained_marks = 0.0 %>
-                  <% term1.each do |exam| %>
-                      <% setting = term1_settings.find_by(exam_id: exam.id) %>
-                      <% actual_subject = setting.subjects.find_by(name: subject.name, code: subject.code) %>
-                      <% term1_obtained_marks = term1_obtained_marks + get_quarter_total(@report_card, actual_subject, exam) %>
-                  <% end %>
-                  <% term1_total_obtained_marks = term1_total_obtained_marks + term1_obtained_marks %>
-                  <% term1_total_marks = term1_total_marks + term1_total %>
-                  <%= term1_obtained_marks.round(2) %>
-                </td>
-                <td class="light-red">
-                  <% term2_obtained_marks = 0.0 %>
-                  <% term2.each do |exam| %>
-                      <% setting = term2_settings.find_by(exam_id: exam.id) %>
-                      <% actual_subject = setting.subjects.find_by(name: subject.name, code: subject.code) %>
-                      <% term2_obtained_marks = term2_obtained_marks + get_quarter_total(@report_card, actual_subject, exam) %>
-                  <% end %>
-                  <% term2_total_obtained_marks = term2_total_obtained_marks + term2_obtained_marks %>
-                  <% term2_total_marks = term2_total_marks + term2_total %>
-                  <%= term2_obtained_marks.round(2) %>
-                </td>
-                <td class="light-red"><%= total_obtained_marks = ((term1_obtained_marks.round(2) + term2_obtained_marks.round(2))/2).round(2) %></td>
+        <div class="row">
+          <table class="table table-responsive table-bordered" style="width:100%">
+            <thead>
+              <tr class="dark-blue" style="padding: 0px 10px; font-size:12px; width: 20px">
+                <th>Subjects انًىاد اندراسية</th>
+                <th>Maximun Grade  اندرجة انعظًى</th>
+                <th>Passing Grade  درجة اننجاح</th>
+                <th>Term 1 Average <br> يعدل انفصم اندراسي األول</th>
+                <th>Term 2 Average <br> يعدل انفصم اندراسي انثاني</th>
+                <th>Yearly Average <br> يعدل انعاو اندراسي</th>
               </tr>
-          <% end %>
-          <tr>
-            <td class="dark-blue">Grand Total يًاإلج ىعًجًان </td>
-            <td class="light-blue"><%= total_full.round(2) %></td>
-            <td class="light-blue"><%= total_pass.round(2) %></td>
-            <td class="light-blue"><%= term1_total_obtained_marks.round(2) %></td>
-            <td class="light-blue"><%= term2_total_obtained_marks.round(2) %></td>
-            <td class="light-blue"><%= (term1_total_obtained_marks + term2_total_obtained_marks).round(2) %></td>
-          </tr>
-          <tr class="dark-blue">
-            <td colspan="2">Total Avarage    المعدل العام النهائي أو الكلي</td>
-            <td colspan="2"><%= ((term1_total_obtained_marks + term2_total_obtained_marks)/2).round(2) %></td>
-            <td colspan="2">
-              <% percentage = number_to_percentage( ((term1_total_obtained_marks + term2_total_obtained_marks)/(term1_total_marks + term2_total_marks)) * 100, precision: 2) %>
-                <% percentage = percentage.to_f %>
-                <% if percentage >= 97 %>
-                  A+
-                <% end %>
-                <% if percentage >= 93 && percentage < 97 %>
-                  A
-                <% end %>
-                <% if percentage >= 90 && percentage < 93 %>
-                  A-
-                <% end %>
-                <% if percentage >= 87 && percentage < 90 %>
-                  B+
-                <% end %>
-                <% if percentage >= 83 && percentage < 87 %>
-                  B
-                <% end %>
-                <% if percentage >= 80 && percentage < 93 %>
-                  B-
-                <% end %>
-                <% if percentage >= 77 && percentage < 80 %>
-                  C+
-                <% end %>
-                <% if percentage >= 73 && percentage < 77 %>
-                  C
-                <% end %>
-                <% if percentage >= 70 && percentage < 73 %>
-                  C-
-                <% end %>
-                <% if percentage >= 67 && percentage < 70 %>
-                  D+
-                <% end %>
-                <% if percentage >= 63 && percentage < 67 %>
-                  D
-                <% end %>
-                <% if percentage >= 60 && percentage < 63 %>
-                  D-
-                <% end %>
-                <% if percentage < 60  %>
-                  F
-                <% end %>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2" class="dark-blue">Absence  عدد أياو انغياب</td>
-            <td colspan="4" class="light-blue"><%= @student.student_attendances.where(epresent: false).count%> </td>
-          </tr>
-          <tr>
-            <td colspan="2" class="dark-blue">Name of Examination Supervisor</td>
-            <td colspan="2">Mrs. Lubna Ali A/Kareem</td>
-            <td class="dark-blue">Signature</td>
-            <td></td>
-          </tr>
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+            <% term1_total_obtained_marks = term2_total_obtained_marks = term1_total_marks = term2_total_marks = 0 %>
+            <% setting.subjects.where(parent_id: nil).try(:order, :name).try(:each) do |subject| %>
+                <tr style="padding: 0px 10px; font-size:12px">
+                  <%  %>
+                  <td><b><%= subject.name %></b></td>
+                  <td class="light-blue"><%= term1_total = ReportCardDivision.where("setting_id IN(#{term1_settings.pluck(:id).join(',')})").try(:sum, :total_marks) %></td>
+                    <% total_full = total_full + term1_total %>
+                  <td class="light-blue"><%= term1_pass = ReportCardDivision.where("setting_id IN(#{term1_settings.pluck(:id).join(',')})").try(:sum, :passing_marks) %></td>
+                    <% total_pass = total_pass + term1_pass %>
+                  <td class="light-red">
+                    <% term1_obtained_marks = 0.0 %>
+                    <% term1.each do |exam| %>
+                        <% setting = term1_settings.find_by(exam_id: exam.id) %>
+                        <% actual_subject = setting.subjects.find_by(name: subject.name, code: subject.code) %>
+                        <% term1_obtained_marks = term1_obtained_marks + get_quarter_total(@report_card, actual_subject, exam) %>
+                    <% end %>
+                    <% term1_total_obtained_marks = term1_total_obtained_marks + term1_obtained_marks %>
+                    <% term1_total_marks = term1_total_marks + term1_total %>
+                    <%= term1_obtained_marks.round(2) %>
+                  </td>
+                  <td class="light-red">
+                    <% term2_obtained_marks = 0.0 %>
+                    <% term2.each do |exam| %>
+                        <% setting = term2_settings.find_by(exam_id: exam.id) %>
+                        <% actual_subject = setting.subjects.find_by(name: subject.name, code: subject.code) %>
+                        <% term2_obtained_marks = term2_obtained_marks + get_quarter_total(@report_card, actual_subject, exam) %>
+                    <% end %>
+                    <% term2_total_obtained_marks = term2_total_obtained_marks + term2_obtained_marks %>
+                    <% term2_total_marks = term2_total_marks + term2_total %>
+                    <%= term2_obtained_marks.round(2) %>
+                  </td>
+                  <td class="light-red"><%= total_obtained_marks = ((term1_obtained_marks.round(2) + term2_obtained_marks.round(2))/2).round(2) %></td>
+                </tr>
+            <% end %>
+            <tr>
+              <td class="dark-blue">Grand Total يًاإلج ىعًجًان </td>
+              <td class="light-blue"><%= total_full.round(2) %></td>
+              <td class="light-blue"><%= total_pass.round(2) %></td>
+              <td class="light-blue"><%= term1_total_obtained_marks.round(2) %></td>
+              <td class="light-blue"><%= term2_total_obtained_marks.round(2) %></td>
+              <td class="light-blue"><%= (term1_total_obtained_marks + term2_total_obtained_marks).round(2) %></td>
+            </tr>
+            <tr class="dark-blue">
+              <td colspan="2">Total Avarage    المعدل العام النهائي أو الكلي</td>
+              <td colspan="2"><%= ((term1_total_obtained_marks + term2_total_obtained_marks)/2).round(2) %></td>
+              <td colspan="2">
+                <% percentage = number_to_percentage( ((term1_total_obtained_marks + term2_total_obtained_marks)/(term1_total_marks + term2_total_marks)) * 100, precision: 2) %>
+                  <% percentage = percentage.to_f %>
+                  <% if percentage >= 97 %>
+                    A+
+                  <% end %>
+                  <% if percentage >= 93 && percentage < 97 %>
+                    A
+                  <% end %>
+                  <% if percentage >= 90 && percentage < 93 %>
+                    A-
+                  <% end %>
+                  <% if percentage >= 87 && percentage < 90 %>
+                    B+
+                  <% end %>
+                  <% if percentage >= 83 && percentage < 87 %>
+                    B
+                  <% end %>
+                  <% if percentage >= 80 && percentage < 93 %>
+                    B-
+                  <% end %>
+                  <% if percentage >= 77 && percentage < 80 %>
+                    C+
+                  <% end %>
+                  <% if percentage >= 73 && percentage < 77 %>
+                    C
+                  <% end %>
+                  <% if percentage >= 70 && percentage < 73 %>
+                    C-
+                  <% end %>
+                  <% if percentage >= 67 && percentage < 70 %>
+                    D+
+                  <% end %>
+                  <% if percentage >= 63 && percentage < 67 %>
+                    D
+                  <% end %>
+                  <% if percentage >= 60 && percentage < 63 %>
+                    D-
+                  <% end %>
+                  <% if percentage < 60  %>
+                    F
+                  <% end %>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2" class="dark-blue">Absence  عدد أياو انغياب</td>
+              <td colspan="4" class="light-blue"><%= @student.student_attendances.where(epresent: false).count%> </td>
+            </tr>
+            <tr>
+              <td colspan="2" class="dark-blue">Name of Examination Supervisor</td>
+              <td colspan="2">Mrs. Lubna Ali A/Kareem</td>
+              <td class="dark-blue">Signature</td>
+              <td></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
     <% end  %>
     <%= render 'static_footer.html.erb' %>
 <% end %>
