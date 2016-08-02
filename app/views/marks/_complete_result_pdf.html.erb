@@ -31,11 +31,11 @@
               <tr style="padding: 0px 10px; font-size:12px">
                 <%  %>
                 <td><b><%= subject.name %></b></td>
-                <td class="dark-grey"><%= term1_total = ReportCardDivision.where("setting_id IN(#{term1_settings.pluck(:id).join(',')})").try(:sum, :total_marks) %></td>
+                <td class="light-blue"><%= term1_total = ReportCardDivision.where("setting_id IN(#{term1_settings.pluck(:id).join(',')})").try(:sum, :total_marks) %></td>
                   <% total_full = total_full + term1_total %>
-                <td class="dark-grey"><%= term1_pass = ReportCardDivision.where("setting_id IN(#{term1_settings.pluck(:id).join(',')})").try(:sum, :passing_marks) %></td>
+                <td class="light-blue"><%= term1_pass = ReportCardDivision.where("setting_id IN(#{term1_settings.pluck(:id).join(',')})").try(:sum, :passing_marks) %></td>
                   <% total_pass = total_pass + term1_pass %>
-                <td>
+                <td class="light-red">
                   <% term1_obtained_marks = 0.0 %>
                   <% term1.each do |exam| %>
                       <% setting = term1_settings.find_by(exam_id: exam.id) %>
@@ -46,7 +46,7 @@
                   <% term1_total_marks = term1_total_marks + term1_total %>
                   <%= term1_obtained_marks.round(2) %>
                 </td>
-                <td>
+                <td class="light-red">
                   <% term2_obtained_marks = 0.0 %>
                   <% term2.each do |exam| %>
                       <% setting = term2_settings.find_by(exam_id: exam.id) %>
@@ -57,18 +57,18 @@
                   <% term2_total_marks = term2_total_marks + term2_total %>
                   <%= term2_obtained_marks.round(2) %>
                 </td>
-                <td class="dark-grey"><%= total_obtained_marks = ((term1_obtained_marks.round(2) + term2_obtained_marks.round(2))/2).round(2) %></td>
+                <td class="light-red"><%= total_obtained_marks = ((term1_obtained_marks.round(2) + term2_obtained_marks.round(2))/2).round(2) %></td>
               </tr>
           <% end %>
           <tr>
-            <td>Grand Total يًاإلج ىعًجًان </td>
-            <td><%= total_full.round(2) %></td>
-            <td><%= total_pass.round(2) %></td>
-            <td><%= term1_total_obtained_marks.round(2) %></td>
-            <td><%= term2_total_obtained_marks.round(2) %></td>
-            <td><%= (term1_total_obtained_marks + term2_total_obtained_marks).round(2) %></td>
+            <td class="dark-blue">Grand Total يًاإلج ىعًجًان </td>
+            <td class="light-blue"><%= total_full.round(2) %></td>
+            <td class="light-blue"><%= total_pass.round(2) %></td>
+            <td class="light-blue"><%= term1_total_obtained_marks.round(2) %></td>
+            <td class="light-blue"><%= term2_total_obtained_marks.round(2) %></td>
+            <td class="light-blue"><%= (term1_total_obtained_marks + term2_total_obtained_marks).round(2) %></td>
           </tr>
-          <tr>
+          <tr class="dark-blue">
             <td colspan="2">Total Avarage    المعدل العام النهائي أو الكلي</td>
             <td colspan="2"><%= ((term1_total_obtained_marks + term2_total_obtained_marks)/2).round(2) %></td>
             <td colspan="2">
@@ -116,13 +116,13 @@
             </td>
           </tr>
           <tr>
-            <td colspan="2">Absence  عدد أياو انغياب</td>
-            <td colspan="4"><%= @student.student_attendances.where(epresent: false).count%> </td>
+            <td colspan="2" class="dark-blue">Absence  عدد أياو انغياب</td>
+            <td colspan="4" class="light-blue"><%= @student.student_attendances.where(epresent: false).count%> </td>
           </tr>
           <tr>
-            <td colspan="2">Name of Examination Supervisor</td>
+            <td colspan="2" class="dark-blue">Name of Examination Supervisor</td>
             <td colspan="2">Mrs. Lubna Ali A/Kareem</td>
-            <td>Signature</td>
+            <td class="dark-blue">Signature</td>
             <td></td>
           </tr>
           </tbody>
