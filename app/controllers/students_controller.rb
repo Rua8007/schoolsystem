@@ -91,17 +91,21 @@ class StudentsController < ApplicationController
   end
 
   def update
-    puts "+++++++++++++++++++++++"
-    puts "in update"
+    puts "+++++++++++Params++++++++++++"
+    puts params.inspect
     puts "+++++++++++++++++++++++"
     if !current_user.role.rights.where(value: "update_student").any?
       redirect_to root_path, alert: "Sorry! You are not authorized"
     else
-      puts "+++++++++++++++++++++++"
-      puts "in update"
-      puts "+++++++++++++++++++++++"
       @student = Student.find(params[:id])
       if @student.update_attributes(create_params)
+        aname = params[:aname1]+' ' +params[:aname2]+' ' +params[:aname3]+' ' +params[:aname4]
+        @student.arabicname = aname
+        @student.save
+        puts "+++++++++Student++++++++++++++"
+        puts @student.inspect
+        puts "+++++++++++++++++++++++"
+
         redirect_to edit_parent_parent_path(@student.parent_id), notice: "Student Successfully updated"
         # return render json: params
         emergency = @student.emergency
