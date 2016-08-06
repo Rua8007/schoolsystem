@@ -268,7 +268,7 @@ class MarksController < ApplicationController
       format.html{}
       format.pdf {
         render pdf: "#{@student.fullname}-#{@batch.name}", template: 'marks/complete_result_card.pdf.erb',
-               layout: 'pdf.html.erb', orientation: 'portrait', margin: { top: 30, bottom: 11, left: 5, right: 5}, show_as_html: false
+               layout: 'pdf.html.erb', orientation: 'portrait', margin: { top: 0, bottom: 0, left: 5, right: 5}, show_as_html: false
       }
     end
   end
