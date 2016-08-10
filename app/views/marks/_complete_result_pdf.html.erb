@@ -119,13 +119,13 @@
               <td class="light-blue"><%= term2_total_obtained_marks.round(2) %></td>
               <td class="light-blue"><%= (term1_total_obtained_marks + term2_total_obtained_marks).round(2) %></td>
               <% if @class.name.to_i > 8 %>
-                <%= total_cgpa %>
+                <td><%= total_cgpa %> </td>
               <% end %>
             </tr>
             <tr class="dark-blue">
               <td colspan="2">Total Avarage    المعدل العام النهائي أو الكلي</td>
               <td colspan="2"><%= ((term1_total_obtained_marks + term2_total_obtained_marks)/2).round(2) %></td>
-              <td colspan="2">
+              <td colspan="3">
                 <% percentage = number_to_percentage( ((term1_total_obtained_marks + term2_total_obtained_marks)/(term1_total_marks + term2_total_marks)) * 100, precision: 2) %>
                   <% percentage = percentage.to_f %>
                   <% if percentage >= 97 %>
@@ -172,16 +172,16 @@
             <% if @class.name.to_i > 8 %>
               <tr>
                 <td colspan="2"> CGPA of the Academic Year</td>
-                <td colspan="4"> <%= (total_cgpa/subject_length).round(2) %></td>
+                <td colspan="5"> <%= (total_cgpa/subject_length).round(2) %></td>
               </tr>
             <% end %>
             <tr>
               <td colspan="2" class="dark-blue">Absence  عدد أياو انغياب</td>
-              <td colspan="4" class="light-blue"><%= @student.student_attendances.where(epresent: false).count%> </td>
+              <td colspan="<% @class.name.to_i > 8 ? 5 : 4 %>" class="light-blue"><%= @student.student_attendances.where(epresent: false).count%> </td>
             </tr>
             <tr>
               <td colspan="2" class="dark-blue">Name of Examination Supervisor</td>
-              <td colspan="2">Mrs. Lubna Ali A/Kareem</td>
+              <td colspan="<% @class.name.to_i > 8 ? 3 : 2 %>">Mrs. Lubna Ali A/Kareem</td>
               <td class="dark-blue">Signature</td>
               <td></td>
             </tr>
