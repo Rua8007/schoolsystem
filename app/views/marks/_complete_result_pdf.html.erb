@@ -181,8 +181,8 @@
             </tr>
             <tr>
               <td colspan="2" class="dark-blue">Name of Examination Supervisor</td>
-              <td colspan="<%= @class.name.to_i > 8 ? 3 : 2 %>">Mrs. Lubna Ali A/Kareem</td>
-              <td class="dark-blue">Signature</td>
+              <td colspan="2">Mrs. Lubna Ali A/Kareem</td>
+              <td class="dark-blue" colspan="<%= @class.name.to_i > 8 ? 2 : 1 %>">Signature</td>
               <td></td>
             </tr>
             </tbody>
