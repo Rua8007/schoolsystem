@@ -2,9 +2,11 @@
 <% total_full = 0 %>
 <% term1_total = 0 %>
 <% term2_total = 0 %>
+<% total_cgpa = 0 %>
 <% term1_obtained_marks = 0.0 %>
 <% term1_total_obtained_marks = 0.0 %>
 <% term2_total_obtained_marks = 0.0 %>
+<% subject_length = 0 %>
 <% if @settings.length < 3 %>
     <p class="text-center"> Design All Report Cards For This Grade.</p>
 <% else %>
@@ -24,13 +26,16 @@
                 <th>Term 1 Average <br> يعدل انفصم اندراسي األول</th>
                 <th>Term 2 Average <br> يعدل انفصم اندراسي انثاني</th>
                 <th>Yearly Average <br> يعدل انعاو اندراسي</th>
+                <% if @class.name.to_i > 8 %>
+                  <th>Credit</th>
+                <% end %>
               </tr>
             </thead>
             <tbody>
             <% term1_total_obtained_marks = term2_total_obtained_marks = term1_total_marks = term2_total_marks = 0 %>
             <% setting.subjects.where(parent_id: nil).try(:order, :name).try(:each) do |subject| %>
                 <tr style="padding: 0px 10px; font-size:12px">
-                  <%  %>
+                  <% subject_length = subject_length + 1 %>
                   <td><b><%= subject.name %></b></td>
                   <td class="light-blue"><%= term1_total = ReportCardDivision.where("setting_id IN(#{term1_settings.pluck(:id).join(',')})").try(:sum, :total_marks) %></td>
                     <% total_full = total_full + term1_total %>
@@ -58,7 +63,52 @@
                     <% term2_total_marks = term2_total_marks + term2_total %>
                     <%= term2_obtained_marks.round(2) %>
                   </td>
-                  <td class="light-red"><%= total_obtained_marks = ((term1_obtained_marks.round(2) + term2_obtained_marks.round(2))/2).round(2) %></td>
+                  <td class="light-red"><%= total_obtained_marks = ((term1_obtained_marks.round(2) + term2_o btained_marks.round(2))/2).round(2) %></td>
+                  <% if @class.name.to_i > 8 %>
+                    <td>
+                      <% percentage = (total_obtained_marks*100)/term1_total %>
+                      <% total_cgpa = total_cgpa + percentage %>
+                      <% if percentage >= 97 %>
+                        4.3
+                      <% end %>
+                      <% if percentage >= 93 && percentage < 97 %>
+                        4
+                      <% end %>
+                      <% if percentage >= 90 && percentage < 93 %>
+                        3.7
+                      <% end %>
+                      <% if percentage >= 87 && percentage < 90 %>
+                        3.3
+                      <% end %>
+                      <% if percentage >= 83 && percentage < 87 %>
+                        3.0
+                      <% end %>
+                      <% if percentage >= 80 && percentage < 93 %>
+                        2.7
+                      <% end %>
+                      <% if percentage >= 77 && percentage < 80 %>
+                        2.3
+                      <% end %>
+                      <% if percentage >= 73 && percentage < 77 %>
+                        2.0
+                      <% end %>
+                      <% if percentage >= 70 && percentage < 73 %>
+                        1.7
+                      <% end %>
+                      <% if percentage >= 67 && percentage < 70 %>
+                        1.3
+                      <% end %>
+                      <% if percentage >= 63 && percentage < 67 %>
+                        1.0
+                      <% end %>
+                      <% if percentage >= 60 && percentage < 63 %>
+                        0.7
+                      <% end %>
+                      <% if percentage < 60  %>
+                        0
+                      <% end %>
+                    </td>
+                  <% end %>
                 </tr>
             <% end %>
             <tr>
@@ -68,6 +118,9 @@
               <td class="light-blue"><%= term1_total_obtained_marks.round(2) %></td>
               <td class="light-blue"><%= term2_total_obtained_marks.round(2) %></td>
               <td class="light-blue"><%= (term1_total_obtained_marks + term2_total_obtained_marks).round(2) %></td>
+              <% if @class.name.to_i > 8 %>
+                <%= total_cgpa %>
+              <% end %>
             </tr>
             <tr class="dark-blue">
               <td colspan="2">Total Avarage    المعدل العام النهائي أو الكلي</td>
@@ -116,6 +169,12 @@
                   <% end %>
               </td>
             </tr>
+            <% if @class.namee.to_i > 8 %>
+              <tr>
+                <td colspan="2"> CGPA of the Academic Year</td>
+                <td colspan="4"> <%= (total_cgpa/subject_length).round(2) %></td>
+              </tr>
+            <% end %>
             <tr>
               <td colspan="2" class="dark-blue">Absence  عدد أياو انغياب</td>
               <td colspan="4" class="light-blue"><%= @student.student_attendances.where(epresent: false).count%> </td>
