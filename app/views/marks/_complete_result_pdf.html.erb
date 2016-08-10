@@ -177,11 +177,11 @@
             <% end %>
             <tr>
               <td colspan="2" class="dark-blue">Absence  عدد أياو انغياب</td>
-              <td colspan="<% @class.name.to_i > 8 ? 5 : 4 %>" class="light-blue"><%= @student.student_attendances.where(epresent: false).count%> </td>
+              <td colspan="<%= @class.name.to_i > 8 ? 5 : 4 %>" class="light-blue"><%= @student.student_attendances.where(epresent: false).count%> </td>
             </tr>
             <tr>
               <td colspan="2" class="dark-blue">Name of Examination Supervisor</td>
-              <td colspan="<% @class.name.to_i > 8 ? 3 : 2 %>">Mrs. Lubna Ali A/Kareem</td>
+              <td colspan="<%= @class.name.to_i > 8 ? 3 : 2 %>">Mrs. Lubna Ali A/Kareem</td>
               <td class="dark-blue">Signature</td>
               <td></td>
             </tr>
