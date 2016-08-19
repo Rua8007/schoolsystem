@@ -1,7 +1,4 @@
-<div class="row">
-  <%= render partial: 'shared/fee_navigation' %>
-</div>
-
+<%= render "/shared/pdf_portrait_header" %>
 <div class="row">
   <div class="bg-light lter b-b wrapper-md">
     <h1 class="m-n font-thin h3">Estimated Fee</h1>
@@ -24,6 +21,8 @@
     </div>
   </div>
 </div>
+<%#= render "shared/pdf_portrait_footer" %>
+
 
 <script type="text/javascript">
   $(document).on('change', '.grade-select', function(){

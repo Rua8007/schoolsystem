@@ -19,6 +19,10 @@
         <label>Amount</label> <br>
         <%= number_field_tag "amounts[]",'',class: 'form-control',:style => 'height:34px;width: 90%' %>
       </div>
+      <div class="field">
+        <label>Mode</label> <br>
+        <%= select_tag 'terms[]', options_for_select(%w[Monthly Quartely Bi-annualy Anually Full]), {class: "form-control", style: 'width: 90%'} %>
+      </div>
       <br>
       <div class="actions">
         <%#= f.submit class: "btn btn-success" %>
@@ -36,6 +40,10 @@
       <div class="field">
         <label>Amount</label> <br>
         <%= number_field_tag 'amounts[]','',class: 'form-control',:style => 'height:34px;width: 90%' %>
+      </div>
+      <div class="field">
+        <label>Mode</label> <br>
+        <%= select_tag 'terms[]', options_for_select(%w[Monthly Quartely Bi-annualy Anually Full]), {class: "form-control", style: 'width: 90%'} %>
       </div>
       <br>
       <div class="actions">

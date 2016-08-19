@@ -1,34 +1,46 @@
 <%= form_for @student, url: save_temporary_student_path, method: 'post' do |f| %>
     <div class="row">
-      <div class="col-md-6">
-        <label>Select Grade</label>
+      <div class="col-md-5">
+        <label>Grade of Admission</label>
         <%= f.select :grade_id, options_from_collection_for_select(@grades, :id, :name, @grade.id),
                      {}, { class: 'grade-select form-control'} %>
       </div>
     </div>
 
     <br />
-    <br />
+    <table class="table">
+      <tbody>
+        <tr>
+          <td>Full Name</td>
+          <td colspan="2"><%= f.text_field :fullname, class: "form-control" %></td>
 
-    <div class="row">
-      <div class="col-md-3">
-        <label>Fullname</label>
-        <%= f.text_field :fullname, class: 'form-control' %>
-      </div>
+          <td>Father Name</td>
+          <td colspan="2"><%= f.text_field :fullname, class: "form-control" %></td>
 
-      <div class="col-md-3">
-        <label>Email</label>
-        <%= f.text_field :email, class: 'form-control' %>
-      </div>
+        </tr>
+        <tr>
+          <td>Date</td>
+          <td colspan="2"><%= f.text_field :fullname, class: "datepicker form-control" %></td>
 
+          <td>Mobile</td>
+          <td colspan="2"><%= f.text_field :fullname , class: "form-control"%></td>
+
+        </tr>
+      </tbody>
       <%#= TODO Please Add Parent Information In This Form and White List Them In Dues Controller.  %>
-    </div>
-
+    </table>
     <br />
-    <br />
-
     <% if @student.dues.present? %>
-        <div class="row">
+      <table>
+        <thead>
+          <th></th>
+          <th>Title</th>
+          <th><h4>Mode</h4></th>
+          <th><h4>Total</h4></th>
+          <th><h4>Paid</h4></th>
+          <th><h4>Balance</h4></th>
+        </thead>
+        <!-- <div class="row">
           <div class="col-sm-1"></div>
           <div class="col-sm-2"></div>
           <div class="col-sm-2"><h4>Mode</h4></div>
@@ -36,38 +48,42 @@
           <div class="col-sm-2"><h4>Paid</h4></div>
           <div class="col-sm-2"><h4>Balance</h4></div>
 
-        </div>
-        <%= f.hidden_field :id %>
-        <%= f.fields_for :dues do |d| %>
-            <div class="row">
-              <div class="col-sm-1"><%= d.check_box :show, {class: 'fee-select', id: d.object.id} %></div>
-              <div class="col-sm-2"><span style="font-size: 22px;"><%= d.object.feeable.name %></span></div>
+        </div> -->
+        <tbody>
+          <%= f.fields_for :dues do |d| %>
+            <tr>
+              <td><%= d.check_box :show, {class: 'fee-select', id: d.object.id} %></td>
+              <td><%= d.object.feeable.name %></td>
               <%= d.hidden_field :feeable_id %>
               <%= d.hidden_field :feeable_type %>
               <%= d.hidden_field :grade_id %>
-              <div class="col-sm-2">
-                <%= d.select :mode_id, options_from_collection_for_select(FeeMode.order('no_of_payments'), :id, :name), {}, {class: 'form-control'} %>
-              </div>
-              <div class="col-sm-2">
-                <%= d.text_field :total, class: 'form-control total', readonly: true, value: d.object.feeable.total_amount %>
-              </div>
+              <td>
+                <%= d.select :mode_id, options_from_collection_for_select(FeeMode.order('no_of_payments'), :id, :name), {}, {class: ''} %>
+              </td>
+              <td>
+                <%= d.text_field :total, class: ' total', readonly: true, value: d.object.feeable.total_amount %>
+              </td>
 
-              <div class="col-sm-2">
-                <%= d.text_field :paid, class: 'form-control paid' %>
-              </div>
+              <td>
+                <%= d.text_field :paid, class: ' paid' %>
+              </td>
 
-              <div class="col-sm-2">
-                <%= d.text_field :balance, class: 'form-control', readonly: true %>
-              </div>
-            </div>
-            <br />
-        <% end %>
+              <td>
+                <%= d.text_field :balance, class: '', readonly: true %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+        <%= f.hidden_field :id %>
+      </table>
+
     <% else %>
         <div class="col-md-12"><h4>Please create fee entries first.</h4></div>
     <% end %>
 
 
     <div class="col-md-12 actions" style="margin-top: 10px;">
-      <%= f.submit 'Save Fee Plan', class: 'btn btn-success pull-right' %>
+      <input type="button", onclick="window.print()" , class = 'btn btn-success pull-right', value = "Print">
     </div>
 <% end %>
+<!-- <button class="btn btn-success pull-right" onclick="window.print()">Print</button> -->
