@@ -23,7 +23,7 @@
               };
 
               // Total over all pages
-              var col = 1 + <%= @grade.feebreakdowns.count %> + 4
+              var col = 1 + <%= @grade.parent.feebreakdowns.count %> + 4
               total = api
                   .column( col )
                   .data()
@@ -32,7 +32,7 @@
                   } );
               $('#total').text('Total Fee: '+total);
 
-              var col = 1 + <%= @grade.feebreakdowns.count %> + 5
+              var col = 1 + <%= @grade.parent.feebreakdowns.count %> + 5
               total = api
                   .column( col )
                   .data()
@@ -41,7 +41,7 @@
                   } );
               $('#paid').text('Total Paid: '+total);
 
-              var col = 1 + <%= @grade.feebreakdowns.count %> + 6
+              var col = 1 + <%= @grade.parent.feebreakdowns.count %> + 6
               total = api
                   .column( col )
                   .data()
@@ -100,7 +100,7 @@
           <th>Date of Birth</th>
         <% end %>
         <% if current_user.role.rights.where("value = 'create_fee' or value = 'update_fee' or value = 'view_fee'").any? %>
-          <% @grade.feebreakdowns.each do |f| %>
+          <% @grade.parent.feebreakdowns.each do |f| %>
             <th><%= f.title %></th>
           <% end %>
           <th>Tranport Charges</th>
@@ -143,7 +143,7 @@
 
             <% total = 0 %>
             <% bus = 0 %>
-            <% @grade.feebreakdowns.each do |f| %>
+            <% @grade.parent.feebreakdowns.each do |f| %>
               <% total = total + f.amount %>
               <td><%= f.amount %></td>
             <% end %>
@@ -164,7 +164,7 @@
             <td><%= bcharges %></td>
 
             <% discount = student.discount || 0 %>
-            <% discount = discount * student.grade.feebreakdowns.first.amount/100 if student.grade.feebreakdowns.any? %>
+            <% discount = discount * student.grade.parent.feebreakdowns.first.amount/100 if student.grade.parent.feebreakdowns.any? %>
 
             <td><%= discount || 0 %></td>
 

@@ -150,7 +150,7 @@ class FeesController < ApplicationController
         @bcharges = @bcharges + i.lines.sum("quantity * price") - i.discount
       end
     end
-    @fee_breakdown = grade.feebreakdowns
+    @fee_breakdown = grade.parent.feebreakdowns
   end
 
   def student_fee
@@ -158,9 +158,9 @@ class FeesController < ApplicationController
     if Student.find_by_rollnumber(params[:id]).present?
       @student = Student.find_by_rollnumber(params[:id])
       @discount = @student.discount || 0
-      @discount = @student.grade.feebreakdowns.any? ? @discount * @student.grade.feebreakdowns.first.amount/100 : 0
+      @discount = @student.grade.parent.feebreakdowns.any? ? @discount * @student.grade.feebreakdowns.first.amount/100 : 0
       @data = []
-      @student.grade.feebreakdowns.each do |fb|
+      @student.grade.parent.feebreakdowns.each do |fb|
         fb.title = fb.title || ''
         temp = {id: fb.id, fb_id: fb.title, total:fb.amount, paid: fb.fees.sum(:amount) , pending: fb.amount-fb.fees.sum(:amount) }
         @data.push(temp)
