@@ -20,6 +20,8 @@ class FeebreakdownsController < ApplicationController
 
   # GET /feebreakdowns/1/edit
   def edit
+    @grades = Grade.where(section: nil).order(:name).pluck(:name, :id)
+
   end
 
   # POST /feebreakdowns

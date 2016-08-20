@@ -15,12 +15,14 @@
   <tbody>
     <% @feebreakdowns.each do |feebreakdown| %>
       <tr>
-        <td><%= feebreakdown.grade.full_name if feebreakdown.grade %></td>
+        <td><%= feebreakdown.grade.name if feebreakdown.grade %></td>
         <td><%= feebreakdown.title %></td>
         <td><%= feebreakdown.amount %></td>
-        <td><%= link_to 'Show', feebreakdown %>
-        <%= link_to 'Edit', edit_feebreakdown_path(feebreakdown) %>
-        <%= link_to 'Destroy', feebreakdown, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <%= link_to '', feebreakdown ,:class => 'btn btn-success  glyphicon glyphicon-ok-circle'%>
+          <%= link_to '', edit_feebreakdown_path(feebreakdown),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
+          <%= link_to '', feebreakdown, method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
+        </td>
       </tr>
     <% end %>
   </tbody>
@@ -28,5 +30,5 @@
 
 <br>
 
-<%= link_to 'New Feebreakdown', new_feebreakdown_path %>
+<%= link_to 'Create New Feebreakdown', new_feebreakdown_path %>
 <button class="btn btn-success pull-right" onclick="window.print()">Print</button>

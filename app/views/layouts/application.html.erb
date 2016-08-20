@@ -845,8 +845,8 @@
                     <%end%>
                     <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'create_fee').any? %>
                       <li>
-                        <%= link_to(new_feebreakdown_path) do %>
-                          <span><%= t('fees_register.fee_break_down') %></span>
+                        <%= link_to(feebreakdowns_path) do %>
+                          <span><%= t('fees_register.fee_break_downs') %></span>
                         <% end %>
                       </li>
                     <% end %>
