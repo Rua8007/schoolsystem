@@ -1220,14 +1220,16 @@
                   </li>
                   <% end %>
 
-                  <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'view_fee').any? %>
-                        <li>
-                          <%= link_to(fee_entries_path) do %>
+                  <%# if Right.where("role_id = ? and value = ?" , current_user.role_id, 'view_fee').any? %>
+                        <!-- <li>
+                          <%#= link_to(fee_entries_path) do %>
                               <i class="glyphicon glyphicon-usd"></i>
-                              <span><%= t('fees_register.fee_entries') %></span>
-                          <% end %>
-                        </li>
-                  <% end %>
+                              <span><%#= t('fees_register.fee_entries') %></span>
+                          <%# end %>
+                        </li> -->
+                  <%# end %>
+
+
                 <!-- <li>
                   <a href class="auto">
                     <span class="pull-right text-muted">
