@@ -17,6 +17,16 @@ class HomeController < ApplicationController
     end
   end
 
+  def alerts
+    if current_user.role.rights.where(value: 'view_alerts').any?
+      @iqama_expiries = Student.where('to_date("iqamaExpiry", '+"'MM DD YY'"+') BETWEEN ? AND ?',Time.now-30.days,Time.now)
+      @new_students = Student.where('created_at > ?', 30.days.ago)
+    else
+      redirect_to root_path, alert: "Access Dinied"
+    end
+    # return render json: params
+  end
+
   def timetable
   end
 
@@ -99,7 +109,7 @@ class HomeController < ApplicationController
   def confirm_admin
     user = User.find_by_email(params[:email])
     if user && user.valid_password?(params[:password])
-      redirect_to params[:redirection], notice: 'Access Granted...!!!'
+      redirect_to params[:redirection]+"(confirmed: true)", notice: 'Access Granted...!!!'
     else
       redirect_to :back , alert: 'Invalid Admin Credentials'
     end

@@ -168,10 +168,8 @@ $(document).ready(function(){
       type: 'POST',
       data: request,
       success: function (data) {
-        if(data="success")
-        {
-          window.location.pathname="invoices"
-        }
+          console.log("data after save if ", data);
+          window.location.pathname="invoices/"+data[0].invoice.id
       },
       error: function (xhr) {
         return false;

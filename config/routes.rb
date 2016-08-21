@@ -24,8 +24,7 @@ Rails.application.routes.draw do
     get 'home/create_backup'
     get 'home/confirm_password'
     post 'home/confirm_admin'
-
-
+    get 'home/alerts'
 
     resources :rights do
       collection do
@@ -245,7 +244,7 @@ Rails.application.routes.draw do
         get 'all_student'
         post 'student_add'
         get 'all_grades'
-        get 'promote'
+        post 'promote'
         post 'promoter'
         post 'promote_students'
         get 'get_classes'

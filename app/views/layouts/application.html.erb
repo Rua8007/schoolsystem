@@ -137,7 +137,6 @@
               </li> -->
               <li>
                 <a href>
-                  <span class="badge bg-danger pull-right">30%</span>
                   <span><%= link_to "Settings", edit_user_registration_path %></span>
                 </a>
               </li>
@@ -151,13 +150,11 @@
               </li>
               <li><%= link_to 'English', root_path({locale: 'en'}) %></li>
               <li><%= link_to 'Arabic', root_path({locale: 'ar'}) %></li>
-              <!-- <li>
-                <a ui-sref="app.docs">
-                  <span class="label bg-info pull-right">new</span>
-                  Help
-                </a>
-              </li> -->
-              <li class="divider"></li>
+              <li>
+                <% if current_user.role.rights.where(value: 'view_alerts').any? %>
+                  <%= link_to "Notifications", "" %> <span class="badge bg-danger pull-right"><%= Student.where('to_date("iqamaExpiry", '+"'MM DD YY'"+') BETWEEN ? AND ?',Time.now-30.days,Time.now).count + Student.where('created_at > ?', 30.days.ago).count %></span>
+                <% end %>
+              </li>
               <li>
                 <%= link_to "Logout", destroy_user_session_path, method: :delete %>
               </li>
@@ -299,7 +296,7 @@
                       <% end %>
                     </li>
                     <li>
-                      <%= link_to(home_confirm_password_path({redirection:promote_grades_path})) do %>
+                      <%= link_to(home_confirm_password_path({redirection: promote_grades_path})) do %>
                         <i class="glyphicon glyphicon-usd"></i>
                         <span><%= t('promote.demotions') %></span>
                       <% end %>
@@ -463,28 +460,28 @@
                               <span><%= t('req_approval.attendance') %></span>
                             <% end %>
                           </li>
-                          <% if current_user.role.rights(value: 'approve_curriculam').any? %>
+                          <% if current_user.role.rights.where(value: 'approve_curriculam').any? %>
                             <li>
                               <%= link_to(get_requested_curriculums_path) do %>
                                 <span><%= t('plan.curriculum_plan') %></span>
                               <% end %>
                             </li>
                           <% end %>
-                          <% if current_user.role.rights(value: 'approve_lesson').any? %>
+                          <% if current_user.role.rights.where(value: 'approve_lesson').any? %>
                             <li>
                               <%= link_to(get_requested_lessonplans_path, method: 'POST')  do %>
                                 <span><%= t('plan.lesson_plan') %></span>
                               <% end %>
                             </li>
                           <% end %>
-                          <% if current_user.role.rights(value: 'approve_portion').any? %>
+                          <% if current_user.role.rights.where(value: 'approve_portion').any? %>
                             <li>
                               <%= link_to(get_requested_portions_path, method: 'POST') do %>
                                 <span><%= t('plan.portions') %></span>
                               <% end %>
                             </li>
                           <% end %>
-                          <% if current_user.role.rights(value: 'approve_weekly_plan').any? %>
+                          <% if current_user.role.rights.where(value: 'approve_weekly_plan').any? %>
                             <li>
                               <%= link_to(get_requested_year_plans_path) do %>
                                 <span><%= t('plan.weekly_plan') %></span>

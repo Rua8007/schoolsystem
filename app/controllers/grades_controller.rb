@@ -10,8 +10,12 @@ class GradesController < ApplicationController
   end
 
   def promote
-    @grades = Grade.where("section is not null").order(:name)
-    @main_grades = []
+    if params[:confirmed]
+      @grades = Grade.where("section is not null").order(:name)
+      @main_grades = []
+    else
+      redirect_to root_path, alert: "Warning! Permissio Restricted...!!!"
+    end
   end
 
   def promoter
@@ -219,7 +223,12 @@ class GradesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_grade
-      @grade = Grade.find(params[:id])
+      @grade = Grade.find_by_id(params[:id])
+      if @grade.present?
+        return @grade
+      else
+        redirect_to root_path
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

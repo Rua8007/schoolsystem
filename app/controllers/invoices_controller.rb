@@ -5,7 +5,7 @@ class InvoicesController < ApplicationController
   # GET /invoices
   # GET /invoices.json
   def index
-    if current_user.role.name != 'student'
+    if current_user.role.name != 'Parent'
       @invoices = Invoice.all
     else
       @invoices = Student.find_by_email(current_user.email).invoices
@@ -37,7 +37,7 @@ class InvoicesController < ApplicationController
     inv.student_id = Student.find_by_rollnumber(params[:student_id]).id
     inv.booknum = params[:booknum]
     inv.discount = params[:discount]
-    inv.save
+    inv.save!
     items.each do |item|
       itm = Item.find_by_code(item[1]['code'])
       if itm.nil?
@@ -84,7 +84,9 @@ class InvoicesController < ApplicationController
     #     format.html { render :new }
     #     format.json { render json: @invoice.errors, status: :unprocessable_entity }
     #   end
-    redirect_to invoices_path
+    respond_to do |format|
+      format.json {render json: [invoice: inv]}
+    end
   end
 
   # PATCH/PUT /invoices/1
