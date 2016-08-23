@@ -137,9 +137,14 @@ class MarksController < ApplicationController
         if student.present?
           @report_card = ReportCard.find_by student_id: student.id, grade_id: @class.id, batch_id: Batch.last.id
           @mark = Mark.find_or_create_by(report_card_id: @report_card.id, exam_id: @exam.id, subject_id: @report_card_subject.id, division_id: @marks_division.id)
-          @sessional = Sessional.find_or_create_by name: "#{@marks_division.name} #{index + 1}", mark_id: @mark.id
-          @sessional.update( obtained_marks: marks.to_f, mark_date: @dates[index])
-          @mark.update(obtained_marks: @mark.sessionals.average(:obtained_marks), passing_marks: @marks_division.passing_marks, total_marks: @marks_division.total_marks)
+          if @marks_division.name != "Exam Comments"
+            @sessional = Sessional.find_or_create_by name: "#{@marks_division.name} #{index + 1}", mark_id: @mark.id
+            @sessional.update( obtained_marks: marks.to_f, mark_date: @dates[index])
+            @mark.update(obtained_marks: @mark.sessionals.average(:obtained_marks), passing_marks: @marks_division.passing_marks, total_marks: @marks_division.total_marks)
+          else
+            @sessional = Sessional.find_or_create_by name: "#{@marks_division.name} #{index + 1}", mark_id: @mark.id
+            @sessional.update( comments: marks, mark_date: @dates[index])
+          end
         else
           flash[:notice] = 'Sorry, Something Bad Happened.'
           break

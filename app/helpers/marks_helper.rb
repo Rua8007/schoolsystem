@@ -109,12 +109,23 @@ module MarksHelper
   def get_division_marks(report_card, subject, division, exam)
     if subject.sub_subjects.present?
       marks = 0
-      subject.sub_subjects.each do |sub_subject|
-        marks = marks + (report_card.marks.find_by(subject_id: sub_subject.id, division_id: division.id, exam_id: exam.id).try(:obtained_marks) || 0) * (sub_subject.weight/100.00)
+      if division.name == "Exam Comments"
+        subject.sub_subjects.each do |sub_subject|
+          marks = ''
+          marks = marks +" "+(report_card.marks.find_by(subject_id: sub_subject.id, division_id: division.id, exam_id: exam.id).sessionals.last.try(:comments) || '') if report_card.marks.find_by(subject_id: sub_subject.id, division_id: division.id, exam_id: exam.id).present?
+        end
+      else
+        subject.sub_subjects.each do |sub_subject|
+          marks = marks + (report_card.marks.find_by(subject_id: sub_subject.id, division_id: division.id, exam_id: exam.id).try(:obtained_marks) || 0) * (sub_subject.weight/100.00)
+        end
       end
       marks
     else
-      report_card.marks.find_by(subject_id: subject.id, division_id: division.id, exam_id: exam.id).try(:obtained_marks)
+      if division.name == "Exam Comments" && report_card.marks.find_by(subject_id: subject.id, division_id: division.id, exam_id: exam.id).present?
+        report_card.marks.find_by(subject_id: subject.id, division_id: division.id, exam_id: exam.id).sessionals.last.try(:comments)
+      elsif
+        report_card.marks.find_by(subject_id: subject.id, division_id: division.id, exam_id: exam.id).try(:obtained_marks)
+      end
     end
   end
 
