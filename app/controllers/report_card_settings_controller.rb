@@ -64,6 +64,10 @@ class ReportCardSettingsController < ApplicationController
   def create_marks_divisions
     @setting = ReportCardSetting.find(params[:id])
     if @setting.update(setting_params)
+      unless @setting.marks_divisions.where(name: "Exam Comments").any?
+        exam_comment = @setting.marks_divisions.new({name: "Exam Comments", is_divisible: true})
+        exam_comment.save!
+      end
       redirect_to new_headings_path(@setting)
     else
       flash[:notice] = @setting.errors.full_messages

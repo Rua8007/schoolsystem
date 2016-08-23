@@ -10,13 +10,10 @@
   <div class="col-sm-7 col-md-7">
     <% @marks_divisions.where(is_divisible: true).try(:each) do |division| %>
         <% klass = (@marks_division.id == division.id)? 'btn btn-success' : 'btn btn-primary' %>
-        <%= link_to division.name, enter_division_marks_path(@class.id, @subject.id, @exam.id, division.id), {role: 'button', class: klass } %>
+        <%= link_to division.name, enter_division_marks_path(@class.id, @subject.id, @exam.id, division.id), {role: 'button', class: division.name != "Exam Comments" ? klass : klass+"btn btn-danger" } %>
     <% end %>
 
-      <% puts "+++++++" %>
-      <% puts @report_card_subject.inspect %>
-      <% puts "+++++++" %>
-    <% if @report_card_subject.take_exam %>
+    <% if @report_card_subject && @report_card_subject.take_exam %>
 
       <% @marks_divisions.where(is_divisible: false).try(:each) do |division| %>
           <% klass = (@marks_division.id == division.id)? 'btn btn-success' : 'btn btn-info' %>
@@ -27,7 +24,9 @@
   <div class="col-sm-5 col-md-5">
     <div class="pull-right">
       <%= submit_tag 'Save Marks', class: 'btn btn-info' %>
-      <button class="btn btn-success" id="addmore">Add More</button>
+      <% if @marks_division.name != "Exam Comments" %>
+        <button class="btn btn-success" id="addmore">Add More</button>
+      <% end %>
       <%= link_to 'Upload From CSV', upload_csv_path(@class.id, @exam.id, @subject.id), class: 'btn btn-primary' %>
       <%= link_to 'Sample File', download_sample_path(@class.id, @exam.id, @subject.id), class: 'btn btn-primary' %>
     </div>
@@ -41,8 +40,8 @@
   <%= hidden_field_tag 'division_id', @marks_division.id %>
   <div style=" 	width: 1050px; /* arbitary for demo only */white-space: nowrap; overflow-y: hidden; overflow-x: scroll;-webkit-overflow-scrolling: touch;">
 
-    <div class="well well-lg col-md-2" style="min-height:500px; float:none !important;display: inline-block;vertical-align: top;">
-      <span style= "background:green; color:white;padding: 7px 10px;font-size: 15px">Student ID</span>
+    <div class="well well-lg col-md-1" style="min-height:500px; float:none !important;display: inline-block;vertical-align: top;">
+      <span style= "background:green; color:white;padding: 7px 10px;font-size: 15px">ID</span>
       <div class="performance-holder">
         <% @students.try(:each) do |std| %>
             <strong class="student-names" style="text-align: left;"><%= std.rollnumber%> </strong>
@@ -50,7 +49,7 @@
       </div>
     </div>
 
-    <div class="well well-lg col-md-3" style="min-height:500px; float:none !important;display: inline-block;vertical-align: top;">
+    <div class="well well-lg col-md-4" style="min-height:500px; float:none !important;display: inline-block;vertical-align: top; overflow-x:scroll">
       <span style= "background:green; color:white;padding: 7px 10px;font-size: 15px">Student Name</span>
       <div class="performance-holder">
         <% @students.try(:each) do |std| %>
@@ -98,16 +97,75 @@
         </div>
     <% end %>
 
-    <div class="well well-lg col-md-2 " style="padding:10px;min-height:500px;width: 180px;float:none !important;display: inline-block;vertical-align: top; margin-left:10px">
-      <h5><%= 'Average' %></h5>
-      <%= text_field_tag "max_mark", @marks_division.total_marks, id: 'max-marks', style:"" , class: "absense-input datepickerss", required: true, disabled: true%>
-      <% @students.try(:each) do |std| %>
-          <% @student_report_card = ReportCard.find_by( grade_id: @class.id, student_id: std.id) %>
-          <% @student_mark = Mark.find_or_create_by(report_card_id: @student_report_card.id, exam_id: @exam.id, subject_id: @report_card_subject.id, division_id: @marks_division.id) %>
-          <%= text_field_tag "marks[#{std.id}][]", number_with_precision(@student_mark.sessionals.try(:average, :obtained_marks), precision: 2 ) || 0 ,disabled: true, id: std.id, class: "absense-input total"+std.id.to_s %>
-      <% end %>
-    </div>
+    <% if @marks_division.name != "Exam Comments" %>
+      <div class="well well-lg col-md-2 " style="padding:10px;min-height:500px;width: 180px;float:none !important;display: inline-block;vertical-align: top; margin-left:10px">
+        <h5><%= 'Average' %></h5>
+        <%= text_field_tag "max_mark", @marks_division.total_marks, id: 'max-marks', style:"" , class: "absense-input datepickerss", required: true, disabled: true%>
+        <% @students.try(:each) do |std| %>
+            <% @student_report_card = ReportCard.find_by( grade_id: @class.id, student_id: std.id) %>
+            <% @student_mark = Mark.find_or_create_by(report_card_id: @student_report_card.id, exam_id: @exam.id, subject_id: @report_card_subject.id, division_id: @marks_division.id) %>
+            <%= text_field_tag "marks[#{std.id}][]", number_with_precision(@student_mark.sessionals.try(:average, :obtained_marks), precision: 2 ) || 0 ,disabled: true, id: std.id, class: "absense-input total"+std.id.to_s %>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="col-md-2 " style="padding:10px;min-height:500px;width: 180px;float:none !important;display: inline-block;vertical-align: top; margin-left:10px">
+        <strong><u>Academic Fields:</u></strong>
+        <ul>
+          <li>
+            1) Excellent performance.
+          </li><br>
+          <li>
+            2) Good work, keep improving.
+          </li><br>
+          <li>
+            3) Shows improvement.
+          </li><br>
+          <li>
+            4) Needs to work harder.
+          </li><br>
+          <li>
+            5) Missing Homework.
+          </li><br>
+          <li>
+            6) Needs to be more active in class.
+          </li><br>
+          <li>
+            7) Needs to Improve English Communication Skills
+          </li><br>
+          <li>
+            8) Needs to focus on studies.
+          </li>
+        </ul>
 
+        <strong><u>Non-Academic Fields:</u></strong>
+        <ul>
+          <li>
+            9) Great Attitude.
+          </li><br>
+          <li>
+            10) Polite, well-behaved person.
+          </li><br>
+          <li>
+            11) Great Communication Skills.
+          </li><br>
+          <li>
+            12) Adaptable and Social.
+          </li><br>
+          <li>
+            13) Doesn’t focus in class
+          </li><br>
+          <li>
+            14) Doesn’t respect others.
+          </li><br>
+          <li>
+            15) Hyperactive in class.
+          </li><br>
+          <li>
+            16) [Checkbox] (8) - Doesn’t listen to teachers.
+          </li>
+        </ul>
+      </div>
+    <% end %>
   </div>
 </div>
 <% end %>

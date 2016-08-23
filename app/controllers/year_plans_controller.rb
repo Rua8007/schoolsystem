@@ -4,8 +4,12 @@ class YearPlansController < ApplicationController
   # GET /year_plans
   # GET /year_plans.json
   def index
-    @year_plans = YearPlan.all
-    @grades = Grade.all
+    if current_user.right.role.rights(value: "view_weeklyplans")
+      @year_plans = YearPlan.all
+      @grades = Grade.all
+    else
+      redirect_to root_path, alert: "access denied"
+    end
   end
 
   # GET /year_plans/1
