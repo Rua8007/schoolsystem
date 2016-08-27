@@ -105,7 +105,9 @@ class MarksController < ApplicationController
 
     @setting = ReportCardSetting.find_by(grade_id: @main_grade.id, batch_id: Batch.last.id, exam_id: @exam.id) if @main_grade.present?
 
-    @marks_divisions = @setting.marks_divisions.order('name')
+    @marks_divisions = @setting.marks_divisions
+    # @marks_divisions.push(@setting.marks_divisions.find_by_name("Exam Comments"))
+    # return render json: @marks_divisions
     @marks_division = @marks_divisions.first
     @marks_division = ReportCardDivision.find(params[:division_id]) if params[:division_id].present?
 

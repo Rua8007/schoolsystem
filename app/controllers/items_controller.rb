@@ -16,7 +16,7 @@ class ItemsController < ApplicationController
   def new
     @item = Item.new
     @shopcategories = Shopcategory.all
-    @grades= Grade.all
+    @grades= Grade.where(section: nil)
 
   end
 
@@ -72,14 +72,14 @@ class ItemsController < ApplicationController
   end
 
   def adding_stock
-    item = Item.find_by_code(params[:code])   
+    item = Item.find_by_code(params[:code])
     item.left = item.left + params[:qty].to_i
     item.save!
     redirect_to items_path
   end
 
   def get_item
-    @details = Item.find_by_code(params[:item_id])   
+    @details = Item.find_by_code(params[:item_id])
     if @details.blank?
       @details = false
     end

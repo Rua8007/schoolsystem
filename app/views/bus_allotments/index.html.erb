@@ -66,8 +66,8 @@
         <td><%= bus_allotment.student.fullname %></td>
         <td><%= bus_allotment.student.parent.name %></td>
         <td><%= bus_allotment.student.parent.mobile %></td>
-        <td><%= bus_allotment.student.grade.name %></td>
-        <td><%= bus_allotment.transport.employee.full_name %></td>
+        <td><%= bus_allotment.student.grade.name if bus_allotment.student.grade.present? %></td>
+        <td><%= bus_allotment.transport.employee.full_name bus_allotment.transport.employee.present? %></td>
         <td><%= bus_allotment.stop.name %></td>
         <td><%= bus_allotment.transport.vehicle.vehicle_no %></td>
         <td><%= link_to '', bus_allotment,:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>

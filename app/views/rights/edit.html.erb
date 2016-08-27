@@ -110,6 +110,7 @@
     <%= check_box_tag 'exam[delete_exam]', '' , @rights.where(value: "delete_exam").any? ? true : false ,class: "exm gen" %> Delete exam
     <%= check_box_tag 'exam[enter_marks]', '' , @rights.where(value: "enter_marks").any? ? true : false ,class: "exm gen" %> Enter Marks
     <%= check_box_tag 'exam[enter_all_marks]', '' , @rights.where(value: "enter_all_marks").any? ? true : false ,class: "exm gen" %> Enter All Marks
+    <%= check_box_tag 'exam[edit_entered_marks]', '' , @rights.where(value: "enter_all_marks").any? ? true : false ,class: "exm gen" %> Edit Entered Marks
     <!--<#%= check_box_tag 'exam[upload_marks]', '' , @rights.where(value: "").any? ? true : false ,class: "exm gen" %> Upload Marksheets
     <#%= check_box_tag 'exam[view_marksheets]', '' , @rights.where(value: "").any? ? true : false ,class: "exm gen" %> View ALl Marksheets -->
     <%= check_box_tag 'exam[subject_result]', '' , @rights.where(value: "subject_result").any? ? true : false ,class: "exm gen" %> View Subject Result

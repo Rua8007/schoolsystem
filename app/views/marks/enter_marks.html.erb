@@ -83,7 +83,7 @@
               <% @students.try(:each) do |std| %>
                   <% @student_report_card = ReportCard.find_by( grade_id: @class.id, batch_id: Batch.last.id, student_id: std.id) %>
                   <% @student_mark = Mark.find_by(report_card_id: @student_report_card.id, exam_id: @exam.id, subject_id: @report_card_subject.id, division_id: @marks_division.id) %>
-                  <%= text_field_tag "sessionals[#{std.id}][]" , @marks_division.name != "Exam Comments" ? (@student_mark.sessionals.find_by(name: sessional.name).try(:obtained_marks)) : @student_mark.sessionals.last.comments,class: " absense-input calculate"+std.id.to_s %>
+                  <%= text_field_tag "sessionals[#{std.id}][]" , @marks_division.name != "Exam Comments" ? (@student_mark.sessionals.find_by(name: sessional.name).try(:obtained_marks)) : @student_mark.sessionals.last.comments,class: " absense-input calculate"+std.id.to_s, disabled: current_user.role.rights.where(value: "edit_entered_marks").any? ? false: true %>
               <% end %>
             </div>
         <% end %>
@@ -161,7 +161,7 @@
             15) Hyperactive in class.
           </li><br>
           <li>
-            16) [Checkbox] (8) - Doesn’t listen to teachers.
+            16) Doesn’t listen to teachers.
           </li>
         </ul>
       </div>
