@@ -13,10 +13,23 @@ class WeeksController < ApplicationController
         @grades = Grade.where("id IN(#{employee_ids})
                   and section IS NOT NULL").order('name, section') if employee_ids.present? rescue []
         @subjects = Subject.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:subject_id)) rescue []
+      elsif current_user.role.rights.where(value: "view_weeklyplans").any?
+        if current_user.role.name == "Parent"
+          @grades = []
+          student = Student.find_by_rollnumber(current_user.email.split('@').first.split('_').last)
+          @grades << student.grade
+          @subjects = []
+          student.grade.bridges.try(:each) do |bridge|
+            @subjects.push(bridge.subject)
+          end
+        else
+          # for admins
+          # return render json: params
+          @grades = Grade.where('section IS NOT NULL').order('name, section')
+          @subjects = Subject.all
+        end
       else
-        # for admins
-        @grades = Grade.where('section IS NOT NULL').order('name, section')
-        @subjects = Subject.all
+        redirect_to root_path, notice: "Access Denied..!!!"
       end
     end
   end

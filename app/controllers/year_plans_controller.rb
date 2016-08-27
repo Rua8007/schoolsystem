@@ -19,7 +19,7 @@ class YearPlansController < ApplicationController
     if current_user.role.name == 'Teacher'
       @grades = Grade.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:grade_id)) rescue []
       @subjects = Subject.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:subject_id)) rescue []
-    else
+    elsif current_user.role.rights.where(value: "view_weeklyplans").any?
       # for admins
       @grades = Grade.all
       @subjects = Subject.all
