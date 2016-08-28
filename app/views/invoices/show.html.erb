@@ -1,354 +1,235 @@
-
-<html lang="en">
-  <div class="bg-light lter b-b wrapper-md">
-  <h1 class="m-n font-thin h3">Invoice </h1>
-  </div>
-
-    <link rel="stylesheet" href="style.css" media="all" />
-    <div class="clearfix">
-      <div id="logo">
-        <%= image_tag asset_path("img/logo.png"), alt: ".", class: 'img-responsive'%>
+<div class="container">
+    <div class="row">
+      <div class="col-md-2 col-sm-2 col-xs-3 logo1 ">
+        <%= image_tag asset_path("img/logo.png"), alt: ".", class: 'img-responsive', style: "height:60px; width: 60px"%>
       </div>
-      <div id="company">
-        <h2 class="name">Al Omam International school</h2>
-          <div>Tal Al Asfar, Ar Rihab, Jeddah 23345, Saudi Arabia</div>
-          <div>+966 12 674 1878</div>
-          <div><a href="#">www.alomam.edu.sa/</a></div>
+
+      <div class="col-md-8 col-sm-8 col-xs-6 name" >
+          <h3><b>Al-Omam International School</b></h3>
+      </div>
+
+      <div class="col-md-2 col-sm-2 col-xs-3 logo2">
+          <!-- <img src="logo2.png" height="60" width="60"> -->
       </div>
     </div>
-    <hr>
-    <main>
-      <div class="clearfix">
-        <div id="client" >
-          <h6><div class="to">INVOICE TO:</div></h6>
-          <table class="table">
-                <tbody>
-                    
-                    <tr>
-                        <td class="student-profile-td">
-                            Student Name
-                        </td>
-                        <td>
-                        <%= @invoice.student.fullname %>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="student-profile-td">
-                            Grade
-                        </td>
-                        <td>
-                        <%= @invoice.student.grade.name %>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="student-profile-td">
-                             Email
-                        </td>
-                        <td>
-                        <%= @invoice.student.email %>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="student-profile-td">
-                            Address
-                        </td>
-                        <td>
-                        <%= @invoice.student.address %>
-                        </td>
-                    </tr>
-                     <tr>
-                        <td class="student-profile-td">
-                            Contact
-                        </td>
-                        <td>
-                        <%= @invoice.student.phone %>
-                        </td>
-                    </tr>
-                </tbody>
-          </table>
+
+    <div class="row">
+      <div class="col-md-4">
+
+      </div>
+      <div class="col-md-4" style="text-align: center">
+          <h3><b><u>Invoice</u></b></h3>
+      </div>
+
+      <div class="col-md-4">
+      </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 invoice">
+            <h5><b>Invoice To:</b></h5>
         </div>
-        <div id="invoice">
-          <h6>Invoice  :: <%= @invoice.id %></h6>
-          <div class="date">Date of Invoice: <%= @invoice.created_at.strftime("%m/%d/%Y")  %></div>
-        </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-xs-6 student">
+        <table class="table table-bordered studenttable">
+          <tr>
+             <th>Student Name:</th>
+             <td><%= @invoice.student.fullname %></td>
+          </tr>
+          <th>Student ID:</th>
+          <td>15419:</td>
+          <tr>
+             <th>Parent Name:</th>
+             <td><%= @invoice.student.parent.name %></td>
+          </tr>
+          <tr>
+             <th>Class:</th>
+             <td><%= @invoice.student.grade.full_name%></td>
+          </tr>
+          <tr>
+             <th>Email:</th>
+             <td><%= @invoice.student.email %></td>
+          </tr>
+          <tr>
+             <th>Address:</th>
+             <td><%= @invoice.student.address %></td>
+          </tr>
+       </table>
       </div>
-   
-   <div class="clearfix">
-    <div class="client margins">
 
-      <table class="table">
-        <thead >
-          <tr>
-            <th class="no">#</th>
-            <th class="desc">Description</th>
-            <th class="unit">Unit Price</th>
-            <th class="qty">Qunatity</th>
-            <th class="total">Total</th>
-          </tr>
-        </thead>
+        <div class="col-md-6 col-xs-6 space1">
+            <table class="table table-bordered studenttable">
+                <tr>
+                    <th>Address:</th>
+                    <td>Arrihab Dist., Tal Al Asfar, Jeddah, KSA</td>
+                </tr>
+                <th>Tel:</th>
+                <td> 012-6746557 - 6741878</td>
+                <tr>
+                    <th>Fax:</th>
+                    <td>012-287250
+                    </td>
+                </tr>
+                <tr>
+                    <th>Website:</th>
+                    <td>aloman.edu.sa</td>
+                </tr>
 
-
-        <tbody>
-         <% @invoice.lines.each do |pk| %>
-
-          <tr>
-            <td class="no"><%= pk.id %></td>
-            <% if pk.item_id == nil %>
-              <td class="desc"><%= pk.package.name %></td>
-            <% else %>
-              <td class="desc"><%= pk.item.name %></td>
-            <% end %>
-            <td class="unit"><%= pk.price %></td>
-            <td class="qty"><%= pk.quantity %></td>
-            <td class="total"><%= pk.price * pk.quantity %></td>
-          </tr>
-          
-          
-        </tbody>
-        <%end%>
-        
-        <tfoot>
-        
-          <tr>
-            <td colspan="3"></td>
-            <td colspan="1">Subtotal</td>
-            <% subtotal = @invoice.lines.sum('quantity * price') %>
-            <td><%= subtotal %></td>
-          </tr>
-          <tr>
-            <td colspan="3"></td>
-            <td colspan="1">Discount</td>
-            <td><%= @invoice.discount %> </td>
-          </tr>
-          <tr>
-            <td colspan="3"></td>
-            <td colspan="1">Grand Total</td>
-            <td><%= subtotal-@invoice.discount %></td>
-          </tr>
-        </tfoot>
-      </table>
+            </table>
+        </div>
     </div>
+
+    <div class="row">
+        <div class="col-md-12 description">
+            <table class="table table-stripped">
+              <tr class="linesss">
+                <th >#</th>
+                <th >Description</th>
+                <th >Unit Price</th>
+                <th >Qunatity</th>
+                <th >Total</th>
+              </tr>
+              <% @invoice.lines.each do |pk| %>
+                <tr style="background-color: #f0f5f5;">
+                  <td class="no"><%= pk.id %></td>
+                  <% if pk.item_id == nil %>
+                    <td class="desc"><%= pk.package.name %></td>
+                  <% else %>
+                    <td class="desc"><%= pk.item.name %></td>
+                  <% end %>
+                  <td class="unit"><%= pk.price %></td>
+                  <td class="qty"><%= pk.quantity %></td>
+                  <td class="total"><%= pk.price * pk.quantity %></td>
+                </tr>
+              <% end %>
+            </table>
+        </div>
     </div>
-     
-    </main>
-    <button class="btn btn-success pull-right" onclick="window.print()">Print</button>
 
-</html>
+    <div class="row">
+        <div class="col-md-2 col-xs-2 space">
 
+        </div>
 
+        <div class="col-md-5 col-xs-5 space">
+
+        </div>
+
+        <div class="col-md-5 col-xs-5">
+            <div class="row">
+                <div class="col-md-12 bottom">
+                  <b>Total: &emsp;&emsp; <%= subtotal = @invoice.lines.sum('quantity * price') %></b>
+                </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12 bottom">
+                <b> Discount:&nbsp; <%= @invoice.discount %> </b>
+              </div>
+            </div>
+
+                <div class="row">
+                <div class="col-md-12 bottom">
+                    <h4><b> Grand Total: &nbsp;<%= subtotal-@invoice.discount %></b> </h4>
+                </div>
+                </div>
+            </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-5 col-xs-5" ></div>
+        <div class="col-md-5 col-xs-5" ></div>
+        <div class="col-md-2 col-xs-2 button" ><button type="button" class="btn btn-success" onclick="window.print()">Print</button></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 col-xs-12 footer">
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 col-xs-12 address">
+            <p>Al-Omam Int. School is fully accredited by The American International Association Accreditation for Schools & Colleges </p>
+
+        </div>
+    </div>
+</div>
 
 
 <style type="text/css">
-  
+  .container{
+    width: 595px;
+    height: 842px;
 
-.margins{
-  margin: 7px 66px 0;
 }
-.clearfix:after {
-  content: "";
-  display: table;
-  clear: both;
+.border{
+    background-color: #0189d0;
+    width: 595px;
+    height: 1.5em;
 }
 
-a {
-  color: #0087C3;
-  text-decoration: none;
-}
-.student-profile-td{
-  font-weight: bold;
-  font-size:1.0em;
-  background-color: white;
-  }
+.name{
+text-align: center;
 
-  .table > tbody > tr > td,
-.table > tfoot > tr > td {
-  padding: 3px 10px;
-  border-top: 1px solid #eaeff0;
 }
 
 
-
-
-header {
-  padding: 5px 0;
-  margin-bottom: 20px;
-  border-bottom: 1px solid #AAAAAA;
+.space{
+    background-color:white;
 }
-
-#logo {
-  float: left;
-  margin-top: 8px;
-  width: 100px;
-  padding: 20px
-  height: 2px
-}
-
-#logo img {
-  height: 70px;
-}
-
-#company {
-  float: right;
-  text-align: right;
-  font-size: 0.7em;
-}
-
-
-#details {
-  margin-bottom: 50px;
-}
-
-#client {
-  padding-left: 6px;
-  float: left;
-  font-size: 1.0em;
-}
-
-#client .to {
-  color: #777777;
-}
-
-h2.name {
-  font-size: 1.4em;
-  font-weight: normal;
-  margin: 0;
-}
-
-#invoice {
-  float: right;
-  text-align: right;
-  font-size: 0.8em;
-}
-
-#invoice h6 {
-  color: #0087C3;
-  font-size: 1.3em;
-  font-weight: normal;
-  margin: 0  0 10px 0;
-}
-
-#invoice .date {
-  font-size: 1.1em;
-  color: #777777;
-}
-
-table {
-  width: auto;
-  border-collapse: collapse;
-  border-spacing: 0;
-  margin-bottom: 2px;
-  margin-right: 10px;
-  margin-left: 10px;
-}
-
-table th,
-table td {
-  padding: 2px;
-  background: #EEEEEE;
-  text-align: center;
-  border-bottom: 1px solid #FFFFFF;
-}
-
-table th {
-  white-space: nowrap;        
-  font-weight: normal;
-}
-
-table td {
-  text-align: right;
-}
-
-table td h3{
-  color: #57B223;
-  font-size: 0.8em;
-  font-weight: normal;
-  margin: 0 0 0.2em 0;
-}
-
-table .no {
-  color: #FFFFFF;
-  font-size: 0.9em;
-  background: #57B223;
-}
-
-table .desc {
-  text-align: left;
-}
-
-table .unit {
-  background: #DDDDDD;
-}
-
-table .qty {
-}
-
-table .total {
-  background: #57B223;
-  color: #FFFFFF;
-}
-
-table td.unit,
-table td.qty,
-table td.total {
-  font-size: 1.1em;
-}
-
-table tbody tr:last-child td {
-  border: none;
-}
-table tbody tr td {
-  padding: 0px 0px;
-}
-
-table tfoot td {
-  padding: 0px 10px;
-  background: #FFFFFF;
-  border-bottom: none;
-  font-size: 1.3em;
-  white-space: nowrap; 
-  border-top: 1px solid #AAAAAA; 
-}
-
-table tfoot tr:first-child td {
-  border-top: none; 
-}
-
-table tfoot tr:last-child td {
-  color: #57B223;
-  font-size: 1.8em;
-  border-top: 1px solid #57B223; 
+.footer{
+    background-color:#0189d0;
+    width: 595px;
+    height: 0.2em;
+    margin-top: 1em;
 
 }
+.address{
 
-table tfoot tr td:first-child {
-  border: none;
+    font-size:10px;
+    text-align: center;
 }
 
-#thanks{
-  font-size: 2em;
-  margin-bottom: 50px;
+.studenttable{
+    font-size: 9px;
+
+}
+.linesss{
+    border-top:4px solid #0189d0 ;
+    border-bottom: 4px solid #0189d0;
+    color: black;
+}
+.line2{
+    background-color: #f0f5f5;
+    border-bottom: 4px solid #0189d0;
 }
 
-#notices{
-  padding-left: 6px;
-  border-left: 6px solid #0087C3;  
+.bottom{
+
+    margin-left: 2em;
+text-decoration: underline;
 }
 
-#notices .notice {
-  font-size: 1.2em;
+.button{
+    margin-top:1em;
 }
 
-@media print { 
-#nav ,#ul,#header,#aside { display :none ;}
+.btn-success{
+    background-color:#0189d0;
+}
 
-body{ width: 100%;
-      margin: 0;
-      padding: 0;          }
+.logo1{
+
+    margin-top: 0.5em;
+}
+.logo2{
+
+    margin-top: 0.5em;
 }
 
 
 
 </style>
-
-
-

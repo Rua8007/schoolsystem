@@ -11,11 +11,23 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
+    <div class="container form-holder">
+        <div class="row">
+        <br>
+          <fieldset class="sss well well-lg">
+             <legend class="lll">Role Name</legend>
+                  <div class = "row">
+                      <div class = "col-md-6">
+                            <div class="form-group ">
+                                <%= f.label :name %><br>
+                                <%= f.text_field :name, :style => 'height:34px;',  class: 'form-control' , required: true, autofocus: true  %>
+                            </div>
+                        </div>
+                  </div>
+          </fieldset>
+        </div>
+    </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Create", :class => 'btn btn-block btn-success form-control',:style=>'width:24%;float: right;' %>
   </div>
 <% end %>

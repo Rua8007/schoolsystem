@@ -1,362 +1,235 @@
-<html lang="en">
-  <div class="bg-light lter b-b wrapper-md">
-  <h1 class="m-n font-thin h3">Fee Invoice
-  <span class= 'pull-right'>Invoice : <%= @fees.first.identifier  %> </span>
-  </h1>
-
-  </div>
-
-    <link rel="stylesheet" href="style.css" media="all" />
-    <div class="clearfix">
-      <div id="logo">
-        <%= image_tag asset_path("img/logo.png"), alt: ".", class: 'img-responsive'%>
+<div class="container">
+    <div class="row">
+      <div class="col-md-2 col-sm-2 col-xs-3 logo1 ">
+        <%= image_tag asset_path("img/logo.png"), alt: ".", class: 'img-responsive', style: "height:60px; width: 60px"%>
       </div>
-      <div id="company">
-        <h2 class="name">Al Omam International school</h2>
-          <div>Tal Al Asfar, Ar Rihab, Jeddah 23345, Saudi Arabia</div>
-          <div>+966 12 674 1878</div>
-          <div><a href="#">www.alomam.edu.sa/</a></div>
+
+      <div class="col-md-8 col-sm-8 col-xs-6 name" >
+          <h3><b>Al-Omam International School</b></h3>
+      </div>
+
+      <div class="col-md-2 col-sm-2 col-xs-3 logo2">
+          <!-- <img src="logo2.png" height="60" width="60"> -->
       </div>
     </div>
-    <hr>
-    <main>
-      <div class="clearfix">
-        <div id="client" >
-          <h6><div class="to">INVOICE TO:</div></h6>
-          <table class="table">
-                <tbody>
 
-                    <tr>
-                        <td class="student-profile-td">
-                            Student Name
-                        </td>
-                        <td>
-                        <%= @student.fullname %>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="student-profile-td">
-                            Student ID
-                        </td>
-                        <td>
-                        <%= @student.rollnumber %>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="student-profile-td">
-                            Parent Name
-                        </td>
-                        <td>
-                        <%= @student.parent.name %>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="student-profile-td">
-                            Class
-                        </td>
-                        <td>
-                        <%= @student.grade.name %>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="student-profile-td">
-                             Email
-                        </td>
-                        <td>
-                        <%= @student.email %>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="student-profile-td">
-                            Address
-                        </td>
-                        <td>
-                        <%= @student.address %>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="student-profile-td">
-                          Next Due Date
-                        </td>
-                        <td>
-                        <%= @student.due_date %>
-                        </td>
-                    </tr>
-                </tbody>
-          </table>
-        </div>
-        <div id="invoice">
-          <div class="date">Date of Submission: <%= @fees.first.created_at.strftime("%m/%d/%Y")  %></div>
-        </div>
+    <div class="row">
+      <div class="col-md-4">
+
+      </div>
+      <div class="col-md-4" style="text-align: center">
+          <h3><b><u>Invoice</u></b></h3>
       </div>
 
-   <div class="clearfix">
-    <div class="client margins">
+      <div class="col-md-4">
+      </div>
+    </div>
 
-      <table class="table">
-        <thead >
+    <div class="row">
+        <div class="col-md-12 invoice">
+            <h5><b>Invoice To:</b></h5>
+        </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-xs-6 student">
+        <table class="table table-bordered studenttable">
           <tr>
-            <th class="no">Description</th>
-            <th class="desc">Total Charges</th>
-            <th class="total">Amount Paid</th>
-
+            <th>Invoice #</th>
+            <td><%= @fees.first.identifier  %> </td>
           </tr>
-        </thead>
-        <% bf = 0 %>
-        <tbody>
-          <% @fees.try(:each) do |fee| %>
-            <tr>
-              <% if fee.category == 'books' %>
-                <td class="no">Bookshop Charges</td>
-                <td></td>
-              <% else %>
-                <td class="no"><%= fee.feebreakdown.title %></td>
-                <td class="desc"><%= fee.feebreakdown.amount %></td>
-              <% end %>
-              <td class="total"><%= fee.amount %></td>
-            </tr>
-          <% end %>
-          <% if @busfee.any? %>
-            <%= @busfee.try(:each) do |bc| %>
-              <tr>
-                <td class="no" >Transport Charges</td>
-                <td class="desc"><%= bc.bus_allotment.fee %></td>
-                <% bf = bf+bc.fee %>
-                <td class="total" ><%= bc.fee %></td>
+          <tr>
+             <th>Student Name:</th>
+             <td><%= @student.fullname %></td>
+          </tr>
+          <th>Student ID:</th>
+          <td>15419:</td>
+          <tr>
+             <th>Parent Name:</th>
+             <td><%= @student.parent.name %></td>
+          </tr>
+          <tr>
+             <th>Class:</th>
+             <td><%= @student.grade.full_name%></td>
+          </tr>
+          <tr>
+             <th>Email:</th>
+             <td><%= @student.email %></td>
+          </tr>
+          <tr>
+             <th>Address:</th>
+             <td><%= @student.address %></td>
+          </tr>
+          <tr>
+             <th>Next Due Date</th>
+             <td><%= @student.due_date %></td>
+          </tr>
+       </table>
+      </div>
+
+        <div class="col-md-6 col-xs-6 space1">
+            <table class="table table-bordered studenttable">
+                <tr>
+                    <th>Address:</th>
+                    <td>Arrihab Dist., Tal Al Asfar, Jeddah, KSA</td>
+                </tr>
+                <th>Tel:</th>
+                <td> 012-6746557 - 6741878</td>
+                <tr>
+                    <th>Fax:</th>
+                    <td>012-287250
+                    </td>
+                </tr>
+                <tr>
+                    <th>Website:</th>
+                    <td>aloman.edu.sa</td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 description">
+            <table class="table table-stripped">
+              <tr class="linesss">
+                <th>Description</th>
+                <th>Total Charges</th>
+                <th>Amount Paid</th>
+                <% bf = 0 %>
               </tr>
-            <% end %>
-          <% end %>
-        </tbody>
-        <tfoot>
-          <tr>
-            <td colspan="1"></td>
-            <td colspan="1"> Total Amount</td>
-            <td><%= @fees.sum(:amount) + bf%></td>
-          </tr>
-        </tfoot>
-      </table>
+              <% @fees.try(:each) do |fee| %>
+                <tr>
+                  <% if fee.category == 'books' %>
+                    <td >Bookshop Charges</td>
+                    <td></td>
+                  <% else %>
+                    <td ><%= fee.feebreakdown.title %></td>
+                    <td ><%= fee.feebreakdown.amount %></td>
+                  <% end %>
+                  <td ><%= fee.amount %></td>
+                </tr>
+              <% end %>
+              <% if @busfee.any? %>
+                <%= @busfee.try(:each) do |bc| %>
+                  <tr>
+                    <td  >Transport Charges</td>
+                    <td ><%= bc.bus_allotment.fee %></td>
+                    <% bf = bf+bc.fee %>
+                    <td ><%= bc.fee %></td>
+                  </tr>
+                <% end %>
+              <% end %>
+            </table>
+        </div>
     </div>
+
+    <div class="row">
+        <div class="col-md-2 col-xs-2 space">
+
+        </div>
+
+        <div class="col-md-5 col-xs-5 space">
+
+        </div>
+
+        <div class="col-md-5 col-xs-5">
+            <div class="row">
+                <div class="col-md-12 bottom">
+                  <b>Total: &emsp;&emsp; <%= @fees.sum(:amount) + bf%></b>
+                </div>
+            </div>
     </div>
 
-    </main>
-    <button class="btn btn-success pull-right" onclick="window.print()">Print</button>
+    <div class="row">
+        <div class="col-md-5 col-xs-5" ></div>
+        <div class="col-md-5 col-xs-5" ></div>
+        <div class="col-md-2 col-xs-2 button" ><button type="button" class="btn btn-success" onclick="window.print()">Print</button></div>
+    </div>
 
-</html>
+    <div class="row">
+        <div class="col-md-12 col-xs-12 footer">
 
+        </div>
+    </div>
 
+    <div class="row">
+        <div class="col-md-12 col-xs-12 address">
+            <p>Al-Omam Int. School is fully accredited by The American International Association Accreditation for Schools & Colleges </p>
+
+        </div>
+    </div>
+</div>
 
 
 <style type="text/css">
+  .container{
+    width: 595px;
+    height: 842px;
 
-
-.margins{
-  margin: 7px 6px 0;
-}
-.clearfix:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-a {
-  color: #0087C3;
-  text-decoration: none;
-}
-.student-profile-td{
-  font-weight: bold;
-  font-size:1.0em;
-  background-color: white;
+  }
+  .border{
+      background-color: #0189d0;
+      width: 595px;
+      height: 1.5em;
   }
 
-  .table > tbody > tr > td,
-.table > tfoot > tr > td {
-  padding: 3px 10px;
-  border-top: 1px solid #eaeff0;
-}
-
-
-
-
-header {
-  padding: 5px 0;
-  margin-bottom: 20px;
-  border-bottom: 1px solid #AAAAAA;
-}
-
-#logo {
-  float: left;
-  margin-top: 8px;
-  width: 100px;
-  padding: 20px
-  height: 2px
-}
-
-#logo img {
-  height: 70px;
-}
-
-#company {
-  float: right;
-  text-align: right;
-  font-size: 0.7em;
-}
-
-
-#details {
-  margin-bottom: 50px;
-}
-
-#client {
-  padding-left: 6px;
-  float: left;
-  font-size: 1.0em;
-}
-
-#client .to {
-  color: #777777;
-}
-
-h2.name {
-  font-size: 1.4em;
-  font-weight: normal;
-  margin: 0;
-}
-
-#invoice {
-  float: right;
-  text-align: right;
-  font-size: 0.8em;
-}
-
-#invoice h6 {
-  color: #0087C3;
-  font-size: 1.3em;
-  font-weight: normal;
-  margin: 0  0 10px 0;
-}
-
-#invoice .date {
-  font-size: 1.1em;
-  color: #777777;
-}
-
-table {
-  width: auto;
-  border-collapse: collapse;
-  border-spacing: 0;
-  margin-bottom: 2px;
-  margin-right: 10px;
-  margin-left: 10px;
-}
-
-table th,
-table td {
-  padding: 2px;
-  background: #EEEEEE;
+  .name{
   text-align: center;
-  border-bottom: 1px solid #FFFFFF;
-}
 
-table th {
-  white-space: nowrap;
-  font-weight: normal;
-}
-
-table td {
-  text-align: right;
-}
-
-table td h3{
-  color: #57B223;
-  font-size: 0.8em;
-  font-weight: normal;
-  margin: 0 0 0.2em 0;
-}
-
-table .no {
-  color: #FFFFFF;
-  font-size: 0.9em;
-  background: #57B223;
-}
-
-table .desc {
-  text-align: left;
-}
-
-table .unit {
-  background: #DDDDDD;
-}
-
-table .qty {
-}
-
-table .total {
-  background: #57B223;
-  color: #FFFFFF;
-}
-
-table td.unit,
-table td.qty,
-table td.total {
-  font-size: 1.1em;
-}
-
-table tbody tr:last-child td {
-  border: none;
-}
-table tbody tr td {
-  padding: 0px 0px;
-}
-
-table tfoot td {
-  padding: 0px 10px;
-  background: #FFFFFF;
-  border-bottom: none;
-  font-size: 1.3em;
-  white-space: nowrap;
-  border-top: 1px solid #AAAAAA;
-}
-
-table tfoot tr:first-child td {
-  border-top: none;
-}
-
-table tfoot tr:last-child td {
-  color: #57B223;
-  font-size: 1.8em;
-  border-top: 1px solid #57B223;
-
-}
-
-table tfoot tr td:first-child {
-  border: none;
-}
-
-#thanks{
-  font-size: 2em;
-  margin-bottom: 50px;
-}
-
-#notices{
-  padding-left: 6px;
-  border-left: 6px solid #0087C3;
-}
-
-#notices .notice {
-  font-size: 1.2em;
-}
-
-@media print {
-#nav ,#ul,#header,#aside { display :none ;}
-
-body{ width: 100%;
-      margin: 0;
-      padding: 0;          }
-}
+  }
 
 
+  .space{
+      background-color:white;
+  }
+  .footer{
+      background-color:#0189d0;
+      width: 595px;
+      height: 0.2em;
+      margin-top: 1em;
 
+  }
+  .address{
+
+      font-size:10px;
+      text-align: center;
+  }
+
+  .studenttable{
+      font-size: 9px;
+
+  }
+  .linesss{
+      border-top:4px solid #0189d0 ;
+      border-bottom: 4px solid #0189d0;
+      color: black;
+  }
+  .line2{
+      background-color: #f0f5f5;
+      border-bottom: 4px solid #0189d0;
+  }
+
+  .bottom{
+
+      margin-left: 2em;
+  text-decoration: underline;
+  }
+
+  .button{
+      margin-top:1em;
+  }
+
+  .btn-success{
+      background-color:#0189d0;
+  }
+
+  .logo1{
+
+      margin-top: 0.5em;
+  }
+  .logo2{
+
+      margin-top: 0.5em;
+  }
 </style>
-
-
-

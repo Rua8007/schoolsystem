@@ -15,7 +15,7 @@ class PackagesController < ApplicationController
   # GET /packages/new
   def new
     @package = Package.new
-    @grades = Grade.all
+    @grades = Grade.where(section: nil)
     @items =Item.all
      @employee=Employee.all.pluck(:full_name,:id)
     @packageitem = []
@@ -35,7 +35,7 @@ class PackagesController < ApplicationController
       temp = {flag: false, package_id: @package, item_id: i.id }
       @packageitem << temp
     end
-   
+
   end
 
   # POST /packages
@@ -57,7 +57,7 @@ class PackagesController < ApplicationController
       else
         format.html { render :new }
         format.json { render json: @package.errors, status: :unprocessable_entity }
-      end  
+      end
     end
   end
 

@@ -83,7 +83,7 @@
               <% @students.try(:each) do |std| %>
                   <% @student_report_card = ReportCard.find_by( grade_id: @class.id, batch_id: Batch.last.id, student_id: std.id) %>
                   <% @student_mark = Mark.find_by(report_card_id: @student_report_card.id, exam_id: @exam.id, subject_id: @report_card_subject.id, division_id: @marks_division.id) %>
-                  <%= text_field_tag "sessionals[#{std.id}][]" , @marks_division.name != "Exam Comments" ? (@student_mark.sessionals.find_by(name: sessional.name).try(:obtained_marks)) : @student_mark.sessionals.last.comments,class: " absense-input calculate"+std.id.to_s, disabled: current_user.role.rights.where(value: "edit_entered_marks").any? ? false: true %>
+                  <%= text_field_tag "sessionals[#{std.id}][]" , @marks_division.name != "Exam Comments" ? (@student_mark.sessionals.find_by(name: sessional.name).try(:obtained_marks)) : @student_mark.sessionals.last.comments,class: @marks_division.name == "Exam Comments" ? " absense-input exam-comment number calculate"+std.id.to_s : "absense-input calculate" +std.id.to_s, disabled: current_user.role.rights.where(value: "edit_entered_marks").any? ? false: true %>
               <% end %>
             </div>
         <% end %>
@@ -92,7 +92,7 @@
           <h5><%= @marks_division.name %></h5>
           <%= text_field_tag "sessionals_date[]", '', style:"" , class: "datepickerss absense-input", required: true, placeholder: "Select Date" %>
           <% @students.try(:each) do |std| %>
-              <%= text_field_tag "sessionals[#{std.id}][]" , '' ,class: " absense-input calculate"+std.id.to_s %>
+              <%= text_field_tag "sessionals[#{std.id}][]" , '' ,class: @marks_division.name == "Exam Comments" ? " absense-input exam-comment number calculate"+std.id.to_s : " absense-input calculate"+std.id.to_s %>
           <% end %>
         </div>
     <% end %>
@@ -127,10 +127,10 @@
             5) Missing Homework.
           </li><br>
           <li>
-            6) Needs to be more active in class.
+            6) Needs to be more active<br>in class.
           </li><br>
           <li>
-            7) Needs to Improve English Communication Skills
+            7) Needs to Improve English<br>Communication Skills
           </li><br>
           <li>
             8) Needs to focus on studies.
@@ -164,6 +164,11 @@
             16) Doesn’t listen to teachers.
           </li>
         </ul>
+        <br>
+        <p style="color: red">
+          <strong>Note:</strong> For Multicomments, use comma (',')<br> to separate them<br>
+          Example:   1,7,12,15
+        </p>
       </div>
     <% end %>
   </div>
@@ -241,3 +246,19 @@
     <% end %>
   </div>
 </div>
+
+<script type="text/javascript">
+  $(".exam-comment").blur(function(e){
+    console.log("Target is", e)
+    value = e.target.value
+    value = value.split(",")
+    value.forEach(function(val){
+      if (parseInt(val) < 1 || parseInt(val) > 16)
+      {
+        e.target.value = ""
+        alert("each value should be between 1-16 and ',' separated");
+      }
+    });
+    console.log("value is" ,value)
+  });
+</script>
