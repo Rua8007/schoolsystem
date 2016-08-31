@@ -15,14 +15,14 @@
           <label>Grade</label>
           <!-- <p>Some text in the modal.</p> -->
           <%= select_tag :grade_id, options_from_collection_for_select(@grades,"id", "full_name"),
-              prompt: "Select Grade", class: "form-control", required: true %>
+              prompt: "Select Grade", class: "form-control", id: "grade_select", required: true %>
         </div>
 
         <div class="form-group">
           <label>Week</label>
           <!-- <p>Some text in the modal.</p> -->
           <%= select_tag :week_id, options_from_collection_for_select(@weeks,"id", "label"),
-              prompt: "Select Week", class: "form-control", required: true %>
+              prompt: "Select Week", class: "form-control" , id: "subjects-select" , required: true %>
         </div>
 
 
@@ -154,6 +154,31 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
+    $("#grade_select").change(function(e){
+      value = e.target.value
+      $.get("/bridges/teacher_grade_subjects", {grade_id: value})
+        .done(function(data){
+          if (data)
+          {
+            console.log(data)
+            var select = $("#subjects-select");
+              $(select).html('');
+              if(data.length != 0){
+                  $(data).each(function(index){
+                    console.log(this.subject_id, "and", this.subject_name)
+                      $(select).append($('<option />', { value: (this.id), text: this.name }));
+                  });
+              }
+          }
+          else
+          {0
+            $("#error_div_rollnum").addClass('hide');
+          }
+        });
+      // alert(value)
+    })
+
+
     $('.start-plan-btn').on('click',function (e){
       $('#week_schedule_id').val($(this).attr('id'));
       $('#grade_subject_modal').modal('show');

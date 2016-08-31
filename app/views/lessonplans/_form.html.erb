@@ -28,7 +28,7 @@
                 <div class="form-group">
                     <label for="exampleInputEmail1">Class</label>
                     <% if @lessonplan.new_record? %>
-                      <%= f.select :grade_id, options_from_collection_for_select(@grades,"id", "full_name"),{prompt: "Select Class"}, {class: 'form-control select-tag', required: true, multiple: true } if @grades.present? %>
+                      <%= f.select :grade_id, options_from_collection_for_select(@grades,"id", "full_name"),{prompt: "Select Class"}, {class: 'form-control select-tag', required: true, id: "grade_select" } if @grades.present? %>
                     <% else %>
                       <%= f.select :grade_id, options_from_collection_for_select(@grades,"id", "full_name", @lessonplan.grade_id),{prompt: "Select Class"}, {class: 'form-control', required: true} %>
                     <% end %>
@@ -37,7 +37,7 @@
               <div class="column col-xs-12 col-sm-4">
                 <div class="form-group">
                 <label for="exampleInputEmail1">Subject</label>
-                  <%= f.select :subject_id, options_from_collection_for_select(@subjects,"id", "name"),{prompt: "Select Subject"}, {class: 'form-control', required: true} %>
+                  <%= f.select :subject_id, options_from_collection_for_select(@subjects,"id", "name"),{prompt: "Select Subject"}, {class: 'form-control', required: true, id: "subjects-select"} %>
                 </div>
               </div>
               <div class="column col-xs-12 col-sm-4">
@@ -119,6 +119,31 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
+
+    $("#grade_select").change(function(e){
+      value = e.target.value
+      $.get("/bridges/teacher_grade_subjects", {grade_id: value})
+        .done(function(data){
+          if (data)
+          {
+            console.log(data)
+            var select = $("#subjects-select");
+              $(select).html('');
+              if(data.length != 0){
+                  $(data).each(function(index){
+                    console.log(this.subject_id, "and", this.subject_name)
+                      $(select).append($('<option />', { value: (this.id), text: this.name }));
+                  });
+              }
+          }
+          else
+          {0
+            $("#error_div_rollnum").addClass('hide');
+          }
+        });
+      // alert(value)
+    })
+
     $('.select-tag').select2();
     $(function() {
       $(document).on('click','.add-lessonplan-detail', function (e) {

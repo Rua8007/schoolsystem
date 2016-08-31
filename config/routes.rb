@@ -25,6 +25,8 @@ Rails.application.routes.draw do
     get 'home/confirm_password'
     post 'home/confirm_admin'
     get 'home/alerts'
+    get 'bridges/teacher_grade_subjects'
+
 
     resources :rights do
       collection do

@@ -125,6 +125,23 @@ class BridgesController < ApplicationController
     @bridges = employee.bridges
   end
 
+  def teacher_grade_subjects
+    if current_user.role.name == "Teacher"
+      employee = Employee.find_by_email(current_user.email)
+      @bridges = Grade.find(params[:grade_id]).bridges.where(employee_id: employee.id)
+      subjects = []
+      @bridges.each do |b|
+        subjects.push(b.subject)
+      end
+    else
+      subjects = Subject.all
+    end
+    respond_to do |format|
+      format.json {render json: subjects }
+    end
+
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_bridge
