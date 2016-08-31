@@ -154,7 +154,7 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
-    $("#grade_select").change(function(e){
+    $("#grade_select").on('change',function(e){
       value = e.target.value
       $.get("/bridges/teacher_grade_subjects", {grade_id: value})
         .done(function(data){
