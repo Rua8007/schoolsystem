@@ -83,7 +83,7 @@
             <td style="color:red;"><%= time_left > 0 ? "#{time_left} days left." : 'Expired' %></td>
             <td>
               <% if current_user.role.name == 'Teacher' %>
-                <% if week.expiry_date >= Date.today %>
+                <% if true %>
                   <%= link_to 'Make Weekly Plans', 'javascript:void(0);',:class =>  'btn btn-success start-plan-btn', id: "#{week.id}"%>
                 <% else %>
                   <%= link_to 'Expired', 'javascript:void(0);',:class =>  'btn btn-danger' %>
@@ -154,8 +154,8 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
-    $("#grade_id").on('change',function(e){
-      value = e.target.value
+    $(document).on('change',"#grade_id", function(e){
+      var value = $(this).val();
       $.get("/bridges/teacher_grade_subjects", {grade_id: value})
         .done(function(data){
           if (data)
@@ -171,7 +171,7 @@
               }
           }
           else
-          {0
+          {
             $("#error_div_rollnum").addClass('hide');
           }
         });
