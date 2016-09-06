@@ -66,12 +66,10 @@ class LessonplansController < ApplicationController
       @lessonplan.grade_id = grade_id
       @success = false
       if @lessonplan.save
-        params[:lessonplan_detail_days].each_with_index do |detail_day,i|
           # return render json: params[:lessonplan_detail_file][i]
-          avs = @lessonplan.lessonplan_details.create!(period: params[:lessonplan_detail_days][i], procedure: params[:lessonplan_detail_details][i])
-          avs.attachment = params[:lessonplan_detail_file][i]
-          avs.save!
-        end
+        avs = @lessonplan.lessonplan_details.create!(period: params[:lessonplan_detail_days], procedure: params[:lessonplan_detail_details])
+        avs.attachment = params[:lessonplan_detail_file]
+        avs.save!
         @success = true
       end
 

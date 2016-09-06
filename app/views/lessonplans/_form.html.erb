@@ -92,15 +92,15 @@
       <div class="column col-xs-12 col-sm-12">
         <div class="form-group">
           <span>Day</span>
-          <%= text_area_tag "lessonplan_detail_days[]", nil, placeholder: 'Write Periods here...',cols: 70, rows: 1, class: 'form-control', style: 'width:100%' %>
+          <%= text_area_tag "lessonplan_detail_days", nil, placeholder: 'Write Periods here...',cols: 70, rows: 1, class: 'form-control', style: 'width:100%' %>
         </div>
         <div class="form-group" style="display: none">
           <span>Procedures Followed</span>
-          <%= text_area_tag "lessonplan_detail_details[]", nil, placeholder: 'Write Procedures Details here...',cols: 70, rows: 7, class: 'form-control', style: 'width:100%' %>
+          <%= text_area_tag "lessonplan_detail_details", nil, placeholder: 'Write Procedures Details here...',cols: 70, rows: 7, class: 'form-control', style: 'width:100%' %>
         </div>
         <div class="form-group">
           <span>Upload Document</span>
-          <%= file_field_tag "lessonplan_detail_file[]"%>
+          <%= file_field_tag "lessonplan_detail_file"%>
         </div>
       </div>
     </fieldset>
