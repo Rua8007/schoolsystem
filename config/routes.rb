@@ -23,12 +23,6 @@ Rails.application.routes.draw do
     post 'home/confirm_admin'
     get 'home/alerts'
     get 'bridges/teacher_grade_subjects'
-    get 'curriculums/get_requested'
-    get 'lessonplans/get_requested'
-    get 'portions/get_requested'
-    get 'year_plans/get_requested'
-
-
     resources :rights do
       collection do
         post 'add_roles'
@@ -37,6 +31,7 @@ Rails.application.routes.draw do
 
     resources :curriculums do
       collection do
+        get :get_requested
         post :approve_requested
         post :disapprove_requested
         post :approve_all_requests
@@ -45,6 +40,7 @@ Rails.application.routes.draw do
 
     resources :lessonplans do
       collection do
+        post :get_requested
         post :approve_requested
         post :disapprove_requested
         post :approve_all_requests
@@ -53,6 +49,7 @@ Rails.application.routes.draw do
 
     resources :portions do
       collection do
+        post :get_requested
         post :approve_requested
         post :disapprove_requested
         post :approve_all_requests
@@ -145,6 +142,7 @@ Rails.application.routes.draw do
         delete 'delete_weekly_schedule'
       end
       collection do
+        get :get_requested
         post :approve_requested
         post :disapprove_requested
         post :approve_all_requests
