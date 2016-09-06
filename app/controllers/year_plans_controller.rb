@@ -191,7 +191,7 @@ class YearPlansController < ApplicationController
       br = Bridge.where(subject_id: wp.subject_id, grade_id: wp.grade_id).first
 
       if br.present?
-        usr = User.find_by_email(br.employee.email)
+        usr = User.find_by_email(br.employee.email) if br.employee.present?
         if usr.present?
           @weekly_plans << {weekly_plan: wp, teacher_name: br.employee.full_name, teacher_id: usr.id}
         else
