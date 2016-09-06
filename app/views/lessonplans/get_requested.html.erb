@@ -26,7 +26,7 @@
         <td><%= cur[:lessonplan].try(:subject).try(:name) %></td>
 
         <td>
-          <%= form_tag(approve_requested_lessonplans_path(cur[:lessonplan]), method: :post) do %>
+          <%= form_tag(approve_requested_lessonplan_path(cur[:lessonplan]), method: :post) do %>
             <%= hidden_field_tag :lessonplan_id, "#{cur[:lessonplan].id}" %>
             <button class="btn btn-sm btn-success" type="submit" id="usr_"
                     data-toggle="tooltip"

@@ -41,9 +41,11 @@ Rails.application.routes.draw do
     resources :lessonplans do
       collection do
         post :get_requested
-        post :approve_requested
         post :disapprove_requested
         post :approve_all_requests
+      end
+      member do
+        post :approve_requested
       end
     end
 
