@@ -469,14 +469,14 @@
                           <% end %>
                           <% if current_user.role.rights.where(value: 'approve_lesson').any? %>
                             <li>
-                              <%= link_to(get_requested_lessonplans_path, method: 'POST')  do %>
+                              <%= link_to(get_requested_lessonplans_path)  do %>
                                 <span><%= t('plan.lesson_plan') %></span>
                               <% end %>
                             </li>
                           <% end %>
                           <% if current_user.role.rights.where(value: 'approve_portion').any? %>
                             <li>
-                              <%= link_to(get_requested_portions_path, method: 'POST') do %>
+                              <%= link_to(get_requested_portions_path) do %>
                                 <span><%= t('plan.portions') %></span>
                               <% end %>
                             </li>

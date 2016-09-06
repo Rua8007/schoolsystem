@@ -40,7 +40,7 @@ Rails.application.routes.draw do
 
     resources :lessonplans do
       collection do
-        post :get_requested
+        get :get_requested
         post :disapprove_requested
         post :approve_all_requests
       end
@@ -51,7 +51,7 @@ Rails.application.routes.draw do
 
     resources :portions do
       collection do
-        post :get_requested
+        get :get_requested
         post :approve_requested
         post :disapprove_requested
         post :approve_all_requests
