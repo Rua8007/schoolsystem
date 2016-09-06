@@ -26,7 +26,7 @@
         <td><%= cur[:portion].grade.try(:full_name) %></td>
 
         <td>
-          <%= form_tag(approve_requested_portions_path(cur[:portion]), method: :post) do %>
+          <%= form_tag(approve_requested_portion_path(cur[:portion]), method: :post) do %>
             <%= hidden_field_tag :portion_id, "#{cur[:portion].id}" %>
             <button class="btn btn-sm btn-success" type="submit" id="usr_"
                     data-toggle="tooltip"
