@@ -60,7 +60,7 @@ class LessonplansController < ApplicationController
 
     if @year_plan.present?
       grade_id = params[:lessonplan][:grade_id] || []
-      @lessonplan = Lessonplan.find_or_initialize_by(grade_id: grade_id, subject_id: lessonplan_params[:subject_id],
+      @lessonplan = Lessonplan.new(grade_id: grade_id, subject_id: lessonplan_params[:subject_id],
                                        year_plan_id: lessonplan_params[:year_plan_id] )
       @lessonplan.assign_attributes(lessonplan_params)
       @lessonplan.grade_id = grade_id
