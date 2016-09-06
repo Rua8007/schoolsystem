@@ -2,9 +2,6 @@ Rails.application.routes.draw do
   scope "(:locale)", :locale => /en|ar/ do
     mount Bootsy::Engine => '/bootsy', as: 'bootsy'
     resources :grade_groups
-    resources :curriculums
-    resources :lessonplans
-    resources :portions
     resources :conversations, only: [:index, :show, :destroy] do
       member do
         get :notification
