@@ -59,23 +59,20 @@ class LessonplansController < ApplicationController
     @year_plan = YearPlan.find(params[:lessonplan][:year_plan_id])
 
     if @year_plan.present?
-      grade_ids = params[:lessonplan][:grade_id] || []
-      grade_ids = grade_ids.compact
-      grade_ids.each do |grade_id|
-        @lessonplan = Lessonplan.find_or_initialize_by(grade_id: grade_id, subject_id: lessonplan_params[:subject_id],
-                                         year_plan_id: lessonplan_params[:year_plan_id] )
-        @lessonplan.assign_attributes(lessonplan_params)
-        @lessonplan.grade_id = grade_id
-        @success = false
-        if @lessonplan.save
-          params[:lessonplan_detail_days].each_with_index do |detail_day,i|
-            # return render json: params[:lessonplan_detail_file][i]
-            avs = @lessonplan.lessonplan_details.create!(period: params[:lessonplan_detail_days][i], procedure: params[:lessonplan_detail_details][i])
-            avs.attachment = params[:lessonplan_detail_file][i]
-            avs.save!
-          end
-          @success = true
+      grade_id = params[:lessonplan][:grade_id] || []
+      @lessonplan = Lessonplan.find_or_initialize_by(grade_id: grade_id, subject_id: lessonplan_params[:subject_id],
+                                       year_plan_id: lessonplan_params[:year_plan_id] )
+      @lessonplan.assign_attributes(lessonplan_params)
+      @lessonplan.grade_id = grade_id
+      @success = false
+      if @lessonplan.save
+        params[:lessonplan_detail_days].each_with_index do |detail_day,i|
+          # return render json: params[:lessonplan_detail_file][i]
+          avs = @lessonplan.lessonplan_details.create!(period: params[:lessonplan_detail_days][i], procedure: params[:lessonplan_detail_details][i])
+          avs.attachment = params[:lessonplan_detail_file][i]
+          avs.save!
         end
+        @success = true
       end
 
    respond_to do |format|
