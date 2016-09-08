@@ -1,20 +1,20 @@
 <div class="bg-light lter b-b wrapper-md">
-  <h1 class="m-n font-thin h3">Calender Information
-  
+  <h1 class="m-n font-thin h3">Calendar Information
+
   </h1>
 </div>
   <div class="container form-holder">
     <div class="row">
       <br>
       <fieldset class="sss well well-lg">
-        <legend class="lll"> All Events Calender</legend>
+        <legend class="lll"> All Events Calendar</legend>
         <div class = "row">
          <%= form_tag(calenderdetail_calenders_path ,method: :get) do %>
           <div class="column col-xs-12 col-sm-6">
             <div class="form-group ">
               <div class="field">
                 <%= label_tag  :grade %><br>
-                <%= select_tag "type", options_for_select(%w[KG1tokg3 Grade1to3 Grade4to9 ]), class:"form-control" %>
+                <%= select_tag "type", options_for_select(%w[KG1tokg3 Grade1to3 Grade4to9 ]), prompt: "Select Grade" ,class:"form-control" %>
               </div>
             </div>
           </div>
@@ -55,7 +55,7 @@
 
 
 
- </script> 
+ </script>
 
 
 
@@ -66,11 +66,11 @@
   }
 
   .sss{
-    border:1px solid#e5e5e5;   padding: 1%; 
+    border:1px solid#e5e5e5;   padding: 1%;
   }
 
   .lll{
-    width: auto !important; 
+    width: auto !important;
     background-color: white;
     padding-right: 16px;
     padding-left: 15px;
