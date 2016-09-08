@@ -114,7 +114,7 @@ class HomeController < ApplicationController
       if params[:redirection] == 'promote'
         redirect_to promote_grades_path(confirmed: true), notice: 'Access Granted...!!!'
       elsif params[:redirection] == 'backup'
-        redirect_to backup_home_path(confirmed: true), notice: 'Access Granted...!!!'
+        redirect_to home_backups_path(confirmed: true), notice: 'Access Granted...!!!'
       end
     else
       redirect_to :back , alert: 'Invalid Admin Credentials'
