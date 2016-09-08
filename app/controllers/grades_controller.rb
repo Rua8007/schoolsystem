@@ -10,9 +10,11 @@ class GradesController < ApplicationController
   end
 
   def promote
-    if params[:confirmed]
+    # return render json: session[:confirm_password]
+    if session[:confirm_password] == true
       @grades = Grade.where("section is not null").order(:name)
       @main_grades = []
+      session[:confirm_password] = false
     else
       redirect_to root_path, alert: "Warning! Permissio Restricted...!!!"
     end

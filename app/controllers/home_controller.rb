@@ -49,10 +49,12 @@ class HomeController < ApplicationController
   end
 
   def backups
-    if !current_user.role.rights.where(value: "access_backups").any? || !params[:confirmed]
+    if !current_user.role.rights.where(value: "access_backups").any? || !session[:confirm_password] == true
       redirect_to root_path, alert: "Sorry! You are not authorized"
     else
-
+      if session[:confirm_password] == true
+        session[:confirm_password] = false
+      end
       s3 = Aws::S3::Client.new
       s4 = Aws::S3::Resource.new(
           :access_key_id     => ENV["AMAZON_ACCESS_KEY"],
@@ -111,6 +113,7 @@ class HomeController < ApplicationController
     # return render json: params
     user = User.find_by_email(params[:email])
     if user && user.valid_password?(params[:password])
+      session[:confirm_password] = true
       if params[:redirection] == 'promote'
         redirect_to promote_grades_path(confirmed: true), notice: 'Access Granted...!!!'
       elsif params[:redirection] == 'backup'
