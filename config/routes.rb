@@ -248,7 +248,7 @@ Rails.application.routes.draw do
         get 'all_student'
         post 'student_add'
         get 'all_grades'
-        post 'promote'
+        get 'promote'
         post 'promoter'
         post 'promote_students'
         get 'get_classes'

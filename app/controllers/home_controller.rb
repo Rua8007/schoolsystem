@@ -49,7 +49,7 @@ class HomeController < ApplicationController
   end
 
   def backups
-    if !current_user.role.rights.where(value: "access_backups").any?
+    if !current_user.role.rights.where(value: "access_backups").any? || !params[:confirmed]
       redirect_to root_path, alert: "Sorry! You are not authorized"
     else
 
@@ -104,12 +104,18 @@ class HomeController < ApplicationController
 
   def confirm_password
     @redirection = params[:redirection]
+    # return render json: params
   end
 
   def confirm_admin
+    # return render json: params
     user = User.find_by_email(params[:email])
     if user && user.valid_password?(params[:password])
-      redirect_to params[:redirection]+"(confirmed: true)", notice: 'Access Granted...!!!'
+      if params[:redirection] == 'promote'
+        redirect_to promote_grades_path(confirmed: true), notice: 'Access Granted...!!!'
+      elsif params[:redirection] == 'backup'
+        redirect_to backup_home_path(confirmed: true), notice: 'Access Granted...!!!'
+      end
     else
       redirect_to :back , alert: 'Invalid Admin Credentials'
     end
