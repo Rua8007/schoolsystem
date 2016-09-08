@@ -445,17 +445,17 @@ ar:
     purchase_request: "طلب شراء"
 
   exam_quiz_cal:
-    title: "الامتحان و الاختبار التقويم"
+    exam_quiz_cal: "الامتحان و الاختبار التقويم"
     quiz_information: "معلومات الاختبار القصير"
-    new_quiz_calender: "تقويم اختبار قصير"
-    quiz_calender: "تقويم الاختبارات القصيرة"
-    exam_calenders: "تقويم الاختبارات"
-    quiz_calenders: "تقويم الاختبارات القصيرة"
+    new_quiz_calendar: "تقويم اختبار قصير"
+    quiz_calendar: "تقويم الاختبارات القصيرة"
+    exam_calendars: "تقويم الاختبارات"
+    quiz_calendars: "تقويم الاختبارات القصيرة"
 
 
   calender:
     view_all: "مشاهدة الكل"
-    calender: "تقويم"
+    calendar: "تقويم"
 
   promote:
     promote_and_demote: "تعزيز و تخفيض"

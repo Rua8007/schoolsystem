@@ -19,14 +19,11 @@
         <div class="row">
         <fieldset class="sss well well-lg">
           <legend class="lll">Create  Event</legend>
-
-
-        <br>
             <div  class="row">
               <div class="column col-xs-12 col-sm-4">
                 <div class="form-group ">
                   <div class="field ">
-                    <%= f.label :bridge_id %><br>
+                    <%= f.label "Subject" %><br>
                     <%= f.select :bridge_id , options_from_collection_for_select(@bridges,"id","title"),{prompt: "Select Bridge"} ,{class: 'form-control', required: true}%>
                   </div>
                 </div>

@@ -1,18 +1,18 @@
 
 
-<% if @exam.any? %> 
+<% if @exam.any? %>
 
 
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3">
-   
-  
+
+
   <div class="abc form-holder">
   <div class="text-center">
-          <span>Calender</span>
+          <span>Calendar</span>
     </div>
- 
-        
+
+
       </div>
 </div>
 </h1>
@@ -34,7 +34,7 @@
     <tbody class="text-center">
         <% @exam.each do |examcalender| %>
           <tr>
-           
+
             <td><%= examcalender.bridge.title %></td>
             <td><%= examcalender.title %></td>
             <td><%= examcalender.description %></td>
@@ -51,11 +51,14 @@
               <% if Right.where("role_id = ? and value = 'delete_excalender'", current_user.role_id ).any? %>
                 <%= link_to '', examcalender, method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
                 <% end %>
-          </td> 
+          </td>
           </tr>
         <% end %>
       </tbody>
   </table>
 </div>
+<% else%>
+
+<h2>No Data Found..!!!</h2>
 
 <%end%>
