@@ -34,7 +34,7 @@ class StudentsController < ApplicationController
     end
 		@student = Student.new
     if Student.all.any?
-      @student_no = Student.last.rollnumber.to_i + 1
+      @student_no = Student.last.rollnumber.to_i > Student.deleted.last.rollnumber.to_i ? Student.last.rollnumber.to_i + 1 : Student.deleted.last.rollnumber.to_i + 1
     else
       @student_no = '15001'
     end
@@ -46,6 +46,13 @@ class StudentsController < ApplicationController
     end
     # return render json: params
 
+    puts "------"
+    puts "------"
+    puts "------"
+    puts params.inspect
+    puts "------"
+    puts "------"
+    puts "------"
     @student = Student.new(create_params)
     name = params[:name1]+' ' +params[:name2]+' ' +params[:name3]+' ' +params[:name4]
     aname = params[:aname1]+' ' +params[:aname2]+' ' +params[:aname3]+' ' +params[:aname4]
@@ -55,8 +62,6 @@ class StudentsController < ApplicationController
     @student.arabicname = aname
 
     if @student.save
-      @student.delay.testi
-
       @email=params[:name1]+'.'+params[:name2]+'_'+Student.last.rollnumber.to_s+"@alomam.edu.sa"
       @student.email = @email
       u = User.new
