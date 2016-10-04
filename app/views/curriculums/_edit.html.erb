@@ -55,27 +55,27 @@
         </div>
         <div class="form-group">
           <span>Sols</span>
-          <%= text_field_tag "curriculum_detail_sols[]", nil, placeholder: 'Write Sol here...',cols: 70, rows: 1, class: 'form-control', style: 'width:100%', value: details.sol %>
+          <%= text_field_tag "curriculum_detail_sols[]", details.sol, placeholder: 'Write Sol here...',cols: 70, rows: 1, class: 'form-control', style: 'width:100%' %>
         </div>
         <div class="form-group">
           <span>Strand</span>
-          <%= text_field_tag "curriculum_detail_strands[]", nil, placeholder: 'Write Strand here...',cols: 70, rows: 1, class: 'form-control', style: 'width:100%', value: details.strand %>
+          <%= text_field_tag "curriculum_detail_strands[]", details.strand, placeholder: 'Write Strand here...',cols: 70, rows: 1, class: 'form-control', style: 'width:100%' %>
         </div>
         <div class="form-group">
           <span>Contents</span>
-          <%= text_area_tag "curriculum_detail_contents[]", nil, placeholder: 'Write Content here...',cols: 70, rows: 7, class: 'form-control', style: 'width:100%', value: details.content %>
+          <%= text_area_tag "curriculum_detail_contents[]", details.content, placeholder: 'Write Content here...',cols: 70, rows: 7, class: 'form-control', style: 'width:100%'  %>
         </div>
         <div class="form-group">
           <span>Skills</span>
-          <%= text_area_tag "curriculum_detail_skills[]", nil, placeholder: 'Write Skills here...',cols: 70, rows: 5, class: 'form-control', style: 'width:100%', value: details.skill %>
+          <%= text_area_tag "curriculum_detail_skills[]", details.skill, placeholder: 'Write Skills here...',cols: 70, rows: 5, class: 'form-control', style: 'width:100%' %>
         </div>
         <div class="form-group">
           <span>Activities</span>
-          <%= text_area_tag "curriculum_detail_activities[]", nil, placeholder: 'Write Activities here...',cols: 70, rows: 5, class: 'form-control', style: 'width:100%', value: details.activity %>
+          <%= text_area_tag "curriculum_detail_activities[]", details.activity, placeholder: 'Write Activities here...',cols: 70, rows: 5, class: 'form-control', style: 'width:100%' %>
         </div>
         <div class="form-group">
           <span>Assessments</span>
-          <%= text_area_tag "curriculum_detail_assessments[]", nil, placeholder: 'Write Assessments here...',cols: 70, rows: 5, class: 'form-control', style: 'width:100%', value: details.assessment %>
+          <%= text_area_tag "curriculum_detail_assessments[]", details.assessment, placeholder: 'Write Assessments here...',cols: 70, rows: 5, class: 'form-control', style: 'width:100%' %>
         </div>
       </div>
     </fieldset>
