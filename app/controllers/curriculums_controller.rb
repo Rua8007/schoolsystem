@@ -78,12 +78,18 @@ class CurriculumsController < ApplicationController
   # PATCH/PUT /curriculums/1
   # PATCH/PUT /curriculums/1.json
   def update
+    # return render json: params
+    @curriculum.curriculum_details.delete_all
     respond_to do |format|
       if @curriculum.update(curriculum_params)
         @curriculum.approved = false
         @curriculum.save!
-        format.html { redirect_to @curriculum, notice: 'Curriculum was successfully updated.' }
-        format.json { render :show, status: :ok, location: @curriculum }
+        params[:curriculum_detail_months].each_with_index do |detail_months,i|
+          @curriculum.curriculum_details.create!(month: params[:curriculum_detail_months][i], day: params[:curriculum_detail_days][i].to_i, sol: params[:curriculum_detail_sols][i], strand: params[:curriculum_detail_strands][i], content: params[:curriculum_detail_contents][i], skill: params[:curriculum_detail_skills][i], activity: params[:curriculum_detail_activities][i],assessment: params[:curriculum_detail_assessments][i])
+        end
+
+        format.html { redirect_to curriculums_path(year_plan: @curriculum.year_plan_id), notice: 'Curriculum was successfully updated.' }
+        # format.json { render :show, status: :ok, location: @curriculum }
       else
         format.html { render :edit }
         format.json { render json: @curriculum.errors, status: :unprocessable_entity }

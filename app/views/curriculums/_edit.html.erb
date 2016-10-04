@@ -1,0 +1,249 @@
+<%= form_for(@curriculum) do |f| %>
+  <% if @curriculum.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@curriculum.errors.count, "error") %> prohibited this curriculum from being saved:</h2>
+
+      <ul>
+      <% @curriculum.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.number_field :year_plan_id, style: 'display:none' %>
+  </div>
+
+  <div class="abc form-holder">
+        <div class="row">
+          <fieldset class="sss well well-lg">
+            <legend class="lll">Curriculum Plan Information</legend>
+              <div class="column col-xs-12 col-sm-4">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Class</label>
+                    <%= f.select :grade_id, options_from_collection_for_select(@grades,"id", "full_name"),{prompt: "Select Class"}, {class: 'form-control', required: true, id: "grade_select"} %>
+                </div>
+              </div>
+              <div class="column col-xs-12 col-sm-4">
+                <div class="form-group">
+                <label for="exampleInputEmail1">Subject</label>
+                  <%= f.select :subject_id, options_from_collection_for_select(@subjects,"id", "name"),{prompt: "Select Subject"}, {class: 'form-control', required: true, id: "subjects-select"} %>
+                </div>
+              </div>
+              <div class="column col-xs-12 col-sm-4">
+                <div class="form-group">
+                <label for="exampleInputEmail1">Teacher Name</label>
+                  <%= f.text_area :studentname , :style => 'height:34px;width: 100%',  class: 'form-control', autofocus: true %>
+                </div>
+              </div>
+          </fieldset>
+        </div>
+
+<% @curriculum.curriculum_details.each do |details| %>
+  <div class="curriculum-detail-div">
+    <fieldset class="sss well well-lg">
+      <legend class="lll">Curriculum Details</legend>
+      <div class="column col-xs-12 col-sm-12">
+        <div class="form-group">
+          <span>Month</span>
+          <%= text_area_tag "curriculum_detail_months[]", nil, placeholder: 'Write Month here...',cols: 70, rows: 1, class: 'form-control', style: 'width:100%', value: details.month %>
+        </div>
+        <div class="form-group">
+          <span>Day</span>
+          <%= number_field_tag "curriculum_detail_days[]", nil, placeholder: 'Write Day here...',cols: 70, rows: 1, class: 'form-control', style: 'width:100%', value: details.day %>
+        </div>
+        <div class="form-group">
+          <span>Sols</span>
+          <%= text_field_tag "curriculum_detail_sols[]", nil, placeholder: 'Write Sol here...',cols: 70, rows: 1, class: 'form-control', style: 'width:100%', value: details.sol %>
+        </div>
+        <div class="form-group">
+          <span>Strand</span>
+          <%= text_field_tag "curriculum_detail_strands[]", nil, placeholder: 'Write Strand here...',cols: 70, rows: 1, class: 'form-control', style: 'width:100%', value: details.strand %>
+        </div>
+        <div class="form-group">
+          <span>Contents</span>
+          <%= text_area_tag "curriculum_detail_contents[]", nil, placeholder: 'Write Content here...',cols: 70, rows: 7, class: 'form-control', style: 'width:100%', value: details.content %>
+        </div>
+        <div class="form-group">
+          <span>Skills</span>
+          <%= text_area_tag "curriculum_detail_skills[]", nil, placeholder: 'Write Skills here...',cols: 70, rows: 5, class: 'form-control', style: 'width:100%', value: details.skill %>
+        </div>
+        <div class="form-group">
+          <span>Activities</span>
+          <%= text_area_tag "curriculum_detail_activities[]", nil, placeholder: 'Write Activities here...',cols: 70, rows: 5, class: 'form-control', style: 'width:100%', value: details.activity %>
+        </div>
+        <div class="form-group">
+          <span>Assessments</span>
+          <%= text_area_tag "curriculum_detail_assessments[]", nil, placeholder: 'Write Assessments here...',cols: 70, rows: 5, class: 'form-control', style: 'width:100%', value: details.assessment %>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+<% end %>
+  <div class="curriculum-detail-div"> 
+    <fieldset class="sss well well-lg">
+      <div class="column col-xs-12 col-sm-12">
+        <div class="form-group">
+          <span>Month</span>
+          <%= text_area_tag "curriculum_detail_months[]", nil, placeholder: 'Write Month here...',cols: 70, rows: 1, class: 'form-control', style: 'width:100%' %>
+        </div>
+        <div class="form-group">
+          <span>Day</span>
+          <%= number_field_tag "curriculum_detail_days[]", nil, placeholder: 'Write Day here...',cols: 70, rows: 1, class: 'form-control', style: 'width:100%' %>
+        </div>
+        <div class="form-group">
+          <span>Sols</span>
+          <%= text_field_tag "curriculum_detail_sols[]", nil, placeholder: 'Write Sol here...',cols: 70, rows: 1, class: 'form-control', style: 'width:100%' %>
+        </div>
+        <div class="form-group">
+          <span>Strand</span>
+          <%= text_field_tag "curriculum_detail_strands[]", nil, placeholder: 'Write Strand here...',cols: 70, rows: 1, class: 'form-control', style: 'width:100%' %>
+        </div>
+        <div class="form-group">
+          <span>Contents</span>
+          <%= text_area_tag "curriculum_detail_contents[]", nil, placeholder: 'Write Content here...',cols: 70, rows: 7, class: 'form-control', style: 'width:100%' %>
+        </div>
+        <div class="form-group">
+          <span>Skills</span>
+          <%= text_area_tag "curriculum_detail_skills[]", nil, placeholder: 'Write Skills here...',cols: 70, rows: 5, class: 'form-control', style: 'width:100%' %>
+        </div>
+        <div class="form-group">
+          <span>Activities</span>
+          <%= text_area_tag "curriculum_detail_activities[]", nil, placeholder: 'Write Activities here...',cols: 70, rows: 5, class: 'form-control', style: 'width:100%' %>
+        </div>
+        <div class="form-group">
+          <span>Assessments</span>
+          <%= text_area_tag "curriculum_detail_assessments[]", nil, placeholder: 'Write Assessments here...',cols: 70, rows: 5, class: 'form-control', style: 'width:100%' %>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+
+  <%= link_to "Add Another Curriculum Plan Detail","javascript:void(0);", class: "btn btn-default add-curriculum-detail" %>
+
+  <%= link_to "Remove Curriculum Plan Detail","javascript:void(0);", class: "btn btn-danger rem-curriculum-detail" %>
+
+
+  <div class="form-group">
+    <%= f.submit "Save Curriculum Plan Details", class: 'btn btn-success pull-right' %>
+  </div>
+</div>
+<% end %>
+
+
+<script type="text/javascript">
+  $(document).ready(function(){
+
+    $("#grade_select").change(function(e){
+      value = e.target.value
+      $.get("/bridges/teacher_grade_subjects", {grade_id: value})
+        .done(function(data){
+          if (data)
+          {
+            console.log(data)
+            var select = $("#subjects-select");
+              $(select).html('');
+              if(data.length != 0){
+                  $(data).each(function(index){
+                    console.log(this.subject_id, "and", this.subject_name)
+                      $(select).append($('<option />', { value: (this.id), text: this.name }));
+                  });
+              }
+          }
+          else
+          {0
+            $("#error_div_rollnum").addClass('hide');
+          }
+        });
+      // alert(value)
+    })
+    $(function() {
+      $(document).on('click','.add-curriculum-detail', function (e) {
+        e.preventDefault();
+
+        var portion_last = $(".curriculum-detail-div").last();
+
+        var html = "<div class='curriculum-detail-div'>"+$(".curriculum-detail-div").html()+"</div>";
+
+        $(html).insertAfter($(".curriculum-detail-div"));
+
+      });
+
+      $(document).on('click', '.rem-curriculum-detail', function (e) {
+        e.preventDefault();
+        if( $(".curriculum-detail-div").length > 1 ){
+          $(".curriculum-detail-div").last().remove();
+        }
+      });
+    });
+  });
+</script>
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+  .form-holder .col-sm-2 {
+    min-height: 84px;
+  }
+  .form-holder .form-control{
+    width: 65%;
+  }
+  .form-control{
+    border-radius: 7px;
+    border: black;
+  }
+</style>
+
+<style type="text/css">
+  .container{
+      width: 1068px;
+  }
+
+  .sss{
+    border:1px solid#e5e5e5;   padding: 1%;
+  }
+
+  .ttt{
+    border:1px solid green;   padding: 1%;
+  }
+
+  .lll{
+    width: auto !important;
+    background-color: white;
+    padding-right: 16px;
+    padding-left: 15px;
+    border: 1px solid;
+    border-color: blue;
+    border-radius: 21px;
+  }
+
+  .zzz{
+    width: auto !important;
+    background-color: white;
+    padding-right: 16px;
+    padding-left: 15px;
+    border: 1px solid;
+    border-color: green;
+    border-radius: 21px;
+  }
+
+  .form-holder .col-sm-2 {
+    min-height: 84px;
+  }
+  .form-holder .form-control{
+    width: 65%;
+  }
+  .form-control{
+    border-radius: 7px;
+    border: black;
+  }
+</style>
+
