@@ -83,7 +83,7 @@
             <td style="color:red;"><%= time_left > 0 ? "#{time_left} days left." : 'Expired' %></td>
             <td>
               <% if current_user.role.name == 'Teacher' %>
-                <% if true %>
+                <% if time_left >= 0 %>
                   <%= link_to 'Make Weekly Plans', 'javascript:void(0);',:class =>  'btn btn-success start-plan-btn', id: "#{week.id}"%>
                 <% else %>
                   <%= link_to 'Expired', 'javascript:void(0);',:class =>  'btn btn-danger' %>
