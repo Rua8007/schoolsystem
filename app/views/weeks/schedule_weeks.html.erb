@@ -75,7 +75,7 @@
         }else{
           $('.add-day').show();
           $('.rem-day').show();
-          $('.weeks legend').html('Day 1');
+          // $('.weeks legend').html('Day 1');
         }
 
       });
@@ -101,11 +101,13 @@
 	      $(html).insertAfter($('#'+prev_day_div_id));
 	      // $('.days-'+week_id).text($(this).val());
 	      var last_span = $('.days-'+week_id).last();
+	      console.log('last_span', last_span);
 	      var mystr = last_span[0].innerText.toString();
+	      console.log('mystr', mystr);
 	      span_arr = mystr.split(" ");
 	      day_num = parseInt(span_arr[span_arr.length-1])+1;
 	      day_name = "Day "+day_num;
-	      // console.log(day_name);
+	      console.log(day_name);
 	      last_span.text(day_name);
 	    });
 

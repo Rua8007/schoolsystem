@@ -126,9 +126,10 @@ class YearPlansController < ApplicationController
     @week = Week.find(params[:week_id])
 
     if current_user.role.name == 'Teacher'
-      @subjects = Subject.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:subject_id)).order('name') rescue []
+      @subjects = Subject.where(id: Employee.find_by_email(current_user.email).bridges.where(grade_id: @grade.id).pluck(:subject_id)).order('name') rescue []
     else
-      @subjects = Subject.all.order('name')
+      @subjects = Subject.where(id: @grade.bridges.pluck(:subject_id)).order('name') rescue []
+      # @subjects = Subject.all.order('name')
     end
     @subject = params[:subject_id].present? ? Subject.find(params[:subject_id]) : @subjects.first
     @results = []
