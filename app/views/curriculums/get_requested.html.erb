@@ -16,7 +16,7 @@
       <th>Class</th>
       <th>Subject</th>
       <th>Teacher </th>
-      <th colspan="2"></th>
+      <th>Actions</th>
     </tr>
   </thead>
 
@@ -36,8 +36,6 @@
               <i class="glyphicon glyphicon-ok"></i>
             </button>
           <% end %>
-        </td>
-        <td>
           <%= form_tag(disapprove_requested_curriculum_path(cur[:curriculum]), method: :post) do %>
             <%= hidden_field_tag :curriculum_id, "#{cur[:curriculum].id}" %>
 
