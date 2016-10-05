@@ -108,7 +108,7 @@ class CurriculumsController < ApplicationController
   end
 
   def get_requested
-    if current_user.role.rights.where(value: 'approve_curriculam')
+    if current_user.role.rights.where(value: 'approve_curriculam').any?
       @curriculums = []
       my_curs = Curriculum.where(approved: false)
       my_curs.each do |cur|
@@ -122,6 +122,8 @@ class CurriculumsController < ApplicationController
         else
         end
       end
+    else
+      redirect_to root_path, alert: "Access Denied"
     end
   end
 

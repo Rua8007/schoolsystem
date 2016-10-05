@@ -23,7 +23,7 @@
   <tbody>
     <% @curriculums.try(:each) do |cur| %>
       <tr>
-        <td><%= link_to "#{cur[:curriculum].grade.try(:name)}", curriculum_path(cur[:curriculum]) %></td>
+        <td><%= link_to "#{cur[:curriculum].grade.try(:full_name)}", curriculum_path(cur[:curriculum]) %></td>
         <td><%= cur[:curriculum].subject.try(:name) %></td>
         <td><%= cur[:curriculum].studentname %></td>
 
