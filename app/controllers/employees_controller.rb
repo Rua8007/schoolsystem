@@ -72,23 +72,24 @@ class EmployeesController < ApplicationController
   def create
     if current_user.role.rights.where(value: "create_employee").blank?
       redirect_to root_path, alert: "Sorry! You are not authorized"
-    end
-    @employee = Employee.create(employee_params)
-    respond_to do |format|
-      if @employee.save
-        if @employee.category.name.downcase == 'academic'
-          u = User.new
-          u.email = @employee.email
-          u.password = '123'
-          u.password_confirmation = '123'
-          u.role_id = Role.find_by_name('Teacher').id
-          u.save
+    else
+      @employee = Employee.create(employee_params)
+      respond_to do |format|
+        if @employee.save
+          if @employee.category.name.downcase == 'academic'
+            u = User.new
+            u.email = @employee.email
+            u.password = '123'
+            u.password_confirmation = '123'
+            u.role_id = Role.find_by_name('Teacher').id
+            u.save
+          end
+          format.html { redirect_to @employee, notice: 'Employee was successfully created.' }
+          format.json { render :show, status: :created, location: @employee }
+        else
+          format.html { render :new }
+          format.json { render json: @employee.errors, status: :unprocessable_entity }
         end
-        format.html { redirect_to employees_path, notice: 'Employee was successfully created.' }
-        format.json { render :show, status: :created, location: @employee }
-      else
-        format.html { render :new }
-        format.json { render json: @employee.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -96,23 +97,23 @@ class EmployeesController < ApplicationController
   # PATCH/PUT /employees/1
   # PATCH/PUT /employees/1.json
   def update
-    if current_user.role.rights.where(value: "update_employee").blank?
+    if current_user.role.rights.where(value: "update_employee").blank? && Employee.find_by_email(current_user.email).id != @employee.id
       redirect_to root_path, alert: "Sorry! You are not authorized"
-    end
-
-    respond_to do |format|
-      email = @employee.email
-      if @employee.update(employee_params)
-        if @employee.category.name == 'Academic'
-          u = User.find_by_email(email)
-          u.email = @employee.email
-          u.save!
+    else
+      respond_to do |format|
+        email = @employee.email
+        if @employee.update(employee_params)
+          if @employee.category.name == 'Academic'
+            u = User.find_by_email(email)
+            u.email = @employee.email
+            u.save!
+          end
+          format.html { redirect_to root_path, notice: 'Employee was successfully updated.' }
+          format.json { render :show, status: :ok, location: @employee }
+        else
+          format.html { render :edit }
+          format.json { render json: @employee.errors, status: :unprocessable_entity }
         end
-        format.html { redirect_to root_path, notice: 'Employee was successfully updated.' }
-        format.json { render :show, status: :ok, location: @employee }
-      else
-        format.html { render :edit }
-        format.json { render json: @employee.errors, status: :unprocessable_entity }
       end
     end
   end
