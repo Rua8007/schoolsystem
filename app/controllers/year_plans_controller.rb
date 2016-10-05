@@ -145,7 +145,6 @@ class YearPlansController < ApplicationController
         @print_schedules = GradeSubject.where("grade_id = ? AND week_id =  ? AND subject_id IN(#{@subjects.pluck(:id).join(',')})",
                                               params[:grade_id], params[:week_id] ).try(:order, 'day_name_eng')
       end
-
       respond_to do |format|
         format.pdf {
           render pdf: "#{@week.label}", template: 'year_plans/print_weekly_schedule.pdf.erb', layout: 'pdf.html.erb',

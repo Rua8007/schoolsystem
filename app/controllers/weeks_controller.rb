@@ -9,7 +9,7 @@ class WeeksController < ApplicationController
     if @year_plan.present?
       @weeks = @year_plan.weeks.sort_by &:start_date
       if current_user.role.name == 'Teacher'
-        employee_ids = Employee.find_by_email(current_user.email).bridges.try(:pluck, :grade_id).try(:join, ',')
+        employee_ids = Employee.find_by_email(current_user.email).bridges.where('grade_id IS NOT NULL').try(:pluck, :grade_id).try(:join, ',')
         @grades = Grade.where("id IN(#{employee_ids})
                   and section IS NOT NULL").order('name, section') if employee_ids.present? rescue []
         @subjects = Subject.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:subject_id)) rescue []
