@@ -116,7 +116,7 @@ class StudentsController < ApplicationController
         emergency.phone = params[:student][:emergency][:phone]
         emergency.email = params[:student][:emergency][:email]
         emergency.save
-        if student.parent.present?
+        if @student.parent.present?
           redirect_to edit_parent_parent_path(@student.parent_id), notice: "Student Successfully updated"
         else
           redirect_to new_parent_path(student_id: @student.id), notice: "Student Successfully updated"
