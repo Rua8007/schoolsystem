@@ -110,19 +110,19 @@ class StudentsController < ApplicationController
         puts "+++++++++Student++++++++++++++"
         puts @student.inspect
         puts "+++++++++++++++++++++++"
-
-        redirect_to edit_parent_parent_path(@student.parent_id), notice: "Student Successfully updated"
-        # return render json: params
         emergency = @student.emergency
         emergency.name = params[:student][:emergency][:name]
         emergency.mobile = params[:student][:emergency][:mobile]
         emergency.phone = params[:student][:emergency][:phone]
         emergency.email = params[:student][:emergency][:email]
         emergency.save
-        # Handle a successful update.
+        if student.parent.present?
+          redirect_to edit_parent_parent_path(@student.parent_id), notice: "Student Successfully updated"
+        else
+          redirect_to new_parent_path(student_id: @student.id), notice: "Student Successfully updated"
+        end
       else
-        return render json: @student
-
+        # return render json: @student
         render 'edit'
       end
     end
