@@ -100,6 +100,7 @@ class HomeController < ApplicationController
       Bundler.with_clean_env do
         `backup perform --trigger miguest_backup`
       end
+      session[:confirm_password] == true
       redirect_to home_backups_path, notice: 'Backup Created Successfully..!!!'
     end
   end
