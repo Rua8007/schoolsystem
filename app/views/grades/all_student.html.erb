@@ -1,4 +1,3 @@
-<%= stylesheet_link_tag "//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css" %>
 <%= javascript_include_tag "https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js" %>
 <%= javascript_include_tag "//cdn.datatables.net/tabletools/2.2.2/js/dataTables.tableTools.min.js" %>
 <%= javascript_include_tag "https://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js" %>
@@ -6,10 +5,7 @@
   $(document).ready(function() {
 
     $('#example').dataTable({
-        dom: 'T<"clear">lfrtip',
-        tableTools: {
-          "sSwfPath": "https://cdn.datatables.net/tabletools/2.2.2/swf/copy_csv_xls_pdf.swf"
-        },
+        dom: '<"clear">lfrtip',
         <% if @students.count > 0 && current_user.role == "accountant" %>
            "footerCallback": function ( row, data, start, end, display ) {
               var api = this.api(), data;
@@ -212,7 +208,7 @@
         }
       });
   })
-
+  $(".btn-group").addClass('hidden')
   // $('.applyBtn').click(function(e){
   //   console.log($('#daterange'));
   //  });
@@ -220,4 +216,9 @@
 
   // $(".datapicker")..datepicker();
 </script>
+<style type="text/css">
+  .hidden{
+    display: none !important;
+  }
+</style>
 
