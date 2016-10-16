@@ -52,7 +52,7 @@ class HomeController < ApplicationController
     if current_user.role.rights.find_by_value("access_backups").nil? || session[:confirm_password] == false
       
       puts "========backups nh dkhany aya========== "
-      puts current_user.role.rights.find_by_value(value: "access_backups").nil?
+      puts current_user.role.rights.find_by_value("access_backups").nil?
       puts session[:confirm_password]
       puts
       redirect_to root_path, alert: "Sorry! You are not authorized"
