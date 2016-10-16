@@ -50,8 +50,17 @@ class HomeController < ApplicationController
 
   def backups
     if !current_user.role.rights.where(value: "access_backups").any? || !session[:confirm_password] == true
+      
+      puts "========backups nh dkhany aya========== "
+      puts 
+      puts
+      puts
       redirect_to root_path, alert: "Sorry! You are not authorized"
     else
+      puts "========idhr bhi aya hai backups dkhnay========== "
+      puts 
+      puts
+      puts
       if session[:confirm_password] == true
         session[:confirm_password] = false
       end
@@ -97,6 +106,10 @@ class HomeController < ApplicationController
     if !current_user.role.rights.where(value: "access_backups").any?
       redirect_to root_path, alert: "Sorry! You are not authorized"
     else
+      puts "========idhr to aya tha backup create krny========== "
+      puts 
+      puts
+      puts
       Bundler.with_clean_env do
         `backup perform --trigger miguest_backup`
       end
