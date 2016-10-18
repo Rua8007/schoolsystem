@@ -144,7 +144,7 @@ class YearPlansController < ApplicationController
                            params[:grade_id], params[:week_id] ).sort_by{|happy| day_order.index(happy.day_name_eng)}
       else
         @print_schedules = GradeSubject.where("grade_id = ? AND week_id =  ? AND subject_id IN(#{@subjects.pluck(:id).join(',')})",
-                                              params[:grade_id], params[:week_id] ).try(:order, 'day_name_eng').sort_by{|happy| !day_order.nil? ? day_order.index(happy.day_name_eng)}
+                                              params[:grade_id], params[:week_id] ).try(:order, 'day_name_eng').sort_by{|happy| day_order.index(happy.day_name_eng )}
       end
       respond_to do |format|
         format.pdf {
