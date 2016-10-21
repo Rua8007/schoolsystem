@@ -53,6 +53,7 @@
 </script>
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3"><%= @grade.name+'-'+@grade.section+" "%>Students
+    <%= link_to t('student.print_pdf'), all_student_grades_path({grade_id: @grade.id ,format: 'pdf'}), class: 'btn btn-primary pull-right', style: 'margin-right: 3px;' %>
     <% if current_user.role.rights.where(value: 'create_student').any? %>
       <%= link_to "Add Students", add_students_grade_path(@grade.id), class: "btn btn-success pull-right" %>
     <% end %>
