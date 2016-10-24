@@ -84,6 +84,7 @@
           <%= link_to 'Password', password_user_path(user.id),:class => ' btn btn-warning', style: 'font-size: 0.8em;' %>
           <% if user.is_active %>
             <%= link_to 'Disable', enable_user_path({id: user.id, status: "disable"}),:class => ' btn btn-danger ',style: "width:auto; font-size: 0.8em;" %>
+            <%= link_to 'Login', "/switch_user?scope_identifier=user_#{user.id}", class: "btn btn-primary" %>
           <% else %>
             <%= link_to 'Enable', enable_user_path({id: user.id, status: "enable"}),:class => ' btn btn-success  ',style: "width:auto; font-size: 0.8em;" %>
           <% end %>

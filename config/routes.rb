@@ -13,6 +13,8 @@ Rails.application.routes.draw do
 
     resources :performances
     resources :roles
+    get 'switch_user', to: 'switch_user#set_current_user'
+    get 'switch_user/remember_user', to: 'switch_user#remember_user'
     get 'home/timetable'
     get 'home/sms'
     get 'home/sendsms'

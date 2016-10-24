@@ -14,6 +14,8 @@ gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
+gem "switch_user"
+
 #delayed job for sms and notifications
 gem 'delayed_job_active_record'
 

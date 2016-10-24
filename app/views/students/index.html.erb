@@ -68,6 +68,7 @@
         <th style="width:60px">Full Name</th>
         <th style="width:60px">Father Name</th>
         <th style="width:60px">Email</th>
+        <th style="width:60px">Mobile</th>
         <th style="width:60px">Grade</th>
         <th style="width:50px">Actions</th>
       </tr>
@@ -86,6 +87,9 @@
           </td>
           <td>
             <%= student.email %>
+          </td>
+          <td>
+            <%= student.mobile %>
           </td>
           <td>
             <%= student.grade.full_name || '' if student.grade.present? %>

@@ -4,7 +4,9 @@ class StudentsController < ApplicationController
     if !current_user.role.rights.where(value: "view_student").any?
       redirect_to root_path, alert: "Sorry! You are not authorized"
     else
-      if params[:deleted]
+      if params[:unassigned]
+        @students = Student.joins(:grade).where(grades: {section: nil})
+      elsif params[:deleted]
         @students = Student.deleted
         @dropped = true
       else

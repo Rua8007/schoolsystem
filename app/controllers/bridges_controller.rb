@@ -121,8 +121,13 @@ class BridgesController < ApplicationController
   end
 
   def teacher_subject
-    employee = Employee.find_by_email(current_user.email)
+    if params[:teacher_id].present?
+      employee = Employee.find(params[:teacher_id])
+    else
+      employee = Employee.find_by_email(current_user.email)
+    end
     @bridges = employee.bridges
+    
   end
 
   def teacher_grade_subjects

@@ -346,6 +346,12 @@
                         </li>
 
                         <li>
+                          <%= link_to(students_path({unassigned: true})) do %>
+                            <span><%= t('user.unassigned_students') %></span>
+                          <% end %>
+                        </li>
+
+                        <li>
                           <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'delete_student').any? %>
                             <%= link_to(students_path({deleted: true})) do %>
                               <span><%= t('user.deleted_students') %></span>

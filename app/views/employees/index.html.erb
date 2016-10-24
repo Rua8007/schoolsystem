@@ -78,6 +78,7 @@
               <% if current_user.role.rights.where(value: "delete_employee").any? %>
                 <%= link_to '', employee, method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
               <% end %>
+                <%= link_to 'Assingments', teacher_subject_bridges_path({teacher_id: employee.id}) ,:class =>  'btn btn-primary'%>
           </td>
         </tr>
       <% end %>
