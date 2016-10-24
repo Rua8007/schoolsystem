@@ -91,6 +91,7 @@
       <tr>
         <th>Student ID</th>
         <th>Full Name</th>
+        <th>Contact</th>
         <% if current_user.role != 'accountant' %>
           <th>Arabic Name</th>
           <th>Father Name</th>
@@ -121,6 +122,9 @@
           </td>
           <td>
             <%= student.fullname %>
+          </td>
+          <td>
+            <%= student.mobile %>
           </td>
           <td>
             <%= student.arabicname %>

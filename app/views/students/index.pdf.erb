@@ -1,2 +1,3 @@
 <h3 class="text-center"><%= @title %></h3>
+<h4>Total Students:  <%= @students.count %></h4>
 <%= render partial: 'shared/table.html.erb', locals: {records: @students, headers: Student::LIST_HEADER} %>
