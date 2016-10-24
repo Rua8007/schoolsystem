@@ -19,6 +19,12 @@ class UsersController < ApplicationController
     end
   end
 
+  def switch_user
+    user = User.find(params[:user_id])
+    sign_in(user)
+    redirect_to root_path, notice: "User has been switched...!!!"
+  end
+
   def new
     @user = User.new
   end
