@@ -100,7 +100,7 @@
               <div class="column col-xs-12 col-sm-2">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Grade</label>
-                    <%= std.collection_select :grade_id, Grade.all.order(:name), :id , :full_name,{},{:style => 'height:34px;width: 100%',  class: 'form-control', disabled: current_user.role.name == 'Parent' ? true : false} %>
+                    <%= std.collection_select :grade_id, Grade.where(name: @student.grade.name).order(:section), :id , :full_name,{},{:style => 'height:34px;width: 100%',  class: 'form-control', disabled: current_user.role.name == 'Parent' ? true : false} %>
                 </div>
               </div>
               <div class="column col-xs-12 col-sm-2">
