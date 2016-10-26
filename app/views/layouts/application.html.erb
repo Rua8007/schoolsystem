@@ -1544,6 +1544,10 @@ $(document).ready(function () {
                return false;
     }
   });
+  $('.restrict-space').keydown(function(e) {
+    if (e.keyCode == 32) // 32 is the ASCII value for a space
+      e.preventDefault();
+  });
 
   $(".numeric").keypress(function (e) {
    //if the letter is not digit then display error and don't type anything

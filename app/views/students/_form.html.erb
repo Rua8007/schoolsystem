@@ -29,28 +29,28 @@
           		<div class="column col-xs-12 col-sm-3">
             		<div class="form-group">
               			<label for="exampleInputEmail1">First Name</label>
-										<%= text_field_tag :name1 ,'', :style => 'height:34px;width: 100%',  class: 'form-control', autofocus: true %>
+										<%= text_field_tag :name1 ,'', :style => 'height:34px;width: 100%',  class: 'form-control restrict-space', autofocus: true %>
                     <%= std.hidden_field :rollnumber, value: @student_no %>
             		</div>
             	</div>
               <div class="column col-xs-12 col-sm-3">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Second Name</label>
-                    <%= text_field_tag :name2 ,'', :style => 'height:34px;width: 100%',  class: 'form-control', autofocus: true %>
+                    <%= text_field_tag :name2 ,'', :style => 'height:34px;width: 100%',  class: 'form-control restrict-space', autofocus: true %>
                     <%= std.hidden_field :rollnumber, value: @student_no %>
                 </div>
               </div>
               <div class="column col-xs-12 col-sm-3">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Third Name</label>
-                    <%= text_field_tag :name3 ,'', :style => 'height:34px;width: 100%',  class: 'form-control', autofocus: true %>
+                    <%= text_field_tag :name3 ,'', :style => 'height:34px;width: 100%',  class: 'form-control restrict-space', autofocus: true %>
                     <%= std.hidden_field :rollnumber, value: @student_no %>
                 </div>
               </div>
               <div class="column col-xs-12 col-sm-3">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Forth Name</label>
-                    <%= text_field_tag :name4 ,'',:style => 'height:34px;width: 100%',  class: 'form-control', autofocus: true %>
+                    <%= text_field_tag :name4 ,'',:style => 'height:34px;width: 100%',  class: 'form-control restrict-space', autofocus: true %>
                     <%= std.hidden_field :rollnumber, value: @student_no %>
                 </div>
               </div>
