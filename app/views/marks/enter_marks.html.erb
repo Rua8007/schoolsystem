@@ -100,7 +100,7 @@
     <% if @marks_division.name != "Exam Comments" %>
       <div class="well well-lg col-md-2 " style="padding:10px;min-height:500px;width: 180px;float:none !important;display: inline-block;vertical-align: top; margin-left:10px">
         <h5><%= 'Average' %></h5>
-        <%= text_field_tag "max_mark", @marks_division.total_marks, id: 'max-marks', style:"" , class: "absense-input datepickerss", required: true, readonly: true%>
+        <%= text_field_tag "max_mark", @marks_division.total_marks, id: 'max-marks', style:"" , class: "absense-input", required: true, readonly: true%>
         <% @students.try(:each) do |std| %>
             <% @student_report_card = ReportCard.find_by( grade_id: @class.id, student_id: std.id) %>
             <% @student_mark = Mark.find_or_create_by(report_card_id: @student_report_card.id, exam_id: @exam.id, subject_id: @report_card_subject.id, division_id: @marks_division.id) %>

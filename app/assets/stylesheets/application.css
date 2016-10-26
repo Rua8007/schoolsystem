@@ -295,4 +295,8 @@ box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.3);
   margin: 0 0 10px;
 }
 
+@media print {
+ /* All your print styles go here */
+  thead {display: table-header-group !important ; }
 
+}

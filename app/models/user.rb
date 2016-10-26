@@ -31,6 +31,35 @@ class User < ActiveRecord::Base
     self.role.try(:name)
   end
 
+  def receipent_options()
+    user = []
+    if self.role_name == 'Parent'
+      student = Student.find_by_rollnumber(self.email.split('@').first.split('_').last)
+      student.grade.bridges.each do |bridge|
+        user << User.find_by_email(bridge.employee.email) if User.find_by_email(bridge.employee.email).present?
+      end
+      Role.where.not(name: ["Parent", "Teacher", "Student"]).each do |role|
+        user += role.users
+      end
+      # user << User.joins(:role).where("roles.name != 'Parent' and roles.name != 'Teacher' and roles.name != 'Student' ")
+    elsif self.role_name == 'Teacher'
+      Employee.find_by_email(self.email).bridges.each do |bridge|
+        bridge.grade.students.each do |std|
+          user << User.find_by_email(std.email) if User.find_by_email(std.email).present?
+        end
+      end
+      Role.where.not(name: ["Parent", "Teacher", "Student"]).each do |role|
+        user += role.users
+      end
+    else
+      user = User.all
+    end
+    puts "==========="
+    puts user.uniq.inspect
+    puts "==========="
+    user.uniq
+  end
+
   def status
     is_active ? 'Enabled' : 'Disabled'
   end

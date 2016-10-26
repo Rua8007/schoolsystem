@@ -34,8 +34,8 @@ class ApplicationController < ActionController::Base
   end
 
   def get_leave_requests_count
-    @leave_requests_count = Leave.where(approved: nil).count
-    @year_plan = YearPlan.first
+    @leave_requests_count = Leave.where(approved: nil).count rescue 0
+    @year_plan = YearPlan.first rescue 0
   end
 
   def default_url_options(options = {})
