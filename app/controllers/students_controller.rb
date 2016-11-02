@@ -118,6 +118,8 @@ class StudentsController < ApplicationController
     else
       @student = Student.find(params[:id])
       if @student.update_attributes(create_params)
+        name = params[:name1]+' ' +params[:name2]+' ' +params[:name3]+' ' +params[:name4]
+        @student.fullname = name
         aname = params[:aname1]+' ' +params[:aname2]+' ' +params[:aname3]+' ' +params[:aname4]
         @student.arabicname = aname
         @student.save
