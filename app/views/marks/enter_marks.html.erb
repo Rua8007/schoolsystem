@@ -82,7 +82,22 @@
               <%= text_field_tag "sessionals_date[]", sessional.mark_date, style:"" , class: "datepickerss absense-input", required: true, placeholder: "Select Date" %>
               <% @students.try(:each) do |std| %>
                   <% @student_report_card = ReportCard.find_by( grade_id: @class.id, batch_id: Batch.last.id, student_id: std.id) %>
+
+                  <% puts "==========" %>
+                  <% puts "==========" %>
+                  <% puts @student_report_card %>
+                  <% puts "==========" %>
+                  <% puts "==========" %>
+
                   <% @student_mark = Mark.find_by(report_card_id: @student_report_card.id, exam_id: @exam.id, subject_id: @report_card_subject.id, division_id: @marks_division.id) %>
+                  <% puts @marks_division.id %>
+                  <% puts @report_card_subject.id.inspect %>
+                  <% puts @exam.id %>
+                  <% puts @student_report_card.id %>
+                  <% puts "==========" %>
+                  <% puts "==========" %>
+                  
+                  
                   <%= text_field_tag "sessionals[#{std.id}][]" , @marks_division.name != "Exam Comments" ? (@student_mark.sessionals.find_by(name: sessional.name).try(:obtained_marks)) : @student_mark.sessionals.last.comments,class: @marks_division.name == "Exam Comments" ? " absense-input exam-comment number calculate"+std.id.to_s : "absense-input calculate" +std.id.to_s, readonly: current_user.role.rights.where(value: "edit_entered_marks").any? ? false: true %>
               <% end %>
             </div>
