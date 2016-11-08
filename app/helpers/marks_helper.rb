@@ -123,7 +123,7 @@ module MarksHelper
     else
       if division.name == "Exam Comments" && report_card.marks.find_by(subject_id: subject.id, division_id: division.id, exam_id: exam.id).present?
         report_card.marks.find_by(subject_id: subject.id, division_id: division.id, exam_id: exam.id).sessionals.last.try(:comments)
-      elsif
+      else
         report_card.marks.find_by(subject_id: subject.id, division_id: division.id, exam_id: exam.id).try(:obtained_marks)
       end
     end
