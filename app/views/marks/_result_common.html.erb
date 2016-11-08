@@ -37,11 +37,11 @@
                 <% puts "++++++++in else++++++++++"  %>
                 <% puts "++++++++++++++++++"  %>
                 <% puts division.name  %>
-                <% puts mark.inspect  %>
+                <% puts mark.sessionals.inspect  %>
                 <% puts "++++++++++++++++++"  %>
                 <% puts "++++++++++++++++++"  %>
                 <% if division.name == 'Exam Comments' %>
-                  <td><%= mark.try(:comments) || 0.0 %></td>
+                  <td><%= mark.sessionals.first.try(:comments) || 0.0 %></td>
                 <% else %>
                   <td><%= mark.try(:obtained_marks) || 0.0 %></td>
                 <% end %>
