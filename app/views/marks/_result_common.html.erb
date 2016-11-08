@@ -30,7 +30,11 @@
                 <% puts "Mark: #{mark.inspect}" %>
                 <% puts "Subject: #{@subject.inspect}" %>
                 <% puts '=====================================' %>
-                <td><%= mark.try(:obtained_marks) || 0.0 %></td>
+                <% if division.name == 'Exam Comments' %>
+                  <td><%= mark.try(:comments) || 0.0 %></td>
+                <% else %>
+                  <td><%= mark.try(:obtained_marks) || 0.0 %></td>
+                <% end %>
             <% end %>
         <% end %>
         <!-- For Totals-->
