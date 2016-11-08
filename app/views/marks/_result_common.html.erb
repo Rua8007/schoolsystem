@@ -20,16 +20,20 @@
                     <% mark = report_card.marks.find_by(subject_id: sub_subject.id, division_id: division.id, exam_id: @exam.id) %>
                     <% mark_sum = mark_sum + ((mark.obtained_marks * ((sub_subject.weight/100) || 1)) || 0.0) if mark.present? %>
                 <% end %>
+                <% puts "++++++++++++++++++"  %>
+                <% puts "++++++++++++++++++"  %>
+                <% puts division.name  %>
+                <% puts mark.inspect  %>
+                <% puts "++++++++++++++++++"  %>
+                <% puts "++++++++++++++++++"  %>
+                <% if division.name == 'Exam Comments' %>
+                  <td><%= mark.try(:comments) || 0.0 %></td>
+                <% else %>
+                  <td><%= mark.try(:obtained_marks) || 0.0 %></td>
+                <% end %>
                 <td><%= number_with_precision mark_sum, precision: 2 %></td>
             <% else %>
-                <% puts '=====================================' %>
-                <% puts "Report Card: #{report_card.inspect}" %>
-                <% puts '=====================================' %>
                 <% mark = report_card.marks.find_by(subject_id: @subject.id, division_id: division.id, exam_id: @exam.id) %>
-                <% puts '=====================================' %>
-                <% puts "Mark: #{mark.inspect}" %>
-                <% puts "Subject: #{@subject.inspect}" %>
-                <% puts '=====================================' %>
                 <% if division.name == 'Exam Comments' %>
                   <td><%= mark.try(:comments) || 0.0 %></td>
                 <% else %>
