@@ -16,10 +16,10 @@
       <td><%= Student.find(m).rollnumber %></td>
       <td><%= Student.find(m).fullname %></td>
       <% @class.marks.each do |mk| %>
+        <%= puts '-----------' %>
+        <%= puts '-----------' %>
+        <%= puts mk.inspect %>
         <% if mk.name == 'Exam Comments' %>
-          <%= puts '-----------' %>
-          <%= puts '-----------' %>
-          <%= puts mk.inspect %>
           <%= puts mk.mk.sessionals.where("exam_id = ? and student_id = ? and bridge_id = ?", @exam_id, m , @bridge_id).inspect %>
           <%= puts '-----------' %>
           <%= puts '-----------' %>
