@@ -17,6 +17,12 @@
       <td><%= Student.find(m).fullname %></td>
       <% @class.marks.each do |mk| %>
         <% if mk.name == 'Exam Comments' %>
+          <%= puts '-----------' %>
+          <%= puts '-----------' %>
+          <%= puts mk.inspect %>
+          <%= puts mk.mk.sessionals.where("exam_id = ? and student_id = ? and bridge_id = ?", @exam_id, m , @bridge_id).inspect %>
+          <%= puts '-----------' %>
+          <%= puts '-----------' %>
           <td><%= mk.sessionals.where("exam_id = ? and student_id = ? and bridge_id = ?", @exam_id, m , @bridge_id).marks %></td>
         <% else %>
           <td><%= mk.sessionals.where("exam_id = ? and student_id = ? and bridge_id = ?", @exam_id, m , @bridge_id).sum(:marks) %></td>
