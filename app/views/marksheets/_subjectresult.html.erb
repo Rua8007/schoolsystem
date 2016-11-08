@@ -16,7 +16,11 @@
       <td><%= Student.find(m).rollnumber %></td>
       <td><%= Student.find(m).fullname %></td>
       <% @class.marks.each do |mk| %>
-        <td><%= mk.sessionals.where("exam_id = ? and student_id = ? and bridge_id = ?", @exam_id, m , @bridge_id).sum(:marks) %></td>
+        <% if mk.name == 'Exam Comments' %>
+          <td><%= mk.sessionals.where("exam_id = ? and student_id = ? and bridge_id = ?", @exam_id, m , @bridge_id).marks %></td>
+        <% else %>
+          <td><%= mk.sessionals.where("exam_id = ? and student_id = ? and bridge_id = ?", @exam_id, m , @bridge_id).sum(:marks) %></td>
+        <% end %>
       <% end %>
       <td><%= Student.find(m).sessionals.where("exam_id = ? and bridge_id = ?", @exam_id, @bridge_id).sum(:marks) %></td>
       </tr>
