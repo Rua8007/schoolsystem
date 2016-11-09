@@ -89,7 +89,7 @@
                   <% puts "==========" %>
                   <% puts "==========" %>
 
-                  <% @student_mark = Mark.find_by(report_card_id: @student_report_card.id, exam_id: @exam.id, subject_id: @report_card_subject.id, division_id: @marks_division.id) %>
+                  <% @student_mark = Mark.find_or_create_by(report_card_id: @student_report_card.id, exam_id: @exam.id, subject_id: @report_card_subject.id, division_id: @marks_division.id) %>
                   <% puts @marks_division.id %>
                   <% puts @report_card_subject.id.inspect %>
                   <% puts @exam.id %>
