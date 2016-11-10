@@ -99,9 +99,7 @@ class MarksController < ApplicationController
       @students = @class.students.sort_by { |k| k.rollnumber }
     end
 
-    if current_user.role.name == 'Teacher'
-      @bridge = Bridge.find_by(grade_id: @class.id, employee_id: Employee.find_by_email(current_user.email).try(:id), subject_id: @subject.id)
-    end
+    @bridge = Bridge.find_by(grade_id: @class.id, subject_id: @subject.id)
 
     @setting = ReportCardSetting.find_by(grade_id: @main_grade.id, batch_id: Batch.last.id, exam_id: @exam.id) if @main_grade.present?
 
