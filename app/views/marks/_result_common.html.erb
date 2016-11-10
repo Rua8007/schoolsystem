@@ -40,7 +40,7 @@
                 <% puts mark.inspect %>
                 <% puts "++++++++++++++++++"  %>
                 <% puts "++++++++++++++++++"  %>
-                <% if division.name == 'Exam Comments' && mark.sessionals.any? %>
+                <% if division.name == 'Exam Comments' && !mark.nil? && mark.sessionals.any? %>
                   <td><%= mark.sessionals.first.try(:comments) || 0.0 %></td>
                 <% else %>
                   <td><%= mark.try(:obtained_marks) || 0.0 %></td>
