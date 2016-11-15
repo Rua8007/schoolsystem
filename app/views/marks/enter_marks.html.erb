@@ -38,9 +38,9 @@
   <%= hidden_field_tag 'exam_id', @exam.id %>
   <%= hidden_field_tag 'subject_id', @subject.id %>
   <%= hidden_field_tag 'division_id', @marks_division.id %>
-  <div style=" 	width: 1050px; /* arbitary for demo only */white-space: nowrap; overflow-y: hidden; overflow-x: scroll;-webkit-overflow-scrolling: touch;">
+  <div style=" 	width: 1300px; /* arbitary for demo only */white-space: nowrap; overflow-y: hidden; overflow-x: scroll;-webkit-overflow-scrolling: touch;">
 
-    <div class="well well-lg" id="navigation" style="min-height:500px; float:none !important;display: inline-block;vertical-align: top; position: absolute; z-index: 10; width: 345px">
+    <div class="well well-lg" id="navigation" style="min-height:500px; float:none !important;display: inline-block;vertical-align: top; position: absolute; z-index: 10; width: 300px">
       <span style= "background:green; color:white;padding: 7px 10px;font-size: 15px">Student Name</span>
       <div class="performance-holder">
         <% @students.try(:each) do |std| %>
@@ -50,7 +50,7 @@
     </div>
 
     <div class="well well-lg col-md-1" style="min-height:500px; float:none !important;display: inline-block;vertical-align: top; position: relative;margin-left: 350px;">
-      <span style= "background:green; color:white;padding: 7px 10px;font-size: 15px">ID</span>
+      <span style= "background:green; color:white;padding: 7px 10px;font-size: 15px">Std ID</span>
       <div class="performance-holder">
         <% @students.try(:each) do |std| %>
             <strong class="student-names" style="text-align: left;"><%= std.rollnumber%> </strong>
@@ -79,7 +79,7 @@
         <% @mark.sessionals.try(:each) do |sessional| %>
             <div class="well well-lg col-md-1 con" style="padding:10px;min-height:500px;width: 110px;float:none !important;display:inline-block;vertical-align: top;">
               <h5>Date <span class="pull-right"><%= link_to '', mark_path({id: @mark.id, grade_id: @class.id, exam_id: @exam.id, subject_id: @report_card_subject.id, marks_division_id: @marks_division.id, sessional_id: sessional.id, report_card_subject_id: @report_card_subject.id }), method: :delete, data: { confirm: 'Are you sure?' },:class =>  'btn btn-sm btn-danger glyphicon glyphicon glyphicon-trash' %></span></h5>
-              <%= text_field_tag "sessionals_date[]", sessional.mark_date, style:"" , class: "datepickerss absense-input", required: true, placeholder: "Select Date" %>
+              <%= text_field_tag "sessionals_date[]", sessional.mark_date, style:"" , class: "datepickerss absense-input", required: true, placeholder: "Select Date", style: "width: 90px" %>
               <% @students.try(:each) do |std| %>
                   <% @student_report_card = ReportCard.find_by( grade_id: @class.id, batch_id: Batch.last.id, student_id: std.id) %>
 
@@ -98,16 +98,16 @@
                   <% puts "==========" %>
                   
                   
-                  <%= text_field_tag "sessionals[#{std.id}][]" , @marks_division.name != "Exam Comments" ? (@student_mark.sessionals.find_by(name: sessional.name).try(:obtained_marks)) : @student_mark.sessionals.last.comments,class: @marks_division.name == "Exam Comments" ? " absense-input exam-comment number calculate"+std.id.to_s : "absense-input calculate" +std.id.to_s, readonly: current_user.role.rights.where(value: "edit_entered_marks").any? ? false: true %>
+                  <%= text_field_tag "sessionals[#{std.id}][]" , @marks_division.name != "Exam Comments" ? (@student_mark.sessionals.find_by(name: sessional.name).try(:obtained_marks)) : @student_mark.sessionals.last.comments,class: @marks_division.name == "Exam Comments" ? " absense-input exam-comment number calculate"+std.id.to_s : "absense-input calculate" +std.id.to_s, readonly: current_user.role.rights.where(value: "edit_entered_marks").any? ? false: true,style: "width: 90px" %>
               <% end %>
             </div>
         <% end %>
     <% else %>
         <div class="well well-lg col-md-1 con" style="padding:10px;min-height:500px;width: 110px;float:none !important;display:inline-block;vertical-align: top;">
           <h5><%= @marks_division.name %></h5>
-          <%= text_field_tag "sessionals_date[]", '', style:"" , class: "datepickerss absense-input", required: true, placeholder: "Select Date" %>
+          <%= text_field_tag "sessionals_date[]", '', style:"" , class: "datepickerss absense-input", required: true, placeholder: "Select Date", style: "width: 90px" %>
           <% @students.try(:each) do |std| %>
-              <%= text_field_tag "sessionals[#{std.id}][]" , '' ,class: @marks_division.name == "Exam Comments" ? " absense-input exam-comment number calculate"+std.id.to_s : " absense-input calculate"+std.id.to_s %>
+              <%= text_field_tag "sessionals[#{std.id}][]" , '' ,class: @marks_division.name == "Exam Comments" ? " absense-input exam-comment number calculate"+std.id.to_s : " absense-input calculate"+std.id.to_s, style: "width: 90px" %>
           <% end %>
         </div>
     <% end %>
@@ -115,11 +115,11 @@
     <% if @marks_division.name != "Exam Comments" %>
       <div class="well well-lg col-md-1 " style="padding:10px;min-height:500px;width: 110px;float:none !important;display: inline-block;vertical-align: top; margin-left:10px">
         <h5><%= 'Average' %></h5>
-        <%= text_field_tag "max_mark", @marks_division.total_marks, id: 'max-marks', style:"" , class: "absense-input", required: true, readonly: true%>
+        <%= text_field_tag "max_mark", @marks_division.total_marks, id: 'max-marks', style:"" , class: "absense-input", required: true, readonly: true, style: "width: 90px" %>
         <% @students.try(:each) do |std| %>
             <% @student_report_card = ReportCard.find_by( grade_id: @class.id, student_id: std.id) %>
             <% @student_mark = Mark.find_or_create_by(report_card_id: @student_report_card.id, exam_id: @exam.id, subject_id: @report_card_subject.id, division_id: @marks_division.id) %>
-            <%= text_field_tag "marks[#{std.id}][]", number_with_precision(@student_mark.sessionals.try(:average, :obtained_marks), precision: 2 ) || 0 ,readonly: true, id: std.id, class: "absense-input total"+std.id.to_s %>
+            <%= text_field_tag "marks[#{std.id}][]", number_with_precision(@student_mark.sessionals.try(:average, :obtained_marks), precision: 2 ) || 0 ,readonly: true, id: std.id, class: "absense-input total"+std.id.to_s, style: "width: 90px" %>
         <% end %>
       </div>
     <% else %>
@@ -255,9 +255,9 @@
 <div class="col-template hidden">
   <div class="well well-lg col-md-1 con" style="margin-left: 3px;padding:10px;min-height:500px;width: 110px; float:none !important;display: inline-block;vertical-align: top;">
     <h5>Date</h5>
-    <%= text_field_tag "sessionals_date[]", '' ,class: "datepickerss absense-input", required: true, placeholder: "Select Date" %>
+    <%= text_field_tag "sessionals_date[]", '' ,class: "datepickerss absense-input", required: true, placeholder: "Select Date" style: "width: 90px" %>
     <% @students.try(:each) do |std| %>
-        <%= text_field_tag "sessionals[#{std.id}][]", "" ,class: "absense-input calculate"+std.id.to_s %>
+        <%= text_field_tag "sessionals[#{std.id}][]", "" ,class: "absense-input calculate"+std.id.to_s,style: "width: 90px" %>
     <% end %>
   </div>
 </div>
