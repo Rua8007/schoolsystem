@@ -255,7 +255,7 @@
 <div class="col-template hidden">
   <div class="well well-lg col-md-1 con" style="margin-left: 3px;padding:10px;min-height:500px;width: 110px; float:none !important;display: inline-block;vertical-align: top;">
     <h5>Date</h5>
-    <%= text_field_tag "sessionals_date[]", '' ,class: "datepickerss absense-input", required: true, placeholder: "Select Date" style: "width: 90px" %>
+    <%= text_field_tag "sessionals_date[]", '' ,class: "datepickerss absense-input", required: true, placeholder: "Select Date", style: "width: 90px" %>
     <% @students.try(:each) do |std| %>
         <%= text_field_tag "sessionals[#{std.id}][]", "" ,class: "absense-input calculate"+std.id.to_s,style: "width: 90px" %>
     <% end %>
