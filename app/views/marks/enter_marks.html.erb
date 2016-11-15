@@ -49,7 +49,7 @@
       </div>
     </div>
 
-    <div class="well well-lg col-md-1" style="min-height:500px; float:none !important;display: inline-block;vertical-align: top; position: relative;margin-left: 350px;">
+    <div class="well well-lg col-md-1" style="min-height:500px; float:none !important;display: inline-block;vertical-align: top; position: relative;margin-left: 305px;">
       <span style= "background:green; color:white;padding: 7px 10px;font-size: 15px">Std ID</span>
       <div class="performance-holder">
         <% @students.try(:each) do |std| %>
@@ -276,8 +276,4 @@
     });
     console.log("value is" ,value)
   });
-
-  $(window).scroll(function(){
-        $('#navigation').css('left', originalLeft - $(this).scrollLeft());
-    });
 </script>
