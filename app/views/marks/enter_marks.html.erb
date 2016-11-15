@@ -49,7 +49,7 @@
       </div>
     </div>
 
-    <div class="well well-lg col-md-1" style="min-height:500px; float:none !important;display: inline-block;vertical-align: top; position: relative;margin-left: 305px;">
+    <div class="well well-lg col-md-1" style="min-height:500px; float:none !important;display: inline-block;vertical-align: top; position: relative;margin-left: 305px; width: 75px">
       <span style= "background:green; color:white;padding: 7px 10px;font-size: 15px">Std ID</span>
       <div class="performance-holder">
         <% @students.try(:each) do |std| %>
@@ -58,7 +58,7 @@
       </div>
     </div>
 
-    <div class="well well-lg col-md-2 performance-report" style="min-height:500px; float:none !important;display: inline-block;vertical-align: top;">
+    <div class="well well-lg col-md-2 performance-report" style="min-height:500px; float:none !important;display: inline-block;vertical-align: top; width: 155px">
       <h5> Performance Report</h5>
       <div class="performance-holder">
         <% if @bridge.present? %>
