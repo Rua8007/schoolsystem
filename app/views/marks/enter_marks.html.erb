@@ -23,7 +23,7 @@
   </div>
   <div class="col-sm-5 col-md-5">
     <div class="pull-right">
-      <%= submit_tag 'Save Marks', class: 'btn btn-info' %>
+      <%= submit_tag 'Save Marks', class: 'btn btn-info',data: { confirm: 'PLease double check before you save. Press Yes to confirm?' } %>
       <% if @marks_division.name != "Exam Comments" %>
         <button class="btn btn-success" id="addmore">Add More</button>
       <% end %>
@@ -40,16 +40,7 @@
   <%= hidden_field_tag 'division_id', @marks_division.id %>
   <div style=" 	width: 1050px; /* arbitary for demo only */white-space: nowrap; overflow-y: hidden; overflow-x: scroll;-webkit-overflow-scrolling: touch;">
 
-    <div class="well well-lg col-md-1" style="min-height:500px; float:none !important;display: inline-block;vertical-align: top;">
-      <span style= "background:green; color:white;padding: 7px 10px;font-size: 15px">ID</span>
-      <div class="performance-holder">
-        <% @students.try(:each) do |std| %>
-            <strong class="student-names" style="text-align: left;"><%= std.rollnumber%> </strong>
-        <% end %>
-      </div>
-    </div>
-
-    <div class="well well-lg col-md-4" style="min-height:500px; float:none !important;display: inline-block;vertical-align: top; overflow-x:scroll">
+    <div class="well well-lg" id="navigation" style="min-height:500px; float:none !important;display: inline-block;vertical-align: top; position: absolute; z-index: 10; width: 345px">
       <span style= "background:green; color:white;padding: 7px 10px;font-size: 15px">Student Name</span>
       <div class="performance-holder">
         <% @students.try(:each) do |std| %>
@@ -58,12 +49,21 @@
       </div>
     </div>
 
-    <div class="well well-lg col-md-2 performance-report" style="min-height:500px; float:none !important;display: inline-block;vertical-align: top; ">
+    <div class="well well-lg col-md-1" style="min-height:500px; float:none !important;display: inline-block;vertical-align: top; position: relative;margin-left: 350px;">
+      <span style= "background:green; color:white;padding: 7px 10px;font-size: 15px">ID</span>
+      <div class="performance-holder">
+        <% @students.try(:each) do |std| %>
+            <strong class="student-names" style="text-align: left;"><%= std.rollnumber%> </strong>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="well well-lg col-md-2 performance-report" style="min-height:500px; float:none !important;display: inline-block;vertical-align: top;">
       <h5> Performance Report</h5>
       <div class="performance-holder">
         <% if @bridge.present? %>
           <% @students.try(:each) do |std| %>
-              <%= link_to 'Performance Report', new_performance_path({student_id: std.id, bridge_id: @bridge.id}), class: "btn-performance-report btn btn-primary", style: "font-size:11px;" %>
+              <%= link_to 'Performance Report', new_performance_path({student_id: std.id, bridge_id: @bridge.id}), class: "btn-performance-report btn btn-primary", style: "font-size:11px;", target: 'blank' %>
           <% end %>
         <% end %>
       </div>
@@ -77,8 +77,8 @@
     %>
     <% if @mark.sessionals.present? %>
         <% @mark.sessionals.try(:each) do |sessional| %>
-            <div class="well well-lg col-md-2 con" style="padding:10px;min-height:500px;width: 180px;float:none !important;display:inline-block;vertical-align: top;">
-              <h5>Date</h5>
+            <div class="well well-lg col-md-1 con" style="padding:10px;min-height:500px;width: 180px;float:none !important;display:inline-block;vertical-align: top;">
+              <h5>Date <span class="pull-right"><%= link_to '', mark_path({id: @mark.id, grade_id: @class.id, exam_id: @exam.id, subject_id: @report_card_subject.id, marks_division_id: @marks_division.id, sessional_id: sessional.id, report_card_subject_id: @report_card_subject.id }), method: :delete, data: { confirm: 'Are you sure?' },:class =>  'btn btn-sm btn-danger glyphicon glyphicon glyphicon-trash' %></span></h5>
               <%= text_field_tag "sessionals_date[]", sessional.mark_date, style:"" , class: "datepickerss absense-input", required: true, placeholder: "Select Date" %>
               <% @students.try(:each) do |std| %>
                   <% @student_report_card = ReportCard.find_by( grade_id: @class.id, batch_id: Batch.last.id, student_id: std.id) %>
@@ -103,7 +103,7 @@
             </div>
         <% end %>
     <% else %>
-        <div class="well well-lg col-md-2 con" style="padding:10px;min-height:500px;width: 180px;float:none !important;display:inline-block;vertical-align: top;">
+        <div class="well well-lg col-md-1 con" style="padding:10px;min-height:500px;width: 180px;float:none !important;display:inline-block;vertical-align: top;">
           <h5><%= @marks_division.name %></h5>
           <%= text_field_tag "sessionals_date[]", '', style:"" , class: "datepickerss absense-input", required: true, placeholder: "Select Date" %>
           <% @students.try(:each) do |std| %>
@@ -113,7 +113,7 @@
     <% end %>
 
     <% if @marks_division.name != "Exam Comments" %>
-      <div class="well well-lg col-md-2 " style="padding:10px;min-height:500px;width: 180px;float:none !important;display: inline-block;vertical-align: top; margin-left:10px">
+      <div class="well well-lg col-md-1 " style="padding:10px;min-height:500px;width: 180px;float:none !important;display: inline-block;vertical-align: top; margin-left:10px">
         <h5><%= 'Average' %></h5>
         <%= text_field_tag "max_mark", @marks_division.total_marks, id: 'max-marks', style:"" , class: "absense-input", required: true, readonly: true%>
         <% @students.try(:each) do |std| %>
@@ -253,7 +253,7 @@
 </script>
 
 <div class="col-template hidden">
-  <div class="well well-lg col-md-2 con" style="margin-left: 3px;padding:10px;min-height:500px;width: 180px; float:none !important;display: inline-block;vertical-align: top;">
+  <div class="well well-lg col-md-1 con" style="margin-left: 3px;padding:10px;min-height:500px;width: 180px; float:none !important;display: inline-block;vertical-align: top;">
     <h5>Date</h5>
     <%= text_field_tag "sessionals_date[]", '' ,class: "datepickerss absense-input", required: true, placeholder: "Select Date" %>
     <% @students.try(:each) do |std| %>
@@ -276,4 +276,8 @@
     });
     console.log("value is" ,value)
   });
+
+  $(window).scroll(function(){
+        $('#navigation').css('left', originalLeft - $(this).scrollLeft());
+    });
 </script>

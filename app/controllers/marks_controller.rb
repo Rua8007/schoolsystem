@@ -61,11 +61,21 @@ class MarksController < ApplicationController
   # DELETE /marks/1
   # DELETE /marks/1.json
   def destroy
-    @mark.destroy
-    respond_to do |format|
-      format.html { redirect_to marks_url, notice: 'Mark was successfully destroyed.' }
-      format.json { head :no_content }
+    # return render json: Sessional.find
+    sessional = Sessional.find(params[:sessional_id])
+    @exam = Exam.find(params[:exam_id])
+    @grade = Grade.find(params[:grade_id])
+    @marks_division = ReportCardDivision.find(params[:marks_division_id])
+    report_card_subject_id = params[:report_card_subject_id]
+    @grade.students.try(:each) do |std|
+      @student_report_card = ReportCard.find_by( grade_id: @grade.id, batch_id: Batch.last.id, student_id: std.id)
+      if @student_report_card.present?
+        @student_mark = Mark.find_by(report_card_id: @student_report_card.id, exam_id: @exam.id, subject_id: report_card_subject_id, division_id: @marks_division.id)
+        @student_mark.sessionals.find_by(name: sessional.name).delete
+      end
     end
+    sessional.delete
+    redirect_to :back, alert: "Record Has Been Deleted...!!!"
   end
 
   def select_student
@@ -96,7 +106,7 @@ class MarksController < ApplicationController
                   batch_id: Batch.last.id, exam_id: @exam.id) if @main_grade.present?
     @report_card_subject = @setting.subjects.find_by(name: @subject.name, code: @subject.code)
     if @class.students.present?
-      @students = @class.students.sort_by { |k| k.rollnumber }
+      @students = @class.students.sort_by { |k| k.fullname }
     end
 
     @bridge = Bridge.find_by(grade_id: @class.id, subject_id: @subject.id)
