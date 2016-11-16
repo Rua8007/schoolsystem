@@ -14,6 +14,17 @@
   <br>
   <div class="container form-holder ">
     <div class="row">
+    <div class="col-md-12 well well-lg">
+      <div class="col-md-4">
+        <span>Sent This Month: <%= @count %></span>      
+      </div>
+      <div class="col-md-4">
+        <span>Max Allowed: <%= @max_allowed %></span>      
+      </div>
+      <div class="col-md-4">
+        <span>Total Left: <%= @max_allowed - @count %></span>      
+      </div>
+    </div>
     <fieldset class="sss well well-lg">
       <legend class="lll">Create  Performance Report</legend>
       <br>

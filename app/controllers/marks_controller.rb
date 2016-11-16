@@ -98,6 +98,7 @@ class MarksController < ApplicationController
   end
 
   def enter_marks
+    @max_allowed = Performance.max_allowed
     @class = Grade.find(params[:grade_id])
     @exam = Exam.find(params[:exam_id])
     @subject = Subject.find(params[:subject_id])
@@ -106,7 +107,7 @@ class MarksController < ApplicationController
                   batch_id: Batch.last.id, exam_id: @exam.id) if @main_grade.present?
     @report_card_subject = @setting.subjects.find_by(name: @subject.name, code: @subject.code)
     if @class.students.present?
-      @students = @class.students.sort_by { |k| k.fullname }
+      @students = @class.students.includes(:performances).sort_by { |k| k.fullname }
     end
 
     @bridge = Bridge.find_by(grade_id: @class.id, subject_id: @subject.id)
@@ -122,7 +123,6 @@ class MarksController < ApplicationController
     @students.try(:each) do |std|
       ReportCard.find_or_create_by(student_id: std.id, grade_id: @class.id, batch_id: Batch.last.id)
     end
-
     check_subjects(@setting, [@subject])
   end
 

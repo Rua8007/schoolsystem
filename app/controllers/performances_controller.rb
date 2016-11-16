@@ -22,10 +22,16 @@ class PerformancesController < ApplicationController
 
   # GET /performances/new
   def new
-    @performance = Performance.new
     @student_id = params[:student_id]
     @bridge_id = params[:bridge_id]
+    @count = Student.find(@student_id).performances.where("bridge_id = ? AND created_at > ? AND created_at < ?", @bridge_id ,Time.now.beginning_of_month, Time.now.end_of_month).count
+    @max_allowed = Performance.max_allowed
+
+    if current_user.role.name == 'Teacher' && @count >= @max_allowed
+      redirect_to root_path, alert: 'You have sent the maximum allowed reports. Please try next month'
+    end
     @bridges = Bridge.all
+    @performance = Performance.new
   end
 
   # GET /performances/1/edit

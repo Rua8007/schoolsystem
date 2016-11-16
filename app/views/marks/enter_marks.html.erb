@@ -61,9 +61,12 @@
     <div class="well well-lg col-md-2 performance-report" style="min-height:500px; float:none !important;display: inline-block;vertical-align: top; width: 155px">
       <h5> Performance Report</h5>
       <div class="performance-holder">
-        <% if @bridge.present? %>
-          <% @students.try(:each) do |std| %>
-              <%= link_to 'Performance Report', new_performance_path({student_id: std.id, bridge_id: @bridge.id}), class: "btn-performance-report btn btn-primary", style: "font-size:11px;", target: 'blank' %>
+        <% @students.try(:each) do |std| %>
+          <% @count = std.performances.where("bridge_id = ? AND created_at > ? AND created_at < ?", @bridge.id ,Time.now.beginning_of_month, Time.now.end_of_month).count %>
+          <% if @bridge.present? && !(current_user.role.name == 'Teacher' && @count >= @max_allowed) %>
+            <%= link_to 'Performance Report', new_performance_path({student_id: std.id, bridge_id: @bridge.id}), class: "btn-performance-report btn btn-primary", style: "font-size:11px;", target: 'blank' %>
+          <% else %>
+            <button class="btn-performance-report btn btn-alert" disabled="true"> Limit Reached</button>
           <% end %>
         <% end %>
       </div>

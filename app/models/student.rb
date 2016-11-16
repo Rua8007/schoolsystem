@@ -144,4 +144,34 @@ class Student < ActiveRecord::Base
       	end
 	end
 
+  def copy_report_cards(new_grade)
+    old_grade = self.grade
+    main_grade = old_grade.parent
+    batch = Batch.last
+    @report_card = ReportCard.find_by(student_id: @student.id, grade_id: @class.id, batch_id: @batch.id)
+    @exams = Exam.where(grade_id: @main_grade.id, batch_id: @batch.id)
+    @exams.each do |exam|
+    	@report_card = ReportCard.find_by(student_id: @student.id, grade_id: @class.id, batch_id: @batch.id, exam_id: exam.id)
+    	@report_card.grade_id = new_grade.id
+    end
+    # @settings = ReportCardSetting.where(grade_id: main_grade.id, batch_id: batch.id)
+    # new_grade.students.first.marksheets.where(grade_id: new_grade.id ).each do |marksheets|
+    # 	self.marksheets.find_by(grade_id: old_grade.id, subject_id:)
+    # end
+    
+  end
+
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
