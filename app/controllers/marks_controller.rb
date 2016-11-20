@@ -142,6 +142,10 @@ class MarksController < ApplicationController
     @setting = ReportCardSetting.find_by(grade_id: @main_grade.id, batch_id: Batch.last.id, exam_id: @exam.id) if @main_grade.present?
     # @report_card_exam = ReportCardExam.find_by_exam(@exam) if @exam.present?
     @report_card_subject = @setting.subjects.find_by(name: @subject.name, code: @subject.code) if @subject.present?
+    parent_subject = nil
+    if @report_card_subject.parent_id != nil
+      parent_subject = @report_card_subject.parent
+    end
     #@report_card_division = ReportCardDivision.find_by_marks_division(@marks_division) if params[:division_id].present?
 
     @students = params[:sessionals]
@@ -157,6 +161,32 @@ class MarksController < ApplicationController
             @sessional = Sessional.find_or_create_by name: "#{@marks_division.name} #{index + 1}", mark_id: @mark.id
             @sessional.update( obtained_marks: marks.to_f, mark_date: @dates[index])
             @mark.update(obtained_marks: @mark.sessionals.average(:obtained_marks), passing_marks: @marks_division.passing_marks, total_marks: @marks_division.total_marks)
+            puts "=========="
+            puts "=========="
+            puts parent_subject
+            puts @marks_division.is_divisible
+            puts "=========="
+            puts "=========="
+            if parent_subject != nil && @marks_division.is_divisible == false
+              parent_subject.sub_subjects.where.not(id: @report_card_subject.id).try(:each) do |subj|
+                puts "+++++++++++++++++++"
+                puts "+++++++++++++++++++"
+                puts "+++++++++++++++++++"
+                puts subj.inspect
+                puts "+++++++++++++++++++"
+                puts "+++++++++++++++++++"
+                if subj.take_exam == false
+                  puts "if main agya tha enter marks waly"
+                  puts "if main agya tha enter marks waly"
+                  puts "if main agya tha enter marks waly"
+                  puts "if main agya tha enter marks waly"
+                  mark = Mark.find_or_create_by(report_card_id: @report_card.id, exam_id: @exam.id, subject_id: subj.id, division_id: @marks_division.id)
+                  sessional = Sessional.find_or_create_by name: "#{@marks_division.name} #{index + 1}", mark_id: mark.id
+                  sessional.update( obtained_marks: marks.to_f, mark_date: @dates[index])
+                  mark.update(obtained_marks: @mark.sessionals.average(:obtained_marks), passing_marks: @marks_division.passing_marks, total_marks: @marks_division.total_marks)
+                end
+              end
+            end
           else
             @sessional = Sessional.find_or_create_by name: "#{@marks_division.name} #{index + 1}", mark_id: @mark.id
             @sessional.update( comments: marks, mark_date: @dates[index])
