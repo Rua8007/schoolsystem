@@ -75,7 +75,7 @@ class MarksController < ApplicationController
       end
     end
     sessional.delete
-    redirect_to :back, alert: "Record Has Been Deleted...!!!"
+    redirect_to marks_path, alert: "Record Has Been Deleted...!!!"
   end
 
   def select_student
