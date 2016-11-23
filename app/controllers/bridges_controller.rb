@@ -108,6 +108,11 @@ class BridgesController < ApplicationController
   # DELETE /bridges/1
   # DELETE /bridges/1.json
   def destroy
+    settings = ReportCardSetting.where(grade_id: @bridge.grade.parent.id, batch_id: @bridge.grade.batch_id)
+    
+    settings.try(:each) do |setting|
+      setting.subjects.find_by_name(@bridge.subject.name).destroy if setting.subjects.find_by_name(@bridge.subject.name).present? 
+    end
     @bridge.destroy
     respond_to do |format|
       format.html { redirect_to :back, notice: 'Subject Assignment was successfully destroyed.' }
