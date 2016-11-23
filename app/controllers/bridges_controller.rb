@@ -108,22 +108,14 @@ class BridgesController < ApplicationController
   # DELETE /bridges/1
   # DELETE /bridges/1.json
   def destroy
-    settings = ReportCardSetting.where(grade_id: @bridge.grade.parent.id, batch_id: @bridge.grade.batch_id)
+    parent_grade = @bridge.grade.parent
+    settings = ReportCardSetting.where(grade_id: parent_grade.id, batch_id: @bridge.grade.batch_id)
     
     settings.try(:each) do |setting|
-      
-      puts "=========="
-      puts "=========="
-      puts "=========="
-      puts 'setting'
-      puts settings.inspect
-      puts 'subject'
-      puts setting.subjects.find_by_name(@bridge.subject.name)
-      puts "=========="
-      puts "=========="
-      puts "=========="
-      puts "=========="
       setting.subjects.find_by_name(@bridge.subject.name).destroy if setting.subjects.find_by_name(@bridge.subject.name).present? 
+    end
+    Grade.where('name=? AND section IS NOT NULL', parent_grade.name).try(:each) do |grade|
+      grade.bridges.find_by(subject_id: @bridge.subject_id).delete if grade.bridges.find_by(subject_id: @bridge.subject_id).present?
     end
     @bridge.destroy
     respond_to do |format|
