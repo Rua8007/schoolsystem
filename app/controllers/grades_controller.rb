@@ -57,7 +57,16 @@ class GradesController < ApplicationController
         a.lectures = params[:flags][subject][:lectures]
         a.save
       else
+        sub_name = Subject.find(subject)
         a = @grade.associations.find_by(subject_id: subject)
+        settings = ReportCardSetting.where(grade_id: @grade.id, batch_id: Batch.last.id)
+        
+        settings.try(:each) do |setting|
+          setting.subjects.find_by_name(sub_name.name).destroy if setting.subjects.find_by_name(sub_name.name).present? 
+        end
+        Grade.where('name=? AND section IS NOT NULL AND batch_id = ?', @grade.name, Batch.last.id).try(:each) do |grade|
+          grade.bridges.find_by(subject_id: subject).delete if grade.bridges.find_by(subject_id: subject)
+        end
         a.delete if a.present?
       end
     end
