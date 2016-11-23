@@ -111,6 +111,18 @@ class BridgesController < ApplicationController
     settings = ReportCardSetting.where(grade_id: @bridge.grade.parent.id, batch_id: @bridge.grade.batch_id)
     
     settings.try(:each) do |setting|
+      
+      puts "=========="
+      puts "=========="
+      puts "=========="
+      puts 'setting'
+      puts settings.inspect
+      puts 'subject'
+      puts setting.subjects.find_by_name(@bridge.subject.name)
+      puts "=========="
+      puts "=========="
+      puts "=========="
+      puts "=========="
       setting.subjects.find_by_name(@bridge.subject.name).destroy if setting.subjects.find_by_name(@bridge.subject.name).present? 
     end
     @bridge.destroy
