@@ -4,7 +4,15 @@ class UsersController < ApplicationController
       flash[:alert] =  'Sorry! You are not authorized.'
       redirect_to root_path
     else
-      @users = User.all
+      @users = []
+      if params[:role]
+        @role = params[:role]
+        @users = Role.find_by_name(params[:role]).users
+      else
+        Role.where("name != 'Teacher' AND name != 'Parent'").each do |role|
+          @users += role.users
+        end
+      end
 
       respond_to do |format|
         format.html

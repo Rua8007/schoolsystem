@@ -44,6 +44,9 @@
     <button class="enable btn btn-primary pull-right" style="margin-right: 3px;">Enable Users</button>
     <a href="<%= new_user_path %>" class="btn btn-color pull-right" style="width:200px; margin-right: 3px;">Create new User</a>
     <%= link_to 'Print PDF', users_path(format: 'pdf'), class: 'btn btn-primary pull-right', style: 'margin-right: 3px;' %>
+    <%= link_to 'Parents', users_path(role: 'Parent'), class: 'btn btn-info pull-right', style: 'margin-right: 3px;' %>
+    <%= link_to 'Teachers', users_path(role: 'Teacher'), class: 'btn btn-info pull-right', style: 'margin-right: 3px;' %>
+    <%= link_to 'Others', users_path , class: 'btn btn-info pull-right', style: 'margin-right: 3px;' %>
   </h1>
   <br>
 </div>
@@ -53,7 +56,13 @@
     <thead class= "table-head">
     <tr>
       <th class="control-checkbox">Select All</th>
+      <% if @role == 'Teacher' %>
+        <th>Full Name</th>
+      <% end %>
       <th style="width: 150px;">Email</th>
+      <% if @role == 'Parent' %>
+        <th>Grade</th>
+      <% end %>
       <th>Role</th>
       <th>Status</th>
       <th>Login Count</th>
@@ -66,7 +75,13 @@
     <% @users.each do |user| %>
       <tr>
         <td> <input type="checkbox" class="select-std" value="<%= user.id %>"></td>
+        <% if @role == 'Teacher' %>
+          <td><%= Emmployee.find_by_email(user.email).full_name rescue '' %></td>
+        <% end %>
         <td style="font-size: 0.9em;"><%= user.email %></td>
+        <% if @role == 'Parent' %>
+          <td><%= Student.find_by_rollnumber(user.email.split('@').first.split('_').last).grade.full_name rescue '' %></td>
+        <% end %>
         <% if user.role.present? %>
           <td><%= user.role.name %></td>
         <% else %>

@@ -174,7 +174,9 @@
 
   <!-- aside -->
   <aside id="aside" class="app-aside hidden-xs bg-dark" style = "min-height:1000px">
+      <%= link_to(root_path) do  %>
         <%= image_tag asset_path("img/logo.png"), alt: ".", class: 'img-responsive', style: "padding-left:10px"%>
+      <% end %>
         <li class="line dk"></li>
           <div class="aside-wrap">
         <div class="navi-wrap">
@@ -183,7 +185,7 @@
             <div class="dropdown wrapper">
              <!--  <a href="app.page.profile">
                 <span class="thumb-lg w-auto-folded avatar m-t-sm">
-                  <%= image_tag asset_path("img/a0.jpg"), class: "img-full", alt: "..." %>
+                  <%#= image_tag asset_path("img/a0.jpg"), class: "img-full", alt: "..." %>
                 </span>
               </a> -->
               <!-- <a href="#" data-toggle="dropdown" class="dropdown-toggle hidden-folded">

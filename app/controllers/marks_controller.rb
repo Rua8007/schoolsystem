@@ -161,25 +161,9 @@ class MarksController < ApplicationController
             @sessional = Sessional.find_or_create_by name: "#{@marks_division.name} #{index + 1}", mark_id: @mark.id
             @sessional.update( obtained_marks: marks.to_f, mark_date: @dates[index])
             @mark.update(obtained_marks: @mark.sessionals.average(:obtained_marks), passing_marks: @marks_division.passing_marks, total_marks: @marks_division.total_marks)
-            puts "=========="
-            puts "=========="
-            puts parent_subject
-            puts @marks_division.is_divisible
-            puts "=========="
-            puts "=========="
             if parent_subject != nil && @marks_division.is_divisible == false
               parent_subject.sub_subjects.where.not(id: @report_card_subject.id).try(:each) do |subj|
-                puts "+++++++++++++++++++"
-                puts "+++++++++++++++++++"
-                puts "+++++++++++++++++++"
-                puts subj.inspect
-                puts "+++++++++++++++++++"
-                puts "+++++++++++++++++++"
                 if subj.take_exam == false
-                  puts "if main agya tha enter marks waly"
-                  puts "if main agya tha enter marks waly"
-                  puts "if main agya tha enter marks waly"
-                  puts "if main agya tha enter marks waly"
                   mark = Mark.find_or_create_by(report_card_id: @report_card.id, exam_id: @exam.id, subject_id: subj.id, division_id: @marks_division.id)
                   sessional = Sessional.find_or_create_by name: "#{@marks_division.name} #{index + 1}", mark_id: mark.id
                   sessional.update( obtained_marks: marks.to_f, mark_date: @dates[index])
