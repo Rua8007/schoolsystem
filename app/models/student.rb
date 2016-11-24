@@ -77,49 +77,12 @@ class Student < ActiveRecord::Base
 		puts "--------in import of model--------"
 		begin
 		puts "--------in begin--------"
-
+			User.delete_all
 		  CSV.foreach(file.path, headers: true) do |row|
-		    emp = new
+		    emp = User.new
 		    emp.attributes = row.to_hash.slice(*row.to_hash.keys)
-		    puts "========file opened=========="
-		  	puts emp
-		  	puts "========file opened=========="
-		    if Student.all.any?
-		      emp.rollnumber = Student.last.rollnumber.to_i + 1
-		    else
-		      emp.rollnumber = '15001'
-		    end
-
-
 		    emp.save
 		    # blood = father number
-		    p = Parent.create
-		    emp.parent_id = p.id
-		    p.mobile = emp.blood
-		    p.mothermobile = emp.rh
-		    emp.blood = ''
-		    emp.rh = ''
-		    emp.email = emp.email.downcase+'_'+emp.rollnumber+'@alomam.edu.sa'
-
-	   #    email="std_"+emp.rollnumber.to_s+"@alomam.edu.sa"
-	   #    emp.email = email
-		  #   emp.save!
-
-	   #    puts "=================="
-				# puts 'Creating Student user'
-				# puts "=================="
-
-
-	      u = User.new
-	      u.email = emp.email
-	      u.password = '123'
-	      u.password_confirmation = '123'
-	      u.role_id = Role.find_by_name('Parent').id
-		    u.is_active = true
-
-	      u.save
-	      emp.save
-	      puts "+++++++++++++++++++"
       # ================== Student script end==========================
       # ===========================employee script=======================
  			# emp = Employee.new
