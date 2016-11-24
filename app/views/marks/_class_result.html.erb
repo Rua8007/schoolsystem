@@ -32,7 +32,7 @@
                 <td><%= number_with_precision mark_sum, precision: 2 %></td>
             <% else %>
                 <% marks = report_card.marks.where(subject_id: subject.id, exam_id: exam.id) %>
-                <td><%= (marks.present? ? marks.sum(:obtained_marks) : 0.0)  %></td>
+                <td><%= (marks.present? ? marks.sum(:obtained_marks).round(2) : 0.0)  %></td>
             <% end %>
         <% end %>
         <td class="col-md-3">
