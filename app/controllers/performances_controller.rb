@@ -46,6 +46,7 @@ class PerformancesController < ApplicationController
   def create
     # return render json: params
     @performance = Performance.new(performance_params)
+    @performance.submitted_by = current_user.id
     if params[:lc].length == 2
       @performance.lc = true
     end

@@ -62,6 +62,15 @@
 
                             <tr>
                                 <td style="font-weight:bolder">
+                                    Submitted By
+                                </td>
+                                <td>
+                                    <%= User.find(@performance.submitted_by).email %>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="font-weight:bolder">
                                     Submission Date
                                 </td>
 
