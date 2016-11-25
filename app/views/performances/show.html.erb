@@ -65,7 +65,7 @@
                                     Submitted By
                                 </td>
                                 <td>
-                                    <%= User.find(@performance.submitted_by).email %>
+                                    <%= User.find(@performance.submitted_by).email rescue 'N/A' %>
                                 </td>
                             </tr>
 
