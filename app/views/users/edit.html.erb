@@ -9,7 +9,7 @@
 
     <div class="field">
       <label> Role </label>
-      <%= f.select :role_id,options_from_collection_for_select(Role.all, "id", "name"), {} ,{class: "form-control" ,style: "width: 40%"} %>
+      <%= f.select :role_id,options_from_collection_for_select(@roles, "id", "name"), {} ,{class: "form-control" ,style: "width: 40%"} %>
     </div>
 
     <div class="actions pull-right" >

@@ -8,12 +8,12 @@
     $('#example thead th').each( function (i, v) {
       // var title = $('#example tfoot th').eq( $(this).index() ).text();
       var title = $(this).text();
-      if(title == 'Select All'){
+      if(title == 'All'){
       }
       else{
         if(title != "Actions"){
           $(this).html(
-              '<input type="text" style="width: 120px;" class="form-control" id="exampleInputName2" placeholder="'+title+' search">'
+              '<input type="text" style="width: inherit;" class="form-control" id="exampleInputName2" placeholder="'+title+'">'
           );
         }
         else{
@@ -56,19 +56,19 @@
   <table id="example" class="table table-striped table-bordered table-responsive" >
     <thead class= "table-head">
     <tr>
-      <th class="control-checkbox">Select All</th>
+      <th class="control-checkbox" style = "width: 15px;" >All</th>
       <% if @role == 'Teacher' %>
-        <th>Full Name</th>
+        <th style = "width: 90px;">Full Name</th>
       <% end %>
       <th style="width: 150px;">Email</th>
       <% if @role == 'Parent' %>
-        <th>Grade</th>
+        <th style = "width: 90px;">Grade</th>
       <% end %>
-      <th>Role</th>
-      <th>Status</th>
-      <th>Login Count</th>
-      <th>Last Login Time</th>
-      <th style="width: 169px;">Actions</th>
+      <th style = "width: 90px;">Role</th>
+      <th style = "width: 90px;">Status</th>
+      <th style = "width: 90px;">Login Count</th>
+      <th style = "width: 90px;">Last Login Time</th>
+      <th style="width: auto;">Actions</th>
     </tr>
   </thead>
 
@@ -96,13 +96,15 @@
         <td><%= user.sign_in_count %></td>
         <td style="font-size: 0.8em;"><%= user.last_sign_in_at %></td>
         <td>
-          <%= link_to '', edit_user_path(user.id),:class => ' btn btn-info  glyphicon glyphicon-pencil bcc',style: "width:40px; font-size: 0.8em;" %>
-          <%= link_to 'Password', password_user_path(user.id),:class => ' btn btn-warning', style: 'font-size: 0.8em;' %>
+          <%= link_to '', edit_user_path(user.id),:class => ' btn btn-info btn-sm glyphicon glyphicon-pencil bcc',style: "width:33px; font-size: 0.8em;" %>
+          <%= link_to 'Password', password_user_path(user.id),:class => ' btn btn-sm btn-warning', style: 'font-size: 0.8em;' %>
           <% if user.is_active %>
-            <%= link_to 'Disable', enable_user_path({id: user.id, status: "disable"}),:class => ' btn btn-danger ',style: "width:auto; font-size: 0.8em;" %>
-            <%= link_to 'Login', "users/switch_user?user_id=#{user.id}", class: "btn btn-primary" %>
+            <%= link_to 'Disable', enable_user_path({id: user.id, status: "disable"}),:class => ' btn btn-danger btn-sm ',style: "width:auto; font-size: 0.8em;" %>
+            <% if current_user.role.rights.find_by_value('switch_user').present? %>
+              <%= link_to 'Login', "users/switch_user?user_id=#{user.id}", class: "btn btn-primary btn-sm",style: "width:auto; font-size: 0.8em;" %>
+            <% end %>
           <% else %>
-            <%= link_to 'Enable', enable_user_path({id: user.id, status: "enable"}),:class => ' btn btn-success  ',style: "width:auto; font-size: 0.8em;" %>
+            <%= link_to 'Enable', enable_user_path({id: user.id, status: "enable"}),:class => ' btn btn-success btn-sm',style: "width:auto; font-size: 0.8em;" %>
           <% end %>
         </td>
       </tr>

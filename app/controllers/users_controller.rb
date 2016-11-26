@@ -13,9 +13,9 @@ class UsersController < ApplicationController
           @users += role.users
         end
       end
-
       respond_to do |format|
         format.html
+        format.csv { send_data User.to_csv, filename: "users-of-alomam.csv" }
         format.pdf{
           @title = 'Users List'
           render pdf: 'users.pdf', template: 'users/index.pdf.erb',  layout: 'pdf.html.erb',
@@ -39,6 +39,7 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
+    @roles = Role.where.not(name: 'superuser')
   end
 
   def update

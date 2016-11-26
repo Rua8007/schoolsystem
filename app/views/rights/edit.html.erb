@@ -184,6 +184,11 @@
     <%= check_box_tag 'users[users]', '' , @rights.where(value: "users").any? ? true : false ,class: "gen", style: "margin-left:17px;" %> Users
     <br>
     <br>
+    
+    <%= check_box_tag 'permissions[switch_user]', '' , @rights.where(value: "switch_user").any? ? true : false ,class: "gen", style: "margin-left:17px;" %> Send SMS
+    <br>
+    <br>
+
     <%= check_box_tag 'permissions[permissions]', '' , @rights.where(value: "permissions").any? ? true : false ,class: "gen", style: "margin-left:17px;" %> User Permissions
     <br>
     <br>
