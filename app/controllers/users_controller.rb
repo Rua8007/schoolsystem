@@ -29,12 +29,17 @@ class UsersController < ApplicationController
 
   def switch_user
     user = User.find(params[:user_id])
-    sign_in(user)
-    redirect_to root_path, notice: "User has been switched...!!!"
+    if user.role.name == 'superuser'
+      redirect_to users_path, alert: 'Super User Can Not Be Switched'
+    else
+      sign_in(user)
+      redirect_to root_path, notice: "User has been switched...!!!"
+    end
   end
 
   def new
     @user = User.new
+    @roles = Role.where.not(name: 'superuser')
   end
 
   def edit
