@@ -69,7 +69,7 @@ class HomeController < ApplicationController
           :access_key_id     => ENV["AMAZON_ACCESS_KEY"],
           :secret_access_key => ENV["AMAZON_SECRET_KEY"]
         )
-      resp = s3.list_objects(bucket: 'alomam')
+      resp = s3.list_objects(bucket: 'alomambackups')
       @backups = []
 
       resp.contents.last(10).each do |object|
@@ -79,7 +79,7 @@ class HomeController < ApplicationController
         @backups<< {
           key: object.key,
           name: name,
-          url: s4.bucket('alomam').object(object.key).presigned_url(:get, expires_in: 3600)
+          url: s4.bucket('alomambackups').object(object.key).presigned_url(:get, expires_in: 3600)
         }
       end
     end
@@ -91,7 +91,7 @@ class HomeController < ApplicationController
     else
       s3 = Aws::S3::Client.new
       name = params[:name]
-      s3.get_object({ bucket:'alomam', key: params[:key] },
+      s3.get_object({ bucket:'alomambackups', key: params[:key] },
         target: Rails.root.join("s3_downloads/#{name}.tar"))
 
       `tar -xvf ~/schoolsystem/s3_downloads/#{name}.tar` #extract backup tar file
