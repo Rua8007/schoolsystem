@@ -72,6 +72,8 @@ class MarksController < ApplicationController
       if @student_report_card.present?
         @student_mark = Mark.find_by(report_card_id: @student_report_card.id, exam_id: @exam.id, subject_id: report_card_subject_id, division_id: @marks_division.id)
         @student_mark.sessionals.find_by(name: sessional.name).delete
+        @student_mark.obtained_marks = @student_mark.sessionals.average(:obtained_marks).to_f.round(2)
+        @student_mark.save!
       end
     end
     sessional.delete

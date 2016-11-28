@@ -80,7 +80,7 @@
     <% if @mark.sessionals.present? %>
         <% @mark.sessionals.try(:each) do |sessional| %>
             <div class="well well-lg col-md-1 con" style="padding:10px;min-height:500px;width: 110px;float:none !important;display:inline-block;vertical-align: top;">
-              <h5>Date <span class="pull-right"><%#= link_to '', mark_path({id: @mark.id, grade_id: @class.id, exam_id: @exam.id, subject_id: @report_card_subject.id, marks_division_id: @marks_division.id, sessional_id: sessional.id, report_card_subject_id: @report_card_subject.id }), method: :delete, data: { confirm: 'Are you sure?' },:class =>  'btn btn-sm btn-danger glyphicon glyphicon glyphicon-trash' if current_user.role.rights.where(value: "edit_entered_marks").any? %></span></h5>
+              <h5>Date <span class="pull-right"><%= link_to '', mark_path({id: @mark.id, grade_id: @class.id, exam_id: @exam.id, subject_id: @report_card_subject.id, marks_division_id: @marks_division.id, sessional_id: sessional.id, report_card_subject_id: @report_card_subject.id }), method: :delete, data: { confirm: 'Are you sure?' },:class =>  'btn btn-sm btn-danger glyphicon glyphicon glyphicon-trash' if current_user.role.rights.where(value: "edit_entered_marks").any? %></span></h5>
               <%= text_field_tag "sessionals_date[]", sessional.mark_date, style:"" , class: "datepickerss absense-input", required: true, placeholder: "Select Date", style: "width: 90px" %>
               <% @students.try(:each) do |std| %>
                   <% @student_report_card = ReportCard.find_by( grade_id: @class.id, batch_id: Batch.last.id, student_id: std.id) %>
