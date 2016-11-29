@@ -15,6 +15,7 @@ class StudentsController < ApplicationController
       @student = @students.first
       respond_to do |format|
         format.html
+        format.csv { send_data Student.to_csv, filename: "students-of-alomam.csv" }
         format.pdf{
           @title = 'All Students List'
           render pdf: 'students.pdf', template: 'students/index.pdf.erb',  layout: 'pdf.html.erb',
