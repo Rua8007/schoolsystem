@@ -1,20 +1,141 @@
 <style>
-  .division{  float: left; height: 40px; min-width: 100px; max-width: 100px; background-color: #3A539B; color: #fff; padding: 3%; text-align: center;  }
-  .division-marks{ float: left; height: 40px; min-width: 100px; max-width: 100px; color: #3A539B; background-color: #fff; padding: 3%; text-align: center;}
+  .division{  float: left; height: 40px; min-width: 100px; max-width: 108px; background-color: #3A539B; color: #fff; padding: 3%; text-align: center;  }
+  .division-marks{ float: left; height: 40px; min-width: 100px; max-width: 105px; color: #3A539B; background-color: #fff; padding: 3%; text-align: center;}
 </style>
 <br />
 <div class="" style="display: table; margin: 0 auto;">
-  <% @setting.marks_divisions.order('name').where(is_divisible: true).try(:each) do |division| %>
+  <% @setting.marks_divisions.where.not(name: 'Exam Comments').order('name').where(is_divisible: true).try(:each) do |division| %>
       <div class="division"><%= division.name %></div>
   <% end %>
 </div>
 <div class="" style="display: table; margin: 0 auto; border-bottom: 5px solid #3A539B">
-  <% @setting.marks_divisions.order('name').where(is_divisible: true).try(:each) do |division| %>
+  <% @setting.marks_divisions.where.not(name: 'Exam Comments').order('name').where(is_divisible: true).try(:each) do |division| %>
       <% obtained_marks = (@report_card.marks.where(division_id: division.id, subject_id: @subject.id, exam_id: @exam.id).try(:sum, :obtained_marks) || 0) %>
-      <div class="division-marks"><%= "#{obtained_marks}/#{division.total_marks}" %></div>
+      <% percentage = obtained_marks/division.total_marks*100 rescue "0.0" %>
+      <div class="division-marks"><%= "#{obtained_marks}/#{division.total_marks}(#{percentage}%)" %></div>
   <% end %>
 </div>
 <div class="col-sm-12" id="graph">
+</div>
+
+<div class="col-sm-12 col-md-12 well well-lg">
+  <% division = @setting.marks_divisions.find_by(name: 'Exam Comments') %>
+  <% obtained_marks = @report_card.marks.where(division_id: division.id, subject_id: @subject.id, exam_id: @exam.id).first.try(:sessionals).try(:first) %>
+  <h3>Exam Comments</h3>
+  <% if obtained_marks.nil? %>
+    <h4>No Exam Comments Reported...!!!</h4>
+  <% else %>
+    <% obtained_marks = obtained_marks.comments.split(',') %>
+    <div style=" font-size:14px; background: #FF9999; height:300px" class="col-md-6">
+      <h4><u>Academic Fields:</u></h4>
+      <div class="checkbox">
+        <label class="i-checks"  >
+          <%= check_box :lc,"", class: "leave_checkbox" , checked: obtained_marks.include?('1'), disabled: true %>
+          <i></i><strong>Excellent performance.</strong>
+        </label>
+      </div>
+      <div class="checkbox">
+        <label class="i-checks" >
+          <%= check_box :fa,"", class: "leave_checkbox" , checked: obtained_marks.include?('2') , disabled: true %>
+          <i ></i><strong>Good work, keep improving</strong>
+        </label>
+      </div>
+      <div class="checkbox">
+        <label class="i-checks" >
+          <%= check_box :pw, "", class: "leave_checkbox", checked: obtained_marks.include?('3') , disabled: true %>
+          <i ></i><strong>Shows improvement</strong>
+        </label>
+      </div>
+      <div class="checkbox">
+        <label class="i-checks" >
+          <%= check_box :lk, "", class: "leave_checkbox", checked: obtained_marks.include?('4') , disabled: true  %>
+          <i ></i><strong>Needs to work harder</strong>
+        </label>
+      </div>
+      <div class="checkbox">
+        <label class="i-checks" >
+          <%= check_box :ia, "", class: "leave_checkbox", checked: obtained_marks.include?('5') , disabled: true %>
+          <i ></i><strong>Missing Homework</strong>
+        </label>
+      </div>
+
+      <div class="checkbox">
+        <label class="i-checks" >
+          <%= check_box :pc, "", class: "leave_checkbox", checked: obtained_marks.include?('6') , disabled: true %>
+          <i ></i><strong>Needs to be more active in class</strong>
+        </label>
+      </div>
+
+      <div class="checkbox">
+        <label class="i-checks" >
+          <%= check_box :fail, "", class: "leave_checkbox", checked: obtained_marks.include?('7') , disabled: true %>
+          <i ></i><strong>Needs to Improve English Communication Skills</strong>
+        </label>
+      </div>
+
+      <div class="checkbox">
+        <label class="i-checks" >
+          <%= check_box :les, "", class: "leave_checkbox", checked: obtained_marks.include?('8') , disabled: true %>
+          <i ></i><strong>Needs to focus on studies</strong>
+        </label>
+      </div>
+    </div>
+
+    <div style=" font-size:14px; background: #99FFB3; height:300px" class="col-md-6">
+      <h4><u>Non-Academic Fields:</u></h4>
+      <div class="checkbox">
+        <label class="i-checks"  >
+          <%= check_box :lc,"", class: "leave_checkbox" , checked: obtained_marks.include?('9'), disabled: true %>
+          <i></i><strong>Great Attitude</strong>
+        </label>
+      </div>
+      <div class="checkbox">
+        <label class="i-checks" >
+          <%= check_box :fa,"", class: "leave_checkbox" , checked: obtained_marks.include?('10') , disabled: true %>
+          <i ></i><strong>Polite, well-behaved person</strong>
+        </label>
+      </div>
+      <div class="checkbox">
+        <label class="i-checks" >
+          <%= check_box :pw, "", class: "leave_checkbox", checked: obtained_marks.include?('11') , disabled: true %>
+          <i ></i><strong>Great Communication Skills</strong>
+        </label>
+      </div>
+      <div class="checkbox">
+        <label class="i-checks" >
+          <%= check_box :lk, "", class: "leave_checkbox", checked: obtained_marks.include?('12') , disabled: true  %>
+          <i ></i><strong>Adaptable and Social</strong>
+        </label>
+      </div>
+      <div class="checkbox">
+        <label class="i-checks" >
+          <%= check_box :ia, "", class: "leave_checkbox", checked: obtained_marks.include?('13') , disabled: true %>
+          <i ></i><strong>Doesn’t focus in class</strong>
+        </label>
+      </div>
+
+      <div class="checkbox">
+        <label class="i-checks" >
+          <%= check_box :pc, "", class: "leave_checkbox", checked: obtained_marks.include?('14') , disabled: true %>
+          <i ></i><strong>Doesn’t respect others</strong>
+        </label>
+      </div>
+
+      <div class="checkbox">
+        <label class="i-checks" >
+          <%= check_box :fail, "", class: "leave_checkbox", checked: obtained_marks.include?('15') , disabled: true %>
+          <i ></i><strong>Need to concentrate to achieve</strong>
+        </label>
+      </div>
+
+      <div class="checkbox">
+        <label class="i-checks" >
+          <%= check_box :fail, "", class: "leave_checkbox", checked: obtained_marks.include?('16') , disabled: true %>
+          <i ></i><strong>Doesn’t listen to teachers</strong>
+        </label>
+      </div>
+    </div>
+  <% end %>
 </div>
 
 <script type="text/javascript">
@@ -26,7 +147,7 @@
 
     function drawChart(){
         var data = [['Division', 'Marks']];
-        <% @setting.marks_divisions.order('name').where(is_divisible: true).try(:each) do |division| %>
+        <% @setting.marks_divisions.where.not(name: 'Exam Comments').order('name').where(is_divisible: true).try(:each) do |division| %>
         data.push(['<%= division.name %>', <%= (@report_card.marks.where(division_id: division.id, subject_id: @subject.id, exam_id: @exam.id).try(:sum, :obtained_marks) || 0)  %>]);
         <% end %>
         console.log(data[0]);
