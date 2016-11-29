@@ -39,15 +39,15 @@
 </script>
 
 <div class="bg-light lter b-b wrapper-md">
-  <h1 class="m-n font-thin h3">Users
+  <h1 class="m-n font-thin h3"><%= @page %> Users
     <button class="disable btn btn-danger pull-right" style="margin-right: 3px;">Disable Users</button>
     <button class="enable btn btn-primary pull-right" style="margin-right: 3px;">Enable Users</button>
     <a href="<%= new_user_path %>" class="btn btn-color pull-right" style="width:200px; margin-right: 3px;">Create new User</a>
-    <%= link_to 'Print PDF', users_path(format: 'pdf'), class: 'btn btn-primary pull-right', style: 'margin-right: 3px;' %>
+    <%= link_to 'Print PDF', users_path(format: 'pdf'), class:  'btn btn-primary pull-right', style: 'margin-right: 3px;' %>
     <%= link_to 'Print CSV', users_path(format: 'csv'), class: 'btn btn-primary pull-right', style: 'margin-right: 3px;' %>
-    <%= link_to 'Parents', users_path(role: 'Parent'), class: 'btn btn-info pull-right', style: 'margin-right: 3px;' %>
-    <%= link_to 'Teachers', users_path(role: 'Teacher'), class: 'btn btn-info pull-right', style: 'margin-right: 3px;' %>
-    <%= link_to 'Others', users_path , class: 'btn btn-info pull-right', style: 'margin-right: 3px;' %>
+    <%= link_to 'Parents', users_path(role: 'Parent'), class: @page == 'Parent' ? 'btn btn-warning pull-right' : 'btn btn-info pull-right', style: 'margin-right: 3px;' %>
+    <%= link_to 'Teachers', users_path(role: 'Teacher'), class: @page == 'Teacher' ? 'btn btn-warning pull-right' : 'btn btn-info pull-right', style: 'margin-right: 3px;' %>
+    <%= link_to 'Others', users_path , class: @page == 'Other' ? 'btn btn-warning pull-right' : 'btn btn-info pull-right', style: 'margin-right: 3px;' %>
   </h1>
   <br>
 </div>
