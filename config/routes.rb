@@ -254,11 +254,13 @@ Rails.application.routes.draw do
         post 'promoter'
         post 'promote_students'
         get 'get_classes'
+        post 'publish_result_for_selected_students'
       end
       member do
         get 'add_students'
         get 'add_subjects'
         post 'subject_add'
+        get 'publish_result_for_students'
       end
     end
     resources :batches
