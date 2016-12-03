@@ -1,8 +1,35 @@
 class GradesController < ApplicationController
-  before_action :set_grade, only: [:show, :edit, :update, :destroy, :add_subjects, :subject_add]
+  before_action :set_grade, only: [:show, :edit, :update, :destroy, :add_subjects, :subject_add, :publish_result_for_students]
 
   # GET /grades
   # GET /grades.json
+
+
+  def publish_result_for_students
+    @students = @grade.students
+  end
+
+  def publish_result_for_selected_students
+    student_ids = params[:ids].split(',')
+    puts student_ids
+    grade = Student.find(student_ids.first).grade
+    all_students = grade.students
+    all_students.where.not(id: student_ids).each do |std|
+      std.publish_result = false
+      std.save
+    end
+    all_students.where(id: student_ids).each do |std|
+      std.publish_result = true
+      std.save
+    end
+    publish_result = PublishResult.find_or_create_by(class_id: grade.id, batch_id: grade.batch.id)
+    publish_result.publish = true
+    if publish_result.save
+      get_report_card_urls(grade, grade.batch)
+      msg = 'Results Published Successfully.'
+    end
+
+  end
 
   def add_subjects
     # @subjects = Subject.where(parent: nil).order(:name)
@@ -242,6 +269,21 @@ class GradesController < ApplicationController
   end
 
   private
+
+    def get_report_card_urls(klass, batch)
+      students = klass.students
+      if students.present?
+        students.each do |std|
+          report_card = ReportCard.find_by(student_id: std.id, grade_id: klass.id, batch_id: batch.id)
+          if report_card.present?
+            report_card.update_attributes(
+                quarter_result_url: result_card_url(std.id, klass.id, batch.id),
+                final_result_url: complete_result_card_url(std.id, klass.id, batch.id)
+            )
+          end
+        end
+      end
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_grade
       @grade = Grade.find_by_id(params[:id])
