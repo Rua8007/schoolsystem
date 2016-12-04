@@ -65,7 +65,7 @@ class ReportCardSettingsController < ApplicationController
     @setting = ReportCardSetting.find(params[:id])
     if @setting.update(setting_params)
       unless @setting.marks_divisions.where(name: "Exam Comments").any?
-        exam_comment = @setting.marks_divisions.new({name: "Exam Comments", is_divisible: true})
+        exam_comment = @setting.marks_divisions.new({name: "Exam Comments", is_divisible: false})
         exam_comment.save!
       end
       redirect_to new_headings_path(@setting)

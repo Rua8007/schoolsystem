@@ -188,7 +188,11 @@
                     <% if exams_heading.present? %>
                         <% if setting.marks_divisions.where(is_divisible: false).present? %>
                             <% setting.marks_divisions.where(is_divisible: false).each do |division| %>
+                              <% if division.name != 'Exam Comments' %>
                                 <td class="col-sm-1" style="background-color: <%= exams_heading.color %>"><%= number_with_precision get_division_marks(@report_card, subject, division, exam), precision: 2 %></td>
+                              <% else %>
+                                <td class="col-sm-1" style="background-color: <%= exams_heading.color %>"> <%= get_division_marks(@report_card, subject, division, exam)%> </td>
+                              <% end %>
                             <% end %>
                         <% else %>
                             <th class="col-sm-1" style="background-color: <%= exams_heading.color %>"></th>
