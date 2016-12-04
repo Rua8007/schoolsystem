@@ -141,7 +141,7 @@ module MarksHelper
         avg = avg + marks 
       end
     end
-    avg
+    avg.round(1)
   end
 
   def get_division_marks_avg(report_card, subjects,division, exam)
@@ -156,6 +156,7 @@ module MarksHelper
         end
       end
       avg/subjects.count
+      avg..round(1)
     end
   end
 
@@ -164,7 +165,7 @@ module MarksHelper
     subjects.each do |subject|
       avg = avg + get_divisions_total(report_card, subject, exam, division_ids)
     end
-    avg
+    avg.round(1)
   end
 
   def get_divisions_total(report_card, subject, exam, division_ids)

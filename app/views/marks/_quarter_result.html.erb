@@ -238,7 +238,7 @@
                 <th class="col-sm-1"></th>
             <% end %>
             <% if exams_total_heading.present? %>
-              <td><%= get_divisions_total_avg(@report_card, subjects, exam, setting.marks_divisions.where(is_divisible: false).pluck(:id) ) %></td>
+              <td><%= get_divisions_total_avg(@report_card, subjects, exam, setting.marks_divisions.where(is_divisible: false).pluck(:id)) %></td>
             <% end %>
             <% if quarter_total_heading.present? %>
                 <td class="col-sm-1" ><%= number_with_precision get_quarter_total_avg(@report_card, subjects, exam), precision: 2 %></td>
