@@ -17,15 +17,18 @@
 </style>
 
 <div class="well well-lg">
-  <div class="col-md-6"></div>
-    <h4>Student Name:           <%= @student.fullname %></h4>
-    <h4>Student ID:             <%= @student.rollnumber %></h4>
-    <h4>Grade:                  <%= @class.full_name %></h4>
+  <div class="row">
+    <div class="col-md-6">
+      <h4>Student Name:           <%= @student.fullname %></h4>
+      <h4>Student ID:             <%= @student.rollnumber %></h4>
+      <h4>Grade:                  <%= @class.full_name %></h4>
+    </div>
+    <div class="col-md-6">
+      <h4>Father's Name:           <%= @student.father_name %></h4>
+      <h4>Batch:             <%= @class.batch.name %></h4>
+    </div>
   </div>
-  <div class="col-md-6"></div>
-    <h4>Father's Name:           <%= @student.father_name %></h4>
-    <h4>Batch:                  <%= @class.batch.name rescue 'N/A' %></h4>
-  </div>
+  
 </div>
 <% @exams.each do |exam| %>
     <h3 class="text-center col-md-11"><%= exam.name %></h3>
