@@ -146,7 +146,7 @@ module MarksHelper
 
   def get_division_marks_avg(report_card, subjects,division, exam)
     if division.name == 'Exam Comments'
-      '- - -'
+      return '- - -'
     else
       avg = 0
       subjects.each do |subject|
@@ -156,7 +156,7 @@ module MarksHelper
         end
       end
       avg/subjects.count
-      avg..round(1)
+      avg.round(1)
     end
   end
 
