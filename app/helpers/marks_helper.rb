@@ -110,16 +110,20 @@ module MarksHelper
     if subject.sub_subjects.present?
       marks = 0
       if division.name == "Exam Comments"
+        marks = ''
         subject.sub_subjects.each do |sub_subject|
-          marks = ''
-          marks = marks +" "+(report_card.marks.find_by(subject_id: sub_subject.id, division_id: division.id, exam_id: exam.id).sessionals.last.try(:comments) || '') if report_card.marks.find_by(subject_id: sub_subject.id, division_id: division.id, exam_id: exam.id).present?
+          if marks == ''
+            marks = (report_card.marks.find_by(subject_id: sub_subject.id, division_id: division.id, exam_id: exam.id).sessionals.last.try(:comments) || '') if report_card.marks.find_by(subject_id: sub_subject.id, division_id: division.id, exam_id: exam.id).present?
+          else
+            marks = marks + ","+(report_card.marks.find_by(subject_id: sub_subject.id, division_id: division.id, exam_id: exam.id).sessionals.last.try(:comments) || '') if report_card.marks.find_by(subject_id: sub_subject.id, division_id: division.id, exam_id: exam.id).present?
+          end
         end
       else
         subject.sub_subjects.each do |sub_subject|
           marks = marks + (report_card.marks.find_by(subject_id: sub_subject.id, division_id: division.id, exam_id: exam.id).try(:obtained_marks) || 0) * (sub_subject.weight/100.00)
         end
       end
-      marks
+      marks || 'N/A'
     else
       if division.name == "Exam Comments" && report_card.marks.find_by(subject_id: subject.id, division_id: division.id, exam_id: exam.id).present?
         report_card.marks.find_by(subject_id: subject.id, division_id: division.id, exam_id: exam.id).sessionals.last.try(:comments)
@@ -127,6 +131,40 @@ module MarksHelper
         report_card.marks.find_by(subject_id: subject.id, division_id: division.id, exam_id: exam.id).try(:obtained_marks)
       end
     end
+  end
+
+  def get_quarter_total_avg(report_card, subjects, exam)
+    avg = 0
+    subjects.each do |subject|
+      marks =  get_quarter_total(@report_card, subject, exam)
+      unless marks.nil?
+        avg = avg + marks 
+      end
+    end
+    avg
+  end
+
+  def get_division_marks_avg(report_card, subjects,division, exam)
+    if division.name == 'Exam Comments'
+      '- - -'
+    else
+      avg = 0
+      subjects.each do |subject|
+        marks =  get_division_marks(report_card, subject,division,exam)
+        unless marks.nil?
+          avg = avg + marks 
+        end
+      end
+      avg/subjects.count
+    end
+  end
+
+  def get_divisions_total_avg(report_card, subjects, exam, division_ids)
+    avg = 0
+    subjects.each do |subject|
+      avg = avg + get_divisions_total(report_card, subject, exam, division_ids)
+    end
+    avg
   end
 
   def get_divisions_total(report_card, subject, exam, division_ids)
