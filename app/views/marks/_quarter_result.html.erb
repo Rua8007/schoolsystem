@@ -221,7 +221,7 @@
             <% if setting.marks_divisions.where(is_divisible: true).present? %>
                 <td>Average</td>
                 <% setting.marks_divisions.where(is_divisible: true).each do |division| %>
-                  <td><%= number_with_precision get_division_marks_avg(@report_card, subjects, division, exam), precision: 2 %></td>
+                  <td></td>
                 <% end %>
                 <% if termwork_total_heading.present? %>
                   <td><%= number_with_precision get_divisions_total_avg(@report_card, subjects, exam, setting.marks_divisions.where(is_divisible: true).pluck(:id) )/subjects.count, precision: 2%></td>
@@ -250,7 +250,7 @@
             <% if setting.marks_divisions.where(is_divisible: true).present? %>
                 <td>Total</td>
                 <% setting.marks_divisions.where(is_divisible: true).each do |division| %>
-                  <td><%= number_with_precision get_division_marks_avg(@report_card, subjects, division, exam)*subjects.count, precision: 2 %></td>
+                  <td></td>
                 <% end %>
                 <% if termwork_total_heading.present? %>
                   <td><%= number_with_precision get_divisions_total_avg(@report_card, subjects, exam, setting.marks_divisions.where(is_divisible: true).pluck(:id)), precision: 2%></td>
@@ -278,7 +278,39 @@
                 <td class="col-sm-1" ><%= number_with_precision get_quarter_total_avg(@report_card, subjects, exam), precision: 2 %></td>
             <% end %>
             <td><%= number_with_precision (get_quarter_total_avg(@report_card, subjects, exam)/(setting.marks_divisions.try(:sum, :total_marks)*subjects.count) * 100), precision: 2 %>%</td>
-          </tr>          
+          </tr>
+          <tr style="background-color: bisque !important; font-size: larger !important; font-weight: bold !important">
+            <% if setting.marks_divisions.where(is_divisible: true).present? %>
+                <td>Max</td>
+                <% setting.marks_divisions.where(is_divisible: true).each do |division| %>
+                  <td></td>
+                <% end %>
+                <% if termwork_total_heading.present? %>
+                  <td><%= setting.marks_divisions.where(is_divisible: true).try(:sum, :total_marks)*subjects.count%></td>
+                <% end %>
+            <% else %>
+                <th class="col-sm-1"></th>
+            <% end %>
+
+            <% if setting.marks_divisions.where(is_divisible: false).present? %>
+                <% setting.marks_divisions.where(is_divisible: false).each do |division| %>
+                  <% if division.name == 'Exam Comments' %>
+                    <td><%= number_with_precision get_division_marks_avg(@report_card, subjects, division, exam) %></td>
+                  <% else %>  
+                    <td><%= division.total_marks*subjects.count %></td>
+                  <% end %>
+                <% end %>
+            <% else %>
+                <th class="col-sm-1"></th>
+            <% end %>
+            <% if exams_total_heading.present? %>
+              <td><%= setting.marks_divisions.where(is_divisible: false).try(:sum, :total_marks)*subjects.count %></td>
+            <% end %>
+            <% if quarter_total_heading.present? %>
+                <td class="col-sm-1" ><%= setting.marks_divisions.try(:sum, :total_marks)*subjects.count %></td>
+            <% end %>
+            <td>100%</td>
+          </tr>         
         </tbody>
       </table>
     </div>
