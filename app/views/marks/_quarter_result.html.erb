@@ -217,7 +217,7 @@
                   </tr>
               <% end %>
           <% end %>
-          <tr style="background-color: #535362 !important; font-weight: bold !important">
+          <tr style="background-color: #B9B9C8 !important; font-weight: bold !important">
             <% if setting.marks_divisions.where(is_divisible: true).present? %>
                 <td>Average</td>
                 <% setting.marks_divisions.where(is_divisible: true).each do |division| %>
@@ -246,7 +246,7 @@
             <td><%= number_with_precision (get_quarter_total_avg(@report_card, subjects, exam)/(setting.marks_divisions.try(:sum, :total_marks)*subjects.count) * 100), precision: 2 %>%</td>
           </tr>
 
-          <tr style="background-color: #535362 !important; font-weight: bold !important">
+          <tr style="background-color: #B9B9C8 !important; font-weight: bold !important">
             <% if setting.marks_divisions.where(is_divisible: true).present? %>
                 <td>Total</td>
                 <% setting.marks_divisions.where(is_divisible: true).each do |division| %>
@@ -279,7 +279,7 @@
             <% end %>
             <td><%= number_with_precision (get_quarter_total_avg(@report_card, subjects, exam)/(setting.marks_divisions.try(:sum, :total_marks)*subjects.count) * 100), precision: 2 %>%</td>
           </tr>
-          <tr style="background-color: #535362 !important; font-weight: bold !important">
+          <tr style="background-color: #B9B9C8 !important; font-weight: bold !important">
             <% if setting.marks_divisions.where(is_divisible: true).present? %>
                 <td>Max</td>
                 <% setting.marks_divisions.where(is_divisible: true).each do |division| %>
