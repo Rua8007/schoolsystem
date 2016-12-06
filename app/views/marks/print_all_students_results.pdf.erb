@@ -38,7 +38,9 @@
               <%= render partial: 'marks/quarter_result.html.erb', locals: {exam: exam } %>
               <div class="page-break"></div>
               <h3>Exam Comments Details</h3>
-              <%= render 'marks/exam_comments' %>
+              <div class="container fluid">
+                <%= render 'marks/exam_comments' %>                
+              </div>
               <div class="page-break"></div>
             <% end %>
         <% end %>
