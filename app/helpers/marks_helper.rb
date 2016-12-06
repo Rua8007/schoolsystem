@@ -118,9 +118,13 @@ module MarksHelper
             marks = marks + ","+(report_card.marks.find_by(subject_id: sub_subject.id, division_id: division.id, exam_id: exam.id).sessionals.last.try(:comments) || '') if report_card.marks.find_by(subject_id: sub_subject.id, division_id: division.id, exam_id: exam.id).present?
           end
         end
-        marks.chomp(',')
-        marks[0] = '' if marks[0] == ','
-        marks.squeeze(',')
+        unless marks.nil?
+          marks.chomp(',') 
+          marks[0] = '' if marks[0] == ','
+          marks.squeeze(',') 
+          marks = marks.split(',').uniq.join(',')
+        end
+        
       else
         subject.sub_subjects.each do |sub_subject|
           marks = marks + (report_card.marks.find_by(subject_id: sub_subject.id, division_id: division.id, exam_id: exam.id).try(:obtained_marks) || 0) * (sub_subject.weight/100.00)
@@ -130,9 +134,12 @@ module MarksHelper
     else
       if division.name == "Exam Comments" && report_card.marks.find_by(subject_id: subject.id, division_id: division.id, exam_id: exam.id).present?
         marks = report_card.marks.find_by(subject_id: subject.id, division_id: division.id, exam_id: exam.id).sessionals.last.try(:comments)
-        marks.chomp(',')
-        marks[0] = '' if marks[0] == ','
-        marks.squeeze(',')
+        unless marks.nil?
+          marks.chomp(',') 
+          marks[0] = '' if marks[0] == ','
+          marks.squeeze(',')
+          marks = marks.split(',').uniq.join(',')
+        end
       else
         report_card.marks.find_by(subject_id: subject.id, division_id: division.id, exam_id: exam.id).try(:obtained_marks)
       end
