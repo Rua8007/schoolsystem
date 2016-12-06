@@ -16,6 +16,9 @@
       </table>
       <%= render partial: 'marks/quarter_result.html.erb', locals: {exam: @exam } %>
       <div class="page-break"></div>
+      <h3>Exam Comments Details</h3>
+      <%= render 'marks/exam_comments' %>
+      <div class="page-break"></div>
     <% else %>
         <% @exams.each do |exam| %>
             <% setting = @settings.find_by_exam_id(exam.id) %>
@@ -33,7 +36,10 @@
                 </tr>
               </table>
               <%= render partial: 'marks/quarter_result.html.erb', locals: {exam: exam } %>
-              <!-- <div class="page-break"></div> -->
+              <div class="page-break"></div>
+              <h3>Exam Comments Details</h3>
+              <%= render 'marks/exam_comments' %>
+              <div class="page-break"></div>
             <% end %>
         <% end %>
     <% end %>
