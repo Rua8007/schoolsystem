@@ -2,7 +2,7 @@
     <% @student = std %>
     <% @report_card = ReportCard.find_by(student_id: @student.id, grade_id: @class.id, batch_id: @batch.id) %>
     <% if @exam.present? %>
-      <table class="table table-bordered col-md-12" style="font-weight: bold;">
+      <table class="table table-bordered col-md-12" style="font-weight: bold; padding-bottom: 0px !important; margin-top: 0px !important">
         <tr>
           <td>Name: <%= @student.fullname %></td>
           <td>ID: <%= @student.rollnumber %></td>
@@ -20,7 +20,7 @@
         <% @exams.each do |exam| %>
             <% setting = @settings.find_by_exam_id(exam.id) %>
             <% if setting.present? %>
-              <table class="table table-bordered col-md-12" style="font-weight: bold;">
+              <table class="table table-bordered col-md-12" style="font-weight: bold; padding-bottom: 0px !important; margin-top: 0px !important ">
                 <tr>
                   <td>Name: <%= @student.fullname %></td>
                   <td>ID: <%= @student.rollnumber %></td>
