@@ -308,7 +308,7 @@ class StudentsController < ApplicationController
         end
       else
         save_attendances_helper(params)
-        Notification.create(user_id: current_user.id, activity: "Marked Attendence of grade #{Grade.find(params[:grade]).full_name} for #{params[:attendance_date])} ")
+        Notification.create(user_id: current_user.id, activity: "Marked Attendence of grade #{Grade.find(params[:grade]).full_name} for #{params[:attendance_date]} ")
         flash[:success] = "Successfully Marked Attendances."
       end
     else
