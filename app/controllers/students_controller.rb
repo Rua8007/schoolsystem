@@ -308,7 +308,7 @@ class StudentsController < ApplicationController
         end
       else
         save_attendances_helper(params)
-        Notification.create(user_id: current_user.id, activity: "Marked Attendence of grade #{Grade.find(params[:grade]).full_name} for #{params[:attendance_date].to_date)} ")
+        Notification.create(user_id: current_user.id, activity: "Marked Attendence of grade #{Grade.find(params[:grade]).full_name} for #{params[:attendance_date])} ")
         flash[:success] = "Successfully Marked Attendances."
       end
     else
@@ -400,6 +400,8 @@ class StudentsController < ApplicationController
       std = Student.deleted.find(params[:id])
       std.is_deleted = false
       std.save
+      Notification.create(user_id: current_user.id, activity: "Deleted Student with ID #{std.rollnumber} from grade #{std.grade.name}")
+
       # return render json: params
       redirect_to students_path(deleted: true),notice: "Student has been Restored Successfully...!!!"
     else
