@@ -54,6 +54,7 @@ class BridgesController < ApplicationController
     b.subject_id = params[:subject_id]
     b.employee_id = params[:employee_id]
     b.save
+    Notification.create(user_id: current_user.id, activity: "Assigned #{b.subject.name} to #{b.employee.full_name} for grade #{b.grade.full_name}")
     redirect_to  grades_path({grade_name: Grade.find(params[:grade_id]).name})
   end
 
@@ -61,6 +62,7 @@ class BridgesController < ApplicationController
   # POST /bridges.json
   def create
     @bridge = Bridge.new(bridge_params)
+    Notification.create(user_id: current_user.id, activity: "Added assignment of #{@bridge.subject.try(:name)} to #{@bridge.employee.try(:full_name)} for grade #{@bridge.grade.try(:full_name)}")
 
     respond_to do |format|
       if @bridge.save
@@ -108,7 +110,7 @@ class BridgesController < ApplicationController
   # DELETE /bridges/1
   # DELETE /bridges/1.json
   def destroy
-
+    Notification.create(user_id: current_user.id, activity: "Deleted assignment of #{@bridge.subject.name} to #{@bridge.employee.full_name} for grade #{@bridge.grade.full_name}")
     @bridge.destroy
     respond_to do |format|
       format.html { redirect_to :back, notice: 'Subject Assignment was successfully destroyed.' }

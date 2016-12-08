@@ -77,6 +77,7 @@ class MarksController < ApplicationController
       end
     end
     sessional.delete
+    Notification.create(user_id: current_user.id, activity: "Deleted marks of #{@exam.name}, grade #{@grade.full_name}, subject #{ReportCardSubject.find(report_card_subject_id).name}, #{@marks_division.name} ")
     redirect_to marks_path, alert: "Record Has Been Deleted...!!!"
   end
 
@@ -183,7 +184,7 @@ class MarksController < ApplicationController
         end
       end
     end
-
+    Notification.create(user_id: current_user.id, activity: "Entered marks for #{@exam.name}, #{@class.full_name} #{@subject.name} #{@marks_division.name}")
     redirect_to enter_division_marks_path( @class.id, @subject.id, @exam.id, @marks_division.id)
   end
 

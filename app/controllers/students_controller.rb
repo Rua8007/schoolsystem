@@ -91,6 +91,8 @@ class StudentsController < ApplicationController
         emergency.phone = params[:student][:emergency][:phone]
         emergency.email = params[:student][:emergency][:email]
         emergency.save
+        
+        Notification.create(user_id: current_user.id, activity: "Registered New Student with ID #{@student.rollnumber} in grade #{@student.grade.name}")
 
         redirect_to new_parent_path(student_id: @student.id), notice: "Student added"
       else
@@ -133,11 +135,14 @@ class StudentsController < ApplicationController
         emergency.phone = params[:student][:emergency][:phone]
         emergency.email = params[:student][:emergency][:email]
         emergency.save
+        Notification.create(user_id: current_user.id, activity: "Updated Information of Student with ID #{@student.rollnumber} in grade #{@student.grade.name}")
+
         if @student.parent.present?
           redirect_to edit_parent_parent_path(@student.parent_id), notice: "Student Successfully updated"
         else
           redirect_to new_parent_path(student_id: @student.id), notice: "Student Successfully updated"
         end
+
       else
         # return render json: @student
         render 'edit'
@@ -303,6 +308,7 @@ class StudentsController < ApplicationController
         end
       else
         save_attendances_helper(params)
+        Notification.create(user_id: current_user.id, activity: "Marked Attendence of grade #{Grade.find(params[:grade]).full_name} for #{params[:attendance_date].to_date)} ")
         flash[:success] = "Successfully Marked Attendances."
       end
     else

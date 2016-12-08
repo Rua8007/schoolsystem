@@ -14,6 +14,7 @@ class GradesController < ApplicationController
     puts student_ids
     grade = Student.find(student_ids.first).grade
     all_students = grade.students
+    Notification.create(user_id: current_user.id, activity: "Published Result for #{student_ids.count} students of #{grade.full_name}")
     all_students.where.not(id: student_ids).each do |std|
       std.publish_result = false
       std.save
@@ -97,6 +98,7 @@ class GradesController < ApplicationController
         a.delete if a.present?
       end
     end
+    Notification.create(user_id: current_user.id, activity: "Updated Subjects to (#{Subject.where(id: @grade.associations.pluck(:subject_id)).pluck(:name).join(',')}) for Grade #{@grade.full_name}")
     @classes = Grade.where("name = '#{@grade.name}' AND section IS NOT NULL")
     if @classes.present?
       redirect_to grades_path({grade_name: @grade.name}), notice: "Subjects has been added successfully...!!!"
@@ -125,6 +127,7 @@ class GradesController < ApplicationController
         s.save!
       end
     end
+    Notification.create(user_id: current_user.id, activity: "Added students to #{Grade.find(params[:grade_id]).full_name}")
     redirect_to all_student_grades_path({grade_id: params[:grade_id]}), notice: "Students added to the Class successfully"
   end
 
@@ -203,6 +206,7 @@ class GradesController < ApplicationController
   def create
     @grade = Grade.new(grade_params)
     if @grade.save
+      Notification.create(user_id: current_user.id, activity: "Created New grade #{@grade.full_name} in Batch #{@grade.batch.try(:name)}")
       if params[:maingrade]
         redirect_to add_subjects_grade_path(@grade.id), notice: "Class Added Successfully"
       else

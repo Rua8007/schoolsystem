@@ -292,46 +292,103 @@
       </div>
     </div>
 <% else %>
+  <% if current_user.role.name == 'superuser' %>
+<!-- 
+   -->
+      <div class="bg-light lter b-b wrapper-md">
+        <div class="row">
+          <div class="col-sm-6 col-xs-12">
+            <h1 class="m-n font-thin h3 text-black">Dashboard</h1>
+          </div>
+        </div>
+      </div>
+      <div class="row row-sm text-center col-sm-6">
+        <h3>Insights</h3>
+        <br>
+        <div class="col-xs-6">
+          <div class="panel padder-v item" style="background-color: orange;">
+            <div class="h1 text-info font-thin h1" style=" color: white !important"><%= Student.count %></div>
+            <span class=" text-xs" style=" color: white !important">Students</span>
+          </div>
+        </div>
+        <div class="col-xs-6">
+          <a href class="block panel padder-v bg-primary item">
+            <span class="text-white font-thin h1 block"><%= Employee.count %></span>
+            <span class="text-muted text-xs">Teachers</span>
+          </a>
+        </div>
+        <div class="col-xs-6">
+          <a href class="block panel padder-v bg-info item">
+            <span class="text-white font-thin h1 block"><%= Grade.where.not(section: nil).count %></span>
+            <span class="text-muted text-xs">Grades</span>
+          </a>
+        </div>
+        <div class="col-xs-6">
+          <div class="panel padder-v item" style="background-color: blueviolet">
+            <div class="font-thin h1" style=" color: white !important"><%= Student.where(publish_result: false).count %></div>
+            <span class="text-xs" style=" color: white !important">Un-Published Results</span>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <a href="http://www.accuweather.com/en/sa/jeddah/299429/weather-forecast/299429" class="aw-widget-legal">
+          </a><div id="awcc1481230737131" class="aw-widget-current"  data-locationkey="299429" data-unit="f" data-language="en-us" data-useip="false" data-uid="awcc1481230737131"></div><script type="text/javascript" src="http://oap.accuweather.com/launch.js"></script>
+        </div>
+          
+      </div>
 
-  <div id="myCarousel" class="carousel slide " data-ride="carousel">
-    <ol class="carousel-indicators">
-      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-      <li data-target="#myCarousel" data-slide-to="1"></li>
-      <li data-target="#myCarousel" data-slide-to="2"></li>
-      <li data-target="#myCarousel" data-slide-to="3"></li>
-    </ol>
 
-  <div class="carousel-inner" role="listbox" style=" margin-top:30px; max-height:300px;">
-    <div class="item active">
-      <%= image_tag "a.jpg", alt: ".", class: 'img-responsive', style: "padding-left:10px;"%>
+
+      <div class="list-group list-group-lg list-group-sp col-md-6" >  
+        <h3 class="text-center">Recent Activities</h3>
+        <br>
+        <% Notification.where('created_at >= ?', 1.week.ago).try(:each) do |noti| %>
+          <a herf class="list-group-item clearfix" >
+            <span class="pull-left thumb-sm avatar m-r">
+              <%= image_tag noti.image %>
+            </span>
+            <span class="" >
+              <span><%= noti.user.email.split('@').first+"@ ( at #{(noti.created_at+3.hour).strftime('%d/%B/%Y - %I:%M%p')})" %> </span>
+              <br>
+              <small class="text-muted " style="word-wrap: break-word !important;"><%= noti.activity %></small>
+            </span>
+          </a>
+        <% end %>
+      </div>
+
+
+    <!-- <div id='calendar' class="ui-widget" > -->
     </div>
+  <% else %>
+    <div id="myCarousel" class="carousel slide " data-ride="carousel">
+        <ol class="carousel-indicators">
+          <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+          <li data-target="#myCarousel" data-slide-to="1"></li>
+          <li data-target="#myCarousel" data-slide-to="2"></li>
+          <li data-target="#myCarousel" data-slide-to="3"></li>
+        </ol>
 
-    <div class="item">
-      <%= image_tag "b.jpg", alt: ".", class: 'img-responsive', style: "padding-left:10px;"%>
-    </div>
-  </div>
+      <div class="carousel-inner" role="listbox" style=" margin-top:30px; max-height:300px;">
+        <div class="item active">
+          <%= image_tag "a.jpg", alt: ".", class: 'img-responsive', style: "padding-left:10px;"%>
+        </div>
 
-  <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
-  </div>
+        <div class="item">
+          <%= image_tag "b.jpg", alt: ".", class: 'img-responsive', style: "padding-left:10px;"%>
+        </div>
+      </div>
 
+      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+          </div>
 
-<div id='calendar' class="ui-widget" >
-</div>
+  <% end %>
 <%end%>
-
-
-
-
-
-
-
 
 
 
