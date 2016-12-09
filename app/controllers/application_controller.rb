@@ -10,6 +10,8 @@ class ApplicationController < ActionController::Base
 
   layout :layout_by_resource
 
+  before_filter :configure_permitted_parameters, if: :devise_controller?
+
   # rescue_from ActiveRecord::RecordNotFound do
   # flash[:warning] = 'Resource not found.'
   # redirect_back_or root_path
@@ -40,5 +42,9 @@ class ApplicationController < ActionController::Base
 
   def default_url_options(options = {})
     { :locale => I18n.locale }
+  end
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:account_update, keys: [:email, :image, :password, :password_confirmation])
   end
 end

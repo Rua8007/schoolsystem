@@ -326,7 +326,7 @@ class MarksController < ApplicationController
       @exam = params[:exam_id].present? ? Exam.find(params[:exam_id]) : @exams.first
 
       @setting = ReportCardSetting.find_by(grade_id: @main_grade.id, batch_id: @batch.id, exam_id: @exam.id)
-      @subjects = @setting.subjects.where(parent_id: nil).order('name')
+      @subjects = @setting.subjects.where.not(id: @setting.subjects.pluck(:parent_id).uniq).order('name')
       @subject = params[:subject_id].present? ? ReportCardSubject.find(params[:subject_id]) : @subjects.first
     end
 

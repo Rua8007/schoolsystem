@@ -11,7 +11,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable
 
-   acts_as_messageable
+  acts_as_messageable
+  mount_uploader :image, ImageUploader
 
   belongs_to :role
   has_many :fees

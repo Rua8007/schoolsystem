@@ -1,6 +1,6 @@
 <style>
-  .division{  float: left; height: 40px; min-width: 100px; max-width: 108px; background-color: #3A539B; color: #fff; padding: 3%; text-align: center;  }
-  .division-marks{ float: left; height: 40px; min-width: 100px; max-width: 105px; color: #3A539B; background-color: #fff; padding: 3%; text-align: center;}
+  .division{  float: left; height: 40px; min-width: 100px; max-width: 110px; background-color: #3A539B; color: #fff; padding: 3%; text-align: center;  }
+  .division-marks{ float: left; height: 40px; min-width: 100px; max-width: 108px; color: #3A539B; background-color: #fff; padding: 3%; text-align: center;}
 </style>
 <br />
 <div class="" style="display: table; margin: 0 auto;">
@@ -148,7 +148,7 @@
     function drawChart(){
         var data = [['Division', 'Marks']];
         <% @setting.marks_divisions.where.not(name: 'Exam Comments').order('name').where(is_divisible: true).try(:each) do |division| %>
-        data.push(['<%= division.name %>', <%= (@report_card.marks.where(division_id: division.id, subject_id: @subject.id, exam_id: @exam.id).try(:sum, :obtained_marks) || 0)  %>]);
+        data.push(['<%= division.name %>', <%= (@report_card.marks.where(division_id: division.id, subject_id: @subject.id, exam_id: @exam.id).try(:sum, :obtained_marks)*100/@report_card.marks.where(division_id: division.id, subject_id: @subject.id, exam_id: @exam.id).try(:sum, :total_marks) || 0)%>]);
         <% end %>
         console.log(data[0]);
         var graph_data = new google.visualization.arrayToDataTable(data);
