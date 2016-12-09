@@ -116,7 +116,7 @@
                 <% if current_user && current_user.role == 'student' %>
                   <%= image_tag Student.find_by_email(current_user.email).image, alt: "..." %>
                 <% else %>
-                  <%= image_tag asset_path("img/a0.jpg"), alt: "..." %>
+                  <%= image_tag current_user.image.present? ? current_user.image : asset_path("img/a0.jpg"), alt: "..." %>
                 <% end %>
                 <i class="on md b-white bottom"></i>
               </span>
