@@ -104,7 +104,7 @@ class MarksController < ApplicationController
   end
 
   def enter_marks
-    if current_user.role.rights.where(value: 'enter_marks').any?
+    unless current_user.role.rights.where(value: 'enter_marks').any?
       redirect_to root_path, alert: 'You are not authorized'
     end
     @max_allowed = Performance.max_allowed
