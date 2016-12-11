@@ -7,6 +7,10 @@ class EmailService
     @params = params
   end
 
+  def send_direct(body,send_to)
+    NotificationMailer.generic_email(send_to, body).deliver
+  end
+
   def send_email
     if @params[:all_students]
       send_to_all(@params[:msgbdy], 'Student')
@@ -29,6 +33,10 @@ class EmailService
     end
 
     if @params[:student].present?
+      puts "cam here"
+      puts "cam here"
+      puts "cam here"
+      puts "cam here"
       send_to_students @params[:msgbdy], @params[:students]
     end
 
@@ -63,6 +71,11 @@ class EmailService
   end
 
   def send_to_students(msg, student_ids)
+      puts "cam"
+      puts "cam"
+      puts "cam"
+      puts "cam"
+
     student_ids.try(:each) do |std_id|
       std = Student.find(std_id)
       StudentEmail.template = msg

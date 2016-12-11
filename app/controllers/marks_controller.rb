@@ -6,6 +6,9 @@ class MarksController < ApplicationController
   # GET /marks
   # GET /marks.json
   def index
+    if current_user.role.name == 'Parent'
+      redirect_to root_path, alert: "You are not authorized"
+    end
     @grades = Grade.where(section: nil).order('name')
     @bridges = get_employee_bridges(current_user)
     @classes = []
@@ -101,6 +104,9 @@ class MarksController < ApplicationController
   end
 
   def enter_marks
+    if current_user.role.rights.where(value: 'enter_marks').any?
+      redirect_to root_path, alert: 'You are not authorized'
+    end
     @max_allowed = Performance.max_allowed
     @class = Grade.find(params[:grade_id])
     @exam = Exam.find(params[:exam_id])
