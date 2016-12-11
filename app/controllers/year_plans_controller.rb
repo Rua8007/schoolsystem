@@ -181,8 +181,8 @@ class YearPlansController < ApplicationController
       schedule.classwork = class_works[index] if class_works.present?
       schedule.save
     end
-    subjects = GradeSubject.where(id: schedule_ids)
-    Notification.create(user_id: current_user.id, activity: "Updated Weekly Plan for #{Subject.where(id: subjects.pluck(:subject_id)).pluck(:name))}"  )
+    subjects = GradeSubject.where(id: schedule_ids).pluck(:subject_id)
+    Notification.create(user_id: current_user.id, activity: "Updated Weekly Plan for #{Subject.where(id: subjects).pluck(:name)}"  )
 
     flash[:notice] = 'Request Completed.'
     redirect_to root_path
@@ -211,7 +211,6 @@ class YearPlansController < ApplicationController
         if usr.present?
           @weekly_plans << {weekly_plan: wp, teacher_name: br.employee.full_name, teacher_id: usr.id}
         else
-          # puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
         end
       else
         # puts "-------------------------------"
