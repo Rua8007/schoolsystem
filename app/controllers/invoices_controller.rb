@@ -73,6 +73,8 @@ class InvoicesController < ApplicationController
         temp.save
       end
     end
+    Notification.create(user_id: current_user.id, activity: "Created A New Bookshop Invoice "  )
+
     # return render json: params
     # @invoice = Invoice.new(invoice_params)
 

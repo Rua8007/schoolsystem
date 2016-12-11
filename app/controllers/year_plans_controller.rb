@@ -40,6 +40,7 @@ class YearPlansController < ApplicationController
   # POST /year_plans.json
   def create
     @year_plan = YearPlan.new(year_plan_params)
+    Notification.create(user_id: current_user.id, activity: "Created Weekly Plan #{@year_plan.name}"  )
 
     respond_to do |format|
       if @year_plan.save
@@ -160,6 +161,17 @@ class YearPlansController < ApplicationController
   end
 
   def update_weekly_schedule
+    puts "======="
+    puts "======="
+    puts "======="
+    puts "======="
+    puts "======="
+    puts "======="
+    puts "======="
+    puts "======="
+    puts "======="
+    puts "======="
+    puts "======="
     schedule_ids = params[:ids]
     class_works = params[:classworks]
     home_works = params[:homeworks]
@@ -169,6 +181,9 @@ class YearPlansController < ApplicationController
       schedule.classwork = class_works[index] if class_works.present?
       schedule.save
     end
+    subjects = GradeSubject.where(id: schedule_ids)
+    Notification.create(user_id: current_user.id, activity: "Updated Weekly Plan for #{Subject.where(id: subjects.pluck(:subject_id)).pluck(:name))}"  )
+
     flash[:notice] = 'Request Completed.'
     redirect_to root_path
   end

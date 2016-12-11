@@ -48,6 +48,7 @@ class PurchasesController < ApplicationController
 
     end
 
+    Notification.create(user_id: current_user.id, activity: "Created A New Purchase Request "  )
 
   redirect_to purchases_path
   end

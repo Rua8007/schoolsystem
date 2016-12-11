@@ -64,6 +64,7 @@ class CurriculumsController < ApplicationController
           params[:curriculum_detail_months].each_with_index do |detail_months,i|
             @curriculum.curriculum_details.create!(month: params[:curriculum_detail_months][i], day: params[:curriculum_detail_days][i].to_i, sol: params[:curriculum_detail_sols][i], strand: params[:curriculum_detail_strands][i], content: params[:curriculum_detail_contents][i], skill: params[:curriculum_detail_skills][i], activity: params[:curriculum_detail_activities][i],assessment: params[:curriculum_detail_assessments][i])
           end
+          Notification.create(user_id: current_user.id, activity: "Added Curriculums for #{@curriculum.subject.try(:name)}, grade #{@curriculum.grade.try(:full_name)}"  )
 
           format.html { redirect_to curriculums_path(year_plan: @year_plan.id), notice: 'Curriculum was successfully created. And requested for approval' }
           format.json { render :show, status: :created, location: @curriculum }

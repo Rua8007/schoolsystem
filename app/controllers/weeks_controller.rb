@@ -65,6 +65,7 @@ class WeeksController < ApplicationController
 
     respond_to do |format|
       if @week.save
+        Notification.create(user_id: current_user.id, activity: "Created A new Week Starting From #{@week.start_date} till #{@week.end_date} "  )
         # @week.year_week_id = @year_plan.weeks.count
         # @week.save!
 
@@ -147,6 +148,8 @@ class WeeksController < ApplicationController
         end
       end
     end
+    Notification.create(user_id: current_user.id, activity: "Added Weekly Plan for #{subject.name}, grade #{grade.full_name}"  )
+
     flash[:success] = "Success"
     redirect_to root_path
   end

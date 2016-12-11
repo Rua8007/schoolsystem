@@ -320,7 +320,7 @@
         <div class="col-xs-6">
           <a href class="block panel padder-v bg-info item">
             <span class="text-white font-thin h1 block"><%= Grade.where.not(section: nil).count %></span>
-            <span class="text-muted text-xs">Grades</span>
+            <span class="text-muted text-xs">Classes</span>
           </a>
         </div>
         <div class="col-xs-6">
@@ -331,18 +331,21 @@
         </div>
         <div class="col-md-12">
           <a href="http://www.accuweather.com/en/sa/jeddah/299429/weather-forecast/299429" class="aw-widget-legal">
-          </a><div id="awcc1481230737131" class="aw-widget-current"  data-locationkey="299429" data-unit="f" data-language="en-us" data-useip="false" data-uid="awcc1481230737131"></div><script type="text/javascript" src="http://oap.accuweather.com/launch.js"></script>
+<!--
+          By accessing and/or using this code snippet, you agree to AccuWeather’s terms and conditions (in English) which can be found at http://www.accuweather.com/en/free-weather-widgets/terms and AccuWeather’s Privacy Statement (in English) which can be found at http://www.accuweather.com/en/privacy.
+          -->
+          </a><div id="awcc1481312877208" class="aw-widget-current"  data-locationkey="299429" data-unit="f" data-language="en-us" data-useip="false" data-uid="awcc1481312877208"></div><script type="text/javascript" src="http://oap.accuweather.com/launch.js"></script>
         </div>
           
       </div>
 
 
 
-      <div class="list-group list-group-lg list-group-sp col-md-6" >  
+      <div class="list-group list-group-lg list-group-sp col-md-6" style="height: 100% !important; overflow-y: scroll;" >  
         <h3 class="text-center">Recent Activities</h3>
         <br>
-        <% Notification.where('created_at >= ?', 1.week.ago).try(:each) do |noti| %>
-          <a herf class="list-group-item clearfix" >
+        <% Notification.where('created_at >= ?', 1.week.ago).order("created_at desc").try(:each) do |noti| %>
+          <a herf class="list-group-item clearfix" style="background-color: aliceblue" >
             <span class="pull-left thumb-sm avatar m-r">
               <%= image_tag noti.image %>
             </span>
@@ -394,6 +397,9 @@
 
 <style type="text/css">
 .ui-widget { font-family: Lucida Grande, Lucida Sans, Arial, sans-serif; font-size: 0.8em; }
+#link_get_widget{
+  display: none;
+}
 
 </style>
 

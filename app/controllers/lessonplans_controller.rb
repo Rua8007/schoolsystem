@@ -67,6 +67,8 @@ class LessonplansController < ApplicationController
       @success = false
       if @lessonplan.save
           # return render json: params[:lessonplan_detail_file][i]
+        Notification.create(user_id: current_user.id, activity: "Added Lesson Plan for #{@lessonplan.subject.name}, grade #{@lessonplan.grade.full_name}"  )
+
         avs = @lessonplan.lessonplan_details.create!(period: params[:lessonplan_detail_days], procedure: params[:lessonplan_detail_details])
         avs.attachment = params[:lessonplan_detail_file]
         avs.save!

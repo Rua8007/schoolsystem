@@ -12,6 +12,7 @@ class ReportCardSettingsController < ApplicationController
     if @setting.new_record?
       @setting.report_type_id = setting_params[:report_type_id]
       if @setting.save
+        Notification.create(user_id: current_user.id, activity: "Created Report Card for #{@setting.grade.name}, #{@setting.exam.name}"  )
         redirect_to new_marks_divisions_path(@setting)
       else
         flash[:notice] = 'Some thing bad happened. Please try again.'
@@ -19,6 +20,7 @@ class ReportCardSettingsController < ApplicationController
       end
 
     elsif @setting.report_type_id == setting_params[:report_type_id].to_i
+      Notification.create(user_id: current_user.id, activity: "Updated Report Card for #{@setting.grade.name}, #{@setting.exam.name}"  )
       redirect_to new_marks_divisions_path(@setting)
     else
       flash[:notice] = 'Another report card exists with different report type.'

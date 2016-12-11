@@ -11,6 +11,7 @@ class PublishResultsController < ApplicationController
   def publish_result
     @class = Grade.find(params[:class_id])
     @batch = Batch.find(params[:batch_id])
+    Notification.create(user_id: current_user.id, activity: "Published Results for #{@class.full_name}"  )
 
     @message = publish_class_result(@batch, @class)
   end
@@ -18,6 +19,7 @@ class PublishResultsController < ApplicationController
   def hide_result
     @class = Grade.find(params[:class_id])
     @batch = Batch.find(params[:batch_id])
+    Notification.create(user_id: current_user.id, activity: "Un-Published Results for #{@class.full_name}"  )
 
     @message = hide_class_result(@batch, @class)
   end
@@ -26,6 +28,7 @@ class PublishResultsController < ApplicationController
     @batch = Batch.find(params[:batch_id])
     @classes = Grade.where.not(section: nil).where(batch_id: @batch.id)
     if @classes.present?
+      Notification.create(user_id: current_user.id, activity: "Published Results for All Classes"  )
       @classes.each do |klass|
         flash[:notice] = publish_class_result(@batch, klass)
       end
@@ -39,6 +42,7 @@ class PublishResultsController < ApplicationController
     @batch = Batch.find(params[:batch_id])
     @classes = Grade.where.not(section: nil).where(batch_id: @batch.id)
     if @classes.present?
+      Notification.create(user_id: current_user.id, activity: "Un-Published Results for All Classes"  )
       @classes.each do |klass|
         flash[:notice] = hide_class_result(@batch, klass)
       end

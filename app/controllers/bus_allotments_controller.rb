@@ -51,6 +51,7 @@ class BusAllotmentsController < ApplicationController
     @bus_allotment.student_id = Student.find_by_rollnumber(@bus_allotment.student_id.to_s).id
     respond_to do |format|
       if @bus_allotment.save
+        Notification.create(user_id: current_user.id, activity: "Created made a bus allotment to #{@bus_allotment.student.full_name} "  )
         format.html { redirect_to bus_allotments_path, notice: 'Bus allotment was successfully created.' }
         format.json { render :show, status: :created, location: @bus_allotment }
       else
@@ -65,11 +66,6 @@ class BusAllotmentsController < ApplicationController
     if params[:route_id].present? && params[:route_id] != ""
       @stops = Route.find(params[:route_id]).stops
       @transports = Route.find(params[:route_id]).transports
-
-
-      puts '-'*80
-      puts @stops
-      puts '-'*80
     end
     respond_to do |format|
       format.js

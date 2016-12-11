@@ -52,21 +52,9 @@ class StudentsController < ApplicationController
       redirect_to root_path, alert: "Sorry! You are not authorized"
     end
     # return render json: params
-
-    puts "------"
-    puts "------"
-    puts "------"
-    puts params.inspect
-    puts "------"
-    puts "------"
-    puts "------"
     name = params[:name1]+' ' +params[:name2]+' ' +params[:name3]+' ' +params[:name4]
     aname = params[:aname1]+' ' +params[:aname2]+' ' +params[:aname3]+' ' +params[:aname4]
     if Student.where(fullname: name).any?
-      puts "========"
-      puts "========"
-      puts "========"
-      puts "========"
       redirect_to :back, alert: 'Student with same name already present...!!!'
     else
       @student = Student.new(create_params)
@@ -91,8 +79,12 @@ class StudentsController < ApplicationController
         emergency.phone = params[:student][:emergency][:phone]
         emergency.email = params[:student][:emergency][:email]
         emergency.save
-        
+        body = "Congratulation. Student #{@student.fullname} has been admitted to Al-Omam International School. Please contact school administration office to finalize admission procedures. (012)6746557"
+        send_to = @student.mobile
+        email = @student.secondary_email
         Notification.create(user_id: current_user.id, activity: "Registered New Student with ID #{@student.rollnumber} in grade #{@student.grade.name}")
+        EmailService.new({body: body, send_to: send_to}).send(body, email)
+        SmsService.new({body: body, send_to: send_to}).send_message(body, send_to)
 
         redirect_to new_parent_path(student_id: @student.id), notice: "Student added"
       else
