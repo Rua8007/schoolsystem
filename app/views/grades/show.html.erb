@@ -6,7 +6,10 @@
         New Assign
       <% end %>
   <% end %>
-  <%= link_to 'Print PDF', grade_path(@grade, format: 'pdf'), class: 'btn btn-primary pull-right', style: 'margin-right: 3px;' %>
+  <% unless current_user.role.name == 'Parent' %>
+  	<%= link_to 'Print PDF', grade_path(@grade, format: 'pdf'), class: 'btn btn-primary pull-right', style: 'margin-right: 3px;' %>
+  	
+  <% end %>
   </h1>
 </div>
 
