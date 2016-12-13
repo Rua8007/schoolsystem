@@ -163,9 +163,6 @@ class GradesController < ApplicationController
       format.html
       format.pdf {
         @bridges = @grade.bridges
-        if current_user.role.name == 'Parent'
-          @bridges = @bridges.pluck(:subject_id, :employee_id)
-        end
         @title = "Grade: #{@grade.full_name} - Subject Assignments"
         render pdf: 'subjects_assignments.pdf', template: 'grades/show.pdf.erb',  layout: 'pdf.html.erb',
                margin: { top: 30, bottom: 11, left: 5, right: 5},

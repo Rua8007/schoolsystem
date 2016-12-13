@@ -306,28 +306,32 @@
         <h3>Insights</h3>
         <br>
         <div class="col-xs-6">
-          <div class="panel padder-v item" style="background-color: orange;">
-            <div class="h1 text-info font-thin h1" style=" color: white !important"><%= Student.count %></div>
-            <span class=" text-xs" style=" color: white !important">Students</span>
-          </div>
+          <a href = "students">
+            <div class="panel padder-v item" style="background-color: orange;">
+              <div class="h1 text-info font-thin h1" style=" color: white !important"><%= Student.count %></div>
+              <span class=" text-xs" style=" color: white !important">Students</span>
+            </div>
+          </a>
         </div>
         <div class="col-xs-6">
-          <a href class="block panel padder-v bg-primary item">
+          <a href = "employees" class="block panel padder-v bg-primary item">
             <span class="text-white font-thin h1 block"><%= Employee.count %></span>
             <span class="text-muted text-xs">Teachers</span>
           </a>
         </div>
         <div class="col-xs-6">
-          <a href class="block panel padder-v bg-info item">
+          <a href = "grades/all_grades" class="block panel padder-v bg-info item">
             <span class="text-white font-thin h1 block"><%= Grade.where.not(section: nil).count %></span>
             <span class="text-muted text-xs">Classes</span>
           </a>
         </div>
         <div class="col-xs-6">
-          <div class="panel padder-v item" style="background-color: blueviolet">
-            <div class="font-thin h1" style=" color: white !important"><%= Student.where(publish_result: false).count %></div>
-            <span class="text-xs" style=" color: white !important">Un-Published Results</span>
-          </div>
+          <a href = "students?un_published=true">
+            <div class="panel padder-v item" style="background-color: blueviolet">
+              <div class="font-thin h1" style=" color: white !important"><%= Student.where(publish_result: false).count %></div>
+              <span class="text-xs" style=" color: white !important">Un-Published Results</span>
+            </div>
+          </a>
         </div>
         <div class="col-md-12">
           <a href="http://www.accuweather.com/en/sa/jeddah/299429/weather-forecast/299429" class="aw-widget-legal">
