@@ -1,5 +1,5 @@
 <div class="bg-light lter b-b wrapper-md">
-  <h1 class="m-n font-thin h3"> Grade <%= @grade.full_name %>
+  <h1 class="m-n font-thin h3"> Grade <%= @grade.full_name %> Subject's Details
   <% if current_user.role.rights.where(value: "update_grade").any? %>
     <%= link_to(newassign_bridges_path({grade_id: @grade.id}), class: "btn pull-right btn-color" ,style: "width:200px;" ) do %>
       <i class="fa fa-plus"></i>
@@ -10,17 +10,16 @@
   </h1>
 </div>
 
-
-
-<h2>Subject's Details</h2>
 <table class="table ">
 	<thead class="table-head">
     <tr>
 		  <th>Subect Name</th>
 		  <th>Teacher Name</th>
-      <th>Teacher Email</th>
-      <th>Teacher Mobile</th>
-		  <th>Action</th>
+		  <% unless current_user.role.name == 'Parent' %>
+	      <th>Teacher Email</th>
+	      <th>Teacher Mobile</th>
+			  <th>Action</th>
+			<% end %>
     </tr>
 	</thead>
 	<tbody>
@@ -30,16 +29,18 @@
 					<%= sub.subject.name if sub.subject.present? %>
 				</td>
 				<td><%= sub.employee.try(:full_name) if sub.employee.present? %></td>
-        <td><%= sub.employee.try(:email) if sub.employee.present? %></td>
-        <td><%= sub.employee.try(:mobile_number) if sub.employee.present? %></td>
-				<td>
-  				<% if current_user.role.rights.where(value: "update_grade").any? %>
-					<%= link_to '', edit_bridge_path(sub) ,:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
+		  	<% unless current_user.role.name == 'Parent' %>
+	        <td><%= sub.employee.try(:email) if sub.employee.present? %></td>
+	        <td><%= sub.employee.try(:mobile_number) if sub.employee.present? %></td>
+					<td>
+	  				<% if current_user.role.rights.where(value: "update_grade").any? %>
+							<%= link_to '', edit_bridge_path(sub) ,:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
+						<% end %>
+		  			<% if current_user.role.rights.where(value: "update_grade").any? %>
+							<%= link_to '', bridge_path(sub), method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
+						<% end %>
+					</td>
 				<% end %>
-  				<% if current_user.role.rights.where(value: "update_grade").any? %>
-					<%= link_to '', bridge_path(sub), method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
-				<% end %>
-				</td>
 			</tr>
 		<% end %>
 	</tbody>
