@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     resources :roles
     get 'users/switch_user'
     get 'switch_user/remember_user', to: 'switch_user#remember_user'
+    get 'home/notifications'
     get 'home/timetable'
     get 'home/sms'
     get 'home/sendsms'

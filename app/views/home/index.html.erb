@@ -342,9 +342,9 @@
 
 
       <div class="list-group list-group-lg list-group-sp col-md-6" style="height: 100% !important; overflow-y: scroll;" >  
-        <h3 class="text-center">Recent Activities</h3>
+        <h3 class="text-center">Recent Activities <%= link_to 'See All', 'home/notifications', class: 'pull-right' %></h3>
         <br>
-        <% Notification.where('created_at >= ?', 1.week.ago).order("created_at desc").try(:each) do |noti| %>
+        <% @notifications.try(:each) do |noti| %>
           <a herf class="list-group-item clearfix" style="background-color: aliceblue" >
             <span class="pull-left thumb-sm avatar m-r">
               <%= image_tag noti.image %>
