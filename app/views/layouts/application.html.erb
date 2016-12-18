@@ -257,7 +257,7 @@
                   </li>
                 <% if Right.where("role_id = ? and value = 'permissions'", current_user.role_id ).any? %>
                   <li>
-                    <%= link_to(new_right_path) do %>
+                    <%= link_to(home_confirm_password_path({redirection: 'permissions'})) do %>
                       <i class="glyphicon glyphicon-flag"></i>
                       <span><%= t('user.user_permissions') %> </span>
                     <% end %>
@@ -309,7 +309,7 @@
 
                 <% if Right.where("role_id = ? and value = 'send_sms'", current_user.role_id ).any? %>
                   <li>
-                    <%= link_to(home_sms_path) do %>
+                    <%= link_to(home_confirm_password_path({redirection: 'notifications'})) do %>
                       <i class="glyphicon glyphicon-flag"></i>
                       <span><%= t('notification.notifications') %></span>
                     <% end %>
@@ -1139,7 +1139,7 @@
 
                       <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'design_report_cards').any? %>
                           <li>
-                            <%= link_to(new_exam_path) do %>
+                            <%= link_to(home_confirm_password_path({redirection: 'design_report_card'})) do %>
                                 <span style="font-size: 85%"><%= t('grade_log.design_report_cards') %></span>
                             <% end %>
                           </li>
@@ -1147,7 +1147,7 @@
 
                       <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'edit_report_cards').any? %>
                           <li>
-                            <%= link_to(select_report_card_path) do %>
+                            <%= link_to(home_confirm_password_path({redirection: 'edit_report_card'})) do %>
                                 <span style="font-size: 85%"><%= t('grade_log.edit_report_cards') %></span>
                             <% end %>
                           </li>

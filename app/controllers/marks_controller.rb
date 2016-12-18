@@ -136,11 +136,6 @@ class MarksController < ApplicationController
   end
 
   def save_marks
-    puts "-----------------------"
-    puts "-----------------------"
-    puts params.inspect
-    puts "-----------------------"
-    puts "-----------------------"
 
     @class = Grade.find(params[:class_id]) if params[:class_id].present?
     @exam = Exam.find(params[:exam_id]) if params[:exam_id].present?

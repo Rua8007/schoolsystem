@@ -9,6 +9,8 @@ class StudentsController < ApplicationController
       elsif params[:deleted]
         @students = Student.deleted
         @dropped = true
+      elsif params[:un_published]
+        @students = Student.where(publish_result: false)
       else
         @students = Student.all
       end

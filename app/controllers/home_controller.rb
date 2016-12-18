@@ -137,12 +137,20 @@ class HomeController < ApplicationController
   def confirm_admin
     # return render json: params
     user = User.find_by_email(params[:email])
-    if user && user.valid_password?(params[:password])
+    if user && user.valid_password?(params[:password]) && user.role.name == 'superuser'
       session[:confirm_password] = true
       if params[:redirection] == 'promote'
         redirect_to promote_grades_path(confirmed: true), notice: 'Access Granted...!!!'
       elsif params[:redirection] == 'backup'
         redirect_to home_backups_path(confirmed: true), notice: 'Access Granted...!!!'
+      elsif params[:redirection] == 'edit_report_card'
+        redirect_to select_report_card_path, notice: 'Access Granted'
+      elsif params[:redirection] == 'notifications'
+          redirect_to home_sms_path, notice: 'Access Granted'
+      elsif params[:redirection] == 'permissions'
+        redirect_to new_right_path, notice: 'Access Granted'
+      elsif params[:redirection] == 'design_report_card'
+        redirect_to new_exam_path, notice: 'Access Granted'
       end
     else
       redirect_to :back , alert: 'Invalid Admin Credentials'
