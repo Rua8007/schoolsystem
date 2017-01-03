@@ -41,6 +41,7 @@ ar:
     last_login_time_search: "آخر تسجيل دخول"
     actions: "الإجراءات"
     backup: "دعم"
+    lock_exams: "امتحانات قفل"
 
   panel:
     dashboard: "لوحة القيادة"

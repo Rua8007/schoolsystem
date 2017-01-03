@@ -202,6 +202,9 @@ Rails.application.routes.draw do
     get 'result_card/:student_id/:class_id/:batch_id/:exam_id/:format' => 'marks#result_card', as: :pdf_result_card
     get 'complete_result_card/:student_id/:class_id/:batch_id' => 'marks#complete_result_card', as: :complete_result_card
     get 'complete_result_card/:student_id/:class_id/:batch_id/:format' => 'marks#complete_result_card', as: :complete_pdf_result_card
+    
+    get 'term1_result_card/:student_id/:class_id/:batch_id' => 'marks#term1_result_card', as: :term1_result_card
+
 
     get 'print_all_students_results' => 'marks#print_all_students_results', as: :print_all_students_results
     get 'upload_csv/:class_id/:exam_id/:subject_id' => 'marks#upload_csv', as: :upload_csv
@@ -228,7 +231,12 @@ Rails.application.routes.draw do
 
       end
     end
-    resources :exams
+    resources :exams do 
+      collection do 
+        get "lockexams"
+        post "exam_locking"
+      end
+    end
     resources :student_holidays
     resources :transports
     resources :routes

@@ -1,0 +1,34 @@
+<%= form_tag exam_locking_exams_path do %>
+
+	<div class="bg-light lter b-b wrapper-md">
+	  <h1 class="m-n font-thin h3">Lock Exams
+	  	<%= submit_tag 'Lock', class: "btn btn-danger pull-right"  %> 
+	  	<%= submit_tag 'Un-Lock', class: "btn btn-primary pull-right"  %>
+	  </h1>
+	</div>
+
+	<table class="table">
+		<thead class="table-head">
+			<th>Select</th>
+			<th>Exam Name</th>
+			<th>Status</th>
+		</thead>
+
+		<tbody>
+			<% @exams.keys.each do |grade| %>
+				<tr style="background: blue; color: white;">
+					<td colspan="3">Grade <%= Grade.find(grade).name rescue 'N/A' %></td>
+				</tr>
+				<% @exams[grade].each do |exam| %>
+					<tr>
+						<td><%= check_box_tag 'checked_exams[]', exam.id %></td>
+						<td><%= exam.name %></td>
+						<td>
+							<%= exam.is_locked ? '<span style= "color: red"> Locked </span>'.html_safe : '<span style= "color: Green"> Un-Locked </span>'.html_safe %>
+						</td>
+					</tr>
+				<% end %>
+			<% end %>
+		</tbody>
+	</table>
+<% end %>

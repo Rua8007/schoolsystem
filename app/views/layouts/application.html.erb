@@ -278,6 +278,14 @@
                     <span><%= t('user.backup') %></span>
                   <% end %>
                 </li>
+                <% if Right.where("role_id = ? and value = 'lock_exams'", current_user.role_id ).any? %>
+                  <li>
+                    <%= link_to(lockexams_exams_path()) do %>
+                      <i class="glyphicon glyphicon-user"></i>
+                      <span><%= t('user.lock_exams') %></span>
+                    <% end %>
+                  </li>
+                <% end %>
               </ul></li><% end %>
 
               <% if Right.where("role_id = ? and value = ?" , current_user.role_id, 'promote').any? %>

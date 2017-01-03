@@ -4,7 +4,7 @@ class ExamsController < ApplicationController
   # GET /exams
   # GET /exams.json
   def index
-    if current_user.role.rights.where(value: "view_exam").nil?
+    unless current_user.role.rights.where(value: "view_exam").any?
       redirect_to :back, "Sorry! You are not authorized"
     end
     @exams = Exam.order('name')
@@ -15,9 +15,32 @@ class ExamsController < ApplicationController
   def show
   end
 
+  def lockexams
+    unless current_user.role.rights.where(value: "lock_exams").any?
+      redirect_to root_path, alert: "You are not authorized...!!!"
+    else
+      @exams = Batch.last.exams.order(:grade_id).group_by{|p| p.grade_id}
+    end
+  end
+
+  def exam_locking
+    exam_ids = params[:checked_exams]
+
+    if params[:commit] == 'Lock'
+      exam_ids.each do |exam_id|
+        Exam.find(exam_id).update(is_locked: true)
+      end
+    elsif params[:commit] == 'Un-Lock'
+      exam_ids.each do |exam_id|
+        Exam.find(exam_id).update(is_locked: false)
+      end
+    end
+    redirect_to :back, notice: "Exams status updated successfully..!!!"
+  end
+
   # GET /exams/new
   def new
-    if current_user.role.rights.where(value: "create_exam").nil?
+    unless current_user.role.rights.where(value: "create_exam").any?
       redirect_to :back, "Sorry! You are not authorized"
     end
     @exam = Exam.new
@@ -25,7 +48,7 @@ class ExamsController < ApplicationController
 
   # GET /exams/1/edit
   def edit
-    if current_user.role.rights.where(value: "update_exam").nil?
+    unless current_user.role.rights.where(value: "update_exam").any?
       redirect_to :back, "Sorry! You are not authorized"
     end
   end
