@@ -24,7 +24,7 @@
   <div class="col-sm-5 col-md-5">
     <div class="pull-right">
       <%= submit_tag 'Save Marks', class: 'btn btn-info',data: { confirm: 'PLease double check before you save. Press OK to confirm!' } %>
-      <% if @marks_division.name != "Exam Comments" %>
+      <% if @marks_division.name != "Exam Comments" && @exam.is_locked == false %>
         <button class="btn btn-success" id="addmore">Add More</button>
       <% end %>
       <%= link_to 'Upload From CSV', upload_csv_path(@class.id, @exam.id, @subject.id), class: 'btn btn-primary' %>
@@ -105,7 +105,7 @@
               <% end %>
             </div>
         <% end %>
-    <% else %>
+    <% elsif @exam.is_locked == false %>
         <div class="well well-lg col-md-1 con" style="padding:10px;min-height:500px;width: 110px;float:none !important;display:inline-block;vertical-align: top;">
           <h5><%= @marks_division.name %></h5>
           <%= text_field_tag "sessionals_date[]", '', style:"" , class: "datepickerss absense-input", required: true, placeholder: "Select Date", style: "width: 90px" %>
