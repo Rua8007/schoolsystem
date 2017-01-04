@@ -1,0 +1,37 @@
+<style>
+  .light-blue{  background-color: #B2D7EC;  }
+  .yellow { background-color: #FEFF99; }
+  .light-grey{ background-color: #F2F2F2; }
+  .dark-grey { background-color: #DDD9C4; }
+  .dark-blue { background-color: #8DB4E2;}
+
+  .table > caption + thead > tr:first-child > th, .table > colgroup + thead > tr:first-child > th, .table > thead:first-child > tr:first-child > th, .table > caption + thead > tr:first-child > td, .table > colgroup + thead > tr:first-child > td, .table > thead:first-child > tr:first-child > td{
+      border-top: 1px solid black;
+      text-align: center;
+  }
+  .table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
+      border: 1px solid black;
+      vertical-align: middle;
+      color: black;
+  }
+</style>
+
+<div class="well well-lg">
+  <div class="row">
+    <div class="col-md-6">
+      <h4>Student Name:           <%= @student.fullname %></h4>
+      <h4>Student ID:             <%= @student.rollnumber %></h4>
+      <h4>Grade:                  <%= @class.full_name %></h4>
+    </div>
+    <div class="col-md-6">
+      <h4>Father's Name:           <%= @student.father_name %></h4>
+      <h4>Batch:             <%= @class.batch.name %></h4>
+    </div>
+  </div>
+  
+</div>
+<% @exams.each do |exam| %>
+    <h3 class="text-center col-md-11">Term 1</h3>
+    <h3 class="col-md-1 pull-right"><%#= link_to 'Print'.html_safe, pdf_result_card_path(@student.id, @class.id, @batch.id, exam.id, 'pdf'), class: 'btn btn-success' %></h3>
+    <%= render partial: 'term1_result', locals: {exam: exam} %>
+<% end %>

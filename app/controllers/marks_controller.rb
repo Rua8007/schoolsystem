@@ -271,6 +271,7 @@ class MarksController < ApplicationController
   end
 
   def result_card
+    # return render json: params
     @student = Student.find(params[:student_id])
     @class = Grade.find(params[:class_id])
     @main_grade = @class.parent if @class.present?
@@ -279,6 +280,39 @@ class MarksController < ApplicationController
     @report_card = ReportCard.find_by(student_id: @student.id, grade_id: @class.id, batch_id: @batch.id)
     @exams = Exam.where(grade_id: @main_grade.id, batch_id: @batch.id).order('name') || []
     @settings = ReportCardSetting.where(grade_id: @main_grade.id, batch_id: @batch.id)
+
+    respond_to do |format|
+      format.html{}
+      format.pdf {
+        @exam = Exam.find(params[:exam_id])
+        render pdf: "#{@student.fullname}-#{@exam.name}-#{@batch.name}", template: 'marks/quarter_result.pdf.erb',
+               layout: 'pdf.html.erb', orientation: 'Landscape', margin: { top: 30, bottom: 11, left: 5, right: 5},
+               header: { html: { template: 'shared/pdf_landscape_header.html.erb'} }, show_as_html: false,
+               footer: { html: { template: 'shared/pdf_landscape_footer.html.erb'} }
+      }
+    end
+  end
+
+  def term1_result_card
+    @q1totalmarks = []
+    @term1total = []
+    @student = Student.find(params[:student_id])
+    @class = Grade.find(params[:class_id])
+    @main_grade = @class.parent if @class.present?
+    @batch = Batch.find(params[:batch_id])
+
+    @report_card = ReportCard.find_by(student_id: @student.id, grade_id: @class.id, batch_id: @batch.id)
+    @exams = Exam.where(grade_id: @main_grade.id, batch_id: @batch.id, name: 'Quarter 2').order('name') || []
+    unless @exams.any?
+      redirect_to :back, alert: "There is no exam with name Quarter 2 in this grade"
+    end
+    @quarter1 = Exam.find_by(grade_id: @main_grade.id, batch_id: @batch.id, name: 'Quarter 1')
+    @quarter1_setting = ReportCardSetting.find_by(grade_id: @main_grade.id, batch_id: @batch.id, exam_id: @quarter1.id)
+    @quarter1_max_marks = @quarter1_setting.marks_divisions.try(:sum, :total_marks)
+    @quarter1_pass_marks = @quarter1_setting.marks_divisions.try(:sum, :passing_marks)
+    
+    # return render json: @exams
+    @settings = ReportCardSetting.where(grade_id: @main_grade.id, batch_id: @batch.id, exam_id: @exams.first.id)
 
     respond_to do |format|
       format.html{}
