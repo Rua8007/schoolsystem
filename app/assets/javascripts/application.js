@@ -31,5 +31,3 @@
 //= require grades
 //= require select2
 //= require datetimepicker
-
-$.fn.dataTableExt.sErrMode = 'throw';

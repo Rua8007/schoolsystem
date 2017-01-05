@@ -182,6 +182,8 @@
           <% end %>
           <% if current_user.role.name == 'Teacher' %>
             <td><%= link_to 'Performance Report', new_performance_path({student_id: student.id, bridge_id: @bridge.id}) %>
+          <% else %>
+            <td></td>
           <% end %>
         </tr>
       <% end %>
