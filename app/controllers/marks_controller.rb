@@ -258,6 +258,12 @@ class MarksController < ApplicationController
     end
     @exams = Exam.where(grade_id: @main_grade.id, batch_id: Batch.last.id)
     @exam = params[:exam_id].present? ? Exam.find(params[:exam_id]) : @exams.first
+    puts " ============= "
+    puts " exam is"
+    puts @exam.inspect
+    puts " grade is "
+    puts @main_grade.inspect
+    puts " ============= "
     @setting = ReportCardSetting.find_by(grade_id: @main_grade.id, batch_id: Batch.last.id, exam_id: @exam.id)
     check_subjects(@setting, @subjects) if @setting.present?
   end
