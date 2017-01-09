@@ -205,7 +205,8 @@ Rails.application.routes.draw do
     
     get 'term1_result_card/:student_id/:class_id/:batch_id' => 'marks#term1_result_card', as: :term1_result_card
 
-
+    
+    get 'print_all_students_term1_result' => 'marks#print_all_students_term1_result', as: :print_all_students_term1_result
     get 'print_all_students_results' => 'marks#print_all_students_results', as: :print_all_students_results
     get 'upload_csv/:class_id/:exam_id/:subject_id' => 'marks#upload_csv', as: :upload_csv
     post 'process_csv' => 'marks#process_csv', as: :process_csv
