@@ -390,7 +390,7 @@ class MarksController < ApplicationController
     @quarter1_max_marks = @quarter1_setting.marks_divisions.try(:sum, :total_marks)
     @quarter1_pass_marks = @quarter1_setting.marks_divisions.try(:sum, :passing_marks)
     
-    render pdf: "#{@class.full_name}-#{@batch.name}", template: 'marks/print_all_students_results.pdf.erb',
+    render pdf: "#{@class.full_name}-#{@batch.name}", template: 'marks/print_all_students_term1_results.pdf.erb',
            layout: 'pdf.html.erb', orientation: 'Landscape', margin: { top: 30, bottom: 11, left: 5, right: 5},
            header: { html: { template: 'shared/pdf_landscape_header.html.erb'} }, show_as_html: false,
            footer: { html: { template: 'shared/pdf_landscape_footer.html.erb'} }
