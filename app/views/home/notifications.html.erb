@@ -27,7 +27,7 @@
                 <%= image_tag noti.image %>
               </span>
               <span class="" >
-                <span><%= noti.user.email.split('@').first+"@ ( at #{(noti.created_at+3.hour).strftime('%d/%B/%Y - %I:%M%p')})" %> </span>
+                <span><%= noti.user.email.split('@').first+"@ ( at #{(noti.created_at+3.hour).strftime('%d/%B/%Y - %I:%M%p')})" rescue "User has been removed...!!!" %> </span>
                 <br>
                 <small class="text-muted " style="word-wrap: break-word !important;"><%= noti.activity %></small>
               </span>
