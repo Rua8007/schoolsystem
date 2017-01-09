@@ -379,6 +379,7 @@ class MarksController < ApplicationController
 
   def print_all_students_term1_result
     @class      = Grade.find(params[:class_id]) if params[:class_id].present?
+    @students   = @class.students || []
     @batch      = Batch.find(params[:batch_id]) if params[:batch_id].present?
     @main_grade = @class.parent if @class.present?
     @exams      = Exam.where(grade_id: @main_grade.id, batch_id: @batch.id, name: "Quarter 2").order('name') || []

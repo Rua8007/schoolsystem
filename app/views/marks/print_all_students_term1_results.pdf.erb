@@ -1,4 +1,4 @@
-<% @class.students.try(:each) do |std| %>
+<% @students.try(:each) do |std| %>
     <% @student = std %>
     <% @report_card = ReportCard.find_by(student_id: @student.id, grade_id: @class.id, batch_id: @batch.id) %>
     <% if @exam.present? %>

@@ -168,13 +168,6 @@ module MarksHelper
           avg = avg + marks 
         end
       end
-      puts "adlkfjaldksjfladksjflas"
-      puts "adlkfjaldksjfladksjflas"
-      puts "adlkfjaldksjfladksjflas"
-      puts subjects.inspect
-      puts "adlkfjaldksjfladksjflas"
-      puts "adlkfjaldksjfladksjflas"
-      puts "adlkfjaldksjfladksjflas"
       avg/subjects.count
     end
   end
@@ -201,27 +194,13 @@ module MarksHelper
 
   def get_quarter_total(report_card, subject, exam)
 
-    puts "++++"
-    puts "subject in get_quarter_total"
-    puts subject.inspect
-    puts "--------"
     if subject.present? && subject.sub_subjects.present?
-          puts "ajdfljasklfjasdklfjasdklfj"
-          puts "ajdfljasklfjasdklfjasdklfj"
-          puts "ajdfljasklfjasdklfjasdklfj"
-          puts "ajdfljasklfjasdklfjasdklfj"
-          puts "ajdfljasklfjasdklfjasdklfj"
-          puts "ajdfljasklfjasdklfjasdklfj"
       marks = 0
       subject.sub_subjects.each do |sub_subject|
         marks = marks + (report_card.marks.where("subject_id = #{sub_subject.id} AND exam_id = #{exam.id}").try(:sum, :obtained_marks) || 0) * (sub_subject.weight/100.00)
       end
       marks
     else
-      puts
-      puts "in else"
-      puts subject.inspect
-      puts
       if subject.present?
         report_card.marks.where("subject_id = #{subject.id} AND exam_id = #{exam.id}").try(:sum, :obtained_marks)
       else
@@ -231,11 +210,6 @@ module MarksHelper
   end
 
   def get_quarter_percentage(report_card, setting, subject, exam)
-    puts "============="
-    puts "subject in get_quarter_percentage"
-    puts subject.inspect
-    puts "---------"
-    puts "---------"
     if subject.present? && subject.sub_subjects.present?
       obtained_marks = 0
       total_marks = 0
