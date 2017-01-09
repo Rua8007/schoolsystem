@@ -35,7 +35,7 @@
                   <td><%= exam.name %></td>
                 </tr>
               </table>
-              <%= render partial: 'marks/term1_result.html.erb' %>
+              <%= render partial: 'marks/term1_result.html.erb',locals: {exam: exam} %>
               <div class="page-break"></div>
             <% end %>
         <% end %>

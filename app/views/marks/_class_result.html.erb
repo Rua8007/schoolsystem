@@ -1,7 +1,7 @@
 <% if @setting.present? %>
 
   <div class="col-md-2 pull-right">
-    <%= link_to "Print Term1 Result", print_all_students_results_path({class_id: @class.id, batch_id: Batch.last.id}), class: 'pull-right btn btn-primary' %>
+    <%= link_to "Print Term1 Result", print_all_students_term1_result_path({class_id: @class.id, batch_id: Batch.last.id}), class: 'btn btn-primary' %>
   </div>
 
   <div class="col-md-2 pull-right">

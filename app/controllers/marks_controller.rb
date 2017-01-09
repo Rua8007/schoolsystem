@@ -378,6 +378,8 @@ class MarksController < ApplicationController
   end
 
   def print_all_students_term1_result
+    @q1totalmarks = []
+    @term1total = []
     @class      = Grade.find(params[:class_id]) if params[:class_id].present?
     @students   = @class.students || []
     @batch      = Batch.find(params[:batch_id]) if params[:batch_id].present?
