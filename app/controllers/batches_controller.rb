@@ -4,8 +4,11 @@ class BatchesController < ApplicationController
   # GET /batches
   # GET /batches.json
   def index
-    @batches = Batch.all
-    
+    if current_user.role.rights.where(value: 'batch').any?
+      @batches = Batch.all
+    else
+      redirect_to root_path, alert: "Not Authorized...!!!"
+    end
   end
 
   # GET /batches/1
@@ -15,17 +18,29 @@ class BatchesController < ApplicationController
 
   # GET /batches/new
   def new
+    if current_user.role.rights.where(value: 'batch').any?
+    else
+      redirect_to root_path, alert: "Not Authorized...!!!"
+    end
     @batch = Batch.new
   end
 
   # GET /batches/1/edit
   def edit
+    if current_user.role.rights.where(value: 'batch').any?
+    else
+      redirect_to root_path, alert: "Not Authorized...!!!"
+    end
   end
 
   # POST /batches
   # POST /batches.json
   def create
-    @batch = Batch.new(batch_params)
+    if current_user.role.rights.where(value: 'batch').any?
+      @batch = Batch.new(batch_params)
+    else
+      redirect_to root_path, alert: "Not Authorized...!!!"
+    end
 
     respond_to do |format|
       if @batch.save
@@ -55,7 +70,7 @@ class BatchesController < ApplicationController
   # DELETE /batches/1
   # DELETE /batches/1.json
   def destroy
-    @batch.destroy
+    # @batch.destroy
     respond_to do |format|
       format.html { redirect_to batches_url, notice: 'Batch was successfully destroyed.' }
       format.json { head :no_content }

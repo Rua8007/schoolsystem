@@ -36,7 +36,7 @@
           <% end %>
         </td>
         <td>
-          <%= form_tag(disapprove_requested_portions_path(cur[:portion]), method: :post) do %>
+          <%= form_tag(disapprove_requested_portion_path(cur[:portion]), method: :post) do %>
             <%= hidden_field_tag :portion_id, "#{cur[:portion].id}" %>
 
             <button class="btn btn-sm btn-danger disapprove-request" type="submit" id="<%= cur[:teacher_id] %>_<%= cur[:portion].id %>"

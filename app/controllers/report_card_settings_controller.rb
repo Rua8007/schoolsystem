@@ -154,6 +154,10 @@ class ReportCardSettingsController < ApplicationController
   end
 
   def select_report_card_setting
+    if current_user.role.rights.where(value: 'edit_report_cards').any?
+    else
+      redirect_to root_path, alert: "Not Authorized...!!!"
+    end
     @grades = Grade.where(section: nil).order('name')
   end
 

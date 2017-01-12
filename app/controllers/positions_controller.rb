@@ -4,7 +4,10 @@ class PositionsController < ApplicationController
   # GET /positions
   # GET /positions.json
   def index
-    @positions = Position.all
+    if Right.where("role_id = ? and value = ?" , current_user.role_id, 'create_employee').any?
+    else
+      @positions = Position.all
+    end
   end
 
   # GET /positions/1
@@ -14,14 +17,20 @@ class PositionsController < ApplicationController
 
   # GET /positions/new
   def new
-    @position = Position.new
-    @categories = Category.all
+    if Right.where("role_id = ? and value = ?" , current_user.role_id, 'create_employee').any?
+    else
+      @position = Position.new
+      @categories = Category.all
+    end
+
   end
 
   # GET /positions/1/edit
   def edit
-    @categories = Category.all
-    
+    if Right.where("role_id = ? and value = ?" , current_user.role_id, 'create_employee').any?
+    else
+      @categories = Category.all
+    end
   end
 
   # POST /positions

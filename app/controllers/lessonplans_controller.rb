@@ -4,6 +4,9 @@ class LessonplansController < ApplicationController
   # GET /lessonplans
   # GET /lessonplans.json
   def index
+    unless current_user.role.rights.where("value = 'view_lesson_plans'").any? || current_user.role.name == 'Teacher'
+      redirect_to root_path, alert: 'Sorry! You are not authorized...!!!'
+    end
     @year_plan = YearPlan.find(params[:year_plan])
     if @year_plan.present?
       if current_user.role.name != "Teacher"
@@ -128,6 +131,8 @@ class LessonplansController < ApplicationController
         else
         end
       end
+    else
+      redirect_to root_path, alert: "You are not authorized...!!!"
     end
   end
 

@@ -91,6 +91,9 @@ class MarksController < ApplicationController
   end
 
   def select_subject_and_exam
+    unless current_user.role.rights.where(value: 'enter_marks').any?
+      redirect_to root_path, alert: 'You are not authorized'
+    end
     @class = Grade.find( params[:grade_id] )
     @main_grade = @class.parent if @class.present?
 

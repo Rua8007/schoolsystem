@@ -3,6 +3,10 @@ class PublishResultsController < ApplicationController
   include PublishResultsHelper
 
   def select_class
+    if current_user.role.rights.where(value: 'publish_results').any?
+    else
+      redirect_to root_path, alert: "Not Authorized...!!!"
+    end
     @batch = Batch.last
     @classes = Grade.where.not(section: nil)
     @classes = @classes.where(batch_id: @batch.id).sort {|x,y| x.full_name <=> y.full_name }

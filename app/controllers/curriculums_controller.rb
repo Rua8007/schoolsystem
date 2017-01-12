@@ -4,11 +4,16 @@ class CurriculumsController < ApplicationController
   # GET /curriculums
   # GET /curriculums.json
   def index
+    unless current_user.role.rights.where("value = 'view_curriculum_plans'").any? || current_user.role.name == 'Teacher'
+      redirect_to root_path, alert: "Sorry! You are not authorized...!!!"
+    end
     @year_plan = YearPlan.find(params[:year_plan])
     if @year_plan.present?
       if current_user.role.name != "Teacher"
         @curriculums = @year_plan.curriculums
       else
+        if current_user.role.rights.where(value: '').any?
+        end
         grade_ids = Employee.find_by_email(current_user.email).bridges.pluck(:grade_id)
         subject_ids = Employee.find_by_email(current_user.email).bridges.pluck(:subject_id)
         @curriculums = @year_plan.curriculums.where(grade_id: grade_ids, subject_id: subject_ids)

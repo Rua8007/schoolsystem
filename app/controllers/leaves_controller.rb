@@ -4,7 +4,7 @@ class LeavesController < ApplicationController
   # GET /leaves
   # GET /leaves.json
   def index
-    if current_user.role.rights.where(value: 'approve_leave')
+    if current_user.role.rights.where(value: 'update_leave').any?
       if params[:news]
         @leaves = Leave.where(approved: nil)
       elsif params[:approved]
@@ -15,11 +15,12 @@ class LeavesController < ApplicationController
         @leaves = Leave.where(employee_id: Employee.find_by_email(current_user.email).id) if Employee.find_by_email(current_user.email)
       end
     else
-      if current_user.role.rights.where(value: 'create_leave')
+      if current_user.role.rights.where(value: 'create_leave').any?
         @leaves = Leave.where(employee_id: Employee.find_by_email(current_user.email).id) if Employee.find_by_email(current_user.email)
       else
+
         flash[:alert] = "Not Authorized"
-        redirect_to home_index_path
+        redirect_to root_path
       end
     end
   end
@@ -32,12 +33,9 @@ class LeavesController < ApplicationController
   # GET /leaves/new
   def new
     @leave = Leave.new
-    if current_user.role == 'Teacher'
+    if current_user.role.name == 'Teacher'
       @leave.employee_id = Employee.find_by_email(current_user.email).id
-    elsif current_user.role == 'parent'
-
-    elsif current_user.role == 'student'
-
+    elsif current_user.role.name == 'Parent'
     end
 
   end

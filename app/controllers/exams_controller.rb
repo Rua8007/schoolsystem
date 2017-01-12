@@ -5,7 +5,7 @@ class ExamsController < ApplicationController
   # GET /exams.json
   def index
     unless current_user.role.rights.where(value: "view_exam").any?
-      redirect_to :back, "Sorry! You are not authorized"
+      redirect_to :back, alert: "Sorry! You are not authorized"
     end
     @exams = Exam.order('name')
   end
@@ -41,7 +41,7 @@ class ExamsController < ApplicationController
   # GET /exams/new
   def new
     unless current_user.role.rights.where(value: "create_exam").any?
-      redirect_to :back, "Sorry! You are not authorized"
+      redirect_to :back, alert: "Sorry! You are not authorized"
     end
     @exam = Exam.new
   end
@@ -49,7 +49,7 @@ class ExamsController < ApplicationController
   # GET /exams/1/edit
   def edit
     unless current_user.role.rights.where(value: "update_exam").any?
-      redirect_to :back, "Sorry! You are not authorized"
+      redirect_to :back, alert: "Sorry! You are not authorized"
     end
   end
 

@@ -30,6 +30,9 @@ class PortionsController < ApplicationController
         @grades = Grade.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:grade_id))
         @subjects = Subject.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:subject_id))
       else
+        if current_user.role.name == 'Parent'
+          redirect_to root_path, alert: "You are not authorized...!!!"
+        end
         # for admins
         @grades = Grade.all
         @subjects = Subject.all
@@ -104,7 +107,7 @@ class PortionsController < ApplicationController
   end
 
   def get_requested
-    if current_user.role.rights.where(value: 'approve_portion')
+    if current_user.role.rights.where(value: 'approve_portion').any?
       @portions = []
       my_portions = Portion.where.not(approved: true)
       my_portions.each do |portion|
@@ -118,6 +121,8 @@ class PortionsController < ApplicationController
         else
         end
       end
+    else
+      redirect_to root_path, alert: "Sorry! You are not authorized...!!!"
     end
   end
 

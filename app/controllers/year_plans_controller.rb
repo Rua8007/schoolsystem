@@ -161,17 +161,6 @@ class YearPlansController < ApplicationController
   end
 
   def update_weekly_schedule
-    puts "======="
-    puts "======="
-    puts "======="
-    puts "======="
-    puts "======="
-    puts "======="
-    puts "======="
-    puts "======="
-    puts "======="
-    puts "======="
-    puts "======="
     schedule_ids = params[:ids]
     class_works = params[:classworks]
     home_works = params[:homeworks]
@@ -201,6 +190,9 @@ class YearPlansController < ApplicationController
   end
 
   def get_requested
+    unless current_user.role.rights.where(value: 'approve_weekly_plan').any?
+      redirect_to root_path, alert: "Sorry, You are not authorized...!!!"
+    end
     @weekly_plans = []
     my_weekly_plans = GradeSubject.where.not(approved: true)
     my_weekly_plans.each do |wp|
@@ -216,11 +208,6 @@ class YearPlansController < ApplicationController
         # puts "-------------------------------"
       end
     end
-
-      # puts "****"*500
-      # puts @weekly_plans.inspect
-
-      # return render json: @weekly_plans.first[:weekly_plan].classwork
   end
 
   def approve_requested
