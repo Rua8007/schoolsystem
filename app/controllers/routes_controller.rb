@@ -1,6 +1,7 @@
 class RoutesController < ApplicationController
   before_action :set_route, only: [:show, :edit, :update, :destroy]
 
+  before_action :check_rights
   # GET /routes
   # GET /routes.json
   def index
@@ -65,5 +66,11 @@ class RoutesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def route_params
       params.require(:route).permit(:name)
+    end
+
+    def check_rights
+      unless current_user.role.rights.where("value = 'create_transport'").any?
+        redirect_to root_path, alert: "Sorry You are not authorized"
+      end
     end
 end

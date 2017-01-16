@@ -1,6 +1,7 @@
 class ShopcategoriesController < ApplicationController
   before_action :set_shopcategory, only: [:show, :edit, :update, :destroy]
 
+  before_action :check_rights
   # GET /shopcategories
   # GET /shopcategories.json
   def index
@@ -70,5 +71,11 @@ class ShopcategoriesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def shopcategory_params
       params.require(:shopcategory).permit(:name)
+    end
+
+    def check_rights
+      unless current_user.role.rights.where("value = 'create_bookshop'").any?
+        redirect_to root_path, alert: "You are not authorized...!!!"
+      end
     end
 end

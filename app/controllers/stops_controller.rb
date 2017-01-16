@@ -1,6 +1,7 @@
 class StopsController < ApplicationController
   before_action :set_stop, only: [:show, :edit, :update, :destroy]
 
+  before_action :check_rights
   # GET /stops
   # GET /stops.json
   def index
@@ -70,5 +71,10 @@ class StopsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def stop_params
       params.require(:stop).permit(:name, :route_id)
+    end
+    def check_rights
+      unless current_user.role.rights.where("value = 'create_transport'").any?
+        redirect_to root_path, alert: "Sorry You are not authorized"
+      end
     end
 end

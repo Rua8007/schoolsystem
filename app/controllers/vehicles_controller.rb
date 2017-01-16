@@ -1,6 +1,7 @@
 class VehiclesController < ApplicationController
   before_action :set_vehicle, only: [:show, :edit, :update, :destroy]
 
+  before_action :check_rights
   # GET /vehicles
   # GET /vehicles.json
   def index
@@ -70,5 +71,11 @@ class VehiclesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def vehicle_params
       params.require(:vehicle).permit(:vehicle_no, :code, :seat, :max_allowed, :vehicle_type, :insurance, :tax, :permit)
+    end
+
+    def check_rights
+      unless current_user.role.rights.where("value = 'create_transport'").any?
+        redirect_to root_path, alert: "Sorry You are not authorized"
+      end
     end
 end

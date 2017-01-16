@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy], except: [:get_item]
 
+  before_action :check_rights
   # GET /items
   # GET /items.json
   def index
@@ -97,5 +98,11 @@ class ItemsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def item_params
       params.require(:item).permit(:code, :name, :shopcategory_id, :size, :price, :grade_id, :sold, :left, :purchase)
+    end
+
+    def check_rights
+      unless current_user.role.rights.where("value = 'create_bookshop'").any?
+        redirect_to root_path, alert: "You are not authorized...!!!"
+      end
     end
 end

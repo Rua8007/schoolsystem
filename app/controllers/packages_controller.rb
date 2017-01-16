@@ -1,6 +1,7 @@
 class PackagesController < ApplicationController
   before_action :set_package, only: [:show, :edit, :update, :destroy]
 
+  before_action :check_rights
   # GET /packages
   # GET /packages.json
   def index
@@ -111,5 +112,11 @@ class PackagesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def package_params
       params.require(:package).permit(:name, :code, :price, :sold, :grade_id)
+    end
+
+    def check_rights
+      unless current_user.role.rights.where("value = 'create_bookshop'").any?
+        redirect_to root_path, alert: "You are not authorized...!!!"
+      end
     end
 end
