@@ -39,6 +39,7 @@ class GradesController < ApplicationController
 
   def promote
     # return render json: session[:confirm_password]
+    @identifier = params[:identifier]
     if session[:confirm_password] == true
       @grades = Grade.where("section is not null").order(:name)
       @main_grades = []
@@ -57,7 +58,19 @@ class GradesController < ApplicationController
   def get_classes
     puts "+=+=+"*100
     grade = Grade.find(params[:grade_id])
-    grades = Grade.where("section is not null and campus = ? and name != ?", grade.campus, grade.name)
+    identifier = params[:identifier]
+    if grade.name =~ /kg/i 
+      grades = Grade.where("section is not null and campus = ? and name != ?", grade.campus, grade.name).order(:name)
+    else
+      if identifier == 'promote'
+        grades = Grade.where.not("name ILIKE 'KG'")
+        grades = grades.where("section is not null and campus = ? and CAST(coalesce(name, '0') AS integer) > ?", grade.campus, grade.name.to_i).order(:name)
+      else
+        grades = Grade.where.not("name ILIKE 'KG'")
+        grades = grades.where("section is not null and campus = ? and CAST(coalesce(name, '0') AS integer) < ?", grade.campus, grade.name.to_i).order(:name)
+      end
+    end
+
     respond_to do |format|
       format.json {render json: {grades: grades}}
     end

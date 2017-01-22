@@ -36,7 +36,7 @@
           </label>
 
           <label class="i-checks" >
-            <%= check_box_tag :sms, "", true,  class: "leave_checkbox" %>
+            <%= check_box_tag :sms, "", false,  class: "leave_checkbox" %>
             <i ></i>SMS
           </label>
         </div>
@@ -47,7 +47,7 @@
         <legend class="lll"><%= t('notification.send_to') %></legend>
         <div class="checkbox">
           <label class="i-checks"  >
-            <%= check_box_tag :all_students, 'Student', true,  class: "leave_checkbox" %>
+            <%= check_box_tag :all_students, 'Student', false,  class: "leave_checkbox" %>
             <i></i><strong><%= t('notification.all_students') %></strong>
           </label>
         </div>
@@ -103,7 +103,7 @@
           </label>
         </div>
         <div class="student-show" style="padding-left: 0; display: none;">
-          <%= select_tag :students, options_from_collection_for_select(Student.order('rollnumber'), :id, :rollnumber), class: 'select-tag form-control', multiple: true %>
+          <%= select_tag :students, options_from_collection_for_select(Student.order('rollnumber'), :id, :small_info), class: 'select-tag form-control', multiple: true %>
         </div>
         <br><br>
         <!-- <input type="button" value="Send Test SMS" onclick="find();" class="btn btn-success pull-right" /> -->

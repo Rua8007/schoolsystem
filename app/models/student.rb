@@ -65,6 +65,10 @@ class Student < ActiveRecord::Base
     grade.try(:full_name)
   end
 
+  def small_info
+  	"#{self.rollnumber}-#{self.fullname}-#{grade_name}"
+  end
+
 
 	def testi
 		puts "+=+=" *100
@@ -110,9 +114,9 @@ class Student < ActiveRecord::Base
 	 #   #    u.save
 	 #   #    emp.save
 	 #   #    puts "+++++++++++++++++++"
-  #   #   # ================== Student script end==========================
-  #   #   # ===========================employee script=======================
- 	# 		# # emp = Employee.new
+	#   #   # ================== Student script end==========================
+	#   #   # ===========================employee script=======================
+		# 		# # emp = Employee.new
 		#   # # emp.attributes = row.to_hash.slice(*row.to_hash.keys)
 		#   # # emp.category_id = Category.find_by_name('Academic').id
 		#   # # emp.department_id = Department.first.id
@@ -123,15 +127,15 @@ class Student < ActiveRecord::Base
 		#   # # user.save
 		#   # # emp.save
 
-  #   #   # ======================employee script end======================
+	#   #   # ======================employee script end======================
 		#   # end
 		# rescue => e
 		# 	puts "=================="
 		# 	puts e
 		# 	puts "=================="
 	 #        # Rails.logger.error { "Encountered an error" }
-  #     		"notok"
-  #     	end
+	#     		"notok"
+	#     	end
 	end
 
   def copy_report_cards(new_grade)

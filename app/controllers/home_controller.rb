@@ -61,17 +61,8 @@ class HomeController < ApplicationController
 
   def backups
     if current_user.role.rights.find_by_value("access_backups").nil? || session[:confirm_password] == false
-      
-      puts "========backups nh dkhany aya========== "
-      puts current_user.role.rights.find_by_value("access_backups").nil?
-      puts session[:confirm_password]
-      puts
       redirect_to root_path, alert: "Sorry! You are not authorized"
     else
-      puts "========idhr bhi aya hai backups dkhnay========== "
-      puts 
-      puts
-      puts
       if session[:confirm_password] == true
         session[:confirm_password] = false
       end
@@ -140,7 +131,9 @@ class HomeController < ApplicationController
     if user && user.valid_password?(params[:password]) && user.role.name == 'superuser'
       session[:confirm_password] = true
       if params[:redirection] == 'promote'
-        redirect_to promote_grades_path(confirmed: true), notice: 'Access Granted...!!!'
+        redirect_to promote_grades_path(confirmed: true, identifier: 'promote' ), notice: 'Access Granted...!!!'
+      elsif params[:redirection] == 'demote'
+        redirect_to promote_grades_path(confirmed: true, identifier: 'demote' ), notice: 'Access Granted...!!!'
       elsif params[:redirection] == 'backup'
         redirect_to home_backups_path(confirmed: true), notice: 'Access Granted...!!!'
       elsif params[:redirection] == 'edit_report_card'

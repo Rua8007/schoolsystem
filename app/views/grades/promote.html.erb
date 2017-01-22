@@ -14,7 +14,7 @@
 
 <script type="text/javascript">
   $("#grade_id").change(function(e){
-    $.get("/grades/get_classes", {grade_id: $("#grade_id").val()},function(data){
+    $.get("/grades/get_classes", {grade_id: $("#grade_id").val(), identifier: "<%= @identifier %>"},function(data){
       $("#promote_to").empty();
       var array1 = data
       console.log(data)
