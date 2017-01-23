@@ -52,29 +52,29 @@
                 </div>
               </div>
 
-
+              <% arabic_name = @student.arabicname.split(' ') %>
               <div class="column col-xs-12 col-sm-3">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Arabic First Name</label>
-                    <%= text_field_tag :aname1 ,'', :style => 'height:34px;width: 100%',  class: 'form-control', autofocus: true %>
+                    <%= text_field_tag :aname1 ,arabic_name[0]? arabic_name[0] : '', :style => 'height:34px;width: 100%',  class: 'form-control', autofocus: true %>
                 </div>
               </div>
               <div class="column col-xs-12 col-sm-3">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Arabic Second Name</label>
-                    <%= text_field_tag :aname2 ,'', :style => 'height:34px;width: 100%',  class: 'form-control', autofocus: true %>
+                    <%= text_field_tag :aname2 ,arabic_name[1]? arabic_name[1] : '', :style => 'height:34px;width: 100%',  class: 'form-control', autofocus: true %>
                 </div>
               </div>
               <div class="column col-xs-12 col-sm-3">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Arabic Third Name</label>
-                    <%= text_field_tag :aname3 ,'', :style => 'height:34px;width: 100%',  class: 'form-control', autofocus: true %>
+                    <%= text_field_tag :aname3 ,arabic_name[2]? arabic_name[2] : '', :style => 'height:34px;width: 100%',  class: 'form-control', autofocus: true %>
                 </div>
               </div>
               <div class="column col-xs-12 col-sm-3">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Arabic Forth Name</label>
-                    <%= text_field_tag :aname4 ,'',:style => 'height:34px;width: 100%',  class: 'form-control', autofocus: true %>
+                    <%= text_field_tag :aname4 ,arabic_name[3]? arabic_name[3] : '',:style => 'height:34px;width: 100%',  class: 'form-control', autofocus: true %>
                 </div>
               </div>
               <div class="column col-xs-12 col-sm-2">
@@ -92,7 +92,7 @@
               <div class="column col-xs-12 col-sm-2">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Gender</label>
-                    <%= std.select :gender, options_for_select(%w[MALE FEMALE]),{}, {class: "form-control", style: 'width: 100%'} %>
+                    <%= std.select :gender, options_for_select([ 'MALE', 'FEMALE'], std.object.gender),{}, {class: "form-control", style: 'width: 100%'} %>
                 </div>
               </div>
               <% if (defined?(first_time)).nil? %>
@@ -117,26 +117,26 @@
                 <div class="column col-xs-12 col-sm-2">
                   <div class="form-group">
                       <label for="exampleInputPassword1">Place of Birth</label>
-                      <%= std.country_select :birth_place ,{selected: "SA"}, {:style => 'height:34px;width: 100%',  class: 'form-control'} %>
+                      <%= std.country_select :birth_place ,{selected: std.object.birth_place || "SA"}, {:style => 'height:34px;width: 100%',  class: 'form-control'} %>
                   </div>
                 </div>
 
                 <div class="column col-xs-12 col-sm-2">
                   <div class="form-group">
                       <label for="exampleInputEmail1">Nationality</label>
-                      <%= std.country_select :nationality ,{selected: "SA"}, {:style => 'height:34px;width: 100%',  class: 'form-control',} %>
+                      <%= std.country_select :nationality ,{selected: std.object.nationality || "SA"}, {:style => 'height:34px;width: 100%',  class: 'form-control',} %>
                   </div>
                 </div>
                 <div class="column col-xs-12 col-sm-2">
                   <div class="form-group">
                       <label for="exampleInputEmail1">Language</label>
-                      <%= std.select :language, options_for_select(%w[Arabic English Urdu French Spanish Dutch]),{}, {class: "form-control", style:"width: 100%"} %>
+                      <%= std.select :language, options_for_select(%w[Arabic English Urdu French Spanish Dutch], std.object.language),{}, {class: "form-control", style:"width: 100%"} %>
                   </div>
                 </div>
                 <div class="column col-xs-12 col-sm-2">
                   <div class="form-group">
                       <label for="exampleInputPassword1">Religion</label>
-                      <%= std.select :religion, options_for_select(%w[Islam Chritianity Budhism Hinduism Jew]),{}, {class: "form-control", style:"width: 100%"} %>
+                      <%= std.select :religion, options_for_select(%w[Islam Chritianity Budhism Hinduism Jew], std.object.religion),{}, {class: "form-control", style:"width: 100%"} %>
                     </div>
                 </div>
                 <div class="column col-xs-12 col-sm-2">
@@ -219,7 +219,7 @@
             <div class="column col-xs-12 col-sm-3">
               <div class="form-group">
                   <label for="exampleInputEmail1">Blood Group</label>
-                  <%= std.select :blood, options_for_select(%w[Unknown A+ A- B+ B- O+ O- AB+ AB-]),{}, {class: "form-control", style:"width: 100%"} %>
+                  <%= std.select :blood, options_for_select(%w[Unknown A+ A- B+ B- O+ O- AB+ AB-], std.object.blood),{}, {class: "form-control", style:"width: 100%"} %>
               </div>
             </div>
             <div class="column col-xs-12 col-sm-3">
@@ -307,7 +307,7 @@
       </div>
     </div>
   <div class="form-group">
-    <%= std.submit "Edit Parent Detail", :class => 'btn btn-block btn-success form-control',:style=>'width:24%;' %>
+    <%= std.submit @edit ? "Update" : "Edit Parent Detail", :class => 'btn btn-block btn-success form-control',:style=>'width:24%;' %>
   </div>
 <% end %>
 

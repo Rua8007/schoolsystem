@@ -131,12 +131,15 @@ class StudentsController < ApplicationController
         emergency.save
         Notification.create(user_id: current_user.id, activity: "Updated Information of Student with ID #{@student.rollnumber} in grade #{@student.grade.name}")
 
-        if @student.parent.present?
-          redirect_to edit_parent_parent_path(@student.parent_id), notice: "Student Successfully updated"
+        if params[:commit] == 'Update'
+          redirect_to @student, notice: "Student Successfully updated"
         else
-          redirect_to new_parent_path(student_id: @student.id), notice: "Student Successfully updated"
+          if @student.parent.present?
+            redirect_to edit_parent_parent_path(@student.parent_id), notice: "Student Successfully updated"
+          else
+            redirect_to new_parent_path(student_id: @student.id), notice: "Student Successfully updated"
+          end
         end
-
       else
         # return render json: @student
         render 'edit'
