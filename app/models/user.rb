@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
   belongs_to :role
   has_many :fees
   has_many :notifications
+  has_many :leaves
 
   def mailboxer_email(object)
  #return the model's email here

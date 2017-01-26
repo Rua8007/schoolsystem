@@ -48,6 +48,7 @@ class LeavesController < ApplicationController
   # POST /leaves.json
   def create
     @leave = Leave.new(leave_params)
+    @leave.user_id = current_user.id
     @leave.employee_id = Employee.find_by_email(current_user.email).id if @leave.employee_id.nil? && current_user.role.name == 'Teacher'
     respond_to do |format|
       if @leave.save

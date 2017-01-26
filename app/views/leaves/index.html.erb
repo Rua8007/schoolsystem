@@ -9,21 +9,23 @@
   <table class="table table-striped">
     <thead>
       <tr>
+        <th style="width:13%">User</th>
         <th style="width:7%">Emp #</th>
-        <th style="width:10%">Employee</th>
-        <th style="width:10%">Reason</th>
-        <th style="width:10%">Description</th>
-        <th style="width:10%">Leave from</th>
-        <th style="width:10%">Leave to</th>
-        <th style="width:30%">Status</th>
+        <th style="width:9%">Employee</th>
+        <th style="width:9%">Reason</th>
+        <th style="width:9%">Description</th>
+        <th style="width:9%">Leave from</th>
+        <th style="width:9%">Leave to</th>
+        <th style="width:25%">Status</th>
       </tr>
     </thead>
 
     <tbody>
       <% @leaves.try(:each) do |leave| %>
         <tr>
-          <td><%= leave.try(:employee).try(:employee_number) %></td>
-          <td><%= leave.try(:employee).try(:full_name) %></td>
+          <td><%= leave.try(:user).email rescue 'N/A' %></td>
+          <td><%= leave.try(:employee).try(:employee_number) || 'N/A' %></td>
+          <td><%= leave.try(:employee).try(:full_name) || 'N/A' %></td>
           <td><%= leave.reason %></td>
           <td><%= link_to leave.description, leave %></td>
           <td><%= leave.leave_from %></td>

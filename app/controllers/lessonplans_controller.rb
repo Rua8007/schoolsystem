@@ -10,11 +10,11 @@ class LessonplansController < ApplicationController
     @year_plan = YearPlan.find(params[:year_plan])
     if @year_plan.present?
       if current_user.role.name != "Teacher"
-        @lessonplans = @year_plan.lessonplans
+        @lessonplans = @year_plan.lessonplans.order("created_at DESC")
       else
         grade_ids = Employee.find_by_email(current_user.email).bridges.pluck(:grade_id)
         subject_ids = Employee.find_by_email(current_user.email).bridges.pluck(:subject_id)
-        @lessonplans = @year_plan.lessonplans.where(grade_id: grade_ids, subject_id: subject_ids)
+        @lessonplans = @year_plan.lessonplans.where(grade_id: grade_ids, subject_id: subject_ids).order("created_at DESC")
       end
     end
   end
@@ -119,7 +119,7 @@ class LessonplansController < ApplicationController
   def get_requested
     if current_user.role.rights.where(value: 'approve_lesson').any?
       @lessonplans = []
-      my_lessons = Lessonplan.where(approved: false)
+      my_lessons = Lessonplan.where(approved: false).order("created_at DESC")
       my_lessons.each do |lp|
         br = Bridge.where(subject_id: lp.subject_id, grade_id: lp.grade_id).first
         if br.present?
