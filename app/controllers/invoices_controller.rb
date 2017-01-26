@@ -116,11 +116,16 @@ class InvoicesController < ApplicationController
   end
 
   def items_data
-    @details = Item.find_by_code(params[:item_id])
-    if @details.blank?
-      @details = Package.find_by_code(params[:item_id])
+    @details = nil
+    if Student.find_by_rollnumber(params[:std_id]).present?
+      grade = Student.find_by_rollnumber(params[:std_id]).grade.parent 
+      if grade.present?
+        @details = grade.items.find_by_code(params[:item_id])
+        if @details.blank?
+          @details = Package.find_by_code(params[:item_id])
+        end
+      end
     end
-
     respond_to do |format|
       format.json {render json: [details: @details]}
     end

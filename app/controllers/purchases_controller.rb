@@ -37,6 +37,7 @@ class PurchasesController < ApplicationController
     items = params[:items]
     inv.grade_id = params[:grade_id]
     inv.employee_id = params[:employee_id]
+    inv.detail = params[:detail] 
     inv.save
     items.each do |item|
 

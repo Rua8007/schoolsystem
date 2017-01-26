@@ -36,17 +36,17 @@
   </div>
 
   <div class="col-md-2 form-group">
-    <label>Item Name</label>
+    <label>Name</label>
     <input type="text" id = "name" readonly="true" class="form-control">
   </div>
 
   <div class="col-md-2 form-group">
-    <label>Item Price</label>
-    <input type="text" id = "price"readonly="true"  class="form-control">
+    <label>Price</label>
+    <input type="text" id = "price" readonly="true"  class="form-control">
   </div>
 
   <div class="col-md-2 form-group">
-    <label>Item Quantity</label>
+    <label>Quantity</label>
     <input type="text" id = "qty"  class="form-control float">
     <span style = "color: red" id="errmsg"></span>
   </div>
@@ -100,6 +100,8 @@
 
  <script type="text/javascript">
 
+  var available = 0;
+
   $("#discount").keyup (function (e){
     var total = parseInt($("#gtotal").val()) - parseInt($("#discount").val());
     console.log(total);
@@ -108,16 +110,22 @@
 
   $("#code").blur(function (e){
     console.log("here i am");
-    $.get("/invoices/items_data", {item_id: $("#code").val()},function(data){
+    $.get("/invoices/items_data", {item_id: $("#code").val(), std_id: $("#std_id").val()},function(data){
       if(data[0].details == null)
       {
-        $("#code").val('');
         $("#error").removeClass('hidden');
+        $("#name").val('');
+        $("#price").val('');
+        $("#qty").val('');
+        $("#code").val('');
+        $("#total").val('');
       }
       else{
         var item = data[0].details;
         $("#name").val(item.name)
         $("#price").val(item.price)
+        available = item.left;
+        $("#errmsg").text("Available: "+item.left);
         $("#error").addClass('hidden');
       }
     });
@@ -133,6 +141,11 @@
         $("#std_grade").val('');
         $("#std_contact").val('');
         $("#std_error").removeClass('hidden');
+        $("#name").val('');
+        $("#price").val('');
+        $("#qty").val('');
+        $("#code").val('');
+        $("#total").val('');
       }
       else{
         var std = data[0].details;
@@ -140,6 +153,7 @@
         $("#std_parent").val(std.parent);
         $("#std_grade").val(std.grade);
         $("#std_contact").val(std.contact);
+        $("#std_error").addClass('hidden');
 
         $("#error").addClass('hidden');
       }
@@ -148,8 +162,14 @@
 
 
   $("#qty").blur(function(){
-    var total = parseInt($("#price").val()) * parseInt($("#qty").val());
-    $("#total").val(total);
+    if (available >= parseInt($("#qty").val())) {
+      var total = parseInt($("#price").val()) * parseInt($("#qty").val());
+      $("#total").val(total);
+    }
+    else{
+      $("#errmsg").text("Enter less than "+available);
+      $("#qty").val("0")
+    }  
   })
 
  </script>

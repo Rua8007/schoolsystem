@@ -6,12 +6,14 @@
   </div>
 
   <div class="col-md-3 form-group">
-    <label>Teacher</label>
+    <label>Requester</label>
     <%= select_tag "employee_id", options_from_collection_for_select(@teachers, "id", "full_name"), class: "form-control", id: "std_contact", required: true %>
   </div>
 
-
-
+  <div class="col-md-6 form-group">
+    <label>Description</label>
+    <%= text_field_tag "detail", '' , class: "form-control", required: true %>
+  </div>
  
 </div>
   
@@ -26,12 +28,12 @@
   
   <div class="col-md-2 form-group">
     <label>Item Price</label>
-    <input type="text" id = "price"  class="form-control">
+    <input type="number" id = "price"  class="form-control">
   </div>
   
   <div class="col-md-2 form-group">
     <label>Item Quantity</label>
-    <input type="text" id = "qty"  class="form-control float">
+    <input type="number" id = "qty"  class="form-control float">
     <span style = "color: red" id="errmsg"></span>
   </div>
   
@@ -40,7 +42,7 @@
     <input type="text" id = "total" readonly="true" class="form-control">
   </div>
   <div  class="col-md-2 form-group">
-  <button id = "itembtn" type="button" class="btn btn-success" style="margin-top:23px">Buy</button>
+  <button id = "itembtn" type="button" class="btn btn-success" style="margin-top:23px">Add</button>
         
   </div>
 </div>

@@ -24,7 +24,7 @@
                 <div class="form-group ">
                   <div class="field ">
                     <%= f.label "Subject" %><br>
-                    <%= f.select :bridge_id , options_from_collection_for_select(@bridges,"id","title"),{prompt: "Select Bridge"} ,{class: 'form-control', required: true}%>
+                    <%= f.select :bridge_id , options_from_collection_for_select(@bridges.order(:grade_id),"id","title"),{prompt: "Select Subject"} ,{class: 'form-control', required: true}%>
                   </div>
                 </div>
               </div>
