@@ -2,265 +2,150 @@
 <% if setting.present? %>
     <div class="row">
       <div class="col-md-12">
-        <table class="table table-bordered" style="font-size: 9px !important; padding-top: 0px !important; margin-top: 0px !important">
+        <table class="table table-bordered" style="font-size: 15px !important; padding-top: 0px !important; margin-top: 0px !important">
           <thead>
           <% headings = setting.headings.where(show: true) %>
-          <tr>
-            <% termwork_heading = headings.find_by_method('termwork') %>
-            <% if termwork_heading.present? %>
-                <th colspan="<%= setting.termwork + 1 %>" class="col-md-3" style="background-color: <%= termwork_heading.color %>"><%= termwork_heading.label %></th>
-            <% end %>
+          <tr style="text-align: center;">
+                <% termwork_heading = headings.find_by_method('termwork') %>
+                <% termwork_total_heading = headings.find_by_method('termwork_total') %>
 
-            <% termwork_total_heading = headings.find_by_method('termwork_total') %>
-            <% if termwork_total_heading.present? %>
-                <th colspan="<%= setting.termwork_total %>" class="col-md-1" style="background-color: <%= termwork_total_heading.color %>"><%= termwork_total_heading.label %></th>
-            <% end %>
+                <th style="width: 10%;"></th>
+                <% exams_heading = headings.find_by_method('exams') %>
 
-            <% exams_heading = headings.find_by_method('exams') %>
+                <% exams_total_heading = headings.find_by_method('exams_total') %>
+                <th class="" style="width: 13%; background-color: #B3EAEE ">Q1 Total Result</th>
 
-            <% exams_total_heading = headings.find_by_method('exams_total') %>
-            <% if exams_total_heading.present? %>
-                <th colspan="<%= setting.exams_total %>" class="col-md-1" style="background-color: <%= exams_total_heading.color %>"><%= exams_total_heading.label %></th>
-            <% end %>
-
-            <% quarter_total_heading = headings.find_by_method('quarter_total') %>
-            <% if quarter_total_heading.present? %>
-                <th colspan="<%= setting.quarter_total %>" class="col-md-1" style="background-color: <%= quarter_total_heading.color %>"><%= quarter_total_heading.label %></th>
-            <% end %>
-
-            <th class="col-md-1" style="background-color: #8eafba">Q1 Total Result</th>
-            <th class="col-md-1" style="background-color: #8eafba">Term 1 Total</th>
-
-            <% quarter_percentage_heading = headings.find_by_method('quarter_percentage') %>
-            <% if quarter_percentage_heading.present? %>
-                <th colspan="<%= setting.quarter_percentage %>" class="col-md-1" style="background-color: <%= quarter_percentage_heading.color %>"><%= quarter_percentage_heading.label %></th>
-            <% end %>
-            
-            <% evaluation_heading = headings.find_by_method('evaluation') %>
-            <% if evaluation_heading.present? %>
-                <th colspan="<%= setting.evaluation %>" class="col-md-1" style="background-color: <%= evaluation_heading.color %>"><%= evaluation_heading.label %></th>
-            <% end %>
-          </tr>
-          <tr>
-            <% if termwork_heading.present? %>
-                <th class="col-sm-2 light-blue">Subject</th>
-                <% if setting.marks_divisions.where(is_divisible: true).present? %>
-                    <% setting.marks_divisions.where(is_divisible: true).each do |division| %>
-                        <th class="col-sm-1 light-blue"><%= division.name %></th>
-                    <% end %>
-                <% else %>
-                    <th class="col-sm-1 light-blue"></th>
+                <% quarter_total_heading = headings.find_by_method('quarter_total') %>
+                <% if quarter_total_heading.present? %>
+                    <th class="" style="width: 13%; background-color: #B3EAEE"><%= quarter_total_heading.label %></th>
                 <% end %>
-            <% end %>
-            <% if termwork_total_heading.present? %>
-                <th class="col-sm-1" style="background-color: <%= termwork_total_heading.color %>"></th>
-            <% end %>
 
-            <% if exams_total_heading.present? %>
-                <th class="col-sm-1" style="background-color: <%= exams_total_heading.color %>"></th>
-            <% end %>
+                <th class="" style="width: 13%; background-color: #E0EAF6">Term 1 Total</th>
 
-            <% if quarter_total_heading.present? %>
-                <th class="col-sm-1" style="background-color: <%= quarter_total_heading.color %>"></th>
-            <% end %>
-            <th style="background-color: #8eafba"></th>
-            <th style="background-color: #8eafba"></th>
-
-            <% if quarter_percentage_heading.present? %>
-                <th class="col-sm-1" style="background-color: <%= quarter_percentage_heading.color %>"></th>
-            <% end %>
-
-            <% if evaluation_heading.present? %>
-                <th class="col-sm-1" style="background-color: <%= evaluation_heading.color %>"></th>
-            <% end %>
-          </tr>
-          <tr>
-            <% if termwork_heading.present? %>
-                <th class="col-sm-2 light-blue">Full Marks</th>
-                <% if setting.marks_divisions.where(is_divisible: true).present? %>
-                    <% setting.marks_divisions.where(is_divisible: true).each do |division| %>
-                        <th class="col-sm-1 light-blue"><%= division.total_marks %></th>
-                    <% end %>
-                <% else %>
-                    <th class="col-sm-1 light-blue"></th>
+                <% quarter_percentage_heading = headings.find_by_method('quarter_percentage') %>
+                <% if quarter_percentage_heading.present? %>
+                    <th colspan="<%= setting.quarter_percentage %>" class="" style="width: 13%; background-color: #E0EAF6">Term 1 %</th>
                 <% end %>
-            <% end %>
-            <% if termwork_total_heading.present? %>
-                <th class="col-sm-1" style="background-color: <%= termwork_total_heading.color %>"><%= setting.marks_divisions.where(is_divisible: true).try(:sum, :total_marks) || 0 %></th>
-            <% end %>
+                
+                <% evaluation_heading = headings.find_by_method('evaluation') %>
+                <% if evaluation_heading.present? %>
+                    <th colspan="<%= setting.evaluation %>" class="" style="width: 13%; background-color: <%= evaluation_heading.color %>"><%= evaluation_heading.label %></th>
+                <% end %>
+                <th style="width: 13%; background-color: #D6E2F2"> Max Marks</th>
+                <th style="width: 13%; background-color: #D6E2F2"> Pass Marks</th>
+          </tr>
 
-            <% if exams_total_heading.present? %>
-                <th class="col-sm-1" style="background-color: <%= exams_total_heading.color %>"><%= setting.marks_divisions.where(is_divisible: false).try(:sum, :total_marks) || 0 %></th>
-            <% end %>
+          <tr>
+                <th class="col-sm-2">Subject</th>
+                <th colspan="6" style="background-color: #808080"></th>
+          </tr>
+            <% q2total = setting.marks_divisions.try(:sum, :total_marks) || 0 %>
+
+          <!-- <tr>
             <% q2total = 0 %>
-            <% if quarter_total_heading.present? %>
-                <th class="col-sm-1" style="background-color: <%= quarter_total_heading.color %>"><%= q2total =setting.marks_divisions.try(:sum, :total_marks) || 0 %></th>
-            <% end %>
-            <th style="background-color: #8eafba"> <%= @quarter1_max_marks %> </th>
-            <th style="background-color: #8eafba"><%= q2total + @quarter1_max_marks %></th>
+            <% q2total =setting.marks_divisions.try(:sum, :total_marks) || 0 %>
+            <th style="background-color: #8eafba"> <%#= @quarter1_max_marks %> </th>
+            <th style="background-color: #8eafba"><% q2total + @quarter1_max_marks %></th>
 
-            <% if quarter_percentage_heading.present? %>
-                <th class="col-sm-1" style="background-color: <%= quarter_percentage_heading.color %>">100.00%</th>
-            <% end %>
+            <%# if quarter_percentage_heading.present? %>
+                <th class="col-sm-1" style="background-color: <%#= quarter_percentage_heading.color %>">100.00%</th>
+            <%# end %>
 
-            <% if evaluation_heading.present? %>
-                <th class="col-sm-1" style="background-color: <%= evaluation_heading.color %>"></th>
-            <% end %>
-          </tr>
-          <tr>
-            <% if termwork_heading.present? %>
-                <th class="col-sm-2 light-blue text-nowrap">Pass. Marks</th>
-                <% if setting.marks_divisions.where(is_divisible: true).present? %>
-                    <% setting.marks_divisions.where(is_divisible: true).each do |division| %>
-                        <th class="col-sm-1 light-blue"><%= division.passing_marks %></th>
-                    <% end %>
-                <% else %>
-                    <th class="col-sm-1 light-blue"></th>
-                <% end %>
-            <% end %>
-            <% if termwork_total_heading.present? %>
-                <th class="col-sm-1" style="background-color: <%= termwork_total_heading.color %>"><%= setting.marks_divisions.where(is_divisible: true).try(:sum, :passing_marks) || 0 %></th>
-            <% end %>
+            <%# if evaluation_heading.present? %>
+                <th class="col-sm-1" style="background-color: <%#= evaluation_heading.color %>"></th>
+            <%# end %>
+          </tr> -->
+<!--           <tr>
+            <% q2pass = setting.marks_divisions.try(:sum, :passing_marks) || 0 %>
 
-            <% if exams_total_heading.present? %>
-                <th class="col-sm-1" style="background-color: <%= exams_total_heading.color %>"><%= setting.marks_divisions.where(is_divisible: false).try(:sum, :passing_marks) || 0 %></th>
-            <% end %>
-            <% q2pass = 0 %>
+                <th class="col-sm-1" style="background-color: <% quarter_total_heading.color %>"><%#= q2pass = setting.marks_divisions.try(:sum, :passing_marks) || 0 %></th>
 
-            <% if quarter_total_heading.present? %>
-                <th class="col-sm-1" style="background-color: <%= quarter_total_heading.color %>"><%= q2pass = setting.marks_divisions.try(:sum, :passing_marks) || 0 %></th>
-            <% end %>
+                <th class="col-sm-1" style="background-color: <% quarter_percentage_heading.color %>"><%#= number_to_percentage((setting.marks_divisions.try(:sum, :passing_marks) || 0)/(setting.marks_divisions.try(:sum, :total_marks) || 1) * 100.00, precision: 2) %></th>
 
-            <th style="background-color: #8eafba"> <%= @quarter1_pass_marks %></th>
-            <th style="background-color: #8eafba"><%= @quarter1_pass_marks + q2pass %></th>
-
-
-            <% if quarter_percentage_heading.present? %>
-                <th class="col-sm-1" style="background-color: <%= quarter_percentage_heading.color %>"><%= number_to_percentage((setting.marks_divisions.try(:sum, :passing_marks) || 0)/(setting.marks_divisions.try(:sum, :total_marks) || 1) * 100.00, precision: 2) %></th>
-            <% end %>
-
-            <% if evaluation_heading.present? %>
-                <th class="col-sm-1" style="background-color: <%= evaluation_heading.color %>"></th>
-            <% end %>
-          </tr>
+                <th class="col-sm-1" style="background-color: <%#= evaluation_heading.color %>"></th>
+          </tr> -->
+            <% term1_sum_max = 0 %>
+            <% term1_sum_passing = 0 %>
           </thead>
 
-          <tbody>
+          <tbody >
           <% subjects = setting.subjects.where(parent: nil) %>
           <% if subjects.present? %>
               <% subjects.order('name').each do |subject| %>
-                  <tr>
+                  <tr style="text-align: center;">
                     <% if termwork_heading.present? %>
                         <th class="col-sm-2 text-nowrap"><%= subject.name %></th>
-                        <% if setting.marks_divisions.where(is_divisible: true).present? %>
-                            <% setting.marks_divisions.where(is_divisible: true).each do |division| %>
-                                <td class="col-sm-1"><%= number_with_precision get_division_marks(@report_card, subject, division, exam), precision: 2 %></td>
-                            <% end %>
-                        <% else %>
-                            <th class="col-sm-1"></th>
-                        <% end %>
-                    <% end %>
-                    <% if termwork_total_heading.present? %>
-                        <th class="col-sm-1" style="background-color: <%= termwork_total_heading.color %>"><%= number_with_precision get_divisions_total(@report_card, subject, exam, setting.marks_divisions.where(is_divisible: true).pluck(:id) ), precision: 2 %></th>
-                    <% end %>
-
-                    <% if exams_total_heading.present? %>
-                        <td class="col-sm-1" style="background-color: <%= exams_total_heading.color %>"><%= number_with_precision get_divisions_total(@report_card, subject, exam, setting.marks_divisions.where(is_divisible: false).pluck(:id) ), precision: 2 %></td>
-                    <% end %>
-                    <% q2obtained = 0 %>
-                    <% if quarter_total_heading.present? %>
-                        <td class="col-sm-1" style="background-color: <%= quarter_total_heading.color %>"><%= q2obtained = get_quarter_total(@report_card, subject, exam).round(2) %></td>
                     <% end %>
                     <% q1subject = @quarter1_setting.subjects.find_by(parent: nil,name: subject.name ) %>
-                    <td style="background-color: #8eafba"><%= q1obtained = get_quarter_total(@report_card, q1subject, @quarter1).round(2) %></td>
+                    <td style="background-color: #B3EAEE"><%= q1obtained = get_quarter_total(@report_card, q1subject, @quarter1).round(2) %></td>
                     <% @q1totalmarks << q1obtained  %>
-                    <td style="background-color: #8eafba"><%= q2obtained + q1obtained %></td>
+                    <% q2obtained = 0 %>
+                    <% if quarter_total_heading.present? %>
+                        <td class="col-sm-1" style="background-color: #B3EAEE"><%= q2obtained = get_quarter_total(@report_card, subject, exam).round(2) %></td>
+                    <% end %>
+                    
+                    <td  style="background-color: #E0EAF6"><%= q2obtained + q1obtained %></td>
                     <% @term1total << q2obtained + q1obtained  %>
                     <% if quarter_percentage_heading.present? %>
-                        <td class="col-sm-1" style="background-color: <%= quarter_percentage_heading.color %>"><%= ((get_quarter_percentage(@report_card, setting, subject, exam) + get_quarter_percentage(@report_card, @quarter1_setting, q1subject, @quarter1))/2).round(2) %></td>
+                        <td class="col-sm-1"  style="background-color: #E0EAF6"><%= ((get_quarter_percentage(@report_card, setting, subject, exam) + get_quarter_percentage(@report_card, @quarter1_setting, q1subject, @quarter1))/2).round(2) %></td>
                     <% end %>
 
                     <% if evaluation_heading.present? %>
                         <th class="col-sm-1" style="background-color: <%= evaluation_heading.color %>"></th>
                     <% end %>
+                    <% quarter1_total = @quarter1_setting.marks_divisions.try(:sum, :total_marks) %>
+                    <% term1_sum_max = term1_sum_max + quarter1_total + q2total %>
+                    <% quarter1_passing = @quarter1_setting.marks_divisions.try(:sum, :passing_marks) %>
+                    <% term1_sum_passing = term1_sum_passing + quarter1_passing + q2pass%>
+                    <th style="background-color: #D6E2F2"><%= q2total + quarter1_total %></th>
+                    <th style="background-color: #D6E2F2"><%= q2pass + quarter1_passing %></th>
                   </tr>
               <% end %>
-          <% end %>
-          <tr style="background-color: #B9B9C8 !important; font-weight: bold !important">
-            <% if setting.marks_divisions.where(is_divisible: true).present? %>
-                <td>Average</td>
-                <% setting.marks_divisions.where(is_divisible: true).each do |division| %>
-                  <td></td>
-                <% end %>
-                <% if termwork_total_heading.present? %>
-                  <td><%= number_with_precision get_divisions_total_avg(@report_card, subjects, exam, setting.marks_divisions.where(is_divisible: true).pluck(:id) )/subjects.count, precision: 2%></td>
-                <% end %>
-            <% else %>
-                <th class="col-sm-1"></th>
-            <% end %>
 
-            <% if exams_total_heading.present? %>
-              <td><%= number_with_precision get_divisions_total_avg(@report_card, subjects, exam, setting.marks_divisions.where(is_divisible: false).pluck(:id))/subjects.count, precision: 2 %></td>
-            <% end %>
+          <% end %>
+          <tr style="background-color: #D5DCE6 !important; font-weight: bold !important">
+            <td>Average</td>
+            <td><%= ((@q1totalmarks.inject(0){|sum,x| sum + x })/@q1totalmarks.size).round(2) %></td>
+
             <% if quarter_total_heading.present? %>
                 <td class="col-sm-1" ><%= number_with_precision get_quarter_total_avg(@report_card, subjects, exam)/subjects.count, precision: 2 %></td>
             <% end %>
 
-            <td><%= ((@q1totalmarks.inject(0){|sum,x| sum + x })/@q1totalmarks.size).round(2) %></td>
             <td><%= ((@term1total.inject(0){|sum,x| sum + x })/@q1totalmarks.size).round(2) %></td>
 
 
             <td><%= number_with_precision (get_quarter_total_avg(@report_card, subjects, exam)/(setting.marks_divisions.try(:sum, :total_marks)*subjects.count) * 100), precision: 2 %>%</td>
+            <td><%= term1_sum_max/subjects.count %></td>
+            <td><%= term1_sum_passing/subjects.count %></td>
           </tr>
 
-          <tr style="background-color: #B9B9C8 !important; font-weight: bold !important">
-            <% if setting.marks_divisions.where(is_divisible: true).present? %>
-                <td>Total</td>
-                <% setting.marks_divisions.where(is_divisible: true).each do |division| %>
-                  <td></td>
-                <% end %>
-                <% if termwork_total_heading.present? %>
-                  <td><%= number_with_precision get_divisions_total_avg(@report_card, subjects, exam, setting.marks_divisions.where(is_divisible: true).pluck(:id)), precision: 2%></td>
-                <% end %>
-            <% else %>
-                <th class="col-sm-1"></th>
-            <% end %>
-            <% if exams_total_heading.present? %>
-              <td><%= number_with_precision get_divisions_total_avg(@report_card, subjects, exam, setting.marks_divisions.where(is_divisible: false).pluck(:id)), precision: 2 %></td>
-            <% end %>
+          <tr style="background-color: #D5DCE6 !important; font-weight: bold !important">
+            <% term1max = @quarter1_setting.marks_divisions.try(:sum, :total_marks)*@quarter1_setting.subjects.where(parent: nil).count %>
+            <td>Total</td>
+            <td><%= (@q1totalmarks.inject(0){|sum,x| sum + x }).round(2) %></td>
             <% if quarter_total_heading.present? %>
                 <td class="col-sm-1" ><%= number_with_precision get_quarter_total_avg(@report_card, subjects, exam), precision: 2 %></td>
             <% end %>
-            <td><%= (@q1totalmarks.inject(0){|sum,x| sum + x }).round(2) %></td>
-            <td><%= (@term1total.inject(0){|sum,x| sum + x }).round(2) %></td>
-
-
-            <td><%= number_with_precision (get_quarter_total_avg(@report_card, subjects, exam)/(setting.marks_divisions.try(:sum, :total_marks)*subjects.count) * 100), precision: 2 %>%</td>
+            <td><%= term1_total = (@term1total.inject(0){|sum,x| sum + x }).round(2) %></td>
+            <% term1_total_marks = (setting.marks_divisions.try(:sum, :total_marks)*subjects.count + (term1max)) %>
+            <td><%= number_with_precision (term1_total / term1_total_marks * 100), precision: 2 %>%</td>
+            <td><%= term1_total_marks %></td>
+            <td><%= (setting.marks_divisions.try(:sum, :passing_marks)*subjects.count + (@quarter1_setting.marks_divisions.try(:sum, :passing_marks)*subjects.count)) %></td>
           </tr>
-          <tr style="background-color: #B9B9C8 !important; font-weight: bold !important">
-            <% if setting.marks_divisions.where(is_divisible: true).present? %>
-                <td>Max</td>
-                <% setting.marks_divisions.where(is_divisible: true).each do |division| %>
-                  <td></td>
-                <% end %>
-                <% if termwork_total_heading.present? %>
-                  <td><%= setting.marks_divisions.where(is_divisible: true).try(:sum, :total_marks)*subjects.count%></td>
-                <% end %>
-            <% else %>
-                <th class="col-sm-1"></th>
-            <% end %>
 
-            <% if exams_total_heading.present? %>
-              <td><%= setting.marks_divisions.where(is_divisible: false).try(:sum, :total_marks)*subjects.count %></td>
-            <% end %>
+          <tr style="background-color: #D5DCE6 !important; font-weight: bold !important">
+            <td>Max</td>
             <% term1max = 0 %>
+            <td> <%= @quarter1_setting.marks_divisions.try(:sum, :total_marks)*@quarter1_setting.subjects.where(parent: nil).count%></td>
             <% if quarter_total_heading.present? %>
                 <td class="col-sm-1" ><%= term1max = setting.marks_divisions.try(:sum, :total_marks)*subjects.count %></td>
             <% end %>
-            <td><%= term1max = term1max + @quarter1_setting.marks_divisions.try(:sum, :total_marks)*@quarter1_setting.subjects.where(parent: nil).count %></td>
+            <% term1max = term1max + @quarter1_setting.marks_divisions.try(:sum, :total_marks)*@quarter1_setting.subjects.where(parent: nil).count %>
             <td><%= term1max %></td>
 
             <td>100%</td>
+            <td style="background-color: #808080"></td>
+            <td style="background-color: #808080"></td>
           </tr>         
         </tbody>
       </table>
