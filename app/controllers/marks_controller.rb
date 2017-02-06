@@ -366,6 +366,12 @@ class MarksController < ApplicationController
     @quarter1_pass_marks = @quarter1_setting.marks_divisions.try(:sum, :passing_marks)
     
     # return render json: @exams
+    puts "========"
+    puts @main_grade.inspect
+    puts @batch.inspect
+    puts "---this is exam----"
+    puts @exams.inspect
+    puts "========"
     @settings = ReportCardSetting.where(grade_id: @main_grade.id, batch_id: @batch.id, exam_id: @exams.first.id)
 
     respond_to do |format|

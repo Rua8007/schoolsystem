@@ -131,7 +131,7 @@ class StudentsController < ApplicationController
         emergency.save
         Notification.create(user_id: current_user.id, activity: "Updated Information of Student with ID #{@student.rollnumber} in grade #{@student.grade.name}")
 
-        if params[:commit] == 'Update'
+        if params[:commit] == 'Update' && @student.parent.present?
           redirect_to @student, notice: "Student Successfully updated"
         else
           if @student.parent.present?
