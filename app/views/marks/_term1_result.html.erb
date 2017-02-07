@@ -23,9 +23,9 @@
                 <th class="" style="width: 13%; background-color: #E0EAF6">Term 1 Total</th>
 
                 <% quarter_percentage_heading = headings.find_by_method('quarter_percentage') %>
-                <% if quarter_percentage_heading.present? %>
+                <%# if quarter_percentage_heading.present? %>
                     <th colspan="<%= setting.quarter_percentage %>" class="" style="width: 13%; background-color: #E0EAF6">Term 1 %</th>
-                <% end %>
+                <%# end %>
                 
                 <% evaluation_heading = headings.find_by_method('evaluation') %>
                 <% if evaluation_heading.present? %>
@@ -60,7 +60,7 @@
 
                 <th class="col-sm-1" style="background-color: <% quarter_total_heading.color %>"><%#= q2pass = setting.marks_divisions.try(:sum, :passing_marks) || 0 %></th>
 
-                <th class="col-sm-1" style="background-color: <% quarter_percentage_heading.color %>"><%#= number_to_percentage((setting.marks_divisions.try(:sum, :passing_marks) || 0)/(setting.marks_divisions.try(:sum, :total_marks) || 1) * 100.00, precision: 2) %></th>
+                <th class="col-sm-1" style="background-color: <#% quarter_percentage_heading.color %>"><%#= number_to_percentage((setting.marks_divisions.try(:sum, :passing_marks) || 0)/(setting.marks_divisions.try(:sum, :total_marks) || 1) * 100.00, precision: 2) %></th>
 
                 <th class="col-sm-1" style="background-color: <%#= evaluation_heading.color %>"></th>
           </tr> -->
@@ -73,9 +73,7 @@
           <% if subjects.present? %>
               <% subjects.order('name').each do |subject| %>
                   <tr style="text-align: center;">
-                    <% if termwork_heading.present? %>
-                        <th class="col-sm-2 text-nowrap"><%= subject.name %></th>
-                    <% end %>
+                    <th class="col-sm-2 text-nowrap"><%= subject.name %></th>
                     <% q1subject = @quarter1_setting.subjects.find_by(parent: nil,name: subject.name ) %>
                     <td style="background-color: #B3EAEE"><%= q1obtained = get_quarter_total(@report_card, q1subject, @quarter1).round(2) %></td>
                     <% @q1totalmarks << q1obtained  %>
@@ -84,11 +82,11 @@
                         <td class="col-sm-1" style="background-color: #B3EAEE"><%= q2obtained = get_quarter_total(@report_card, subject, exam).round(2) %></td>
                     <% end %>
                     
-                    <td  style="background-color: #E0EAF6"><%= q2obtained + q1obtained %></td>
+                    <td  style="background-color: #E0EAF6"><%= (q2obtained + q1obtained).round(2) %></td>
                     <% @term1total << q2obtained + q1obtained  %>
-                    <% if quarter_percentage_heading.present? %>
+                    <%# if quarter_percentage_heading.present? %>
                         <td class="col-sm-1"  style="background-color: #E0EAF6"><%= ((get_quarter_percentage(@report_card, setting, subject, exam) + get_quarter_percentage(@report_card, @quarter1_setting, q1subject, @quarter1))/2).round(2) %></td>
-                    <% end %>
+                    <%# end %>
 
                     <% if evaluation_heading.present? %>
                         <th class="col-sm-1" style="background-color: <%= evaluation_heading.color %>"></th>
@@ -97,8 +95,8 @@
                     <% term1_sum_max = term1_sum_max + quarter1_total + q2total %>
                     <% quarter1_passing = @quarter1_setting.marks_divisions.try(:sum, :passing_marks) %>
                     <% term1_sum_passing = term1_sum_passing + quarter1_passing + q2pass%>
-                    <th style="background-color: #D6E2F2"><%= q2total + quarter1_total %></th>
-                    <th style="background-color: #D6E2F2"><%= q2pass + quarter1_passing %></th>
+                    <th style="background-color: #D6E2F2"><%= (q2total + quarter1_total).round(2) %></th>
+                    <th style="background-color: #D6E2F2"><%= (q2pass + quarter1_passing).round(2) %></th>
                   </tr>
               <% end %>
 
@@ -115,8 +113,8 @@
 
 
             <td><%= number_with_precision (get_quarter_total_avg(@report_card, subjects, exam)/(setting.marks_divisions.try(:sum, :total_marks)*subjects.count) * 100), precision: 2 %>%</td>
-            <td><%= term1_sum_max/subjects.count %></td>
-            <td><%= term1_sum_passing/subjects.count %></td>
+            <td><%= (term1_sum_max/subjects.count).round(2) %></td>
+            <td><%= (term1_sum_passing/subjects.count).round(2) %></td>
           </tr>
 
           <tr style="background-color: #D5DCE6 !important; font-weight: bold !important">
@@ -129,19 +127,19 @@
             <td><%= term1_total = (@term1total.inject(0){|sum,x| sum + x }).round(2) %></td>
             <% term1_total_marks = (setting.marks_divisions.try(:sum, :total_marks)*subjects.count + (term1max)) %>
             <td><%= number_with_precision (term1_total / term1_total_marks * 100), precision: 2 %>%</td>
-            <td><%= term1_total_marks %></td>
-            <td><%= (setting.marks_divisions.try(:sum, :passing_marks)*subjects.count + (@quarter1_setting.marks_divisions.try(:sum, :passing_marks)*subjects.count)) %></td>
+            <td><%= term1_total_marks.round(2) %></td>
+            <td><%= (setting.marks_divisions.try(:sum, :passing_marks)*subjects.count + (@quarter1_setting.marks_divisions.try(:sum, :passing_marks)*subjects.count)).round(2) %></td>
           </tr>
 
           <tr style="background-color: #D5DCE6 !important; font-weight: bold !important">
             <td>Max</td>
             <% term1max = 0 %>
-            <td> <%= @quarter1_setting.marks_divisions.try(:sum, :total_marks)*@quarter1_setting.subjects.where(parent: nil).count%></td>
+            <td> <%= (@quarter1_setting.marks_divisions.try(:sum, :total_marks)*@quarter1_setting.subjects.where(parent: nil).count).round(2) %></td>
             <% if quarter_total_heading.present? %>
-                <td class="col-sm-1" ><%= term1max = setting.marks_divisions.try(:sum, :total_marks)*subjects.count %></td>
+                <td class="col-sm-1" ><%= term1max = (setting.marks_divisions.try(:sum, :total_marks)*subjects.count).round(2) %></td>
             <% end %>
             <% term1max = term1max + @quarter1_setting.marks_divisions.try(:sum, :total_marks)*@quarter1_setting.subjects.where(parent: nil).count %>
-            <td><%= term1max %></td>
+            <td><%= term1max.round(2) %></td>
 
             <td>100%</td>
             <td style="background-color: #808080"></td>
