@@ -91,15 +91,18 @@ class HomeController < ApplicationController
     if !current_user.role.rights.where(value: "access_backups").any?
       redirect_to root_path, alert: "Sorry! You are not authorized"
     else
+      puts "I am here"
+      puts "I am here"
+      puts "I am here"
       s3 = Aws::S3::Client.new
       name = params[:name]
       s3.get_object({ bucket:'alomambackups', key: params[:key] },
         target: Rails.root.join("s3_downloads/#{name}.tar"))
 
-      `tar -xvf ~/schoolsystem/s3_downloads/#{name}.tar` #extract backup tar file
+      `tar -xvf ~/saudia_projects/schoolsystem/s3_downloads/#{name}.tar` #extract backup tar file
       `rake environment db:drop` #drop existing database
       `rake db:create` #create database
-      `PGPASSWORD=postgres psql schoolsystem_production postgres < miguest_backup/databases/PostgreSQL.sql` #restore
+      `psql schoolsystem_development faisalwaleed < miguest_backup/databases/PostgreSQL.sql` #restore
       redirect_to home_backups_path, notice: 'Backup Restored Successfully..!!!'
     end
   end

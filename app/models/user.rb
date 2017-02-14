@@ -57,9 +57,6 @@ class User < ActiveRecord::Base
     else
       user = User.all
     end
-    puts "==========="
-    puts user.uniq.inspect
-    puts "==========="
     user.uniq
   end
 

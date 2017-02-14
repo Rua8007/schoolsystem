@@ -40,6 +40,10 @@
                 <th colspan="6" style="background-color: #808080"></th>
           </tr>
             <% q2total = setting.marks_divisions.try(:sum, :total_marks) || 0 %>
+            <% term1_sum_max = 0 %>
+            <% term1_sum_passing = 0 %>
+            <% @q1totalmarks = [] %>
+            <% @term1total = [] %>
 
           <!-- <tr>
             <% q2total = 0 %>
@@ -64,8 +68,7 @@
 
                 <th class="col-sm-1" style="background-color: <%#= evaluation_heading.color %>"></th>
           </tr> -->
-            <% term1_sum_max = 0 %>
-            <% term1_sum_passing = 0 %>
+
           </thead>
 
           <tbody >

@@ -2,6 +2,7 @@ class Exam < ActiveRecord::Base
 	belongs_to :batch
   has_many :marksheets
 	has_many :sessionals
+  has_many :report_card_settings
 
 	before_save :unique_exam
 

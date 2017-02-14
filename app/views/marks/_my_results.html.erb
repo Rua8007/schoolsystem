@@ -17,65 +17,65 @@
 </div>
 <div class="col-sm-12" id="graph">
 </div>
-
+<!-- 
 <div class="col-sm-12 col-md-12 well well-lg">
-  <% division = @setting.marks_divisions.find_by(name: 'Exam Comments') %>
-  <% obtained_marks = @report_card.marks.where(division_id: division.id, subject_id: @subject.id, exam_id: @exam.id).first.try(:sessionals).try(:first) %>
+  <%# division = @setting.marks_divisions.find_by(name: 'Exam Comments') %>
+  <%# obtained_marks = @report_card.marks.where(division_id: division.id, subject_id: @subject.id, exam_id: @exam.id).first.try(:sessionals).try(:first) %>
   <h3>Exam Comments</h3>
-  <% if obtained_marks.nil? %>
+  <%# if obtained_marks.nil? %>
     <h4>No Exam Comments Reported...!!!</h4>
-  <% else %>
-    <% obtained_marks = obtained_marks.comments.split(',') %>
+  <%# else %>
+    <%# obtained_marks = obtained_marks.comments.split(',') %>
     <div style=" font-size:14px; background: #FF9999; height:300px" class="col-md-6">
       <h4><u>Academic Fields:</u></h4>
       <div class="checkbox">
         <label class="i-checks"  >
-          <%= check_box :lc,"", class: "leave_checkbox" , checked: obtained_marks.include?('1'), disabled: true %>
+          <%#= check_box :lc,"", class: "leave_checkbox" , checked: obtained_marks.include?('1'), disabled: true %>
           <i></i><strong>Excellent performance.</strong>
         </label>
       </div>
       <div class="checkbox">
         <label class="i-checks" >
-          <%= check_box :fa,"", class: "leave_checkbox" , checked: obtained_marks.include?('2') , disabled: true %>
+          <%#= check_box :fa,"", class: "leave_checkbox" , checked: obtained_marks.include?('2') , disabled: true %>
           <i ></i><strong>Good work, keep improving</strong>
         </label>
       </div>
       <div class="checkbox">
         <label class="i-checks" >
-          <%= check_box :pw, "", class: "leave_checkbox", checked: obtained_marks.include?('3') , disabled: true %>
+          <%#= check_box :pw, "", class: "leave_checkbox", checked: obtained_marks.include?('3') , disabled: true %>
           <i ></i><strong>Shows improvement</strong>
         </label>
       </div>
       <div class="checkbox">
         <label class="i-checks" >
-          <%= check_box :lk, "", class: "leave_checkbox", checked: obtained_marks.include?('4') , disabled: true  %>
+          <%#= check_box :lk, "", class: "leave_checkbox", checked: obtained_marks.include?('4') , disabled: true  %>
           <i ></i><strong>Needs to work harder</strong>
         </label>
       </div>
       <div class="checkbox">
         <label class="i-checks" >
-          <%= check_box :ia, "", class: "leave_checkbox", checked: obtained_marks.include?('5') , disabled: true %>
+          <%#= check_box :ia, "", class: "leave_checkbox", checked: obtained_marks.include?('5') , disabled: true %>
           <i ></i><strong>Missing Homework</strong>
         </label>
       </div>
 
       <div class="checkbox">
         <label class="i-checks" >
-          <%= check_box :pc, "", class: "leave_checkbox", checked: obtained_marks.include?('6') , disabled: true %>
+          <%#= check_box :pc, "", class: "leave_checkbox", checked: obtained_marks.include?('6') , disabled: true %>
           <i ></i><strong>Needs to be more active in class</strong>
         </label>
       </div>
 
       <div class="checkbox">
         <label class="i-checks" >
-          <%= check_box :fail, "", class: "leave_checkbox", checked: obtained_marks.include?('7') , disabled: true %>
+          <%#= check_box :fail, "", class: "leave_checkbox", checked: obtained_marks.include?('7') , disabled: true %>
           <i ></i><strong>Needs to Improve English Communication Skills</strong>
         </label>
       </div>
 
       <div class="checkbox">
         <label class="i-checks" >
-          <%= check_box :les, "", class: "leave_checkbox", checked: obtained_marks.include?('8') , disabled: true %>
+          <%#= check_box :les, "", class: "leave_checkbox", checked: obtained_marks.include?('8') , disabled: true %>
           <i ></i><strong>Needs to focus on studies</strong>
         </label>
       </div>
@@ -85,58 +85,58 @@
       <h4><u>Non-Academic Fields:</u></h4>
       <div class="checkbox">
         <label class="i-checks"  >
-          <%= check_box :lc,"", class: "leave_checkbox" , checked: obtained_marks.include?('9'), disabled: true %>
+          <%#= check_box :lc,"", class: "leave_checkbox" , checked: obtained_marks.include?('9'), disabled: true %>
           <i></i><strong>Great Attitude</strong>
         </label>
       </div>
       <div class="checkbox">
         <label class="i-checks" >
-          <%= check_box :fa,"", class: "leave_checkbox" , checked: obtained_marks.include?('10') , disabled: true %>
+          <%#= check_box :fa,"", class: "leave_checkbox" , checked: obtained_marks.include?('10') , disabled: true %>
           <i ></i><strong>Polite, well-behaved person</strong>
         </label>
       </div>
       <div class="checkbox">
         <label class="i-checks" >
-          <%= check_box :pw, "", class: "leave_checkbox", checked: obtained_marks.include?('11') , disabled: true %>
+          <%#= check_box :pw, "", class: "leave_checkbox", checked: obtained_marks.include?('11') , disabled: true %>
           <i ></i><strong>Great Communication Skills</strong>
         </label>
       </div>
       <div class="checkbox">
         <label class="i-checks" >
-          <%= check_box :lk, "", class: "leave_checkbox", checked: obtained_marks.include?('12') , disabled: true  %>
+          <%#= check_box :lk, "", class: "leave_checkbox", checked: obtained_marks.include?('12') , disabled: true  %>
           <i ></i><strong>Adaptable and Social</strong>
         </label>
       </div>
       <div class="checkbox">
         <label class="i-checks" >
-          <%= check_box :ia, "", class: "leave_checkbox", checked: obtained_marks.include?('13') , disabled: true %>
+          <%#= check_box :ia, "", class: "leave_checkbox", checked: obtained_marks.include?('13') , disabled: true %>
           <i ></i><strong>Doesn’t focus in class</strong>
         </label>
       </div>
 
       <div class="checkbox">
         <label class="i-checks" >
-          <%= check_box :pc, "", class: "leave_checkbox", checked: obtained_marks.include?('14') , disabled: true %>
+          <%#= check_box :pc, "", class: "leave_checkbox", checked: obtained_marks.include?('14') , disabled: true %>
           <i ></i><strong>Doesn’t respect others</strong>
         </label>
       </div>
 
       <div class="checkbox">
         <label class="i-checks" >
-          <%= check_box :fail, "", class: "leave_checkbox", checked: obtained_marks.include?('15') , disabled: true %>
+          <%#= check_box :fail, "", class: "leave_checkbox", checked: obtained_marks.include?('15') , disabled: true %>
           <i ></i><strong>Need to concentrate to achieve</strong>
         </label>
       </div>
 
       <div class="checkbox">
         <label class="i-checks" >
-          <%= check_box :fail, "", class: "leave_checkbox", checked: obtained_marks.include?('16') , disabled: true %>
+          <%#= check_box :fail, "", class: "leave_checkbox", checked: obtained_marks.include?('16') , disabled: true %>
           <i ></i><strong>Doesn’t listen to teachers</strong>
         </label>
       </div>
     </div>
   <% end %>
-</div>
+</div> -->
 
 <script type="text/javascript">
 
