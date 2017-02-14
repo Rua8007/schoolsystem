@@ -114,8 +114,7 @@
 
             <td><%= ((@term1total.inject(0){|sum,x| sum + x })/@q1totalmarks.size).round(2) %></td>
 
-
-            <td><%= number_with_precision (get_quarter_total_avg(@report_card, subjects, exam)/(setting.marks_divisions.try(:sum, :total_marks)*subjects.count) * 100), precision: 2 %>%</td>
+            <td style="background-color: #808080"></td>
             <td><%= (term1_sum_max/subjects.count).round(2) %></td>
             <td><%= (term1_sum_passing/subjects.count).round(2) %></td>
           </tr>

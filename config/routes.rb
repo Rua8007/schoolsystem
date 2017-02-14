@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 
     resources :performances
     resources :roles
+    get 'home/contact_administration'
     get 'users/switch_user'
     get 'switch_user/remember_user', to: 'switch_user#remember_user'
     get 'home/notifications'
