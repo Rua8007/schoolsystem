@@ -2,7 +2,7 @@
 <% if setting.present? %>
     <div class="row">
       <div class="col-md-12">
-        <table class="table table-bordered" style="font-size: 11px !important; padding-top: 0px !important; margin-top: 0px !important">
+        <table class="table table-bordered" style="font-size: <%= setting.subjects.where(parent: nil).count < 11 ? '11px !important' : '10px !important'; %>; padding-top: 0px !important; margin-top: 0px !important">
           <thead>
           <% headings = setting.headings.where(show: true) %>
           <tr style="text-align: center;">
@@ -88,7 +88,7 @@
                     <td  style="background-color: #E0EAF6"><%= (q2obtained + q1obtained).round(2) %></td>
                     <% @term1total << q2obtained + q1obtained  %>
                     <%# if quarter_percentage_heading.present? %>
-                        <td class="col-sm-1"  style="background-color: #E0EAF6"><%= ((get_quarter_percentage(@report_card, setting, subject, exam) + get_quarter_percentage(@report_card, @quarter1_setting, q1subject, @quarter1))/2).round(2) %></td>
+                        <td class="col-sm-1"  style="background-color: #E0EAF6"><%= ((get_quarter_percentage(@report_card, setting, subject, exam) + get_quarter_percentage(@report_card, @quarter1_setting, q1subject, @quarter1))/2).round(2) %>%</td>
                     <%# end %>
 
                     <% if evaluation_heading.present? %>
