@@ -77,6 +77,7 @@ class EmployeesController < ApplicationController
       @employee = Employee.create(employee_params)
       respond_to do |format|
         if @employee.save
+          Notification.create(user_id: current_user.id, activity: "Added new Teacher #{@employee.full_name} Employee ID #{@employee.employee_number}")
           if @employee.category.name.downcase == 'academic'
             u = User.new
             u.email = @employee.email
@@ -104,6 +105,8 @@ class EmployeesController < ApplicationController
       respond_to do |format|
         email = @employee.email
         if @employee.update(employee_params)
+          Notification.create(user_id: current_user.id, activity: "Updated Teacher Information of #{@employee.full_name} with Employee ID #{@employee.employee_number}")
+
           if @employee.category.name == 'Academic'
             u = User.find_by_email(email)
             u.email = @employee.email
@@ -125,6 +128,7 @@ class EmployeesController < ApplicationController
     if current_user.role.rights.where(value: "update_employee").blank?
       redirect_to root_path, alert: "Sorry! You are not authorized"
     else
+      Notification.create(user_id: current_user.id, activity: "Deleted Teacher #{@employee.full_name} with Employee ID #{@employee.employee_number}")
       @employee.destroy
     end
     respond_to do |format|
