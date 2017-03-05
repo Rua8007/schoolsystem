@@ -62,14 +62,14 @@
   <tbody>
     <% @bus_allotments.each do |bus_allotment| %>
       <tr>
-        <td><%= bus_allotment.student.rollnumber %></td>
-        <td><%= bus_allotment.student.fullname %></td>
-        <td><%= bus_allotment.student.parent.name %></td>
-        <td><%= bus_allotment.student.parent.mobile %></td>
-        <td><%= bus_allotment.student.grade.name if bus_allotment.student.grade.present? %></td>
-        <td><%= bus_allotment.transport.employee.full_name if bus_allotment.transport.employee.present? %></td>
-        <td><%= bus_allotment.stop.name %></td>
-        <td><%= bus_allotment.transport.vehicle.vehicle_no %></td>
+        <td><%= bus_allotment.student.rollnumber rescue " n/a " %></td>
+        <td><%= bus_allotment.student.fullname rescue " n/a " %></td>
+        <td><%= bus_allotment.student.parent.name rescue " n/a " %></td>
+        <td><%= bus_allotment.student.parent.mobile rescue " n/a " %></td>
+        <td><%= bus_allotment.student.grade.name rescue " n/a "  %></td>
+        <td><%= bus_allotment.transport.employee.full_name rescue " n/a " %></td>
+        <td><%= bus_allotment.stop.name rescue " n/a " %></td>
+        <td><%= bus_allotment.transport.vehicle.vehicle_no rescue " n/a " %></td>
         <td><%= link_to '', bus_allotment,:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
             <%= link_to '', edit_bus_allotment_path(bus_allotment),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
             <%= link_to '', bus_allotment, method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
