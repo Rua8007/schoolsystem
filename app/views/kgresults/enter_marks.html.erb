@@ -33,7 +33,7 @@
             <% end %>
           </div>
         </div>
-        <% ["intro", "behave", "speaking", "reading", "writing", "listening", "comp", "subject", "conclusion"].each do |title| %>
+        <% ["introduction", "behaviour", "speaking", "reading", "writing", "listening", "comprehension", "subject", "conclusion"].each do |title| %>
           <div class="well well-lg col-md-1 con" style="padding:10px;min-height:500px;width: 110px;float:none !important;display:inline-block;vertical-align: top;">
             <h5><%= title.humanize %> </h5>
             <%= text_field_tag "sessionals_date[]", '', style:"" , class: "datepickerss absense-input", placeholder: "", style: "width: 90px", disabled: true %>

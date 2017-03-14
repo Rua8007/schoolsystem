@@ -8,7 +8,7 @@
 	<thead style="background-color: #a3d1e0 !important; font-weight: bold !important">
 		<tr>
 			<th>Subject Name</th>
-      <% ["intro", "behave", "speaking", "reading", "writing", "listening", "comp", "subject", "conclusion"].each do |title| %>
+      <% ["introduction", "behaviour", "speaking", "reading", "writing", "listening", "comprehension", "subject", "conclusion"].each do |title| %>
 				<th><%= title.humanize %></th>
 			<% end %>
 		</tr>
@@ -19,7 +19,7 @@
 				<td>
 					<%= Subject.find(k.subject_id).name rescue 'n/a' %>
 				</td>
-				<% ["intro", "behave", "speaking", "reading", "writing", "listening", "comp", "subject", "conclusion"].each do |title| %>
+				<% ["introduction", "behaviour", "speaking", "reading", "writing", "listening", "comprehension", "subject", "conclusion"].each do |title| %>
 					<td><%= k.send(title) %></td>
 				<% end %>
 			</tr>

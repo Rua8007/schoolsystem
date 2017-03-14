@@ -7,7 +7,7 @@
 	<thead class="table-head">
 		<tr>
 			<th>Student Name</th>
-      <% ["intro", "behave", "speaking", "reading", "writing", "listening", "comp", "subject", "conclusion"].each do |title| %>
+      <% ["introduction", "behaviour", "speaking", "reading", "writing", "listening", "comprehension", "subject", "conclusion"].each do |title| %>
 				<th><%= title %></th>
 			<% end %>
 			<th>Actions</th>
@@ -19,7 +19,7 @@
 				<td>
 					<%= Student.find(k.student_id).fullname rescue 'n/a' %>
 				</td>
-				<% ["intro", "behave", "speaking", "reading", "writing", "listening", "comp", "subject", "conclusion"].each do |title| %>
+				<% ["introduction", "behaviour", "speaking", "reading", "writing", "listening", "comprehension", "subject", "conclusion"].each do |title| %>
 					<td><%= k.send(title) %></td>
 				<% end %>
 				<td>
