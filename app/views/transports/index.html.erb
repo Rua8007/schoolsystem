@@ -52,9 +52,9 @@
     <% @transports.each do |transport| %>
       <tr>
         <td><%= transport.no %></td>
-        <td><%= transport.employee.full_name %></td>
-        <td><%= transport.route.name %></td>
-        <td><%= transport.vehicle.vehicle_no %></td>
+        <td><%= transport.employee.full_name rescue 'n/a' %></td>
+        <td><%= transport.route.name rescue 'n/a' %></td>
+        <td><%= transport.vehicle.vehicle_no rescue 'n/a' %></td>
         <td><%= transport.departure %></td>
         <td><%= transport.arrival %></td>
         <td><%= link_to '', transport,:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
