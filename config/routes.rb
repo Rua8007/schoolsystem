@@ -13,6 +13,16 @@ Rails.application.routes.draw do
 
     resources :performances
     resources :roles
+    resources :kgresults do 
+      collection do 
+        get "enter_marks"
+        get "get_exams_and_subjects"
+        post "save_marks"
+      end
+    end
+    post 'fetch_kg_results' => 'kgresults#fetch_kg_results', as: :fetch_kg_results
+    get 'fetch_kg_results/:id/:format' => 'kgresults#show', as: :pdf_kg_result_card
+    post 'save_kg_marks' => 'kgresults#save_kg_marks', as: :save_kg_marks
     get 'home/contact_administration'
     get 'users/switch_user'
     get 'switch_user/remember_user', to: 'switch_user#remember_user'

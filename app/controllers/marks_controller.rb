@@ -115,6 +115,9 @@ class MarksController < ApplicationController
     @exam = Exam.find(params[:exam_id])
     @subject = Subject.find(params[:subject_id])
     @main_grade = @class.parent if @class.present?
+    if @class.name == "KG" || @class.name == "KG2"|| @class.name == "KG3"
+      redirect_to enter_marks_kgresults_path(exam_id: @exam.id, subject_id: @subject.id, grade_id: @class.id)
+    end
     @setting    = ReportCardSetting.find_by(grade_id: @main_grade.id,
                   batch_id: Batch.last.id, exam_id: @exam.id) if @main_grade.present?
     @report_card_subject = @setting.subjects.find_by(name: @subject.name, code: @subject.code)

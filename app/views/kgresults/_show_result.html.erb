@@ -1,0 +1,28 @@
+<div class="well well-lg">
+	<h4>Student Name:           <%= @std.fullname rescue "n/a" %></h4>
+	<h4>Student ID:             <%= @std.rollnumber rescue "n/a" %></h4>
+	<h4>Grade:                  <%= @class.full_name rescue "n/a" %></h4>
+	<h4>Exam:                   <%= @exam.name rescue "n/a" %></h4>
+</div>
+<table class="table table-bordered" style="border-color:black">
+	<thead style="background-color: #a3d1e0 !important; font-weight: bold !important">
+		<tr>
+			<th>Subject Name</th>
+      <% ["intro", "behave", "speaking", "reading", "writing", "listening", "comp", "subject", "conclusion"].each do |title| %>
+				<th><%= title.humanize %></th>
+			<% end %>
+		</tr>
+	</thead>
+	<tbody>
+		<% @kgresults.try(:each) do |k| %>
+			<tr>
+				<td>
+					<%= Subject.find(k.subject_id).name rescue 'n/a' %>
+				</td>
+				<% ["intro", "behave", "speaking", "reading", "writing", "listening", "comp", "subject", "conclusion"].each do |title| %>
+					<td><%= k.send(title) %></td>
+				<% end %>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

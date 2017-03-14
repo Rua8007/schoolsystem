@@ -1,0 +1,32 @@
+<div class="well well-lg">
+	<h4>Grade:                  <%= @grade.full_name rescue "n/a" %></h4>
+	<h4>Exam:                   <%= @exam.name rescue "n/a" %></h4>
+	<h4>Subject:                <%= @subject.name rescue "n/a" %></h4>
+</div>
+<table class="table table-bordered" style="border-color:black">
+	<thead class="table-head">
+		<tr>
+			<th>Student Name</th>
+      <% ["intro", "behave", "speaking", "reading", "writing", "listening", "comp", "subject", "conclusion"].each do |title| %>
+				<th><%= title %></th>
+			<% end %>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @kgresults.try(:each) do |k| %>
+			<tr>
+				<td>
+					<%= Student.find(k.student_id).fullname rescue 'n/a' %>
+				</td>
+				<% ["intro", "behave", "speaking", "reading", "writing", "listening", "comp", "subject", "conclusion"].each do |title| %>
+					<td><%= k.send(title) %></td>
+				<% end %>
+				<td>
+					<%= link_to "Report Card", k ,class: "btn btn-info" %>
+					<%= link_to "PDF", pdf_kg_result_card_path(id: k.id, format: 'pdf') ,class: "btn btn-primary" %>
+				</td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

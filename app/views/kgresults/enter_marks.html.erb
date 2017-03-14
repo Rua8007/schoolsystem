@@ -1,0 +1,49 @@
+<% if @students.blank? %>
+    <h3>No, Students Added In This Class.</h3>
+<% else %>
+  <%= form_tag save_kg_marks_path do %>
+    <div class="bg-light lter b-b wrapper-md">
+      <h1 class="m-n font-thin h3"><%= @grade.full_name %>-<%= @exam.name %>-<%= @subject.name %>
+        <% if current_user.role.rights.where(value: "edit_entered_marks").any? || @kgresults.nil? %>
+          <span class="pull-right"> <%= submit_tag "Save", class: "btn btn-success" %> </span>
+        <% end %>
+      </h1>
+    </div>
+    <br>
+    <div class="row">
+      <%= hidden_field_tag 'class_id', @grade.id %>
+      <%= hidden_field_tag 'exam_id', @exam.id %>
+      <%= hidden_field_tag 'subject_id', @subject.id %>
+      <div style=" 	width: auto; /* arbitary for demo only */white-space: nowrap; overflow-y: hidden; overflow-x: scroll;-webkit-overflow-scrolling: touch;">
+
+        <div class="well well-lg" id="navigation" style="min-height:500px; float:none !important;display: inline-block;vertical-align: top; position: absolute; z-index: 10; width: 300px">
+          <span style= "background:green; color:white;padding: 7px 10px;font-size: 15px; overflow: hidden;">Student Name</span>
+          <div class="performance-holder">
+            <% @students.try(:each) do |std| %>
+                <strong class="student-names" style="text-align: left;"><%= std.fullname %> </strong>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="well well-lg col-md-1" style="min-height:500px; float:none !important;display: inline-block;vertical-align: top; position: relative; width: 75px;margin-left: 310px;">
+          <span style= "background:green; color:white;padding: 7px 10px;font-size: 15px; margin-left: -15px;">Std ID</span>
+          <div class="performance-holder">
+            <% @students.try(:each) do |std| %>
+                <strong class="student-names" style="text-align: left; margin-left: -15px;"><%= std.rollnumber %> </strong>
+            <% end %>
+          </div>
+        </div>
+        <% ["intro", "behave", "speaking", "reading", "writing", "listening", "comp", "subject", "conclusion"].each do |title| %>
+          <div class="well well-lg col-md-1 con" style="padding:10px;min-height:500px;width: 110px;float:none !important;display:inline-block;vertical-align: top;">
+            <h5><%= title.humanize %> </h5>
+            <%= text_field_tag "sessionals_date[]", '', style:"" , class: "datepickerss absense-input", placeholder: "", style: "width: 90px", disabled: true %>
+            <% @students.try(:each) do |std| %>                  
+              <%#= text_field_tag "sessionals[[#{title}]#{std.id}][]" , @kgresults.find_by_student_id(std.id) || 'n/a', class: "absense-input number", style: "width: 90px" %>  
+              <%= select_tag "sessionals[[#{std.id}]#{title}]" , options_for_select(@marks_options,@kgresults.find_by_student_id(std.id).try(:send, title) || 'n/a' ), class: "absense-input number", style: "width: 90px" %>  
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+<% end %>

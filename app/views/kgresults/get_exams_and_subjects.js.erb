@@ -1,0 +1,5 @@
+$('#subjects').hide();
+$('#subjects').html('<%= j(render partial: 'kgresults/show_exams_and_subjects', locals: {subjects: @subjects, exams: @exams, klass: @class}) %>');
+$('#subjects').show('slow');
+
+$('#results').html('');
