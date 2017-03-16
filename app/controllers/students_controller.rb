@@ -85,7 +85,7 @@ class StudentsController < ApplicationController
         send_to = @student.mobile
         email = @student.secondary_email
         Notification.create(user_id: current_user.id, activity: "Registered New Student with ID #{@student.rollnumber} in grade #{@student.grade.name}")
-        EmailService.new({body: body, send_to: send_to}).send(body, email)
+        EmailService.new({body: body, send_to: send_to}).send_direct(body, email)
         SmsService.new({body: body, send_to: send_to}).send_message(body, send_to)
 
         redirect_to new_parent_path(student_id: @student.id), notice: "Student added"

@@ -4,7 +4,7 @@
   		<%= "School Year: #{@portion.year_plan.year_name} " %>
   	</div>
 
-  	<%= link_to(@portion, method: :delete, class: 'btn m-b-xs btn-sm btn-danger btn-addon pull-right', data: { confirm: 'This will delete current whole portion. Are you sure that you want to make a new one?' }) do %>
+  	<%= link_to(portion_path(id: @portion.id, remake: true), method: :delete, class: 'btn m-b-xs btn-sm btn-danger btn-addon pull-right', data: { confirm: 'This will delete current whole portion. Are you sure that you want to make a new one?' }) do %>
 	    <i class="fa fa-plus"></i>
 	    	Remake Portion
 	  <% end %>

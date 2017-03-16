@@ -9,14 +9,15 @@
   <table class="table table-striped">
     <thead>
       <tr>
-        <th style="width:13%">User</th>
+        <th style="width:7%">User</th>
         <th style="width:7%">Emp #</th>
         <th style="width:9%">Employee</th>
         <th style="width:9%">Reason</th>
         <th style="width:9%">Description</th>
         <th style="width:9%">Leave from</th>
         <th style="width:9%">Leave to</th>
-        <th style="width:25%">Status</th>
+        <th style="width:23%">Status</th>
+        <th style="width:8%"> History(APP/REJ)</th>
       </tr>
     </thead>
 
@@ -42,7 +43,7 @@
                         data-original-title="Approve Employee Request">
                   <i class="glyphicon glyphicon-ok"></i>
                 </button> -->
-                <div style="margin-left:35%">
+                <div style="margin-left:25%">
                   <%= submit_tag 'Accept', class: " btn-success" %>
 
                   <!-- <button class="btn btn-sm btn-danger" type="submit" id="usr_rej"
@@ -66,6 +67,9 @@
             <div class=""> <span style = "background:red; border-radius: 50%; color:white; padding:1%" ><i class="glyphicon glyphicon-remove"></i></span></div>
           <% end %>
 
+          </td>
+          <td>
+            <%= Leave.where(user_id: leave.user_id ,approved: true).count.to_s + "/" + Leave.where(user_id: leave.user_id ,approved: false).count.to_s %>
           </td>
         </tr>
       <% end %>

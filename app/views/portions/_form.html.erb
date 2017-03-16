@@ -21,7 +21,7 @@
   </div>
 
   <div class="form-group">
-    <%= f.select :grade_id, options_from_collection_for_select(@grades,"id", "full_name"),{prompt: "Select Grade"}, class: "form-control", required: true %>
+    <%= f.select :grade_id, options_from_collection_for_select(@grades,"id", "full_name"),{prompt: "Select Grade"}, class: "form-control", required: true, id: "grade_id" %>
   </div>
 
   <div class="portion-detail-div">
@@ -30,7 +30,7 @@
       <div class="column col-xs-12 col-sm-12">
         <div class="form-group">
           <span>Subject</span>
-          <%= select_tag "portion_detail_subjects[]", options_from_collection_for_select(@subjects,"id", "name"),prompt: "Select Subject", class: "form-control", required: true %>
+          <%= select_tag "portion_detail_subjects[]", options_from_collection_for_select(@subjects,"id", "name"),prompt: "Select Subject", class: "form-control", required: true, id: "subjects-select" %>
         </div>
         <div class="form-group">
           <span>Portion</span>
@@ -76,6 +76,30 @@
         }
       });
     });
+    $("#grade_id").change(function(e){
+      value = e.target.value
+      $.get("/bridges/teacher_grade_subjects", {grade_id: value})
+        .done(function(data){
+          if (data)
+          {
+            console.log(data)
+            var select = $("#subjects-select");
+              $(select).html('');
+              if(data.length != 0){
+                  $(data).each(function(index){
+                    console.log(this.subject_id, "and", this.subject_name)
+                      $(select).append($('<option />', { value: (this.id), text: this.name }));
+                  });
+              }
+          }
+          else
+          {0
+            $("#error_div_rollnum").addClass('hide');
+          }
+        });
+      // alert(value)
+    })
+
   });
 </script>
 

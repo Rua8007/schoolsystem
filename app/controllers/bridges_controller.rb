@@ -113,7 +113,7 @@ class BridgesController < ApplicationController
     Notification.create(user_id: current_user.id, activity: "Deleted assignment of #{@bridge.subject.name} to #{@bridge.employee.full_name} for grade #{@bridge.grade.full_name}")
     @bridge.destroy
     respond_to do |format|
-      format.html { redirect_to :back, notice: 'Subject Assignment was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Subject Assignment was successfully deleted.' }
       format.json { head :no_content }
     end
   end

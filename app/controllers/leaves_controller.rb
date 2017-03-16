@@ -6,19 +6,19 @@ class LeavesController < ApplicationController
   def index
     if current_user.role.rights.where(value: 'update_leave').any?
       if params[:news]
-        @leaves = Leave.where(approved: nil)
+        @leaves = Leave.where(approved: nil).order('updated_at DESC')
       elsif params[:approved]
-        @leaves = Leave.where(approved: true)
+        @leaves = Leave.where(approved: true).order('updated_at DESC')
       elsif params[:rejected]
-        @leaves = Leave.where(approved: false)
+        @leaves = Leave.where(approved: false).order('updated_at DESC')
       else
-        @leaves = Leave.where(employee_id: Employee.find_by_email(current_user.email).id) if Employee.find_by_email(current_user.email)
+        @leaves = Leave.where(user_id: current_user.id).order('updated_at DESC') || []
       end
     else
       if current_user.role.rights.where(value: 'create_leave').any?
-        @leaves = Leave.where(employee_id: Employee.find_by_email(current_user.email).id) if Employee.find_by_email(current_user.email)
+        @leaves = Leave.where(user_id: current_user.id).order('updated_at DESC') || []
+        # @leaves = Leave.where(employee_id: Employee.find_by_email(current_user.email).id)order('updated_at DESC') if Employee.find_by_email(current_user.email)
       else
-
         flash[:alert] = "Not Authorized"
         redirect_to root_path
       end
@@ -95,15 +95,17 @@ class LeavesController < ApplicationController
     leave = Leave.find(params[:id])
     if leave.present?
       leave.comment = params[:comment]
-      if params[:commit] == 'Accpet'
+      if params[:commit] == 'Accept'
         leave.approved = true
+        body = "Dear Employee! Your email has been accepted!<br>here are the comments <h2> #{leave.comment}</h2>"
         if leave.employee.present?
           flash[:success] = "#{leave.try(:employee).try(:full_name)}'s leave approved."
         else
-          flash[:success] = "Leave approved.'}"
+          flash[:success] = "Leave approved."
         end
       else
         leave.approved = false
+        body = "Dear Employee! Your email has been rejected!<br>here are the comments <h2> #{leave.comment}</h2>"
         if leave.employee.present?
           flash[:success] = "#{leave.try(:employee).try(:full_name)}'s leave rejected."
         else
@@ -112,7 +114,7 @@ class LeavesController < ApplicationController
       end
       leave.save!
       ############################# Notify to employee #################
-
+      EmailService.new({body: body, send_to: leave.user.email}).send_direct(body, leave.user.email)
       redirect_to leaves_path(news: true)
     else
       flash[:alert] = "Couldn't approve leave. Error."

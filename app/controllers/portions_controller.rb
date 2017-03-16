@@ -44,13 +44,15 @@ class PortionsController < ApplicationController
   # GET /portions/1/edit
   def edit
     if current_user.role.name == 'Teacher'
-        # @grades = Grade.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:grade_id))
-        @subjects = Subject.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:subject_id))
-      else
-        # for admins
-        # @grades = Grade.all
+      @grades = Grade.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:grade_id))
+      @subjects = Subject.where(id: Employee.find_by_email(current_user.email).bridges.pluck(:subject_id))
+    else
+      # for admins
+      if current_user.role.name.downcase == 'superuser'
+        @grades = Grade.all
         @subjects = Subject.all
       end
+    end
   end
 
   # POST /portions
@@ -98,10 +100,16 @@ class PortionsController < ApplicationController
   # DELETE /portions/1
   # DELETE /portions/1.json
   def destroy
+    year_plan = @portion.year_plan
     @portion.portion_details.destroy_all
+
     @portion.destroy
     respond_to do |format|
-      format.html { redirect_to root_path, notice: 'Portion was successfully destroyed.' }
+      if params[:remake]
+        format.html { redirect_to new_portion_path(year_plan: year_plan.id), notice: 'Portion was successfully deleted. Please create new' }
+      else
+        format.html { redirect_to portions_path(year_plan: year_plan.id), notice: 'Portion was successfully deleted.' }
+      end
       format.json { head :no_content }
     end
   end
