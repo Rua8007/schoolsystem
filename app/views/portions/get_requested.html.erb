@@ -25,7 +25,7 @@
       <tr>
         <td><%= link_to "#{cur[:portion].quarter}", portion_path(cur[:portion]) %></td>
         <td><%= cur[:portion].grade.try(:full_name) %></td>
-        <td><%= Employee.find(Bridge.find_by(grade_id: portion.grade_id, subject_id: portion.portion_details.first.subject_id).employee_id).full_name rescue 'n/a' %></td>
+        <td><%= Employee.find(Bridge.find_by(grade_id: cur[:portion].grade_id, subject_id: cur[:portion].portion_details.first.subject_id).employee_id).full_name rescue 'n/a' %></td>
 
         <td>
           <%= form_tag(approve_requested_portion_path(cur[:portion]), method: :post) do %>
