@@ -59,14 +59,15 @@ class GradesController < ApplicationController
     puts "+=+=+"*100
     grade = Grade.find(params[:grade_id])
     identifier = params[:identifier]
-    if grade.name =~ /kg/i 
+    if grade.name.downcase =~ /kg/i 
       grades = Grade.where("section is not null and campus = ? and name != ?", grade.campus, grade.name).order(:name)
     else
       if identifier == 'promote'
-        grades = Grade.where.not("name ILIKE 'KG'")
+        grades = Grade.where.not("name = 'KG' or name = 'KG1' or name = 'KG2' or name = 'KG3'")
         grades = grades.where("section is not null and campus = ? and CAST(coalesce(name, '0') AS integer) > ?", grade.campus, grade.name.to_i).order(:name)
       else
-        grades = Grade.where.not("name ILIKE 'KG'")
+        # grades = Grade.where.not("name ILIKE 'KG' or")
+        grades = Grade.where.not("name = 'KG' or name = 'KG1' or name = 'KG2' or name = 'KG3'")
         grades = grades.where("section is not null and campus = ? and CAST(coalesce(name, '0') AS integer) < ?", grade.campus, grade.name.to_i).order(:name)
       end
     end
