@@ -56,7 +56,7 @@
       <% end %>
         <td><%= "#{portion.quarter}" %></td>
         <td><%= "#{portion.try(:grade).try(:full_name)}" %></td>
-        <td><%= Employee.find(Bridge.find_by(grade_id: portion.grade_id, subject_id: portion.portion_details.first.subject_id).employee_id).full_name %></td>
+        <td><%= Employee.find(Bridge.find_by(grade_id: portion.grade_id, subject_id: portion.portion_details.first.subject_id).employee_id).full_name rescue 'n/a' %></td>
 
          <td> <%= link_to '', portion,:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
             <%= link_to '', edit_portion_path(portion),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
