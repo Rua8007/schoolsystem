@@ -60,15 +60,19 @@ class GradesController < ApplicationController
     grade = Grade.find(params[:grade_id])
     identifier = params[:identifier]
     if grade.name.downcase =~ /kg/i 
-      grades = Grade.where("section is not null and campus = ? and name != ?", grade.campus, grade.name).order(:name)
+      grades = Grade.where("section is not null and name != ?", grade.name).order(:name)
     else
       if identifier == 'promote'
         grades = Grade.where.not("name = 'KG' or name = 'KG1' or name = 'KG2' or name = 'KG3'")
-        grades = grades.where("section is not null and campus = ? and CAST(coalesce(name, '0') AS integer) > ?", grade.campus, grade.name.to_i).order(:name)
+        grades = grades.where("section is not null and CAST(coalesce(name, '0') AS integer) > ?",grade.name.to_i).order(:name)
       else
         # grades = Grade.where.not("name ILIKE 'KG' or")
-        grades = Grade.where.not("name = 'KG' or name = 'KG1' or name = 'KG2' or name = 'KG3'")
-        grades = grades.where("section is not null and campus = ? and CAST(coalesce(name, '0') AS integer) < ?", grade.campus, grade.name.to_i).order(:name)
+        if grade.name.downcase == '1'
+          grades = Grade.where("name = 'KG' or name = 'KG1' or name = 'KG2' or name = 'KG3'")
+        else
+          grades = Grade.where.not("name = 'KG' or name = 'KG1' or name = 'KG2' or name = 'KG3'")
+          grades = grades.where("section is not null and CAST(coalesce(name, '0') AS integer) < ?", grade.name.to_i).order(:name)
+        end
       end
     end
 

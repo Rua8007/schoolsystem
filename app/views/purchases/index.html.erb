@@ -44,6 +44,7 @@
 <div style="overflow: scroll">
   <table id="example" class="table table-striped table-bordered table-responsive" style="overflow: scroll">
     <thead class= "table-head">
+      <th>Date</th>
       <th>Emp #</th>
       <th>Employee</th>
       <th>Approve</th>
@@ -53,11 +54,13 @@
     <tbody>
       <% @purchases.each do |purchase| %>
         <tr>
+          <td><%= purchase.created_at.strftime("%m/%d/%Y") %></td>
           <td><%= purchase.employee.employee_number if purchase.employee.present? %></td>
           <td><%= purchase.employee.full_name if purchase.employee.present? %></td>
-          <td>
-        <% if current_user.role.rights.where(value: "edit_prequest").any? %>
+        <% if current_user.role.rights.where(value: "view_prequest").any? %>
           <% if purchase.approve.nil? %>
+            <td>
+
             <%= link_to "Approve", approve_purchase_path(purchase ), method: :put,class:"btn btn-info " %>
             <%= link_to "Reject", disapprove_purchase_path(purchase ), method: :put ,class:"btn btn-danger " %></td>
           <% elsif purchase.approve %>

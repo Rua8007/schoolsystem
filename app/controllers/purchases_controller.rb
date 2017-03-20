@@ -7,7 +7,7 @@ class PurchasesController < ApplicationController
     if current_user.role.rights.where(value: "view_prequest").nil?
       redirect_to :back, "Sorry! You are not authorized"
     end
-    @purchases = Purchase.all
+    @purchases = Purchase.all.order('updated_at DESC')
   end
 
   # GET /purchases/1

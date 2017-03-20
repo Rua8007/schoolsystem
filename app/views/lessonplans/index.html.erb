@@ -47,6 +47,8 @@
       <th>Class</th>
       <th>Subject</th>
       <th>Teacher</th>
+      <th>Start Date</th>
+      <th>End Date</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -61,6 +63,8 @@
         <td><%= link_to "#{lessonplan.grade.try(:full_name)}",lessonplan_path(lessonplan) %></td>
         <td><%= lessonplan.subject.name if lessonplan.subject.present? %></td>
         <td><%= Bridge.where(subject_id: lessonplan.subject_id, grade_id: lessonplan.grade_id).first.employee.full_name if Bridge.where(subject_id: lessonplan.subject_id, grade_id: lessonplan.grade_id).any? && Bridge.where(subject_id: lessonplan.subject_id, grade_id: lessonplan.grade_id).first.employee.present? %></td>
+        <td><%= lessonplan.startdate %></td>
+        <td><%= lessonplan.enddate %></td>
         <td><%= link_to '', lessonplan,:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
             <%= link_to '', edit_lessonplan_path(lessonplan),:class => ' btn btn-info  glyphicon glyphicon glyphicon-pencil bcc',style: "width:40px;" %>
             <%= link_to '', lessonplan, method: :delete, data: { confirm: 'Are you sure?' } ,:class =>  'btn btn-danger glyphicon glyphicon glyphicon-trash'%>
