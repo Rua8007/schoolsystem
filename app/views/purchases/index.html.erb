@@ -60,15 +60,18 @@
         <% if current_user.role.rights.where(value: "view_prequest").any? %>
           <% if purchase.approve.nil? %>
             <td>
-
-            <%= link_to "Approve", approve_purchase_path(purchase ), method: :put,class:"btn btn-info " %>
-            <%= link_to "Reject", disapprove_purchase_path(purchase ), method: :put ,class:"btn btn-danger " %></td>
+              <%= link_to "Approve", approve_purchase_path(purchase ), method: :put,class:"btn btn-info " %>
+              <%= link_to "Reject", disapprove_purchase_path(purchase ), method: :put ,class:"btn btn-danger " %></td>
           <% elsif purchase.approve %>
-            <span style = "color:green "> Approved </span>
-            <%= link_to "Reject", disapprove_purchase_path(purchase ), method: :put ,class:"btn btn-danger " %></td>
+            <td>
+              <span style = "color:green "> Approved </span>
+              <%= link_to "Reject", disapprove_purchase_path(purchase ), method: :put ,class:"btn btn-danger " %>
+            </td>
           <% else %>
-            <%= link_to "Approve", approve_purchase_path(purchase ), method: :put,class:"btn btn-info " %>
-            <span style = "color:red "> Rejected </span>
+            <td>
+              <%= link_to "Approve", approve_purchase_path(purchase ), method: :put,class:"btn btn-info " %>
+              <span style = "color:red "> Rejected </span>
+            </td>
           <% end %>
         <% end %>
 
