@@ -69,6 +69,7 @@ class GradesController < ApplicationController
         # grades = Grade.where.not("name ILIKE 'KG' or")
         if grade.name.downcase == '1'
           grades = Grade.where("name = 'KG' or name = 'KG1' or name = 'KG2' or name = 'KG3'")
+          grades = grades.where("section IS NOT NULL")
         else
           grades = Grade.where.not("name = 'KG' or name = 'KG1' or name = 'KG2' or name = 'KG3'")
           grades = grades.where("section is not null and CAST(coalesce(name, '0') AS integer) < ?", grade.name.to_i).order(:name)
