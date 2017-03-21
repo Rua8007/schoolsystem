@@ -84,8 +84,14 @@ class PortionsController < ApplicationController
   # PATCH/PUT /portions/1
   # PATCH/PUT /portions/1.json
   def update
+    # return render json: params
     respond_to do |format|
       if @portion.update(portion_params)
+        portion_detail_ids = params[:portion_detail]
+        portion_detail_ids.keys.try(:each) do |pd_id|
+          pd = PortionDetail.find(pd_id)
+          pd.update_attributes(portion_detail_params[pd_id])
+        end
         @portion.approved = false
         @portion.save!
         format.html { redirect_to @portion, notice: 'Portion was successfully updated.' }
@@ -187,5 +193,9 @@ class PortionsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def portion_params
       params.require(:portion).permit(:year_plan_id, :quarter, :grade_id)
+    end
+
+    def portion_detail_params
+      params.require(:portion_detail).permit!
     end
 end
