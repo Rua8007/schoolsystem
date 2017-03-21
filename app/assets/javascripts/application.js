@@ -31,3 +31,9 @@
 //= require grades
 //= require select2
 //= require datetimepicker
+$(document).ready( function() {
+    $('#example').dataTable({
+        /* No ordering applied by DataTables during initialisation */
+        "order": []
+    });
+})
