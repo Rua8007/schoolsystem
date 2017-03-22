@@ -32,8 +32,10 @@
 //= require select2
 //= require datetimepicker
 $(document).ready( function() {
-    $('#example').dataTable({
-        /* No ordering applied by DataTables during initialisation */
-        "order": []
-    });
+	if ($('#example').length > 0)
+	    $('#example').dataTable({
+	        /* No ordering applied by DataTables during initialisation */
+	        "order": []
+	    });
+}
 })
