@@ -32,7 +32,7 @@ class UsersController < ApplicationController
 
   def switch_user
     user = User.find(params[:user_id])
-    if user.role.name == 'superuser'
+    if user.role.name == 'superuser' && current_user.email != "super@alomam.edu.sa"
       redirect_to users_path, alert: 'Super User Can Not Be Switched'
     else
       sign_in(user)
