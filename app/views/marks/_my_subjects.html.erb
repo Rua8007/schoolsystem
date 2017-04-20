@@ -22,9 +22,11 @@
   <div class="pull-right">
   <% if PublishResult.find_by(class_id: @class.id, batch_id: @batch.id).try(:publish) &&  @student.publish_result %>
     <% @exams.each do |exam| %>
-      <%= link_to exam.name, result_card_url(@student.id, @class.id, @batch.id, exam_id: exam.id ,format: 'pdf'), class: 'btn btn-primary' %>
+      <% if exam.name != 'Quarter 4' %>
+        <%= link_to exam.name, result_card_url(@student.id, @class.id, @batch.id, exam_id: exam.id ,format: 'pdf'), class: 'btn btn-primary' %>
+      <% end %>
     <% end %>
-    <%= link_to 'Final Result Card', @report_card.final_result_url, class: 'btn btn-success' %>
+    <%#= link_to 'Final Result Card', @report_card.final_result_url, class: 'btn btn-success' %>
     <%= link_to '<small>Term 1 (Q1 + Q2)</small>'.html_safe, term1_result_card_path(@student.id, @class.id, @class.batch_id), class: 'btn btn-danger' %>
   <% else %>
     <p class="text-danger"> Final results not published yet.</p>
