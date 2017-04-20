@@ -20,7 +20,7 @@
       <%= render 'marks/exam_comments' %>
       <div class="page-break"></div>
     <% else %>
-        <% @exams.where.not(name: "Quarter 3").each do |exam| %>
+        <% @exams.each do |exam| %>
             <% setting = @settings.find_by_exam_id(exam.id) %>
             <% if setting.present? %>
               <table class="table table-bordered col-md-12" style="font-weight: bold; font-size: 10px; padding-bottom: 0px !important; margin-top: 0px !important ">
