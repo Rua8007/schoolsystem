@@ -20,9 +20,9 @@
           <table class="table table-responsive table-bordered" style="width:100%">
             <thead>
               <tr class="dark-blue" style="padding: 0px 10px; font-size:12px; width: 20px">
-                <th>Subjects المواد</th>
-                <th>Maximun Grade  الدرجة العظمى</th>
-                <th>Passing Grade  درجة النجاح</th>
+                <th>Subjects <br> المواد</th>
+                <th>Maximun Grade <br> الدرجة العظمى</th>
+                <th>Passing Grade <br> درجة النجاح</th>
                 <th>Term 1 Average <br> متوسط الفصل الأول</th>
                 <th>Term 2 Average <br> متوسط الفصل الثاني</th>
                 <th>Yearly Average <br> معدل العام</th>
@@ -63,7 +63,7 @@
                     <% term2_total_marks = term2_total_marks + term2_total %>
                     <%= term2_obtained_marks.round(2) %>
                   </td>
-                  <td class="mid-blue"><%= total_obtained_marks = ((term1_obtained_marks.round(2) + term2_obtained_marks.round(2))/2).round(2) %></td>
+                  <td class="royal-blue"><%= total_obtained_marks = ((term1_obtained_marks.round(2) + term2_obtained_marks.round(2))/2).round(2) %></td>
                   <% if @class.name.to_i > 8 %>
                     <td>
                       <% percentage = (total_obtained_marks*100)/term1_total %>
@@ -126,7 +126,16 @@
               <td colspan="2">Total Avarage    المعدل العام النهائي أو الكلي</td>
               <td colspan="2"><%= ((term1_total_obtained_marks + term2_total_obtained_marks)/2).round(2) %></td>
               <td colspan="3">
-                <% percentage = number_to_percentage( ((term1_total_obtained_marks + term2_total_obtained_marks)/(term1_total_marks + term2_total_marks)) * 100, precision: 2) %>
+                <% percentage = number_to_percentage( ((term1_total_obtained_marks + term2_total_obtained_marks)/(total_full * 2)) * 100, precision: 2) %>
+
+                  <% puts "--------percentage--------" %>
+                  <% puts "--------percentage--------" %>
+                  <% puts "--------percentage--------" %>
+                  <% puts percentage %>
+                  <% puts "--------percentage--------" %>
+                  <% puts "--------percentage--------" %>
+                  <% puts "--------percentage--------" %>
+                  
                   <% percentage = percentage.to_f %>
                   <% if percentage >= 97 %>
                     A+
