@@ -76,6 +76,11 @@ class Student < ActiveRecord::Base
 		puts "+=+=" *100
 	end
 
+	def country_name
+    country = ISO3166::Country[self.country]
+    country.translations[I18n.locale.to_s] || country.name
+  end
+
 
 	def self.import(file)
 		# puts "--------in import of model--------"
