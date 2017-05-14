@@ -104,7 +104,8 @@
                 <td>
                   <%= number_to_percentage((term2_obtained_marks/term2_total *100 ), precision: 2) %>
                 </td>
-                <td class="dark-grey"><%= total_obtained_marks = term1_obtained_marks.round(2) + term2_obtained_marks.round(2) %></td>
+                <% total_obtained_marks = term1_obtained_marks.round(2) + term2_obtained_marks.round(2) %>
+                <td class="dark-grey"><%= total_obtained_marks.round(2) %></td>
                 <td class="dark-grey">
                   <% total_marks = term1_total + term2_total %>
                   <%= number_to_percentage((total_obtained_marks/total_marks *100 ), precision: 2) %>
@@ -114,9 +115,9 @@
           <tr><td colspan="7"></td></tr>
           <tr>
             <td>Marks Attained</td>
-            <td><%= term1_total_obtained_marks %></td>
+            <td><%= term1_total_obtained_marks.round(2) %></td>
             <td><%= number_to_percentage((term1_total_obtained_marks/term1_total_marks) * 100, precision: 2) %></td>
-            <td><%= term2_total_obtained_marks %></td>
+            <td><%= term2_total_obtained_marks.round(2) %></td>
             <td><%= number_to_percentage((term2_total_obtained_marks/term2_total_marks) * 100, precision: 2) %></td>
             <td><%= term1_total_obtained_marks + term2_total_obtained_marks %></td>
             <td><%= number_to_percentage( ((term1_total_obtained_marks + term2_total_obtained_marks)/(term1_total_marks + term2_total_marks)) * 100, precision: 2) %></td>
