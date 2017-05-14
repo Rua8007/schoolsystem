@@ -41,7 +41,7 @@ class Student < ActiveRecord::Base
 									{label: 'father_name', method: 'father_name'},
 									{label: 'email',       method: 'email'},
 									{label: 'grade',       method: 'grade_name'},
-									{label: 'country',     method: 'country_name'},
+									{label: 'nationality',     method: 'country_name'},
 									{label: 'mobile',      method: 'mobile'}
 	]
 	default_scope {where(:is_deleted => false)}
@@ -78,7 +78,7 @@ class Student < ActiveRecord::Base
 	end
 
 	def country_name
-    country = ISO3166::Country[self.country]
+    country = ISO3166::Country[self.nationality]
     country.translations[I18n.locale.to_s] || country.name
   end
 
