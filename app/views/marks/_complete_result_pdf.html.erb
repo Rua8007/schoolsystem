@@ -20,12 +20,12 @@
           <table class="table table-responsive table-bordered" style="width:100%">
             <thead>
               <tr class="dark-blue" style="padding: 0px 10px; font-size:12px; width: 20px">
-                <th>Subjects انًىاد اندراسية</th>
-                <th>Maximun Grade  اندرجة انعظًى</th>
-                <th>Passing Grade  درجة اننجاح</th>
-                <th>Term 1 Average <br> يعدل انفصم اندراسي األول</th>
-                <th>Term 2 Average <br> يعدل انفصم اندراسي انثاني</th>
-                <th>Yearly Average <br> يعدل انعاو اندراسي</th>
+                <th>Subjects المواد</th>
+                <th>Maximun Grade  الدرجة العظمى</th>
+                <th>Passing Grade  درجة النجاح</th>
+                <th>Term 1 Average <br> متوسط الفصل الأول</th>
+                <th>Term 2 Average <br> متوسط الفصل الثاني</th>
+                <th>Yearly Average <br> معدل العام</th>
                 <% if @class.name.to_i > 8 %>
                   <th>Credit</th>
                 <% end %>
@@ -112,7 +112,7 @@
                 </tr>
             <% end %>
             <tr>
-              <td class="dark-blue">Grand Total يًاإلج ىعًجًان </td>
+              <td class="dark-blue">Grand Total المجموع </td>
               <td class="light-blue"><%= total_full.round(2) %></td>
               <td class="light-blue"><%= total_pass.round(2) %></td>
               <td class="light-blue"><%= term1_total_obtained_marks.round(2) %></td>
@@ -176,7 +176,7 @@
               </tr>
             <% end %>
             <tr>
-              <td colspan="2" class="dark-blue">Absence  عدد أياو انغياب</td>
+              <td colspan="2" class="dark-blue">Absence  الغياب</td>
               <td colspan="<%= @class.name.to_i > 8 ? 5 : 4 %>" class="light-blue"><%= @student.student_attendances.where(epresent: false).count%> </td>
             </tr>
             <tr>
