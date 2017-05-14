@@ -35,6 +35,7 @@ gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'jquery-minicolors-rails'
 
+gem 'countries'
 gem 'country_select'
 gem 'bootstrap-datepicker-rails'
 gem "compass-rails", git: 'https://github.com/Compass/compass-rails', branch: 'master'

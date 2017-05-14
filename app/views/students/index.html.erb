@@ -67,11 +67,12 @@
     <thead class= "table-head" style="width: 10px">
       <tr>
         <th style="width:40px">ID</th>
-        <th style="width:60px">Full Name</th>
-        <th style="width:60px">Father Name</th>
-        <th style="width:60px">Email</th>
-        <th style="width:60px">Mobile</th>
-        <th style="width:60px">Grade</th>
+        <th style="width:50px">Full Name</th>
+        <th style="width:50px">Father Name</th>
+        <th style="width:50px">Email</th>
+        <th style="width:50px">Mobile</th>
+        <th style="width:40px">Grade</th>
+        <th style="width:50px">Country</th>
         <th style="width:50px">Actions</th>
       </tr>
     </thead>
@@ -96,6 +97,10 @@
           <td>
             <%= student.grade.full_name || '' if student.grade.present? %>
           </td>
+          <td>
+            <%= student.country_name %>
+          </td>
+
           <td>
             <% if current_user.role.rights.where(value: "view_student").any? %>
               <%= link_to '', student,:class =>  'btn btn-success  glyphicon glyphicon-ok-circle' %>
