@@ -41,7 +41,8 @@ class Student < ActiveRecord::Base
 									{label: 'father_name', method: 'father_name'},
 									{label: 'email',       method: 'email'},
 									{label: 'grade',       method: 'grade_name'},
-									{label: 'mobile',       method: 'mobile'}
+									{label: 'country',     method: 'country_name'},
+									{label: 'mobile',      method: 'mobile'}
 	]
 	default_scope {where(:is_deleted => false)}
 
