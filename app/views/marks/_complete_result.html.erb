@@ -81,21 +81,28 @@
                       <% puts actual_subject.inspect %>
                       <% puts term1_obtained_marks %>
                       <% puts get_quarter_total(@report_card, actual_subject, exam) %>
-                      
+
                       <% puts "--------marks---------------" %>
                       <% puts "--------marks---------------" %>
                       <% puts "--------marks---------------" %>
                       <% puts "--------marks---------------" %>
                       <% term1_obtained_marks = term1_obtained_marks + get_quarter_total(@report_card, actual_subject, exam) %>
                   <% end %>
+
                 <% puts subject.id %>
                 <% puts subject.id %>
                 <% puts subject.id %>
+                <% puts term1_obtained_marks %>
                 <% puts subject.id %>
                 <% puts subject.id %>
+                      
 
                   <% term1_total_obtained_marks = term1_total_obtained_marks + term1_obtained_marks %>
                   <% term1_total_marks = term1_total_marks + term1_total %>
+                  <% puts term1_obtained_marks.round(2) %>
+                  <% puts term1_obtained_marks %>
+                  <% puts term1_obtained_marks %>
+                  <% puts term1_obtained_marks %>
                   <%= term1_obtained_marks.round(2) %>
                 </td>
                 <td>
