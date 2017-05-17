@@ -33,7 +33,11 @@
             </thead>
             <tbody>
             <% term1_total_obtained_marks = term2_total_obtained_marks = term1_total_marks = term2_total_marks = 0 %>
-            <% setting.subjects.where(parent_id: nil).try(:each) do |subject| %>
+            <% all_subjects1 = setting.subjects.where(parent_id: nil) %>
+            <% all_subjects = all_subjects1.subjects.where.not("name = 'Arts' AND name = 'Physical Education' ") %>
+            <% all_subjects << all_subjects1.subjects.where("name = 'Arts' AND name = 'Physical Education' ") %>
+
+            <% all_subjects.try(:each) do |subject| %>
                 <tr style="padding: 0px 10px; font-size:12px">
                   <% subject_length = subject_length + 1 %>
                   <td><b><%= subject.name %></b></td>
