@@ -34,8 +34,8 @@
             <tbody>
             <% term1_total_obtained_marks = term2_total_obtained_marks = term1_total_marks = term2_total_marks = 0 %>
             <% all_subjects1 = setting.subjects.where(parent_id: nil) %>
-            <% all_subjects = all_subjects1.subjects.where.not("name = 'Arts' AND name = 'Physical Education' ") %>
-            <% all_subjects << all_subjects1.subjects.where("name = 'Arts' AND name = 'Physical Education' ") %>
+            <% all_subjects = all_subjects1.where.not("name = 'Arts' AND name = 'Physical Education' ") %>
+            <% all_subjects << all_subjects1.where("name = 'Arts' AND name = 'Physical Education' ") %>
 
             <% all_subjects.try(:each) do |subject| %>
                 <tr style="padding: 0px 10px; font-size:12px">
