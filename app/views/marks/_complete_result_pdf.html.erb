@@ -37,7 +37,7 @@
             <% all_subjects = all_subjects1.where.not("name = 'Arts' AND name = 'Physical Education' ") %>
             <% all_subjects << all_subjects1.where("name = 'Arts' AND name = 'Physical Education' ") %>
 
-            <% all_subjects.try(:each) do |subject| %>
+            <% setting.subjects.where(parent_id: nil).try(:each) do |subject| %>
                 <tr style="padding: 0px 10px; font-size:12px">
                   <% subject_length = subject_length + 1 %>
                   <td><b><%= subject.name %></b></td>
