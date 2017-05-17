@@ -33,7 +33,7 @@
             </thead>
             <tbody>
             <% term1_total_obtained_marks = term2_total_obtained_marks = term1_total_marks = term2_total_marks = 0 %>
-            <% setting.subjects.where(parent_id: nil).try(:order, :name).try(:each) do |subject| %>
+            <% setting.subjects.where(parent_id: nil).try(:each) do |subject| %>
                 <tr style="padding: 0px 10px; font-size:12px">
                   <% subject_length = subject_length + 1 %>
                   <td><b><%= subject.name %></b></td>
