@@ -34,8 +34,8 @@
             <tbody>
             <% term1_total_obtained_marks = term2_total_obtained_marks = term1_total_marks = term2_total_marks = 0 %>
             <% all_subjects1 = setting.subjects.where(parent_id: nil).order(:name) %>
-            <% all_subjects = all_subjects1.where.not("name = 'Arts' AND name = 'Physical Education' ") %>
-            <% all_subjects << all_subjects1.where("name = 'Arts' AND name = 'Physical Education' ") %>
+            <% all_subjects = all_subjects1.where.not("name = ?  OR name = ? ", 'Arts','Physical Education' ) %>
+            <% all_subjects << all_subjects1.where("name = ? OR name = ? ", 'Arts','Physical Education') %>
             <% puts all_subjects1 %>
             <% puts all_subjects1 %>
             <% puts all_subjects1 %>
@@ -52,7 +52,7 @@
             <% puts %>
             <% puts %>
             <% puts %>
-            <% setting.subjects.where(parent_id: nil).try(:each) do |subject| %>
+            <% all_subjects.try(:each) do |subject| %>
                 <tr style="padding: 0px 10px; font-size:12px">
                   <% subject_length = subject_length + 1 %>
                   <td><b><%= subject.name %></b></td>
