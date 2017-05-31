@@ -34,17 +34,8 @@
             <tbody>
             <% term1_total_obtained_marks = term2_total_obtained_marks = term1_total_marks = term2_total_marks = 0 %>
             <% all_subjects1 = setting.subjects.where(parent_id: nil).order(:name) %>
-            <%# all_subjects = [] %>
             <% all_subjects = all_subjects1.where("name != ?  AND name != ? ", 'Arts','Physical Education' ) %>
             <% all_subjects = all_subjects + all_subjects1.where("name = ? OR name = ? ", 'Arts','Physical Education') %>
-            <% puts all_subjects1 %>
-            <% puts all_subjects %>
-            <% puts %>
-            <% puts %>
-            <% puts %>
-            <% puts %>
-            <% puts %>
-            <% puts %>
             <% all_subjects.try(:each) do |subject| %>
                 <tr style="padding: 0px 10px; font-size:12px">
                   <% subject_length = subject_length + 1 %>
@@ -123,18 +114,18 @@
                   <% end %>
                 </tr>
             <% end %>
-            <tr>
+            <tr style="text-align: center;">
               <td class="dark-blue">Grand Total المجموع </td>
-              <td class="light-blue"><%= total_full.round(2) %></td>
-              <td class="light-blue"><%= total_pass.round(2) %></td>
-              <td class="light-blue"><%= term1_total_obtained_marks.round(2) %></td>
-              <td class="light-blue"><%= term2_total_obtained_marks.round(2) %></td>
-              <td class="light-blue"><%= (term1_total_obtained_marks + term2_total_obtained_marks).round(2) %></td>
+              <td class="dark-blue"><%= total_full.round(2) %></td>
+              <td class="dark-blue"><%= total_pass.round(2) %></td>
+              <td class="dark-blue"><%= term1_total_obtained_marks.round(2) %></td>
+              <td class="dark-blue"><%= term2_total_obtained_marks.round(2) %></td>
+              <td class="dark-blue"><%= (term1_total_obtained_marks + term2_total_obtained_marks).round(2) %></td>
               <% if @class.name.to_i > 8 %>
                 <td><%= total_cgpa %> </td>
               <% end %>
             </tr>
-            <tr class="dark-blue">
+            <tr class="dark-blue" style="text-align: center;">
               <td colspan="2">Total Average    المعدل العام النهائي أو الكلي</td>
               <td colspan="2"><%= ((term1_total_obtained_marks + term2_total_obtained_marks)/2).round(2) %></td>
               <td colspan="3">
